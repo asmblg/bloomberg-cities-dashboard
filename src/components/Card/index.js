@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import AnimatedNumber from '../AnimatedNumber';
+import DataMap from '../DataMap';
+import { getTractData } from './utils';
 // import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import './style.css'
 
 
-const Card = ({ indicator, indicatorData, manifest }) => {
+const Card = ({ project, category, indicator, indicatorData, manifest }) => {
   const [mostRecentValue, setMostRecentValue] = useState();
   const [mostRecentYear, setMostRecentYear] = useState();
+  const [mapData, setMapData] = useState();
   // const [lineChartData, setLineChartData] = useState();
   // console.log(indicatorData);
 
@@ -25,7 +28,14 @@ const Card = ({ indicator, indicatorData, manifest }) => {
     
   }, [indicatorData])
   return (
-    <div className='card'>
+    <div className='card'
+      onClick={() => getTractData({
+        project: project,
+        category: category,
+        indicator: indicator
+      }).then(({data}) => setMapData(data[0].data.tract[category][indicator]))}
+      onMouseLeave={() => setMapData()}
+    >
       <div className='indicator-label'>
         {manifest[indicator].label}
       </div>
@@ -33,6 +43,13 @@ const Card = ({ indicator, indicatorData, manifest }) => {
       <div className='indicator-most-recent-value'>
         <AnimatedNumber value={mostRecentValue} type={manifest[indicator].type} />
       </div>
+      { mapData
+        ? <div className='data-map-wrapper'>
+            <DataMap data={mapData}/>
+          </div>
+        : null
+
+      }
       {/* <div className='indicator-sparkline'>
         <ResponsiveContainer width='100%' height={50}>
           <LineChart data={lineChartData || []} width={200} height={50}>

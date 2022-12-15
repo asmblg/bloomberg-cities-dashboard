@@ -20,6 +20,7 @@ const Layout = ({
       { categories
           ? categories.map(category =>
             <CategoryRow 
+              project={config.project}
               category={category}
               categoryData={cityData.data.city[category]}
               manifest={config.manifest}
