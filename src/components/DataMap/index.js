@@ -1,27 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import colormap from 'colormap';
 
+import { handleColorData } from './utils';
 
-const DataMap = ({data}) => {
+const DataMap = ({ data }) => {
   const [colorData, setColorData] = useState();
+  const mostRecentYear = Object.keys(data).sort((a, b) => b - a)[0];
 
-  useEffect(() => {
-    let colors = colormap({
-      colormap: 'bathymetry',
-      nshades: 72,
-      format: 'hex',
-      alpha: 1
-    })
-    console.log(colors);
+  useEffect(() => setColorData(handleColorData(data, mostRecentYear)), [data, mostRecentYear]);
 
-  }, [data])
-
-  return (
-    <div className='data-map'>
-      MAP GOES HERE
-    </div>
-  )
-
-}
+  return <div className='data-map'>MAP GOES HERE</div>;
+};
 
 export default DataMap;
