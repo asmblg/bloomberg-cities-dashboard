@@ -6,7 +6,8 @@ const DataMap = ({ data }) => {
   const [colorData, setColorData] = useState();
   const mostRecentYear = Object.keys(data).sort((a, b) => b - a)[0];
 
-  useEffect(() => setColorData(handleColorData(data, mostRecentYear)), [data, mostRecentYear]);
+  useEffect(() => setColorData(handleColorData(data)), [data, mostRecentYear]);
+  console.log(colorData);
 
   return <div className='data-map'>MAP GOES HERE</div>;
 };

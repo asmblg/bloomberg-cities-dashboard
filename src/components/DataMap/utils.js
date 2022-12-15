@@ -1,6 +1,6 @@
 import colormap from 'colormap';
 
-const handleColorData = (data, year) => {
+const handleColorData = (data) => {
   let colors = colormap({
     colormap: 'bathymetry',
     nshades: 72,
@@ -8,14 +8,16 @@ const handleColorData = (data, year) => {
     alpha: 1
   });
 
-  const sortedVals = Object.values(data[year]).sort((a, b) => a - b);
+  const [mostRecentYear] = Object.keys(data).sort((a,b) => a - b)
+
+  const sortedVals = Object.values(data[mostRecentYear]).sort((a, b) => a - b);
   const min = sortedVals[0];
   const max = sortedVals[sortedVals.length - 1];
   const range = max - min;
 
   const colorObj = {};
 
-  Object.entries(data[year]).forEach(([key, value]) => {
+  Object.entries(data[mostRecentYear]).forEach(([key, value]) => {
     const distFromMin = value - min;
     const binningRatio = distFromMin / range;
     const indexRange = colors.length - 1;
