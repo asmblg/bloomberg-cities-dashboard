@@ -1,9 +1,17 @@
 .card {
-  width: 20vw;
-  height: 100px;
+  width: 200px;
+  min-height: fit-content;
+  max-height: 200px;
   background-color: azure;
   padding: 20px;
   border-radius: 5px;
+  /* display: flex; */
+  /* flex-direction: column; */
+}
+
+.indicator-sparkline {
+  width: 100%;
+  height: 60px;
 }
 
 .indicator-label {

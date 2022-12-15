@@ -1,5 +1,6 @@
 .indicator-cards {
   display: flex;
+  justify-content: flex-start;
   /* height: 20vh; */
   gap: 10px;
   flex-wrap: wrap;
