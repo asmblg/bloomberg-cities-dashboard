@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Card from '../Card';
+import './style.css';
 
 const CategoryRow = ({category, categoryData, manifest}) => {
 const [indicators, setIndicators] = useState();
@@ -12,7 +13,7 @@ const [indicators, setIndicators] = useState();
   },[categoryData]);
 
   return (
-    <div>
+    <div className='category-row'>
       <div className='category-header'>
         {category.toUpperCase()}
       </div>

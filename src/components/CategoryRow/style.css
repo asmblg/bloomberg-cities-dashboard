@@ -1,0 +1,13 @@
+.indicator-cards {
+  display: flex;
+  /* height: 20vh; */
+  gap: 10px;
+  flex-wrap: wrap;
+  /* flex-direction: row; */
+
+}
+
+.category-header {
+  font-size: 2rem;
+  font-size: 700;
+}

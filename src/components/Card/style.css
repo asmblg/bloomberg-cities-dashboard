@@ -1,0 +1,26 @@
+.card {
+  width: 20vw;
+  height: 100px;
+  background-color: azure;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.indicator-label {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.indicator-year {
+  font-size: .8rem;
+  font-weight: 200;
+}
+
+.indicator-most-recent-value {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 1.4rem;
+}
+
+.card:hover {
+  background-color: rgb(144, 224, 224);
+}

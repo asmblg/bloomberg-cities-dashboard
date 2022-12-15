@@ -11,7 +11,7 @@ const AnimatedNumber = ({ value }) => {
   const { number } = useSpring({
     from: { number: 0 },
     number: n || 0,
-    delay: 200,
+    delay: 0,
     config: { mass: 1, tension: 20, friction: 10 }
   });
   // If value is not passed in as a string that represents a number or number, nothing with be returned
