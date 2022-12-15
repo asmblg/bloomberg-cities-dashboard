@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import CategoryRow from '../CategoryRow';
-
+import './style.css'
 
 const Layout = ({
   config, 
@@ -17,6 +17,16 @@ const Layout = ({
 
   return (
     <div id='layout'>
+      
+      <div id='header'>
+        <div id='city-label'>
+          {config ? config.project.toUpperCase() : null}
+        </div>
+        <div id='dashboard-title'>
+          Economic Development Dashboard
+        </div>
+
+      </div>
       { categories
           ? categories.map(category =>
             <CategoryRow 

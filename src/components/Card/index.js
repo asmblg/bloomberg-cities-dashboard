@@ -30,10 +30,13 @@ const Card = ({ project, category, indicator, indicatorData, manifest }) => {
   return (
     <div className='card'
       onClick={() => getTractData({
-        project: project,
-        category: category,
-        indicator: indicator
-      }).then(({data}) => setMapData(data[0].data.tract[category][indicator]))}
+          project: project,
+          category: category,
+          indicator: indicator
+        }).then(({data}) => 
+          setMapData(data[0].data.tract[category][indicator])
+        )
+      }
       onMouseLeave={() => setMapData()}
     >
       <div className='indicator-label'>

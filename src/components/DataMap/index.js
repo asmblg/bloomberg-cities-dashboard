@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import colormap from 'colormap';
+import './style.css';
 
 
 const DataMap = ({data}) => {
@@ -18,7 +20,12 @@ const DataMap = ({data}) => {
 
   return (
     <div className='data-map'>
-      MAP GOES HERE
+      <MapContainer center={[51.505, -0.09]} zoom={13}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+      </MapContainer>
     </div>
   )
 
