@@ -1,7 +1,14 @@
+.App {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+}
+
 #layout {
   padding: 20px;
   background-color: rgb(25, 158, 158);
   width: 100vw;
-  height: 100vh
+  height: 100vh;
 }
 

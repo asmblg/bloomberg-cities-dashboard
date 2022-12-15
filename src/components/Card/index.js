@@ -6,7 +6,7 @@ import { getTractData } from './utils';
 import './style.css'
 
 
-const Card = ({ project, category, indicator, indicatorData, manifest }) => {
+const Card = ({ project, category, indicator, indicatorData, manifest, mapConfig }) => {
   const [mostRecentValue, setMostRecentValue] = useState();
   const [mostRecentYear, setMostRecentYear] = useState();
   const [mapData, setMapData] = useState();
@@ -30,10 +30,13 @@ const Card = ({ project, category, indicator, indicatorData, manifest }) => {
   return (
     <div className='card'
       onClick={() => getTractData({
-        project: project,
-        category: category,
-        indicator: indicator
-      }).then(({data}) => setMapData(data[0].data.tract[category][indicator]))}
+          project: project,
+          category: category,
+          indicator: indicator
+        }).then(({data}) => 
+          setMapData(data[0].data.tract[category][indicator])
+        )
+      }
       onMouseLeave={() => setMapData()}
     >
       <div className='indicator-label'>
@@ -45,7 +48,7 @@ const Card = ({ project, category, indicator, indicatorData, manifest }) => {
       </div>
       { mapData
         ? <div className='data-map-wrapper'>
-            <DataMap data={mapData}/>
+            <DataMap data={mapData} mapConfig={mapConfig}/>
           </div>
         : null
 

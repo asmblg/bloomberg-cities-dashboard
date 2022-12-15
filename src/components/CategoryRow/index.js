@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Card from '../Card';
 import './style.css';
 
-const CategoryRow = ({project, category, categoryData, manifest}) => {
+const CategoryRow = ({project, category, categoryData, manifest, mapConfig}) => {
 const [indicators, setIndicators] = useState();
 
   useEffect(() => {
@@ -21,6 +21,7 @@ const [indicators, setIndicators] = useState();
         { indicators
             ? indicators.map(indicator => 
                <Card
+                 mapConfig={mapConfig}
                  category={category}
                  project={project}
                  manifest={manifest}
