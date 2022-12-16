@@ -36,18 +36,28 @@ const Card = ({ project,
   }, [indicatorData])
   return (
     <div className='card'
-      onClick={() => getTractData({
-          project: project,
-          category: category,
-          indicator: indicator
-        }).then(({data}) => 
-          setMapData(data[0].data.tract[category][indicator])
-        )
-      }
-      onMouseLeave={() => setMapData()}
+      // onClick={() => getTractData({
+      //     project: project,
+      //     category: category,
+      //     indicator: indicator
+      //   }).then(({data}) => 
+      //     setMapData(data[0].data.tract[category][indicator])
+      //   )
+      // }
+      // onMouseLeave={() => setMapData()}
     >
       <div className='indicator-label'>
-        {manifest[indicator].label}
+        <div>{manifest[indicator].label}</div>
+        <div
+          onClick={() => getTractData({
+            project: project,
+            category: category,
+            indicator: indicator
+          }).then(({data}) => 
+            setMapData(data[0].data.tract[category][indicator])
+          )
+        }
+        >+</div>
       </div>
       <div className='indicator-year'>{mostRecentYear}</div>
       <div className='indicator-most-recent-value'>
