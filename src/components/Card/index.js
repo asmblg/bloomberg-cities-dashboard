@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { Icon } from 'semantic-ui-react';
 import AnimatedNumber from '../AnimatedNumber';
 import DataMap from '../DataMap';
 import { getTractData } from './utils';
 // import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
-import './style.css'
+import './style.css';
 
-
-const Card = ({ project,
+const Card = ({
+  project,
   category,
   indicator,
   indicatorData,
   manifest,
   mapConfig,
   tractGeoJSON
- }) => {
+}) => {
   const [mostRecentValue, setMostRecentValue] = useState();
   const [mostRecentYear, setMostRecentYear] = useState();
   const [mapData, setMapData] = useState();
@@ -32,15 +33,15 @@ const Card = ({ project,
     setMostRecentValue(indicatorData[sortedKeys[0]]);
     setMostRecentYear(sortedKeys[0]);
     // setLineChartData(indicatorDataArray);
-    
-  }, [indicatorData])
+  }, [indicatorData]);
   return (
-    <div className='card'
+    <div
+      className='card'
       // onClick={() => getTractData({
       //     project: project,
       //     category: category,
       //     indicator: indicator
-      //   }).then(({data}) => 
+      //   }).then(({data}) =>
       //     setMapData(data[0].data.tract[category][indicator])
       //   )
       // }
@@ -49,32 +50,34 @@ const Card = ({ project,
       <div className='indicator-label'>
         <div>{manifest[indicator].label}</div>
         <div
-          onClick={() => getTractData({
-            project: project,
-            category: category,
-            indicator: indicator
-          }).then(({data}) => 
-            setMapData(data[0].data.tract[category][indicator])
-          )
-        }
-        >+</div>
+          className='map-display-icon'
+          onClick={() =>
+            !mapData
+              ? getTractData({
+                  project: project,
+                  category: category,
+                  indicator: indicator
+                }).then(({ data }) => setMapData(data[0].data.tract[category][indicator]))
+              : setMapData()
+          }
+        >
+          <Icon name={!mapData ? 'plus' : 'minus'} />
+        </div>
       </div>
       <div className='indicator-year'>{mostRecentYear}</div>
       <div className='indicator-most-recent-value'>
         <AnimatedNumber value={mostRecentValue} type={manifest[indicator].type} />
       </div>
-      { mapData
-        ? <div className='data-map-wrapper'>
-            <DataMap
-              indicator={indicator} 
-              data={mapData} 
-              mapConfig={mapConfig}
-              tractGeoJSON={tractGeoJSON}
-            />
-          </div>
-        : null
-
-      }
+      {mapData ? (
+        <div className='data-map-wrapper'>
+          <DataMap
+            indicator={indicator}
+            data={mapData}
+            mapConfig={mapConfig}
+            tractGeoJSON={tractGeoJSON}
+          />
+        </div>
+      ) : null}
       {/* <div className='indicator-sparkline'>
         <ResponsiveContainer width='100%' height={50}>
           <LineChart data={lineChartData || []} width={200} height={50}>
@@ -86,7 +89,7 @@ const Card = ({ project,
 
       </div> */}
     </div>
-  )
+  );
 };
 
 export default Card;

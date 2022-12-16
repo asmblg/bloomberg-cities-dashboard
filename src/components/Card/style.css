@@ -22,8 +22,13 @@
   display: flex;
   justify-content: space-between;
 }
+
+.map-display-icon {
+  padding-left: 20px;
+}
+
 .indicator-year {
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 200;
 }
 
@@ -49,10 +54,9 @@
   width: 100%;
 }
 
-@media only screen and  (max-width: 500px) {
+@media only screen and (max-width: 500px) {
   .data-map-wrapper {
     width: 80vw;
     margin: auto;
   }
-
 }
