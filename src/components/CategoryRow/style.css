@@ -1,7 +1,9 @@
 .indicator-cards {
   display: flex;
-  /* justify-content: flex-start; */
-  width: 90vw;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 98vw;
+  /* margin: auto; */
   
   /* height: 20vh; */
   gap: 10px;
@@ -15,6 +17,14 @@
 .category-header {
   font-size: 2rem;
   font-size: 700;
-  margin-bottom: 20px;
+  padding-bottom: 5px;
+  margin-bottom:  20px;
   border-bottom: solid 2px black;
+}
+
+@media only screen and (max-width: 500px) {
+  .indicator-cards {
+    width: 90vw;
+    margin: auto;
+  }
 }
