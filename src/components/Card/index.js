@@ -68,16 +68,19 @@ const Card = ({
       <div className='indicator-most-recent-value'>
         <AnimatedNumber value={mostRecentValue} type={manifest[indicator].type} />
       </div>
-      {mapData ? (
-        <div className='data-map-wrapper'>
-          <DataMap
-            indicator={indicator}
-            data={mapData}
-            mapConfig={mapConfig}
-            tractGeoJSON={tractGeoJSON}
-          />
-        </div>
-      ) : null}
+      { mapData
+        ? <div className='data-map-wrapper'>
+            <DataMap
+              manifest={manifest}
+              indicator={indicator} 
+              data={mapData} 
+              mapConfig={mapConfig}
+              tractGeoJSON={tractGeoJSON}
+            />
+          </div>
+        : null
+
+      }
       {/* <div className='indicator-sparkline'>
         <ResponsiveContainer width='100%' height={50}>
           <LineChart data={lineChartData || []} width={200} height={50}>
