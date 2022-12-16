@@ -66,6 +66,7 @@ const Card = ({ project,
       { mapData
         ? <div className='data-map-wrapper'>
             <DataMap
+              manifest={manifest}
               indicator={indicator} 
               data={mapData} 
               mapConfig={mapConfig}

@@ -1,12 +1,5 @@
-import colormap from 'colormap';
 
-const handleColorData = (data) => {
-  let colors = colormap({
-    colormap: 'bathymetry',
-    nshades: 72,
-    format: 'hex',
-    alpha: 1
-  });
+const handleColorData = ({data, colors}) => {
 
   const [mostRecentYear] = Object.keys(data).sort((a,b) => a - b)
   const sortedVals = Object.values(data[mostRecentYear]).filter(a => a >= 0).sort((a, b) => a - b);
@@ -26,7 +19,7 @@ const handleColorData = (data) => {
     colorObj[key] = color;
   });
 
-  return colorObj;
+  return {colorObj: colorObj, min: min, max: max};
 };
 
 export { handleColorData };

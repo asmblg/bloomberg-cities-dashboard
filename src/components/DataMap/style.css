@@ -1,4 +1,22 @@
 .data-map {
-  height: 100%;
+  height: calc(100% - 40px);
   width: 100%;
+}
+
+.color-ramp {
+  margin: 5px auto;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.color-bin {
+  height: 30px;
+  width: 100%;
+}
+
+.color-ramp-label {
+  padding: 0 5px;
 }
