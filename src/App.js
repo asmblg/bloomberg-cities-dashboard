@@ -1,11 +1,12 @@
 import './App.css';
 import React, {useEffect, useState} from 'react';
-import { getConfig, getCityData } from './App.utils';
+import { getConfig, getCityData, getGeoJSON } from './App.utils';
 import Layout from './components/Layout';
 
 const App = () => {
   const [config, setConfig] = useState();
   const [cityData, setCityData] = useState();
+  const [tractGeoJSON, setTractGeoJSON] = useState();
   //Get Project
   const project = document.location.pathname.replace('/','').toLowerCase();
   
@@ -18,6 +19,15 @@ const App = () => {
 
   }, [project]);
 
+  useEffect(() => {
+    if (config) {
+      getGeoJSON(config.map).then(({data}) => 
+        setTractGeoJSON(data));   
+    }
+  }, [config]);
+
+  // console.log(tractGeoJSON);
+
 
   //Get City Data
   return (
@@ -26,6 +36,7 @@ const App = () => {
           ? <Layout
               config={config}
               cityData={cityData}
+              tractGeoJSON={tractGeoJSON}
            />
           : "Loading..."
       }

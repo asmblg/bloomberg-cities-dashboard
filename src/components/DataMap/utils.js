@@ -9,8 +9,7 @@ const handleColorData = (data) => {
   });
 
   const [mostRecentYear] = Object.keys(data).sort((a,b) => a - b)
-
-  const sortedVals = Object.values(data[mostRecentYear]).sort((a, b) => a - b);
+  const sortedVals = Object.values(data[mostRecentYear]).filter(a => a >= 0).sort((a, b) => a - b);
   const min = sortedVals[0];
   const max = sortedVals[sortedVals.length - 1];
   const range = max - min;

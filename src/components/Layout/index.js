@@ -4,7 +4,8 @@ import './style.css'
 
 const Layout = ({
   config, 
-  cityData
+  cityData,
+  tractGeoJSON
   }) => {
   const [categories, setCategories] = useState();
   
@@ -35,6 +36,7 @@ const Layout = ({
               category={category}
               categoryData={cityData.data.city[category]}
               manifest={config.manifest}
+              tractGeoJSON={tractGeoJSON}
             />)
           : 'No Categories'
 

@@ -6,7 +6,14 @@ import { getTractData } from './utils';
 import './style.css'
 
 
-const Card = ({ project, category, indicator, indicatorData, manifest, mapConfig }) => {
+const Card = ({ project,
+  category,
+  indicator,
+  indicatorData,
+  manifest,
+  mapConfig,
+  tractGeoJSON
+ }) => {
   const [mostRecentValue, setMostRecentValue] = useState();
   const [mostRecentYear, setMostRecentYear] = useState();
   const [mapData, setMapData] = useState();
@@ -48,7 +55,12 @@ const Card = ({ project, category, indicator, indicatorData, manifest, mapConfig
       </div>
       { mapData
         ? <div className='data-map-wrapper'>
-            <DataMap data={mapData} mapConfig={mapConfig}/>
+            <DataMap
+              indicator={indicator} 
+              data={mapData} 
+              mapConfig={mapConfig}
+              tractGeoJSON={tractGeoJSON}
+            />
           </div>
         : null
 
