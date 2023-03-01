@@ -1,0 +1,164 @@
+[
+  {
+    "project": "Tampa",
+    "header": {
+      "logoURL": "",
+      "title": "Economic Development Dashboard",
+      "about": {
+        "text": ""
+      }
+    },
+    "sections": {
+      "overview": {
+        "title": "",
+        "body": "",
+        "linkURL": ""
+      },
+      "jobs": {
+        "icon": "briefcase",
+        "label": "Job growth",
+        "summary": {
+          "label": "Job growth",
+          "units": "Jobs added",
+          "dataPath": "jobs.msa.totaljobs",
+          "chart": {
+            "type": "column",
+            "xaxis": "quarter",
+            "range": 4
+          }
+        },
+        "detail": {
+          "dataPath": "jobs",
+          "charts": [
+            {"type" : null}
+          ]
+        }
+      },
+      "realestate": {
+        "icon": "building",
+        "label": "Real estate",
+        "summary": {
+          "label": "CDB Office Occupancy Rate",
+          "units": "Occupancy rate",
+          "dataPath": "realestate.cbd.office.occupancy",
+          "chart": {
+            "type": "donut",
+            "label": "CBD"
+          }
+        },
+        "detail": {
+          "dataPath": "realestate",
+          "charts": [
+            {"type" : "donut"}
+          ]        
+        }      
+      },
+      "newbusiness": {
+        "icon": "horizon",
+        "label": "New businesses",
+        "summary": {
+          "label": "New businesses",
+          "units": "New businesses",
+          "dataPath": "newbusiness.city.total",
+          "chart": {
+            "type": "column",
+            "xaxis": "quarter",
+            "range": 4
+          }
+        },
+        "detail": {
+          "dataPath": "newbusiness",
+          "charts": [
+            {"type" : null}
+          ]        }      
+      },
+      "smallbusiness": {
+        "icon": "shop",
+        "label": "Small businesses",
+        "summary": {
+          "label": "Business Rent Burden",
+          "units": "Rent-burdened small businesses",
+          "dataPath": "smallbusiness.city.rentburden",
+          "chart": {
+            "type": "donut",
+            "label": "SB"
+          }
+        },
+        "detail": {
+          "dataPath": "smallbusiness",
+          "charts": null
+        }      
+      },
+      "consumers": {
+        "icon": "jet",
+        "label": "Consumer behavior",
+        "summary": {
+          "label": "Tourism Spending",
+          "units": "Tourism spending",
+          "dataPath": "consumers.city.tourism",
+          "chart": {
+            "type": "donut",
+            "label": "CBD"
+          }
+        },
+        "detail": {
+          "dataPath": "consumers",
+          "charts": [
+            {"type" : null}
+          ]        }      
+      },
+      "capital": {
+        "icon": "money",
+        "label": "Capital Investments",
+        "summary": {
+          "label": "Capital Investment",
+          "units": "Total invested",
+          "dataPath": "capital.city",
+          "chart": {
+            "type": "line",
+            "xaxis": "quarter",
+            "range": 4
+          }
+        },
+        "detail": {
+          "dataPath": "capital",
+          "charts": [
+            {"type" : null}
+          ]        }      
+      },
+      "community": {
+        "icon": null,
+        "label": "Community profiles",
+        "summary": null,
+        "detail": {
+          "dataPath": "community",
+          "sections": [
+            {"type" : "map"}
+          ]        
+        }      
+      }
+
+    },
+    "footer": {
+      "partners": [
+        {
+          "logoURL": "",
+          "name": "Alignable"
+        },
+        {
+          "logoURL": "",
+          "name": "JLL"
+        },
+        {
+          "logoURL": "",
+          "name": "Dewey"
+        },
+        {
+          "logoURL": "",
+          "name": "Block"
+        }      
+      ]
+    }
+
+  }
+]
