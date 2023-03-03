@@ -1,21 +1,35 @@
 import './App.css';
-import React from 'react';
-// import { getConfig, getCityData, getGeoJSON } from './App.utils';
+import React, { useState, useEffect } from 'react';
+import { getConfig } from './App.utils';
 import Layout from './components/Layout';
 
 const App = () => {
-  // const [config, setConfig] = useState();
+  const [config, setConfig] = useState(null);
   // const [cityData, setCityData] = useState();
   // const [tractGeoJSON, setTractGeoJSON] = useState();
 
   //Get Project
   const project = document.location.pathname.replace('/', '').toLowerCase();
 
-  // //Get Config
-  // useEffect(() => {
-  //   getConfig(project).then(({ data }) => setConfig(data[0]));
-  //   getCityData(project).then(({ data }) => setCityData(data[0]));
-  // }, [project]);
+  //Get Config
+  useEffect(() => {
+    // will use abort controller/controller signal when using cloud DB && Axios
+    if (project) {
+      let controller = true;
+
+      getConfig(project).then(res => {
+        if (res && controller) {
+          setConfig(res);
+        }
+      });
+      // Cleanup
+      return () => {
+        // will use abort controller when using DB && Axios
+        controller = false;
+      };
+    }
+    // getCityData(project).then(({ data }) => setCityData(data[0]));
+  }, [project]);
 
   // useEffect(() => {
   //   if (config) {
@@ -28,16 +42,17 @@ const App = () => {
   //Get City Data
   return (
     <div className='App'>
-      {/* {config && cityData ? ( */}
-      <Layout
-        project={project}
-        // config={config}
-        // cityData={cityData}
-        // tractGeoJSON={tractGeoJSON}
-      />
-      {/* ) : (
+      {project && config ? (
+        <Layout
+          config={config}
+          // cityData={cityData}
+          // tractGeoJSON={tractGeoJSON}
+        />
+      ) : !project ? (
+        '404'
+      ) : (
         'Loading...'
-      )} */}
+      )}
     </div>
   );
 };

@@ -1,0 +1,74 @@
+#desktop-header-container {
+  min-height: 300px;
+}
+
+.brand-container,
+.nav-container {
+  height: 150px;
+}
+
+/* ---------- Desktop Top Section ---------- */
+.brand-container {
+  display: flex;
+}
+
+.title-container {
+  width: 40%;
+  background-color: navy;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.header-logo,
+.header-title {
+  margin: 5%;
+  color: white;
+}
+
+.header-logo {
+  width: 25%;
+  height: 75%;
+  border: 1px solid white;
+}
+
+.header-title {
+  width: 150px;
+  font-size: 25px;
+  overflow-wrap: break-word;
+  line-height: 0.8;
+}
+
+.about-container {
+  width: 60%;
+  background-color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding-right: 5%;
+}
+
+.about-container > * {
+  margin: 5%;
+  color: white;
+}
+
+/* ---------- Desktop Bottom Section ---------- */
+.nav-container {
+  background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.nav-container > h5 {
+  width: 150px;
+  margin: 1%;
+  text-align: center;
+  /* align-self: center; */
+}
+
+.nav-container > h5:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
