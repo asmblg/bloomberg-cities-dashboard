@@ -1,21 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import './style.css';
 
-const Header = ({ config, isMobile }) => {
-  const { header, sections } = config;
-  console.log(sections);
-  const navKeys = Object.keys(sections);
-
-  console.log(header);
-  return !isMobile ? (
+const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
+  return viewType === 'desktop' ? (
     <header id='desktop-header-container'>
       <div className='brand-container'>
         <div className='title-container'>
           {/* <img src={header.logoURL} /> */}
           <div className='header-logo'>{'CITY LOGO'}</div>
-          <div className='header-title'>{header.title}</div>
+          <div className='header-title'>{headerConfig.title}</div>
         </div>
         <div className='about-container'>
           <div role='button'>{'About the project'}</div>
@@ -23,8 +19,13 @@ const Header = ({ config, isMobile }) => {
         </div>
       </div>
       <div className='nav-container'>
-        {navKeys.map(key => (
-          <h5 key={`nav-link-${key}`}>{sections[key].label ? sections[key].label : 'No label'}</h5>
+        {sectionKeys.map(key => (
+          <Link
+            key={`nav-link-${key}`}
+            to={key === 'overview' ? `/${project}` : `/${project}/${key}`}
+          >
+            {sections[key].label ? sections[key].label : 'No label'}
+          </Link>
         ))}
       </div>
     </header>
@@ -36,9 +37,11 @@ const Header = ({ config, isMobile }) => {
 };
 
 Header.propTypes = {
-  config: PropTypes.object,
-  isMobile: PropTypes.bool,
-  setSection: PropTypes.func
+  headerConfig: PropTypes.object,
+  project: PropTypes.string,
+  sectionKeys: PropTypes.array,
+  sections: PropTypes.object,
+  viewType: PropTypes.string
 };
 
 export default Header;

@@ -17,7 +17,7 @@
   background-color: navy;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .header-logo,
@@ -44,7 +44,7 @@
   background-color: blue;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   padding-right: 5%;
 }
 

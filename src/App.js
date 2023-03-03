@@ -8,8 +8,10 @@ const App = () => {
   // const [cityData, setCityData] = useState();
   // const [tractGeoJSON, setTractGeoJSON] = useState();
 
-  //Get Project
-  const project = document.location.pathname.replace('/', '').toLowerCase();
+  // Parse Project name from URL path
+  const project = document.location.pathname.split('/').filter(str => str)[0]
+    ? document.location.pathname.split('/').filter(str => str)[0].toLowerCase()
+    : null;
 
   //Get Config
   useEffect(() => {
@@ -37,16 +39,11 @@ const App = () => {
   //   }
   // }, [config]);
 
-  // console.log(tractGeoJSON);
-
-  //Get City Data
   return (
     <div className='App'>
       {project && config ? (
         <Layout
           config={config}
-          // cityData={cityData}
-          // tractGeoJSON={tractGeoJSON}
         />
       ) : !project ? (
         '404'

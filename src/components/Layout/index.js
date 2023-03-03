@@ -1,32 +1,36 @@
 // Packages
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
 import Header from '../Header';
-import OverviewCard from '../OverviewCard';
-import SummaryCard from '../SummaryCard';
+import SectionsRouter from '../SectionsRouter';
 import Footer from '../Footer';
-// import CategoryRow from '../CategoryRow';
 
 // Styling/Configuration/Utilities
+import { getViewType } from './utils';
 import './style.css';
 
 const Layout = ({ config }) => {
-  const defaultSection = 'overview';
-  const [section, setSection] = useState(defaultSection);
+  const { project, sections, footer } = config;
+  const sectionKeys = Object.keys(sections);
+  const viewType = getViewType(window.innerWidth);
 
   return (
     <div id='layout'>
-      <Header config={config} setSection={setSection} />
-
-      {section === 'overview' ? (
-        <OverviewCard config={config.sections[section]} />
-      ) : (
-        <SummaryCard config={config.sections[section]} />
-      )}
-
-      <Footer config={config.footer} />
+      <Header
+        headerConfig={config.header}
+        project={project.toLowerCase()}
+        sectionKeys={sectionKeys}
+        sections={sections}
+        viewType={viewType}
+      />
+      <SectionsRouter
+        project={project.toLowerCase()}
+        sectionKeys={sectionKeys}
+        sections={sections}
+      />
+      <Footer config={footer} />
     </div>
   );
 };
