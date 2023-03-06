@@ -14,7 +14,7 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
       <div className='brand-container'>
         <div className='title-container'>
           <img className='header-logo' src={logoSrc} />
-          <div className='header-title'>{headerConfig.title}</div>
+          <div className='edd-title'>{headerConfig.title.toUpperCase()}</div>
         </div>
         <div className='about-container'>
           <div role='button'>{'About the project'}</div>

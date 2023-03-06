@@ -13,6 +13,13 @@
   height: 100vh;
 }
 
+.edd-title {
+  width: 200px;
+  font-size: 25px;
+  overflow-wrap: break-word;
+  line-height: 0.9;
+}
+
 .standard-bold {
   font-weight: bold;
 }
