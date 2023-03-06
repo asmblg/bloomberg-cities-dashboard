@@ -1,0 +1,38 @@
+.home-wrapper {
+  display: flex;
+  margin: 0 15%;
+  height: 50%;
+}
+
+.overview-wrapper, .summary-wrapper {
+  margin: 2%;
+}
+
+.overview-wrapper {
+  width: 40%;
+  height: 100%;
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.summary-wrapper {
+  width: 60%;
+  height: 100%;
+}
+
+.large-summary-title {
+  font-size: 25px;
+  line-height: 1.2;
+}
+
+.quarter-change-title, .updated-date-title {
+  opacity: 0.5;
+}
+
+.updated-date-title > img {
+  margin-right: 1%;
+}
+
+.summary-cards-container {
+  display: flex;
+}

@@ -12,3 +12,11 @@
   width: 100vw;
   height: 100vh;
 }
+
+.standard-bold {
+  font-weight: bold;
+}
+
+.half-opacity {
+  opacity: 0.5;
+}

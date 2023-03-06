@@ -1,14 +1,16 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-const SummaryCard = () => {
+const SummaryCard = ({ config }) => {
   return (
     <div>
-      <h1>{'Summary - Aside'}</h1>
+      <h1>{config.label}</h1>
     </div>
   );
 };
 
-// SummaryCard.propTypes = {};
+SummaryCard.propTypes = {
+  config: PropTypes.object
+};
 
 export default SummaryCard;
