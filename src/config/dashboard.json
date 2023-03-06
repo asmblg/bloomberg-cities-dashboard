@@ -26,7 +26,7 @@
             }
           },
           {
-            "label": "CDB Office Occupancy Rate",
+            "label": "CDB Office Occupancy",
             "units": "Occupancy rate",
             "dataPath": "realestate.cbd.office.occupancy",
             "chart": {

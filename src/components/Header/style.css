@@ -46,7 +46,7 @@
 
 /* ---------- Desktop Bottom Section ---------- */
 .nav-container {
-  background-color: whitesmoke;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: space-around;

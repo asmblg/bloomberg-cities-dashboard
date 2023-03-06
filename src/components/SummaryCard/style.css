@@ -1,0 +1,66 @@
+.summary-card {
+  border: 1px solid var(--background-color);
+  background-color: white;
+  height: 200px;
+  width: 290px;
+  margin: 1%;
+  padding: 2%;
+}
+
+.summary-header {
+  font-size: 20px;
+}
+
+.summary-data-wrapper {
+  display: flex;
+  margin-top: 5%;
+  align-items: center;
+}
+
+.summary-chart,
+.summary-data {
+  min-height: 100px;
+  width: 100%;
+  align-self: center;
+  margin: 2% 0;
+}
+
+.summary-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+}
+
+.summary-value {
+  font-size: 30px;
+}
+
+.summary-chart {
+  border: 1px dashed black;
+}
+
+.upward-trend,
+.downward-trend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  border-radius: 16px;
+  color: white;
+  padding: 2%;
+  margin: 0;
+}
+
+.upward-trend > img,
+.downward-trend > img {
+  margin-right: 10%;
+}
+
+.upward-trend {
+  background-color: var(--upward-trend-accent-color);
+}
+
+.downward-trend {
+  background-color: var(--downward-trend-accent-color);
+}
