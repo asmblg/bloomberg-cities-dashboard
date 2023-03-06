@@ -2,15 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import { logos } from '../../config/logos';
+import homeIcon from './images/home_icon.png';
 import './style.css';
 
 const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
+  const logoSrc = logos[project];
+
   return viewType === 'desktop' ? (
     <header id='desktop-header-container'>
       <div className='brand-container'>
         <div className='title-container'>
-          {/* <img src={header.logoURL} /> */}
-          <div className='header-logo'>{'CITY LOGO'}</div>
+          <img className='header-logo' src={logoSrc} />
           <div className='header-title'>{headerConfig.title}</div>
         </div>
         <div className='about-container'>
@@ -21,10 +24,15 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
       <div className='nav-container'>
         {sectionKeys.map(key => (
           <Link
+            className='nav-link'
             key={`nav-link-${key}`}
-            to={key === 'overview' ? `/${project}` : `/${project}/${key}`}
+            to={key === 'home' ? `/${project}` : `/${project}/${key}`}
           >
-            {sections[key].label ? sections[key].label : 'No label'}
+            {key === 'home' ? (
+              <img className='nav-link-icon' src={homeIcon} />
+            ) : (
+              sections[key].label
+            )}
           </Link>
         ))}
       </div>

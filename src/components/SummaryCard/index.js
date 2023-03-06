@@ -1,24 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+// import PropTypes from 'prop-types';
 
-const SummaryCard = ({ config, project, sectionKey }) => {
-  const { label } = config;
-
+const SummaryCard = () => {
   return (
     <div>
-      <h1>{label}</h1>
-      <Link key={`link-${sectionKey}-detail`} to={`/${project}/${sectionKey}/detail`}>
-        {'Detail'}
-      </Link>
+      <h1>{'Summary - Aside'}</h1>
     </div>
   );
 };
 
-SummaryCard.propTypes = {
-  config: PropTypes.object,
-  project: PropTypes.string,
-  sectionKey: PropTypes.string
-};
+// SummaryCard.propTypes = {};
 
 export default SummaryCard;

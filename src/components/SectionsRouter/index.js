@@ -1,34 +1,29 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import OverviewCard from '../OverviewCard';
-import SummaryCard from '../SummaryCard';
+// import OverviewCard from '../OverviewCard';
+// import SummaryCard from '../SummaryCard';
+import Home from '../Home';
 import DetailCard from '../DetailCard';
 
 const SectionRouter = ({ project, sections, sectionKeys }) => (
   <Routes>
     {sectionKeys && sectionKeys[0]
       ? sectionKeys.map(key =>
-        key === 'overview' ? (
+        key === 'home' ? (
           <Route
-            key={`main-route-${key}`}
+            key={`home-route-${key}`}
             path={`/${project.toLowerCase()}`}
-            element={<OverviewCard config={sections[key]} />}
+            element={<Home config={sections[key]} />}
           />
         ) : (
-          <Fragment key={`summary-detail-routes-${key}`}>
-            <Route
-              path={`/${project.toLowerCase()}/${key}`}
-              element={<SummaryCard config={sections[key]} project={project} sectionKey={key} />}
-            />
-            <Route
-              path={`/${project.toLowerCase()}/${key}/detail`}
-              element={<DetailCard config={sections[key]} project={project} sectionKey={key} />}
-            />
-          </Fragment>
-        )
-      )
+          <Route
+            key={`detail-card-${key}`}
+            path={`/${project.toLowerCase()}/${key}`}
+            element={<DetailCard config={sections[key]} project={project} />}
+          />
+        ))
       : null}
   </Routes>
 );

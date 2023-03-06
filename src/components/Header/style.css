@@ -14,7 +14,7 @@
 
 .title-container {
   width: 40%;
-  background-color: navy;
+  background-color: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -29,7 +29,6 @@
 .header-logo {
   width: 25%;
   height: 75%;
-  border: 1px solid white;
 }
 
 .header-title {
@@ -41,7 +40,7 @@
 
 .about-container {
   width: 60%;
-  background-color: blue;
+  background-color: var(--secondary-color);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -59,16 +58,23 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  border-bottom: 1px solid var(--background-color);
 }
 
-.nav-container > h5 {
+.nav-link {
+  color: var(--dark-accent-color);
   width: 150px;
   margin: 1%;
   text-align: center;
-  /* align-self: center; */
 }
 
-.nav-container > h5:hover {
-  text-decoration: underline;
+.nav-link:hover {
+  color: var(--primary-color);
+  font-weight: bold;
   cursor: pointer;
+  border-bottom: 5px solid var(--primary-color);
+}
+
+.nav-link-icon {
+  width: 25px;
 }

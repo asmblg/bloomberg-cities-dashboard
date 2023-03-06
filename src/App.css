@@ -3,11 +3,12 @@
   height: 100vh;
   position: fixed;
   top: 0;
+  font-family: var(--primary-font-family);
 }
 
 #layout {
-  /* padding: 20px; */
-  background-color: rgb(25, 158, 158);
+  /* background-color: var(--background-color); */
+  background-image: url('/public/images/background_300x300.png');
   width: 100vw;
   height: 100vh;
 }
