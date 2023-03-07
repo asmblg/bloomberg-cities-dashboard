@@ -21,7 +21,7 @@ const OverviewCard = () => {
 
   return (
     <div className='overview-card'>
-      <div className='edd-title overview-title standard-bold'>{overviewConfig.title}</div>
+      <div className='edd-title overview-title bold-font'>{overviewConfig.title}</div>
       <div className='overview-body'>
         {overviewConfig.content.map(({ title, text }, i) => (
           <div key={`overview-body-content-${i}`}>

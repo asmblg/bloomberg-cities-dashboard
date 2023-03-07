@@ -3,7 +3,7 @@
   height: 100vh;
   position: fixed;
   top: 0;
-  font-family: var(--primary-font-family);
+  font-family: 'RobotoRegular', sans-serif;
 }
 
 #layout {
@@ -20,8 +20,36 @@
   line-height: 0.9;
 }
 
-.standard-bold {
-  font-weight: bold;
+.bold-font {
+  font-family: 'RobotoBold';
+}
+
+.italic-font {
+  font-family: 'RobotoItalic';
+}
+
+.thin-font {
+  font-family: 'RobotoThin';
+}
+
+.thin-italic-font {
+  font-family: 'RobotoThinItalic';
+}
+
+.medium-font {
+  font-family: 'RobotoMedium';
+}
+
+.medium-italic-font {
+  font-family: 'RobotoMediumItalic';
+}
+
+.black-font {
+  font-family: 'RobotoBlack';
+}
+
+.black-italic-font {
+  font-family: 'RobotoBlackItalic';
 }
 
 .half-opacity {

@@ -1,3 +1,4 @@
+/* -------------------------- Color Palette -------------------------- */
 :root {
   --primary-color: #002944;
   --secondary-color: #006aaf;
@@ -7,5 +8,64 @@
   --dark-accent-color: #333333;
   --upward-trend-accent-color: #8dc63f;
   --downward-trend-accent-color: #e46062;
-  --primary-font-family: 'Roboto', sans-serif;
+}
+/* ------------------------------ FONTS ------------------------------ */
+@font-face {
+  font-family: 'RobotoRegular';
+  src: local('Roboto-Regular'), url('./fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoBold';
+  src: local('Roboto-Bold'), url('./fonts/Roboto-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoItalic';
+  src: local('Roboto-Italic'), url('./fonts/Roboto-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoBoldItalic';
+  src: local('Roboto-BoldItalic'), url('./fonts/Roboto-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoLight';
+  src: local('Roboto-Light'), url('./fonts/Roboto-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoLightItalic';
+  src: local('Roboto-LightItalic'), url('./fonts/Roboto-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoMedium';
+  src: local('Roboto-Medium'), url('./fonts/Roboto-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoMediumItalic';
+  src: local('Roboto-MediumItalic'), url('./fonts/Roboto-MediumItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoBlack';
+  src: local('Roboto-Black'), url('./fonts/Roboto-Black.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoBlackItalic';
+  src: local('Roboto-BlackItalic'), url('./fonts/Roboto-BlackItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoThin';
+  src: local('Roboto-Thin'), url('./fonts/Roboto-Thin.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoThinItalic';
+  src: local('Roboto-ThinkItalic'), url('./fonts/Roboto-ThinItalic.ttf') format('truetype');
 }

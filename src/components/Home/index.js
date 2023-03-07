@@ -19,7 +19,7 @@ const Home = ({ config, project }) => {
       </div>
       <div className='summary-wrapper'>
         <div role='heading' className='summary-header'>
-          <div className='large-summary-title standard-bold'>KEY INDICATORS</div>
+          <div className='large-summary-title bold-font'>KEY INDICATORS</div>
           <div className='large-summary-title half-opacity'>{quarterChangeStr}</div>
           <div className='updated-date-title half-opacity'>
             <img src={orangeDotIcon} />
@@ -28,11 +28,14 @@ const Home = ({ config, project }) => {
         </div>
         <div className='summary-cards-container'>
           {summaryCards.map((card, i) => (
-            <SummaryCard key={`home-summary-card-${i}`} config={card} route={`/${project}/${card.key}`} />
+            <SummaryCard
+              key={`home-summary-card-${i}`}
+              config={card}
+              route={`/${project}/${card.key}`}
+            />
           ))}
         </div>
       </div>
-      
     </div>
   );
 };

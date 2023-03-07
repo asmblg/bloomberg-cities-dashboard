@@ -20,7 +20,7 @@ const SummaryCard = ({ config, route }) => {
         {config.label.toUpperCase()}
       </div>
       <div className='summary-data-wrapper'>
-        <div className='summary-data  standard-bold'>
+        <div className='summary-data  bold-font'>
           <div className='summary-value'>{data || '-'}</div>
           <div className='summary-units'>{config.units}</div>
         </div>
