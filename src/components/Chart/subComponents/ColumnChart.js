@@ -3,21 +3,42 @@ import PropTypes from 'prop-types';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
 
 const ColumnChart = ({ config }) => {
-  const { xaxis, color } = config; // accentColor available in config
-  const dataArray = [];
+  const { xaxis, color, accentColor } = config;
+  const testData = [
+    {
+      [xaxis]: 'Q1-22',
+      value: 200
+    },
+    {
+      [xaxis]: 'Q2-22',
+      value: 225
+    },
+    {
+      [xaxis]: 'Q3-22',
+      value: 300
+    },
+    {
+      [xaxis]: 'Q4-22',
+      value: 275
+    }
+  ];
 
   return (
     <ResponsiveContainer height={100} width={'100%'}>
       <BarChart
-        data={dataArray}
+        data={testData}
         barGap={0}
         barCategoryGap={0}
-        margin={{ top: 20, right: 30, left: -25, bottom: 0 }}
+        margin={{ top: 30, right: 0, bottom: -10, left: -29 }}
       >
         <XAxis dataKey={xaxis} />
-        <YAxis tickCount={1} />
-        <Bar dataKey={'value'} stackId='a' fill={color || 'black'} />
-        {/* <Bar dataKey={'colDifference'} stackId='a' fill={accentColor} /> // One option to add accent to top of bar */}
+        <YAxis tickCount={1} axisLine={false} />
+        <Bar
+          dataKey={'value'}
+          stackId='a'
+          fill={color || 'black'}
+          stroke={accentColor || 'white'}
+        />
       </BarChart>
     </ResponsiveContainer>
   );
