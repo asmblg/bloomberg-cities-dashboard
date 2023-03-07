@@ -1,6 +1,7 @@
 .overview-card {
-  margin: 5%;
-  /* display: grid; */
+  padding: 5%;
+  position: relative;
+  height: 100%;
 }
 
 .overview-title {
@@ -13,22 +14,24 @@
 }
 
 .overview-body > div {
-  margin: 5% 0;
+  margin: 10% 0;
 }
 
 .overview-icons {
-  /* float: right; */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 5%;
   display: flex;
   justify-content: flex-end;
-  /* align-self: end; */
 }
 
 .overview-icons > img {
-  /* margin: 2px; */
-  /* margin: 5%; */
-  margin: 0 2%;
+  margin: 0 10%;
+  width: 50px;
 }
 
 .overview-icons > img:hover {
   cursor: pointer;
+  opacity: 0.75;
 }
