@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Chart from '../Chart';
 import upwardTrendIcon from './images/upward_trend_icon.png';
 import downwardTrendIcon from './images/downward_trend_icon.png';
 import './style.css';
 
 const SummaryCard = ({ config }) => {
   const data = '';
-  const chartData = [];
+  // const chartData = [];
   const trendDirection = 'upward';
   const trendChange = 'XX.X'; // add symbol
-  console.log(chartData);
 
   return (
     <div className='summary-card'>
@@ -22,7 +22,9 @@ const SummaryCard = ({ config }) => {
           <div className='summary-value'>{data || '-'}</div>
           <div className='summary-units'>{config.units}</div>
         </div>
-        <div className='summary-chart'></div>
+        <div className='summary-chart'>
+          <Chart config={config.chart} />
+        </div>
       </div>
       {trendDirection === 'upward' || trendDirection === 'downward' ? (
         <div className={trendDirection === 'upward' ? 'upward-trend' : 'downward-trend'}>

@@ -22,7 +22,9 @@
             "chart": {
               "type": "column",
               "xaxis": "quarter",
-              "range": 4
+              "range": 4,
+              "color": "#006aaf",
+              "accentColor": "#002944"
             }
           },
           {
@@ -31,7 +33,8 @@
             "dataPath": "realestate.cbd.office.occupancy",
             "chart": {
               "type": "donut",
-              "label": "CBD"
+              "label": "CBD",
+              "color": "#006aaf"
             }
           },
           {
@@ -41,7 +44,9 @@
             "chart": {
               "type": "column",
               "xaxis": "quarter",
-              "range": 4
+              "range": 4,
+              "color": "#006aaf",
+              "accentColor": "#002944"
             }
           },
           {
@@ -50,7 +55,8 @@
             "dataPath": "smallbusiness.city.rentburden",
             "chart": {
               "type": "donut",
-              "label": "SB"
+              "label": "SB",
+              "color": "#006aaf"
             }
           },
           {
@@ -59,7 +65,8 @@
             "dataPath": "consumers.city.tourism",
             "chart": {
               "type": "donut",
-              "label": "CBD"
+              "label": "CBD",
+              "color": "#006aaf"
             }
           },
           {
@@ -69,7 +76,8 @@
             "chart": {
               "type": "line",
               "xaxis": "quarter",
-              "range": 4
+              "range": 4,
+              "color": "#002944"
             }
           }
         ]
