@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './style.css';
+
 const DetailCard = ({ config }) => {
   const { label } = config;
 
   return (
-    <div>
-      <h1>{label} - Detail Card</h1>
+    <div className='detail-card'>
+      <div className='bold-font'>{label}</div>
     </div>
   );
 };

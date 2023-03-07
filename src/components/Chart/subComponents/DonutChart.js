@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { ResponsiveContainer, PieChart, Pie, Cell, Label as PieLabel } from 'recharts';
 
 const DonutChart = ({ config, value }) => {
-  const { label, color, accentColor } = config;
+  const { label, color } = config;
   const dataArray = [];
-  console.log(accentColor);
 
   return value ? (
     <ResponsiveContainer height={100} width={'100%'}>
