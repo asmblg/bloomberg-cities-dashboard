@@ -1,10 +1,14 @@
 .summary-card {
   border: 1px solid var(--background-color);
   background-color: white;
-  height: 200px;
-  width: 290px;
+  min-height: 200px;
+  min-width: 290px;
   margin: 1%;
   padding: 2%;
+}
+
+.summary-card:hover {
+  cursor: pointer;
 }
 
 .summary-header {
@@ -13,7 +17,6 @@
 
 .summary-data-wrapper {
   display: flex;
-  /* margin-top: 1%; */
   align-items: center;
 }
 

@@ -18,6 +18,7 @@
           {
             "label": "Job growth",
             "units": "Jobs added",
+            "key": "jobs",
             "dataPath": "jobs.msa.totaljobs",
             "chart": {
               "type": "column",
@@ -30,6 +31,7 @@
           {
             "label": "CDB Office Occupancy",
             "units": "Occupancy rate",
+            "key": "realestate",
             "dataPath": "realestate.cbd.office.occupancy",
             "chart": {
               "type": "donut",
@@ -41,6 +43,7 @@
           {
             "label": "New businesses",
             "units": "New businesses",
+            "key": "newbusiness",
             "dataPath": "newbusiness.city.total",
             "chart": {
               "type": "column",
@@ -53,6 +56,7 @@
           {
             "label": "Business Rent Burden",
             "units": "Rent-burdened small businesses",
+            "key": "smallbusiness",
             "dataPath": "smallbusiness.city.rentburden",
             "chart": {
               "type": "donut",
@@ -64,6 +68,7 @@
           {
             "label": "Tourism Spending",
             "units": "Tourism spending",
+            "key": "consumers",
             "dataPath": "consumers.city.tourism",
             "chart": {
               "type": "donut",
@@ -75,6 +80,7 @@
           {
             "label": "Capital Investment",
             "units": "Total invested",
+            "key": "capital",
             "dataPath": "capital.city",
             "chart": {
               "type": "line",

@@ -7,7 +7,7 @@ import SummaryCard from '../SummaryCard';
 import orangeDotIcon from './images/update_dot_orange.png';
 import './style.css';
 
-const Home = ({ config }) => {
+const Home = ({ config, project }) => {
   const { summaryCards } = config;
   const quarterChangeStr = 'Q3 2022 - Q4 2022 CHANGE';
   const recentUpdateDate = '01/25/2023 11:55 AM';
@@ -28,7 +28,7 @@ const Home = ({ config }) => {
         </div>
         <div className='summary-cards-container'>
           {summaryCards.map((card, i) => (
-            <SummaryCard key={`home-summary-card-${i}`} config={card} />
+            <SummaryCard key={`home-summary-card-${i}`} config={card} route={`/${project}/${card.key}`} />
           ))}
         </div>
       </div>
@@ -38,7 +38,8 @@ const Home = ({ config }) => {
 };
 
 Home.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  project: PropTypes.string
 };
 
 export default Home;

@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 import Chart from '../Chart';
 import upwardTrendIcon from './images/upward_trend_icon.png';
 import downwardTrendIcon from './images/downward_trend_icon.png';
 import './style.css';
 
-const SummaryCard = ({ config }) => {
+const SummaryCard = ({ config, route }) => {
+  const navigate = useNavigate();
   const data = '';
   // const chartData = [];
   const trendDirection = 'upward';
   const trendChange = 'XX.X'; // add symbol
 
   return (
-    <div className='summary-card'>
+    <div className='summary-card' onClick={() => navigate(route)}>
       <div className='summary-header' role='heading'>
         {config.label.toUpperCase()}
       </div>
@@ -37,7 +39,8 @@ const SummaryCard = ({ config }) => {
 };
 
 SummaryCard.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  route: PropTypes.string
 };
 
 export default SummaryCard;

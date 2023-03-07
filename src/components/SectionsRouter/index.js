@@ -15,7 +15,7 @@ const SectionRouter = ({ project, sections, sectionKeys }) => (
           <Route
             key={`home-route-${key}`}
             path={`/${project.toLowerCase()}`}
-            element={<Home config={sections[key]} />}
+            element={<Home config={sections[key]} project={project} />}
           />
         ) : (
           <Route
@@ -23,7 +23,8 @@ const SectionRouter = ({ project, sections, sectionKeys }) => (
             path={`/${project.toLowerCase()}/${key}`}
             element={<DetailCard config={sections[key]} project={project} />}
           />
-        ))
+        )
+      )
       : null}
   </Routes>
 );
