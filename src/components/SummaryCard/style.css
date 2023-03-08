@@ -1,8 +1,8 @@
 .summary-card {
   border: 1px solid var(--background-color);
   background-color: white;
-  min-height: 200px;
-  min-width: 290px;
+  height: 225px;
+  width: 300px;
   margin: 1%;
   padding: 2%;
 }

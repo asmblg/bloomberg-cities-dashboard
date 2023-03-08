@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
 
 const ColumnChart = ({ xaxis, color, accentColor, height, width, margin, dataArray }) => {
-  console.log(dataArray);
   return dataArray && dataArray[0] ? (
     <ResponsiveContainer height={height} width={width}>
       <BarChart data={dataArray} barGap={0} barCategoryGap={0} margin={margin}>
