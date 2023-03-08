@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -7,6 +7,12 @@ import homeIcon from './images/home_icon.png';
 import './style.css';
 
 const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
+  // Ensures selected link is correct when url is shared
+  const currentRoute = document.location.pathname
+    .split('/')
+    .filter(str => str && str !== project && sectionKeys.includes(str))[0];
+
+  const [selectedLink, setSelectedLink] = useState(currentRoute || 'home');
   const logoSrc = logos[project];
 
   return viewType === 'desktop' ? (
@@ -24,9 +30,10 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
       <div className='nav-container'>
         {sectionKeys.map(key => (
           <Link
-            className='nav-link'
+            className={`nav-link ${key === selectedLink ? 'selected-link' : 'unselected-link'}`}
             key={`nav-link-${key}`}
             to={key === 'home' ? `/${project}` : `/${project}/${key}`}
+            onClick={() => setSelectedLink(key)}
           >
             {key === 'home' ? (
               <img className='nav-link-icon' src={homeIcon} />

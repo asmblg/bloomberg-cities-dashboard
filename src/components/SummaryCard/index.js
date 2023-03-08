@@ -9,10 +9,7 @@ import './style.css';
 
 const SummaryCard = ({ config, route }) => {
   const navigate = useNavigate();
-  const data = '';
-  // const chartData = [];
-  const trendDirection = 'upward';
-  const trendChange = 'XX.X'; // add symbol
+  const trend = 'up';
 
   return (
     <div className='summary-card' onClick={() => navigate(route)}>
@@ -21,17 +18,17 @@ const SummaryCard = ({ config, route }) => {
       </div>
       <div className='summary-data-wrapper'>
         <div className='summary-data  bold-font'>
-          <div className='summary-value'>{data || '-'}</div>
+          <div className='summary-value'>{'-'}</div>
           <div className='summary-units'>{config.units}</div>
         </div>
         <div className='summary-chart'>
           <Chart config={config.chart} />
         </div>
       </div>
-      {trendDirection === 'upward' || trendDirection === 'downward' ? (
-        <div className={trendDirection === 'upward' ? 'upward-trend' : 'downward-trend'}>
-          <img src={trendDirection === 'upward' ? upwardTrendIcon : downwardTrendIcon} />
-          <p>{`${trendDirection === 'upward' ? '+' : '-'} ${trendChange}`}</p>
+      {trend === 'up' || trend === 'down' ? (
+        <div className={trend === 'up' ? 'upward-trend' : 'downward-trend'}>
+          <img src={trend === 'up' ? upwardTrendIcon : downwardTrendIcon} />
+          <p>{`${trend === 'up' ? '+' : '-'} ${'XX.X'}`}</p>
         </div>
       ) : null}
     </div>

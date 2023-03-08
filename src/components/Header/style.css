@@ -54,16 +54,20 @@
 }
 
 .nav-link {
-  color: var(--dark-accent-color);
+  color: black;
   width: 150px;
   margin: 1%;
   text-align: center;
 }
 
 .nav-link:hover {
+  color: black;
+  font-family: 'RobotoBold';
+}
+
+.selected-link {
   color: var(--primary-color);
-  font-weight: bold;
-  cursor: pointer;
+  font-family: 'RobotoBold';
   border-bottom: 5px solid var(--primary-color);
 }
 
