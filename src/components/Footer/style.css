@@ -1,0 +1,66 @@
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.footer-container > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+}
+
+.bloomberg-logo {
+  width: 150px;
+}
+
+.partner-logos-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.partner-logos-container > img {
+  width: auto;
+  height: 55px;
+}
+
+#block-footer-logo {
+  height: 65px;
+}
+
+/* ---------- Media Queries ---------- */
+@media screen and (max-width: 1200px) {
+  .footer-container > div {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .footer-container > div {
+    margin-top: 1%;
+    font-size: 10px;
+  }
+
+  .footer-container > div > p {
+    margin: 0;
+  }
+
+  .bloomberg-logo {
+    width: 75px;
+  }
+
+  .partner-logos-container > img {
+    height: 25px;
+  }
+
+  #block-footer-logo {
+    height: 35px;
+  }
+}

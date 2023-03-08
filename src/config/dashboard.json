@@ -136,21 +136,26 @@
       }
     },
     "footer": {
+      "copyright": "2023 City of Tampa Economic Dashboard. All Rights Reserved.",
       "partners": [
         {
-          "logoURL": "",
+          "key": "alignable",
+          "logoURL": "/images/alignable.png",
           "name": "Alignable"
         },
         {
-          "logoURL": "",
+          "key": "jll",
+          "logoURL": "/images/jll.png",
           "name": "JLL"
         },
         {
-          "logoURL": "",
+          "key": "dewey",
+          "logoURL": "/images/dewey.png",
           "name": "Dewey"
         },
         {
-          "logoURL": "",
+          "key": "block",
+          "logoURL": "/images/block.png",
           "name": "Block"
         }
       ]

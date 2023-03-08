@@ -18,19 +18,23 @@ const Layout = ({ config }) => {
 
   return (
     <div id='layout'>
-      <Header
-        headerConfig={config.header}
-        project={project.toLowerCase()}
-        sectionKeys={sectionKeys}
-        sections={sections}
-        viewType={viewType}
-      />
-      <SectionsRouter
-        project={project.toLowerCase()}
-        sectionKeys={sectionKeys}
-        sections={sections}
-      />
-      <Footer config={footer} />
+      <div id='content'>
+        <Header
+          headerConfig={config.header}
+          project={project.toLowerCase()}
+          sectionKeys={sectionKeys}
+          sections={sections}
+          viewType={viewType}
+        />
+        <SectionsRouter
+          project={project.toLowerCase()}
+          sectionKeys={sectionKeys}
+          sections={sections}
+        />
+      </div>
+      <footer id='footer'>
+        <Footer config={footer} />
+      </footer>
     </div>
   );
 };
