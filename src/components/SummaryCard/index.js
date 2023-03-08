@@ -17,12 +17,18 @@ const SummaryCard = ({ config, route }) => {
         {config.label.toUpperCase()}
       </div>
       <div className='summary-data-wrapper'>
-        <div className='summary-data  bold-font'>
+        <div className='summary-data bold-font'>
           <div className='summary-value'>{'-'}</div>
           <div className='summary-units'>{config.units}</div>
         </div>
         <div className='summary-chart'>
-          <Chart config={config.chart} />
+          <Chart
+            data={null}
+            config={config.chart}
+            height={100}
+            width={'100%'}
+            margin={{ top: 30, right: 0, bottom: -10, left: -29 }}
+          />
         </div>
       </div>
       {trend === 'up' || trend === 'down' ? (
