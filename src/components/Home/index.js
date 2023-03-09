@@ -7,7 +7,7 @@ import SummaryCard from '../SummaryCard';
 import orangeDotIcon from './images/update_dot_orange.png';
 import './style.css';
 
-const Home = ({ config, project }) => {
+const Home = ({ config, project, viewType }) => {
   const { summaryCards } = config;
   const quarterChangeStr = 'Q3 2022 - Q4 2022 CHANGE';
   const recentUpdateDate = '01/25/2023 11:55 AM';
@@ -15,7 +15,7 @@ const Home = ({ config, project }) => {
   return (
     <div className='home-wrapper'>
       <div className='overview-wrapper'>
-        <OverviewCard />
+        <OverviewCard viewType={viewType} />
       </div>
       <div className='summary-wrapper'>
         <div role='heading' className='summary-header'>
@@ -42,7 +42,8 @@ const Home = ({ config, project }) => {
 
 Home.propTypes = {
   config: PropTypes.object,
-  project: PropTypes.string
+  project: PropTypes.string,
+  viewType: PropTypes.string
 };
 
 export default Home;

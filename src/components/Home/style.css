@@ -39,3 +39,34 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+/* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Tablet Breakpoint */
+@media screen and (max-width: 1280px) {
+  .home-wrapper {
+    flex-direction: column;
+  }
+
+  .overview-wrapper,
+  .summary-wrapper {
+    width: 100%;
+    margin: 0;
+  }
+
+  .overview-wrapper {
+    background-image: url('/public/images/background_300x300.png');
+    color: black;
+  }
+}
+
+/* Initial Mobile Breakpoint */
+@media screen and (max-width: 767px) {
+  .home-wrapper {
+    margin: 0;
+  }
+  .overview-wrapper {
+    background-image: none;
+    background-color: var(--secondary-color);
+    color: white;
+  }
+}

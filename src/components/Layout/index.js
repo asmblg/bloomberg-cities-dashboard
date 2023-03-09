@@ -39,6 +39,7 @@ const Layout = ({ config }) => {
           project={project.toLowerCase()}
           sectionKeys={sectionKeys}
           sections={sections}
+          viewType={viewType}
         />
       </div>
       <footer id='footer'>

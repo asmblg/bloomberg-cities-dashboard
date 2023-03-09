@@ -35,14 +35,15 @@
   height: 65px;
 }
 
-/* ----- Tablet Sizing ----- */
+/* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Tablet Sizing */
 @media screen and (max-width: 1280px) {
   .footer-container > div {
     width: 75%;
   }
 }
 
-/* ----- Mobile Sizing ----- */
+/* Initial Mobile Sizing */
 @media screen and (max-width: 767px) {
   .footer-container > div {
     margin-top: 1%;

@@ -10,28 +10,44 @@
 }
 
 .overview-body {
-  line-height: 2;
+  line-height: 1.75;
+  font-size: 18px;
 }
 
 .overview-body > div {
   margin: 10% 0;
 }
 
-.overview-icons {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin: 5%;
+.overview-arrow-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--secondary-color);
 }
 
-.overview-icons > img {
-  margin: 0 10%;
-  width: 50px;
+/* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Tablet Breakpoint */
+@media screen and (max-width: 1280px) {
+  .overview-card {
+    padding: 0;
+  }
+
+  .overview-body {
+    padding: 20px;
+  }
+  .overview-body > div {
+    margin: 0 0 20px 0;
+  }
 }
 
-.overview-icons > img:hover {
-  cursor: pointer;
-  opacity: 0.75;
+/* Initial Mobile Breakpoint */
+@media screen and (max-width: 767px) {
+  .overview-body {
+    font-size: 14px;
+    padding-bottom: 0;
+  }
+
+  .overview-body > div {
+    margin-bottom: 10px;
+  }
 }

@@ -1,0 +1,18 @@
+.overview-icons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 5%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.overview-icons > img {
+  margin: 0 10%;
+  width: 50px;
+}
+
+.overview-icons > img:hover {
+  cursor: pointer;
+  opacity: 0.75;
+}
