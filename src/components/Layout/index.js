@@ -1,5 +1,5 @@
 // Packages
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 // Components
@@ -8,13 +8,22 @@ import SectionsRouter from '../SectionsRouter';
 import Footer from '../Footer';
 
 // Styling/Configuration/Utilities
-import { getViewType } from './utils';
+import { handleViewType } from './utils';
 import './style.css';
 
 const Layout = ({ config }) => {
+  const [viewType, setViewType] = useState('');
   const { project, sections, footer } = config;
   const sectionKeys = Object.keys(sections);
-  const viewType = getViewType(window.innerWidth);
+  // const viewType = getViewType(window.innerWidth);
+
+  useEffect(() => {
+    const updateViewType = () => setViewType(handleViewType());
+    updateViewType();
+    window.addEventListener('resize', updateViewType);
+    // Cleanup Function
+    return () => window.removeEventListener('resize', updateViewType);
+  }, []);
 
   return (
     <div id='layout'>

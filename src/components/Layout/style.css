@@ -23,7 +23,7 @@
 }
 
 /* ---------- Media Queries ---------- */
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1280px) {
   #content {
     padding-bottom: 16rem;
   }
@@ -33,7 +33,7 @@
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 767px) {
   #content {
     padding-bottom: 10rem;
   }

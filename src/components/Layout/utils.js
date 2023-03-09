@@ -1,11 +1,15 @@
 import { viewBreakpoints } from './config';
 
-const getViewType = width =>
-  width >= viewBreakpoints.tablet
+const handleViewType = () => {
+  // Note: window.innerWidth lowest value will be 320.
+  const width = window.innerWidth;
+  console.log(width);
+
+  return width > viewBreakpoints.tablet
     ? 'desktop'
     : width <= viewBreakpoints.tablet && width >= viewBreakpoints.mobile
       ? 'tablet'
       : 'mobile';
+};
 
-
-export { getViewType };
+export { handleViewType };
