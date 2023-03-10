@@ -12,24 +12,24 @@ const Chart = ({ data, config, height, width, margin }) => {
   const { type, xaxis, label, color, accentColor, range } = config;
   const dataKey = xaxis ? xaxis : label ? label : null;
   // Create dataArray for Chart types - Donut will need fillColor key/value
-  const dataArray = dataKey && data
+  const dataArray = dataKey
     ? [
-      // {
-      //   [dataKey]: 'Q1-22',
-      //   value: 125
-      // },
-      // {
-      //   [dataKey]: 'Q2-22',
-      //   value: 275
-      // },
-      // {
-      //   [dataKey]: 'Q3-22',
-      //   value: 200
-      // },
-      // {
-      //   [dataKey]: 'Q4-22',
-      //   value: 300
-      // }
+      {
+        [dataKey]: 'Q1-22',
+        value: 125
+      },
+      {
+        [dataKey]: 'Q2-22',
+        value: 275
+      },
+      {
+        [dataKey]: 'Q3-22',
+        value: 200
+      },
+      {
+        [dataKey]: 'Q4-22',
+        value: 300
+      }
     ]
     : [];
 

@@ -1,18 +1,13 @@
-.overview-icons {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin: 5%;
+.share-print-icons {
   display: flex;
-  justify-content: flex-end;
 }
 
-.overview-icons > img {
+.share-print-icons > img {
   margin: 0 10%;
   width: 50px;
 }
 
-.overview-icons > img:hover {
+.share-print-icons > img:hover {
   cursor: pointer;
   opacity: 0.75;
 }

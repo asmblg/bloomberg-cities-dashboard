@@ -1,23 +1,26 @@
 #layout {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 #content {
-  padding-bottom: 12rem;
+  height: 100vh;
 }
 
-/* #dashboard-title {
-  font-size: 1.5rem;
-  font-weight: 200;
-  margin-top: 10px;
-} */
+#header-container {
+  height: 15vh;
+}
+
+#section-container {
+  height: 70vh;
+  margin: 0 10vh;
+}
 
 #footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 12rem;
+  height: 15vh;
   background-color: var(--dark-accent-color);
   color: white;
 }
@@ -25,22 +28,22 @@
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1280px) {
-  #content {
-    padding-bottom: 16rem;
+  #header-container {
+    height: 10vh;
+  }
+
+  #section-container {
+    height: 75vh;
   }
 
   #footer {
-    height: 16rem;
+    height: 15vh;
   }
 }
 
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 767px) {
-  #content {
-    padding-bottom: 10rem;
-  }
-
-  #footer {
-    height: 10rem;
+  #section-container {
+    margin: 0;
   }
 }

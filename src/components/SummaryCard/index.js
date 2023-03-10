@@ -18,7 +18,7 @@ const SummaryCard = ({ config, route }) => {
       </div>
       <div className='summary-data-wrapper'>
         <div className='summary-data bold-font'>
-          <div className='summary-value'>{'-'}</div>
+          <div className='summary-value'>{'89.9'}</div>
           <div className='summary-units'>{config.units}</div>
         </div>
         <div className='summary-chart'>

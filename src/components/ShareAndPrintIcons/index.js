@@ -6,7 +6,7 @@ import './style.css';
 
 const ShareAndPrintIcons = () => {
   return (
-    <div className='overview-icons'>
+    <div className='share-print-icons'>
       <img src={shareIcon} onClick={() => console.log('share!')} />
       <img src={printIcon} onClick={() => console.log('print!')} />
     </div>

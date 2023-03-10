@@ -17,14 +17,14 @@ const OverviewCard = ({ viewType }) => {
       },
       {
         title: 'How to use this dashboard?',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.',
         type: 'instructions'
       }
     ]
   };
 
   return (
-    <div className='overview-card'>
+    <>
       {overviewOpen ? (
         <>
           {viewType === 'desktop' ? (
@@ -41,7 +41,11 @@ const OverviewCard = ({ viewType }) => {
               </div>
             ))}
           </div>
-          {viewType === 'desktop' ? <ShareAndPrintIcons /> : null}
+          {viewType === 'desktop' ? (
+            <div className='overview-icons'>
+              <ShareAndPrintIcons />
+            </div>
+          ) : null}
         </>
       ) : null}
       {viewType === 'mobile' ? (
@@ -54,7 +58,7 @@ const OverviewCard = ({ viewType }) => {
           />
         </div>
       ) : null}
-    </div>
+    </>
   );
 };
 

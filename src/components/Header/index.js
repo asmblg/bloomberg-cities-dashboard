@@ -23,7 +23,7 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
   };
 
   return viewType ? (
-    <header id='header-container'>
+    <>
       <div className='brand-container'>
         <div className='title-container'>
           <img className='header-logo' src={logoSrc} />
@@ -96,7 +96,7 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
           ) : null}
         </nav>
       ) : null}
-    </header>
+    </>
   ) : (
     <header id='mobile-header-container'>
       <h1>Mobile Header</h1>

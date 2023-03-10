@@ -1,10 +1,11 @@
 .summary-card {
   border: 1px solid var(--background-color);
   background-color: white;
-  height: 225px;
-  width: 300px;
-  margin: 1%;
-  padding: 2%;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  /* margin: 5% 0; */
+  /* padding: 5%; */
 }
 
 .summary-card:hover {
@@ -51,7 +52,7 @@
   width: 40%;
   border-radius: 16px;
   color: white;
-  padding: 2%;
+  /* padding: 2%; */
   margin: 0;
 }
 
@@ -67,3 +68,51 @@
 .downward-trend {
   background-color: var(--downward-trend-accent-color);
 }
+
+/* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Desktop Breakpoint */
+/* @media screen and (max-width: 1680px) { */
+/* .summary-card {
+    width: 30%;
+  } */
+/* } */
+
+/* @media screen and (max-width: 1625px) {
+  .summary-card {
+    width: 245px;
+  }
+} */
+
+/* @media screen and (max-width: 1372px) {
+  .summary-card {
+    width: 240px;
+  }
+} */
+
+/* @media screen and (max-width: 1346px) {
+  .summary-card {
+    width: 235px;
+  }
+} */
+
+/* @media screen and (max-width: 1372px) {
+  .summary-card {
+    width: 220px;
+  }
+} */
+
+/* @media screen and (max-width: 1447px) {
+  .summary-card {
+    width: 250px;
+  }
+} */
+
+/* Initial Tablet Breakpoint */
+/* @media screen and (max-width: 1280px) {
+  .summary-card {
+    width: 40%;
+    margin: 10px 20px;
+  }
+} */
+
+/* Initial Mobile Breakpoint */

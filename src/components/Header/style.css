@@ -1,10 +1,6 @@
-#header-container {
-  height: 250px;
-}
-
 .brand-container,
 .nav-container {
-  height: 125px;
+  height: 50%;
 }
 
 .brand-container {
@@ -24,11 +20,6 @@
   margin: 2% 5% 2% 0;
 }
 
-.header-logo {
-  width: auto;
-  height: 80%;
-}
-
 .about-container {
   width: 60%;
   background-color: var(--secondary-color);
@@ -36,6 +27,11 @@
   align-items: center;
   justify-content: flex-end;
   padding-right: 5%;
+}
+
+.header-logo {
+  width: auto;
+  height: 80%;
 }
 
 .about-container > * {
@@ -54,7 +50,6 @@
 .nav-link {
   color: black;
   width: 150px;
-  margin: 1%;
   text-align: center;
 }
 
@@ -81,15 +76,18 @@
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1280px) {
-  #header-container {
-    height: 100px;
+  .brand-container {
+    height: 100%;
   }
 
-  .title-container,
-  .about-container {
-    height: 100px;
+  .about-container, .title-container {
     width: 50%;
   }
+
+  .header-logo {
+    height: 50%;
+  }
+
 
   .about-container {
     padding-right: 0;
@@ -105,7 +103,7 @@
     justify-content: space-evenly;
     position: absolute;
     right: 50px;
-    top: 70px;
+    top: calc((10vh / 2) + 1em);
     height: 40%;
     width: 275px;
     padding: 5px 0;
@@ -133,13 +131,8 @@
     justify-content: space-between;
   }
 
-  .header-logo {
-    height: 50%;
-    /* width: auto; */
-  }
-
   .edd-title {
-    font-size: 1.5rem;
+    font-size: 20px;
   }
 }
 
