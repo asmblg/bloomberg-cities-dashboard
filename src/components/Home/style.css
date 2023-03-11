@@ -14,15 +14,12 @@
   color: white;
   display: flex;
   flex-direction: column;
-  /* height: 100%; */
 }
 
 .summary-wrapper {
   width: 70%;
   display: flex;
   flex-direction: column;
-  /* height: 100%; */
-  /* justify-content: space-between; */
 }
 
 .summary-header {
@@ -72,7 +69,6 @@
   .overview-wrapper {
     background-image: url('/public/images/background_300x300.png');
     color: black;
-    /* height: 30%; */
   }
 
   .summary-cards-container {
@@ -101,7 +97,7 @@
   }
 
   .summary-header {
-    height: 7%;
+    height: 20%;
     font-size: 14px;
   }
 
@@ -111,6 +107,6 @@
 
   .summary-cards-container {
     grid-template-columns: repeat(1, 1fr);
-    height: 93%;
+    height: 80%;
   }
 }

@@ -32,6 +32,7 @@ const Home = ({ config, project, viewType }) => {
               key={`home-summary-card-${i}`}
               config={card}
               route={`/${project}/${card.key}`}
+              viewType={viewType}
             />
           ))}
         </div>
