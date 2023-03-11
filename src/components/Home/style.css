@@ -19,10 +19,14 @@
 
 .summary-wrapper {
   width: 70%;
+  display: flex;
+  flex-direction: column;
+  /* height: 100%; */
+  /* justify-content: space-between; */
 }
 
 .summary-header {
-  height: 20%;
+  height: 15%;
 }
 
 .large-summary-title {
@@ -35,6 +39,10 @@
   opacity: 0.5;
 }
 
+.updated-date-title {
+  margin: 1% 0;
+}
+
 .updated-date-title > img {
   margin-right: 1%;
 }
@@ -42,8 +50,9 @@
 .summary-cards-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  height: 80%;
   gap: 20px;
+  padding-top: 1%;
+  height: 85%;
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
@@ -63,13 +72,13 @@
   .overview-wrapper {
     background-image: url('/public/images/background_300x300.png');
     color: black;
+    /* height: 30%; */
   }
 
   .summary-cards-container {
     grid-template-columns: repeat(2, 1fr);
-    row-gap: 10px;
-    column-gap: 100px;
-    height: 50%;
+    gap: 10px;
+    margin-bottom: 10px;
   }
 }
 
@@ -92,10 +101,16 @@
   }
 
   .summary-header {
-    height: 10%;
+    height: 7%;
+    font-size: 14px;
+  }
+
+  .large-summary-title {
+    font-size: 16px;
   }
 
   .summary-cards-container {
     grid-template-columns: repeat(1, 1fr);
+    height: 93%;
   }
 }
