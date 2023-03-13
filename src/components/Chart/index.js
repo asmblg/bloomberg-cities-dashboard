@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import LineChart from './subComponents/LineChart';
 import ColumnChart from './subComponents/ColumnChart';
 import DonutChart from './subComponents/DonutChart';
+import HorizontalBarChart from './subComponents/HorizontalBarChart';
 
 import './style.css';
 
-const Chart = ({ data, config, height, width, margin }) => {
-  console.log('chartData:', data);
+const Chart = ({ config, height, width, margin, data }) => {
   const { type, xaxis, label, color, accentColor, range } = config;
   const dataKey = xaxis ? xaxis : label ? label : null;
   // Create dataArray for Chart types - Donut will need fillColor key/value
@@ -69,6 +69,20 @@ const Chart = ({ data, config, height, width, margin }) => {
           color={color}
           height={height}
           width={width}
+        />
+      );
+    }
+    case 'horizontal-bar': {
+      return (
+        <HorizontalBarChart
+          label={label}
+          color={color}
+          accentColor={accentColor}
+          height={height}
+          width={width}
+          margin={margin}
+          range={range}
+          dataArray={data}
         />
       );
     }

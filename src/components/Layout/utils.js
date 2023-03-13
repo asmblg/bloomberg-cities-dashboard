@@ -3,7 +3,6 @@ import { viewBreakpoints } from './config';
 const handleViewType = () => {
   // Note: window.innerWidth lowest value will be 320.
   const width = window.innerWidth;
-  console.log(width);
 
   return width > viewBreakpoints.tablet
     ? 'desktop'

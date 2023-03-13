@@ -21,7 +21,14 @@ const SectionRouter = ({ project, sections, sectionKeys, viewType }) => (
           <Route
             key={`detail-route-${key}`}
             path={`/${project.toLowerCase()}/${key}`}
-            element={<DetailCard config={sections[key]} project={project} viewType={viewType} />}
+            element={
+              <DetailCard
+                config={sections[key]}
+                sectionKey={key}
+                project={project}
+                viewType={viewType}
+              />
+            }
           />
         )
       )

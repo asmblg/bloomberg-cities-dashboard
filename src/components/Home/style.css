@@ -31,17 +31,8 @@
   line-height: 1.2;
 }
 
-.quarter-change-title,
-.updated-date-title {
+.quarter-change-title {
   opacity: 0.5;
-}
-
-.updated-date-title {
-  margin: 1% 0;
-}
-
-.updated-date-title > img {
-  margin-right: 1%;
 }
 
 .summary-cards-container {

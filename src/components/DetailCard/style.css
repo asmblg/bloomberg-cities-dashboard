@@ -1,8 +1,53 @@
-.detail-card {
-  width: 90%;
-  height: 50%;
-  margin: 2% auto;
-  padding: 2%;
+.detail-card-wrapper {
+  display: flex;
+  height: 75%;
+  /* padding: 2%; */
+  margin: 2%;
   border: 1px solid var(--background-color);
   background-color: white;
+}
+
+.detail-card-section,
+.community-profile-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 2%;
+}
+
+.detail-title {
+  font-size: 22px;
+  line-height: 1.25;
+  height: 25%;
+}
+
+.community-profile-section {
+  /* display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 2%; */
+  /* margin: 0 2%; */
+  border-right: 1px solid var(--background-color);
+}
+
+.population-data-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 75%;
+}
+
+.total-pop-title {
+  height: 25%;
+  font-size: 28px;
+  line-height: 1.25;
+}
+
+.total-pop-title:first-child {
+  font-size: 24px;
+}
+
+.demographics-charts {
+  height: 75%;
 }

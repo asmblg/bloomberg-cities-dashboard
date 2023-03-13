@@ -12,8 +12,7 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
   const [selectedLink, setSelectedLink] = useState(getCurrentRoute(project, sectionKeys) || 'home');
   const [menuOpen, setMenuOpen] = useState(false);
   const logoSrc = logos[project];
-  console.log(viewType);
-
+  
   const linkClickHandler = key => {
     setSelectedLink(key);
 
