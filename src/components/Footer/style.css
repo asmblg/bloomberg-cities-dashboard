@@ -1,7 +1,7 @@
 .footer-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   height: 100%;
 }
@@ -10,11 +10,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 30%;
+  width: 40%;
+}
+
+.footer-container > div > p {
+  margin: 0;
+  font-size: 16px;
 }
 
 .bloomberg-logo {
   width: 150px;
+  height: auto;
 }
 
 .partner-logos-container {
@@ -31,26 +37,29 @@
 }
 
 #block-footer-logo {
-  height: 65px;
+  height: 70px;
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Sizing */
 @media screen and (max-width: 1280px) {
   .footer-container > div {
-    width: 75%;
+    width: 80%;
+    /* margin-top: 0; */
   }
 }
 
 /* Initial Mobile Sizing */
 @media screen and (max-width: 767px) {
   .footer-container > div {
-    margin-top: 1%;
+    /* margin-top: %; */
     font-size: 10px;
+    width: 75%;
   }
 
   .footer-container > div > p {
     margin: 0;
+    font-size: 10px;
   }
 
   .bloomberg-logo {

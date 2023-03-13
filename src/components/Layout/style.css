@@ -50,10 +50,10 @@
   }
 
   #section-container {
-    height: calc(100vh - 201px); /* Added a pixel to fix minor overlap  */
+    height: calc(100vh - 226px); /* Added a pixel to fix minor overlap  */
   }
 
   #footer {
-    height: 100px;
+    height: 125px;
   }
 }
