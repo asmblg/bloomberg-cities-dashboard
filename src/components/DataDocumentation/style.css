@@ -8,7 +8,7 @@
 
 .docs-title {
   height: 10%;
-  border-bottom: 2px solid var(--background-color);
+  border-bottom: 2px solid var(--primary-border-color);
 }
 
 .docs-body {

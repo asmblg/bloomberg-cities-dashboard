@@ -3,7 +3,7 @@
   height: 75%;
   /* padding: 2%; */
   margin: 2%;
-  border: 1px solid var(--background-color);
+  border: 1px solid var(--primary-border-color);
   background-color: white;
 }
 
@@ -29,7 +29,7 @@
   width: 100%;
   padding: 2%; */
   /* margin: 0 2%; */
-  border-right: 1px solid var(--background-color);
+  border-right: 1px solid var(--primary-border-color);
 }
 
 .population-data-wrapper {

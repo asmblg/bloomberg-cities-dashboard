@@ -24,7 +24,6 @@ const summaryTabs = [
 
 const Home = ({ config, project, viewType, docs }) => {
   const tab = docs ? 'docs' : 'indicators';
-  console.log(tab);
   const { summaryCards } = config;
   const quarterChangeStr = 'Q3 2022 - Q4 2022 CHANGE';
 

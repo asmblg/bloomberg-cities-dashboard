@@ -1,5 +1,5 @@
 .summary-card {
-  border-top: 1px solid var(--background-color);
+  border-top: 1px solid var(--primary-border-color);
   background-color: white;
   height: 100%;
   width: 100%;
@@ -73,11 +73,11 @@
 }
 
 .upward-trend {
-  background-color: var(--upward-trend-accent-color);
+  background-color: var(--success-accent-color);
 }
 
 .downward-trend {
-  background-color: var(--downward-trend-accent-color);
+  background-color: var(--warning-accent-color);
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
@@ -92,7 +92,7 @@
 @media screen and (max-width: 767px) {
   .summary-card {
     padding: 2%;
-    border: 1px solid var(--background-color);
+    border: 1px solid var(--primary-border-color);
   }
 
   .summary-card-title {

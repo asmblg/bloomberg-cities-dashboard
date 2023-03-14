@@ -8,7 +8,7 @@ h5 {
 }
 
 a {
-  color: black
+  color: black;
 }
 
 a:hover {
@@ -30,8 +30,8 @@ a:hover {
 }
 
 .edd-title {
-  width: 200px;
-  font-size: 25px;
+  width: 250px;
+  font-size: 26px;
   overflow-wrap: break-word;
   line-height: 0.9;
 }
@@ -74,4 +74,22 @@ a:hover {
 
 .half-opacity {
   opacity: 0.5;
+}
+
+/* Initial Tablet Breakpoint */
+@media screen and (max-width: 1280px) {
+  .edd-title {
+    width: 125px;
+    font-size: 20px;
+    line-height: 1;
+  }
+}
+
+/* Initial Mobile Breakpoint */
+@media screen and (max-width: 767px) {
+  .edd-title {
+    width: 150px;
+    font-size: 20px;
+    line-height: 1;
+  }
 }

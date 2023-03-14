@@ -27,12 +27,12 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
         <div className='title-container'>
           <img className='header-logo' src={logoSrc} />
           {viewType !== 'mobile' ? (
-            <div className='edd-title bold-font'>{headerConfig.title.toUpperCase()}</div>
+            <div className='edd-title bold-font'>{headerConfig.title}</div>
           ) : null}
         </div>
         <div className='about-container'>
           {viewType === 'mobile' ? (
-            <div className='edd-title bold-font'>{headerConfig.title.toUpperCase()}</div>
+            <div className='edd-title bold-font'>{headerConfig.title}</div>
           ) : null}
           {viewType === 'tablet' || viewType === 'mobile' ? (
             <Icon

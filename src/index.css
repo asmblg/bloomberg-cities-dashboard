@@ -1,13 +1,22 @@
-/* -------------------------- Color Palette -------------------------- */
+/* -------------------------- Root Variables -------------------------- */
 :root {
   --primary-color: #002944;
   --secondary-color: #006aaf;
   --tertiary-color: #72acd2;
   --quaternary-color: #969696;
-  --background-color: #dfe5e9;
+  --primary-border-color: #dfe5e9;
   --dark-accent-color: #333333;
-  --upward-trend-accent-color: #8dc63f;
-  --downward-trend-accent-color: #e46062;
+  --success-accent-color: #8dc63f;
+  --warning-accent-color: #e46062;
+  --desktop-outer-margin: 15%;
+  --tablet-outer-margin: 8%;
+  --mobile-outer-margin: 5%;
+  --desktop-header-height: 200px;
+  --tablet-header-height: 100px;
+  --mobile-header-height: 100px;
+  --desktop-footer-height: 200px;
+  --tablet-footer-height: 200px;
+  --mobile-footer-height: 125px;
 }
 /* ------------------------------ FONTS ------------------------------ */
 @font-face {
