@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
@@ -10,19 +10,22 @@ import './style.css';
 
 const SummaryCard = ({ config, route, viewType }) => {
   const [cardFullSize, setCardFullSize] = useState(false);
+  const scrollToRef = useRef();
   const navigate = useNavigate();
   const trend = 'up';
 
   return (
-    <div className='summary-card'>
+    <div id={`${config.key}-summary-card`} ref={scrollToRef} className='summary-card'>
       <div className='summary-card-header' role='heading'>
         <div className='summary-card-title'>
           {viewType === 'mobile' ? (
             <Icon
               name={`angle ${cardFullSize ? 'up' : 'down'}`}
-              // size='large'
               link
-              onClick={() => setCardFullSize(!cardFullSize)}
+              onClick={() => {
+                setCardFullSize(!cardFullSize);
+                scrollToRef.current.scrollIntoView({ behavior: 'smooth' });
+              }}
             />
           ) : null}
           <div

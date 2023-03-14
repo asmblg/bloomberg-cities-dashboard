@@ -80,14 +80,14 @@
     height: 100%;
   }
 
-  .about-container, .title-container {
+  .about-container,
+  .title-container {
     width: 50%;
   }
 
   .header-logo {
     height: 50%;
   }
-
 
   .about-container {
     padding-right: 0;
@@ -107,7 +107,7 @@
     height: 40%;
     width: 275px;
     padding: 5px 0;
-    z-index: 9;
+    z-index: 99999;
     border: 1px solid var(--background-color);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }

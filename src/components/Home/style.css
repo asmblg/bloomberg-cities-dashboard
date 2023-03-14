@@ -1,6 +1,5 @@
 .home-wrapper {
   display: flex;
-  height: 100%;
 }
 
 .overview-wrapper,
@@ -22,25 +21,66 @@
   flex-direction: column;
 }
 
+.summary-content {
+  height: 100%;
+  background-color: white;
+  border: 2px solid var(--background-color);
+  padding: 1% 2%;
+  z-index: 999;
+}
+
+.summary-tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  position: relative;
+  /* top: 5px; */ /* adds raised look on tab */
+  top: 1.5px;
+}
+
+.summary-tabs:hover {
+  cursor: pointer;
+}
+
+.selected-tab,
+.unselected-tab {
+  height: 50px;
+  width: 20%;
+  background-color: white;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1%;
+}
+
+.unselected-tab:hover {
+  opacity: 0.75;
+}
+
+.selected-tab {
+  border: 2px solid var(--background-color);
+  border-bottom: none;
+  z-index: 9999;
+}
+
 .summary-header {
-  height: 15%;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .large-summary-title {
   font-size: 25px;
   line-height: 1.2;
-}
-
-.quarter-change-title {
-  opacity: 0.5;
+  opacity: 0.9;
 }
 
 .summary-cards-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding-top: 1%;
-  height: 85%;
+  gap: 50px;
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
@@ -64,8 +104,6 @@
 
   .summary-cards-container {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-bottom: 10px;
   }
 }
 
@@ -78,6 +116,7 @@
   .overview-wrapper {
     background-image: none;
     background-color: var(--secondary-color);
+    z-index: 999999;
     color: white;
     margin: 0;
     padding: 0;
@@ -87,9 +126,18 @@
     padding: 5%;
   }
 
+  .summary-content {
+    background-color: transparent;
+    border: none;
+  }
+
   .summary-header {
-    height: 20%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 25%;
     font-size: 14px;
+    gap: 5px;
   }
 
   .large-summary-title {
@@ -99,5 +147,6 @@
   .summary-cards-container {
     grid-template-columns: repeat(1, 1fr);
     height: 80%;
+    gap: 10px;
   }
 }

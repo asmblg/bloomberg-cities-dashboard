@@ -4,15 +4,21 @@ import PropTypes from 'prop-types';
 import greenDotIcon from './images/update_dot_green.png';
 import './style.css';
 
-const LastUpdate = ({ date }) => (
-  <div className='updated-date-title half-opacity'>
+const LastUpdate = ({ date, width }) => (
+  <div
+    className='updated-date-title half-opacity'
+    style={{
+      width
+    }}
+  >
     <img src={greenDotIcon} />
-    Last Updated {date}
+    <div>Last Updated {date}</div>
   </div>
 );
 
 LastUpdate.propTypes = {
-  date: PropTypes.string
+  date: PropTypes.string,
+  width: PropTypes.string
 };
 
 export default LastUpdate;

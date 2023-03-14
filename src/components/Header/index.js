@@ -12,7 +12,7 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
   const [selectedLink, setSelectedLink] = useState(getCurrentRoute(project, sectionKeys) || 'home');
   const [menuOpen, setMenuOpen] = useState(false);
   const logoSrc = logos[project];
-  
+
   const linkClickHandler = key => {
     setSelectedLink(key);
 
@@ -46,7 +46,6 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
           ) : (
             <>
               <Link to={`/${project}/about`}>{'About the project'}</Link>
-              <Link to={`/${project}/docs`}>{'Data documentation'}</Link>
             </>
           )}
         </div>
@@ -81,16 +80,18 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
               >
                 About the project
               </Link>
-              <Link
-                className={`nav-link ${
-                  selectedLink === 'docs' ? 'selected-nav-link' : 'unselected-nav-link'
-                }`}
-                key={'nav-link-docs'}
-                to={`/${project}/docs`}
-                onClick={() => linkClickHandler('docs')}
-              >
-                Data documentation
-              </Link>
+              {viewType === 'mobile' ? (
+                <Link
+                  className={`nav-link ${
+                    selectedLink === 'docs' ? 'selected-nav-link' : 'unselected-nav-link'
+                  }`}
+                  key={'nav-link-docs'}
+                  to={`/${project}/docs`}
+                  onClick={() => linkClickHandler('docs')}
+                >
+                  Data documentation
+                </Link>
+              ) : null}
             </>
           ) : null}
         </nav>

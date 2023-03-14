@@ -19,6 +19,7 @@ const Layout = ({ config }) => {
 
   useEffect(() => {
     const updateViewType = () => setViewType(handleViewType());
+
     updateViewType();
     window.addEventListener('resize', updateViewType);
     // Cleanup Function

@@ -1,11 +1,5 @@
-/* .overview-card {
-  padding: 5%;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-} */
-
-.overview-title, .overview-body {
+.overview-title,
+.overview-body {
   padding: 5%;
 }
 
@@ -17,13 +11,11 @@
 
 .overview-body {
   line-height: 1.75;
-  /* font-size: 1vw; */
   font-size: 20px;
 }
 
 .overview-body > div {
   margin: 10% 0;
-  /* margin: 10%; */
 }
 
 .overview-icons {
@@ -43,15 +35,12 @@
 @media screen and (max-width: 1770px) {
   .overview-body {
     font-size: 18px;
-    /* padding: 0; */
   }
-
 }
 
 @media screen and (max-width: 1580px) {
   .overview-body {
     font-size: 16px;
-    /* padding: 0; */
   }
 }
 

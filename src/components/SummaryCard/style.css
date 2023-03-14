@@ -1,10 +1,9 @@
 .summary-card {
-  border: 1px solid var(--background-color);
+  border-top: 1px solid var(--background-color);
   background-color: white;
-  /* height: 100%; */
   height: 100%;
   width: 100%;
-  padding: 5%;
+  padding-top: 10%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -36,7 +35,6 @@
 .summary-chart,
 .summary-data {
   min-height: 100px;
-  /* width: 50%; */
   align-self: center;
   margin: 2% 0;
 }
@@ -94,6 +92,7 @@
 @media screen and (max-width: 767px) {
   .summary-card {
     padding: 2%;
+    border: 1px solid var(--background-color);
   }
 
   .summary-card-title {

@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Home from '../Home';
 import DetailCard from '../DetailCard';
 import AboutProject from '../AboutProject';
-import DataDocumentation from '../DataDocumentation';
 
 const SectionRouter = ({ project, sections, sectionKeys, viewType }) => (
   <Routes>
@@ -41,7 +40,7 @@ const SectionRouter = ({ project, sections, sectionKeys, viewType }) => (
     <Route
       key={'docs-route'}
       path={`/${project.toLowerCase()}/docs`}
-      element={<DataDocumentation viewType={viewType} />}
+      element={<Home config={sections['home']} project={project} viewType={viewType} docs={true} />}
     />
   </Routes>
 );
