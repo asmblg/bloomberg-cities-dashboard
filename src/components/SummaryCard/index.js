@@ -53,15 +53,19 @@ const SummaryCard = ({ config, route, viewType }) => {
               <div className='summary-value'>{'89.9'}</div>
               <div className='summary-units'>{config.units}</div>
             </div>
-            <div className='summary-chart'>
-              <Chart
-                data={null}
-                config={config.chart}
-                height={100}
-                width={'100%'}
-                margin={{ top: 30, right: 0, bottom: -10, left: -29 }}
-              />
-            </div>
+            {config.chart?.type ? (
+              <div className='summary-chart'>
+                <Chart
+                  data={null}
+                  config={
+                    config.chart.type !== 'donut' ? config.chart : { ...config.chart, radius: 40 }
+                  }
+                  height={100}
+                  width={'100%'}
+                  margin={{ top: 30, right: 0, bottom: -10, left: -29 }}
+                />
+              </div>
+            ) : null}
           </div>
           {viewType !== 'mobile' && (trend === 'up' || trend === 'down') ? (
             <div className={trend === 'up' ? 'upward-trend' : 'downward-trend'}>

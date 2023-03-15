@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
 
-const ColumnChart = ({ xaxis, color, accentColor, height, width, margin, dataArray }) => {
+const ColumnChart = ({ color, accentColor, height, width, margin, dataArray }) => {
   return dataArray && dataArray[0] ? (
     <ResponsiveContainer height={height} width={width}>
       <BarChart data={dataArray} barGap={0} barCategoryGap={0} margin={margin}>
-        <XAxis dataKey={xaxis} />
+        <XAxis dataKey={'name'} />
         <YAxis tickCount={1} axisLine={false} />
         <Bar
           dataKey={'value'}

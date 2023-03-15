@@ -13,7 +13,6 @@ const HorizontalBarChart = ({ color, height, width, dataArray, margin }) => {
           tickCount={dataArray.length}
           axisLine={false}
           tickLine={false}
-          padding={{ bottom: 20 }}
         />
         <Bar dataKey={'value'} fill={color} barSize={20}>
           <LabelList position={'right'} dataKey={'value'} />

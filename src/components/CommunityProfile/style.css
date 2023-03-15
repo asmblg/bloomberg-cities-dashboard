@@ -1,0 +1,92 @@
+.cp-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 33%;
+  padding: 2%;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.cp-section:first-child {
+  border-right: 3px solid var(--primary-border-color);
+}
+
+.cp-title {
+  height: 15%;
+}
+
+.cp-data-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 85%;
+  padding: 2% 0;
+}
+
+.cp-data-title {
+  line-height: 1.25;
+  padding: 2% 0;
+}
+
+.cp-indicator-label {
+  display: flex;
+  flex-direction: row;
+}
+
+.cp-indicator-label > h2 {
+  font-size: 20px;
+}
+
+.cp-indicator-value {
+  font-size: 30px;
+}
+
+.cp-chart-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2% 0;
+  height: 100%;
+}
+
+.cp-chart-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.cp-donut-chart {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2%;
+}
+
+.cp-donut-chart > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.donut-value {
+  margin-left: 20px;
+}
+
+.cp-donut-chart > h4 {
+  width: 55%;
+}
+
+.cp-map-dropdown {
+  display: flex;
+  /* justify-content: space-between; */
+  border-bottom: 2px solid var(--primary-border-color);
+  /* height: 10%; */
+}
+
+.cp-map-wrapper {
+  height: 93%;
+  border: 2px solid var(--primary-border-color);
+}

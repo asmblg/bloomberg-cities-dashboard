@@ -5,6 +5,8 @@ h4,
 h5 {
   font-family: 'RobotoRegular', sans-serif;
   font-weight: normal;
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -27,13 +29,6 @@ a:hover {
   background-image: url('/public/images/background_300x300.png');
   width: 100vw;
   height: 100vh;
-}
-
-.edd-title {
-  width: 250px;
-  font-size: 26px;
-  overflow-wrap: break-word;
-  line-height: 0.9;
 }
 
 .primary-font {
@@ -74,6 +69,29 @@ a:hover {
 
 .half-opacity {
   opacity: 0.5;
+}
+
+.underline-container {
+  border-bottom: 3px solid var(--primary-border-color);
+}
+
+.edd-title {
+  width: 250px;
+  font-size: 26px;
+  overflow-wrap: break-word;
+  line-height: 0.9;
+}
+
+.info-icon {
+  margin-left: 10px;
+  opacity: 0.5;
+  height: 20px;
+  width: auto;
+}
+
+.info-icon:hover {
+  opacity: 1;
+  cursor: pointer;
 }
 
 /* Initial Tablet Breakpoint */

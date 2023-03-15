@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { LineChart as LChart, XAxis, YAxis, Line, ResponsiveContainer } from 'recharts';
 
-const LineChart = ({ dataArray, xaxis, color, height, width, margin }) => {
+const LineChart = ({ dataArray, color, height, width, margin }) => {
   return dataArray && dataArray[0] ? (
     <ResponsiveContainer height={height} width={width}>
       <LChart data={dataArray} margin={margin}>
-        <XAxis dataKey={xaxis} tickCount={1} />
+        <XAxis dataKey={'name'} tickCount={1} />
         <YAxis axisLine={false} tickCount={1} />
         <Line dataKey={'value'} dot={false} stroke={color || 'black'} strokeWidth={4} />
       </LChart>

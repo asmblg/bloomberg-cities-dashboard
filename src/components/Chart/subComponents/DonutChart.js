@@ -2,22 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ResponsiveContainer, PieChart, Pie, Cell, Label as PieLabel } from 'recharts';
 
-const DonutChart = ({ label, color, height, width, dataArray }) => {
+const DonutChart = ({ label, height, width, radius, dataArray }) => {
   return dataArray && dataArray[0] ? (
     <ResponsiveContainer height={height} width={width}>
-      <PieChart title={`${label}: ${dataArray[0].value}`}>
+      <PieChart title={label ? `${label}: ${dataArray[0].value}` : null}>
         <Pie
           data={dataArray}
           dataKey={'value'}
           cx={'50%'}
           cy={'50%'}
-          outerRadius={40}
-          innerRadius={25}
+          outerRadius={radius}
+          innerRadius={radius / 2}
           startAngle={-270}
           endAngle={90}
-          fill={color || 'black'}
         >
-          <PieLabel opacity={0.5} position={'center'} value={label} />
+          {label ? <PieLabel opacity={0.5} position={'center'} value={label} /> : null}
+
           {dataArray.map(({ fillColor, value }, i) => (
             <Cell key={`donut-chart-cell-${value}-${i}`} fill={fillColor} />
           ))}
@@ -32,7 +32,8 @@ DonutChart.propTypes = {
   color: PropTypes.string,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  dataArray: PropTypes.array
+  dataArray: PropTypes.array,
+  radius: PropTypes.number
 };
 
 export default DonutChart;
