@@ -13,8 +13,12 @@
   border-right: 3px solid var(--primary-border-color);
 }
 
-.cp-title {
+.cp-header {
   height: 15%;
+}
+
+.cp-header-title {
+  margin-left: 10px;
 }
 
 .cp-data-wrapper {
@@ -90,3 +94,19 @@
   height: 93%;
   border: 2px solid var(--primary-border-color);
 }
+
+/* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Desktop Breakpoint */
+@media screen and (max-width: 1700px) {
+  .cp-header-title > h2 {
+    font-size: 18px;
+  }
+
+  .cp-header > div > i {
+    font-size: 24px !important;
+  }
+}
+
+/* Initial Tablet Breakpoint */
+/* @media screen and (max-width: 1280px) {
+} */

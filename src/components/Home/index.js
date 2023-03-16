@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import OverviewCard from '../OverviewCard';
 import SummaryCard from '../SummaryCard';
 import DataDocumentation from '../DataDocumentation';
-import LastUpdate from '../LastUpdate';
+import LastUpdateIcon from '../LastUpdateIcon';
 
 import './style.css';
 
@@ -55,7 +55,7 @@ const Home = ({ config, project, viewType, docs }) => {
                   <div className='large-summary-title bold-font'>KEY INDICATORS</div>
                 ) : null}
                 <div className='large-summary-title'>{quarterChangeStr}</div>
-                <LastUpdate
+                <LastUpdateIcon
                   date={'01/25/2023 11:55 AM'}
                   width={viewType === 'mobile' ? '100%' : 'auto'}
                 />

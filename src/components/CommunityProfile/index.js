@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
 import Chart from '../Chart';
-import LastUpdate from '../LastUpdate';
+import LastUpdateIcon from '../LastUpdateIcon';
 
 import infoIcon from '../../assets/icons/info.png';
 import './style.css';
 
+// --- TEST Data ---
 const popTestData = [
   {
     id: 1,
@@ -55,18 +56,21 @@ const hhDonutChartArray = [
     value: 55.8
   }
 ];
-
-const loremIpsum =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl purus in mollis nunc sed id semper. Sodales ut eu sem integer vitae.';
+// -----------------
 
 const CommunityProfile = ({ label }) => {
   return (
     <>
       <div className='cp-section'>
-        <div className='cp-title'>
-          <h1 className='bold-font'>{label.toUpperCase()}</h1>
-          <h4 className='thin-font'>{'Q4 2022 Update'}</h4>
-          <LastUpdate date={'01/25/2023 11:55 AM'} width={'100%'} />
+        <div className='cp-header flex-column'>
+          <div className='flex-row'>
+            <Icon name='users' size='big' />
+            <div className='cp-header-title'>
+              <h2 className='bold-font'>{label.toUpperCase()}</h2>
+              <h3>{'Q4 2022 Update'}</h3>
+            </div>
+          </div>
+          <LastUpdateIcon date={'01/25/2023 11:55 AM'} width={'100%'} />
         </div>
         <div className='cp-data-wrapper'>
           <div className='cp-data-title'>
@@ -105,7 +109,11 @@ const CommunityProfile = ({ label }) => {
         </div>
       </div>
       <div className='cp-section'>
-        <div>{loremIpsum}</div>
+        <div>
+          {
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisl purus in mollis nunc sed id semper. Sodales ut eu sem integer vitae.'
+          }
+        </div>
         <div className='cp-data-wrapper'>
           <div className='cp-data-title underline-container'>
             <div className='cp-indicator-label'>
@@ -129,7 +137,7 @@ const CommunityProfile = ({ label }) => {
                       height={50}
                       width={50}
                     />
-                    <h1 className='donut-value bold-font'>{value}%</h1>
+                    <h1 className='donut-value bold-font'>{value}</h1>
                   </div>
 
                   <h4>{label}</h4>
