@@ -19,11 +19,17 @@
             "label": "Job growth",
             "units": "Jobs added",
             "key": "jobs",
-            "dataPath": "jobs.msa.totaljobs",
+            "dataPath": "jobs.msa.tampa.total",
             "chart": {
               "type": "column",
-              "xaxis": "quarter",
-              "range": 4,
+              "xaxis": {
+                "type": "date",
+                "labelFormatter": "monthToQuarter", 
+                "tickCount": 4
+              },
+              "yaxis": {
+                "tickCount": 1
+              },
               "color": "#006aaf",
               "accentColor": "#002944"
             }
@@ -32,7 +38,7 @@
             "label": "CDB Office Occupancy",
             "units": "Occupancy rate",
             "key": "realestate",
-            "dataPath": "realestate.cbd.office.occupancy",
+            "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
             "chart": {
               "type": "donut",
               "label": "CBD",

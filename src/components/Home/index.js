@@ -22,10 +22,16 @@ const summaryTabs = [
   }
 ];
 
+
 const Home = ({ config, project, viewType, docs }) => {
   const tab = docs ? 'docs' : 'indicators';
   const { summaryCards } = config;
   const quarterChangeStr = 'Q3 2022 - Q4 2022 CHANGE';
+  // const [data, setData] = useState();
+
+  // GET DATA USING SELECT FROM 
+  // CONCATENATED MAPPING OF SUMMARY CARD DATA PATHS
+  // AND THEN SENT
 
   return (
     <div className='home-wrapper'>
