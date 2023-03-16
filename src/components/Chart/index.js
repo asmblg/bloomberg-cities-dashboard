@@ -42,7 +42,13 @@ const Chart = ({ config, height, width, margin, data }) => {
         return dataArr;
       }
       case 'donut': {
-        const obj = { ...data };
+        const obj = data
+          ? { ...data }
+          : {
+            id: 'employment',
+            label: 'Test',
+            value: 17.3
+          };
         const dataArr = [
           { name: obj.label, value: obj.value, fillColor: color },
           { name: obj.label, value: 100 - obj.value, fillColor: '#dfe5e9' } // if donuts are percentages, second entry will be 100%
