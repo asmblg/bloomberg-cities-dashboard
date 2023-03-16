@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { getConfig } from './App.utils';
+import { getConfig } from './utils/API';
 import Layout from './components/Layout';
 
 const App = () => {
@@ -10,7 +10,10 @@ const App = () => {
 
   // Parse Project name from URL path
   const project = document.location.pathname.split('/').filter(str => str)[0]
-    ? document.location.pathname.split('/').filter(str => str)[0].toLowerCase()
+    ? document.location.pathname
+      .split('/')
+      .filter(str => str)[0]
+      .toLowerCase()
     : null;
 
   //Get Config
@@ -41,15 +44,7 @@ const App = () => {
 
   return (
     <div className='App'>
-      {project && config ? (
-        <Layout
-          config={config}
-        />
-      ) : !project ? (
-        '404'
-      ) : (
-        'Loading...'
-      )}
+      {project && config ? <Layout config={config} /> : !project ? '404' : 'Loading...'}
     </div>
   );
 };

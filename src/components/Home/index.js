@@ -7,6 +7,7 @@ import SummaryCard from '../SummaryCard';
 import DataDocumentation from '../DataDocumentation';
 import LastUpdateIcon from '../LastUpdateIcon';
 
+import { getHomeData } from '../../utils/API';
 import './style.css';
 
 const summaryTabs = [
@@ -22,16 +23,24 @@ const summaryTabs = [
   }
 ];
 
-
 const Home = ({ config, project, viewType, docs }) => {
   const tab = docs ? 'docs' : 'indicators';
   const { summaryCards } = config;
   const quarterChangeStr = 'Q3 2022 - Q4 2022 CHANGE';
+  // console.log(summaryCards);
   // const [data, setData] = useState();
 
-  // GET DATA USING SELECT FROM 
+  // GET DATA USING SELECT FROM
   // CONCATENATED MAPPING OF SUMMARY CARD DATA PATHS
   // AND THEN SENT
+  // const getData = async (project, summaryCards) => {
+  //   const selectStr = summaryCards.map(({ dataPath }) => `data.${dataPath}`).join(' ');
+  //   const test = await getHomeData(project, selectStr);
+  //   console.log(test);
+  //   return summaryCards;
+  // };
+
+  // getData(project, summaryCards);
 
   return (
     <div className='home-wrapper'>
