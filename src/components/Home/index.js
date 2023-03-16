@@ -60,7 +60,7 @@ const Home = ({ config, project, viewType, docs }) => {
                 {viewType === 'mobile' ? (
                   <div className='large-summary-title bold-font'>KEY INDICATORS</div>
                 ) : null}
-                <div className='large-summary-title'>{quarterChangeStr}</div>
+                <h3>{quarterChangeStr}</h3>
                 <LastUpdateIcon
                   date={'01/25/2023 11:55 AM'}
                   width={viewType === 'mobile' ? '100%' : 'auto'}

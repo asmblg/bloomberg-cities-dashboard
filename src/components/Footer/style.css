@@ -33,12 +33,12 @@
 
 .partner-logos-container > img {
   width: auto;
-  height: 55px;
+  height: 45px;
   align-self: center;
 }
 
 #block-footer-logo {
-  height: 65px;
+  height: 55px;
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */

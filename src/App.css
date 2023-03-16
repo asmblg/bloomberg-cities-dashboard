@@ -10,23 +10,23 @@ h5 {
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 2rem;
 }
 
 h2 {
-  font-size: 26px;
+  font-size: 1.75rem;
 }
 
 h3 {
-  font-size: 22px;
+  font-size: 1.5rem;
 }
 
 h4 {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 h5 {
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 a {
@@ -103,13 +103,6 @@ a:hover {
 
 .underline-container {
   border-bottom: 3px solid var(--primary-border-color);
-}
-
-.edd-title {
-  width: 250px;
-  font-size: 26px;
-  overflow-wrap: break-word;
-  line-height: 0.9;
 }
 
 .info-icon {

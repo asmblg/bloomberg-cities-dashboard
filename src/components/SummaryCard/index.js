@@ -28,7 +28,7 @@ const SummaryCard = ({ config, route, viewType }) => {
               }}
             />
           ) : null}
-          <div
+          <h3
             onClick={() => {
               if (viewType !== 'mobile') {
                 navigate(route);
@@ -36,7 +36,7 @@ const SummaryCard = ({ config, route, viewType }) => {
             }}
           >
             {config.label.toUpperCase()}
-          </div>
+          </h3>
         </div>
 
         {viewType === 'mobile' && (trend === 'up' || trend === 'down') ? (

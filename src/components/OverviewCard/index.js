@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
+import DashboardTitle from '../DashboardTitle';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
 import './style.css';
 
 const OverviewCard = ({ viewType }) => {
   const [overviewOpen, setOverviewOpen] = useState(true);
   const overviewConfig = {
-    title: 'ECONOMIC DEVELOPMENT DASHBOARD',
+    title: 'ECONOMIC DASHBOARD',
     content: [
       {
         title: 'CITY OF TAMPA ECONOMIC DATA.',
@@ -28,7 +29,9 @@ const OverviewCard = ({ viewType }) => {
       {overviewOpen ? (
         <>
           {viewType === 'desktop' ? (
-            <div className='edd-title overview-title bold-font'>{overviewConfig.title}</div>
+            <div className='overview-title'>
+              <DashboardTitle title={'ECONOMIC DASHBOARD'} fontSize={'3rem'} />
+            </div>
           ) : null}
 
           <div className='overview-body'>

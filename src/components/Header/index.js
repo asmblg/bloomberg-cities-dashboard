@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
+import DashboardTitle from '../DashboardTitle';
+
 import { logos } from '../../config/logos';
 import { getCurrentRoute } from './utils';
 import homeIcon from './images/home_icon.png';
@@ -21,18 +23,18 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
     }
   };
 
+  // const splitHeaderTitle = title => title.split(' ');
+
   return viewType ? (
     <>
       <div className='brand-container'>
         <div className='title-container'>
           <img className='header-logo' src={logoSrc} />
-          {viewType !== 'mobile' ? (
-            <div className='edd-title bold-font'>{headerConfig.title}</div>
-          ) : null}
+          {viewType !== 'mobile' ? <DashboardTitle title={headerConfig.title} /> : null}
         </div>
         <div className='about-container'>
           {viewType === 'mobile' ? (
-            <div className='edd-title bold-font'>{headerConfig.title}</div>
+            <DashboardTitle title={headerConfig.title} padding={'5%'} />
           ) : null}
           {viewType === 'tablet' || viewType === 'mobile' ? (
             <Icon
