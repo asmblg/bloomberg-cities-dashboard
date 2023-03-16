@@ -34,7 +34,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
 }
 
 .summary-tabs {
@@ -73,7 +72,6 @@
 }
 
 .summary-header {
-  height: 10%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -89,7 +87,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 50px;
-  height: 90%;
+  height: 100%;
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
