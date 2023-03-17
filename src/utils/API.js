@@ -15,7 +15,7 @@ const getHomeData = (project, select) =>
   axios.get('http://localhost:3001/data', {
     params: {
       project,
-      select
+      select: `updatedOn ${select}`
     }
   });
 

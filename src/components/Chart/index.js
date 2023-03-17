@@ -11,85 +11,27 @@ import './style.css';
 const Chart = ({ config, height, width, margin, data }) => {
   const { type, label, color, accentColor, range, radius } = config;
 
-  // Filler functionality until data is flowing
-  const handleDataArray = (type, data, color) => {
+  // Initialized data handler for chart types
+  const handleData = (type, data, color) => {
     switch (type) {
       case 'column': {
-        const dataArr = data
-          ? [...data]
-          : [
-            {
-              // name: xaxis,
-              name: 'Q1',
-              value: 44
-            },
-            {
-              // name: xaxis,
-              name: 'Q2',
-              value: 38
-            },
-            {
-              // name: xaxis,
-              name: 'Q3',
-              value: 65
-            },
-            {
-              // name: xaxis,
-              name: 'Q4',
-              value: 52
-            }
-          ];
-        return dataArr;
+        console.log('chart', data);
+        return null;
       }
       case 'donut': {
-        const obj = data
-          ? { ...data }
-          : {
-            id: 'employment',
-            label: 'Test',
-            value: 17.3
-          };
-        const dataArr = [
-          { name: obj.label, value: obj.value, fillColor: color },
-          { name: obj.label, value: 100 - obj.value, fillColor: '#dfe5e9' } // if donuts are percentages, second entry will be 100%
-        ];
-
-        return dataArr;
+        console.log('chart', data);
+        return null;
       }
       case 'line': {
-        const dataArray = data
-          ? [...data]
-          : [
-            {
-              name: 'Q1',
-              value: 29
-            },
-            {
-              name: 'Q2',
-              value: 65
-            },
-            {
-              name: 'Q3',
-              value: 45
-            },
-            {
-              name: 'Q4',
-              value: 72
-            }
-          ];
-
-        return dataArray;
+        console.log('chart', data);
+        return null;
       }
       case 'horizontal-bar': {
-        const dataArr = [...data].map(({ label, value }) => ({
-          name: label,
-          value
-        }));
-
-        return dataArr;
+        console.log('chart', data, color);
+        return null;
       }
       default: {
-        return [];
+        return null;
       }
     }
   };
@@ -98,7 +40,7 @@ const Chart = ({ config, height, width, margin, data }) => {
     case 'line': {
       return (
         <LineChart
-          dataArray={handleDataArray(type, data, color)}
+          data={handleData(type, data, color)}
           color={color}
           height={height}
           width={width}
@@ -110,7 +52,7 @@ const Chart = ({ config, height, width, margin, data }) => {
     case 'column': {
       return (
         <ColumnChart
-          dataArray={handleDataArray(type, data, color)}
+          data={handleData(type, data, color)}
           color={color}
           accentColor={accentColor}
           height={height}
@@ -123,7 +65,7 @@ const Chart = ({ config, height, width, margin, data }) => {
     case 'donut': {
       return (
         <DonutChart
-          dataArray={handleDataArray(type, data, color)}
+          data={handleData(type, data, color)}
           label={label}
           color={color}
           height={height}
@@ -135,6 +77,7 @@ const Chart = ({ config, height, width, margin, data }) => {
     case 'horizontal-bar': {
       return (
         <HorizontalBarChart
+          data={handleData(type, data, color)}
           label={label}
           color={color}
           accentColor={accentColor}
@@ -142,7 +85,6 @@ const Chart = ({ config, height, width, margin, data }) => {
           width={width}
           margin={margin}
           range={range}
-          dataArray={handleDataArray(type, data)}
         />
       );
     }

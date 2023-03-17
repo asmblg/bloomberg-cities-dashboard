@@ -4,18 +4,23 @@ import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
 import Chart from '../Chart';
+
+import getValueFromObjectByString from '../../utils/getValueFromObjectByString';
 import upwardTrendIcon from './images/upward_trend_icon.png';
 import downwardTrendIcon from './images/downward_trend_icon.png';
 import './style.css';
 
-const SummaryCard = ({ config, route, viewType }) => {
+const SummaryCard = ({ config, data, route, viewType }) => {
   const [cardFullSize, setCardFullSize] = useState(false);
   const scrollToRef = useRef();
   const navigate = useNavigate();
-  const trend = 'up';
+  const { chart, dataPath, key, label, units } = config;
+  const summaryData = getValueFromObjectByString(key, data, dataPath);
+  const quarterChange = null;
+  const trend = null;
 
   return (
-    <div id={`${config.key}-summary-card`} ref={scrollToRef} className='summary-card'>
+    <div id={`${key}-summary-card`} ref={scrollToRef} className='summary-card'>
       <div className='summary-card-header' role='heading'>
         <div className='summary-card-title'>
           {viewType === 'mobile' ? (
@@ -35,7 +40,7 @@ const SummaryCard = ({ config, route, viewType }) => {
               }
             }}
           >
-            {config.label.toUpperCase()}
+            {label.toUpperCase()}
           </h3>
         </div>
 
@@ -50,22 +55,21 @@ const SummaryCard = ({ config, route, viewType }) => {
         <>
           <div className='summary-data-wrapper'>
             <div className='summary-data bold-font'>
-              <div className='summary-value'>{'89.9'}</div>
-              <div className='summary-units'>{config.units}</div>
+              <h3 className='bold-font'>{quarterChange || '-'}</h3>
+              {units ? <h5 className='summary-units'>{units}</h5> : null}
             </div>
-            {config.chart?.type ? (
-              <div className='summary-chart'>
+
+            <div className='summary-chart'>
+              {chart?.type ? (
                 <Chart
-                  data={null}
-                  config={
-                    config.chart.type !== 'donut' ? config.chart : { ...config.chart, radius: 40 }
-                  }
+                  data={summaryData}
+                  config={chart.type !== 'donut' ? chart : { ...chart, radius: 40 }}
                   height={100}
                   width={'100%'}
                   margin={{ top: 30, right: 0, bottom: -10, left: -29 }}
                 />
-              </div>
-            ) : null}
+              ) : null}
+            </div>
           </div>
           {viewType !== 'mobile' && (trend === 'up' || trend === 'down') ? (
             <div className={trend === 'up' ? 'upward-trend' : 'downward-trend'}>
@@ -81,6 +85,7 @@ const SummaryCard = ({ config, route, viewType }) => {
 
 SummaryCard.propTypes = {
   config: PropTypes.object,
+  data: PropTypes.object,
   route: PropTypes.string,
   viewType: PropTypes.string
 };

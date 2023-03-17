@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -7,7 +7,7 @@ import SummaryCard from '../SummaryCard';
 import DataDocumentation from '../DataDocumentation';
 import LastUpdateIcon from '../LastUpdateIcon';
 
-import { getHomeData } from '../../utils/API';
+import { handleHomeData } from './utils';
 import './style.css';
 
 const summaryTabs = [
@@ -24,23 +24,14 @@ const summaryTabs = [
 ];
 
 const Home = ({ config, project, viewType, docs }) => {
+  const [data, setData] = useState(null);
   const tab = docs ? 'docs' : 'indicators';
   const { summaryCards } = config;
   const quarterChangeStr = 'Q3 2022 - Q4 2022 CHANGE';
-  // console.log(summaryCards);
-  // const [data, setData] = useState();
 
-  // GET DATA USING SELECT FROM
-  // CONCATENATED MAPPING OF SUMMARY CARD DATA PATHS
-  // AND THEN SENT
-  // const getData = async (project, summaryCards) => {
-  //   const selectStr = summaryCards.map(({ dataPath }) => `data.${dataPath}`).join(' ');
-  //   const test = await getHomeData(project, selectStr);
-  //   console.log(test);
-  //   return summaryCards;
-  // };
-
-  // getData(project, summaryCards);
+  useEffect(() => {
+    handleHomeData(project, summaryCards).then(res => setData(res));
+  }, [project, summaryCards]);
 
   return (
     <div className='home-wrapper'>
@@ -71,7 +62,7 @@ const Home = ({ config, project, viewType, docs }) => {
                 ) : null}
                 <h3>{quarterChangeStr}</h3>
                 <LastUpdateIcon
-                  date={'01/25/2023 11:55 AM'}
+                  date={data?.updatedOn}
                   width={viewType === 'mobile' ? '100%' : 'auto'}
                 />
               </div>
@@ -80,6 +71,7 @@ const Home = ({ config, project, viewType, docs }) => {
                   <SummaryCard
                     key={`home-summary-card-${i}`}
                     config={card}
+                    data={data?.[card.key]}
                     route={`/${project}/${card.key}`}
                     viewType={viewType}
                   />

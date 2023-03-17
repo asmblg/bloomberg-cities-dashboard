@@ -41,7 +41,7 @@
 
 .summary-data {
   display: flex;
-  width: 40%;
+  width: fit-content;
   flex-direction: column;
   justify-content: center;
   line-height: 1;
@@ -49,10 +49,6 @@
 
 .summary-chart {
   width: 60%;
-}
-
-.summary-value {
-  font-size: 30px;
 }
 
 .upward-trend,

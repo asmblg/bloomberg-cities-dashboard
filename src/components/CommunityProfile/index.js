@@ -8,56 +8,6 @@ import LastUpdateIcon from '../LastUpdateIcon';
 import infoIcon from '../../assets/icons/info.png';
 import './style.css';
 
-// --- TEST Data ---
-const popTestData = [
-  {
-    id: 1,
-    label: 'Hispanic (all races)',
-    value: 26
-  },
-  { id: 2, label: 'Asian', value: 45 },
-  { id: 3, label: 'Black African American', value: 13 },
-  { id: 4, label: 'White', value: 67 }
-];
-
-const hhTestData = [
-  {
-    id: 1,
-    label: 'Under 5 years old',
-    value: '26'
-  },
-  { id: 2, label: 'Over 65 years old', value: '33' }
-];
-
-const hhDonutChartArray = [
-  {
-    id: 'employment',
-    label: 'Population employed',
-    value: 17.3
-  },
-  {
-    id: 'living-wage',
-    label: 'Population earning a living wage',
-    value: 63.7
-  },
-  {
-    id: 'home-ownership',
-    label: 'Home ownership',
-    value: 55.8
-  },
-  {
-    id: 'house-cost',
-    label: 'Housing cost-burdened households',
-    value: 46.3
-  },
-  {
-    id: 'bach-degree',
-    label: 'Population 25 years and over with a bachelors degree',
-    value: 55.8
-  }
-];
-// -----------------
-
 const CommunityProfile = ({ label }) => {
   return (
     <>
@@ -87,7 +37,7 @@ const CommunityProfile = ({ label }) => {
             </div>
             <Chart
               config={{ type: 'horizontal-bar', label: 'Race and Ethnicity', color: '#006aaf' }}
-              data={popTestData}
+              data={null}
               height={'100%'}
               width={'100%'}
               margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
@@ -100,7 +50,7 @@ const CommunityProfile = ({ label }) => {
             </div>
             <Chart
               config={{ type: 'horizontal-bar', label: 'Age Groups', color: 'orange' }}
-              data={hhTestData}
+              data={null}
               height={'100%'}
               width={'100%'}
               margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
@@ -128,7 +78,7 @@ const CommunityProfile = ({ label }) => {
               {/* <img className='info-icon' src={infoIcon} /> */}
             </div>
             <div className='cp-donuts-container'>
-              {hhDonutChartArray.map(({ key, label, value }) => (
+              {/* {dataArray.map(({ key, label, value }) => (
                 <div className='cp-donut-chart' key={`cp-donut-chart-${key}`}>
                   <div>
                     <Chart
@@ -142,7 +92,7 @@ const CommunityProfile = ({ label }) => {
 
                   <h4>{label}</h4>
                 </div>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>
