@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ResponsiveContainer, PieChart, Pie, Cell, Label as PieLabel } from 'recharts';
 
-const DonutChart = ({ label, height, width, radius, data }) => {
-  return data ? (
+const DonutChart = ({ label, height, width, radius, dataArray }) => {
+  return dataArray && dataArray[0] ? (
     <ResponsiveContainer height={height} width={width}>
       <PieChart>
         <Pie
-          data={data}
+          data={dataArray}
           dataKey={'value'}
           cx={'50%'}
           cy={'50%'}
@@ -18,13 +18,13 @@ const DonutChart = ({ label, height, width, radius, data }) => {
         >
           {label ? <PieLabel opacity={0.5} position={'center'} value={label} /> : null}
 
-          {data.map(({ fillColor, value }, i) => (
+          {dataArray.map(({ fillColor, value }, i) => (
             <Cell key={`donut-chart-cell-${value}-${i}`} fill={fillColor} />
           ))}
         </Pie>
       </PieChart>
     </ResponsiveContainer>
-  ) : null; // Spinner Here?
+  ) : null;
 };
 
 DonutChart.propTypes = {
@@ -32,7 +32,7 @@ DonutChart.propTypes = {
   color: PropTypes.string,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  data: PropTypes.array,
+  dataArray: PropTypes.array,
   radius: PropTypes.number
 };
 

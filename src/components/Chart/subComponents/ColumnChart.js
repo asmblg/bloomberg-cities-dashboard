@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
 
-const ColumnChart = ({ color, accentColor, height, width, margin, data }) => {
-  return data ? (
+const ColumnChart = ({ color, accentColor, height, width, margin, dataArray }) => {
+  return dataArray && dataArray[0] ? (
     <ResponsiveContainer height={height} width={width}>
-      <BarChart data={data} barGap={0} barCategoryGap={0} margin={margin}>
+      <BarChart data={dataArray} barGap={0} barCategoryGap={0} margin={margin}>
         <XAxis dataKey={'name'} />
         <YAxis tickCount={1} axisLine={false} />
         <Bar
@@ -16,7 +16,7 @@ const ColumnChart = ({ color, accentColor, height, width, margin, data }) => {
         />
       </BarChart>
     </ResponsiveContainer>
-  ) : null; // Spinner?
+  ) : null;
 };
 
 ColumnChart.propTypes = {
@@ -26,7 +26,7 @@ ColumnChart.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   margin: PropTypes.object,
-  data: PropTypes.array,
+  dataArray: PropTypes.array,
   range: PropTypes.number
 };
 

@@ -5,7 +5,8 @@ import { Icon } from 'semantic-ui-react';
 
 import Chart from '../Chart';
 
-import getValueFromObjectByString from '../../utils/getValueFromObjectByString';
+// import getValueFromObjectByString from '../../utils/getValueFromObjectByString';
+import getNestedValue from '../../utils/getNestedValue';
 import upwardTrendIcon from './images/upward_trend_icon.png';
 import downwardTrendIcon from './images/downward_trend_icon.png';
 import './style.css';
@@ -15,9 +16,10 @@ const SummaryCard = ({ config, data, route, viewType }) => {
   const scrollToRef = useRef();
   const navigate = useNavigate();
   const { chart, dataPath, key, label, units } = config;
-  const summaryData = getValueFromObjectByString(key, data, dataPath);
-  const quarterChange = null;
+  const summaryData = getNestedValue(data, dataPath, key);
   const trend = null;
+  const trendValue = null;
+  const summaryValue = null;
 
   return (
     <div id={`${key}-summary-card`} ref={scrollToRef} className='summary-card'>
@@ -47,7 +49,7 @@ const SummaryCard = ({ config, data, route, viewType }) => {
         {viewType === 'mobile' && (trend === 'up' || trend === 'down') ? (
           <div className={trend === 'up' ? 'upward-trend ' : 'downward-trend '}>
             <img src={trend === 'up' ? upwardTrendIcon : downwardTrendIcon} />
-            <p>{`${trend === 'up' ? '+' : '-'} ${'XX.X'}`}</p>
+            <p>{trendValue}</p>
           </div>
         ) : null}
       </div>
@@ -55,26 +57,26 @@ const SummaryCard = ({ config, data, route, viewType }) => {
         <>
           <div className='summary-data-wrapper'>
             <div className='summary-data bold-font'>
-              <h3 className='bold-font'>{quarterChange || '-'}</h3>
+              <h3 className='bold-font'>{summaryValue || '-'}</h3>
               {units ? <h5 className='summary-units'>{units}</h5> : null}
             </div>
 
             <div className='summary-chart'>
-              {chart?.type ? (
+              {chart?.type && summaryData ? (
                 <Chart
                   data={summaryData}
                   config={chart.type !== 'donut' ? chart : { ...chart, radius: 40 }}
                   height={100}
                   width={'100%'}
-                  margin={{ top: 30, right: 0, bottom: -10, left: -29 }}
+                  margin={{ top: 10, right: 0, bottom: -10, left: -20 }}
                 />
               ) : null}
             </div>
           </div>
-          {viewType !== 'mobile' && (trend === 'up' || trend === 'down') ? (
+          {viewType !== 'mobile' && trendValue && trend ? (
             <div className={trend === 'up' ? 'upward-trend' : 'downward-trend'}>
               <img src={trend === 'up' ? upwardTrendIcon : downwardTrendIcon} />
-              <p>{`${trend === 'up' ? '+' : '-'} ${'XX.X'}`}</p>
+              <p>{trendValue}</p>
             </div>
           ) : null}
         </>

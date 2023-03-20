@@ -40,7 +40,7 @@ const Chart = ({ config, height, width, margin, data }) => {
     case 'line': {
       return (
         <LineChart
-          data={handleData(type, data, color)}
+          dataArray={handleData(type, data, color)}
           color={color}
           height={height}
           width={width}
@@ -52,7 +52,7 @@ const Chart = ({ config, height, width, margin, data }) => {
     case 'column': {
       return (
         <ColumnChart
-          data={handleData(type, data, color)}
+          dataArray={handleData(type, data, color)}
           color={color}
           accentColor={accentColor}
           height={height}
@@ -65,7 +65,7 @@ const Chart = ({ config, height, width, margin, data }) => {
     case 'donut': {
       return (
         <DonutChart
-          data={handleData(type, data, color)}
+          dataArray={handleData(type, data, color)}
           label={label}
           color={color}
           height={height}
@@ -77,7 +77,7 @@ const Chart = ({ config, height, width, margin, data }) => {
     case 'horizontal-bar': {
       return (
         <HorizontalBarChart
-          data={handleData(type, data, color)}
+          dataArray={handleData(type, data, color)}
           label={label}
           color={color}
           accentColor={accentColor}

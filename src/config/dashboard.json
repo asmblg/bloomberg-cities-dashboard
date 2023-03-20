@@ -21,10 +21,10 @@
             "key": "jobs",
             "dataPath": "jobs.msa.tampa.total",
             "chart": {
-              "type": "column",
+              "type": "line",
               "xaxis": {
                 "type": "date",
-                "labelFormatter": "monthToQuarter", 
+                "labelFormatter": "monthToQuarter",
                 "tickCount": 4
               },
               "yaxis": {
@@ -87,7 +87,7 @@
             "label": "Capital Investment",
             "units": "Total invested",
             "key": "capital",
-            "dataPath": "capital.city",
+            "dataPath": "capital.city.totalinvestment",
             "chart": {
               "type": "line",
               "xaxis": "quarter",
