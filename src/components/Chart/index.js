@@ -15,19 +15,19 @@ const Chart = ({ config, height, width, margin, data }) => {
   const handleData = (type, data, color) => {
     switch (type) {
       case 'column': {
-        console.log('chart', data);
+        console.log(type, data);
         return null;
       }
       case 'donut': {
-        console.log('chart', data);
+        console.log(type, data);
         return null;
       }
       case 'line': {
-        console.log('chart', data);
+        console.log(type, data);
         return null;
       }
       case 'horizontal-bar': {
-        console.log('chart', data, color);
+        console.log(type, data, color);
         return null;
       }
       default: {
