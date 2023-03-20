@@ -23,11 +23,9 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
     }
   };
 
-  // const splitHeaderTitle = title => title.split(' ');
-
   return viewType ? (
     <>
-      <div className='brand-container'>
+      <div id='dashboard-header'>
         <div className='title-container'>
           <img className='header-logo' src={logoSrc} />
           {viewType !== 'mobile' ? <DashboardTitle title={headerConfig.title} /> : null}
@@ -47,13 +45,55 @@ const Header = ({ headerConfig, project, sectionKeys, sections, viewType }) => {
             />
           ) : (
             <>
-              <Link to={`/${project}/about`}>{'About the project'}</Link>
+              <div
+                className={
+                  selectedLink !== 'home' ? 'about-link-container' : 'selected-about-link-container'
+                }
+              >
+                <Link
+                  className='about-link'
+                  to={`/${project}`}
+                  onClick={() => linkClickHandler('home')}
+                >
+                  {'Economic Dashboard'}
+                </Link>
+              </div>
+              {/* <div
+                className={
+                  selectedLink !== 'housing-dashboard'
+                    ? 'about-link-container'
+                    : 'selected-about-link-container'
+                }
+              >
+                <Link
+                  className='about-link'
+                  to={`/${project}/housing-dashboard`}
+                  onClick={() => linkClickHandler('home')}
+                >
+                  {'Housing Dashboard'}
+                </Link>
+              </div> */}
+              <div
+                className={
+                  selectedLink !== 'about'
+                    ? 'about-link-container'
+                    : 'selected-about-link-container'
+                }
+              >
+                <Link
+                  className='about-link'
+                  to={`/${project}/about`}
+                  onClick={() => linkClickHandler('about')}
+                >
+                  {'About the project'}
+                </Link>
+              </div>
             </>
           )}
         </div>
       </div>
-      {viewType === 'desktop' || menuOpen ? (
-        <nav className='nav-container'>
+      {viewType !== 'desktop' && menuOpen ? (
+        <nav className='nav-dropdown-menu'>
           {sectionKeys.map(key => (
             <Link
               className={`nav-link ${
