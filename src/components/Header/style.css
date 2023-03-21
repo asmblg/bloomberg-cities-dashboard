@@ -90,10 +90,6 @@
   border-bottom: 5px solid var(--primary-color);
 }
 
-.nav-link-icon {
-  width: 25px;
-}
-
 .burger-menu-button {
   opacity: 1 !important;
   color: white !important;

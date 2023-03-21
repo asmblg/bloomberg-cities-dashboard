@@ -1,13 +1,18 @@
 import axios from 'axios';
 import config from '../config/dashboard.json';
 
-const getConfig = async project => {
+const getConfig = async (projectCity, projectType) => {
   // axios.get('https://bloomberg-cities-api.herokuapp.com/config/', {
   //   params: {
   //     project: project
   //   }
   // });
-  const res = config.find(({ project: p }) => p.toLowerCase() === project.toLowerCase());
+  const res = config.find(
+    ({ project, dashboardType }) =>
+      project.toLowerCase() === projectCity.toLowerCase() &&
+      dashboardType.toLowerCase() === projectType.toLowerCase()
+  );
+
   return res;
 };
 

@@ -1,17 +1,3 @@
-.detail-card-wrapper {
-  height: 100%;
-  display: flex;
-}
-
-.detail-card-container {
-  border: 1px solid var(--primary-border-color);
-  margin: 2% 0;
-  background-color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 .detail-card-section {
   display: flex;
   flex-direction: column;
@@ -26,18 +12,7 @@
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 1280px) {
-  .detail-card-container {
-    flex-direction: column;
-    margin-left: var(--tablet-outer-margin);
-    margin-right: var(--tablet-outer-margin);
-  }
-}
+/* @media screen and (max-width: 1280px) {} */
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 767px) {
-  .detail-card-container {
-    margin-left: var(--mobile-outer-margin);
-    margin-right: var(--mobile-outer-margin);
-  }
-}
+/* @media screen and (max-width: 767px) {} */

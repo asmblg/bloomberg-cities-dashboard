@@ -1,6 +1,7 @@
 [
   {
     "project": "Tampa",
+    "dashboardType": "economic",
     "header": {
       "logoURL": "",
       "title": "ECONOMIC DASHBOARD",

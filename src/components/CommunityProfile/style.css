@@ -96,6 +96,12 @@
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Desktop Breakpoint */
 @media screen and (max-width: 1700px) {
+  .cp-header {
+    height: 40%;
+  }
+  .cp-header > div > i {
+    font-size: 24px !important;
+  }
   .cp-header-title > h2 {
     font-size: 18px;
   }
@@ -104,8 +110,8 @@
     font-size: 18px;
   }
 
-  .cp-header > div > i {
-    font-size: 24px !important;
+  .cp-data-wrapper {
+    height: 60%;
   }
 }
 

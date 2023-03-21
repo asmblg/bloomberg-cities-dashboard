@@ -35,7 +35,7 @@ a {
 }
 
 a:hover {
-  color: black;
+  color: initial;
 }
 
 .App {
@@ -50,6 +50,21 @@ a:hover {
   background-image: url('/public/images/background_300x300.png');
   width: 100vw;
   height: 100vh;
+}
+
+.full-card-wrapper {
+  height: 90%;
+  width: 100%;
+  display: flex;
+}
+
+.full-card-container {
+  border: 1px solid var(--primary-border-color);
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .flex-row {
@@ -118,8 +133,23 @@ a:hover {
   cursor: pointer;
 }
 
+.navigation-icon {
+  width: 25px;
+}
+
+/* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1280px) {
+  .full-card-wrapper {
+    height: 98%;
+  }
+
+  .full-card-container {
+    flex-direction: column;
+    margin-left: var(--tablet-outer-margin);
+    margin-right: var(--tablet-outer-margin);
+  }
+
   .edd-title {
     width: 125px;
     font-size: 20px;
@@ -129,6 +159,11 @@ a:hover {
 
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 767px) {
+  .full-card-container {
+    margin-left: var(--mobile-outer-margin);
+    margin-right: var(--mobile-outer-margin);
+  }
+
   .edd-title {
     width: 150px;
     font-size: 20px;

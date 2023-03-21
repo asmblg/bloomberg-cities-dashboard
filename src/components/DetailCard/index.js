@@ -9,8 +9,8 @@ const DetailCard = ({ config, sectionKey }) => {
   const { label } = config;
 
   return (
-    <div className='detail-card-wrapper'>
-      <div className='detail-card-container'>
+    <div className='full-card-wrapper'>
+      <div className='full-card-container'>
         {sectionKey !== 'community' ? (
           <div className='detail-card-section'>
             <div className='detail-title bold-font'>{label.toUpperCase()}</div>

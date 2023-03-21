@@ -1,52 +1,43 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { getConfig } from './utils/API';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { handleConfig } from './App.utils';
 import Layout from './components/Layout';
 
 const App = () => {
   const [config, setConfig] = useState(null);
-  // const [cityData, setCityData] = useState();
-  // const [tractGeoJSON, setTractGeoJSON] = useState();
-
-  // Parse Project name from URL path
-  const project = document.location.pathname.split('/').filter(str => str)[0]
-    ? document.location.pathname
-      .split('/')
-      .filter(str => str)[0]
-      .toLowerCase()
-    : null;
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const defaultCity = 'tampa'; // Will be used when no project name is present or spelling issues
+  const defaultDashboardType = 'economic'; // Will be used when no dashboardType is present or spelling issues
 
   //Get Config
   useEffect(() => {
     // will use abort controller/controller signal when using cloud DB && Axios
-    if (project) {
-      let controller = true;
+    let controller = true;
 
-      getConfig(project).then(res => {
-        if (res && controller) {
-          setConfig(res);
+    handleConfig(pathname, defaultCity, defaultDashboardType).then(({ config: c, redirect }) => {
+      if (c && controller) {
+        setConfig(c);
+
+        if (redirect) {
+          navigate(`${c.project.toLowerCase()}/${c.dashboardType}`);
         }
-      });
-      // Cleanup
-      return () => {
-        // will use abort controller when using DB && Axios
-        controller = false;
-      };
-    }
-    // getCityData(project).then(({ data }) => setCityData(data[0]));
-  }, [project]);
+      }
 
-  // useEffect(() => {
-  //   if (config) {
-  //     getGeoJSON(config.map).then(({ data }) => setTractGeoJSON(data));
-  //   }
-  // }, [config]);
+      if (!c && controller && redirect === '404') {
+        navigate('404');
+      }
+    });
+    // Cleanup
+    return () => {
+      // will use abort controller when using DB && Axios
+      controller = false;
+    };
+  }, []);
 
-  return (
-    <div className='App'>
-      {project && config ? <Layout config={config} /> : !project ? '404' : 'Loading...'}
-    </div>
-  );
+  return <div className='App'>{config ? <Layout config={config} /> : 'Loading...'}</div>;
 };
 
 export default App;
