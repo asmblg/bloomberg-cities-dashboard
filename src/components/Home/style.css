@@ -53,7 +53,7 @@
   .overview-wrapper,
   .summary-wrapper {
     width: 100%;
-    padding: 20px var(--tablet-outer-margin);
+    padding: 10px var(--tablet-outer-margin);
     background-image: url('/public/images/background_300x300.png');
     margin: 0;
   }
@@ -69,6 +69,7 @@
 
   .summary-cards-container {
     grid-template-columns: repeat(2, 1fr);
+    height: fit-content;
   }
 }
 

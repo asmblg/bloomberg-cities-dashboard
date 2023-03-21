@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import OverviewCard from '../OverviewCard';
 import SummaryCard from '../SummaryCard';
-// import DataDocumentation from '../DataDocumentation';
+import ShareAndPrintIcons from '../ShareAndPrintIcons';
 import LastUpdateIcon from '../LastUpdateIcon';
 
 import { handleHomeData } from './utils';
@@ -12,7 +11,7 @@ import './style.css';
 
 const Home = ({ config, project, viewType }) => {
   const [data, setData] = useState(null);
-  // const tab = docs ? 'docs' : 'indicators';
+
   const { summaryCards } = config;
   const quarterChangeStr = 'Q3 2022 - Q4 2022 CHANGE';
 
@@ -49,6 +48,9 @@ const Home = ({ config, project, viewType }) => {
             ))}
           </div>
         </>
+        <div className='home-icons-container'>
+          <ShareAndPrintIcons />
+        </div>
       </div>
     </div>
   );

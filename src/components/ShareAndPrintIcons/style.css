@@ -1,13 +1,32 @@
 .share-print-icons {
   display: flex;
+  justify-content: end;
 }
 
 .share-print-icons > img {
-  margin: 0 10%;
-  width: 50px;
+  margin: 10px;
+  width: 30px;
+  opacity: 0.5;
 }
 
 .share-print-icons > img:hover {
   cursor: pointer;
-  opacity: 0.75;
+  opacity: 1;
+}
+
+/* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Tablet Breakpoint */
+@media screen and (max-width: 1280px) {
+  .share-print-icons > img {
+    width: 24px;
+    opacity: 0.8;
+  }
+}
+
+/* Initial Mobile Breakpoint */
+@media screen and (max-width: 767px) {
+  .share-print-icons > img {
+    width: 18px;
+    margin: 5px;
+  }
 }

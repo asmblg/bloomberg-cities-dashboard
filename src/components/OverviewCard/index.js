@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
 import DashboardTitle from '../DashboardTitle';
-import ShareAndPrintIcons from '../ShareAndPrintIcons';
 import './style.css';
 
 const OverviewCard = ({ viewType }) => {
@@ -44,11 +43,6 @@ const OverviewCard = ({ viewType }) => {
               </div>
             ))}
           </div>
-          {viewType === 'desktop' ? (
-            <div className='overview-icons'>
-              <ShareAndPrintIcons />
-            </div>
-          ) : null}
         </>
       ) : null}
       {viewType === 'mobile' ? (
