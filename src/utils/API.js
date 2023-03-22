@@ -17,7 +17,7 @@ const getConfig = async (projectCity, projectType) => {
 };
 
 const getHomeData = (project, select) =>
-  axios.get('http://localhost:3001/data', {
+  axios.get('https://bloomberg-cities-api.herokuapp.com/data', {
     params: {
       project,
       select: `updatedOn ${select}`
