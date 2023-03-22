@@ -12,7 +12,6 @@ const handleViewType = () => {
 };
 
 const getCurrentRoute = (project, sectionKeys, pathname) => {
-  console.log(pathname, project, sectionKeys);
   const keys = [...sectionKeys];
   keys.push('about', 'docs');
 

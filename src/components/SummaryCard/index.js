@@ -1,23 +1,51 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
 import Chart from '../Chart';
 import TrendPill from '../TrendPill';
 
 import getNestedValue from '../../utils/getNestedValue';
+import getRecentQuarterEndDates from '../../utils/getRecentQuarterEndDates';
+import calculateTrend from '../../utils/calculateTrend';
 import './style.css';
 
-const SummaryCard = ({ config, data, route, viewType }) => {
+const SummaryCard = ({ config, data, viewType }) => {
+  const { chart, dataPath, key, label, units, summary } = config;
+  const allSummaryData = getNestedValue(data, dataPath, key);
+
   const [cardFullSize, setCardFullSize] = useState(false);
+  const [summaryData, setSummaryData] = useState({
+    value: null,
+    trendDirection: null,
+    trendTextValue: null
+  });
   const scrollToRef = useRef();
-  const navigate = useNavigate();
-  const { chart, dataPath, key, label, units } = config;
-  const summaryData = getNestedValue(data, dataPath, key);
-  const trend = 'down';
-  const trendValue = '- 0.2pp';
-  const summaryValue = null;
+  // const navigate = useNavigate();
+
+  useEffect(() => {
+    if (allSummaryData) {
+      const dateKeys = Object.keys(allSummaryData);
+      const [mostRecentDate, previousDate] = getRecentQuarterEndDates(dateKeys, 2);
+      const mostRecentValue = mostRecentDate ? allSummaryData[mostRecentDate] : null;
+      const previousValue = previousDate ? allSummaryData[previousDate] : null;
+      const { trendValue, trendDirection } = calculateTrend(
+        mostRecentValue,
+        previousValue,
+        summary.trendUnits
+      );
+
+      setSummaryData({
+        value:
+          summary.valueCalculation === 'difference'
+            ? mostRecentValue - previousValue
+            : mostRecentValue,
+        trendTextValue: trendValue,
+        trendDirection
+      });
+    }
+  }, [allSummaryData]);
 
   return (
     <div id={`${key}-summary-card`} ref={scrollToRef} className='summary-card'>
@@ -34,32 +62,33 @@ const SummaryCard = ({ config, data, route, viewType }) => {
             />
           ) : null}
           <h3
-            onClick={() => {
-              if (viewType !== 'mobile') {
-                navigate(route);
-              }
-            }}
+          // onClick={() => {
+          //   if (viewType !== 'mobile') {
+          //     navigate(route);
+          //   }
+          // }}
           >
             {label.toUpperCase()}
           </h3>
         </div>
 
-        {viewType === 'mobile' && (trend === 'up' || trend === 'down') ? (
-          <TrendPill direction={trend} value={trendValue} />
-        ) : null}
+        {viewType === 'mobile' &&
+          (summaryData.trendDirection === 'up' || summaryData.trendDirection === 'down') ? (
+            <TrendPill direction={summaryData.trendDirection} value={summaryData.trendTextValue} />
+          ) : null}
       </div>
       {viewType !== 'mobile' || cardFullSize ? (
         <>
           <div className='summary-data-wrapper'>
             <div className='summary-data bold-font'>
-              <h3 className='bold-font'>{summaryValue || '-'}</h3>
+              <h3 className='bold-font'>{summaryData.value || '-'}</h3>
               {units ? <h5 className='summary-units'>{units}</h5> : null}
             </div>
 
             <div className='summary-chart'>
               {chart?.type && summaryData ? (
                 <Chart
-                  data={summaryData}
+                  data={allSummaryData}
                   config={chart.type !== 'donut' ? chart : { ...chart, radius: 40 }}
                   height={100}
                   width={'100%'}
@@ -68,8 +97,8 @@ const SummaryCard = ({ config, data, route, viewType }) => {
               ) : null}
             </div>
           </div>
-          {viewType !== 'mobile' && trendValue && trend ? (
-            <TrendPill direction={trend} value={trendValue} />
+          {viewType !== 'mobile' && summaryData.trendDirection && summaryData.trendDirection ? (
+            <TrendPill direction={summaryData.trendDirection} value={summaryData.trendTextValue} />
           ) : null}
         </>
       ) : null}

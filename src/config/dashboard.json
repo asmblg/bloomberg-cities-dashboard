@@ -21,6 +21,10 @@
             "units": "Jobs added",
             "key": "jobs",
             "dataPath": "jobs.msa.tampa.total",
+            "summary": {
+              "trendUnits": "%",
+              "valueCalculation": "difference"
+            },
             "chart": {
               "type": "line",
               "xaxis": {
@@ -40,6 +44,10 @@
             "units": "Occupancy rate",
             "key": "realestate",
             "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
+            "summary": {
+              "trendUnits": "pp",
+              "valueCalculation": "actual"
+            },
             "chart": {
               "type": "donut",
               "label": "CBD",
@@ -48,10 +56,14 @@
             }
           },
           {
-            "label": "New businesses",
+            "label": "New Businesses",
             "units": "New businesses",
             "key": "newbusiness",
             "dataPath": "newbusiness.city.total",
+            "summary": {
+              "trendUnits": "%",
+              "valueCalculation": "actual"
+            },
             "chart": {
               "type": "column",
               "xaxis": "quarter",
@@ -61,10 +73,14 @@
             }
           },
           {
-            "label": "Business Rent Burden",
+            "label": "Burdened Businesses",
             "units": "Rent-burdened small businesses",
             "key": "smallbusiness",
             "dataPath": "smallbusiness.city.rentburden",
+            "summary": {
+              "trendUnits": "pp",
+              "valueCalculation": "actual"
+            },
             "chart": {
               "type": "donut",
               "label": "SB",
@@ -74,9 +90,13 @@
           },
           {
             "label": "Tourism Spending",
-            "units": "Tourism spending",
+            "units": "Change in tourism spending",
             "key": "consumers",
             "dataPath": "consumers.city.tourism",
+            "summary": {
+              "trendUnits": "pp",
+              "valueCalculation": "actual"
+            },
             "chart": {
               "type": "donut",
               "label": "CBD",
@@ -85,10 +105,14 @@
             }
           },
           {
-            "label": "Capital Investment",
-            "units": "Total invested",
+            "label": "Venture Capital Investment",
+            "units": "Change in total $ invested",
             "key": "capital",
             "dataPath": "capital.city.totalinvestment",
+            "summary": {
+              "trendUnits": "pp",
+              "valueCalculation": "actual"
+            },
             "chart": {
               "type": "line",
               "xaxis": "quarter",
@@ -100,31 +124,31 @@
       },
       "jobs": {
         "icon": "briefcase",
-        "label": "Job growth",
+        "label": "Jobs",
         "dataPath": "jobs",
         "charts": [{ "type": null }]
       },
       "realestate": {
         "icon": "building",
-        "label": "Real estate",
+        "label": "Real Estate",
         "dataPath": "realestate",
         "charts": [{ "type": "donut" }]
       },
-      "newbusiness": {
-        "icon": "horizon",
-        "label": "New businesses",
-        "dataPath": "newbusiness",
-        "charts": [{ "type": null }]
-      },
       "smallbusiness": {
         "icon": "shop",
-        "label": "Small businesses",
+        "label": "Small Businesses",
         "dataPath": "smallbusiness",
         "charts": null
       },
+      "newbusiness": {
+        "icon": "horizon",
+        "label": "Startups",
+        "dataPath": "newbusiness",
+        "charts": [{ "type": null }]
+      },
       "consumers": {
         "icon": "jet",
-        "label": "Consumer behavior",
+        "label": "Consumer Spending",
         "dataPath": "consumers",
         "charts": [{ "type": null }]
       },
@@ -190,6 +214,10 @@
             "units": "Jobs added",
             "key": "jobs",
             "dataPath": "jobs.msa.phoenix.total",
+            "summary": {
+              "trendUnits": "%",
+              "valueCalculation": "difference"
+            },
             "chart": {
               "type": "line",
               "xaxis": {
@@ -209,6 +237,10 @@
             "units": "Occupancy rate",
             "key": "realestate",
             "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
+            "summary": {
+              "trendUnits": "pp",
+              "valueCalculation": "actual"
+            },
             "chart": {
               "type": "donut",
               "label": "CBD",
@@ -217,10 +249,14 @@
             }
           },
           {
-            "label": "New businesses",
+            "label": "New Businesses",
             "units": "New businesses",
             "key": "newbusiness",
             "dataPath": "newbusiness.city.total",
+            "summary": {
+              "trendUnits": "%",
+              "valueCalculation": "actual"
+            },
             "chart": {
               "type": "column",
               "xaxis": "quarter",
@@ -230,10 +266,14 @@
             }
           },
           {
-            "label": "Business Rent Burden",
+            "label": "Burdened Businesses",
             "units": "Rent-burdened small businesses",
             "key": "smallbusiness",
             "dataPath": "smallbusiness.city.rentburden",
+            "summary": {
+              "trendUnits": "pp",
+              "valueCalculation": "actual"
+            },
             "chart": {
               "type": "donut",
               "label": "SB",
@@ -243,9 +283,13 @@
           },
           {
             "label": "Tourism Spending",
-            "units": "Tourism spending",
+            "units": "Change in tourism spending",
             "key": "consumers",
             "dataPath": "consumers.city.tourism",
+            "summary": {
+              "trendUnits": "pp",
+              "valueCalculation": "actual"
+            },
             "chart": {
               "type": "donut",
               "label": "CBD",
@@ -254,10 +298,14 @@
             }
           },
           {
-            "label": "Capital Investment",
-            "units": "Total invested",
+            "label": "Venture Capital Investment",
+            "units": "Change in total $ invested",
             "key": "capital",
             "dataPath": "capital.city.totalinvestment",
+            "summary": {
+              "trendUnits": "pp",
+              "valueCalculation": "actual"
+            },
             "chart": {
               "type": "line",
               "xaxis": "quarter",
@@ -269,31 +317,31 @@
       },
       "jobs": {
         "icon": "briefcase",
-        "label": "Job growth",
+        "label": "Jobs",
         "dataPath": "jobs",
         "charts": [{ "type": null }]
       },
       "realestate": {
         "icon": "building",
-        "label": "Real estate",
+        "label": "Real Estate",
         "dataPath": "realestate",
         "charts": [{ "type": "donut" }]
       },
-      "newbusiness": {
-        "icon": "horizon",
-        "label": "New businesses",
-        "dataPath": "newbusiness",
-        "charts": [{ "type": null }]
-      },
       "smallbusiness": {
         "icon": "shop",
-        "label": "Small businesses",
+        "label": "Small Businesses",
         "dataPath": "smallbusiness",
         "charts": null
       },
+      "newbusiness": {
+        "icon": "horizon",
+        "label": "Startups",
+        "dataPath": "newbusiness",
+        "charts": [{ "type": null }]
+      },
       "consumers": {
         "icon": "jet",
-        "label": "Consumer behavior",
+        "label": "Consumer Spending",
         "dataPath": "consumers",
         "charts": [{ "type": null }]
       },

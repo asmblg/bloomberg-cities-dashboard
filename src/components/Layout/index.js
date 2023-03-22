@@ -34,11 +34,10 @@ const Layout = ({ config }) => {
 
   useEffect(() => {
     if (project && sectionKeys) {
-      const {section, redirect} = getCurrentRoute(project, sectionKeys, pathname);
+      const { section, redirect } = getCurrentRoute(project, sectionKeys, pathname);
       setSelectedLink(section);
 
       if (redirect) {
-        console.log('redirection');
         navigate(`${config.project.toLowerCase()}/${config.dashboardType}`);
       }
     }
