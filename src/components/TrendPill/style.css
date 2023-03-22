@@ -1,0 +1,32 @@
+.upward-trend,
+.downward-trend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  color: white;
+  height: 30px;
+  width: 100px;
+  padding: 2%;
+}
+
+.upward-trend > img,
+.downward-trend > img {
+  margin-right: 10%;
+}
+
+.upward-trend {
+  background-color: var(--success-accent-color);
+}
+
+.downward-trend {
+  background-color: var(--warning-accent-color);
+}
+
+/* Initial Mobile Breakpoint */
+@media screen and (max-width: 767px) {
+  .upward-trend,
+  .downward-trend {
+    min-width: 100px;
+  }
+}

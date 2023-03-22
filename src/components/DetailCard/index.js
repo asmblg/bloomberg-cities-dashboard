@@ -6,7 +6,7 @@ import ShareAndPrintIcons from '../ShareAndPrintIcons';
 
 import './style.css';
 
-const DetailCard = ({ config, sectionKey }) => {
+const DetailCard = ({ config, sectionKey, viewType }) => {
   const { label } = config;
 
   return (
@@ -18,7 +18,7 @@ const DetailCard = ({ config, sectionKey }) => {
           </div>
         ) : (
           <div className='cp-wrapper'>
-            <CommunityProfile label={label} />
+            <CommunityProfile label={label} viewType={viewType} />
           </div>
         )}
         <ShareAndPrintIcons />
@@ -29,7 +29,8 @@ const DetailCard = ({ config, sectionKey }) => {
 
 DetailCard.propTypes = {
   config: PropTypes.object,
-  sectionKey: PropTypes.string
+  sectionKey: PropTypes.string,
+  viewType: PropTypes.string
 };
 
 export default DetailCard;

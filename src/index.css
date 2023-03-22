@@ -8,13 +8,13 @@
   --dark-accent-color: #333333;
   --success-accent-color: #8dc63f;
   --warning-accent-color: #e46062;
-  --desktop-outer-margin: 15%;
+  --desktop-outer-margin: 12%;
   --tablet-outer-margin: 8%;
   --mobile-outer-margin: 5%;
   --desktop-header-height: 100px;
   --tablet-header-height: 100px;
   --mobile-header-height: 100px;
-  --desktop-footer-height: 150px;
+  --desktop-footer-height: 100px;
   --tablet-footer-height: 200px;
   --mobile-footer-height: 125px;
 }

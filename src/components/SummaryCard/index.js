@@ -4,11 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
 import Chart from '../Chart';
+import TrendPill from '../TrendPill';
 
-// import getValueFromObjectByString from '../../utils/getValueFromObjectByString';
 import getNestedValue from '../../utils/getNestedValue';
-import upwardTrendIcon from './images/upward_trend_icon.png';
-import downwardTrendIcon from './images/downward_trend_icon.png';
 import './style.css';
 
 const SummaryCard = ({ config, data, route, viewType }) => {
@@ -17,8 +15,8 @@ const SummaryCard = ({ config, data, route, viewType }) => {
   const navigate = useNavigate();
   const { chart, dataPath, key, label, units } = config;
   const summaryData = getNestedValue(data, dataPath, key);
-  const trend = null;
-  const trendValue = null;
+  const trend = 'down';
+  const trendValue = '- 0.2pp';
   const summaryValue = null;
 
   return (
@@ -47,10 +45,7 @@ const SummaryCard = ({ config, data, route, viewType }) => {
         </div>
 
         {viewType === 'mobile' && (trend === 'up' || trend === 'down') ? (
-          <div className={trend === 'up' ? 'upward-trend ' : 'downward-trend '}>
-            <img src={trend === 'up' ? upwardTrendIcon : downwardTrendIcon} />
-            <p>{trendValue}</p>
-          </div>
+          <TrendPill direction={trend} value={trendValue} />
         ) : null}
       </div>
       {viewType !== 'mobile' || cardFullSize ? (
@@ -74,10 +69,7 @@ const SummaryCard = ({ config, data, route, viewType }) => {
             </div>
           </div>
           {viewType !== 'mobile' && trendValue && trend ? (
-            <div className={trend === 'up' ? 'upward-trend' : 'downward-trend'}>
-              <img src={trend === 'up' ? upwardTrendIcon : downwardTrendIcon} />
-              <p>{trendValue}</p>
-            </div>
+            <TrendPill direction={trend} value={trendValue} />
           ) : null}
         </>
       ) : null}

@@ -163,6 +163,7 @@ a:hover {
   .full-card-container {
     margin-left: var(--mobile-outer-margin);
     margin-right: var(--mobile-outer-margin);
+    width: 90%;
   }
 
   .edd-title {

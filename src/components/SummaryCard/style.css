@@ -52,31 +52,6 @@
   width: 60%;
 }
 
-.upward-trend,
-.downward-trend {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 16px;
-  color: white;
-  height: 30px;
-  width: 100px;
-  padding: 2%;
-}
-
-.upward-trend > img,
-.downward-trend > img {
-  margin-right: 10%;
-}
-
-.upward-trend {
-  background-color: var(--success-accent-color);
-}
-
-.downward-trend {
-  background-color: var(--warning-accent-color);
-}
-
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1280px) {
@@ -94,10 +69,5 @@
 
   .summary-card-title {
     width: 50%;
-  }
-
-  .upward-trend,
-  .downward-trend {
-    min-width: 100px;
   }
 }

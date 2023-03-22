@@ -1,6 +1,7 @@
 .detail-card-container {
   display: flex;
   flex-direction: column;
+  /* height: 'fit-content'; */
 }
 
 .detail-card-section {
@@ -17,7 +18,6 @@
 
 .cp-wrapper {
   display: flex;
-  height: 100%;
   width: 100%;
 }
 
