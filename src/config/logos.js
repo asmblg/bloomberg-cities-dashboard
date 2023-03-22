@@ -1,7 +1,9 @@
 import tampaLogo from '../assets/logos/tampa.png';
+import phoenixLogo from '../assets/logos/phoenix.png';
 
 const logos = {
-  tampa: tampaLogo
+  tampa: tampaLogo,
+  phoenix: phoenixLogo
 };
 
 export { logos };

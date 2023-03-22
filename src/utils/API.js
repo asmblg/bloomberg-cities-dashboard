@@ -7,13 +7,16 @@ const getConfig = async (projectCity, projectType) => {
   //     project: project
   //   }
   // });
-  const res = config.find(
-    ({ project, dashboardType }) =>
-      project.toLowerCase() === projectCity.toLowerCase() &&
-      dashboardType.toLowerCase() === projectType.toLowerCase()
-  );
+  const res = config.filter(({ project }) => project.toLowerCase() === projectCity.toLowerCase());
 
-  return res;
+  if (res.length > 1) {
+    const obj = res.find(
+      ({ dashboardType }) => dashboardType.toLowerCase() === projectType.toLowerCase()
+    );
+    return obj || res[0];
+  }
+
+  return res[0];
 };
 
 const getHomeData = (project, select) =>

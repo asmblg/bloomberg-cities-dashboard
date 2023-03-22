@@ -143,7 +143,176 @@
       }
     },
     "footer": {
-      "copyright": "2023 City of Tampa Economic Dashboard. All Rights Reserved.",
+      "copyright": "2023 Bloomberg Associates. All Rights Reserved.",
+      "partners": [
+        {
+          "key": "alignable",
+          "logoURL": "/images/alignable.png",
+          "name": "Alignable"
+        },
+        {
+          "key": "jll",
+          "logoURL": "/images/jll.png",
+          "name": "JLL"
+        },
+        {
+          "key": "dewey",
+          "logoURL": "/images/dewey.png",
+          "name": "Dewey"
+        },
+        {
+          "key": "block",
+          "logoURL": "/images/block.png",
+          "name": "Block"
+        }
+      ]
+    }
+  },
+  {
+    "project": "Phoenix",
+    "dashboardType": "economic",
+    "header": {
+      "logoURL": "",
+      "title": "ECONOMIC DASHBOARD",
+      "about": {
+        "text": ""
+      }
+    },
+    "sections": {
+      "home": {
+        "title": "",
+        "icon": "home",
+        "body": "",
+        "linkURL": "",
+        "summaryCards": [
+          {
+            "label": "Job growth",
+            "units": "Jobs added",
+            "key": "jobs",
+            "dataPath": "jobs.msa.phoenix.total",
+            "chart": {
+              "type": "line",
+              "xaxis": {
+                "type": "date",
+                "labelFormatter": "monthToQuarter",
+                "tickCount": 4
+              },
+              "yaxis": {
+                "tickCount": 1
+              },
+              "color": "#006aaf",
+              "accentColor": "#002944"
+            }
+          },
+          {
+            "label": "CDB Office Occupancy",
+            "units": "Occupancy rate",
+            "key": "realestate",
+            "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
+            "chart": {
+              "type": "donut",
+              "label": "CBD",
+              "color": "#006aaf",
+              "accentColor": "#dfe5e9"
+            }
+          },
+          {
+            "label": "New businesses",
+            "units": "New businesses",
+            "key": "newbusiness",
+            "dataPath": "newbusiness.city.total",
+            "chart": {
+              "type": "column",
+              "xaxis": "quarter",
+              "range": 4,
+              "color": "#006aaf",
+              "accentColor": "#002944"
+            }
+          },
+          {
+            "label": "Business Rent Burden",
+            "units": "Rent-burdened small businesses",
+            "key": "smallbusiness",
+            "dataPath": "smallbusiness.city.rentburden",
+            "chart": {
+              "type": "donut",
+              "label": "SB",
+              "color": "#006aaf",
+              "accentColor": "#dfe5e9"
+            }
+          },
+          {
+            "label": "Tourism Spending",
+            "units": "Tourism spending",
+            "key": "consumers",
+            "dataPath": "consumers.city.tourism",
+            "chart": {
+              "type": "donut",
+              "label": "CBD",
+              "color": "#006aaf",
+              "accentColor": "#dfe5e9"
+            }
+          },
+          {
+            "label": "Capital Investment",
+            "units": "Total invested",
+            "key": "capital",
+            "dataPath": "capital.city.totalinvestment",
+            "chart": {
+              "type": "line",
+              "xaxis": "quarter",
+              "range": 4,
+              "color": "#002944"
+            }
+          }
+        ]
+      },
+      "jobs": {
+        "icon": "briefcase",
+        "label": "Job growth",
+        "dataPath": "jobs",
+        "charts": [{ "type": null }]
+      },
+      "realestate": {
+        "icon": "building",
+        "label": "Real estate",
+        "dataPath": "realestate",
+        "charts": [{ "type": "donut" }]
+      },
+      "newbusiness": {
+        "icon": "horizon",
+        "label": "New businesses",
+        "dataPath": "newbusiness",
+        "charts": [{ "type": null }]
+      },
+      "smallbusiness": {
+        "icon": "shop",
+        "label": "Small businesses",
+        "dataPath": "smallbusiness",
+        "charts": null
+      },
+      "consumers": {
+        "icon": "jet",
+        "label": "Consumer behavior",
+        "dataPath": "consumers",
+        "charts": [{ "type": null }]
+      },
+      "capital": {
+        "icon": "money",
+        "label": "Capital Investments",
+        "dataPath": "capital",
+        "charts": [{ "type": null }]
+      },
+      "community": {
+        "icon": null,
+        "label": "Community profiles",
+        "summary": null,
+        "dataPath": "community",
+        "sections": [{ "type": "map" }]
+      }
+    },
+    "footer": {
+      "copyright": "2023 Bloomberg Associates. All Rights Reserved.",
       "partners": [
         {
           "key": "alignable",
