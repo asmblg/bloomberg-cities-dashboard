@@ -10,12 +10,13 @@ const LineChart = ({ config, dataArray, color, height, width, margin }) => {
       <LChart data={dataArray} margin={margin}>
         <XAxis
           dataKey={'name'}
-          tickCount={config.xaxis?.tickCount || 4}
+          tickCount={config.xaxis?.tickCount || 2}
+          interval={'preserveEnd'}
           tickFormatter={str => handleLabelFormatter(config.xaxis?.labelFormatter, str)}
         />
         <YAxis
           axisLine={false}
-          tickCount={config.xaxis?.tickCount || 2}
+          tickCount={config.yaxis?.tickCount || 1}
           tickLine={false}
           tickFormatter={str => handleLabelFormatter(config.yaxis?.labelFormatter, str)}
           domain={config.yaxis?.domain ? config.yaxis.domain : [0, 'dataMax']}

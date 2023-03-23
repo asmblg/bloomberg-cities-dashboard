@@ -7,14 +7,11 @@ import Chart from '../Chart';
 import TrendPill from '../TrendPill';
 
 import getNestedValue from '../../utils/getNestedValue';
-import getRecentQuarterEndDates from '../../utils/getRecentQuarterEndDates';
-import calculateTrend from '../../utils/calculateTrend';
+import { handleSummaryData } from './utils';
 import './style.css';
 
 const SummaryCard = ({ config, data, viewType }) => {
   const { chart, dataPath, key, label, units, summary } = config;
-  const allSummaryData = getNestedValue(data, dataPath, key);
-
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
     value: null,
@@ -23,27 +20,11 @@ const SummaryCard = ({ config, data, viewType }) => {
   });
   const scrollToRef = useRef();
   // const navigate = useNavigate();
+  const allSummaryData = getNestedValue(data, dataPath, key);
 
   useEffect(() => {
-    if (allSummaryData) {
-      const dateKeys = Object.keys(allSummaryData);
-      const [mostRecentDate, previousDate] = getRecentQuarterEndDates(dateKeys, 2);
-      const mostRecentValue = mostRecentDate ? allSummaryData[mostRecentDate] : null;
-      const previousValue = previousDate ? allSummaryData[previousDate] : null;
-      const { trendValue, trendDirection } = calculateTrend(
-        mostRecentValue,
-        previousValue,
-        summary.trendUnits
-      );
-
-      setSummaryData({
-        value:
-          summary.valueCalculation === 'difference'
-            ? mostRecentValue - previousValue
-            : mostRecentValue,
-        trendTextValue: trendValue,
-        trendDirection
-      });
+    if (data && allSummaryData) {
+      setSummaryData(handleSummaryData(summary, allSummaryData));
     }
   }, [allSummaryData]);
 
@@ -61,15 +42,7 @@ const SummaryCard = ({ config, data, viewType }) => {
               }}
             />
           ) : null}
-          <h3
-          // onClick={() => {
-          //   if (viewType !== 'mobile') {
-          //     navigate(route);
-          //   }
-          // }}
-          >
-            {label.toUpperCase()}
-          </h3>
+          <h3>{label.toUpperCase()}</h3>
         </div>
 
         {viewType === 'mobile' &&
@@ -81,16 +54,16 @@ const SummaryCard = ({ config, data, viewType }) => {
         <>
           <div className='summary-data-wrapper'>
             <div className='summary-data bold-font'>
-              <h3 className='bold-font'>{summaryData.value || '-'}</h3>
+              <h1 className='bold-font'>{summaryData.value || '-'}</h1>
               {units ? <h5 className='summary-units'>{units}</h5> : null}
             </div>
 
             <div className='summary-chart'>
               {chart?.type && allSummaryData ? (
                 <Chart
-                  data={allSummaryData}
+                  data={chart.type !== 'donut' ? allSummaryData : { percentage: summaryData.value }}
                   config={chart}
-                  height={150}
+                  height={100}
                   width={'100%'}
                   margin={{ top: 10, right: 5, bottom: -10, left: -15 }}
                 />

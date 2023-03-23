@@ -33,7 +33,7 @@
               "xaxis": {
                 "type": "date",
                 "labelFormatter": "monthToQuarter",
-                "tickCount": 4
+                "tickCount": 2
               },
               "yaxis": {
                 "tickCount": 1,
@@ -49,11 +49,17 @@
             "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "valueCalculation": "difference-from-100"
             },
             "chart": {
               "type": "donut",
-              "label": "CBD",
+              "label": null,
+              "valueType": "single-percentage",
+              "valueCalculation": "difference-from-100",
+              "radius": {
+                "outer": 40,
+                "inner": 25
+              },
               "color": "#006aaf",
               "accentColor": "#dfe5e9"
             }
@@ -75,7 +81,7 @@
               "xaxis": {
                 "type": "date",
                 "labelFormatter": "formatQuarter",
-                "tickCount": 4
+                "tickCount": 2
               },
               "yaxis": {
                 "tickCount": 1,
@@ -238,14 +244,13 @@
               "xaxis": {
                 "type": "date",
                 "labelFormatter": "monthToQuarter",
-                "tickCount": 4
+                "tickCount": 2
               },
               "yaxis": {
                 "tickCount": 1,
                 "labelFormatter": "abbreviateNumber"
               },
-              "color": "#006aaf",
-              "accentColor": "#002944"
+              "color": "#002944"
             }
           },
           {
@@ -255,11 +260,17 @@
             "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "valueCalculation": "difference-from-100"
             },
             "chart": {
               "type": "donut",
-              "label": "CBD",
+              "label": null,
+              "valueType": "single-percentage",
+              "valueCalculation": "difference-from-100",
+              "radius": {
+                "outer": 40,
+                "inner": 25
+              },
               "color": "#006aaf",
               "accentColor": "#dfe5e9"
             }
@@ -281,7 +292,7 @@
               "xaxis": {
                 "type": "date",
                 "labelFormatter": "formatQuarter",
-                "tickCount": 4
+                "tickCount": 2
               },
               "yaxis": {
                 "tickCount": 1,
