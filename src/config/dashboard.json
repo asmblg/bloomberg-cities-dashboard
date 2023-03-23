@@ -27,16 +27,19 @@
             },
             "chart": {
               "type": "line",
+              "label": null,
+              "dateType": "month",
+              "valueCalculation": "difference",
               "xaxis": {
                 "type": "date",
                 "labelFormatter": "monthToQuarter",
                 "tickCount": 4
               },
               "yaxis": {
-                "tickCount": 1
+                "tickCount": 1,
+                "labelFormatter": "abbreviateNumber"
               },
-              "color": "#006aaf",
-              "accentColor": "#002944"
+              "color": "#002944"
             }
           },
           {
@@ -152,10 +155,10 @@
         "dataPath": "consumers",
         "charts": [{ "type": null }]
       },
-      "capital": {
+      "tourism": {
         "icon": "money",
-        "label": "Capital Investments",
-        "dataPath": "capital",
+        "label": "Tourism Spending",
+        "dataPath": "consumers.city.tourism",
         "charts": [{ "type": null }]
       },
       "community": {
@@ -220,13 +223,17 @@
             },
             "chart": {
               "type": "line",
+              "label": null,
+              "dateType": "month",
+              "valueCalculation": "difference",
               "xaxis": {
                 "type": "date",
                 "labelFormatter": "monthToQuarter",
                 "tickCount": 4
               },
               "yaxis": {
-                "tickCount": 1
+                "tickCount": 1,
+                "labelFormatter": "abbreviateNumber"
               },
               "color": "#006aaf",
               "accentColor": "#002944"
@@ -345,10 +352,10 @@
         "dataPath": "consumers",
         "charts": [{ "type": null }]
       },
-      "capital": {
+      "tourism": {
         "icon": "money",
-        "label": "Capital Investments",
-        "dataPath": "capital",
+        "label": "Tourism Spending",
+        "dataPath": "consumers.city.tourism",
         "charts": [{ "type": null }]
       },
       "community": {

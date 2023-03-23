@@ -42,7 +42,7 @@
 
 .summary-data {
   display: flex;
-  width: fit-content;
+  width: 40%;
   flex-direction: column;
   justify-content: center;
   line-height: 1;

@@ -1,25 +1,33 @@
 import moment from 'moment';
 
-function abbreviateNumber(num) {
-  const number = typeof num === 'string' ? parseInt(num) : num;
-  if (number >= 1000000000) {
-    return (number / 1000000000).toFixed(1) + 'b';
+const labelFormatter = {
+  monthToQuarter: date => {
+    const formattedDate = `Q${moment(date, 'YYYY-MM-DD').quarter()} ${moment(
+      date,
+      'YYYY-MM-DD'
+    ).year()}`;
+    return formattedDate;
+  },
+  abbreviateNumber: num => {
+    const number = typeof num === 'string' ? parseInt(num) : num;
+    if (number >= 1000000000) {
+      return (number / 1000000000).toFixed(1) + 'b';
+    }
+    if (number >= 1000000) {
+      return (number / 1000000).toFixed(1) + 'm';
+    }
+    if (number >= 1000) {
+      return (number / 1000).toFixed(1) + 'k';
+    }
+    return number.toString();
   }
-  if (number >= 1000000) {
-    return (number / 1000000).toFixed(1) + 'm';
+};
+
+const handleLabelFormatter = (functionName, str) => {
+  if (functionName) {
+    return labelFormatter[functionName](str);
   }
-  if (number >= 1000) {
-    return (number / 1000).toFixed(1) + 'k';
-  }
-  return number.toString();
-}
+  return str;
+};
 
-function getQuarterFromDate(date) {
-  const jsDate = new Date(date);
-  const quarter = moment(jsDate).quarter();
-  const year = moment(jsDate).year();
-
-  return `Q${quarter} ${year}`;
-}
-
-export { abbreviateNumber, getQuarterFromDate };
+export { handleLabelFormatter };

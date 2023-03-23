@@ -86,13 +86,13 @@ const SummaryCard = ({ config, data, viewType }) => {
             </div>
 
             <div className='summary-chart'>
-              {chart?.type && summaryData ? (
+              {chart?.type && allSummaryData ? (
                 <Chart
                   data={allSummaryData}
-                  config={chart.type !== 'donut' ? chart : { ...chart, radius: 40 }}
-                  height={100}
+                  config={chart}
+                  height={150}
                   width={'100%'}
-                  margin={{ top: 10, right: 0, bottom: -10, left: -20 }}
+                  margin={{ top: 10, right: 5, bottom: -10, left: -15 }}
                 />
               ) : null}
             </div>
