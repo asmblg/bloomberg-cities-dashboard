@@ -1,6 +1,6 @@
 .summary-card {
-  border-top: 1px solid var(--primary-border-color);
-  background-color: white;
+  border-top: 1px solid var(--primary-gray-color);
+  background-color: var(--white-color);
   height: 100%;
   width: 100%;
   padding: 5%;
@@ -64,7 +64,7 @@
 @media screen and (max-width: 767px) {
   .summary-card {
     padding: 2%;
-    border: 1px solid var(--primary-border-color);
+    border: 1px solid var(--primary-gray-color);
   }
 
   .summary-card-title {

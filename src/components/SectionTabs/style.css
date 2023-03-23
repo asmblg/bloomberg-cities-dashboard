@@ -16,7 +16,7 @@
 .unselected-tab {
   height: 50px;
   width: 20%;
-  background-color: white;
+  background-color: var(--white-color);
   font-size: 1.1rem;
   display: flex;
   align-items: center;
@@ -28,9 +28,9 @@
 .selected-tab {
   position: relative;
   top: 1.5px;
-  border-top: 2px solid var(--primary-border-color);
-  border-left: 2px solid var(--primary-border-color);;
-  border-right: 2px solid var(--primary-border-color);;
+  border-top: 2px solid var(--primary-gray-color);
+  border-left: 2px solid var(--primary-gray-color);;
+  border-right: 2px solid var(--primary-gray-color);;
 }
 
 .unselected-tab:hover {
@@ -39,22 +39,23 @@
 
 .home-tab {
   background-color: var(--secondary-color);
-  color: white;
+  color: var(--white-color);
   border: none;
 }
 
 .home-tab:hover {
-  color: white;
+  color: var(--white-color);
 }
 
 .home-tab > img {
-  color: white;
+  color: var(--white-color);
 }
 
 .icon-and-text-tab {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: left;
 }
 
 .navigation-icon {

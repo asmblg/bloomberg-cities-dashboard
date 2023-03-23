@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 16px;
-  color: white;
+  color: var(--white-color);
   height: 30px;
   width: 100px;
   padding: 2%;

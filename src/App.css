@@ -8,6 +8,7 @@ h5 {
   margin: 0;
   padding: 0;
   line-height: 1;
+  color: var(--black-color)
 }
 
 h1 {
@@ -31,11 +32,11 @@ h5 {
 }
 
 a {
-  color: black;
+  color: var(--black-color);
 }
 
 a:hover {
-  color: initial;
+  color: var(--black-color);
 }
 
 .App {
@@ -59,10 +60,10 @@ a:hover {
 }
 
 .full-card-container {
-  border: 1px solid var(--primary-border-color);
+  border: 1px solid var(--primary-gray-color);
   width: 100%;
   height: 100%;
-  background-color: white;
+  background-color: var(--white-color);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -108,6 +109,7 @@ a:hover {
 
 .black-font {
   font-family: 'RobotoBlack';
+  color: var(--black-color);
 }
 
 .black-italic-font {
@@ -119,7 +121,7 @@ a:hover {
 }
 
 .underline-container {
-  border-bottom: 3px solid var(--primary-border-color);
+  border-bottom: 3px solid var(--primary-gray-color);
 }
 
 .info-icon {

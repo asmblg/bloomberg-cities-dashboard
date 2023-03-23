@@ -4,8 +4,10 @@
   --secondary-color: #006aaf;
   --tertiary-color: #72acd2;
   --quaternary-color: #969696;
-  --primary-border-color: #dfe5e9;
-  --dark-accent-color: #333333;
+  --black-color: #333333;
+  --white-color: #ffffff;
+  --primary-gray-color: #dfe5e9;
+  --secondary-gray-color: #cccccc;
   --success-accent-color: #8dc63f;
   --warning-accent-color: #e46062;
   --desktop-outer-margin: 12%;

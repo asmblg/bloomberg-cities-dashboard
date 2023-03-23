@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   padding-left: var(--desktop-outer-margin);
-  color: white;
+  color: var(--white-color);
 }
 
 .title-container > img,
@@ -33,16 +33,16 @@
 
 .about-link {
   font-size: 16px;
-  color: white;
+  color: var(--white-color);
 }
 
 .about-link:hover {
   opacity: 0.9;
-  color: white;
+  color: var(--white-color);
 }
 
 .selected-about-link-container {
-  border-bottom: 5px solid white;
+  border-bottom: 5px solid var(--white-color);
 }
 
 .header-logo {
@@ -51,7 +51,7 @@
 }
 
 .nav-dropdown-menu {
-  background-color: white;
+  background-color: var(--white-color);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -63,7 +63,7 @@
   width: 275px;
   padding: 5px 0;
   z-index: 9999999;
-  border: 1px solid var(--primary-border-color);
+  border: 1px solid var(--primary-gray-color);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -74,13 +74,13 @@
 }
 
 .nav-link {
-  color: black;
+  color: var(--black-color);
   width: 150px;
   text-align: center;
 }
 
 .nav-link:hover {
-  color: black;
+  color: var(--black-color);
   font-family: 'RobotoBold';
 }
 
@@ -92,7 +92,7 @@
 
 .burger-menu-button {
   opacity: 1 !important;
-  color: white !important;
+  color: var(--white-color) !important;
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
@@ -113,7 +113,7 @@
   }
 
   .about-container > i {
-    color: white;
+    color: var(--white-color);
     width: auto;
   }
 }

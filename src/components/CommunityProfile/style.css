@@ -61,7 +61,8 @@
   align-items: center;
   padding: 10px;
   margin-top: 20px;
-  background-image: linear-gradient(to right, var(--primary-border-color), white);
+  /* background-image: linear-gradient(to right, var(--secondary-gray-color), var(--primary-gray-color)); */
+  background-color: var(--primary-gray-color);
 }
 
 .horizontal-percentage-indicator > h5 {
@@ -77,13 +78,13 @@
 
 .cp-map-dropdown {
   display: flex;
-  border-bottom: 3px solid var(--primary-border-color);
+  border-bottom: 3px solid var(--primary-gray-color);
   margin-bottom: 10px;
 }
 
 .cp-map-container {
   height: 100%;
-  border: 2px solid var(--primary-border-color);
+  border: 2px solid var(--primary-gray-color);
 }
 
 .cp-chart-container {
@@ -121,7 +122,7 @@
 
   .cp-section {
     padding-bottom: 50px;
-    background-color: white;
+    background-color: var(--white-color);
   }
 }
 

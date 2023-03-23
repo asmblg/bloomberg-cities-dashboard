@@ -22,8 +22,8 @@
   bottom: 0;
   width: 100%;
   height: var(--desktop-footer-height);
-  background-color: var(--dark-accent-color);
-  color: white;
+  background-color: var(--black-color);
+  color: var(--white-color);
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
