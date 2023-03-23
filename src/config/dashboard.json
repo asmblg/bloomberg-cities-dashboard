@@ -68,11 +68,20 @@
               "valueCalculation": "actual"
             },
             "chart": {
-              "type": "column",
-              "xaxis": "quarter",
-              "range": 4,
-              "color": "#006aaf",
-              "accentColor": "#002944"
+              "type": "line",
+              "label": null,
+              "dateType": "quarter",
+              "valueCalculation": "actual",
+              "xaxis": {
+                "type": "date",
+                "labelFormatter": "formatQuarter",
+                "tickCount": 4
+              },
+              "yaxis": {
+                "tickCount": 1,
+                "labelFormatter": "abbreviateNumber"
+              },
+              "color": "#002944"
             }
           },
           {
@@ -265,11 +274,20 @@
               "valueCalculation": "actual"
             },
             "chart": {
-              "type": "column",
-              "xaxis": "quarter",
-              "range": 4,
-              "color": "#006aaf",
-              "accentColor": "#002944"
+              "type": "line",
+              "label": null,
+              "dateType": "quarter",
+              "valueCalculation": "actual",
+              "xaxis": {
+                "type": "date",
+                "labelFormatter": "formatQuarter",
+                "tickCount": 4
+              },
+              "yaxis": {
+                "tickCount": 1,
+                "labelFormatter": "abbreviateNumber"
+              },
+              "color": "#002944"
             }
           },
           {

@@ -52,7 +52,7 @@ const Chart = ({ config, height, width, margin, data }) => {
                 return {
                   name: name,
                   value: value - prevValue
-                }; 
+                };
               }
             })
             : sortedArray;

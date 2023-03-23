@@ -2,10 +2,9 @@ import moment from 'moment';
 
 const labelFormatter = {
   monthToQuarter: date => {
-    const formattedDate = `Q${moment(date, 'YYYY-MM-DD').quarter()} ${moment(
-      date,
-      'YYYY-MM-DD'
-    ).year()}`;
+    const quarterNum = moment(date, 'YYYY-MM-DD').quarter();
+    const year = `${moment(date, 'YYYY-MM-DD').year()}`.slice(2, 4);
+    const formattedDate = `Q${quarterNum}-${year}`;
     return formattedDate;
   },
   abbreviateNumber: num => {
@@ -20,11 +19,15 @@ const labelFormatter = {
       return (number / 1000).toFixed(1) + 'k';
     }
     return number.toString();
+  },
+  formatQuarter: str => {
+    const [year, quarterNum] = str.split('-Q');
+    return `Q${quarterNum}-${year.slice(2, 4)}`;
   }
 };
 
 const handleLabelFormatter = (functionName, str) => {
-  if (functionName) {
+  if (functionName && labelFormatter[functionName] && str) {
     return labelFormatter[functionName](str);
   }
   return str;
