@@ -61,7 +61,7 @@ const SummaryCard = ({ config, data, viewType }) => {
             <div className='summary-chart'>
               {chart?.type && allSummaryData ? (
                 <Chart
-                  data={chart.type !== 'donut' ? allSummaryData : { percentage: summaryData.value }}
+                  data={chart.type !== 'donut' ? allSummaryData : { value: summaryData.value }}
                   config={chart}
                   height={100}
                   width={'100%'}

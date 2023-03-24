@@ -28,11 +28,12 @@
             "chart": {
               "type": "line",
               "label": null,
-              "dateType": "month",
-              "valueCalculation": "difference",
+              "dataLength": 4,
+              "dataFormatter": "monthToQuarter",
+              "valueType": "actual",
               "xaxis": {
-                "type": "date",
                 "labelFormatter": "monthToQuarter",
+                "type": "date",
                 "tickCount": 2
               },
               "yaxis": {
@@ -49,13 +50,13 @@
             "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "difference-from-100"
+              "valueCalculation": "differenceFrom100"
             },
             "chart": {
               "type": "donut",
               "label": null,
               "valueType": "single-percentage",
-              "valueCalculation": "difference-from-100",
+              "valueCalculation": "differenceFrom100",
               "radius": {
                 "outer": 40,
                 "inner": 25
@@ -76,8 +77,8 @@
             "chart": {
               "type": "line",
               "label": null,
-              "dateType": "quarter",
-              "valueCalculation": "actual",
+              "dataLength": 4,
+              "valueType": "actual",
               "xaxis": {
                 "type": "date",
                 "labelFormatter": "formatQuarter",
@@ -239,11 +240,12 @@
             "chart": {
               "type": "line",
               "label": null,
-              "dateType": "month",
-              "valueCalculation": "difference",
+              "dataLength": 4,
+              "dataFormatter": "monthToQuarter",
+              "valueType": "actual",
               "xaxis": {
-                "type": "date",
                 "labelFormatter": "monthToQuarter",
+                "type": "date",
                 "tickCount": 2
               },
               "yaxis": {
@@ -260,13 +262,13 @@
             "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "difference-from-100"
+              "valueCalculation": "differenceFrom100"
             },
             "chart": {
               "type": "donut",
               "label": null,
               "valueType": "single-percentage",
-              "valueCalculation": "difference-from-100",
+              "valueCalculation": "differenceFrom100",
               "radius": {
                 "outer": 40,
                 "inner": 25
@@ -287,8 +289,8 @@
             "chart": {
               "type": "line",
               "label": null,
-              "dateType": "quarter",
-              "valueCalculation": "actual",
+              "dataLength": 4,
+              "valueType": "actual",
               "xaxis": {
                 "type": "date",
                 "labelFormatter": "formatQuarter",

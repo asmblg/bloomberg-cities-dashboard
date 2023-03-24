@@ -7,14 +7,14 @@ import DonutChart from './subComponents/DonutChart';
 import HorizontalBarChart from './subComponents/HorizontalBarChart';
 
 import './style.css';
-import { handleData } from './utils';
+import { handleDataArray } from './utils';
 
 const Chart = ({ config, height, width, margin, data }) => {
   switch (config.type) {
     case 'line': {
       return (
         <LineChart
-          dataArray={handleData(config, data)}
+          dataArray={handleDataArray.line(config, data)}
           config={config}
           height={height}
           width={width}
@@ -25,7 +25,7 @@ const Chart = ({ config, height, width, margin, data }) => {
     case 'column': {
       return (
         <ColumnChart
-          dataArray={handleData(config, data)}
+          dataArray={handleDataArray.column(config, data)}
           config={config}
           height={height}
           width={width}
@@ -36,7 +36,7 @@ const Chart = ({ config, height, width, margin, data }) => {
     case 'donut': {
       return (
         <DonutChart
-          dataArray={handleData(config, data)}
+          dataArray={handleDataArray.donut(config, data)}
           config={config}
           height={height}
           width={width}
@@ -46,7 +46,7 @@ const Chart = ({ config, height, width, margin, data }) => {
     case 'horizontal-bar': {
       return (
         <HorizontalBarChart
-          dataArray={handleData(config, data)}
+          dataArray={handleDataArray.horizontalBar(config, data)}
           config={config}
           height={height}
           width={width}

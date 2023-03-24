@@ -7,7 +7,9 @@
 const formatNumberWithCommas = num => {
   if (!isNaN(parseFloat(num))) {
     const numString = num.toString();
-    const chars = numString.split('');
+    const [integerStr, decimalStr] = numString.split('.');
+    const stringToFormat = decimalStr ? integerStr : numString;
+    const chars = stringToFormat.split('');
     // allows to add commas after every 3rd char from the right
     if (chars.length > 3) {
       chars.reverse();
@@ -16,7 +18,8 @@ const formatNumberWithCommas = num => {
         // add a comma after every third char
         chars[i] += ',';
       }
-      return chars.reverse().join('');
+      const numberWithCommas = `${chars.reverse().join('')}`;
+      return decimalStr ? `${numberWithCommas}.${decimalStr}` : numberWithCommas;
     }
   }
   return num.toString();

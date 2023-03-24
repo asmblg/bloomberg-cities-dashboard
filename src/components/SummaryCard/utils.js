@@ -8,7 +8,7 @@ const handleSummaryData = (config, data) => {
 
   const valuesObj = {};
 
-  if (config.valueCalculation === 'difference-from-100') {
+  if (config.valueCalculation === 'differenceFrom100') {
     valuesObj.mostRecent = mostRecentDate ? 100 - parseFloat(data[mostRecentDate]) : null;
     valuesObj.previous = previousDate ? 100 - parseFloat(data[previousDate]) : null;
   } else {
@@ -33,7 +33,7 @@ const handleSummaryData = (config, data) => {
       summaryDataObj.value = formatNumberWithCommas(val);
       break;
     }
-    case 'difference-from-100': {
+    case 'differenceFrom100': {
       summaryDataObj.value = `${formatNumberWithCommas(valuesObj.mostRecent)}%`;
       break;
     }
