@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
 // import Chart from '../Chart';
+import DataMap from '../DataMap';
 import DonutChart from './subComponents/DonutChart';
 import LastUpdateIcon from '../LastUpdateIcon';
 import TrendPill from '../TrendPill';
 
+import { getData, getTractGeoJSON } from '../../utils/API';
+import getNestedValue from '../../utils/getNestedValue';
 import infoIcon from '../../assets/icons/info.png';
 import './style.css';
 
@@ -66,12 +69,56 @@ const testAgePieData = [
   }
 ];
 
-const CommunityProfile = ({ viewType }) => {
+const CommunityProfile = ({ config, project, viewType }) => {
+  const [communityData, setCommunityData] = useState(null);
+  const [tractGeoJSON, setTractGeoJSON] = useState(null);
+  // const [mapData, setMapData] = useState(null);
+  const [indicators, setIndicators] = useState(null);
+  const [selectedIndicator, setSelectedIndicator] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  // const indicator = null;
+  // const tractGeoJSON = null;
+  console.log(config);
+  const manifest = null;
+  const mapConfig = config.sections.find(({ type }) => type === 'map');
+  console.log(mapConfig);
+
+  useEffect(() => {
+    const dataPath = `data.${config.dataPath}`;
+    getData(project, dataPath).then(({ data }) => {
+      const communityDataObj = data[0];
+      console.log(communityDataObj);
+
+      setCommunityData({
+        updatedOn: communityDataObj.updatedOn,
+        data: getNestedValue(communityDataObj, dataPath)
+      });
+    });
+  }, [project, config.dataPath]);
+
+  useEffect(() => {
+    getTractGeoJSON(project).then(({ data }) => {
+      const geoJSON = data[0];
+      setTractGeoJSON(geoJSON);
+      // Creating a indicator list without manifest for now
+      const indicators = geoJSON
+        ? Object.keys(geoJSON.features[0].properties).filter(str => str !== 'GEOID')
+        : null;
+
+      if (indicators) {
+        setIndicators(indicators);
+        setSelectedIndicator(indicators[0]);
+      }
+    });
+  }, [project]);
+
   return (
     <div className='cp-container'>
       <div className='cp-header'>
         <h4>{'2021 CENSUS AMERICAN COMMUNITY SURVEY DATA UPDATE'}</h4>
-        <LastUpdateIcon date={'01/25/2023 11:55 AM'} width={'auto'} />
+        {communityData?.updatedOn ? (
+          <LastUpdateIcon date={communityData.updatedOn} width={'auto'} />
+        ) : null}
       </div>
       <div className='cp-body'>
         <div className='cp-section'>
@@ -135,11 +182,52 @@ const CommunityProfile = ({ viewType }) => {
         {/* ----------- MAP SECTION ----------- */}
         <div className='cp-section'>
           <div className='cp-map-wrapper'>
-            <div className='cp-map-dropdown'>
-              <Icon name={'angle down'} size='big' />
-              <h3>{'PERCENT ASIAN POPULATION'}</h3>
-            </div>
-            <div className='cp-map-container'></div>
+            {selectedIndicator && indicators ? (
+              <>
+                <div className='cp-map-dropdown'>
+                  <div className='dropdown-header' onClick={() => setDropdownOpen(!dropdownOpen)}>
+                    <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
+                    <h3>{selectedIndicator}</h3>
+                  </div>
+                </div>
+                {dropdownOpen ? (
+                  <ul className='dropdown-indicators-container'>
+                    {indicators.map(indicator => (
+                      <li
+                        key={indicator}
+                        className={
+                          selectedIndicator === indicator
+                            ? 'selected-indicator bold-font'
+                            : 'unselected-indicator'
+                        }
+                        onClick={() => {
+                          if (selectedIndicator !== indicator) {
+                            setSelectedIndicator(indicator);
+                          }
+
+                          setDropdownOpen(false);
+                        }}
+                      >
+                        {indicator}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+
+                {/* </div> */}
+              </>
+            ) : null}
+            {/* <div className='cp-map-container'> */}
+            {selectedIndicator && tractGeoJSON && communityData?.data ? (
+              <DataMap
+                manifest={manifest}
+                indicator={selectedIndicator}
+                data={communityData.data[selectedIndicator]}
+                mapConfig={mapConfig}
+                tractGeoJSON={tractGeoJSON}
+              />
+            ) : null}
+            {/* </div> */}
           </div>
         </div>
         {/* ----------------------------------- */}
@@ -166,7 +254,8 @@ const CommunityProfile = ({ viewType }) => {
 };
 
 CommunityProfile.propTypes = {
-  label: PropTypes.string,
+  config: PropTypes.object,
+  project: PropTypes.string,
   viewType: PropTypes.string
 };
 

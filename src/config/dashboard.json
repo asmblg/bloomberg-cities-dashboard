@@ -181,8 +181,13 @@
         "icon": null,
         "label": "Community profiles",
         "summary": null,
-        "dataPath": "community",
-        "sections": [{ "type": "map" }]
+        "dataPath": "community.city",
+        "sections": [
+          {
+            "type": "map",
+            "config": { "center": [-82.4572, 27.9506], "zoom": 13 }
+          }
+        ]
       }
     },
     "footer": {
@@ -393,8 +398,13 @@
         "icon": null,
         "label": "Community profiles",
         "summary": null,
-        "dataPath": "community",
-        "sections": [{ "type": "map" }]
+        "dataPath": "community.city",
+        "sections": [
+          {
+            "type": "map",
+            "config": { "center": [-112.0740, 33.4484], "zoom": 13 }
+          }
+        ]
       }
     },
     "footer": {

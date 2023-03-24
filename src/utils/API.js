@@ -19,7 +19,7 @@ const getConfig = async (projectCity, projectType) => {
   return res[0];
 };
 
-const getHomeData = (project, select) =>
+const getData = (project, select) =>
   axios.get('https://bloomberg-cities-api.herokuapp.com/data', {
     params: {
       project,
@@ -27,13 +27,12 @@ const getHomeData = (project, select) =>
     }
   });
 
-// const getGeoJSON = ({ baseURL, countyfp, statefp }) =>
-//   axios.get(baseURL, {
-//     params: {
-//       where: `COUNTYFP=${countyfp} AND STATEFP=${statefp}`,
-//       outFields: 'GEOID',
-//       f: 'geojson'
-//     }
-//   });
+const getTractGeoJSON = project =>
+  axios.get('https://bloomberg-cities-api.herokuapp.com/geo', {
+    params: {
+      project,
+      geotype: 'census%20tracts'
+    }
+  });
 
-export { getConfig, getHomeData };
+export { getConfig, getData, getTractGeoJSON };
