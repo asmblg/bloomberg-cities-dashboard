@@ -14,6 +14,8 @@ const getDateKeysForChart = (config, data) => {
       ? getRecentQuarterEndDates(dateKeys, dataArrayLength)
       : getMostRecentDateKeys(dateKeys, dataArrayLength);
 
+  console.log(keys);
+
   return keys && keys[0] ? sortDatesArray(keys, 'ascending') : [];
 };
 

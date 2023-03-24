@@ -1,25 +1,32 @@
-const handleColorData = ({ data, colors }) => {
-  const [mostRecentYear] = Object.keys(data).sort((a, b) => a - b);
-  const sortedVals = Object.values(data[mostRecentYear])
-    .filter(a => a >= 0)
-    .sort((a, b) => a - b);
-  const min = sortedVals[0];
-  const max = sortedVals[sortedVals.length - 1];
-  const range = max - min;
+import percentile from 'percentile';
+const handleBinning = ({ geoJSON, colors, indicator, numOfBins }) => {
+  const binArray = [];
+  const pRange = Math.floor(100/numOfBins);
 
-  const colorObj = {};
+  const valueArray = geoJSON.features.map(feature => 
+    feature.properties[indicator]).sort();
 
-  Object.entries(data[mostRecentYear]).forEach(([key, value]) => {
-    const distFromMin = value - min;
-    const binningRatio = distFromMin / range;
-    const indexRange = colors.length - 1;
-    const colorIndex = Math.floor(binningRatio * indexRange);
-    const color = colors[colorIndex];
+  console.log(valueArray);
 
-    colorObj[key] = color;
-  });
+  for (let i=0; i<numOfBins; i++) {
+    let p = null;
+    const m = i + 1; 
+    if (i !== (numOfBins - 1)) {
+      p = percentile(pRange * m, valueArray);
+    } else (
+      p = 100
+    );
+    binArray.push({
+      percentile: p,
+      color: colors[i]
+    });
+  }
 
-  return { colorObj: colorObj, min: min, max: max };
+  console.log(binArray);
+
+  
+  return binArray;
+
 };
 
-export { handleColorData };
+export { handleBinning };

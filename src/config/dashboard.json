@@ -37,8 +37,9 @@
                 "tickCount": 2
               },
               "yaxis": {
-                "tickCount": 1,
-                "labelFormatter": "abbreviateNumber"
+                "tickCount": 2,
+                "labelFormatter": "abbreviateNumber",
+                "domain": ["dataMin", "dataMax"]
               },
               "color": "#002944"
             }
@@ -185,7 +186,14 @@
         "sections": [
           {
             "type": "map",
-            "config": { "center": [-82.4572, 27.9506], "zoom": 13 }
+            "config":  {
+              "center": [
+                27.970253,
+                -82.358835
+              ],
+              "zoom": 9.5,
+              "geoType": "Census Tracts"
+            }
           }
         ]
       }
@@ -402,7 +410,13 @@
         "sections": [
           {
             "type": "map",
-            "config": { "center": [-112.0740, 33.4484], "zoom": 13 }
+            "config": {
+              "center": [
+                33.52698,
+                -112.079901
+              ],
+              "zoom": 10
+            }
           }
         ]
       }

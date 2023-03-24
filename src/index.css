@@ -80,3 +80,8 @@
   font-family: 'RobotoThinItalic';
   src: local('Roboto-ThinkItalic'), url('./fonts/Roboto-ThinItalic.ttf') format('truetype');
 }
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}

@@ -1,57 +1,72 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
-import numeral from 'numeral';
+// import numeral from 'numeral';
 import colormap from 'colormap';
 import './style.css';
 
-import { handleColorData } from './utils';
+import { handleBinning } from './utils';
+// import { geoJSON } from 'leaflet';
 
-const DataMap = ({ data, mapConfig, tractGeoJSON, indicator, manifest }) => {
-  const [colorData, setColorData] = useState();
-  const [range, setRange] = useState();
+const DataMap = ({ mapConfig, tractGeoJSON, indicator, manifest }) => {
+  const [bins, setBins] = useState();
+  // const [range, setRange] = useState();
+  const numOfBins = 10;
   const colors = colormap({
     colormap: 'bathymetry',
-    nshades: 72,
+    nshades: numOfBins,
     format: 'hex',
     alpha: 1
-  }).reverse();
+  });
 
-  const type = manifest?.[indicator].type;
+  // const type = manifest?.[indicator].type;
 
-  const formatString =
-    type === 'percent' || type === 'time' ? '0.0' : type === 'money' ? '$0,0' : '0,0';
+  // const formatString =
+  //   type === 'percent' || type === 'time' ? '0.0' : type === 'money' ? '$0,0' : '0,0';
 
   useEffect(() => {
     if (colors) {
-      const { colorObj, min, max } = handleColorData({
-        data: data,
-        colors: colors
-      });
-      setRange({ min: min, max: max });
-      console.log(data);
-      setColorData(colorObj);
+
+      setBins(handleBinning({
+        geoJSON: tractGeoJSON,
+        colors,
+        indicator,
+        numOfBins
+      }));
+      // const { colorObj, min, max } = handleColorData({
+      //   data: data,
+      //   colors: colors
+      // });
+      // setRange({ min: min, max: max });
+      // console.log(data);
+      // setColorData(colorObj);
     }
-  }, [data]);
+  }, [indicator]);
 
-  console.log(colorData && tractGeoJSON ? 'yes' : 'no');
+  console.log(bins && tractGeoJSON ? 'yes' : 'no');
 
-  return colorData && tractGeoJSON ? (
+  console.log(mapConfig);
+  return bins && tractGeoJSON ? (
     <div className='data-map'>
-      {colorData ? (
-        <MapContainer center={mapConfig.center} zoom={mapConfig.zoom} zoomControl={false}>
+      {bins ? (
+        <MapContainer key={'data-map'} center={mapConfig.config.center} zoom={mapConfig.config.zoom} zoomControl={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
           />
-          {tractGeoJSON && colorData ? (
+          {tractGeoJSON && bins ? (
             <GeoJSON
               key={`data-layer-${indicator}`}
               data={tractGeoJSON}
               style={feature => {
-                console.log(feature);
-                const id = feature.properties.GEOID;
-                const color = colorData[id] ? colorData[id] : 'transparent';
+                // console.log(feature);
+                const value = feature.properties[indicator];
+
+                const color = value 
+                  ? bins
+                    .filter(({percentile}) => value <= percentile )
+                    .map((({color}) => color))[0]
+                  : 'transparent';
                 return {
                   fillColor: color,
                   color: 'black',
@@ -64,7 +79,7 @@ const DataMap = ({ data, mapConfig, tractGeoJSON, indicator, manifest }) => {
           ) : null}
         </MapContainer>
       ) : null}
-      <div className='color-ramp'>
+      {/* <div className='color-ramp'>
         <div className='color-ramp-label'>
           {range
             ? `${numeral(range.min).format(formatString)}${type === 'percent' ? '%' : ''}`
@@ -78,7 +93,7 @@ const DataMap = ({ data, mapConfig, tractGeoJSON, indicator, manifest }) => {
             ? `${numeral(range.max).format(formatString)}${type === 'percent' ? '%' : ''}`
             : 'max'}
         </div>
-      </div>
+      </div> */}
     </div>
   ) : null;
 };
