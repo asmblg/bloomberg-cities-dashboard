@@ -78,16 +78,15 @@ const CommunityProfile = ({ config, project, viewType }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   // const indicator = null;
   // const tractGeoJSON = null;
-  console.log(config);
+  // console.log(config);
   const manifest = null;
   const mapConfig = config.sections.find(({ type }) => type === 'map');
-  console.log(mapConfig);
 
   useEffect(() => {
     const dataPath = `data.${config.dataPath}`;
     getData(project, dataPath).then(({ data }) => {
       const communityDataObj = data[0];
-      console.log(communityDataObj);
+      // console.log(communityDataObj);
 
       setCommunityData({
         updatedOn: communityDataObj.updatedOn,

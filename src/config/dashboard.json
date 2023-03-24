@@ -186,13 +186,11 @@
         "sections": [
           {
             "type": "map",
-            "config":  {
-              "center": [
-                27.970253,
-                -82.358835
-              ],
+            "config": {
+              "center": [27.970253, -82.358835],
               "zoom": 9.5,
-              "geoType": "Census Tracts"
+              "geoType": "Census Tracts",
+              "colors": ["#969696", "#72acd2", "#006aaf", "#002944"]
             }
           }
         ]
@@ -411,11 +409,10 @@
           {
             "type": "map",
             "config": {
-              "center": [
-                33.52698,
-                -112.079901
-              ],
-              "zoom": 10
+              "center": [33.52698, -112.079901],
+              "zoom": 10,
+              "geoType": "Census Tracts",
+              "colors": ["#969696", "#72acd2", "#006aaf", "#002944"]
             }
           }
         ]

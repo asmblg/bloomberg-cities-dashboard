@@ -2,23 +2,19 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 // import numeral from 'numeral';
-import colormap from 'colormap';
+// import colormap from 'colormap';
 import './style.css';
 
 import { handleBinning } from './utils';
 // import { geoJSON } from 'leaflet';
 
-const DataMap = ({ mapConfig, tractGeoJSON, indicator, manifest }) => {
+const DataMap = ({ mapConfig: { config }, tractGeoJSON, indicator }) => {
   const [bins, setBins] = useState();
   // const [range, setRange] = useState();
-  const numOfBins = 10;
-  const colors = colormap({
-    colormap: 'bathymetry',
-    nshades: numOfBins,
-    format: 'hex',
-    alpha: 1
-  });
-
+  // Default colors currently Tampa colors
+  const colors = config.colors ? config.colors : ['#969696', '#72acd2', '#006aaf', '#002944'];
+  const numOfBins = colors.length;
+  // const numOfBins = config;
   // const type = manifest?.[indicator].type;
 
   // const formatString =
@@ -26,13 +22,14 @@ const DataMap = ({ mapConfig, tractGeoJSON, indicator, manifest }) => {
 
   useEffect(() => {
     if (colors) {
-
-      setBins(handleBinning({
-        geoJSON: tractGeoJSON,
-        colors,
-        indicator,
-        numOfBins
-      }));
+      setBins(
+        handleBinning({
+          geoJSON: tractGeoJSON,
+          colors,
+          indicator,
+          numOfBins
+        })
+      );
       // const { colorObj, min, max } = handleColorData({
       //   data: data,
       //   colors: colors
@@ -43,13 +40,15 @@ const DataMap = ({ mapConfig, tractGeoJSON, indicator, manifest }) => {
     }
   }, [indicator]);
 
-  console.log(bins && tractGeoJSON ? 'yes' : 'no');
-
-  console.log(mapConfig);
   return bins && tractGeoJSON ? (
     <div className='data-map'>
       {bins ? (
-        <MapContainer key={'data-map'} center={mapConfig.config.center} zoom={mapConfig.config.zoom} zoomControl={false}>
+        <MapContainer
+          key={'data-map'}
+          center={config.center}
+          zoom={config.zoom}
+          zoomControl={false}
+        >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -59,13 +58,12 @@ const DataMap = ({ mapConfig, tractGeoJSON, indicator, manifest }) => {
               key={`data-layer-${indicator}`}
               data={tractGeoJSON}
               style={feature => {
-                // console.log(feature);
                 const value = feature.properties[indicator];
-
-                const color = value 
+                // console.log(value);
+                const color = value
                   ? bins
-                    .filter(({percentile}) => value <= percentile )
-                    .map((({color}) => color))[0]
+                    .filter(({ percentile }) => value <= percentile)
+                    .map(({ color }) => color)[0]
                   : 'transparent';
                 return {
                   fillColor: color,
