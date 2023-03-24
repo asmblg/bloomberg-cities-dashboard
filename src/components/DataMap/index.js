@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 // import numeral from 'numeral';
 // import colormap from 'colormap';
-import './style.css';
+
+import Legend from './subComponents/Legend';
 
 import { handleBinning } from './utils';
+import './style.css';
 // import { geoJSON } from 'leaflet';
 
 const DataMap = ({ mapConfig: { config }, tractGeoJSON, indicator }) => {
@@ -75,6 +77,7 @@ const DataMap = ({ mapConfig: { config }, tractGeoJSON, indicator }) => {
               }}
             />
           ) : null}
+          <Legend indicator={indicator} bins={bins} />
         </MapContainer>
       ) : null}
       {/* <div className='color-ramp'>
