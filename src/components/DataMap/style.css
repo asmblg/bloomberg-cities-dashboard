@@ -1,13 +1,14 @@
 .data-map {
   height: calc(100% - 40px);
-  width: 100%;
+  width: 500px;
+  height: 100%;
 }
 
 .map-legend {
   background-color: var(--white-color);
   border: 2px solid var(--primary-gray-color);
   height: 150px;
-  width: 200px;
+  width: fit-content;
   margin: 0 10px 20px 0;
   padding: 10px;
   z-index: 999999;
@@ -32,20 +33,14 @@
   margin-right: 10px;
 }
 
-/* .color-ramp {
-  margin: 5px auto;
-  width: 100%;
-  height: 30px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+/* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Tablet Breakpoint */
+@media screen and (max-width: 1280px) {
+  .data-map {
+    height: 500px;
+    width: 100%;
+  }
 }
 
-.color-bin {
-  height: 30px;
-  width: 100%;
-}
-
-.color-ramp-label {
-  padding: 0 5px;
-} */
+/* Initial Mobile Breakpoint */
+/* @media screen and (max-width: 767px) {} */

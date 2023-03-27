@@ -12,9 +12,9 @@
 }
 
 #section-container {
-  margin: 0 var(--desktop-outer-margin);
-  padding-top: 2%;
+  padding: 2% var(--desktop-outer-margin);;
   height: calc(100vh - (var(--desktop-header-height) + var(--desktop-footer-height)));
+  overflow-y: auto;
 }
 
 #footer {
@@ -62,7 +62,7 @@
     height: calc(
       (100vh - (var(--mobile-header-height) + var(--mobile-footer-height))) + 1px
     ); /* Added a pixel to fix minor overlap  */
-    padding-top: 0;
+    padding: 0;
   }
 
   #footer {

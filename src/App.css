@@ -54,7 +54,6 @@ a:hover {
 }
 
 .full-card-wrapper {
-  height: 90%;
   width: 100%;
   display: flex;
 }
@@ -62,7 +61,6 @@ a:hover {
 .full-card-container {
   border: 1px solid var(--primary-gray-color);
   width: 100%;
-  height: 100%;
   background-color: var(--white-color);
   display: flex;
   flex-direction: row;
@@ -165,7 +163,6 @@ a:hover {
   .full-card-container {
     margin-left: var(--mobile-outer-margin);
     margin-right: var(--mobile-outer-margin);
-    width: 90%;
   }
 
   .edd-title {
