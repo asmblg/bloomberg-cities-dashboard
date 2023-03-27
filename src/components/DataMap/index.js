@@ -69,7 +69,7 @@ const DataMap = ({ mapConfig: { config }, tractGeoJSON, indicator }) => {
                   : 'transparent';
                 return {
                   fillColor: color,
-                  color: 'black',
+                  color: config.strokeColor || 'black',
                   weight: 1,
                   opacity: 0.8,
                   fillOpacity: 0.9
@@ -77,24 +77,9 @@ const DataMap = ({ mapConfig: { config }, tractGeoJSON, indicator }) => {
               }}
             />
           ) : null}
-          <Legend indicator={indicator} bins={bins} />
+          <Legend indicator={indicator} bins={bins} strokeColor={config.strokeColor || 'black'} />
         </MapContainer>
       ) : null}
-      {/* <div className='color-ramp'>
-        <div className='color-ramp-label'>
-          {range
-            ? `${numeral(range.min).format(formatString)}${type === 'percent' ? '%' : ''}`
-            : 'min'}
-        </div>
-        {colors.map((color, i) => (
-          <div key={`color-bin-${i}`} className='color-bin' style={{ backgroundColor: color }} />
-        ))}
-        <div className='color-ramp-label'>
-          {range
-            ? `${numeral(range.max).format(formatString)}${type === 'percent' ? '%' : ''}`
-            : 'max'}
-        </div>
-      </div> */}
     </div>
   ) : null;
 };

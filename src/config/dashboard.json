@@ -190,7 +190,8 @@
               "center": [27.970253, -82.358835],
               "zoom": 9.5,
               "geoType": "Census Tracts",
-              "colors": ["#969696", "#72acd2", "#006aaf", "#002944"]
+              "colors": ["#969696", "#72acd2", "#006aaf", "#002944"],
+              "strokeColor": "#dfe5e9"
             }
           }
         ]
@@ -260,8 +261,9 @@
                 "tickCount": 2
               },
               "yaxis": {
-                "tickCount": 1,
-                "labelFormatter": "abbreviateNumber"
+                "tickCount": 2,
+                "labelFormatter": "abbreviateNumber",
+                "domain": ["dataMin", "dataMax"]
               },
               "color": "#002944"
             }
@@ -412,7 +414,8 @@
               "center": [33.52698, -112.079901],
               "zoom": 10,
               "geoType": "Census Tracts",
-              "colors": ["#969696", "#72acd2", "#006aaf", "#002944"]
+              "colors": ["#969696", "#72acd2", "#006aaf", "#002944"],
+              "strokeColor": "#dfe5e9"
             }
           }
         ]

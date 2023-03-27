@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Legend = ({ indicator, bins }) => {
+const Legend = ({ indicator, bins, strokeColor }) => {
   const sortedBins = [...bins].sort((a, b) => parseFloat(b.percentile) - parseFloat(a.percentile));
   return (
     <div className='map-legend'>
@@ -10,7 +10,7 @@ const Legend = ({ indicator, bins }) => {
         {sortedBins.map(({ color, label }) => (
           <li key={`legend-bin-${color}`} className='legend-bin'>
             <svg height={'15px'} width={'15px'}>
-              <rect height={'15px'} width={'15px'} fill={color} />
+              <rect height={'15px'} width={'15px'} fill={color} stroke={strokeColor} />
             </svg>
             <h5>{label}</h5>
           </li>
@@ -22,7 +22,8 @@ const Legend = ({ indicator, bins }) => {
 
 Legend.propTypes = {
   indicator: PropTypes.string,
-  bins: PropTypes.array
+  bins: PropTypes.array,
+  strokeColor: PropTypes.string
 };
 
 export default Legend;
