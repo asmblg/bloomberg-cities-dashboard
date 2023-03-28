@@ -2,7 +2,7 @@ import sortDatesArray from './sortDatesArray';
 
 /**
  *
- * @param {array} array Array of dates in YYYY-MM-DD or YYYY-QX format
+ * @param {array} array Array of dates in YYYY-MM-DD, YYYY-QX or YYYY format
  * @param {*} numOfDates Number of dates to return. Default: all dates
  * @returns Array of dates
  */

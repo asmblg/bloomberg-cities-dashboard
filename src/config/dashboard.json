@@ -185,6 +185,74 @@
         "dataPath": "community.city",
         "sections": [
           {
+            "type": "indicator-lists",
+            "config": {
+              "lists": [
+                {
+                  "type": "grid",
+                  "indicators": [
+                    {
+                      "key": "pop",
+                      "dataPath": "",
+                      "text": "Total Population",
+                      "labelFormatter": null
+                    },
+                    {
+                      "key": "households",
+                      "text": "Number of Households",
+                      "labelFormatter": null
+                    },
+                    {
+                      "key": "med_hh_income",
+                      "text": "Median Household Income",
+                      "labelFormatter": "numToDollars"
+                    },
+                    {
+                      "key": "med_housing_value",
+                      "text": "Median Housing Value",
+                      "labelFormatter": "numToDollars"
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-containers-with-trend",
+                  "indicators": [
+                    {
+                      "key": "pop_poverty",
+                      "text": "Population earning a living wage",
+                      "calculation": {
+                        "type": "inversePercent",
+                        "helperIndicator": "pop"
+                      },
+                      "labelFormatter": "percent"
+                    },
+                    {
+                      "key": "p_owner_occupied",
+                      "text": "Home Ownership",
+                      "calculation": null,
+                      "labelFormatter": "percent"
+                    },
+                    {
+                      "key": "p_rent_burdened_30_35",
+                      "text": "Rental cost-burdened households",
+                      "calculation": {
+                        "type": "addPercentages",
+                        "helperIndicator": "p_rent_burdened_35_over"
+                      },
+                      "labelFormatter": "percent"
+                    },
+                    {
+                      "key": "p_with_ba",
+                      "text": "Population 25 years and over with a bachelors degree or higher",
+                      "calculation": null,
+                      "labelFormatter": "percent"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
             "type": "map",
             "config": {
               "center": [27.970253, -82.358835],
@@ -192,6 +260,71 @@
               "geoType": "Census Tracts",
               "colors": ["#969696", "#72acd2", "#006aaf", "#002944"],
               "strokeColor": "#dfe5e9"
+            }
+          },
+          {
+            "type": "donut-charts",
+            "config": {
+              "donuts": [
+                {
+                  "title": "RACE AND ETHNICITY",
+                  "indicators": [
+                    {
+                      "key": "pop_asian",
+                      "text": "Asian"
+                    },
+                    {
+                      "key": "pop_black",
+                      "text": "Black African American"
+                    },
+                    {
+                      "key": "pop_hispanic",
+                      "text": "Hispanic (all races)"
+                    },
+                    {
+                      "key": "pop_white",
+                      "text": "White"
+                    },
+                    {
+                      "key": "pop_other_race",
+                      "text": "Other",
+                      "calculation": {
+                        "type": "sumOfMultiple",
+                        "helperIndicators": [
+                          "pop_american_indian",
+                          "pop_pacific_islander",
+                          "pop_two_or_more"
+                        ]
+                      }
+                    }
+                  ],
+                  "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
+                },
+                {
+                  "title": "AGE GROUPS",
+                  "indicators": [
+                    {
+                      "key": "pop_under_19",
+                      "text": "Under 19"
+                    },
+                    {
+                      "key": "pop_over_65",
+                      "text": "65 or more"
+                    },
+                    {
+                      "key": "pop_under_19",
+                      "text": "",
+                      "calculation": {
+                        "type": "differenceFromTotal",
+                        "addTo": "pop_over_65",
+                        "subtractFrom": "pop"
+                      }
+                    }
+                  ],
+                  "colors": ["#002944", "#006aaf", "#dfe5e9"]
+                }
+              ],
+              "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
             }
           }
         ]
@@ -409,6 +542,74 @@
         "dataPath": "community.city",
         "sections": [
           {
+            "type": "indicator-lists",
+            "config": {
+              "lists": [
+                {
+                  "type": "grid",
+                  "indicators": [
+                    {
+                      "key": "pop",
+                      "dataPath": "",
+                      "text": "Total Population",
+                      "labelFormatter": null
+                    },
+                    {
+                      "key": "households",
+                      "text": "Number of Households",
+                      "labelFormatter": null
+                    },
+                    {
+                      "key": "med_hh_income",
+                      "text": "Median Household Income",
+                      "labelFormatter": "numToDollars"
+                    },
+                    {
+                      "key": "med_housing_value",
+                      "text": "Median Housing Value",
+                      "labelFormatter": "numToDollars"
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-containers-with-trend",
+                  "indicators": [
+                    {
+                      "key": "pop_poverty",
+                      "text": "Population earning a living wage",
+                      "calculation": {
+                        "type": "inversePercent",
+                        "helperIndicator": "pop"
+                      },
+                      "labelFormatter": "percent"
+                    },
+                    {
+                      "key": "p_owner_occupied",
+                      "text": "Home Ownership",
+                      "calculation": null,
+                      "labelFormatter": "percent"
+                    },
+                    {
+                      "key": "p_rent_burdened_30_35",
+                      "text": "Rental cost-burdened households",
+                      "calculation": {
+                        "type": "addPercentages",
+                        "helperIndicator": "p_rent_burdened_35_over"
+                      },
+                      "labelFormatter": "percent"
+                    },
+                    {
+                      "key": "p_with_ba",
+                      "text": "Population 25 years and over with a bachelors degree or higher",
+                      "calculation": null,
+                      "labelFormatter": "percent"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
             "type": "map",
             "config": {
               "center": [33.52698, -112.079901],
@@ -416,6 +617,70 @@
               "geoType": "Census Tracts",
               "colors": ["#969696", "#72acd2", "#006aaf", "#002944"],
               "strokeColor": "#dfe5e9"
+            }
+          },
+          {
+            "type": "donut-charts",
+            "config": {
+              "donuts": [
+                {
+                  "title": "RACE AND ETHNICITY",
+                  "indicators": [
+                    {
+                      "key": "pop_asian",
+                      "text": "Asian"
+                    },
+                    {
+                      "key": "pop_black",
+                      "text": "Black African American"
+                    },
+                    {
+                      "key": "pop_hispanic",
+                      "text": "Hispanic (all races)"
+                    },
+                    {
+                      "key": "pop_white",
+                      "text": "White"
+                    },
+                    {
+                      "key": "pop_other_race",
+                      "text": "Other",
+                      "calculation": {
+                        "type": "sumOfMultiple",
+                        "helperIndicators": [
+                          "pop_american_indian",
+                          "pop_pacific_islander",
+                          "pop_two_or_more"
+                        ]
+                      }
+                    }
+                  ],
+                  "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
+                },
+                {
+                  "title": "AGE GROUPS",
+                  "indicators": [
+                    {
+                      "key": "pop_under_19",
+                      "text": "Under 19"
+                    },
+                    {
+                      "key": "pop_over_65",
+                      "text": "65 or more"
+                    },
+                    {
+                      "key": "pop_under_19",
+                      "text": "",
+                      "calculation": {
+                        "type": "differenceFromTotal",
+                        "addTo": "pop_over_65",
+                        "subtractFrom": "pop"
+                      }
+                    }
+                  ],
+                  "colors": ["#002944", "#006aaf", "#dfe5e9"]
+                }
+              ]
             }
           }
         ]

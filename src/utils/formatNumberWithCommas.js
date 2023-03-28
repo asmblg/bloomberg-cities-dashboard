@@ -22,7 +22,7 @@ const formatNumberWithCommas = num => {
       return decimalStr ? `${numberWithCommas}.${decimalStr}` : numberWithCommas;
     }
   }
-  return num.toString();
+  return num;
 };
 
 export default formatNumberWithCommas;
