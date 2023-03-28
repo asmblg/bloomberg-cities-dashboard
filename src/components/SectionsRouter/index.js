@@ -6,7 +6,7 @@ import Home from '../Home';
 import DetailCard from '../DetailCard';
 import AboutProject from '../AboutProject';
 
-const SectionRouter = ({ project, sections, sectionKeys, viewType, dashboardType }) => (
+const SectionRouter = ({ project, sections, sectionKeys, viewType, dashboardType, dataManifest }) => (
   <Routes>
     {sectionKeys && sectionKeys[0]
       ? sectionKeys.map(key =>
@@ -14,7 +14,7 @@ const SectionRouter = ({ project, sections, sectionKeys, viewType, dashboardType
           <Route
             key={`home-route-${key}`}
             path={`/${project.toLowerCase()}/${dashboardType}`}
-            element={<Home config={sections[key]} project={project} viewType={viewType} />}
+            element={<Home config={sections[key]} dataManifest={dataManifest} project={project} viewType={viewType} />}
           />
         ) : (
           <Route
@@ -26,6 +26,7 @@ const SectionRouter = ({ project, sections, sectionKeys, viewType, dashboardType
                 sectionKey={key}
                 project={project}
                 viewType={viewType}
+                dataManifest={dataManifest}
               />
             }
           />
@@ -50,7 +51,8 @@ SectionRouter.propTypes = {
   dashboardType: PropTypes.string,
   sectionKeys: PropTypes.array,
   sections: PropTypes.object,
-  viewType: PropTypes.string
+  viewType: PropTypes.string,
+  dataManifest: PropTypes.array
 };
 
 export default SectionRouter;

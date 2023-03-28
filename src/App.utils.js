@@ -1,4 +1,5 @@
 import { getConfig } from './utils/API';
+import manifest from './config/data-manifest.json';
 
 const handleConfig = async (pathname, defaultCity, defaultDashboardType) => {
   try {
@@ -34,4 +35,8 @@ const handleConfig = async (pathname, defaultCity, defaultDashboardType) => {
   }
 };
 
-export { handleConfig };
+const getManifest = () => {
+  return manifest;
+};
+
+export { handleConfig, getManifest };

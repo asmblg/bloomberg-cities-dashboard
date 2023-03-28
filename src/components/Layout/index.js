@@ -14,7 +14,7 @@ import { handleViewType, getCurrentRoute } from './utils';
 // import homeIcon from '../../assets/icons/home_icon.png';
 import './style.css';
 
-const Layout = ({ config }) => {
+const Layout = ({ config, dataManifest }) => {
   const [viewType, setViewType] = useState('');
   const [selectedLink, setSelectedLink] = useState('');
   const { pathname } = useLocation();
@@ -76,6 +76,7 @@ const Layout = ({ config }) => {
             sectionKeys={sectionKeys}
             sections={sections}
             viewType={viewType}
+            dataManifest={dataManifest}
           />
         </div>
       </div>
@@ -87,7 +88,8 @@ const Layout = ({ config }) => {
 };
 
 Layout.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  dataManifest: PropTypes.array
 };
 
 export default Layout;

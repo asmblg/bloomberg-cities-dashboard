@@ -2,60 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ResponsiveContainer, PieChart, Pie, Legend, Cell } from 'recharts';
 
-import getMostRecentDateKeys from '../../../utils/getMostRecentDateKeys';
+import { handleDonutDataArray } from '../utils';
 
 const DonutWithLegend = ({ indicators, data, colors }) => {
   const [dataArray, setDataArray] = useState(null);
-  const handleDataArray = (indicators, data, colors) => {
-    const colorMap = indicators.length <= colors.length ? colors : null;
-
-    if (colorMap) {
-      // const [mostRecentDate] = getMostRecentDateKeys(Object.keys(indicatorData), 1);
-      const dataArray = indicators.map(({ key, text, calculation }, i) => {
-        const obj = {
-          name: text,
-          color: colors[i]
-        };
-
-        const [mostRecentDate] = getMostRecentDateKeys(Object.keys(data[key]), 1);
-        let value = parseFloat(data[key][mostRecentDate]);
-
-        if (calculation) {
-          switch (calculation.type) {
-            case 'sumOfMultiple': {
-              if (calculation.helperIndicators && calculation.helperIndicators[0]) {
-                calculation.helperIndicators.forEach(indicator => {
-                  value += parseFloat(data[indicator][mostRecentDate]);
-                });
-              }
-              break;
-            }
-            case 'differenceFromTotal': {
-              if (calculation.addTo) {
-                value += parseFloat(data[calculation.addTo][mostRecentDate]);
-              }
-
-              if (calculation.subtractFrom) {
-                value = parseFloat(data[calculation.subtractFrom][mostRecentDate]) - value;
-              }
-              break;
-            }
-            default: {
-              break;
-            }
-          }
-        }
-        obj.value = value;
-        return obj;
-      });
-      return dataArray;
-    }
-    return null;
-  };
 
   useEffect(() => {
     if (indicators && data) {
-      setDataArray(handleDataArray(indicators, data, colors));
+      setDataArray(handleDonutDataArray(indicators, data, colors));
     }
   }, [indicators, data, colors]);
   return dataArray && dataArray[0] ? (
