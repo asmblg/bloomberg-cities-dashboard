@@ -1,7 +1,18 @@
+.detail-card-header {
+  padding: 2% 2% 2% 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-header-titles > h4 {
+  margin: 5px;
+}
+
 .detail-card-container {
   display: flex;
   flex-direction: column;
-  /* height: 'fit-content'; */
 }
 
 .detail-card-section {
@@ -14,11 +25,6 @@
   font-size: 22px;
   line-height: 1.25;
   height: 25%;
-}
-
-.cp-wrapper {
-  display: flex;
-  width: 100%;
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */

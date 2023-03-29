@@ -1,25 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import CommunityProfile from '../CommunityProfile';
+import Jobs from '../Jobs';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
+import LastUpdateIcon from '../LastUpdateIcon';
 
+import getNestedValue from '../../utils/getNestedValue';
+import { getData } from '../../utils/API';
 import './style.css';
 
 const DetailCard = ({ project, config, sectionKey, viewType, dataManifest }) => {
-  const { label } = config;
+  const [detailData, setDetailData] = useState(null);
+
+  useEffect(() => {
+    const dataPath = `data.${config.dataPath}`;
+    getData(project, dataPath).then(({ data }) => {
+      const [dataObj] = data;
+
+      setDetailData({
+        updatedOn: dataObj.updatedOn,
+        data: getNestedValue(dataObj, dataPath)
+      });
+    });
+  }, [project, config.dataPath, sectionKey]);
 
   return (
     <div className='full-card-wrapper'>
       <div className='full-card-container detail-card-container'>
-        {sectionKey !== 'community' ? (
-          <div className='detail-card-section'>
-            <div className='detail-title bold-font'>{label.toUpperCase()}</div>
+        <div className='detail-card-header'>
+          <div className='detail-header-titles'>
+            {config.title ? <h4>{config.title}</h4> : null}
+            {config.subTitle ? <h4>{config.subTitle}</h4> : null}
+            {!config.title && !config.subTitle && config.label ? <h4>{config.label}</h4> : null}
           </div>
+          {detailData?.updatedOn && config.displayUpdateDate ? (
+            <LastUpdateIcon date={detailData.updatedOn} width={'auto'} />
+          ) : null}
+        </div>
+        {sectionKey === 'jobs' ? (
+          <Jobs
+            project={project}
+            config={config}
+            data={detailData}
+            viewType={viewType}
+            dataManifest={dataManifest}
+          />
+        ) : sectionKey === 'community' ? (
+          <CommunityProfile
+            project={project}
+            config={config}
+            data={detailData}
+            viewType={viewType}
+            dataManifest={dataManifest}
+          />
         ) : (
-          <div className='cp-wrapper'>
-            <CommunityProfile project={project} config={config} viewType={viewType} dataManifest={dataManifest} />
-          </div>
+          <div className='detail-card-section'></div>
         )}
         <ShareAndPrintIcons />
       </div>

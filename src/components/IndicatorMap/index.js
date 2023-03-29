@@ -9,20 +9,14 @@ import Legend from './subComponents/Legend';
 
 import { handleBinning } from './utils';
 import './style.css';
-// import { geoJSON } from 'leaflet';
 
-const IndicatorMap = ({ mapConfig: { config }, geoJSON, data, dataManifest }) => {
+const IndicatorMap = ({ config, geoJSON, data, dataManifest }) => {
   const [bins, setBins] = useState();
   const [indicators, setIndicators] = useState(null);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
   // Default colors currently Tampa colors
   const colors = config.colors ? config.colors : ['#969696', '#72acd2', '#006aaf', '#002944'];
   const numOfBins = colors.length;
-  // const numOfBins = config;
-  // const type = manifest?.[indicator].type;
-
-  // const formatString =
-  //   type === 'percent' || type === 'time' ? '0.0' : type === 'money' ? '$0,0' : '0,0';
 
   useEffect(() => {
     const configIndicators =
@@ -107,7 +101,7 @@ const IndicatorMap = ({ mapConfig: { config }, geoJSON, data, dataManifest }) =>
 
 IndicatorMap.propTypes = {
   data: PropTypes.object,
-  mapConfig: PropTypes.object,
+  config: PropTypes.object,
   geoJSON: PropTypes.object,
   dataManifest: PropTypes.object
 };
