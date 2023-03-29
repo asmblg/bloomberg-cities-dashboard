@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 // import { Icon } from 'semantic-ui-react';
 
 import IndicatorListSection from './subComponents/IndicatorListSection';
-import DataMap from '../DataMap';
+// import DataMap from '../DataMap';
+import IndicatorMap from '../IndicatorMap';
 import DonutWithLegend from './subComponents/DonutWithLegend';
 import LastUpdateIcon from '../LastUpdateIcon';
 // import TrendPill from '../TrendPill';
@@ -64,9 +65,8 @@ const CommunityProfile = ({ config, project, viewType, dataManifest }) => {
                 <IndicatorListSection config={c} data={communityData?.data || null} dataManifest={dataManifest} />
               ) : type === 'map' ? (
                 geoJSON && communityData?.data ? (
-                  <DataMap
+                  <IndicatorMap
                     dataManifest={dataManifest}
-                    // indicator={selectedIndicator}
                     data={communityData.data}
                     mapConfig={mapConfig}
                     geoJSON={geoJSON}

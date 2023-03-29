@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
-import { Icon } from 'semantic-ui-react';
 // import numeral from 'numeral';
 // import colormap from 'colormap';
 
+import IndicatorSelectDropdown from './subComponents/IndicatorSelectDropdown';
 import Legend from './subComponents/Legend';
 
 import { handleBinning } from './utils';
 import './style.css';
 // import { geoJSON } from 'leaflet';
 
-const DataMap = ({ mapConfig: { config }, geoJSON, data, dataManifest }) => {
+const IndicatorMap = ({ mapConfig: { config }, geoJSON, data, dataManifest }) => {
   const [bins, setBins] = useState();
   const [indicators, setIndicators] = useState(null);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   // Default colors currently Tampa colors
   const colors = config.colors ? config.colors : ['#969696', '#72acd2', '#006aaf', '#002944'];
   const numOfBins = colors.length;
@@ -51,44 +50,19 @@ const DataMap = ({ mapConfig: { config }, geoJSON, data, dataManifest }) => {
   }, [selectedIndicator]);
 
   return bins ? (
-    <div className='cp-map-wrapper'>
+    <div className='indicator-map-wrapper'>
       {selectedIndicator && indicators ? (
-        <>
-          <div className='cp-map-dropdown'>
-            <div className='dropdown-header' onClick={() => setDropdownOpen(!dropdownOpen)}>
-              <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
-              <h3>{selectedIndicator.short_name}</h3>
-            </div>
-          </div>
-          {dropdownOpen ? (
-            <ul className='dropdown-indicators-container'>
-              {indicators.map(indicator => (
-                <li
-                  key={indicator.dataKey}
-                  className={
-                    selectedIndicator.dataKey === indicator.dataKey
-                      ? 'selected-indicator bold-font'
-                      : 'unselected-indicator'
-                  }
-                  onClick={() => {
-                    if (selectedIndicator.dataKey !== indicator.dataKey) {
-                      setSelectedIndicator(indicator);
-                    }
-                    setDropdownOpen(false);
-                  }}
-                >
-                  {indicator.short_name || '-'}
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </>
+        <IndicatorSelectDropdown
+          indicators={indicators}
+          selectedIndicator={selectedIndicator}
+          setSelectedIndicator={setSelectedIndicator}
+        />
       ) : null}
       {selectedIndicator && geoJSON && data ? (
-        <div className='data-map'>
+        <div className='indicator-map'>
           {bins ? (
             <MapContainer
-              key={'data-map'}
+              key={'indicator-map'}
               center={config.center}
               zoom={config.zoom}
               zoomControl={false}
@@ -131,12 +105,11 @@ const DataMap = ({ mapConfig: { config }, geoJSON, data, dataManifest }) => {
   ) : null;
 };
 
-DataMap.propTypes = {
+IndicatorMap.propTypes = {
   data: PropTypes.object,
   mapConfig: PropTypes.object,
   geoJSON: PropTypes.object,
-  // indicator: PropTypes.string,
   dataManifest: PropTypes.object
 };
 
-export default DataMap;
+export default IndicatorMap;
