@@ -52,7 +52,7 @@ SectionRouter.propTypes = {
   sectionKeys: PropTypes.array,
   sections: PropTypes.object,
   viewType: PropTypes.string,
-  dataManifest: PropTypes.array
+  dataManifest: PropTypes.object
 };
 
 export default SectionRouter;

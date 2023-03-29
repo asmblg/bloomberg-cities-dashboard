@@ -39,8 +39,10 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    setDataManifest(getManifest());
-  });
+    if (config) {
+      setDataManifest(getManifest(config.project, config.dashboardType));
+    }
+  }, [config]);
 
   return <div className='App'>{config && dataManifest ? <Layout config={config} dataManifest={dataManifest} /> : 'Loading...'}</div>;
 };

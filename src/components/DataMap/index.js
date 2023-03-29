@@ -8,7 +8,6 @@ import { Icon } from 'semantic-ui-react';
 import Legend from './subComponents/Legend';
 
 import { handleBinning } from './utils';
-import getIndicatorConfigFromManifest from '../../utils/getIndicatorConfigFromManifest';
 import './style.css';
 // import { geoJSON } from 'leaflet';
 
@@ -29,7 +28,7 @@ const DataMap = ({ mapConfig: { config }, geoJSON, data, dataManifest }) => {
   useEffect(() => {
     const configIndicators =
       config.indicators && config.indicators[0]
-        ? config.indicators.map(str => getIndicatorConfigFromManifest(dataManifest, str))
+        ? config.indicators.map(key => dataManifest.indicators[key])
         : null;
 
     if (configIndicators) {
@@ -137,7 +136,7 @@ DataMap.propTypes = {
   mapConfig: PropTypes.object,
   geoJSON: PropTypes.object,
   // indicator: PropTypes.string,
-  dataManifest: PropTypes.array
+  dataManifest: PropTypes.object
 };
 
 export default DataMap;

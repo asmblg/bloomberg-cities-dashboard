@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 // import TrendPill from '../../TrendPill';
 
 import infoIcon from '../../../assets/icons/info.png';
-import getIndicatorConfigFromManifest from '../../../utils/getIndicatorConfigFromManifest';
 import { handleValueCalculationAndFormatting } from '../utils';
 
 const IndicatorListSection = ({ config, data, dataManifest }) => {
@@ -14,7 +13,7 @@ const IndicatorListSection = ({ config, data, dataManifest }) => {
         {type === 'grid' && indicators && indicators[0] ? (
           <div key={`indicator-list-${type}-${i}`} className='large-indicator-values-container'>
             {indicators.map((key, i) => {
-              const indicatorConfig = getIndicatorConfigFromManifest(dataManifest, key);
+              const indicatorConfig = dataManifest.indicators[key];
               return (
                 <div key={`large-ind-val-${key}-${i}`} className='large-indicator-value'>
                   <div className='title-info-container'>
@@ -34,7 +33,7 @@ const IndicatorListSection = ({ config, data, dataManifest }) => {
           </div>
         ) : type === 'horizontal-containers-with-trend' && indicators && indicators[0] ? (
           indicators.map((key, j) => {
-            const indicatorConfig = getIndicatorConfigFromManifest(dataManifest, key);
+            const indicatorConfig = dataManifest.indicators[key];
             return (
               <div key={`horizontal-container-indicator-${key}-${j}`}>
                 <div className='horizontal-percentage-indicator'>
@@ -61,7 +60,7 @@ const IndicatorListSection = ({ config, data, dataManifest }) => {
 IndicatorListSection.propTypes = {
   config: PropTypes.object,
   data: PropTypes.object,
-  dataManifest: PropTypes.array
+  dataManifest: PropTypes.object
 };
 
 export default IndicatorListSection;

@@ -32,7 +32,7 @@ DetailCard.propTypes = {
   config: PropTypes.object,
   sectionKey: PropTypes.string,
   viewType: PropTypes.string,
-  dataManifest: PropTypes.array
+  dataManifest: PropTypes.object
 };
 
 export default DetailCard;

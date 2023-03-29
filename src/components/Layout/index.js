@@ -89,7 +89,7 @@ const Layout = ({ config, dataManifest }) => {
 
 Layout.propTypes = {
   config: PropTypes.object,
-  dataManifest: PropTypes.array
+  dataManifest: PropTypes.object
 };
 
 export default Layout;

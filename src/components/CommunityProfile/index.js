@@ -10,7 +10,6 @@ import LastUpdateIcon from '../LastUpdateIcon';
 
 import { getData, getTractGeoJSON } from '../../utils/API';
 import getNestedValue from '../../utils/getNestedValue';
-import getIndicatorConfigFromManifest from '../../utils/getIndicatorConfigFromManifest';
 import infoIcon from '../../assets/icons/info.png';
 import './style.css';
 
@@ -82,7 +81,7 @@ const CommunityProfile = ({ config, project, viewType, dataManifest }) => {
                     </div>
                     <DonutWithLegend
                       title={title}
-                      indicators={indicators.map(key => getIndicatorConfigFromManifest(dataManifest, key))}
+                      indicators={indicators.map(key => dataManifest.indicators[key])}
                       data={communityData?.data || null}
                       colors={colors}
                       viewType={viewType}
@@ -104,7 +103,7 @@ CommunityProfile.propTypes = {
   config: PropTypes.object,
   project: PropTypes.string,
   viewType: PropTypes.string,
-  dataManifest: PropTypes.array
+  dataManifest: PropTypes.object
 };
 
 export default CommunityProfile;
