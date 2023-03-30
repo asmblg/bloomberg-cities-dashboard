@@ -4,7 +4,8 @@ import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 // import numeral from 'numeral';
 // import colormap from 'colormap';
 
-import IndicatorSelectDropdown from './subComponents/IndicatorSelectDropdown';
+import IndicatorDropdown from '../IndicatorDropdown';
+// import IndicatorSelectDropdown from './subComponents/IndicatorSelectDropdown';
 import Legend from './subComponents/Legend';
 
 import { handleBinning } from './utils';
@@ -36,7 +37,7 @@ const IndicatorMap = ({ config, geoJSON, data, dataManifest }) => {
         handleBinning({
           geoJSON,
           colors,
-          indicator: selectedIndicator.dataKey,
+          indicator: selectedIndicator.key,
           numOfBins
         })
       );
@@ -46,10 +47,10 @@ const IndicatorMap = ({ config, geoJSON, data, dataManifest }) => {
   return bins ? (
     <div className='indicator-map-wrapper'>
       {selectedIndicator && indicators ? (
-        <IndicatorSelectDropdown
-          indicators={indicators}
-          selectedIndicator={selectedIndicator}
-          setSelectedIndicator={setSelectedIndicator}
+        <IndicatorDropdown
+          selectedOption={selectedIndicator}
+          setter={setSelectedIndicator}
+          options={indicators}
         />
       ) : null}
       {selectedIndicator && geoJSON && data ? (
@@ -67,10 +68,10 @@ const IndicatorMap = ({ config, geoJSON, data, dataManifest }) => {
               />
               {bins ? (
                 <GeoJSON
-                  key={`data-layer-${selectedIndicator.dataKey}`}
+                  key={`data-layer-${selectedIndicator.key}`}
                   data={geoJSON}
                   style={feature => {
-                    const value = feature.properties[selectedIndicator.dataKey];
+                    const value = feature.properties[selectedIndicator.key];
                     const color = value
                       ? bins
                         .filter(({ percentile }) => value <= percentile)

@@ -143,11 +143,37 @@
         ]
       },
       "jobs": {
-        "title": "TAMPA - ST.PETERSBURG - CLEARWATER, FL",
+        "title": "Tampa - St. Petersburg - Clearwater, FL",
         "subTitle": "ECONOMY AT A GLANCE DATA, BUREAU OF LABOR STATISTICS (BLS)",
         "label": "Jobs",
-        "dataPath": "jobs",
-        "charts": [{ "type": null }]
+        "dataPath": "jobs.msa",
+        "compareCities": {
+          "title": "Select a Metropolitan Statistical Area (MSA) to highlight the comparative data in the charts:",
+          "cities": [
+            {
+              "key": "atlanta",
+              "text": "Atlanta-Sandy Springs-Roswell, GA"
+            },
+            {
+              "key": "austin",
+              "text": "Austin-Round Rock, TX"
+            },
+            {
+              "key": "charlotte",
+              "text": "Charlotte-Concord-Gastonia, NC-SC"
+            },
+            {
+              "key": "denver",
+              "text": "Denver-Aurora-Lakewood, CO"
+            },
+            {
+              "key": "orlando",
+              "text": "Orlando-Kissimmee-Sanford, FL"
+            }
+          ]
+        },
+        "indicators": ["unemployment_cities"],
+        "charts": [{ "type": "line" }]
       },
       "realestate": {
         "icon": "building",
@@ -437,10 +463,37 @@
         ]
       },
       "jobs": {
-        "icon": "briefcase",
+        "title": "Phoenix, AZ",
+        "subTitle": "ECONOMY AT A GLANCE DATA, BUREAU OF LABOR STATISTICS (BLS)",
         "label": "Jobs",
-        "dataPath": "jobs",
-        "charts": [{ "type": null }]
+        "dataPath": "jobs.msa",
+        "compareCities": {
+          "title": "Select a Metropolitan Statistical Area (MSA) to highlight the comparative data in the charts:",
+          "cities": [
+            {
+              "key": "atlanta",
+              "text": "Atlanta-Sandy Springs-Roswell, GA"
+            },
+            {
+              "key": "austin",
+              "text": "Austin-Round Rock, TX"
+            },
+            {
+              "key": "charlotte",
+              "text": "Charlotte-Concord-Gastonia, NC-SC"
+            },
+            {
+              "key": "denver",
+              "text": "Denver-Aurora-Lakewood, CO"
+            },
+            {
+              "key": "orlando",
+              "text": "Orlando-Kissimmee-Sanford, FL"
+            }
+          ]
+        },
+        "indicators": ["unemployment_cities"],
+        "charts": [{ "type": "line" }]
       },
       "realestate": {
         "icon": "building",

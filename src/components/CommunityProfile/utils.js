@@ -29,14 +29,14 @@ const handleDonutDataArray = (indicators, data, colors) => {
   const colorMap = indicators.length <= colors.length ? colors : null;
 
   if (colorMap) {
-    const dataArray = indicators.map(({ dataKey, short_name, calculation }, i) => {
+    const dataArray = indicators.map(({ key, short_name, calculation }, i) => {
       const obj = {
         name: short_name || '',
         color: colors[i]
       };
 
-      const mostRecentDates = data[dataKey] ? getMostRecentDateKeys(Object.keys(data[dataKey]), 1) : null;
-      let value = mostRecentDates && mostRecentDates[0] ? parseFloat(data[dataKey][mostRecentDates[0]]) : null;
+      const mostRecentDates = data[key] ? getMostRecentDateKeys(Object.keys(data[key]), 1) : null;
+      let value = mostRecentDates && mostRecentDates[0] ? parseFloat(data[key][mostRecentDates[0]]) : null;
 
       if (calculation) {
         value = handleIndicatorValueCalculation({ config: calculation, data });

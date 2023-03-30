@@ -30,8 +30,8 @@ const DetailCard = ({ project, config, sectionKey, viewType, dataManifest }) => 
       <div className='full-card-container detail-card-container'>
         <div className='detail-card-header'>
           <div className='detail-header-titles'>
-            {config.title ? <h4>{config.title}</h4> : null}
-            {config.subTitle ? <h4>{config.subTitle}</h4> : null}
+            {config.title ? <h4>{config.title.toUpperCase()}</h4> : null}
+            {config.subTitle ? <h4>{config.subTitle.toUpperCase()}</h4> : null}
             {!config.title && !config.subTitle && config.label ? <h4>{config.label}</h4> : null}
           </div>
           {detailData?.updatedOn && config.displayUpdateDate ? (
@@ -42,9 +42,9 @@ const DetailCard = ({ project, config, sectionKey, viewType, dataManifest }) => 
           <Jobs
             project={project}
             config={config}
-            data={detailData}
+            data={detailData?.data}
             viewType={viewType}
-            dataManifest={dataManifest}
+            dataManifest={dataManifest.indicators}
           />
         ) : sectionKey === 'community' ? (
           <CommunityProfile
