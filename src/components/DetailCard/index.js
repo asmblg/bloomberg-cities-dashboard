@@ -26,7 +26,7 @@ const DetailCard = ({ project, config, sectionKey, viewType, dataManifest }) => 
   }, [project, config.dataPath, sectionKey]);
 
   return (
-    <div className='full-card-wrapper'>
+    <div key={`${sectionKey}-detail-card`} className='full-card-wrapper'>
       <div className='full-card-container detail-card-container'>
         <div className='detail-card-header'>
           <div className='detail-header-titles'>

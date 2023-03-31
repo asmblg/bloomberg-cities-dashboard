@@ -172,8 +172,68 @@
             }
           ]
         },
-        "indicators": ["unemployment_cities"],
-        "charts": [{ "type": "line" }]
+        "charts": [
+          {
+            "type": "multi-line",
+            "label": null,
+            "dataLength": 12,
+            "valueType": "rate",
+            "valueCalculation": "unemploymentRate",
+            "preselectedIndicator": "unemployment",
+            "mainColor": "#006aaf",
+            "compareColor": "#8dc63f",
+            "otherColor": "#cccccc",
+            "displayAllCities": true,
+            "xaxis": {
+              "labelFormatter": "monthToQuarter",
+              "type": "date",
+              "tickCount": 2
+            },
+            "yaxis": {
+              "tickCount": 4,
+              "domain": [0, "dataMax"],
+              "label": "Unemployment rate"
+            }
+          },
+          {
+            "type": "multi-line",
+            "label": null,
+            "dataLength": 12,
+            "valueType": "thousands",
+            "valueCalculation": "actual",
+            "mainColor": "#006aaf",
+            "compareColor": "#8dc63f",
+            "xaxis": {
+              "labelFormatter": "monthToQuarter",
+              "type": "date",
+              "tickCount": 2
+            },
+            "yaxis": {
+              "tickCount": 4,
+              "domain": [0, "dataMax"],
+              "label": "Thousands"
+            }
+          },
+          {
+            "type": "column",
+            "label": null,
+            "dataLength": 12,
+            "valueType": "rate",
+            "valueCalculation": "percentChange",
+            "mainColor": "#006aaf",
+            "compareColor": "#8dc63f",
+            "xaxis": {
+              "labelFormatter": "monthToQuarter",
+              "type": "date",
+              "tickCount": 2
+            },
+            "yaxis": {
+              "tickCount": 4,
+              "domain": [0, "dataMax"],
+              "label": "Thousands"
+            }
+          }
+        ]
       },
       "realestate": {
         "icon": "building",
@@ -471,29 +531,90 @@
           "title": "Select a Metropolitan Statistical Area (MSA) to highlight the comparative data in the charts:",
           "cities": [
             {
-              "key": "atlanta",
-              "text": "Atlanta-Sandy Springs-Roswell, GA"
+              "key": "la",
+              "text": "Los Angeles, CA"
             },
             {
-              "key": "austin",
-              "text": "Austin-Round Rock, TX"
+              "key": "dallas",
+              "text": "Dallas, TX"
             },
             {
-              "key": "charlotte",
-              "text": "Charlotte-Concord-Gastonia, NC-SC"
+              "key": "saltlake",
+              "text": "Salt Lake City, UT"
             },
             {
               "key": "denver",
               "text": "Denver-Aurora-Lakewood, CO"
             },
             {
-              "key": "orlando",
-              "text": "Orlando-Kissimmee-Sanford, FL"
+              "key": "chicago",
+              "text": "Chicago, IL"
             }
           ]
         },
         "indicators": ["unemployment_cities"],
-        "charts": [{ "type": "line" }]
+        "charts": [
+          {
+            "type": "multi-line",
+            "label": null,
+            "dataLength": 12,
+            "valueType": "rate",
+            "valueCalculation": "unemploymentRate",
+            "preselectedIndicator": "unemployment",
+            "mainColor": "#006aaf",
+            "compareColor": "#8dc63f",
+            "otherColor": "#cccccc",
+            "displayAllCities": true,
+            "xaxis": {
+              "labelFormatter": "monthToQuarter",
+              "type": "date",
+              "tickCount": 2
+            },
+            "yaxis": {
+              "tickCount": 4,
+              "domain": [0, "dataMax"],
+              "label": "Unemployment rate"
+            }
+          },
+          {
+            "type": "multi-line",
+            "label": null,
+            "dataLength": 12,
+            "valueType": "thousands",
+            "valueCalculation": "actual",
+            "mainColor": "#006aaf",
+            "compareColor": "#8dc63f",
+            "xaxis": {
+              "labelFormatter": "monthToQuarter",
+              "type": "date",
+              "tickCount": 2
+            },
+            "yaxis": {
+              "tickCount": 4,
+              "domain": [0, "dataMax"],
+              "label": "Thousands"
+            }
+          },
+          {
+            "type": "column",
+            "label": null,
+            "dataLength": 12,
+            "valueType": "rate",
+            "valueCalculation": "percentChange",
+            "mainColor": "#006aaf",
+            "compareColor": "#8dc63f",
+            "xaxis": {
+              "labelFormatter": "monthToQuarter",
+              "type": "date",
+              "tickCount": 2
+            },
+            "yaxis": {
+              "tickCount": 4,
+              "domain": [0, "dataMax"],
+              "label": "Thousands"
+            }
+          }
+        ]
       },
       "realestate": {
         "icon": "building",

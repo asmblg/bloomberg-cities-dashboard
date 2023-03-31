@@ -11,15 +11,17 @@ const IndicatorSelectDropdown = ({ selectedOption, setter, options }) => {
   // selectedOption && options objects must have a key property
   const key = selectedOption?.key ? selectedOption.key : null;
 
-  return text && key && setter && options && options[0] ? (
+  return text && key && setter ? (
     <>
       <div className='dropdown-container'>
         <div className='dropdown-header' onClick={() => setDropdownOpen(!dropdownOpen)}>
-          <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
+          {options && options[0] ? (
+            <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
+          ) : null}
           <h3>{text}</h3>
         </div>
       </div>
-      {dropdownOpen ? (
+      {dropdownOpen && options && options[0] ? (
         <ul className='dropdown-options-container'>
           {options.map(option =>
             option && option.key && option.short_name ? (

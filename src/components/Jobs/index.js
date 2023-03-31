@@ -1,45 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import IndicatorLineChart from '../IndicatorLineChart';
 // import IndicatorDropdown from '../IndicatorDropdown';
 
 import './style.css';
 
-const Jobs = ({ config, data }) => {
+const Jobs = ({ config, data, project }) => {
   const [selectedCity, setSelectedCity] = useState(null);
-  const [citiesData, setCitiesData] = useState(null);
-
-  const indicators =
-    selectedCity && data && data[selectedCity]
-      ? Object.entries(data[selectedCity]).map(([key, value]) => {
-        const obj = {
-          data: value,
-          short_name: key,
-          key
-        };
-
-        return obj;
-      })
-      : null;
 
   useEffect(() => {
-    if (data && config.compareCities.cities) {
-      const citiesDataObj = {};
-      config.compareCities.cities.forEach(obj => {
-        citiesDataObj[obj.key] = {
-          ...obj,
-          data: data[obj.key]
-        };
-      });
-
-      setCitiesData(citiesDataObj);
+    if (config?.compareCities?.cities && config.compareCities.cities[0]) {
       setSelectedCity(config.compareCities.cities[0].key);
-    }
-  }, [data]);
+    } 
+  }, []);
 
-  console.log({citiesData, indicators});
-
-  return (
+  return data && data[project] ? (
     <div className='jobs-container'>
       <div className='jcs-container'>
         <div className='jcs-header'>
@@ -59,43 +35,39 @@ const Jobs = ({ config, data }) => {
             </div>
           </div>
         </div>
-        {/* <div className='jcs-buttons-container'>
-          {citiesData
-            ? Object.keys(citiesData).map(city => (
-                <div
-                  className={
-                    selectedCity === city ? 'selected-jcs-button' : 'unselected-jcs-button'
-                  }
-                  key={`city-button-${city}-${selectedCity === city ? 'selected' : 'unselected'}`}
-                  role='button'
-                  onClick={() => setSelectedCity(city)}
-                >
-                  {citiesData[city].text}
-                </div>
-              ))
+        <div className='jcs-buttons-container'>
+          {config?.compareCities?.cities && config.compareCities.cities[0] 
+            ? config.compareCities.cities.map(({ key, text }) => (
+              <div
+                className={
+                  selectedCity === key ? 'selected-jcs-button' : 'unselected-jcs-button'
+                }
+                key={`city-button-${key}-${selectedCity === key ? 'selected' : 'unselected'}`}
+                role='button'
+                onClick={() => setSelectedCity(key)}
+              >
+                {text}
+              </div>
+            ))
             : null}
-        </div> */}
+        </div>
       </div>
-
-      {/* <div className='jobs-charts-wrapper'>
-        <div className='jobs-chart-container'>
-          <div className='jobs-chart-selected-indicator'>selected indicator</div>
-          <div className='jobs-indicators-dropdown'>this is a dropdown</div>
-          <div className='jobs-chart'>line chart</div>
-        </div>
-        <div className='jobs-chart-container'>
-          <div className='jobs-chart-selected-indicator'>selected indicator</div>
-          <div className='jobs-indicators-dropdown'>this is a dropdown</div>
-          <div className='jobs-chart'>bar chart</div>
-        </div>
-        <div className='jobs-chart-container'>
-          <div className='jobs-chart-selected-indicator'>selected indicator</div>
-          <div className='jobs-indicators-dropdown'>this is a dropdown</div>
-          <div className='jobs-chart'>line chart</div>
-        </div>
-      </div> */}
+      <div className='jobs-charts-wrapper'>
+        {config.charts && config.charts[0]
+          ? config.charts.map((chart, i) => chart.type === 'multi-line' ? (
+            <div key={`jobs-multiline-chart-${i}`} className='jobs-chart-container'>
+              <IndicatorLineChart
+                mainLine={project}
+                compareLine={selectedCity}
+                config={chart}
+                data={data}
+              />
+            </div>
+          ) : null)
+          : null}
+      </div>
     </div>
-  );
+  ) : null;
 };
 
 Jobs.propTypes = {
