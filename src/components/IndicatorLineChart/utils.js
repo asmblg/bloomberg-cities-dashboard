@@ -21,7 +21,7 @@ const handleDataArrayAndOtherDataKeys = ({
     if (compareLine && data[compareLine]?.[selectedIndicator.key]) {
       obj.compare = data[compareLine][selectedIndicator.key][key];
     }
-    // console.log(config.displayAllCities);
+
     if (config.displayAllCities) {
       const otherLines = Object.keys(data).filter(key => key !== mainLine && key !== compareLine);
 
@@ -69,13 +69,12 @@ const handleTicks = (array, tickCount) => {
     dataKeys.forEach(key => {
       values.push(parseFloat(obj[key]));
     });
-    // console.log(dataKeys);
   });
   
   const sortedValues = values.sort((a, b) => b - a);
   const tickInterval = Math.ceil(sortedValues[0] / tickCount);
-  console.log(tickInterval);
   const ticks = [];
+
   for (let i = 0; i <= tickCount; i++) {
     ticks.push(i * tickInterval);
   }
