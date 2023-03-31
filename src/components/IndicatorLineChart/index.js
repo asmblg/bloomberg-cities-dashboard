@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import IndicatorDropdown from '../IndicatorDropdown';
 
-import getMostRecentDateKeys from '../../utils/getMostRecentDateKeys';
-import sortDatesArray from '../../utils/sortDatesArray';
+import { handleDataArrayAndOtherDataKeys, handleIndicators, handleTicks } from './utils';
 import dateToQuarter from '../../utils/dateToQuarter';
+import abbreviateNumber from '../../utils/abbreviateNumber';
 import './style.css';
 
 const IndicatorLineChart = ({ config, data, mainLine, compareLine }) => {
@@ -14,24 +14,17 @@ const IndicatorLineChart = ({ config, data, mainLine, compareLine }) => {
   const [selectedIndicator, setSelectedIndicator] = useState(null);
   const [dataArray, setDataArray] = useState(null);
   const [otherLines, setOtherLines] = useState(null);
-
+ 
   useEffect(() => {
     if (mainLine && data?.[mainLine]) {
-      if (!config.preselectedIndicator) {
-        const indicatorsArr = Object.keys(data[mainLine]).map(key => ({
-          short_name: key,
-          key
-        }));
-      
-        if (indicatorsArr?.[0]) {
-          setIndicators(indicatorsArr);
-          setSelectedIndicator(indicatorsArr[0]);
-        }
-      } else {
-        setSelectedIndicator({
-          key: config.preselectedIndicator,
-          short_name: config.preselectedIndicator
-        });
+      const indicatorDataObj = handleIndicators(data[mainLine], config);
+
+      if (indicatorDataObj.indicatorsArray) {
+        setIndicators(indicatorDataObj.indicatorsArray);
+      }
+
+      if (indicatorDataObj.currentIndicator) {
+        setSelectedIndicator(indicatorDataObj.currentIndicator);
       }
     }
     
@@ -39,33 +32,16 @@ const IndicatorLineChart = ({ config, data, mainLine, compareLine }) => {
 
   useEffect(() => {
     if (mainLine && data?.[mainLine] && selectedIndicator?.key) {
-      const mainLineData = data[mainLine][selectedIndicator.key];
-      const otherKeys = [];
-      const dateKeys = getMostRecentDateKeys(Object.keys(mainLineData), config.dataLength);
-      
-      const dataArr = sortDatesArray(dateKeys, 'ascending').map(key => {
-        const obj = {
-          key,
-          main: mainLineData[key] 
-        };
-
-        if (compareLine && data[compareLine]?.[selectedIndicator.key]) {
-          obj.compare = data[compareLine][selectedIndicator.key][key];
-        }
-        // console.log(config.displayAllCities);
-        if (config.displayAllCities) {
-          const otherLines = Object.keys(data).filter(key => key !== mainLine && key !== compareLine);
-
-          otherLines.forEach(city => {
-            otherKeys.push(city);
-            obj[city] = data[city][selectedIndicator.key][key];
-          });
-        }
-        return obj;
+      const { dataArr, keys } = handleDataArrayAndOtherDataKeys({
+        data,
+        mainLine,
+        selectedIndicator,
+        config,
+        compareLine
       });
-      // console.log(dataArr);
+
       setDataArray(dataArr);
-      setOtherLines(otherKeys);
+      setOtherLines(keys);
     }
    
   }, [selectedIndicator, compareLine, data, config]);
@@ -80,12 +56,13 @@ const IndicatorLineChart = ({ config, data, mainLine, compareLine }) => {
 
       <div className='line-chart'>
         <ResponsiveContainer height={300} width={'100%'}>
-          <LineChart data={dataArray} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
+          <LineChart data={dataArray} margin={{ top: 100, right: 20, left: 20, bottom: 0 }}>
             <XAxis
               type={'category'}
               dataKey='key'
               tickCount={2}
-              tickLine={false}
+              tickLine={{ stroke: 'transparent' }}
+              axisLine={{stroke: 'black', strokeDasharray: '1 0'}}
               interval={'preserveStartEnd'}
               tickFormatter={(key, i) => {
                 if (i === 0 || i === dataArray.length - 1) {
@@ -95,14 +72,13 @@ const IndicatorLineChart = ({ config, data, mainLine, compareLine }) => {
               }}
             />
             <YAxis
-              type={'number'}
-              tickCount={config.yaxis.tickCount}
               tickLine={false}
               domain={config.yaxis.domain}
-              // interval={'preserveEnd'}
-              tickFormatter={(text, i) => i !== 0 ? text : ''}
+              ticks={handleTicks(dataArray, config.yaxis.tickCount)}
+              tickFormatter={(text, i) => i !== 0 ? abbreviateNumber(text) : ''}
               label={{value: config.yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
             />
+            {/* <CartesianGrid strokeDasharray={'3 3'} vertical={false} horizontal={true} /> */}
 
             {/* PROJECT DATA LINE */}
             <Line dataKey={'main'} stroke={config.mainColor || 'blue'} strokeWidth={3} />
@@ -121,47 +97,6 @@ const IndicatorLineChart = ({ config, data, mainLine, compareLine }) => {
       </div>
     </div>
   ) : null;
-
-  // return indicators && selectedIndicator ? (
-  //   <div style={{ position: 'relative' }} className='line-chart-container'>
-  //     <IndicatorDropdown
-  //       selectedOption={selectedIndicator}
-  //       setter={setSelectedIndicator}
-  //       options={indicators}
-  //     />
-  //     <div className='line-chart'>
-  //       <ResponsiveContainer height={300} width={'100%'}>
-  //         <LineChart data={dataArray} margin={{ top: 20, right: 20, left: -10, bottom: 0 }}>
-  //           <XAxis
-  //             type={'category'}
-  //             dataKey='name'
-  //             tickCount={2}
-  //             tickLine={false}
-  //             interval={'preserveStartEnd'}
-  //             tickFormatter={(key, i) => {
-  //               if (i === 0 || i === dataArray.length - 1) {
-  //                 return dateToQuarter(key);
-  //               }
-  //               return '';
-  //             }}
-  //           />
-  //           <YAxis
-  //             type={'number'}
-  //             tickCount={config.yaxis.tickCount}
-  //             tickLine={false}
-  //             domain={config.yaxis.domain}
-  //             interval={'preserveEnd'}
-  //           />
-  //           {config.lines
-  //             ? config.lines.map(({ key, color }) => (
-  //               <Line key={`line-${key}-${color}`} dataKey={key} stroke={color} />
-  //             ))
-  //             : null}
-  //         </LineChart>
-  //       </ResponsiveContainer>
-  //     </div>
-  //   </div>
-  // ) : null;
 };
 
 IndicatorLineChart.propTypes = {

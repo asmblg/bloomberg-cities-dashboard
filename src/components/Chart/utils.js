@@ -3,6 +3,7 @@ import moment from 'moment';
 import getMostRecentDateKeys from '../../utils/getMostRecentDateKeys';
 import getRecentQuarterEndDates from '../../utils/getRecentQuarterEndDates';
 import sortDatesArray from '../../utils/sortDatesArray';
+import abbreviateNumber from '../../utils/abbreviateNumber';
 
 const getDateKeysForChart = (config, data) => {
   const dateKeys = Object.keys(data);
@@ -67,24 +68,11 @@ const labelFormatter = {
 
     return `Q${quarter}-${year}`;
   },
-  abbreviateNumber: num => {
-    const number = typeof num === 'string' ? parseInt(num) : num;
-
-    if (number >= 1000000000) {
-      return (number / 1000000000).toFixed(1) + 'b';
-    }
-    if (number >= 1000000) {
-      return (number / 1000000).toFixed(1) + 'm';
-    }
-    if (number >= 1000) {
-      return (number / 1000).toFixed(1) + 'k';
-    }
-    return number.toString();
-  },
   formatQuarter: str => {
     const [year, quarterNum] = str.split('-Q');
     return `Q${quarterNum}-${year.slice(2, 4)}`;
-  }
+  },
+  abbreviateNumber
 };
 
 const handleLabelFormatter = (functionName, str) => {

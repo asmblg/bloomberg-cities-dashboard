@@ -190,9 +190,9 @@
               "tickCount": 2
             },
             "yaxis": {
-              "tickCount": 4,
+              "tickCount": 3,
               "domain": [0, "dataMax"],
-              "label": "Unemployment rate"
+              "label": ""
             }
           },
           {
@@ -209,9 +209,9 @@
               "tickCount": 2
             },
             "yaxis": {
-              "tickCount": 4,
+              "tickCount": 3,
               "domain": [0, "dataMax"],
-              "label": "Thousands"
+              "label": ""
             }
           },
           {
@@ -228,7 +228,7 @@
               "tickCount": 2
             },
             "yaxis": {
-              "tickCount": 4,
+              "tickCount": 3,
               "domain": [0, "dataMax"],
               "label": "Thousands"
             }
