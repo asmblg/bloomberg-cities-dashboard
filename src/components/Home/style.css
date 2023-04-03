@@ -33,6 +33,7 @@
   font-size: 25px;
   line-height: 1.2;
   opacity: 0.9;
+  color: var(--secondary-color);
 }
 
 .summary-cards-container {

@@ -6,7 +6,16 @@ import Home from '../Home';
 import DetailCard from '../DetailCard';
 import AboutProject from '../AboutProject';
 
-const SectionRouter = ({ project, sections, sectionKeys, viewType, dashboardType, dataManifest }) => (
+const SectionRouter = ({
+  project,
+  sections,
+  sectionKeys,
+  viewType,
+  dashboardType,
+  dataManifest,
+  trendDataType,
+  setTrendDataType
+}) => (
   <Routes>
     {sectionKeys && sectionKeys[0]
       ? sectionKeys.map(key =>
@@ -14,7 +23,16 @@ const SectionRouter = ({ project, sections, sectionKeys, viewType, dashboardType
           <Route
             key={`home-route-${key}`}
             path={`/${project.toLowerCase()}/${dashboardType}`}
-            element={<Home config={sections[key]} dataManifest={dataManifest} project={project} viewType={viewType} />}
+            element={
+              <Home
+                config={sections[key]}
+                dataManifest={dataManifest}
+                project={project}
+                viewType={viewType}
+                trendDataType={trendDataType}
+                setTrendDataType={setTrendDataType}
+              />
+            }
           />
         ) : (
           <Route
@@ -27,6 +45,8 @@ const SectionRouter = ({ project, sections, sectionKeys, viewType, dashboardType
                 project={project}
                 viewType={viewType}
                 dataManifest={dataManifest}
+                trendDataType={trendDataType}
+                setTrendDataType={setTrendDataType}
               />
             }
           />
@@ -52,7 +72,9 @@ SectionRouter.propTypes = {
   sectionKeys: PropTypes.array,
   sections: PropTypes.object,
   viewType: PropTypes.string,
-  dataManifest: PropTypes.object
+  dataManifest: PropTypes.object,
+  trendDataType: PropTypes.string,
+  setTrendDataType: PropTypes.func
 };
 
 export default SectionRouter;

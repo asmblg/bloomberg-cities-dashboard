@@ -11,12 +11,12 @@ import Footer from '../Footer';
 
 // Styling/Configuration/Utilities
 import { handleViewType, getCurrentRoute } from './utils';
-// import homeIcon from '../../assets/icons/home_icon.png';
 import './style.css';
 
 const Layout = ({ config, dataManifest }) => {
   const [viewType, setViewType] = useState('');
   const [selectedLink, setSelectedLink] = useState('');
+  const [trendDataType, setTrendDataType] = useState('YtY'); // Can be toggled between YtY and QtQ
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -77,6 +77,8 @@ const Layout = ({ config, dataManifest }) => {
             sections={sections}
             viewType={viewType}
             dataManifest={dataManifest}
+            trendDataType={trendDataType}
+            setTrendDataType={setTrendDataType}
           />
         </div>
       </div>

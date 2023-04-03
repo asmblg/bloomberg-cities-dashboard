@@ -1,0 +1,9 @@
+.data-toggle-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.data-toggle-container > h5 {
+  margin: 0 10px;
+}

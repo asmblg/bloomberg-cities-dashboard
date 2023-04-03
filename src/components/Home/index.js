@@ -4,16 +4,14 @@ import PropTypes from 'prop-types';
 import OverviewCard from '../OverviewCard';
 import SummaryCard from '../SummaryCard';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
-import LastUpdateIcon from '../LastUpdateIcon';
+import DataToggle from '../TrendDataToggle';
 
 import { handleHomeData } from './utils';
 import './style.css';
 
-const Home = ({ config, project, viewType }) => {
+const Home = ({ config, project, viewType, setTrendDataType }) => {
   const [data, setData] = useState(null);
-
   const { summaryCards } = config;
-  const quarterChangeStr = 'Q3 2022 - Q4 2022 CHANGE';
 
   useEffect(() => {
     handleHomeData(project, summaryCards).then(res => setData(res));
@@ -28,13 +26,13 @@ const Home = ({ config, project, viewType }) => {
         <>
           <div role='heading' className='summary-header'>
             {viewType === 'mobile' ? (
-              <div className='large-summary-title bold-font'>KEY INDICATORS</div>
+              <div className='large-summary-title bold-font'>{config.title}</div>
             ) : null}
-            <h3>{quarterChangeStr}</h3>
-            <LastUpdateIcon
-              date={data?.updatedOn}
-              width={viewType === 'mobile' ? '100%' : 'auto'}
-            />
+            <h1 className='large-summary-title bold-font'>
+              {/* Calculate "Q1 2023" via last update? */}
+              {config.title} | {'Q1 2023'} UPDATE
+            </h1>
+            <DataToggle setTrendDataType={setTrendDataType} />
           </div>
           <div className='summary-cards-container'>
             {summaryCards.map((card, i) => (
@@ -58,9 +56,9 @@ const Home = ({ config, project, viewType }) => {
 
 Home.propTypes = {
   config: PropTypes.object,
-  // docs: PropTypes.bool,
   project: PropTypes.string,
-  viewType: PropTypes.string
+  viewType: PropTypes.string,
+  setTrendDataType: PropTypes.func
 };
 
 export default Home;
