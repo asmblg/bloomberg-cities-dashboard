@@ -57,7 +57,7 @@
   background-color: var(--primary-gray-color);
 }
 
-.horizontal-percentage-indicator > h5 {
+.horizontal-percentage-indicator > div {
   width: 100%;
   margin-left: 20px;
 }

@@ -79,6 +79,7 @@ const Layout = ({ config, dataManifest }) => {
             dataManifest={dataManifest}
             trendDataType={trendDataType}
             setTrendDataType={setTrendDataType}
+            setSelectedLink={setSelectedLink}
           />
         </div>
       </div>

@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import IndicatorListSection from './subComponents/IndicatorListSection';
 import IndicatorMap from '../IndicatorMap';
 import DonutWithLegend from './subComponents/DonutWithLegend';
+import InfoIcon from '../InfoIcon';
 // import TrendPill from '../TrendPill';
 
 import { getTractGeoJSON } from '../../utils/API';
-import infoIcon from '../../assets/icons/info.png';
 import './style.css';
 
 const CommunityProfile = ({ config, data, project, viewType, dataManifest }) => {
@@ -47,7 +47,7 @@ const CommunityProfile = ({ config, data, project, viewType, dataManifest }) => 
                     <div key={`cp-donut-${i}`} className='cp-chart-container'>
                       <div className='cp-chart-header'>
                         <h3>{title}</h3>
-                        <img className='info-icon' src={infoIcon} />
+                        <InfoIcon variableDescription={'A description...'} />
                       </div>
                       <DonutWithLegend
                         title={title}

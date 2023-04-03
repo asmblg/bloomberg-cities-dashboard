@@ -9,7 +9,7 @@ import DataToggle from '../TrendDataToggle';
 import { handleHomeData } from './utils';
 import './style.css';
 
-const Home = ({ config, project, viewType, setTrendDataType }) => {
+const Home = ({ config, project, dashboardType, viewType, setTrendDataType, setSelectedLink }) => {
   const [data, setData] = useState(null);
   const { summaryCards } = config;
 
@@ -40,8 +40,11 @@ const Home = ({ config, project, viewType, setTrendDataType }) => {
                 key={`home-summary-card-${i}`}
                 config={card}
                 data={data?.[card.key]}
-                route={`/${project}/${card.key}`}
+                project={project}
+                dashboardType={dashboardType}
+                cardKey={card.key}
                 viewType={viewType}
+                setSelectedLink={setSelectedLink}
               />
             ))}
           </div>
@@ -57,8 +60,10 @@ const Home = ({ config, project, viewType, setTrendDataType }) => {
 Home.propTypes = {
   config: PropTypes.object,
   project: PropTypes.string,
+  dashboardType: PropTypes.string,
   viewType: PropTypes.string,
-  setTrendDataType: PropTypes.func
+  setTrendDataType: PropTypes.func,
+  setSelectedLink: PropTypes.func
 };
 
 export default Home;

@@ -111,7 +111,7 @@
           {
             "label": "Tourism Spending",
             "units": "Change in tourism spending",
-            "key": "consumers",
+            "key": "tourism",
             "dataPath": "consumers.city.tourism",
             "summary": {
               "trendUnits": "pp",
@@ -491,7 +491,7 @@
           {
             "label": "Tourism Spending",
             "units": "Change in tourism spending",
-            "key": "consumers",
+            "key": "tourism",
             "dataPath": "consumers.city.tourism",
             "summary": {
               "trendUnits": "pp",

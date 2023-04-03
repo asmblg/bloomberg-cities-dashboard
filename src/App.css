@@ -122,18 +122,6 @@ a:hover {
   border-bottom: 3px solid var(--primary-gray-color);
 }
 
-.info-icon {
-  margin-left: 10px;
-  opacity: 0.5;
-  height: 20px;
-  width: auto;
-}
-
-.info-icon:hover {
-  opacity: 1;
-  cursor: pointer;
-}
-
 .navigation-icon {
   width: 25px;
 }

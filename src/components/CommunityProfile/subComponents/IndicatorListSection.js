@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import TrendPill from '../../TrendPill';
+import InfoIcon from '../../InfoIcon';
 
-import infoIcon from '../../../assets/icons/info.png';
 import { handleValueCalculationAndFormatting } from '../utils';
 
 const IndicatorListSection = ({ config, data, dataManifest }) => {
@@ -18,7 +18,7 @@ const IndicatorListSection = ({ config, data, dataManifest }) => {
                 <div key={`large-ind-val-${key}-${i}`} className='large-indicator-value'>
                   <div className='title-info-container'>
                     <h5>{indicatorConfig?.short_name.toUpperCase() || ''}</h5>
-                    <img className='info-icon' src={infoIcon} />
+                    <InfoIcon source={'A good source'} variableDescription={'A great description...'} />
                   </div>
                   <h2 className='bold-font'>
                     {handleValueCalculationAndFormatting({
@@ -44,7 +44,10 @@ const IndicatorListSection = ({ config, data, dataManifest }) => {
                       indicatorConfig
                     })}
                   </h2>
-                  <h5>{indicatorConfig.long_name || ''}</h5>
+                  <div style={{display: 'flex', justifyItems: 'center'}}>
+                    <h5>{indicatorConfig.long_name || ''}</h5>
+                    <InfoIcon source={'The Source Spot'} />
+                  </div>
                   {/* No data for comparison */}
                   {/* <TrendPill direction={'up'} value={'+ XX.X%'} height={30} width={190} /> */}
                 </div>

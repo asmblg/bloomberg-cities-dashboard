@@ -14,7 +14,8 @@ const SectionRouter = ({
   dashboardType,
   dataManifest,
   trendDataType,
-  setTrendDataType
+  setTrendDataType,
+  setSelectedLink
 }) => (
   <Routes>
     {sectionKeys && sectionKeys[0]
@@ -28,9 +29,11 @@ const SectionRouter = ({
                 config={sections[key]}
                 dataManifest={dataManifest}
                 project={project}
+                dashboardType={dashboardType}
                 viewType={viewType}
                 trendDataType={trendDataType}
                 setTrendDataType={setTrendDataType}
+                setSelectedLink={setSelectedLink}
               />
             }
           />
@@ -74,7 +77,8 @@ SectionRouter.propTypes = {
   viewType: PropTypes.string,
   dataManifest: PropTypes.object,
   trendDataType: PropTypes.string,
-  setTrendDataType: PropTypes.func
+  setTrendDataType: PropTypes.func,
+  setSelectedLink: PropTypes.func
 };
 
 export default SectionRouter;

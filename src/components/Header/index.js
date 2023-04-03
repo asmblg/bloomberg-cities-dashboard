@@ -6,7 +6,6 @@ import { Icon } from 'semantic-ui-react';
 import DashboardTitle from '../DashboardTitle';
 
 import { logos } from '../../config/logos';
-// import { getCurrentRoute } from './utils';
 import homeIcon from '../../assets/icons/home_icon.png';
 import './style.css';
 

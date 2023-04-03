@@ -1,0 +1,15 @@
+.info-icon {
+  margin-left: 10px;
+  opacity: 0.5;
+  height: 20px;
+  width: auto;
+}
+
+.info-icon:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.info-icon-description {
+  margin-bottom: 20px;
+}

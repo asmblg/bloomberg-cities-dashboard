@@ -1,17 +1,27 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
 import Chart from '../Chart';
 import TrendPill from '../TrendPill';
+import InfoIcon from '../InfoIcon';
 
 import getNestedValue from '../../utils/getNestedValue';
 import { handleSummaryData } from './utils';
 import './style.css';
 
-const SummaryCard = ({ config, data, viewType }) => {
+const SummaryCard = ({
+  config,
+  data,
+  viewType,
+  project,
+  dashboardType,
+  cardKey,
+  setSelectedLink
+}) => {
   const { chart, dataPath, key, label, units, summary } = config;
+  console.log(label);
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
     value: null,
@@ -19,8 +29,9 @@ const SummaryCard = ({ config, data, viewType }) => {
     trendTextValue: null
   });
   const scrollToRef = useRef();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const allSummaryData = getNestedValue(data, dataPath, key);
+  const route = `/${project}/${dashboardType}/${cardKey}`;
 
   useEffect(() => {
     if (data && allSummaryData) {
@@ -42,7 +53,19 @@ const SummaryCard = ({ config, data, viewType }) => {
               }}
             />
           ) : null}
-          <h3>{label.toUpperCase()}</h3>
+          <h4
+            className='summary-card-header-text'
+            // Where does Venture Capital Investment link to?
+            onClick={() => {
+              if (label !== 'Venture Capital Investment') {
+                setSelectedLink(cardKey);
+                navigate(route);
+              }
+            }}
+          >
+            {label.toUpperCase()}
+          </h4>
+          <InfoIcon source={'Test Data Inc'} variableDescription={'A data description that describes the data that needs to be described...'} />
         </div>
 
         {viewType === 'mobile' &&
@@ -82,8 +105,11 @@ const SummaryCard = ({ config, data, viewType }) => {
 SummaryCard.propTypes = {
   config: PropTypes.object,
   data: PropTypes.object,
-  route: PropTypes.string,
-  viewType: PropTypes.string
+  project: PropTypes.string,
+  dashboardType: PropTypes.string,
+  cardKey: PropTypes.string,
+  viewType: PropTypes.string,
+  setSelectedLink: PropTypes.func
 };
 
 export default SummaryCard;
