@@ -30,22 +30,22 @@
               "valueCalculation": "difference"
             },
             "chart": {
-              "type": "line",
+              "type": "column",
               "label": null,
-              "dataLength": 4,
+              "dataLength": 8,
               "dataFormatter": "monthToQuarter",
               "valueType": "actual",
               "xaxis": {
-                "labelFormatter": "monthToQuarter",
+                "labelFormatter": "shortMonthToQuarter",
                 "type": "date",
                 "tickCount": 2
               },
               "yaxis": {
                 "tickCount": 2,
-                "labelFormatter": "abbreviateNumber",
-                "domain": ["dataMin", "dataMax"]
+                "domain": ["dataMin", "dataMax"],
+                "labelFormatter": "abbreviateNumber"
               },
-              "color": "#002944"
+              "color": "#006aaf"
             }
           },
           {
@@ -80,9 +80,9 @@
               "valueCalculation": "actual"
             },
             "chart": {
-              "type": "line",
+              "type": "column",
               "label": null,
-              "dataLength": 4,
+              "dataLength": 8,
               "valueType": "actual",
               "xaxis": {
                 "type": "date",
@@ -93,7 +93,7 @@
                 "tickCount": 1,
                 "labelFormatter": "abbreviateNumber"
               },
-              "color": "#002944"
+              "color": "#006aaf"
             }
           },
           {
@@ -446,22 +446,22 @@
               "valueCalculation": "difference"
             },
             "chart": {
-              "type": "line",
+              "type": "column",
               "label": null,
-              "dataLength": 4,
+              "dataLength": 8,
               "dataFormatter": "monthToQuarter",
               "valueType": "actual",
               "xaxis": {
-                "labelFormatter": "monthToQuarter",
+                "labelFormatter": "shortMonthToQuarter",
                 "type": "date",
                 "tickCount": 2
               },
               "yaxis": {
                 "tickCount": 2,
-                "labelFormatter": "abbreviateNumber",
-                "domain": ["dataMin", "dataMax"]
+                "domain": ["dataMin", "dataMax"],
+                "labelFormatter": "abbreviateNumber"
               },
-              "color": "#002944"
+              "color": "#006aaf"
             }
           },
           {
@@ -496,9 +496,9 @@
               "valueCalculation": "actual"
             },
             "chart": {
-              "type": "line",
+              "type": "column",
               "label": null,
-              "dataLength": 4,
+              "dataLength": 8,
               "valueType": "actual",
               "xaxis": {
                 "type": "date",
@@ -509,7 +509,7 @@
                 "tickCount": 1,
                 "labelFormatter": "abbreviateNumber"
               },
-              "color": "#002944"
+              "color": "#006aaf"
             }
           },
           {

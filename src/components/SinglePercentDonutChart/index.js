@@ -2,8 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ResponsiveContainer, PieChart, Pie, Cell, Label as PieLabel, Tooltip } from 'recharts';
 
-const DonutChart = ({ config, height, width, dataArray }) => {
-  return dataArray && dataArray[0] ? (
+const SinglePercentDonutChart = ({ config, height, width, data }) => {
+  const dataArray =
+    data && data.key && data.value
+      ? [
+        { name: data.key, value: parseFloat(data.value), fillColor: config.color || '#333333' },
+        {
+          name: data.key,
+          value: 100 - parseFloat(data.value),
+          fillColor: config.accentColor || '#dfe5e9'
+        }
+      ]
+      : [];
+
+  return dataArray ? (
     <ResponsiveContainer height={height} width={width}>
       <PieChart>
         <Pie
@@ -24,17 +36,23 @@ const DonutChart = ({ config, height, width, dataArray }) => {
             <Cell key={`donut-chart-cell-${value}-${i}`} fill={fillColor} />
           ))}
         </Pie>
-        <Tooltip />
+        <Tooltip content={() => renderTooltip(dataArray[0])} />
       </PieChart>
     </ResponsiveContainer>
   ) : null;
 };
 
-DonutChart.propTypes = {
+SinglePercentDonutChart.propTypes = {
   config: PropTypes.object,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  dataArray: PropTypes.array
+  data: PropTypes.object
 };
 
-export default DonutChart;
+function renderTooltip(data) {
+  return data && data.name && data.value ? (
+    <div className='chart-tooltip'>{`${data.name}: ${data.value}`}</div>
+  ) : null;
+}
+
+export default SinglePercentDonutChart;

@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { LineChart as LChart, XAxis, YAxis, Line, ResponsiveContainer, Tooltip } from 'recharts';
 
-import { handleLabelFormatter } from '../utils';
+import { handleLabelFormatter } from './utils';
 
-const LineChart = ({ config, dataArray, color, height, width, margin }) => {
+// Needs to be reworked when we have Tourism Spending data and Venture Capital Investment
+const SimpleLineChart = ({ config, dataArray, color, height, width, margin }) => {
   return dataArray ? (
     <ResponsiveContainer height={height} width={width}>
       <LChart data={dataArray} margin={margin}>
@@ -28,6 +29,17 @@ const LineChart = ({ config, dataArray, color, height, width, margin }) => {
   ) : null;
 };
 
+SimpleLineChart.propTypes = {
+  config: PropTypes.object,
+  xaxis: PropTypes.string,
+  color: PropTypes.string,
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  margin: PropTypes.object,
+  dataArray: PropTypes.array,
+  range: PropTypes.number
+};
+
 function renderTooltip(arr, keyFormatter) {
   return arr && arr[0] ? (
     <div className='summary-chart-tooltip'>
@@ -40,15 +52,4 @@ function renderTooltip(arr, keyFormatter) {
   ) : null;
 }
 
-LineChart.propTypes = {
-  config: PropTypes.object,
-  xaxis: PropTypes.string,
-  color: PropTypes.string,
-  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  margin: PropTypes.object,
-  dataArray: PropTypes.array,
-  range: PropTypes.number
-};
-
-export default LineChart;
+export default SimpleLineChart;

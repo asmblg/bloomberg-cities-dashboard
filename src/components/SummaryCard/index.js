@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
-// import Chart from '../Chart';
-import SummaryChart from '../SummaryChart';
+import SummaryChart from './subComponents/SummaryChart';
 import TrendPill from '../TrendPill';
 import InfoIcon from '../InfoIcon';
 
@@ -89,15 +88,12 @@ const SummaryCard = ({
             <div className='summary-chart'>
               {chart?.type && allSummaryData ? (
                 <SummaryChart
+                  config={chart}
                   data={
                     chart.type !== 'donut'
                       ? allSummaryData
                       : { key: units, value: summaryData.value }
                   }
-                  config={chart}
-                  height={100}
-                  width={'100%'}
-                  margin={{ top: 10, right: 5, bottom: -10, left: -15 }}
                 />
               ) : null}
             </div>

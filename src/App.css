@@ -8,7 +8,7 @@ h5 {
   margin: 0;
   padding: 0;
   line-height: 1;
-  color: var(--black-color)
+  color: var(--black-color);
 }
 
 h1 {
@@ -65,6 +65,12 @@ a:hover {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.chart-tooltip {
+  background-color: var(--white-color);
+  border: 1px solid var(--primary-gray-color);
+  padding: 10px;
 }
 
 .flex-row {
