@@ -6,8 +6,8 @@
   align-items: center;
 }
 
-.detail-header-titles > h4 {
-  margin: 5px;
+.detail-header-titles > h1 {
+  font-family: 'RobotoBlack';
 }
 
 .detail-card-container {

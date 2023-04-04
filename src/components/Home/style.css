@@ -30,10 +30,7 @@
 }
 
 .large-summary-title {
-  font-size: 25px;
-  line-height: 1.2;
-  opacity: 0.9;
-  color: var(--secondary-color);
+  font-family: 'RobotoBlack';
 }
 
 .summary-cards-container {

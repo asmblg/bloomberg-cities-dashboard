@@ -28,11 +28,33 @@ const DetailCard = ({ project, config, sectionKey, viewType, dataManifest }) => 
   return (
     <div key={`${sectionKey}-detail-card`} className='full-card-wrapper'>
       <div className='full-card-container detail-card-container'>
+        <div
+          style={{
+            width: '100%',
+            height: '50px',
+            backgroundColor: config.tabStyle?.selectedColor || '#ffffff'
+          }}
+        ></div>
         <div className='detail-card-header'>
           <div className='detail-header-titles'>
-            {config.title ? <h4>{config.title.toUpperCase()}</h4> : null}
-            {config.subTitle ? <h4>{config.subTitle.toUpperCase()}</h4> : null}
-            {!config.title && !config.subTitle && config.label ? <h4>{config.label}</h4> : null}
+            {config.title ? (
+              <h1
+                style={{
+                  color: config.tabStyle?.selectedColor || '#333333'
+                }}
+              >
+                {config.title.toUpperCase()}
+              </h1>
+            ) : null}
+            {!config.title && config.label ? (
+              <h2
+                style={{
+                  color: config.tabStyle?.selectedColor || '#333333'
+                }}
+              >
+                {config.label}
+              </h2>
+            ) : null}
           </div>
           {detailData?.updatedOn && config.displayUpdateDate ? (
             <LastUpdateIcon date={detailData.updatedOn} width={'auto'} />

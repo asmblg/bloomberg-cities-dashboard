@@ -13,6 +13,10 @@
       "home": {
         "title": "KEY INDICATORS",
         "icon": "home",
+        "tabStyle": {
+          "selectedColor": "#006aaf",
+          "unselectedColor": "#999999"
+        },
         "body": "",
         "linkURL": "",
         "summaryCards": [
@@ -143,9 +147,12 @@
         ]
       },
       "jobs": {
-        "title": "Tampa - St. Petersburg - Clearwater, FL",
-        "subTitle": "ECONOMY AT A GLANCE DATA, BUREAU OF LABOR STATISTICS (BLS)",
+        "title": "JOBS AND EMPLOYMENT",
         "label": "Jobs",
+        "tabStyle": {
+          "selectedColor": "#007dbb",
+          "unselectedColor": "#dfe5e9"
+        },
         "dataPath": "jobs.msa",
         "compareCities": {
           "title": "Select a Metropolitan Statistical Area (MSA) to highlight the comparative data in the charts:",
@@ -238,38 +245,67 @@
       "realestate": {
         "icon": "building",
         "label": "Real Estate",
+        "title": "OFFICE REAL ESTATE",
+        "tabStyle": {
+          "selectedColor": "#0090c6",
+          "unselectedColor": "#dfe5e9"
+        },
         "dataPath": "realestate",
         "charts": [{ "type": "donut" }]
       },
       "smallbusiness": {
         "icon": "shop",
         "label": "Small Businesses",
+        "title": "SMALL BUSINESSES",
+        "tabStyle": {
+          "selectedColor": "#00b2c1",
+          "unselectedColor": "#dfe5e9"
+        },
         "dataPath": "smallbusiness",
         "charts": null
       },
       "newbusiness": {
         "icon": "horizon",
         "label": "Startups",
+        "title": "STARTUPS",
+        "tabStyle": {
+          "selectedColor": "#00d1a6",
+          "unselectedColor": "#dfe5e9"
+        },
         "dataPath": "newbusiness",
         "charts": [{ "type": null }]
       },
       "consumers": {
         "icon": "jet",
         "label": "Consumer Spending",
+        "title": "CONSUMER SPENDING",
+        "tabStyle": {
+          "selectedColor": "#33c192",
+          "unselectedColor": "#dfe5e9"
+        },
         "dataPath": "consumers",
         "charts": [{ "type": null }]
       },
       "tourism": {
         "icon": "money",
         "label": "Tourism Spending",
+        "title": "TOURISM SPENDING",
+        "tabStyle": {
+          "selectedColor": "#008a5f",
+          "unselectedColor": "#dfe5e9"
+        },
         "dataPath": "consumers.city.tourism",
         "charts": [{ "type": null }]
       },
       "community": {
-        "title": "2021 CENSUS AMERICAN COMMUNITY SURVEY DATA UPDATE",
+        "title": "COMMUNITY PROFILES",
         "displayUpdateDate": true,
         "icon": null,
         "label": "Community profiles",
+        "tabStyle": {
+          "selectedColor": "#1d5753",
+          "unselectedColor": "#dfe5e9"
+        },
         "summary": null,
         "dataPath": "community.city",
         "sections": [
@@ -391,8 +427,12 @@
     },
     "sections": {
       "home": {
-        "title": "",
+        "title": "KEY INDICATORS",
         "icon": "home",
+        "tabStyle": {
+          "selectedColor": "#006aaf",
+          "unselectedColor": "#999999"
+        },
         "body": "",
         "linkURL": "",
         "summaryCards": [
@@ -523,9 +563,12 @@
         ]
       },
       "jobs": {
-        "title": "Phoenix, AZ",
-        "subTitle": "ECONOMY AT A GLANCE DATA, BUREAU OF LABOR STATISTICS (BLS)",
+        "title": "JOBS AND EMPLOYMENT",
         "label": "Jobs",
+        "tabStyle": {
+          "selectedColor": "#007dbb",
+          "unselectedColor": "#dfe5e9"
+        },
         "dataPath": "jobs.msa",
         "compareCities": {
           "title": "Select a Metropolitan Statistical Area (MSA) to highlight the comparative data in the charts:",
@@ -552,7 +595,6 @@
             }
           ]
         },
-        "indicators": ["unemployment_cities"],
         "charts": [
           {
             "type": "multi-line",
@@ -571,9 +613,9 @@
               "tickCount": 2
             },
             "yaxis": {
-              "tickCount": 4,
+              "tickCount": 3,
               "domain": [0, "dataMax"],
-              "label": "Unemployment rate"
+              "label": ""
             }
           },
           {
@@ -590,9 +632,9 @@
               "tickCount": 2
             },
             "yaxis": {
-              "tickCount": 4,
+              "tickCount": 3,
               "domain": [0, "dataMax"],
-              "label": "Thousands"
+              "label": ""
             }
           },
           {
@@ -609,7 +651,7 @@
               "tickCount": 2
             },
             "yaxis": {
-              "tickCount": 4,
+              "tickCount": 3,
               "domain": [0, "dataMax"],
               "label": "Thousands"
             }
@@ -619,36 +661,67 @@
       "realestate": {
         "icon": "building",
         "label": "Real Estate",
+        "title": "OFFICE REAL ESTATE",
+        "tabStyle": {
+          "selectedColor": "#0090c6",
+          "unselectedColor": "#dfe5e9"
+        },
         "dataPath": "realestate",
         "charts": [{ "type": "donut" }]
       },
       "smallbusiness": {
         "icon": "shop",
         "label": "Small Businesses",
+        "title": "SMALL BUSINESSES",
+        "tabStyle": {
+          "selectedColor": "#00b2c1",
+          "unselectedColor": "#dfe5e9"
+        },
         "dataPath": "smallbusiness",
         "charts": null
       },
       "newbusiness": {
         "icon": "horizon",
         "label": "Startups",
+        "title": "STARTUPS",
+        "tabStyle": {
+          "selectedColor": "#00d1a6",
+          "unselectedColor": "#dfe5e9"
+        },
         "dataPath": "newbusiness",
         "charts": [{ "type": null }]
       },
       "consumers": {
         "icon": "jet",
         "label": "Consumer Spending",
+        "title": "CONSUMER SPENDING",
+        "tabStyle": {
+          "selectedColor": "#33c192",
+          "unselectedColor": "#dfe5e9"
+        },
         "dataPath": "consumers",
         "charts": [{ "type": null }]
       },
       "tourism": {
         "icon": "money",
         "label": "Tourism Spending",
+        "title": "TOURISM SPENDING",
+        "tabStyle": {
+          "selectedColor": "#008a5f",
+          "unselectedColor": "#dfe5e9"
+        },
         "dataPath": "consumers.city.tourism",
         "charts": [{ "type": null }]
       },
       "community": {
+        "title": "COMMUNITY PROFILES",
+        "displayUpdateDate": true,
         "icon": null,
         "label": "Community profiles",
+        "tabStyle": {
+          "selectedColor": "#1d5753",
+          "unselectedColor": "#dfe5e9"
+        },
         "summary": null,
         "dataPath": "community.city",
         "sections": [

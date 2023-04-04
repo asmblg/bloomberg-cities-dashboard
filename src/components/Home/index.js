@@ -25,10 +25,8 @@ const Home = ({ config, project, dashboardType, viewType, setTrendDataType, setS
       <div className='summary-wrapper'>
         <>
           <div role='heading' className='summary-header'>
-            {viewType === 'mobile' ? (
-              <div className='large-summary-title bold-font'>{config.title}</div>
-            ) : null}
-            <h1 className='large-summary-title bold-font'>
+            <h1 className='large-summary-title' style={{
+              color: config.tabStyle?.selectedColor || '#333333'}}>
               {/* Calculate "Q1 2023" via last update? */}
               {config.title} | {'Q1 2023'} UPDATE
             </h1>

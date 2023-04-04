@@ -4,8 +4,6 @@
   flex-direction: row;
   gap: 5px;
   position: relative;
-  /* top: 0; */
-  /* right: 1px; */
 }
 
 .desktop-tabs:hover {
@@ -16,8 +14,7 @@
 .unselected-tab {
   height: 50px;
   width: 20%;
-  background-color: var(--white-color);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,24 +23,24 @@
 }
 
 .selected-tab {
+  color: var(--white-color);
   position: relative;
   top: 1.5px;
   border-top: 2px solid var(--primary-gray-color);
-  border-left: 2px solid var(--primary-gray-color);;
-  border-right: 2px solid var(--primary-gray-color);;
+  border-left: 2px solid var(--primary-gray-color);
+  border-right: 2px solid var(--primary-gray-color);
 }
 
+.unselected-tab {
+  color: var(--black-color);
+}
+
+.selected-tab:hover,
 .unselected-tab:hover {
-  opacity: 0.75;
+  color: var(--white-color);
 }
 
 .home-tab {
-  background-color: var(--secondary-color);
-  color: var(--white-color);
-  border: none;
-}
-
-.home-tab:hover {
   color: var(--white-color);
 }
 
