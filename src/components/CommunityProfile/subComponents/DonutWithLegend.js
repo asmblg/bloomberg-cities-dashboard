@@ -13,15 +13,15 @@ const DonutWithLegend = ({ indicators, data, colors }) => {
     }
   }, [indicators, data, colors]);
   return dataArray && dataArray[0] ? (
-    <ResponsiveContainer width={'100%'} height={300}>
+    <ResponsiveContainer width={'100%'} height={250}>
       <PieChart>
         <Pie
           data={dataArray}
           dataKey='value'
           cx='40%'
           cy='50%'
-          innerRadius={'35%'}
-          outerRadius={'60%'}
+          innerRadius={'40%'}
+          outerRadius={'65%'}
           labelLine={false}
           label={renderCustomLabels}
           startAngle={-270}

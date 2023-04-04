@@ -40,8 +40,8 @@
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Desktop Breakpoint */
 @media screen and (max-width: 1465px) {
-  .cp-map-wrapper {
-    height: 300px;
+  .indicator-map {
+    height: 500px;
     width: 100%;
   }
 }

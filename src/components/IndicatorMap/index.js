@@ -46,6 +46,7 @@ const IndicatorMap = ({ config, geoJSON, data, dataManifest }) => {
 
   return bins ? (
     <div className='indicator-map-wrapper'>
+      <p>Select socioeconomic variable to map:</p>
       {selectedIndicator && indicators ? (
         <IndicatorDropdown
           selectedOption={selectedIndicator}
@@ -63,8 +64,8 @@ const IndicatorMap = ({ config, geoJSON, data, dataManifest }) => {
               zoomControl={false}
             >
               <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
+                url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
               />
               {bins ? (
                 <GeoJSON

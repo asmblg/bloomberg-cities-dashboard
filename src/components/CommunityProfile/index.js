@@ -58,6 +58,9 @@ const CommunityProfile = ({ config, data, project, viewType, dataManifest }) => 
                         startAngle={-270}
                         endAngle={90}
                       />
+                      {i !== c.donuts.length - 1 ? (
+                        <div className={'cp-donut-separator'}></div>
+                      ) : null}
                     </div>
                   ))
                 ) : null}

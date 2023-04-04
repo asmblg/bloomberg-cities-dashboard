@@ -67,7 +67,12 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  /* padding-top: 10px; */
+}
+
+.cp-donut-separator {
+  width: 100%;
+  border-top: 3px solid var(--primary-gray-color);
+  margin-bottom: 40px;
 }
 
 .cp-chart-header {
@@ -95,6 +100,10 @@
 }
 
 @media screen and (max-width: 1465px) {
+  .cp-section {
+    margin: 20px 0;
+  }
+
   .cp-body {
     flex-direction: column;
   }
@@ -105,6 +114,10 @@
 }
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1280px) {
+  .cp-section {
+    margin: 0;
+  }
+
   .cp-header-title > h2 {
     font-size: 26px;
   }
