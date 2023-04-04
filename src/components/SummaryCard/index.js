@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
-import Chart from '../Chart';
+// import Chart from '../Chart';
+import SummaryChart from '../SummaryChart';
 import TrendPill from '../TrendPill';
 import InfoIcon from '../InfoIcon';
 
@@ -21,7 +22,6 @@ const SummaryCard = ({
   setSelectedLink
 }) => {
   const { chart, dataPath, key, label, units, summary } = config;
-  console.log(label);
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
     value: null,
@@ -65,7 +65,12 @@ const SummaryCard = ({
           >
             {label.toUpperCase()}
           </h4>
-          <InfoIcon source={'Test Data Inc'} variableDescription={'A data description that describes the data that needs to be described...'} />
+          <InfoIcon
+            source={'Test Data Inc'}
+            variableDescription={
+              'A data description that describes the data that needs to be described...'
+            }
+          />
         </div>
 
         {viewType === 'mobile' &&
@@ -83,8 +88,12 @@ const SummaryCard = ({
 
             <div className='summary-chart'>
               {chart?.type && allSummaryData ? (
-                <Chart
-                  data={chart.type !== 'donut' ? allSummaryData : { value: summaryData.value }}
+                <SummaryChart
+                  data={
+                    chart.type !== 'donut'
+                      ? allSummaryData
+                      : { key: units, value: summaryData.value }
+                  }
                   config={chart}
                   height={100}
                   width={'100%'}

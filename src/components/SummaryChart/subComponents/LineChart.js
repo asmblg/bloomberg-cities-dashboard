@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LineChart as LChart, XAxis, YAxis, Line, ResponsiveContainer } from 'recharts';
+import { LineChart as LChart, XAxis, YAxis, Line, ResponsiveContainer, Tooltip } from 'recharts';
 
 import { handleLabelFormatter } from '../utils';
 
@@ -21,11 +21,24 @@ const LineChart = ({ config, dataArray, color, height, width, margin }) => {
           tickFormatter={str => handleLabelFormatter(config.yaxis?.labelFormatter, str)}
           domain={config.yaxis?.domain ? config.yaxis.domain : [0, 'dataMax']}
         />
+        <Tooltip content={() => renderTooltip(dataArray, config.xaxis?.labelFormatter)} />
         <Line dataKey={'value'} dot={false} stroke={color || 'black'} strokeWidth={4} />
       </LChart>
     </ResponsiveContainer>
   ) : null;
 };
+
+function renderTooltip(arr, keyFormatter) {
+  return arr && arr[0] ? (
+    <div className='summary-chart-tooltip'>
+      {arr.map((obj, i) => (
+        <p key={`tooltip-item-${i}`}>{`${
+          keyFormatter ? handleLabelFormatter(keyFormatter, obj.name) : obj.name
+        }: ${obj.value}`}</p>
+      ))}
+    </div>
+  ) : null;
+}
 
 LineChart.propTypes = {
   config: PropTypes.object,

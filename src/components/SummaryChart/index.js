@@ -9,7 +9,7 @@ import HorizontalBarChart from './subComponents/HorizontalBarChart';
 import './style.css';
 import { handleDataArray } from './utils';
 
-const Chart = ({ config, height, width, margin, data }) => {
+const SummaryChart = ({ config, height, width, margin, data }) => {
   switch (config.type) {
     case 'line': {
       return (
@@ -60,7 +60,7 @@ const Chart = ({ config, height, width, margin, data }) => {
   }
 };
 
-Chart.propTypes = {
+SummaryChart.propTypes = {
   config: PropTypes.object,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -68,4 +68,4 @@ Chart.propTypes = {
   data: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };
 
-export default Chart;
+export default SummaryChart;

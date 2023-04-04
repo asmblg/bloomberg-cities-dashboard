@@ -35,12 +35,12 @@ const handleDataArray = {
 
       const dataArray = [
         {
-          name: 'percentage',
+          name: data.key,
           value: numValue,
           fillColor: config.color || 'black'
         },
         {
-          name: 'percentage',
+          name: data.key === 'Occupancy rate' ? 'Vacancy rate' : data.key,
           value: 100 - numValue,
           fillColor: config.accentColor || 'gray'
         }
