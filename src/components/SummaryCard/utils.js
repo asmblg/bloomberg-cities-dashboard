@@ -1,48 +1,37 @@
-import getRecentQuarterEndDates from '../../utils/getRecentQuarterEndDates';
-import calculateTrend from '../../utils/calculateTrend';
-import formatNumberWithCommas from '../../utils/formatNumberWithCommas';
+import getCurrentAndCompareData from '../../utils/getCurrentAndCompareData';
+import formatValue from '../../utils/formatValue';
 
-const handleSummaryData = (config, data) => {
-  const dateKeys = Object.keys(data);
-  const [mostRecentDate, previousDate] = getRecentQuarterEndDates(dateKeys, 2);
-
-  const valuesObj = {};
-
-  if (config.valueCalculation === 'differenceFrom100') {
-    valuesObj.mostRecent = mostRecentDate ? 100 - parseFloat(data[mostRecentDate]) : null;
-    valuesObj.previous = previousDate ? 100 - parseFloat(data[previousDate]) : null;
-  } else {
-    valuesObj.mostRecent = mostRecentDate ? data[mostRecentDate] : null;
-    valuesObj.previous = previousDate ? data[previousDate] : null;
-  }
-
-  const { trendValue, trendDirection } = calculateTrend(
-    valuesObj.mostRecent,
-    valuesObj.previous,
-    config.trendUnits
+const handleSummaryData = (config, data, trendDataType) => {
+  const { currentValue, compareValue, currentDate, compareDate } = getCurrentAndCompareData(
+    config,
+    data,
+    trendDataType
   );
 
   const summaryDataObj = {
-    trendTextValue: trendValue,
-    trendDirection
+    currentValue,
+    currentDate,
+    compareDate,
+    compareValue
   };
 
+  // Handle compare calculations
   switch (config.valueCalculation) {
-    case 'difference': {
-      const val = parseFloat(valuesObj.mostRecent) - parseFloat(valuesObj.previous);
-      summaryDataObj.value = formatNumberWithCommas(val);
-      break;
-    }
-    case 'differenceFrom100': {
-      summaryDataObj.value = `${formatNumberWithCommas(valuesObj.mostRecent)}%`;
+    case 'differenceFromPrevious': {
+      if (summaryDataObj.currentValue) {
+        summaryDataObj.displayValue = summaryDataObj.compareValue
+          ? parseFloat(summaryDataObj.currentValue) - parseFloat(summaryDataObj.compareValue)
+          : null;
+      }
       break;
     }
     default: {
-      summaryDataObj.value = formatNumberWithCommas(valuesObj.mostRecent);
+      summaryDataObj.displayValue = summaryDataObj.currentValue;
       break;
     }
   }
 
+  summaryDataObj.displayValue = formatValue(summaryDataObj.displayValue, config.formatter);
   return summaryDataObj;
 };
 

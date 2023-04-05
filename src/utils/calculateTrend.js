@@ -2,7 +2,8 @@
  *
  * @param {string or number} currentValue
  * @param {string or number} oldValue
- * @returns difference between two values and direction of the trend
+ * @param {string} trendUnits '%' or 'pp'
+ * @returns {object} { trendValue, trendDirection }
  */
 
 const calculateTrend = (currentValue, oldValue, trendUnits) => {
@@ -16,7 +17,7 @@ const calculateTrend = (currentValue, oldValue, trendUnits) => {
   const difference = currentNum - oldNum;
   const change = trendUnits === '%' ? (difference / oldNum) * 100 : difference;
 
-  const trendDirection = difference > 0 ? 'up' : difference < 0 ? 'down' : null;
+  const trendDirection = difference >= 0 ? 'up' : 'down';
   const value = `${change}`.includes('.') ? change.toFixed(2) : change;
   const trendValue = `${
     trendDirection === 'up' ? '+' : trendDirection === 'down' ? '-' : null

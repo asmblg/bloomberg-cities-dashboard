@@ -27,7 +27,7 @@
             "dataPath": "jobs.msa.tampa.total",
             "summary": {
               "trendUnits": "%",
-              "valueCalculation": "difference"
+              "valueCalculation": "differenceFromPrevious"
             },
             "chart": {
               "type": "column",
@@ -36,7 +36,7 @@
               "dataFormatter": "monthToQuarter",
               "valueType": "actual",
               "xaxis": {
-                "labelFormatter": "shortMonthToQuarter",
+                "labelFormatter": "shortQuarter",
                 "type": "date",
                 "tickCount": 2
               },
@@ -55,7 +55,8 @@
             "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "differenceFrom100"
+              "valueCalculation": "differenceFrom100",
+              "formatter": "percent"
             },
             "chart": {
               "type": "donut",
@@ -86,7 +87,7 @@
               "valueType": "actual",
               "xaxis": {
                 "type": "date",
-                "labelFormatter": "formatQuarter",
+                "labelFormatter": "shortQuarter",
                 "tickCount": 2
               },
               "yaxis": {
@@ -443,7 +444,7 @@
             "dataPath": "jobs.msa.phoenix.total",
             "summary": {
               "trendUnits": "%",
-              "valueCalculation": "difference"
+              "valueCalculation": "differenceFromPrevious"
             },
             "chart": {
               "type": "column",
@@ -452,7 +453,7 @@
               "dataFormatter": "monthToQuarter",
               "valueType": "actual",
               "xaxis": {
-                "labelFormatter": "shortMonthToQuarter",
+                "labelFormatter": "shortQuarter",
                 "type": "date",
                 "tickCount": 2
               },
@@ -471,7 +472,8 @@
             "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "differenceFrom100"
+              "valueCalculation": "differenceFrom100",
+              "formatter": "percent"
             },
             "chart": {
               "type": "donut",
@@ -502,7 +504,7 @@
               "valueType": "actual",
               "xaxis": {
                 "type": "date",
-                "labelFormatter": "formatQuarter",
+                "labelFormatter": "shortQuarter",
                 "tickCount": 2
               },
               "yaxis": {

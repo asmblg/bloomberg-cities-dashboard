@@ -9,7 +9,7 @@ import DataToggle from '../TrendDataToggle';
 import { handleHomeData } from './utils';
 import './style.css';
 
-const Home = ({ config, project, dashboardType, viewType, setTrendDataType, setSelectedLink }) => {
+const Home = ({ config, project, dashboardType, viewType, trendDataType, setTrendDataType, setSelectedLink }) => {
   const [data, setData] = useState(null);
   const { summaryCards } = config;
 
@@ -43,6 +43,7 @@ const Home = ({ config, project, dashboardType, viewType, setTrendDataType, setS
                 cardKey={card.key}
                 viewType={viewType}
                 setSelectedLink={setSelectedLink}
+                trendDataType={trendDataType}
               />
             ))}
           </div>
@@ -60,6 +61,7 @@ Home.propTypes = {
   project: PropTypes.string,
   dashboardType: PropTypes.string,
   viewType: PropTypes.string,
+  trendDataType: PropTypes.string,
   setTrendDataType: PropTypes.func,
   setSelectedLink: PropTypes.func
 };

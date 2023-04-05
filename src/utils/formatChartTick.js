@@ -1,11 +1,10 @@
 import abbreviateNumber from './abbreviateNumber';
 import dateToQuarter from './dateToQuarter';
-import formatQuarter from './formatQuarter';
 
 /**
- * 
+ *
  * @param {string} text original tick string
- * @param {string} formatter axis label formatter from config 
+ * @param {string} formatter axis label formatter from config
  * @returns formatted tick
  */
 
@@ -15,14 +14,11 @@ const formatChartTick = (text, formatter) => {
       case 'abbreviateNumber': {
         return abbreviateNumber(text);
       }
-      case 'longMonthToQuarter': {
+      case 'longQuarter': {
         return dateToQuarter(text, 'QX YYYY');
       }
-      case 'shortMonthToQuarter': {
+      case 'shortQuarter': {
         return dateToQuarter(text, 'QX-YY');
-      }
-      case 'formatQuarter': {
-        return formatQuarter(text);
       }
       default: {
         return text;

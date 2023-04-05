@@ -18,14 +18,17 @@ const SummaryCard = ({
   project,
   dashboardType,
   cardKey,
-  setSelectedLink
+  setSelectedLink,
+  trendDataType
 }) => {
   const { chart, dataPath, key, label, units, summary } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
-    value: null,
-    trendDirection: null,
-    trendTextValue: null
+    displayValue: null,
+    currentValue: null,
+    currentDate: null,
+    compareValue: null,
+    compareDate: null
   });
   const scrollToRef = useRef();
   const navigate = useNavigate();
@@ -34,9 +37,9 @@ const SummaryCard = ({
 
   useEffect(() => {
     if (data && allSummaryData) {
-      setSummaryData(handleSummaryData(summary, allSummaryData));
+      setSummaryData(handleSummaryData(summary, allSummaryData, trendDataType));
     }
-  }, [allSummaryData]);
+  }, [allSummaryData, trendDataType]);
 
   return (
     <div id={`${key}-summary-card`} ref={scrollToRef} className='summary-card'>
@@ -72,16 +75,20 @@ const SummaryCard = ({
           />
         </div>
 
-        {viewType === 'mobile' &&
-          (summaryData.trendDirection === 'up' || summaryData.trendDirection === 'down') ? (
-            <TrendPill direction={summaryData.trendDirection} value={summaryData.trendTextValue} />
-          ) : null}
+        {viewType === 'mobile' && summaryData.currentValue && summaryData.compareValue ? (
+          <TrendPill
+            currentValue={summaryData.currentValue}
+            compareValue={summaryData.compareValue}
+            compareDate={summaryData.compareDate}
+            units={config.summary.trendUnits}
+          />
+        ) : null}
       </div>
       {viewType !== 'mobile' || cardFullSize ? (
         <>
           <div className='summary-data-wrapper'>
             <div className='summary-data bold-font'>
-              <h1 className='bold-font'>{summaryData.value || '-'}</h1>
+              <h1 className='bold-font'>{summaryData.displayValue || '-'}</h1>
               {units ? <h5 className='summary-units'>{units}</h5> : null}
             </div>
 
@@ -92,14 +99,19 @@ const SummaryCard = ({
                   data={
                     chart.type !== 'donut'
                       ? allSummaryData
-                      : { key: units, value: summaryData.value }
+                      : { key: units, value: summaryData.displayValue }
                   }
                 />
               ) : null}
             </div>
           </div>
-          {viewType !== 'mobile' && summaryData.trendDirection && summaryData.trendDirection ? (
-            <TrendPill direction={summaryData.trendDirection} value={summaryData.trendTextValue} />
+          {viewType !== 'mobile' && summaryData.currentValue && summaryData.compareValue ? (
+            <TrendPill
+              currentValue={summaryData.currentValue}
+              compareValue={summaryData.compareValue}
+              compareDate={summaryData.compareDate}
+              units={config.summary.trendUnits}
+            />
           ) : null}
         </>
       ) : null}
@@ -114,7 +126,8 @@ SummaryCard.propTypes = {
   dashboardType: PropTypes.string,
   cardKey: PropTypes.string,
   viewType: PropTypes.string,
-  setSelectedLink: PropTypes.func
+  setSelectedLink: PropTypes.func,
+  trendDataType: PropTypes.string
 };
 
 export default SummaryCard;

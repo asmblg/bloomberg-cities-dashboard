@@ -4,6 +4,7 @@ import getMostRecentDateKeys from '../../utils/getMostRecentDateKeys';
 import getRecentQuarterEndDates from '../../utils/getRecentQuarterEndDates';
 import sortDatesArray from '../../utils/sortDatesArray';
 import abbreviateNumber from '../../utils/abbreviateNumber';
+import dateToQuarter from '../../utils/dateToQuarter';
 
 const getDateKeysForChart = (config, data) => {
   const dateKeys = Object.keys(data);
@@ -68,10 +69,7 @@ const labelFormatter = {
 
     return `Q${quarter}-${year}`;
   },
-  formatQuarter: str => {
-    const [year, quarterNum] = str.split('-Q');
-    return `Q${quarterNum}-${year.slice(2, 4)}`;
-  },
+  dateToQuarter,
   abbreviateNumber
 };
 
