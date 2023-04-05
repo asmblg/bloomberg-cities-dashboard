@@ -3,7 +3,7 @@ import formatValue from '../../utils/formatValue';
 
 const handleSummaryData = (config, data, trendDataType) => {
   const { currentValue, compareValue, currentDate, compareDate } = getCurrentAndCompareData(
-    config,
+    config.calculator,
     data,
     trendDataType
   );
@@ -16,12 +16,11 @@ const handleSummaryData = (config, data, trendDataType) => {
   };
 
   // Handle compare calculations
-  switch (config.valueCalculation) {
+  switch (config.calculator) {
     case 'differenceFromPrevious': {
-      if (summaryDataObj.currentValue) {
-        summaryDataObj.displayValue = summaryDataObj.compareValue
-          ? parseFloat(summaryDataObj.currentValue) - parseFloat(summaryDataObj.compareValue)
-          : null;
+      if (summaryDataObj.currentValue && summaryDataObj.compareValue) {
+        summaryDataObj.displayValue =
+          parseFloat(summaryDataObj.currentValue) - parseFloat(summaryDataObj.compareValue);
       }
       break;
     }

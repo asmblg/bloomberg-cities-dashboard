@@ -27,21 +27,25 @@
             "dataPath": "jobs.msa.tampa.total",
             "summary": {
               "trendUnits": "%",
-              "valueCalculation": "differenceFromPrevious"
+              "calculator": "differenceFromPrevious"
             },
             "chart": {
               "type": "column",
               "label": null,
-              "dataLength": 8,
+              "dataLength": 9,
               "dataFormatter": "monthToQuarter",
-              "valueType": "actual",
+              "valueType": "differenceFromPrevious",
+              "values": {
+                "calculator": "differenceFromPrevious",
+                "formatter": "monthToQuarter"
+              },
               "xaxis": {
                 "labelFormatter": "shortQuarter",
                 "type": "date",
                 "tickCount": 2
               },
               "yaxis": {
-                "tickCount": 2,
+                "tickCount": 3,
                 "domain": ["dataMin", "dataMax"],
                 "labelFormatter": "abbreviateNumber"
               },
@@ -55,13 +59,16 @@
             "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "differenceFrom100",
+              "calculator": "differenceFrom100",
               "formatter": "percent"
             },
             "chart": {
               "type": "donut",
               "label": null,
               "valueType": "single-percentage",
+              "values": {
+                "calculator": "differenceFrom100"
+              },
               "valueCalculation": "differenceFrom100",
               "radius": {
                 "outer": 40,
@@ -78,13 +85,17 @@
             "dataPath": "newbusiness.city.total",
             "summary": {
               "trendUnits": "%",
-              "valueCalculation": "actual"
+              "calculator": null
             },
             "chart": {
               "type": "column",
               "label": null,
               "dataLength": 8,
               "valueType": "actual",
+              "values": {
+                "calculator": null,
+                "formatter": null
+              },
               "xaxis": {
                 "type": "date",
                 "labelFormatter": "shortQuarter",
@@ -104,7 +115,7 @@
             "dataPath": "smallbusiness.city.rentburden",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "calculator": null
             },
             "chart": {
               "type": "donut",
@@ -120,7 +131,7 @@
             "dataPath": "consumers.city.tourism",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "calculator": "actual"
             },
             "chart": {
               "type": "donut",
@@ -136,7 +147,7 @@
             "dataPath": "capital.city.totalinvestment",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "calculator": "actual"
             },
             "chart": {
               "type": "line",
@@ -444,21 +455,25 @@
             "dataPath": "jobs.msa.phoenix.total",
             "summary": {
               "trendUnits": "%",
-              "valueCalculation": "differenceFromPrevious"
+              "calculator": "differenceFromPrevious"
             },
             "chart": {
               "type": "column",
               "label": null,
-              "dataLength": 8,
+              "dataLength": 9,
               "dataFormatter": "monthToQuarter",
-              "valueType": "actual",
+              "valueType": "differenceFromPrevious",
+              "values": {
+                "calculator": "differenceFromPrevious",
+                "formatter": "monthToQuarter"
+              },
               "xaxis": {
                 "labelFormatter": "shortQuarter",
                 "type": "date",
                 "tickCount": 2
               },
               "yaxis": {
-                "tickCount": 2,
+                "tickCount": 3,
                 "domain": ["dataMin", "dataMax"],
                 "labelFormatter": "abbreviateNumber"
               },
@@ -472,13 +487,16 @@
             "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "differenceFrom100",
+              "calculator": "differenceFrom100",
               "formatter": "percent"
             },
             "chart": {
               "type": "donut",
               "label": null,
               "valueType": "single-percentage",
+              "values": {
+                "calculator": "differenceFrom100"
+              },
               "valueCalculation": "differenceFrom100",
               "radius": {
                 "outer": 40,
@@ -495,13 +513,17 @@
             "dataPath": "newbusiness.city.total",
             "summary": {
               "trendUnits": "%",
-              "valueCalculation": "actual"
+              "calculator": null
             },
             "chart": {
               "type": "column",
               "label": null,
               "dataLength": 8,
               "valueType": "actual",
+              "values": {
+                "calculator": null,
+                "formatter": null
+              },
               "xaxis": {
                 "type": "date",
                 "labelFormatter": "shortQuarter",
@@ -521,7 +543,7 @@
             "dataPath": "smallbusiness.city.rentburden",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "calculator": null
             },
             "chart": {
               "type": "donut",
@@ -537,7 +559,7 @@
             "dataPath": "consumers.city.tourism",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "calculator": "actual"
             },
             "chart": {
               "type": "donut",
@@ -553,7 +575,7 @@
             "dataPath": "capital.city.totalinvestment",
             "summary": {
               "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "calculator": "actual"
             },
             "chart": {
               "type": "line",

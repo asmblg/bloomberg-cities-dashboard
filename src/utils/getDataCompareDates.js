@@ -27,7 +27,7 @@ const getDataCompareDates = (dateKeys, compareType) => {
       const year = moment(mostRecentDate, 'YYYY-QX').subtract(1, 'year').year();
       obj.compareDate = `${year}-Q${quarterNum}`;
     } else {
-      const dateString = moment(new Date(mostRecentDate)).subtract(1, 'year').format('YYYY-MM-DD');
+      const dateString = moment(new Date(mostRecentDate)).subtract(1, 'year').format('YYYY-MM-D');
       obj.compareDate = dateString;
     }
   }

@@ -16,7 +16,7 @@ import './style.css';
 const Layout = ({ config, dataManifest }) => {
   const [viewType, setViewType] = useState('');
   const [selectedLink, setSelectedLink] = useState('');
-  const [trendDataType, setTrendDataType] = useState('YtY'); // Can be toggled between YtY and QtQ
+  const [trendDataType, setTrendDataType] = useState('QtQ'); // Can be toggled between YtY and QtQ
   const { pathname } = useLocation();
   const navigate = useNavigate();
 

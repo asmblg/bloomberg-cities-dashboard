@@ -2,7 +2,7 @@
  *
  * @param {string or number} currentValue
  * @param {string or number} oldValue
- * @param {string} trendUnits '%' or 'pp'
+ * @param {string} trendUnits '%' or 'pp' 
  * @returns {object} { trendValue, trendDirection }
  */
 

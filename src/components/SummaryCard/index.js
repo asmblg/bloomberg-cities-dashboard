@@ -81,6 +81,8 @@ const SummaryCard = ({
             compareValue={summaryData.compareValue}
             compareDate={summaryData.compareDate}
             units={config.summary.trendUnits}
+            data={allSummaryData}
+            trendDataType={trendDataType}
           />
         ) : null}
       </div>
@@ -111,6 +113,8 @@ const SummaryCard = ({
               compareValue={summaryData.compareValue}
               compareDate={summaryData.compareDate}
               units={config.summary.trendUnits}
+              data={allSummaryData}
+              trendDataType={trendDataType}
             />
           ) : null}
         </>
