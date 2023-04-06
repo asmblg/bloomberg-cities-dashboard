@@ -37,7 +37,6 @@ const CommunityProfile = ({ config, data, project, viewType, dataManifest }) => 
                   geoJSON && data?.data ? (
                     <IndicatorMap
                       dataManifest={dataManifest}
-                      data={data.data}
                       config={c}
                       geoJSON={geoJSON}
                     />

@@ -350,27 +350,124 @@
               "colors": ["#969696", "#72acd2", "#006aaf", "#002944"],
               "strokeColor": "#dfe5e9",
               "indicators": [
-                "pop",
-                "pop_asian",
-                "pop_hispanic",
-                "pop_white",
-                "pop_american_indian",
-                "pop_pacific_islander",
-                "pop_other_race",
-                "pop_two_or_more",
-                "pop_over_65",
-                "pop_under_19",
-                "p_owner_occupied",
-                "p_rent_burdened_30_35",
-                "p_rent_burdened_35_over",
-                "med_hh_income",
-                "unemployment",
-                "p_with_ba",
-                "commute_time",
-                "pop_poverty",
-                "fam_poverty",
-                "households",
-                "pop_black"
+                {
+                  "var": "pop",
+                  "label": "Total Population",
+                  "calculator": null,
+                  "key": "pop",
+                  "units": null
+                },
+                {
+                  "var": ["pop_asian", "pop"],
+                  "label": "Asian",
+                  "calculator": "percentageOf",
+                  "key": "p_asian",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_hispanic", "pop"],
+                  "label": "Hispanic",
+                  "calculator": "percentageOf",
+                  "key": "p_hispanic",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_white", "pop"],
+                  "label": "White",
+                  "calculator": "percentageOf",
+                  "key": "p_white",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_black", "pop"],
+                  "label": "Black African American",
+                  "calculator": "percentageOf",
+                  "key": "p_black",
+                  "units": "percent"
+                },
+                {
+                  "var": [
+                    "pop_other_race",
+                    "pop_american_indian",
+                    "pop_pacific_islander",
+                    "pop_two_or_more",
+                    "pop"
+                  ],
+                  "label": "Other Race",
+                  "calculator": "percentageOf",
+                  "key": "p_other_race",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_over_65", "pop"],
+                  "label": "Over 65",
+                  "calculator": "percentageOf",
+                  "key": "p_over_65",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_under_19", "pop"],
+                  "label": "Under 19",
+                  "calculator": "percentageOf",
+                  "key": "p_under_19",
+                  "units": "percent"
+                },
+                {
+                  "var": "p_owner_occupied",
+                  "label": "Home Ownership",
+                  "calculator": null,
+                  "key": "p_owner_occupied",
+                  "units": "percent"
+                },
+                {
+                  "var": ["p_rent_burdened_30_35", "p_rent_burdened_35_over"],
+                  "label": "Rental cost-burdened households",
+                  "calculator": "sum",
+                  "key": "p_rent_burdened",
+                  "units": "percent"
+                },
+                {
+                  "var": "med_hh_income",
+                  "label": "Median Household Income",
+                  "calculator": null,
+                  "key": "med_hh_income",
+                  "units": null
+                },
+                {
+                  "var": "unemployment",
+                  "label": "Unemployment rate",
+                  "calculator": null,
+                  "key": "unemployment",
+                  "units": "percent"
+                },
+                {
+                  "var": "commute_time",
+                  "label": "Commute Time",
+                  "calculator": null,
+                  "key": "commute_time",
+                  "units": null
+                },
+                {
+                  "var": "p_with_ba",
+                  "label": "Over 25 with bachelors degree or higher",
+                  "calculator": null,
+                  "key": "p_with_ba",
+                  "units": null
+                },
+                {
+                  "var": ["pop_poverty", "pop"],
+                  "label": "Population earning a living wage",
+                  "calculator": "inversePercentageOf",
+                  "key": "p_living_wage",
+                  "units": "percent"
+                },
+                {
+                  "var": ["fam_poverty", "households"],
+                  "label": "Households earning a living wage",
+                  "calculator": "inversePercentageOf",
+                  "key": "p_hh_living_wage",
+                  "units": "percent"
+                }
               ]
             }
           },
@@ -778,27 +875,124 @@
               "colors": ["#969696", "#72acd2", "#006aaf", "#002944"],
               "strokeColor": "#dfe5e9",
               "indicators": [
-                "pop",
-                "pop_asian",
-                "pop_hispanic",
-                "pop_white",
-                "pop_american_indian",
-                "pop_pacific_islander",
-                "pop_other_race",
-                "pop_two_or_more",
-                "pop_over_65",
-                "pop_under_19",
-                "p_owner_occupied",
-                "p_rent_burdened_30_35",
-                "p_rent_burdened_35_over",
-                "med_hh_income",
-                "unemployment",
-                "p_with_ba",
-                "commute_time",
-                "pop_poverty",
-                "fam_poverty",
-                "households",
-                "pop_black"
+                {
+                  "var": "pop",
+                  "label": "Total Population",
+                  "calculator": null,
+                  "key": "pop",
+                  "units": null
+                },
+                {
+                  "var": ["pop_asian", "pop"],
+                  "label": "Asian",
+                  "calculator": "percentageOf",
+                  "key": "p_asian",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_hispanic", "pop"],
+                  "label": "Hispanic",
+                  "calculator": "percentageOf",
+                  "key": "p_hispanic",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_white", "pop"],
+                  "label": "White",
+                  "calculator": "percentageOf",
+                  "key": "p_white",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_black", "pop"],
+                  "label": "Black African American",
+                  "calculator": "percentageOf",
+                  "key": "p_black",
+                  "units": "percent"
+                },
+                {
+                  "var": [
+                    "pop_other_race",
+                    "pop_american_indian",
+                    "pop_pacific_islander",
+                    "pop_two_or_more",
+                    "pop"
+                  ],
+                  "label": "Other Race",
+                  "calculator": "percentageOf",
+                  "key": "p_other_race",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_over_65", "pop"],
+                  "label": "Over 65",
+                  "calculator": "percentageOf",
+                  "key": "p_over_65",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_under_19", "pop"],
+                  "label": "Under 19",
+                  "calculator": "percentageOf",
+                  "key": "p_under_19",
+                  "units": "percent"
+                },
+                {
+                  "var": "p_owner_occupied",
+                  "label": "Home Ownership",
+                  "calculator": null,
+                  "key": "p_owner_occupied",
+                  "units": "percent"
+                },
+                {
+                  "var": ["p_rent_burdened_30_35", "p_rent_burdened_35_over"],
+                  "label": "Rental cost-burdened households",
+                  "calculator": "sum",
+                  "key": "p_rent_burdened",
+                  "units": "percent"
+                },
+                {
+                  "var": "med_hh_income",
+                  "label": "Median Household Income",
+                  "calculator": null,
+                  "key": "med_hh_income",
+                  "units": null
+                },
+                {
+                  "var": "unemployment",
+                  "label": "Unemployment rate",
+                  "calculator": null,
+                  "key": "unemployment",
+                  "units": "percent"
+                },
+                {
+                  "var": "commute_time",
+                  "label": "Commute Time",
+                  "calculator": null,
+                  "key": "commute_time",
+                  "units": null
+                },
+                {
+                  "var": "p_with_ba",
+                  "label": "Over 25 with bachelors degree or higher",
+                  "calculator": null,
+                  "key": "p_with_ba",
+                  "units": null
+                },
+                {
+                  "var": ["pop_poverty", "pop"],
+                  "label": "Population earning a living wage",
+                  "calculator": "inversePercentageOf",
+                  "key": "p_living_wage",
+                  "units": "percent"
+                },
+                {
+                  "var": ["fam_poverty", "households"],
+                  "label": "Households earning a living wage",
+                  "calculator": "inversePercentageOf",
+                  "key": "p_hh_living_wage",
+                  "units": "percent"
+                }
               ]
             }
           },
