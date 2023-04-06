@@ -10,7 +10,6 @@ const addCalculatedIndicatorToDataObj = (indicatorObj, dataObj) => {
     switch (indicatorObj.calculator) {
       case 'percentageOf': {
         if (typeof indicatorObj.var !== 'string') {
-          console.log({indicatorObj, dataObj});
           const percentage = calcPercentageOf(indicatorObj, dataObj);
 
           if (percentage) {
@@ -22,7 +21,8 @@ const addCalculatedIndicatorToDataObj = (indicatorObj, dataObj) => {
       case 'sum': {
         if (typeof indicatorObj.var !== 'string') {
           const newValue = rollUpIndicatorValues(indicatorObj.var, dataObj);
-          data[indicatorObj.key] = newValue.toFixed(1);
+          data[indicatorObj.key] =
+            indicatorObj.units === 'percent' ? newValue.toFixed(1) : newValue;
         } else {
           data[indicatorObj.key] = dataObj[indicatorObj.var];
         }
@@ -39,11 +39,22 @@ const addCalculatedIndicatorToDataObj = (indicatorObj, dataObj) => {
         }
         break;
       }
+      // starts with first var and takes difference from remaining vars 
+      case 'difference': {
+        if (typeof indicatorObj.var !== 'string') {
+          let newValue = parseFloat(data[indicatorObj.var[0]]);
+
+          for (let i = 1; i <= indicatorObj.var.length - 1; i++) {
+            newValue -= parseFloat(data[indicatorObj.var[i]]);
+          }
+          data[indicatorObj.key] = newValue;
+        }
+        break;
+      }
       default: {
         break;
       }
     }
-
   }
   return data;
 };
@@ -62,9 +73,9 @@ function rollUpIndicatorValues(varArray, dataObj) {
   return sum;
 }
 /**
- * 
- * @param {object} indicatorObj 
- * @param {object} dataObj 
+ *
+ * @param {object} indicatorObj
+ * @param {object} dataObj
  * @returns {number} 'percentage of' value
  */
 

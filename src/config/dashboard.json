@@ -327,15 +327,68 @@
               "lists": [
                 {
                   "type": "grid",
-                  "indicators": ["pop", "households", "med_hh_income", "med_housing_value"]
+                  "indicators": [
+                    {
+                      "var": "pop",
+                      "label": "Total Population",
+                      "calculator": null,
+                      "key": "pop",
+                      "units": null
+                    },
+                    {
+                      "var": "households",
+                      "label": "NUMBER OF HOUSEHOLDS",
+                      "calculator": null,
+                      "key": "households",
+                      "units": null
+                    },
+                    {
+                      "var": "med_hh_income",
+                      "label": "MEDIAN HOUSEHOLD INCOME",
+                      "calculator": null,
+                      "key": "med_hh_income",
+                      "units": "dollars"
+                    },
+                    {
+                      "var": "med_housing_value",
+                      "label": "MEDIAN HOUSING VALUE",
+                      "calculator": null,
+                      "key": "med_housing_value",
+                      "units": "dollars"
+                    }
+                  ]
                 },
                 {
                   "type": "horizontal-containers-with-trend",
                   "indicators": [
-                    "pop_living_wage",
-                    "p_owner_occupied",
-                    "p_rent_burdened",
-                    "p_with_ba"
+                    {
+                      "var": ["pop_poverty", "pop"],
+                      "label": "Population earning a living wage",
+                      "calculator": "inversePercentageOf",
+                      "key": "p_living_wage",
+                      "units": "percent"
+                    },
+                    {
+                      "var": "p_owner_occupied",
+                      "label": "Home ownership",
+                      "calculator": null,
+                      "key": "p_owner_occupied",
+                      "units": "percent"
+                    },
+                    {
+                      "var": ["p_rent_burdened_30_35", "p_rent_burdened_35_over"],
+                      "label": "Rental cost-burdened households",
+                      "calculator": "sum",
+                      "key": "p_rent_burdened",
+                      "units": "percent"
+                    },
+                    {
+                      "var": "p_with_ba",
+                      "label": "Over 25 with bachelors degree or higher",
+                      "calculator": null,
+                      "key": "p_with_ba",
+                      "units": null
+                    }
                   ]
                 }
               ]
@@ -478,21 +531,77 @@
                 {
                   "title": "RACE AND ETHNICITY",
                   "indicators": [
-                    "pop_asian",
-                    "pop_black",
-                    "pop_hispanic",
-                    "pop_white",
-                    "pop_race_other_than_asian_black_hispanic_white"
+                    {
+                      "var": "pop_asian",
+                      "label": "Asian",
+                      "calculator": null,
+                      "key": "pop_asian",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_black",
+                      "label": "Black African American",
+                      "calculator": null,
+                      "key": "pop_black",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_hispanic",
+                      "label": "Hispanic",
+                      "calculator": null,
+                      "key": "pop_hispanic",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_white",
+                      "label": "White",
+                      "calculator": null,
+                      "key": "pop_white",
+                      "units": null
+                    },
+                    {
+                      "var": [
+                        "pop_other_race",
+                        "pop_american_indian",
+                        "pop_pacific_islander",
+                        "pop_two_or_more"
+                      ],
+                      "label": "Other",
+                      "calculator": "sum",
+                      "key": "pop_other",
+                      "units": null
+                    }
                   ],
                   "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
                 },
                 {
                   "title": "AGE GROUPS",
-                  "indicators": ["pop_under_19", "pop_over_65", "pop_19_to_64"],
+                  "indicators": [
+                    {
+                      "var": "pop_under_19",
+                      "label": "Under 19",
+                      "calculator": null,
+                      "key": "pop_under_19",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_over_65",
+                      "label": "65 or more",
+                      "calculator": null,
+                      "key": "pop_over_65",
+                      "units": null
+                    },
+                    {
+                      "var": ["pop", "pop_over_65", "pop_under_19"],
+                      "label": "",
+                      "calculator": "difference",
+                      "key": "pop_20_to_64",
+                      "units": null
+                    }
+                  ],
                   "colors": ["#002944", "#006aaf", "#dfe5e9"]
                 }
-              ],
-              "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
+              ]
             }
           }
         ]
@@ -852,15 +961,68 @@
               "lists": [
                 {
                   "type": "grid",
-                  "indicators": ["pop", "households", "med_hh_income", "med_housing_value"]
+                  "indicators": [
+                    {
+                      "var": "pop",
+                      "label": "Total Population",
+                      "calculator": null,
+                      "key": "pop",
+                      "units": null
+                    },
+                    {
+                      "var": "households",
+                      "label": "NUMBER OF HOUSEHOLDS",
+                      "calculator": null,
+                      "key": "households",
+                      "units": null
+                    },
+                    {
+                      "var": "med_hh_income",
+                      "label": "MEDIAN HOUSEHOLD INCOME",
+                      "calculator": null,
+                      "key": "med_hh_income",
+                      "units": "dollars"
+                    },
+                    {
+                      "var": "med_housing_value",
+                      "label": "MEDIAN HOUSING VALUE",
+                      "calculator": null,
+                      "key": "med_housing_value",
+                      "units": "dollars"
+                    }
+                  ]
                 },
                 {
                   "type": "horizontal-containers-with-trend",
                   "indicators": [
-                    "pop_living_wage",
-                    "p_owner_occupied",
-                    "p_rent_burdened",
-                    "p_with_ba"
+                    {
+                      "var": ["pop_poverty", "pop"],
+                      "label": "Population earning a living wage",
+                      "calculator": "inversePercentageOf",
+                      "key": "p_living_wage",
+                      "units": "percent"
+                    },
+                    {
+                      "var": "p_owner_occupied",
+                      "label": "Home ownership",
+                      "calculator": null,
+                      "key": "p_owner_occupied",
+                      "units": "percent"
+                    },
+                    {
+                      "var": ["p_rent_burdened_30_35", "p_rent_burdened_35_over"],
+                      "label": "Rental cost-burdened households",
+                      "calculator": "sum",
+                      "key": "p_rent_burdened",
+                      "units": "percent"
+                    },
+                    {
+                      "var": "p_with_ba",
+                      "label": "Over 25 with bachelors degree or higher",
+                      "calculator": null,
+                      "key": "p_with_ba",
+                      "units": null
+                    }
                   ]
                 }
               ]
@@ -1003,21 +1165,77 @@
                 {
                   "title": "RACE AND ETHNICITY",
                   "indicators": [
-                    "pop_asian",
-                    "pop_black",
-                    "pop_hispanic",
-                    "pop_white",
-                    "pop_race_other_than_asian_black_hispanic_white"
+                    {
+                      "var": "pop_asian",
+                      "label": "Asian",
+                      "calculator": null,
+                      "key": "pop_asian",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_black",
+                      "label": "Black African American",
+                      "calculator": null,
+                      "key": "pop_black",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_hispanic",
+                      "label": "Hispanic",
+                      "calculator": null,
+                      "key": "pop_hispanic",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_white",
+                      "label": "White",
+                      "calculator": null,
+                      "key": "pop_white",
+                      "units": null
+                    },
+                    {
+                      "var": [
+                        "pop_other_race",
+                        "pop_american_indian",
+                        "pop_pacific_islander",
+                        "pop_two_or_more"
+                      ],
+                      "label": "Other",
+                      "calculator": "sum",
+                      "key": "pop_other",
+                      "units": null
+                    }
                   ],
                   "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
                 },
                 {
                   "title": "AGE GROUPS",
-                  "indicators": ["pop_under_19", "pop_over_65", "pop_19_to_64"],
+                  "indicators": [
+                    {
+                      "var": "pop_under_19",
+                      "label": "Under 19",
+                      "calculator": null,
+                      "key": "pop_under_19",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_over_65",
+                      "label": "65 or more",
+                      "calculator": null,
+                      "key": "pop_over_65",
+                      "units": null
+                    },
+                    {
+                      "var": ["pop", "pop_over_65", "pop_under_19"],
+                      "label": "",
+                      "calculator": "difference",
+                      "key": "pop_20_to_64",
+                      "units": null
+                    }
+                  ],
                   "colors": ["#002944", "#006aaf", "#dfe5e9"]
                 }
-              ],
-              "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
+              ]
             }
           }
         ]

@@ -19,8 +19,7 @@ const IndicatorMap = ({ config, geoJSON }) => {
 
   useEffect(() => {
     if (geoJSON) {
-      handleGeoJSON(geoJSON, indicators)
-        .then(updatedGeoJSON => setMapGeoJSON(updatedGeoJSON));
+      handleGeoJSON(geoJSON, indicators).then(updatedGeoJSON => setMapGeoJSON(updatedGeoJSON));
     }
   }, []);
 
@@ -91,15 +90,18 @@ const IndicatorMap = ({ config, geoJSON }) => {
             />
           </MapContainer>
         </div>
-      ) : <div className='indicator-map-wrapper'>Loading...</div>}
+      ) : (
+        <div className='indicator-map-wrapper'>Loading...</div>
+      )}
     </div>
-  ) : <div className='indicator-map-wrapper'>Loading...</div>;
+  ) : (
+    <div className='indicator-map-wrapper'>Loading...</div>
+  );
 };
 
 IndicatorMap.propTypes = {
   config: PropTypes.object,
-  geoJSON: PropTypes.object,
-  dataManifest: PropTypes.object
+  geoJSON: PropTypes.object
 };
 
 export default IndicatorMap;

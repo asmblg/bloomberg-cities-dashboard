@@ -12,7 +12,6 @@ const SectionRouter = ({
   sectionKeys,
   viewType,
   dashboardType,
-  dataManifest,
   trendDataType,
   setTrendDataType,
   setSelectedLink
@@ -27,7 +26,6 @@ const SectionRouter = ({
             element={
               <Home
                 config={sections[key]}
-                dataManifest={dataManifest}
                 project={project}
                 dashboardType={dashboardType}
                 viewType={viewType}
@@ -47,7 +45,6 @@ const SectionRouter = ({
                 sectionKey={key}
                 project={project}
                 viewType={viewType}
-                dataManifest={dataManifest}
                 trendDataType={trendDataType}
                 setTrendDataType={setTrendDataType}
               />
@@ -75,7 +72,6 @@ SectionRouter.propTypes = {
   sectionKeys: PropTypes.array,
   sections: PropTypes.object,
   viewType: PropTypes.string,
-  dataManifest: PropTypes.object,
   trendDataType: PropTypes.string,
   setTrendDataType: PropTypes.func,
   setSelectedLink: PropTypes.func

@@ -12,7 +12,7 @@ const Jobs = ({ config, data, project }) => {
   useEffect(() => {
     if (config?.compareCities?.cities && config.compareCities.cities[0]) {
       setSelectedCity(config.compareCities.cities[0].key);
-    } 
+    }
   }, []);
 
   return data && data[project] ? (
@@ -36,12 +36,10 @@ const Jobs = ({ config, data, project }) => {
           </div>
         </div>
         <div className='jcs-buttons-container'>
-          {config?.compareCities?.cities && config.compareCities.cities[0] 
+          {config?.compareCities?.cities && config.compareCities.cities[0]
             ? config.compareCities.cities.map(({ key, text }) => (
               <div
-                className={
-                  selectedCity === key ? 'selected-jcs-button' : 'unselected-jcs-button'
-                }
+                className={selectedCity === key ? 'selected-jcs-button' : 'unselected-jcs-button'}
                 key={`city-button-${key}-${selectedCity === key ? 'selected' : 'unselected'}`}
                 role='button'
                 onClick={() => setSelectedCity(key)}
@@ -54,16 +52,18 @@ const Jobs = ({ config, data, project }) => {
       </div>
       <div className='jobs-charts-wrapper'>
         {config.charts && config.charts[0]
-          ? config.charts.map((chart, i) => chart.type === 'multi-line' ? (
-            <div key={`jobs-multiline-chart-${i}`} className='jobs-chart-container'>
-              <IndicatorLineChart
-                mainLine={project}
-                compareLine={selectedCity}
-                config={chart}
-                data={data}
-              />
-            </div>
-          ) : null)
+          ? config.charts.map((chart, i) =>
+            chart.type === 'multi-line' ? (
+              <div key={`jobs-multiline-chart-${i}`} className='jobs-chart-container'>
+                <IndicatorLineChart
+                  mainLine={project}
+                  compareLine={selectedCity}
+                  config={chart}
+                  data={data}
+                />
+              </div>
+            ) : null
+          )
           : null}
       </div>
     </div>
@@ -74,8 +74,7 @@ Jobs.propTypes = {
   config: PropTypes.object,
   data: PropTypes.object,
   project: PropTypes.string,
-  viewType: PropTypes.string,
-  dataManifest: PropTypes.object
+  viewType: PropTypes.string
 };
 
 export default Jobs;
