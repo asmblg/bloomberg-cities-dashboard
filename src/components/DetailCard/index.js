@@ -10,7 +10,7 @@ import getNestedValue from '../../utils/getNestedValue';
 import { getData } from '../../utils/API';
 import './style.css';
 
-const DetailCard = ({ project, config, sectionKey, viewType }) => {
+const DetailCard = ({ project, config, sectionKey, viewType, trendDataType, setTrendDataType }) => {
   const [detailData, setDetailData] = useState(null);
 
   useEffect(() => {
@@ -61,7 +61,14 @@ const DetailCard = ({ project, config, sectionKey, viewType }) => {
           ) : null}
         </div>
         {sectionKey === 'jobs' ? (
-          <Jobs project={project} config={config} data={detailData?.data} viewType={viewType} />
+          <Jobs
+            project={project}
+            config={config}
+            data={detailData?.data}
+            viewType={viewType}
+            trendDataType={trendDataType}
+            setTrendDataType={setTrendDataType}
+          />
         ) : sectionKey === 'community' ? (
           <CommunityProfile
             project={project}
@@ -82,7 +89,9 @@ DetailCard.propTypes = {
   project: PropTypes.string,
   config: PropTypes.object,
   sectionKey: PropTypes.string,
-  viewType: PropTypes.string
+  viewType: PropTypes.string,
+  trendDataType: PropTypes.string,
+  setTrendDataType: PropTypes.func
 };
 
 export default DetailCard;

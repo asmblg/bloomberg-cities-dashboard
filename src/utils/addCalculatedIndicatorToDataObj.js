@@ -68,7 +68,7 @@ const addCalculatedIndicatorToDataObj = (indicatorObj, dataObj) => {
 function rollUpIndicatorValues(varArray, dataObj) {
   let sum = 0;
   for (let i = 0; i <= varArray.length - 1; i++) {
-    sum += parseFloat(dataObj[varArray[i]]);
+    sum += parseFloat(dataObj[varArray[i]] || 0);
   }
   return sum;
 }

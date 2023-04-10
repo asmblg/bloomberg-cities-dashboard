@@ -17,7 +17,7 @@ const IndicatorSelectDropdown = ({ selectedOption, setter, options }) => {
         {options && options[0] ? (
           <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
         ) : null}
-        <h3>{text}</h3>
+        <h4>{text}</h4>
       </div>
       {dropdownOpen && options && options[0] ? (
         <ul className='dropdown-options-container'>

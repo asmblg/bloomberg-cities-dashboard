@@ -166,8 +166,12 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "jobs.msa",
+        "projectCity": {
+          "key": "tampa",
+          "text": "Tampa-St Petersburg-Clearwater"
+        },
         "compareCities": {
-          "title": "Select a Metropolitan Statistical Area (MSA) to highlight the comparative data in the charts:",
+          "title": "Compare Tampa-St Petersburg-Clearwater with benchmark metropolitan areas:",
           "cities": [
             {
               "key": "atlanta",
@@ -196,10 +200,8 @@
             "type": "multi-line",
             "label": null,
             "dataLength": 12,
-            "valueType": "rate",
-            "valueCalculation": "unemploymentRate",
-            "preselectedIndicator": "unemployment",
-            "mainColor": "#006aaf",
+            "fixedIndicator": "unemployment",
+            "projectColor": "#006aaf",
             "compareColor": "#8dc63f",
             "otherColor": "#cccccc",
             "displayAllCities": true,
@@ -211,13 +213,22 @@
             "yaxis": {
               "tickCount": 3,
               "domain": [0, "dataMax"],
-              "label": ""
-            }
+              "label": "Unemployment rate"
+            },
+            "indicators": [
+              {
+                "var": "unemployment",
+                "label": "Unemployment Rate",
+                "calculator": null,
+                "key": "unemployment",
+                "units": "percent"
+              }
+            ]
           },
           {
-            "type": "multi-line",
+            "type": "two-bars",
             "label": null,
-            "dataLength": 12,
+            "dataLength": 13,
             "valueType": "thousands",
             "valueCalculation": "actual",
             "mainColor": "#006aaf",
@@ -230,27 +241,88 @@
             "yaxis": {
               "tickCount": 3,
               "domain": [0, "dataMax"],
-              "label": ""
-            }
-          },
-          {
-            "type": "column",
-            "label": null,
-            "dataLength": 12,
-            "valueType": "rate",
-            "valueCalculation": "percentChange",
-            "mainColor": "#006aaf",
-            "compareColor": "#8dc63f",
-            "xaxis": {
-              "labelFormatter": "monthToQuarter",
-              "type": "date",
-              "tickCount": 2
-            },
-            "yaxis": {
-              "tickCount": 3,
-              "domain": [0, "dataMax"],
               "label": "Thousands"
-            }
+            },
+            "indicators": [
+              {
+                "var": "total",
+                "label": "Number of Jobs Added All Industries",
+                "postCalculator": "intToThousands",
+                "calculator": "differenceFromPreviousQuarter",
+                "key": "total",
+                "units": "thousands"
+              },
+              {
+                "var": ["miningconstruction", "mining", "construction"],
+                "label": "Mining and Construction",
+                "calculator": "sum",
+                "key": "mining_construction",
+                "units": "thousands"
+              },
+              {
+                "var": "manufacturing",
+                "label": "Manufacturing",
+                "calculator": null,
+                "key": "manufacturing",
+                "units": "thousands"
+              },
+              {
+                "var": "transportation",
+                "label": "Transportation",
+                "calculator": null,
+                "key": "transportation",
+                "units": "thousands"
+              },
+              {
+                "var": "information",
+                "label": "Information",
+                "calculator": null,
+                "key": "information",
+                "units": "thousands"
+              },
+              {
+                "var": "financial",
+                "label": "Financial",
+                "calculator": null,
+                "key": "financial",
+                "units": "thousands"
+              },
+              {
+                "var": "professional",
+                "label": "Professional",
+                "calculator": null,
+                "key": "professional",
+                "units": "thousands"
+              },
+              {
+                "var": "educationhealth",
+                "label": "Health and Education",
+                "calculator": null,
+                "key": "educationhealth",
+                "units": "thousands"
+              },
+              {
+                "var": "leisure",
+                "label": "Leisure",
+                "calculator": null,
+                "key": "leisure",
+                "units": "thousands"
+              },
+              {
+                "var": "other",
+                "label": "Other",
+                "calculator": null,
+                "key": "other",
+                "units": "thousands"
+              },
+              {
+                "var": "government",
+                "label": "Government",
+                "calculator": null,
+                "key": "government",
+                "units": "thousands"
+              }
+            ]
           }
         ]
       },
@@ -800,8 +872,12 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "jobs.msa",
+        "projectCity": {
+          "key": "phoenix",
+          "text": "Phoenix"
+        },
         "compareCities": {
-          "title": "Select a Metropolitan Statistical Area (MSA) to highlight the comparative data in the charts:",
+          "title": "Compare Phoenix with benchmark metropolitan areas:",
           "cities": [
             {
               "key": "la",
@@ -830,10 +906,8 @@
             "type": "multi-line",
             "label": null,
             "dataLength": 12,
-            "valueType": "rate",
-            "valueCalculation": "unemploymentRate",
-            "preselectedIndicator": "unemployment",
-            "mainColor": "#006aaf",
+            "fixedIndicator": "unemployment",
+            "projectColor": "#006aaf",
             "compareColor": "#8dc63f",
             "otherColor": "#cccccc",
             "displayAllCities": true,
@@ -845,13 +919,22 @@
             "yaxis": {
               "tickCount": 3,
               "domain": [0, "dataMax"],
-              "label": ""
-            }
+              "label": "Unemployment rate"
+            },
+            "indicators": [
+              {
+                "var": "unemployment",
+                "label": "Unemployment Rate",
+                "calculator": null,
+                "key": "unemployment",
+                "units": "percent"
+              }
+            ]
           },
           {
-            "type": "multi-line",
+            "type": "two-bars",
             "label": null,
-            "dataLength": 12,
+            "dataLength": 13,
             "valueType": "thousands",
             "valueCalculation": "actual",
             "mainColor": "#006aaf",
@@ -864,27 +947,88 @@
             "yaxis": {
               "tickCount": 3,
               "domain": [0, "dataMax"],
-              "label": ""
-            }
-          },
-          {
-            "type": "column",
-            "label": null,
-            "dataLength": 12,
-            "valueType": "rate",
-            "valueCalculation": "percentChange",
-            "mainColor": "#006aaf",
-            "compareColor": "#8dc63f",
-            "xaxis": {
-              "labelFormatter": "monthToQuarter",
-              "type": "date",
-              "tickCount": 2
-            },
-            "yaxis": {
-              "tickCount": 3,
-              "domain": [0, "dataMax"],
               "label": "Thousands"
-            }
+            },
+            "indicators": [
+              {
+                "var": "total",
+                "label": "Number of Jobs Added All Industries",
+                "postCalculator": "intToThousands",
+                "calculator": "differenceFromPreviousQuarter",
+                "key": "total",
+                "units": "thousands"
+              },
+              {
+                "var": ["miningconstruction", "mining", "construction"],
+                "label": "Mining and Construction",
+                "calculator": "sum",
+                "key": "mining_construction",
+                "units": "thousands"
+              },
+              {
+                "var": "manufacturing",
+                "label": "Manufacturing",
+                "calculator": null,
+                "key": "manufacturing",
+                "units": "thousands"
+              },
+              {
+                "var": "transportation",
+                "label": "Transportation",
+                "calculator": null,
+                "key": "transportation",
+                "units": "thousands"
+              },
+              {
+                "var": "information",
+                "label": "Information",
+                "calculator": null,
+                "key": "information",
+                "units": "thousands"
+              },
+              {
+                "var": "financial",
+                "label": "Financial",
+                "calculator": null,
+                "key": "financial",
+                "units": "thousands"
+              },
+              {
+                "var": "professional",
+                "label": "Professional",
+                "calculator": null,
+                "key": "professional",
+                "units": "thousands"
+              },
+              {
+                "var": "educationhealth",
+                "label": "Health and Education",
+                "calculator": null,
+                "key": "educationhealth",
+                "units": "thousands"
+              },
+              {
+                "var": "leisure",
+                "label": "Leisure",
+                "calculator": null,
+                "key": "leisure",
+                "units": "thousands"
+              },
+              {
+                "var": "other",
+                "label": "Other",
+                "calculator": null,
+                "key": "other",
+                "units": "thousands"
+              },
+              {
+                "var": "government",
+                "label": "Government",
+                "calculator": null,
+                "key": "government",
+                "units": "thousands"
+              }
+            ]
           }
         ]
       },

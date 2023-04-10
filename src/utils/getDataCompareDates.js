@@ -9,7 +9,7 @@ import getRecentQuarterEndDates from './getRecentQuarterEndDates';
  */
 
 const getDataCompareDates = (dateKeys, compareType) => {
-  const obj = { mostRecentDate: null, previousDate: null };
+  const obj = { currentDate: null, compareDate: null };
 
   if (compareType === 'QtQ') {
     const [currentDate, compareDate] = getRecentQuarterEndDates(dateKeys, 2);

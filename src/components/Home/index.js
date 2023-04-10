@@ -30,7 +30,7 @@ const Home = ({ config, project, dashboardType, viewType, trendDataType, setTren
               {/* Calculate "Q1 2023" via last update? */}
               {config.title} | {'Q1 2023'} UPDATE
             </h1>
-            <DataToggle setTrendDataType={setTrendDataType} />
+            <DataToggle trendDataType={trendDataType} setTrendDataType={setTrendDataType} />
           </div>
           <div className='summary-cards-container'>
             {summaryCards.map((card, i) => (

@@ -4,6 +4,7 @@
 
 .dropdown-header {
   position: relative;
+  height: 30px;
   display: flex;
   border-bottom: 3px solid var(--primary-gray-color);
 }
