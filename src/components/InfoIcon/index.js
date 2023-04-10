@@ -5,10 +5,13 @@ import { Popup } from 'semantic-ui-react';
 import infoIcon from './icons/info.png';
 import './style.css';
 
-const InfoIcon = ({ source, variableDescription }) => (
-  <Popup position='top center' on={'click'} trigger={<img className='info-icon' src={infoIcon} />}>
-    {/* This ternary will move above Popup when sources/descriptions are available so that an empty box will not show when a source or description is unavailable */}
-    {source || variableDescription ? (
+const InfoIcon = ({ source, variableDescription }) =>
+  source || variableDescription ? (
+    <Popup
+      position='top center'
+      on={'click'}
+      trigger={<img className='info-icon' src={infoIcon} />}
+    >
       <Popup.Content>
         {variableDescription ? (
           <h5 className='info-icon-description'>{variableDescription}</h5>
@@ -16,9 +19,8 @@ const InfoIcon = ({ source, variableDescription }) => (
 
         {source ? <h5>{`Source: ${source}`}</h5> : null}
       </Popup.Content>
-    ) : null}
-  </Popup>
-);
+    </Popup>
+  ) : null;
 
 InfoIcon.propTypes = {
   source: PropTypes.string,

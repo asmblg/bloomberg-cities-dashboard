@@ -31,7 +31,7 @@ const getTractGeoJSON = project =>
   axios.get('https://bloomberg-cities-api.herokuapp.com/geo', {
     params: {
       project,
-      geotype: 'census%20tracts'
+      geoType: 'Census Tracts'
     }
   });
 

@@ -103,6 +103,7 @@ const MultiLineChart = ({ config, data, selectedCity, projectCity }) => {
           <YAxis
             domain={calculateChartDomain(dataArray)}
             tickFormatter={text => formatValue(text, selectedIndicator.units)}
+            label={{ value: config.yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
           />
           <Tooltip />
           {allCitiesArray.map(city => {
