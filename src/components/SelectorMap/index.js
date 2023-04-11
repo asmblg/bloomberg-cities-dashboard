@@ -8,28 +8,29 @@ import './style.css';
 
 // import {handleGeoJSON } from './utils';
 
-const SelectorMap = ({ project, config }) => {
-  const [geoJSON, setGeoJSON] = useState();
+const SelectorMap = ({ project, config, setter }) => {
+  const [geoJSON, setGeoJSON] = useState(null);
   const [selection, setSelection] = useState(null);
   const [options, setOptions] = useState(config.indicators);
   const fillColor = config.colors || '#fff3e2';
   
-  // console.log(project, config);
+  console.log(project, config);
 
   useEffect( () => {
     if (config.geoType) {
       getGeoJSON(project, config.geoType).then(({data}) =>{
-        // console.log(data);
+        console.log(data);
         if (data[0]) {
           setGeoJSON(data[0]);
         }
       });
     }
-
     if (options && options[0]) {
       setSelection(options[0]);
     }
-  }, [config]);
+
+
+  }, []);
 
   useEffect(() => {
     if (!config.indicators && geoJSON) {
@@ -45,8 +46,16 @@ const SelectorMap = ({ project, config }) => {
           }
         ));
       setOptions(optionsFromGeoJSON);
+      if (options && options[0]) {
+        setSelection(options[0]);
+      }
     }
   }, [geoJSON]);
+
+  useEffect(() => {
+    console.log(config.setterKey)
+    setter(config.setterKey, selection);
+  }, [selection]);
 
   return geoJSON
     ? (

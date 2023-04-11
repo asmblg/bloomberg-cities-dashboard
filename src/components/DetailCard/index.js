@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import CommunityProfile from '../CommunityProfile';
 import Jobs from '../Jobs';
+import FlexLayout from '../FlexLayout';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
 import LastUpdateIcon from '../LastUpdateIcon';
 
@@ -76,6 +77,13 @@ const DetailCard = ({ project, config, sectionKey, viewType, trendDataType, setT
             detailData={detailData}
             viewType={viewType}
           />
+        ) : sectionKey === 'consumers' ? (
+          <FlexLayout
+            data={detailData?.data}
+            layout={config.layout}
+            project={project}
+          />
+        
         ) : (
           <div className='detail-card-section'></div>
         )}

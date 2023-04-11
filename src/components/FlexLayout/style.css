@@ -1,0 +1,15 @@
+.flex-layout {
+  display: flex;
+  height: 50vh;
+  width: 80vw;
+}
+
+.flex-layout-columns {
+  height: 100%;
+  flex-direction: 'colum';
+}
+
+.flex-layout-rows {
+  width: 100%;
+  flex-direction: 'row';
+}

@@ -394,17 +394,14 @@
         "layout": {
           "columns": [
             {
-              "width": "50vw",
+              "width": "40%",
               "rows": [
                 {
-                  "height": "10vh",
+                  "height": "100%",
                   "content":{
                     "type": "selector-map",
-                    "setterKey": "selector-map",
-                    "getterKeys": [
-
-                    ],
                     "config": {
+                      "setterKey": "selector-map",
                       "center": [27.970253, -82.358835],
                       "zoom": 9.5,
                       "geoType": "SafeGraph Subareas",
@@ -1168,7 +1165,55 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "consumers",
-        "charts": [{ "type": null }]
+        "layout": {
+          "columns": [
+            {
+              "width": "40%",
+              "rows": [
+                {
+                  "height": "100%",
+                  "content":{
+                    "type": "selector-map",
+                    "setterKey": "selector-map",
+                    "getterKeys": [
+
+                    ],
+                    "config": {
+                      "center": [33.52698, -112.079901],
+                      "zoom": 10,
+                      "geoType": "SafeGraph Subareas",
+                      "color": "#969696",
+                      "strokeColor": "#dfe5e9",
+                      "selectorField": "NAME",
+                      "totalOption" : {
+                        "label": "Citywide",
+                        "key": "Citywide"
+                      }
+                    }
+                  }
+        
+                }
+              ]
+            }
+          ]
+        },
+        "charts": [
+          {
+            "type": "selector-map",
+            "config": {
+              "center": [33.52698, -112.079901],
+              "zoom": 10,
+              "geoType": "SafeGraph Subareas",
+              "color": "#969696",
+              "strokeColor": "#dfe5e9",
+              "selectorField": "NAME",
+              "totalOption" : {
+                "label": "Citywide",
+                "key": "Citywide"
+              }
+            }
+          }
+        ]      
       },
       "tourism": {
         "icon": "money",

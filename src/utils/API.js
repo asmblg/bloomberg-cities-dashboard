@@ -35,8 +35,8 @@ const getTractGeoJSON = project =>
     }
   });
 
-const getGeoJSON = async (project, geoType) =>
-  await axios.get('https://bloomberg-cities-api.herokuapp.com/geo', {
+const getGeoJSON = (project, geoType) =>
+  axios.get('https://bloomberg-cities-api.herokuapp.com/geo', {
     params: {
       project,
       geoType

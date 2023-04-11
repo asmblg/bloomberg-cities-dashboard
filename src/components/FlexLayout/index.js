@@ -1,15 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+import FlexLayoutElement from '../FlexLayoutElement';
+import './style.css';
 
 
 const FlexLayout = ({
-  layout:
-  {
-    columns, rows
+  layout: {
+    columns, rows, height, width
   }, 
-  data}) => {
+  data,
+  project
+}) => {
 
-  const layoutRef = useRef();
   const [getter, setter] = useState({});
 
   const elementArray = columns || rows;
@@ -19,18 +21,30 @@ const FlexLayout = ({
     [setterKey]: value
   });
 
+  console.log(getter);
+
   return (
-    <div className='flex-layout'>
-      {elementArray.map(element => 
+    <div className='flex-layout'
+      style={{
+        flexDirection: columns
+          ? 'column'
+          : 'row'
+      }}
+    >
+      {elementArray.map((element) => 
         <FlexLayoutElement
-          data={data} 
-          key={layoutRef} 
+          key={''}
+          data={data}
+          project={project} 
           layout={element}
+          // height={height}
+          // width={width}
           setter={handleSetter}
           getter={getter}
         />
       )}
     </div>
   );
-
 };
+
+export default FlexLayout;
