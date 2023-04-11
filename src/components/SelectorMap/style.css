@@ -1,0 +1,10 @@
+.selector-map-wrapper {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.selector-map {
+  height: 100%;
+  padding-top: 20px;
+}

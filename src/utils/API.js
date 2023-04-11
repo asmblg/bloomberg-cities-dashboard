@@ -31,8 +31,16 @@ const getTractGeoJSON = project =>
   axios.get('https://bloomberg-cities-api.herokuapp.com/geo', {
     params: {
       project,
-      geotype: 'census%20tracts'
+      geoType: 'Census Tracts'
     }
   });
 
-export { getConfig, getData, getTractGeoJSON };
+const getGeoJSON = async (project, geoType) =>
+  await axios.get('https://bloomberg-cities-api.herokuapp.com/geo', {
+    params: {
+      project,
+      geoType
+    }
+  });
+
+export { getConfig, getData, getTractGeoJSON, getGeoJSON };
