@@ -5,8 +5,7 @@ import { Icon } from 'semantic-ui-react';
 import CompareColumnChart from '../CompareColumnChart';
 import MultiLineChart from '../MultiLineChart';
 import TrendDataToggle from '../TrendDataToggle';
-// import getDataCompareDates from '../../utils/getDataCompareDates';
-// import IndicatorDropdown from '../IndicatorDropdown';
+import IndicatorTrendBox from '../IndicatorTrendBox';
 
 import './style.css';
 
@@ -16,15 +15,26 @@ const Jobs = ({ config, data, project, trendDataType, setTrendDataType }) => {
     text: 'Select metro area to compare job data'
   });
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { projectCity, compareCities, charts } = config;
+  const { projectCity, compareCities, charts, trendBoxes } = config;
 
   return data && data[project] ? (
     <div className='jobs-container'>
       {/* ---------- Trend indicators ---------- */}
       <div className='jobs-trend-container'>
         <TrendDataToggle trendDataType={trendDataType} setTrendDataType={setTrendDataType} />
-        <div className='indicator-trend-container'>indicator box</div>
-        <div className='indicator-trend-container'>indicator box</div>
+        <div className='indicator-trend-wrapper'>
+          {trendBoxes && trendBoxes[0]
+            ? trendBoxes.map((trendBox, i) => (
+              <IndicatorTrendBox
+                key={`jobs-trend-box-${i}`}
+                data={data[project]}
+                indicator={trendBox.indicator}
+                trendDataType={trendDataType}
+                displayCompareText
+              />
+            ))
+            : null}
+        </div>
       </div>
       {/* ---------- Job select container ---------- */}
       <div className='jobs-compare-container'>
@@ -77,7 +87,7 @@ const Jobs = ({ config, data, project, trendDataType, setTrendDataType }) => {
         {/* ---------- Charts ---------- */}
         <div className='jobs-charts-wrapper'>
           {charts && charts[0]
-            ? charts.map((chart, i) => 
+            ? charts.map((chart, i) =>
               chart.type === 'two-bars' ? (
                 <div key={`jobs-multiline-chart-${i}`} className='jobs-chart-container'>
                   <CompareColumnChart
@@ -95,15 +105,17 @@ const Jobs = ({ config, data, project, trendDataType, setTrendDataType }) => {
                     config={chart}
                     selectedCity={selectedCity}
                     projectCity={projectCity}
-                  />  
+                  />
                 </div>
-              ): null
+              ) : null
             )
             : null}
         </div>
       </div>
     </div>
-  ) : <div>Loading...</div>;
+  ) : (
+    <div>Loading...</div>
+  );
 };
 
 Jobs.propTypes = {

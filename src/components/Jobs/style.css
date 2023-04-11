@@ -8,7 +8,7 @@
 
 .jobs-trend-container {
   border-right: 3px solid var(--primary-gray-color);
-  width: 30%;
+  width: 25%;
 }
 
 .jobs-trend-container > div {
@@ -21,7 +21,7 @@
 }
 
 .jobs-compare-container {
-  width: 70%;
+  width: 75%;
 }
 
 .jcs-header {
@@ -36,7 +36,8 @@
   align-items: center;
 }
 
-.project-city, .city-select-dropdown {
+.project-city,
+.city-select-dropdown {
   margin-top: 30px;
   margin-right: 120px;
   width: fit-content;
@@ -73,14 +74,14 @@
   display: flex;
   align-items: center;
   width: fit-content;
-
 }
 
 .city-selection > div > * {
   margin-right: 10px;
 }
 
-#compare-city-rect, #main-city-rect {
+#compare-city-rect,
+#main-city-rect {
   margin-left: 20px;
 }
 
@@ -101,12 +102,14 @@
   z-index: 999;
 }
 
-.selected-city-option, .unselected-city-option {
+.selected-city-option,
+.unselected-city-option {
   list-style: none;
   margin: 10px 0;
 }
 
-.selected-city-option:hover, .unselected-city-option:hover {
+.selected-city-option:hover,
+.unselected-city-option:hover {
   cursor: pointer;
 }
 
@@ -157,4 +160,30 @@
 .jobs-chart {
   border: 1px solid yellow;
   height: 100%;
+}
+
+/* ---------- Media Queries ---------- */
+/* Initial Tablet Breakpoint */
+@media screen and (max-width: 1280px) {
+  .jobs-container {
+    flex-direction: column;
+    height: fit-content;
+  }
+
+  .jobs-trend-container {
+    border-right: none;
+    width: 100%;
+  }
+
+  .jobs-compare-container {
+    width: 100%;
+  }
+
+  .jobs-legend {
+    flex-direction: column;
+  }
+
+  .jobs-charts-wrapper {
+    flex-direction: column;
+  }
 }
