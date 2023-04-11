@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import CommunityProfile from '../CommunityProfile';
-import Jobs from '../Jobs';
 import FlexLayout from '../FlexLayout';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
 import LastUpdateIcon from '../LastUpdateIcon';
@@ -11,7 +10,7 @@ import getNestedValue from '../../utils/getNestedValue';
 import { getData } from '../../utils/API';
 import './style.css';
 
-const DetailCard = ({ project, config, sectionKey, viewType, trendDataType, setTrendDataType }) => {
+const DetailCard = ({ project, config, sectionKey, viewType }) => {
   const [detailData, setDetailData] = useState(null);
 
   useEffect(() => {
@@ -61,32 +60,16 @@ const DetailCard = ({ project, config, sectionKey, viewType, trendDataType, setT
             <LastUpdateIcon date={detailData.updatedOn} width={'auto'} />
           ) : null}
         </div>
-        {sectionKey === 'jobs' ? (
-          <Jobs
-            project={project}
-            config={config}
-            data={detailData?.data}
-            viewType={viewType}
-            trendDataType={trendDataType}
-            setTrendDataType={setTrendDataType}
-          />
-        ) : sectionKey === 'community' ? (
+        {sectionKey === 'community' ? (
           <CommunityProfile
             project={project}
             config={config}
             detailData={detailData}
             viewType={viewType}
           />
-        ) : sectionKey === 'consumers' ? (
-          <FlexLayout
-            data={detailData?.data}
-            layout={config.layout}
-            project={project}
-          />
-        
-        ) : (
-          <div className='detail-card-section'></div>
-        )}
+        ) : config.layout && detailData ? (
+          <FlexLayout data={detailData.data} layout={config?.layout || null} project={project} />
+        ) : null}
         <ShareAndPrintIcons />
       </div>
     </div>

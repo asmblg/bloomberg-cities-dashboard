@@ -53,7 +53,6 @@ const SelectorMap = ({ project, config, setter }) => {
   }, [geoJSON]);
 
   useEffect(() => {
-    console.log(config.setterKey)
     setter(config.setterKey, selection);
   }, [selection]);
 
@@ -108,7 +107,8 @@ const SelectorMap = ({ project, config, setter }) => {
 SelectorMap.propTypes = {
   project: PropTypes.string,
   config: PropTypes.object,
-  geoQuery: PropTypes.object
+  geoQuery: PropTypes.object,
+  setter: PropTypes.func
 };
 
 export default SelectorMap;
