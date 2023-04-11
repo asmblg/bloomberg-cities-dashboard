@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar, Tooltip, CartesianGrid } from 'recharts';
+import { ResponsiveContainer, BarChart, XAxis, YAxis, Bar, Tooltip, CartesianGrid, ReferenceLine } from 'recharts';
 import PropTypes from 'prop-types';
 
 import IndicatorDropdown from '../IndicatorDropdown';
@@ -55,7 +55,7 @@ const CompareColumnChart = ({ config, data, projectCity, selectedCity }) => {
             tickCount={2}
             barSize={10}
             tickLine={{ stroke: 'transparent' }}
-            axisLine={{ stroke: 'black', strokeDasharray: '1 0' }}
+            axisLine={false}
             interval={'preserveStartEnd'}
             tickFormatter={(key, i) => {
               if (i === 0 || i === dataArray.length - 1) {
@@ -64,6 +64,7 @@ const CompareColumnChart = ({ config, data, projectCity, selectedCity }) => {
               return '';
             }}
           />
+          <ReferenceLine y={0} stroke="#000000" />
           <YAxis
             domain={calculateChartDomain(dataArray)}
             type={'number'}

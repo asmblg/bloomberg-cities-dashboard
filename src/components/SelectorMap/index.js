@@ -12,9 +12,9 @@ const SelectorMap = ({ project, config, setter }) => {
   const [geoJSON, setGeoJSON] = useState(null);
   const [selection, setSelection] = useState(null);
   const [options, setOptions] = useState(config.indicators);
-  const fillColor = config.colors || '#fff3e2';
+  const fillColor = config.color || '#fff3e2';
   
-  console.log(project, config);
+  // console.log(project, config);
 
   useEffect( () => {
     if (config.geoType) {
@@ -53,7 +53,7 @@ const SelectorMap = ({ project, config, setter }) => {
   }, [geoJSON]);
 
   useEffect(() => {
-    console.log(config.setterKey)
+    console.log(config.setterKey);
     setter(config.setterKey, selection);
   }, [selection]);
 
@@ -108,7 +108,8 @@ const SelectorMap = ({ project, config, setter }) => {
 SelectorMap.propTypes = {
   project: PropTypes.string,
   config: PropTypes.object,
-  geoQuery: PropTypes.object
+  geoQuery: PropTypes.object,
+  setter: PropTypes.func
 };
 
 export default SelectorMap;
