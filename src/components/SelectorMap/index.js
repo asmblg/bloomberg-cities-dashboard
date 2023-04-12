@@ -53,7 +53,6 @@ const SelectorMap = ({ project, config, setter }) => {
   }, [geoJSON]);
 
   useEffect(() => {
-    console.log(config.setterKey);
     setter(config.setterKey, selection);
   }, [selection]);
 
@@ -71,7 +70,7 @@ const SelectorMap = ({ project, config, setter }) => {
         {selection ? (
           <div className='selector-map'>
             <MapContainer
-              key={`${selection.key}-selector-map`}
+              // key={`${selection.key}-selector-map`}
               center={config.center}
               zoom={config.zoom}
               zoomControl={false}
@@ -81,7 +80,7 @@ const SelectorMap = ({ project, config, setter }) => {
                 url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
               />
               <GeoJSON
-                key={`data-layer-${selection.key}`}
+                // key={`data-layer-${selection.key}`}
                 data={geoJSON}
                 style={feature => {
                   const selected = feature.properties[config.selectorField] === selection.key;

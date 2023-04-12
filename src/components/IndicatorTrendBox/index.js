@@ -9,7 +9,7 @@ import formatValue from '../../utils/formatValue';
 import dateToQuarter from '../../utils/dateToQuarter';
 import './style.css';
 
-const IndicatorTrendBox = ({ data, indicator, trendDataType, displayCompareText }) => {
+const IndicatorTrendBox = ({ data, config, getter }) => {
   const [indicatorTrendData, setIndicatorTrendData] = useState({
     currentDate: null,
     currentValue: null,
@@ -17,11 +17,15 @@ const IndicatorTrendBox = ({ data, indicator, trendDataType, displayCompareText 
     compareValue: null,
     displayValue: null
   });
+  const { indicator, displayCompareText } = config;
+  const trendDataType = getter[config.getterKey];
 
   useEffect(() => {
-    const dataObj = handleTrendDisplayData(data, indicator, trendDataType);
-    setIndicatorTrendData(dataObj);
-  }, [trendDataType]);
+    if (data) {
+      const dataObj = handleTrendDisplayData(data, indicator, trendDataType);
+      setIndicatorTrendData(dataObj);
+    }
+  }, [trendDataType, data]);
 
   return indicatorTrendData?.displayValue ? (
     <div className='indicator-trend-container'>
@@ -52,9 +56,8 @@ const IndicatorTrendBox = ({ data, indicator, trendDataType, displayCompareText 
 
 IndicatorTrendBox.propTypes = {
   data: PropTypes.object,
-  indicator: PropTypes.object,
-  trendDataType: PropTypes.string,
-  displayCompareText: PropTypes.bool
+  config: PropTypes.object,
+  getter: PropTypes.object
 };
 
 export default IndicatorTrendBox;

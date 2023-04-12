@@ -1,0 +1,92 @@
+.compare-dropdown-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.compare-dropdown-legend {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.main-value-container,
+.option-selection-container {
+  margin-top: 30px;
+  margin-right: 120px;
+  width: fit-content;
+}
+
+.main-value-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.option-selection-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.option-selector {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+  background-color: var(--primary-gray-color);
+}
+
+.option-selector:hover {
+  cursor: pointer;
+}
+
+.option-selector > div {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.option-selector > div > * {
+  margin-right: 10px;
+}
+
+.selected-option-svg,
+.main-value-svg {
+  margin-left: 20px;
+}
+
+.selected-option-svg > rect {
+  fill: var(--success-accent-color);
+}
+
+.main-value-svg > rect {
+  fill: var(--secondary-color);
+}
+
+.compare-options-container {
+  background-color: var(--primary-gray-color);
+  position: absolute;
+  width: 100%;
+  top: 15px;
+  padding: 0 20px;
+  z-index: 999;
+  list-style: none;
+}
+
+.compare-selected-option,
+.compare-unselected-option {
+  padding: 10px 0;
+}
+
+.compare-selected-option:hover,
+.compare-unselected-option:hover {
+  cursor: pointer;
+}
+
+.compare-unselected-option:hover {
+  opacity: 0.5;
+}

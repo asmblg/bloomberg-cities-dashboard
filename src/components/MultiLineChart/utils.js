@@ -87,4 +87,33 @@ const handleDataArray = async ({
   }
 };
 
-export { handleDataArray };
+const handleLineStyle = ({
+  lineKey,
+  selectedCityKey,
+  projectCityKey,
+  projectColor,
+  compareColor,
+  otherColor
+}) => {
+  // set to non selected / non project city as default
+  const obj = {
+    stroke: otherColor || 'gray',
+    strokeWidth: 1,
+    zIndex: 1
+  };
+
+  if (lineKey === projectCityKey) {
+    obj.stroke = projectColor || 'blue';
+    obj.strokeWidth = 3;
+    obj.zIndex = 3;
+  }
+  if (lineKey === selectedCityKey) {
+    obj.stroke = compareColor || 'green';
+    obj.strokeWidth = 3;
+    obj.zIndex = 2;
+  }
+
+  return obj;
+};
+
+export { handleDataArray, handleLineStyle };

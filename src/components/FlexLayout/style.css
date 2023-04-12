@@ -1,15 +1,17 @@
 .flex-layout {
   display: flex;
-  height: 50vh;
-  width: 80vw;
+  height: 100%;
+  width: 100%;
 }
 
 .flex-layout-columns {
-  height: 100%;
-  flex-direction: 'colum';
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
 .flex-layout-rows {
-  width: 100%;
-  flex-direction: 'row';
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
