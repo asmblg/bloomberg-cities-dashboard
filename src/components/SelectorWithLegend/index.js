@@ -41,7 +41,7 @@ const SelectorWithLegend = ({
                   : 'minus'} 
                 size={legendItems ? 'big' : 'small' }
               />
-              <h4>{label}</h4>
+              <h5>{label}</h5>
               {
                 selectedOption?.key === key ?
                   <svg className='selector-w-legend-selected-svg' height={'15px'} width={'15px'}>
@@ -58,7 +58,7 @@ const SelectorWithLegend = ({
                       <div
                         key={key} 
                         className='selector-w-legend-selected-legend-item'>
-                        <h4>{label}</h4>
+                        <h5>{label}</h5>
                         <svg className='selector-w-legend-selected-svg' height={'15px'} width={'15px'}>
                           <rect fill={colors[i + 1]} height={'15px'} width={'15px'} />
                         </svg>

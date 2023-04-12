@@ -515,7 +515,7 @@
                 {
                   "height": "20%",
                   "content": {
-                    "type": "tbd"
+                    "description": "INDICATOR TREND BOX OF TOTAL SPENDING CONNECTED SUBAREA SELECTOR"
                   }
                 },
                 {
@@ -882,6 +882,32 @@
                     ]
                   }
                 }
+              ]
+            },
+            {
+              "width": "33%",
+              "style": {
+                "padding": "10px"
+              },
+              "rows": [
+                {
+                  "height": "10%",
+                  "content": {
+                    "description": "INDICATOR DROPDOWN SELECTOR"
+                  }
+                  },
+                {
+                  "height": "45%",
+                  "content": {
+                    "description": "LINE/AREA CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, AND INDICATOR DROPDOWN"
+                  }
+                  },
+                {
+                  "height": "45%",
+                  "content": {
+                    "description": "COMPARISON COLUMN CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, INDICATOR DROPDOWN, AND LINE/AREA CHART"
+                  }
+                  }
               ]
             }
           ]

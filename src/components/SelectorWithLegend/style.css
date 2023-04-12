@@ -36,9 +36,9 @@
   width: 30px;
 }
 
-.selector-w-legend-label > h4 {
+.selector-w-legend-label > h5 {
   width: calc(100% - 50px);
-  padding-right: 5px;
+  padding-right: 10px;
 }
 
 .selector-w-legend-selected-legend {
@@ -51,9 +51,9 @@
   padding-left: 20px;
 }
 
-.selector-w-legend-selected-legend-item > h4 {
+.selector-w-legend-selected-legend-item > h5 {
   width: calc(100% - 2px);
-  /* padding-right: 5px; */
+  padding-right: 10px;
 
 }
 .selector-w-legend-label-selected {
