@@ -7,6 +7,7 @@ import IndicatorTrendBox from '../IndicatorTrendBox';
 import CompareDropdownSelection from '../CompareDropdownSelection';
 import MultiLineChart from '../MultiLineChart';
 import CompareColumnChart from '../CompareColumnChart';
+import SelectorWithLegend from '../SelectorWithLegend';
 
 const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
   const { columns, rows, content, height, width, style } = layout;
@@ -57,6 +58,13 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
           data={data || null}
           config={content.config}
           getter={getter}
+        />
+      ) : content.type === 'selector-with-legend' ? (
+        <SelectorWithLegend
+          options={content.options}
+          colors={content.colors}
+          setter={setter}
+          setterKey={content.setterKey}
         />
       ) : (
         JSON.stringify(content)

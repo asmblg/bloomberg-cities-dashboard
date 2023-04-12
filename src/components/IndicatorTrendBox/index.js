@@ -10,6 +10,7 @@ import dateToQuarter from '../../utils/dateToQuarter';
 import './style.css';
 
 const IndicatorTrendBox = ({ data, config, getter }) => {
+  console.log(data);
   const [indicatorTrendData, setIndicatorTrendData] = useState({
     currentDate: null,
     currentValue: null,

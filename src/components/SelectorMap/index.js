@@ -41,7 +41,7 @@ const SelectorMap = ({ project, config, setter }) => {
       geoJSON.features.forEach(({properties}) => 
         optionsFromGeoJSON.push(
           {
-            label: properties[config.selectorField],
+            label: properties[config.selectorField].toUpperCase(),
             key: properties[config.selectorField]
           }
         ));
@@ -59,7 +59,7 @@ const SelectorMap = ({ project, config, setter }) => {
   return geoJSON
     ? (
       <div className='selector-map-wrapper'>
-        <p>Select area to filter data:</p>
+        <p>{config.label}</p>
         {selection && options ? (
           <IndicatorDropdown
             selectedOption={selection}
