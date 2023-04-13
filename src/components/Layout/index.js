@@ -13,10 +13,10 @@ import Footer from '../Footer';
 import { handleViewType, getCurrentRoute } from './utils';
 import './style.css';
 
-const Layout = ({ config, dataManifest }) => {
+const Layout = ({ config }) => {
   const [viewType, setViewType] = useState('');
   const [selectedLink, setSelectedLink] = useState('');
-  const [trendDataType, setTrendDataType] = useState('YtY'); // Can be toggled between YtY and QtQ
+  const [trendDataType, setTrendDataType] = useState('QtQ'); // Can be toggled between YtY and QtQ
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -76,7 +76,6 @@ const Layout = ({ config, dataManifest }) => {
             sectionKeys={sectionKeys}
             sections={sections}
             viewType={viewType}
-            dataManifest={dataManifest}
             trendDataType={trendDataType}
             setTrendDataType={setTrendDataType}
             setSelectedLink={setSelectedLink}
@@ -91,8 +90,7 @@ const Layout = ({ config, dataManifest }) => {
 };
 
 Layout.propTypes = {
-  config: PropTypes.object,
-  dataManifest: PropTypes.object
+  config: PropTypes.object
 };
 
 export default Layout;

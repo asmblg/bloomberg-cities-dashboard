@@ -14,7 +14,7 @@ const SummaryChart = ({ config, data }) => {
           data={data}
           height={150}
           width={'100%'}
-          margin={{ top: 10, right: 5, bottom: 0, left: -20 }}
+          margin={{ top: 10, right: 5, bottom: 0, left: 0 }}
           hasTooltip
         />
       );

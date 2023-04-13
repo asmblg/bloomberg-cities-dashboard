@@ -7,26 +7,24 @@ import './style.css';
 const IndicatorSelectDropdown = ({ selectedOption, setter, options }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   // selectedOption && options objects must have a short_name property
-  const text = selectedOption?.short_name || null;
+  const text = selectedOption?.label || null;
   // selectedOption && options objects must have a key property
-  const key = selectedOption?.key ? selectedOption.key : null;
+  const key = selectedOption?.key || null;
 
   return text && key && setter ? (
-    <>
-      <div className='dropdown-container'>
-        <div className='dropdown-header' onClick={() => setDropdownOpen(!dropdownOpen)}>
-          {options && options[0] ? (
-            <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
-          ) : null}
-          <h3>{text}</h3>
-        </div>
+    <div className='dropdown-container'>
+      <div className='dropdown-header' onClick={() => setDropdownOpen(!dropdownOpen)}>
+        {options && options[0] ? (
+          <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
+        ) : null}
+        <h4>{text}</h4>
       </div>
       {dropdownOpen && options && options[0] ? (
         <ul className='dropdown-options-container'>
           {options.map(option =>
-            option && option.key && option.short_name ? (
+            option && option.label && option.key ? (
               <li
-                key={option.key}
+                key={`indicator-dropdown-option-${option.key}`}
                 className={key === option.key ? 'selected-option bold-font' : 'unselected-option'}
                 onClick={() => {
                   if (key !== option.key) {
@@ -35,13 +33,13 @@ const IndicatorSelectDropdown = ({ selectedOption, setter, options }) => {
                   setDropdownOpen(false);
                 }}
               >
-                {option.short_name || null}
+                {option.label || null}
               </li>
             ) : null
           )}
         </ul>
       ) : null}
-    </>
+    </div>
   ) : null;
 };
 

@@ -1,6 +1,38 @@
+import addCalculatedIndicatorToDataObj from '../../utils/addCalculatedIndicatorToDataObj';
 import percentile from 'percentile';
 import incrementDecimalNumber from '../../utils/incrementDecimalNumber';
+import formatValue from '../../utils/formatValue';
 
+/**
+ * 
+ * @param {object} geoJSON 
+ * @param {array} indicators array of indicators from config
+ * @returns {object} updated geoJSON with calculated indicators in every features properties object
+ */
+const handleGeoJSON = async (geoJSON, indicators) => {
+  const tempGeoJSON = { ...geoJSON };
+  const featuresArr = tempGeoJSON.features.map(feature => {
+    if (indicators && indicators[0]) {
+      indicators.forEach(indicator => {
+        const propertiesObj = addCalculatedIndicatorToDataObj(indicator, feature.properties);
+        feature.properties = propertiesObj;
+      });
+    }
+    return feature;
+  });
+
+  tempGeoJSON.features = featuresArr;
+  return tempGeoJSON;
+};
+
+/**
+ * 
+ * @param {object} geoJSON object
+ * @param {array} colors array of color hex values to represent bins
+ * @param {string} indicator string that represents indicator key
+ * @param {number} numOfBins number of bins to create
+ * @returns {array} bins array
+ */
 const handleBinning = ({ geoJSON, colors, indicator, numOfBins }) => {
   const binArray = [];
   const pRange = Math.floor(100 / numOfBins);
@@ -39,4 +71,9 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins }) => {
   return arrayWithLabels;
 };
 
-export { handleBinning };
+const formatLegendLabel = (label, formatter) => {
+  const splitStr = label.split('-').map(str => formatValue(str.trim(), formatter));
+  return splitStr.join(' - ');
+};
+
+export { handleBinning, handleGeoJSON, formatLegendLabel };

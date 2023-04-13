@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import CommunityProfile from '../CommunityProfile';
-import Jobs from '../Jobs';
+import FlexLayout from '../FlexLayout';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
 import LastUpdateIcon from '../LastUpdateIcon';
 
@@ -10,7 +10,7 @@ import getNestedValue from '../../utils/getNestedValue';
 import { getData } from '../../utils/API';
 import './style.css';
 
-const DetailCard = ({ project, config, sectionKey, viewType, dataManifest }) => {
+const DetailCard = ({ project, config, sectionKey, viewType }) => {
   const [detailData, setDetailData] = useState(null);
 
   useEffect(() => {
@@ -60,25 +60,16 @@ const DetailCard = ({ project, config, sectionKey, viewType, dataManifest }) => 
             <LastUpdateIcon date={detailData.updatedOn} width={'auto'} />
           ) : null}
         </div>
-        {sectionKey === 'jobs' ? (
-          <Jobs
-            project={project}
-            config={config}
-            data={detailData?.data}
-            viewType={viewType}
-            dataManifest={dataManifest.indicators}
-          />
-        ) : sectionKey === 'community' ? (
+        {sectionKey === 'community' ? (
           <CommunityProfile
             project={project}
             config={config}
-            data={detailData}
+            detailData={detailData}
             viewType={viewType}
-            dataManifest={dataManifest}
           />
-        ) : (
-          <div className='detail-card-section'></div>
-        )}
+        ) : config.layout && detailData ? (
+          <FlexLayout data={detailData.data} layout={config?.layout || null} project={project} />
+        ) : null}
         <ShareAndPrintIcons />
       </div>
     </div>
@@ -90,7 +81,8 @@ DetailCard.propTypes = {
   config: PropTypes.object,
   sectionKey: PropTypes.string,
   viewType: PropTypes.string,
-  dataManifest: PropTypes.object
+  trendDataType: PropTypes.string,
+  setTrendDataType: PropTypes.func
 };
 
 export default DetailCard;

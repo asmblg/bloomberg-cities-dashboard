@@ -16,7 +16,8 @@ const ColumnChart = ({ config, data, margin, height, width, hasTooltip }) => {
       const array = handleData(config, data);
 
       if (array) {
-        setDataArray(array);
+        const filteredData = array.filter(({ value }) => value || value === 0);
+        setDataArray(filteredData);
       }
     }
   }, [data]);

@@ -1,0 +1,28 @@
+.indicator-trend-container {
+  padding: 20px;
+}
+
+.indicator-data-body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.indicator-value-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.indicator-value-container > h1 {
+  margin-right: 20px;
+}
+
+/* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Desktio Breakpoint */
+@media screen and (max-width: 1600px) {
+  .indicator-value-container {
+    width: 200px
+  }
+}

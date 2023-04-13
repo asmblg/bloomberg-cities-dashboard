@@ -8,7 +8,7 @@ import TrendPill from '../TrendPill';
 import InfoIcon from '../InfoIcon';
 
 import getNestedValue from '../../utils/getNestedValue';
-import { handleSummaryData } from './utils';
+import createCompareDataObject from '../../utils/createCompareDataObject';
 import './style.css';
 
 const SummaryCard = ({
@@ -37,7 +37,7 @@ const SummaryCard = ({
 
   useEffect(() => {
     if (data && allSummaryData) {
-      setSummaryData(handleSummaryData(summary, allSummaryData, trendDataType));
+      setSummaryData(createCompareDataObject(summary.calculator, allSummaryData, trendDataType));
     }
   }, [allSummaryData, trendDataType]);
 
@@ -81,6 +81,9 @@ const SummaryCard = ({
             compareValue={summaryData.compareValue}
             compareDate={summaryData.compareDate}
             units={config.summary.trendUnits}
+            data={allSummaryData}
+            trendDataType={trendDataType}
+            displayCompareText
           />
         ) : null}
       </div>
@@ -111,6 +114,9 @@ const SummaryCard = ({
               compareValue={summaryData.compareValue}
               compareDate={summaryData.compareDate}
               units={config.summary.trendUnits}
+              data={allSummaryData}
+              trendDataType={trendDataType}
+              displayCompareText
             />
           ) : null}
         </>

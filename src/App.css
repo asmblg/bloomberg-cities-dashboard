@@ -73,14 +73,8 @@ a:hover {
   padding: 10px;
 }
 
-.flex-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
+.chart-container {
+  padding: 20px;
 }
 
 .primary-font {

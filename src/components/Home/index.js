@@ -9,7 +9,15 @@ import DataToggle from '../TrendDataToggle';
 import { handleHomeData } from './utils';
 import './style.css';
 
-const Home = ({ config, project, dashboardType, viewType, trendDataType, setTrendDataType, setSelectedLink }) => {
+const Home = ({
+  config,
+  project,
+  dashboardType,
+  viewType,
+  trendDataType,
+  setTrendDataType,
+  setSelectedLink
+}) => {
   const [data, setData] = useState(null);
   const { summaryCards } = config;
 
@@ -25,12 +33,16 @@ const Home = ({ config, project, dashboardType, viewType, trendDataType, setTren
       <div className='summary-wrapper'>
         <>
           <div role='heading' className='summary-header'>
-            <h1 className='large-summary-title' style={{
-              color: config.tabStyle?.selectedColor || '#333333'}}>
+            <h1
+              className='large-summary-title'
+              style={{
+                color: config.tabStyle?.selectedColor || '#333333'
+              }}
+            >
               {/* Calculate "Q1 2023" via last update? */}
               {config.title} | {'Q1 2023'} UPDATE
             </h1>
-            <DataToggle setTrendDataType={setTrendDataType} />
+            <DataToggle getter={trendDataType} setter={setTrendDataType} />
           </div>
           <div className='summary-cards-container'>
             {summaryCards.map((card, i) => (

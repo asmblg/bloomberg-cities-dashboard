@@ -1,50 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
-// import numeral from 'numeral';
-// import colormap from 'colormap';
 
 import IndicatorDropdown from '../IndicatorDropdown';
-// import IndicatorSelectDropdown from './subComponents/IndicatorSelectDropdown';
 import Legend from './subComponents/Legend';
 
-import { handleBinning } from './utils';
+import { handleBinning, handleGeoJSON } from './utils';
 import './style.css';
 
-const IndicatorMap = ({ config, geoJSON, data, dataManifest }) => {
-  const [bins, setBins] = useState();
-  const [indicators, setIndicators] = useState(null);
+const IndicatorMap = ({ config, geoJSON }) => {
+  const [bins, setBins] = useState(null);
+  const [mapGeoJSON, setMapGeoJSON] = useState(null);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
-  // Default colors currently Tampa colors
-  const colors = config.colors ? config.colors : ['#969696', '#72acd2', '#006aaf', '#002944'];
+  // Default colors are a random palette not related to any city project
+  const colors = config.colors ? config.colors : ['#fff3e2', '#ffe5ca', '#fa9884', '#e74646'];
   const numOfBins = colors.length;
+  const indicators = config?.indicators || null;
 
   useEffect(() => {
-    const configIndicators =
-      config.indicators && config.indicators[0]
-        ? config.indicators.map(key => dataManifest.indicators[key])
-        : null;
-
-    if (configIndicators) {
-      setIndicators(configIndicators);
-      setSelectedIndicator(configIndicators[0]);
+    if (geoJSON) {
+      handleGeoJSON(geoJSON, indicators).then(updatedGeoJSON => setMapGeoJSON(updatedGeoJSON));
     }
-  }, [geoJSON]);
+  }, []);
 
   useEffect(() => {
-    if (colors && selectedIndicator) {
+    if (indicators && indicators[0]) {
+      setSelectedIndicator(indicators[0]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (colors && selectedIndicator && mapGeoJSON) {
       setBins(
         handleBinning({
-          geoJSON,
+          geoJSON: mapGeoJSON,
           colors,
           indicator: selectedIndicator.key,
           numOfBins
         })
       );
     }
-  }, [selectedIndicator]);
+  }, [selectedIndicator, mapGeoJSON]);
 
-  return bins ? (
+  return bins && mapGeoJSON ? (
     <div className='indicator-map-wrapper'>
       <p>Select socioeconomic variable to map:</p>
       {selectedIndicator && indicators ? (
@@ -54,58 +52,56 @@ const IndicatorMap = ({ config, geoJSON, data, dataManifest }) => {
           options={indicators}
         />
       ) : null}
-      {selectedIndicator && geoJSON && data ? (
+      {selectedIndicator ? (
         <div className='indicator-map'>
-          {bins ? (
-            <MapContainer
-              key={'indicator-map'}
-              center={config.center}
-              zoom={config.zoom}
-              zoomControl={false}
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
-                url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
-              />
-              {bins ? (
-                <GeoJSON
-                  key={`data-layer-${selectedIndicator.key}`}
-                  data={geoJSON}
-                  style={feature => {
-                    const value = feature.properties[selectedIndicator.key];
-                    const color = value
-                      ? bins
-                        .filter(({ percentile }) => value <= percentile)
-                        .map(({ color }) => color)[0]
-                      : 'transparent';
-                    return {
-                      fillColor: color,
-                      color: config.strokeColor || 'black',
-                      weight: 1,
-                      opacity: 0.8,
-                      fillOpacity: 0.9
-                    };
-                  }}
-                />
-              ) : null}
-              <Legend
-                indicator={selectedIndicator.short_name}
-                bins={bins}
-                strokeColor={config.strokeColor || 'black'}
-              />
-            </MapContainer>
-          ) : null}
+          <MapContainer
+            key={`${selectedIndicator.key}-indicator-map`}
+            center={config.center}
+            zoom={config.zoom}
+            zoomControl={false}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
+              url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+            />
+            <GeoJSON
+              key={`data-layer-${selectedIndicator.key}`}
+              data={mapGeoJSON}
+              style={feature => {
+                const value = feature.properties[selectedIndicator.key];
+                const color = value
+                  ? bins
+                    .filter(({ percentile }) => value <= percentile)
+                    .map(({ color }) => color)[0]
+                  : 'transparent';
+                return {
+                  fillColor: color,
+                  color: config.strokeColor || 'black',
+                  weight: 1,
+                  opacity: 0.8,
+                  fillOpacity: 0.9
+                };
+              }}
+            />
+            <Legend
+              indicator={selectedIndicator}
+              bins={bins}
+              strokeColor={config.strokeColor || 'black'}
+            />
+          </MapContainer>
         </div>
-      ) : null}
+      ) : (
+        <div className='indicator-map-wrapper'>Loading...</div>
+      )}
     </div>
-  ) : null;
+  ) : (
+    <div className='indicator-map-wrapper'>Loading...</div>
+  );
 };
 
 IndicatorMap.propTypes = {
-  data: PropTypes.object,
   config: PropTypes.object,
-  geoJSON: PropTypes.object,
-  dataManifest: PropTypes.object
+  geoJSON: PropTypes.object
 };
 
 export default IndicatorMap;

@@ -26,22 +26,26 @@
             "key": "jobs",
             "dataPath": "jobs.msa.tampa.total",
             "summary": {
-              "trendUnits": "%",
-              "valueCalculation": "differenceFromPrevious"
+              "trendUnits": null,
+              "calculator": "differenceFromPrevious"
             },
             "chart": {
               "type": "column",
               "label": null,
-              "dataLength": 8,
+              "dataLength": 9,
               "dataFormatter": "monthToQuarter",
-              "valueType": "actual",
+              "valueType": "differenceFromPrevious",
+              "values": {
+                "calculator": "differenceFromPrevious",
+                "formatter": "monthToQuarter"
+              },
               "xaxis": {
                 "labelFormatter": "shortQuarter",
                 "type": "date",
                 "tickCount": 2
               },
               "yaxis": {
-                "tickCount": 2,
+                "tickCount": 3,
                 "domain": ["dataMin", "dataMax"],
                 "labelFormatter": "abbreviateNumber"
               },
@@ -52,16 +56,19 @@
             "label": "CDB Office Occupancy",
             "units": "Occupancy rate",
             "key": "realestate",
-            "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
+            "dataPath": "realestate.office.submarket.Tampa%20CBD.vacancy_rate",
             "summary": {
-              "trendUnits": "pp",
-              "valueCalculation": "differenceFrom100",
+              "trendUnits": "percent",
+              "calculator": "differenceFrom100",
               "formatter": "percent"
             },
             "chart": {
               "type": "donut",
               "label": null,
               "valueType": "single-percentage",
+              "values": {
+                "calculator": "differenceFrom100"
+              },
               "valueCalculation": "differenceFrom100",
               "radius": {
                 "outer": 40,
@@ -77,14 +84,18 @@
             "key": "newbusiness",
             "dataPath": "newbusiness.city.total",
             "summary": {
-              "trendUnits": "%",
-              "valueCalculation": "actual"
+              "trendUnits": null,
+              "calculator": null
             },
             "chart": {
               "type": "column",
               "label": null,
               "dataLength": 8,
               "valueType": "actual",
+              "values": {
+                "calculator": null,
+                "formatter": null
+              },
               "xaxis": {
                 "type": "date",
                 "labelFormatter": "shortQuarter",
@@ -103,8 +114,8 @@
             "key": "smallbusiness",
             "dataPath": "smallbusiness.city.rentburden",
             "summary": {
-              "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "trendUnits": "percent",
+              "calculator": null
             },
             "chart": {
               "type": "donut",
@@ -119,8 +130,8 @@
             "key": "tourism",
             "dataPath": "consumers.city.tourism",
             "summary": {
-              "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "trendUnits": "percent",
+              "calculator": "actual"
             },
             "chart": {
               "type": "donut",
@@ -135,8 +146,8 @@
             "key": "capital",
             "dataPath": "capital.city.totalinvestment",
             "summary": {
-              "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "trendUnits": "percent",
+              "calculator": "actual"
             },
             "chart": {
               "type": "line",
@@ -155,93 +166,266 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "jobs.msa",
-        "compareCities": {
-          "title": "Select a Metropolitan Statistical Area (MSA) to highlight the comparative data in the charts:",
-          "cities": [
+        "layout": {
+          "columns": [
             {
-              "key": "atlanta",
-              "text": "Atlanta-Sandy Springs-Roswell, GA"
+              "width": "25%",
+              "height": "100%",
+              "style": {
+                "borderRight": "3px solid #dfe5e9"
+              },
+              "rows": [
+                {
+                  "content": {
+                    "type": "trend-data-toggler",
+                    "config": {
+                      "getterKey": "trend-data-toggler",
+                      "setterKey": "trend-data-toggler"
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": "trend-data-toggler",
+                      "indicator": {
+                        "var": "unemployment",
+                        "label": "Unemployment Rate",
+                        "calculator": null,
+                        "key": "unemployment",
+                        "units": "percent",
+                        "positiveTrendDirection": "down"
+                      },
+                      "displayCompareText": true
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": "trend-data-toggler",
+                      "indicator": {
+                        "var": "total",
+                        "label": "Jobs Added",
+                        "calculator": "differenceFromPrevious",
+                        "key": "jobs_added",
+                        "units": null,
+                        "positiveTrendDirection": "up"
+                      },
+                      "displayCompareText": true
+                    }
+                  }
+                }
+              ]
             },
             {
-              "key": "austin",
-              "text": "Austin-Round Rock, TX"
-            },
-            {
-              "key": "charlotte",
-              "text": "Charlotte-Concord-Gastonia, NC-SC"
-            },
-            {
-              "key": "denver",
-              "text": "Denver-Aurora-Lakewood, CO"
-            },
-            {
-              "key": "orlando",
-              "text": "Orlando-Kissimmee-Sanford, FL"
+              "width": "75%",
+              "height": "100%",
+              "rows": [
+                {
+                  "content": {
+                    "type": "city-compare-selector",
+                    "config": {
+                      "getterKey": "jobs-selected-city",
+                      "setterKey": "jobs-selected-city",
+                      "title": "Compare Tampa-St Petersburg-Clearwater with benchmark metropolitan areas:",
+                      "projectCity": {
+                        "key": "tampa",
+                        "text": "Tampa-St Petersburg-Clearwater"
+                      },
+                      "compareCities": [
+                        {
+                          "key": "atlanta",
+                          "text": "Atlanta-Sandy Springs-Roswell, GA"
+                        },
+                        {
+                          "key": "austin",
+                          "text": "Austin-Round Rock, TX"
+                        },
+                        {
+                          "key": "charlotte",
+                          "text": "Charlotte-Concord-Gastonia, NC-SC"
+                        },
+                        {
+                          "key": "denver",
+                          "text": "Denver-Aurora-Lakewood, CO"
+                        },
+                        {
+                          "key": "orlando",
+                          "text": "Orlando-Kissimmee-Sanford, FL"
+                        }
+                      ],
+                      "defaultSelected": {
+                        "key": "default",
+                        "text": "Select metro area to compare job data"
+                      }
+                    }
+                  }
+                },
+                {
+                  "columns": [
+                    {
+                      "width": "50%",
+                      "content": {
+                        "type": "multi-line-chart",
+                        "config": {
+                          "getterKey": "jobs-selected-city",
+                          "height": 300,
+                          "width": 500,
+                          "label": null,
+                          "dataLength": 12,
+                          "fixedIndicator": "unemployment",
+                          "projectColor": "#006aaf",
+                          "compareColor": "#8dc63f",
+                          "otherColor": "#cccccc",
+                          "displayAllCities": true,
+                          "xaxis": {
+                            "labelFormatter": "monthToQuarter",
+                            "type": "date",
+                            "tickCount": 2
+                          },
+                          "yaxis": {
+                            "tickCount": 3,
+                            "domain": [0, "dataMax"],
+                            "label": "Unemployment rate"
+                          },
+                          "indicators": [
+                            {
+                              "var": "unemployment",
+                              "label": "Unemployment Rate",
+                              "calculator": null,
+                              "key": "unemployment",
+                              "units": "percent"
+                            }
+                          ],
+                          "projectCity": {
+                            "key": "tampa",
+                            "text": "Tampa-St Petersburg-Clearwater"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "width": "50%",
+                      "content": {
+                        "type": "compare-column-chart",
+                        "config": {
+                          "getterKey":{ 
+                            "comparisonSelection": "jobs-selected-city"
+                          },
+                          "height": 300,
+                          "width": 500,
+                          "label": null,
+                          "dataLength": 13,
+                          "valueType": "thousands",
+                          "valueCalculation": "actual",
+                          "mainColor": "#006aaf",
+                          "compareColor": "#8dc63f",
+                          "xaxis": {
+                            "labelFormatter": "monthToQuarter",
+                            "type": "date",
+                            "tickCount": 2
+                          },
+                          "yaxis": {
+                            "tickCount": 3,
+                            "domain": [0, "dataMax"],
+                            "label": "Thousands"
+                          },
+                          "indicators": [
+                            {
+                              "var": "total",
+                              "label": "Number of Jobs Added All Industries",
+                              "postCalculator": "intToThousands",
+                              "calculator": "differenceFromPreviousQuarter",
+                              "key": "total",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": ["miningconstruction", "mining", "construction"],
+                              "label": "Mining and Construction",
+                              "calculator": "sum",
+                              "key": "mining_construction",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "manufacturing",
+                              "label": "Manufacturing",
+                              "calculator": null,
+                              "key": "manufacturing",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "transportation",
+                              "label": "Transportation",
+                              "calculator": null,
+                              "key": "transportation",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "information",
+                              "label": "Information",
+                              "calculator": null,
+                              "key": "information",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "financial",
+                              "label": "Financial",
+                              "calculator": null,
+                              "key": "financial",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "professional",
+                              "label": "Professional",
+                              "calculator": null,
+                              "key": "professional",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "educationhealth",
+                              "label": "Health and Education",
+                              "calculator": null,
+                              "key": "educationhealth",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "leisure",
+                              "label": "Leisure",
+                              "calculator": null,
+                              "key": "leisure",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "other",
+                              "label": "Other",
+                              "calculator": null,
+                              "key": "other",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "government",
+                              "label": "Government",
+                              "calculator": null,
+                              "key": "government",
+                              "units": "thousands"
+                            }
+                          ],
+                          "projectCity": {
+                            "key": "tampa",
+                            "text": "Tampa-St Petersburg-Clearwater"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
             }
           ]
-        },
-        "charts": [
-          {
-            "type": "multi-line",
-            "label": null,
-            "dataLength": 12,
-            "valueType": "rate",
-            "valueCalculation": "unemploymentRate",
-            "preselectedIndicator": "unemployment",
-            "mainColor": "#006aaf",
-            "compareColor": "#8dc63f",
-            "otherColor": "#cccccc",
-            "displayAllCities": true,
-            "xaxis": {
-              "labelFormatter": "monthToQuarter",
-              "type": "date",
-              "tickCount": 2
-            },
-            "yaxis": {
-              "tickCount": 3,
-              "domain": [0, "dataMax"],
-              "label": ""
-            }
-          },
-          {
-            "type": "multi-line",
-            "label": null,
-            "dataLength": 12,
-            "valueType": "thousands",
-            "valueCalculation": "actual",
-            "mainColor": "#006aaf",
-            "compareColor": "#8dc63f",
-            "xaxis": {
-              "labelFormatter": "monthToQuarter",
-              "type": "date",
-              "tickCount": 2
-            },
-            "yaxis": {
-              "tickCount": 3,
-              "domain": [0, "dataMax"],
-              "label": ""
-            }
-          },
-          {
-            "type": "column",
-            "label": null,
-            "dataLength": 12,
-            "valueType": "rate",
-            "valueCalculation": "percentChange",
-            "mainColor": "#006aaf",
-            "compareColor": "#8dc63f",
-            "xaxis": {
-              "labelFormatter": "monthToQuarter",
-              "type": "date",
-              "tickCount": 2
-            },
-            "yaxis": {
-              "tickCount": 3,
-              "domain": [0, "dataMax"],
-              "label": "Thousands"
-            }
-          }
-        ]
+        }
       },
       "realestate": {
         "icon": "building",
@@ -285,7 +469,458 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "consumers",
-        "charts": [{ "type": null }]
+        "layout": {
+          "columns": [
+            {
+              "width": "33%",
+              "rows": [
+                {
+                  "style": {
+                    "paddingLeft": "10px"
+                  },
+                  "content": {
+                    "type": "trend-data-toggler",
+                    "config": {
+                      "getterKey": "trend-data-toggler",
+                      "setterKey": "trend-data-toggler"
+                    }
+                  }
+                },
+                {
+                  "height": "80%",
+                  "style": {
+                    "padding": "20px"
+                  },
+                  "content": {
+                    "type": "selector-map",
+                    "config": {
+                      "label": "1. Select citywide or individual subareas:",
+                      "setterKey": {
+                        "geoSelection":"geo-data-path"},
+                      "center": [27.970253, -82.358835],
+                      "zoom": 9.5,
+                      "geoType": "SafeGraph Subareas",
+                      "color": "#002944",
+                      "strokeColor": "white",
+                      "selectorField": "NAME",
+                      "selectionDataPath": "subarea",
+                      "totalOption": {
+                        "label": "CITYWIDE",
+                        "key": "city",
+                        "dataPath": "city"
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "width": "33%",
+              "rows": [
+                {
+                  "height": "20%",
+                  "content": {
+                    "description": "INDICATOR TREND BOX OF TOTAL SPENDING CONNECTED SUBAREA SELECTOR"
+                  }
+                },
+                {
+                  "height": "80%",
+                  "content": {
+                    "type": "selector-with-legend",
+                    "colors": [
+                      "#969696",
+                      "#006AAF",
+                      "#002944",
+                      "#8DC63F",
+                      "#648E2A",
+                      "#72ACD2",
+                      "#A9D66C",
+                      "#D4D4D4",
+                      "#333333",
+                      "#666666"
+                    ],
+                    "setterKey": {
+                      "topSelector": "selected-naics3",
+                      "subSelector": "selected-naics4",
+                      "topSelectorLabel": "selected-naics3-text"
+                    },
+                    "options": [
+                      {
+                        "label": "Merchant Wholesalers, Durable Goods  (NAICS 423)",
+                        "key": "423",
+                        "legendItems": [
+                          {
+                            "label": "Motor Vehicle and Motor Vehicle Parts and Supplies Merchant Wholesalers (NAICS 4231)",
+                            "key": "4231"
+                          },
+                          {
+                            "label": "Furniture and Home Furnishing Merchant Wholesalers (NAICS 4232)",
+                            "key": "4232"
+                          },
+                          {
+                            "label": "Lumber and Other Construction Materials Merchant Wholesalers (NAICS 4233)",
+                            "key": "4233"
+                          },
+                          {
+                            "label": "Professional and Commercial Equipment and Supplies Merchant Wholesalers (NAICS 4234)",
+                            "key": "4234"
+                          },
+                          {
+                            "label": "Metal and Mineral (except Petroleum) Merchant Wholesalers (NAICS 4235)",
+                            "key": "4235"
+                          },
+                          {
+                            "label": "Electrical and Electronic Goods Merchant Wholesalers (NAICS 4236)",
+                            "key": "4236"
+                          },
+                          {
+                            "label": "Hardware, and Plumbing and Heating Equipment and Supplies Merchant Wholesalers (NAICS 4237)",
+                            "key": "4237"
+                          },
+                          {
+                            "label": "Machinery, Equipment, and Supplies Merchant Wholesalers (NAICS 4238)",
+                            "key": "4238"
+                          },
+                          {
+                            "label": "Miscellaneous Durable Goods Merchant Wholesalers (NAICS 4239)",
+                            "key": "4239"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Merchant Wholesalers, Nondurable Goods  (NAICS 424)",
+                        "key": "424",
+                        "legendItems": [
+                          {
+                            "label": "Paper and Paper Product Merchant Wholesalers (NAICS 4241)",
+                            "key": "4241"
+                          },
+                          {
+                            "label": "Drugs and Druggists' Sundries Merchant Wholesalers (NAICS 4242)",
+                            "key": "4242"
+                          },
+                          {
+                            "label": "Apparel, Piece Goods, and Notions Merchant Wholesalers (NAICS 4243)",
+                            "key": "4243"
+                          },
+                          {
+                            "label": "Grocery and Related Product Wholesalers (NAICS 4244)",
+                            "key": "4244"
+                          },
+                          {
+                            "label": "Farm Product Raw Material Merchant Wholesalers (NAICS 4245)",
+                            "key": "4245"
+                          },
+                          {
+                            "label": "Chemical and Allied Products Merchant Wholesalers (NAICS 4246)",
+                            "key": "4246"
+                          },
+                          {
+                            "label": "Petroleum and Petroleum Products Merchant Wholesalers (NAICS 4247)",
+                            "key": "4247"
+                          },
+                          {
+                            "label": "Beer, Wine, and Distilled Alcoholic Beverage Merchant Wholesalers (NAICS 4248)",
+                            "key": "4248"
+                          },
+                          {
+                            "label": "Miscellaneous Nondurable Goods Merchant Wholesalers (NAICS 4249)",
+                            "key": "4249"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Wholesale Electronic Markets and Agents and Brokers (NAICS 425)",
+                        "key": "425",
+                        "legendItems": null
+                      },
+                      {
+                        "label": "Motor Vehicle and Parts Dealers (NAICS 441)",
+                        "key": "441",
+                        "legendItems": [
+                          {
+                            "label": "Automobile Dealers (NAICS 4411)",
+                            "key": "4411"
+                          },
+                          {
+                            "label": "Other Motor Vehicle Dealers (NAICS 4411)",
+                            "key": "4412"
+                          },
+                          {
+                            "label": "Miscellaneous Nondurable Goods Merchant Wholesalers (NAICS 4249)",
+                            "key": "4249"
+                          }                        
+                        ]
+                      },
+                      {
+                        "label": "Furniture and Home Furnishings Stores (NAICS 442)",
+                        "key": "442",
+                        "legendItems": [
+                          {
+                            "label": "Furniture Stores (NAICS 4421)",
+                            "key": "4421"
+                          },
+                          {
+                            "label": "Home Furnishings Stores (NAICS 4422)",
+                            "key": "4422"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Electronics and Appliance Stores (NAICS 443)",
+                        "key": "443",
+                        "legendItems": null
+                      },
+                      {
+                        "label": "Building Material and Garden Equipment and Supplies Dealers (NAICS 444)",
+                        "key": "444",
+                        "legendItems": [
+                          {
+                            "label": "Building Material and Supplies Dealers (NAICS 4441)",
+                            "key": "4441"
+                          },
+                          {
+                            "label": "Lawn and Garden Equipment and Supplies Stores (NAICS 4442)",
+                            "key": "4442"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Food and Beverage Stores (NAICS 445)",
+                        "key": "445",
+                        "legendItems": [
+                          {
+                            "label": "Grocery Stores (NAICS 4451)",
+                            "key": "4451"
+                          },
+                          {
+                            "label": "Specialty Food Stores (NAICS 4452)",
+                            "key": "4452"
+                          },
+                          {
+                            "label": "Beer, Wine, and Liquor Stores (NAICS 4453)",
+                            "key": "4453"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Health and Personal Care Stores (NAICS 446)",
+                        "key": "446",
+                        "legendItems": null
+                      },
+                      {
+                        "label": "Gasoline Stations (NAICS 447)",
+                        "key": "447",
+                        "legendItems": null
+                      },
+                      {
+                        "label": "Clothing and Clothing Accessories Stores  (NAICS 448)",
+                        "key": "448",
+                        "legendItems": [
+                          {
+                            "label": "Clothing Stores (NAICS 4481)",
+                            "key": "4481"
+                          },
+                          {
+                            "label": "Shoe Stores (NAICS 4482)",
+                            "key": "4482"
+                          },
+                          {
+                            "label": "Jewelry, Luggage, and Leather Goods Stores (NAICS 4483)",
+                            "key": "4483"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Sporting Goods, Hobby, Book, and Music Stores (NAICS 451)",
+                        "key": "451",
+                        "legendItems": [
+                          {
+                            "label": "Sporting Goods, Hobby, and Musical Instrument Stores (NAICS 4511)",
+                            "key": "4511"
+                          },
+                          {
+                            "label": "Book, Periodical, and Music Stores (NAICS 4512)",
+                            "key": "4512"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "General Merchandise Stores (NAICS 452)",
+                        "key": "452",
+                        "legendItems": [
+                          {
+                            "label": "Department Stores (NAICS 4521)",
+                            "key": "4521"
+                          },
+                          {
+                            "label": "Other General Merchandise Stores (NAICS 4529)",
+                            "key": "4529"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Miscellaneous Store Retailers (NAICS 453)",
+                        "key": "453",
+                        "legendItems": [
+                          {
+                            "label": "Florists (NAICS 4531)",
+                            "key": "4531"
+                          },
+                          {
+                            "label": "Office Supplies, Stationery, and Gift Stores (NAICS 4532)",
+                            "key": "4532"
+                          },
+                          {
+                            "label": "Used Merchandise Stores (NAICS 4533)",
+                            "key": "4533"
+                          },
+                          {
+                            "label": "Other Miscellaneous Store Retailers (NAICS 4539)",
+                            "key": "4539"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Nonstore Retailers  (NAICS 454)",
+                        "key": "454",
+                        "legendItems": [
+                          {
+                            "label": "Electronic Shopping and Mail-Order Houses (NAICS 4541)",
+                            "key": "4541"
+                          },
+                          {
+                            "label": "Vending Machine Operators (NAICS 4542)",
+                            "key": "4542"
+                          },
+                          {
+                            "label": "Direct Selling Establishments (NAICS 4543)",
+                            "key": "4543"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Performing Arts, Spectator Sports, and Related Industries  (NAICS 711)",
+                        "key": "711",
+                        "legendItems": [
+                          {
+                            "label": "Performing Arts Companies (NAICS 7111)",
+                            "key": "7111"
+                          },
+                          {
+                            "label": "Spectator Sports (NAICS 7112)",
+                            "key": "7112"
+                          },
+                          {
+                            "label": "Promoters of Performing Arts, Sports, and Similar Events (NAICS 7113)",
+                            "key": "7113"
+                          },
+                          {
+                            "label": "Agents and Managers for Artists, Athletes, Entertainers, and Other Public Figures (NAICS 7114)",
+                            "key": "7114"
+                          },
+                          {
+                            "label": "Independent Artists, Writers, and Performers (NAICS 7115)",
+                            "key": "7115"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Museums, Historical Sites, and Similar Institutions  (NAICS 712)",
+                        "key": "712",
+                        "legendItems": null
+                      },
+                      {
+                        "label": "Amusement, Gambling, and Recreation Industries (NAICS 713)",
+                        "key": "713",
+                        "legendItems": [
+                          {
+                            "label": "Amusement Parks and Arcades (NAICS 7131)",
+                            "key": "7131"
+                          },
+                          {
+                            "label": "Gambling Industries (NAICS 7132)",
+                            "key": "7132"
+                          },
+                          {
+                            "label": "Other Amusement and Recreation Industries (NAICS 7139)",
+                            "key": "7139"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Accommodation  (NAICS 721)",
+                        "key": "721",
+                        "legendItems": [
+                          {
+                            "label": "Traveler Accommodation (NAICS 7211)",
+                            "key": "7211"
+                          },
+                          {
+                            "label": "RV (Recreational Vehicle) Parks and Recreational Camps (NAICS 7212)",
+                            "key": "7212"
+                          },
+                          {
+                            "label": "Rooming and Boarding Houses (NAICS 7213)",
+                            "key": "7213"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Food Services and Drinking Places (NAICS 722)",
+                        "key": "722",
+                        "legendItems": [
+                          {
+                            "label": "Full-Service Restaurants (NAICS 7221)",
+                            "key": "7221"
+                          },
+                          {
+                            "label": "Limited-Service Eating Places (NAICS 7222)",
+                            "key": "7222"
+                          },
+                          {
+                            "label": "Special Food Services (NAICS 7223)",
+                            "key": "7223"
+                          },
+                          {
+                            "label": "Drinking Places (Alcoholic Beverages) (NAICS 7224)",
+                            "key": "7224"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "width": "33%",
+              "style": {
+                "padding": "10px"
+              },
+              "rows": [
+                {
+                  "height": "10%",
+                  "content": {
+                    "description": "INDICATOR DROPDOWN SELECTOR"
+                  }
+                  },
+                {
+                  "height": "45%",
+                  "content": {
+                    "description": "LINE/AREA CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, AND INDICATOR DROPDOWN"
+                  }
+                  },
+                {
+                  "height": "45%",
+                  "content": {
+                    "description": "COMPARISON COLUMN CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, INDICATOR DROPDOWN, AND LINE/AREA CHART"
+                  }
+                  }
+              ]
+            }
+          ]
+        }
       },
       "tourism": {
         "icon": "money",
@@ -316,15 +951,68 @@
               "lists": [
                 {
                   "type": "grid",
-                  "indicators": ["pop", "households", "med_hh_income", "med_housing_value"]
+                  "indicators": [
+                    {
+                      "var": "pop",
+                      "label": "Total Population",
+                      "calculator": null,
+                      "key": "pop",
+                      "units": null
+                    },
+                    {
+                      "var": "households",
+                      "label": "NUMBER OF HOUSEHOLDS",
+                      "calculator": null,
+                      "key": "households",
+                      "units": null
+                    },
+                    {
+                      "var": "med_hh_income",
+                      "label": "MEDIAN HOUSEHOLD INCOME",
+                      "calculator": null,
+                      "key": "med_hh_income",
+                      "units": "dollars"
+                    },
+                    {
+                      "var": "med_housing_value",
+                      "label": "MEDIAN HOUSING VALUE",
+                      "calculator": null,
+                      "key": "med_housing_value",
+                      "units": "dollars"
+                    }
+                  ]
                 },
                 {
                   "type": "horizontal-containers-with-trend",
                   "indicators": [
-                    "pop_living_wage",
-                    "p_owner_occupied",
-                    "p_rent_burdened",
-                    "p_with_ba"
+                    {
+                      "var": ["pop_poverty", "pop"],
+                      "label": "Population earning a living wage",
+                      "calculator": "inversePercentageOf",
+                      "key": "p_living_wage",
+                      "units": "percent"
+                    },
+                    {
+                      "var": "p_owner_occupied",
+                      "label": "Home ownership",
+                      "calculator": null,
+                      "key": "p_owner_occupied",
+                      "units": "percent"
+                    },
+                    {
+                      "var": ["p_rent_burdened_30_35", "p_rent_burdened_35_over"],
+                      "label": "Rental cost-burdened households",
+                      "calculator": "sum",
+                      "key": "p_rent_burdened",
+                      "units": "percent"
+                    },
+                    {
+                      "var": "p_with_ba",
+                      "label": "Over 25 with bachelors degree or higher",
+                      "calculator": null,
+                      "key": "p_with_ba",
+                      "units": null
+                    }
                   ]
                 }
               ]
@@ -339,27 +1027,124 @@
               "colors": ["#969696", "#72acd2", "#006aaf", "#002944"],
               "strokeColor": "#dfe5e9",
               "indicators": [
-                "pop",
-                "pop_asian",
-                "pop_hispanic",
-                "pop_white",
-                "pop_american_indian",
-                "pop_pacific_islander",
-                "pop_other_race",
-                "pop_two_or_more",
-                "pop_over_65",
-                "pop_under_19",
-                "p_owner_occupied",
-                "p_rent_burdened_30_35",
-                "p_rent_burdened_35_over",
-                "med_hh_income",
-                "unemployment",
-                "p_with_ba",
-                "commute_time",
-                "pop_poverty",
-                "fam_poverty",
-                "households",
-                "pop_black"
+                {
+                  "var": "pop",
+                  "label": "Total Population",
+                  "calculator": null,
+                  "key": "pop",
+                  "units": null
+                },
+                {
+                  "var": ["pop_asian", "pop"],
+                  "label": "Asian",
+                  "calculator": "percentageOf",
+                  "key": "p_asian",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_hispanic", "pop"],
+                  "label": "Hispanic",
+                  "calculator": "percentageOf",
+                  "key": "p_hispanic",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_white", "pop"],
+                  "label": "White",
+                  "calculator": "percentageOf",
+                  "key": "p_white",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_black", "pop"],
+                  "label": "Black African American",
+                  "calculator": "percentageOf",
+                  "key": "p_black",
+                  "units": "percent"
+                },
+                {
+                  "var": [
+                    "pop_other_race",
+                    "pop_american_indian",
+                    "pop_pacific_islander",
+                    "pop_two_or_more",
+                    "pop"
+                  ],
+                  "label": "Other Race",
+                  "calculator": "percentageOf",
+                  "key": "p_other_race",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_over_65", "pop"],
+                  "label": "Over 65",
+                  "calculator": "percentageOf",
+                  "key": "p_over_65",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_under_19", "pop"],
+                  "label": "Under 19",
+                  "calculator": "percentageOf",
+                  "key": "p_under_19",
+                  "units": "percent"
+                },
+                {
+                  "var": "p_owner_occupied",
+                  "label": "Home Ownership",
+                  "calculator": null,
+                  "key": "p_owner_occupied",
+                  "units": "percent"
+                },
+                {
+                  "var": ["p_rent_burdened_30_35", "p_rent_burdened_35_over"],
+                  "label": "Rental cost-burdened households",
+                  "calculator": "sum",
+                  "key": "p_rent_burdened",
+                  "units": "percent"
+                },
+                {
+                  "var": "med_hh_income",
+                  "label": "Median Household Income",
+                  "calculator": null,
+                  "key": "med_hh_income",
+                  "units": null
+                },
+                {
+                  "var": "unemployment",
+                  "label": "Unemployment rate",
+                  "calculator": null,
+                  "key": "unemployment",
+                  "units": "percent"
+                },
+                {
+                  "var": "commute_time",
+                  "label": "Commute Time",
+                  "calculator": null,
+                  "key": "commute_time",
+                  "units": null
+                },
+                {
+                  "var": "p_with_ba",
+                  "label": "Over 25 with bachelors degree or higher",
+                  "calculator": null,
+                  "key": "p_with_ba",
+                  "units": null
+                },
+                {
+                  "var": ["pop_poverty", "pop"],
+                  "label": "Population earning a living wage",
+                  "calculator": "inversePercentageOf",
+                  "key": "p_living_wage",
+                  "units": "percent"
+                },
+                {
+                  "var": ["fam_poverty", "households"],
+                  "label": "Households earning a living wage",
+                  "calculator": "inversePercentageOf",
+                  "key": "p_hh_living_wage",
+                  "units": "percent"
+                }
               ]
             }
           },
@@ -370,21 +1155,77 @@
                 {
                   "title": "RACE AND ETHNICITY",
                   "indicators": [
-                    "pop_asian",
-                    "pop_black",
-                    "pop_hispanic",
-                    "pop_white",
-                    "pop_race_other_than_asian_black_hispanic_white"
+                    {
+                      "var": "pop_asian",
+                      "label": "Asian",
+                      "calculator": null,
+                      "key": "pop_asian",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_black",
+                      "label": "Black African American",
+                      "calculator": null,
+                      "key": "pop_black",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_hispanic",
+                      "label": "Hispanic",
+                      "calculator": null,
+                      "key": "pop_hispanic",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_white",
+                      "label": "White",
+                      "calculator": null,
+                      "key": "pop_white",
+                      "units": null
+                    },
+                    {
+                      "var": [
+                        "pop_other_race",
+                        "pop_american_indian",
+                        "pop_pacific_islander",
+                        "pop_two_or_more"
+                      ],
+                      "label": "Other",
+                      "calculator": "sum",
+                      "key": "pop_other",
+                      "units": null
+                    }
                   ],
                   "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
                 },
                 {
                   "title": "AGE GROUPS",
-                  "indicators": ["pop_under_19", "pop_over_65", "pop_19_to_64"],
+                  "indicators": [
+                    {
+                      "var": "pop_under_19",
+                      "label": "Under 19",
+                      "calculator": null,
+                      "key": "pop_under_19",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_over_65",
+                      "label": "65 or more",
+                      "calculator": null,
+                      "key": "pop_over_65",
+                      "units": null
+                    },
+                    {
+                      "var": ["pop", "pop_over_65", "pop_under_19"],
+                      "label": "",
+                      "calculator": "difference",
+                      "key": "pop_20_to_64",
+                      "units": null
+                    }
+                  ],
                   "colors": ["#002944", "#006aaf", "#dfe5e9"]
                 }
-              ],
-              "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
+              ]
             }
           }
         ]
@@ -443,22 +1284,26 @@
             "key": "jobs",
             "dataPath": "jobs.msa.phoenix.total",
             "summary": {
-              "trendUnits": "%",
-              "valueCalculation": "differenceFromPrevious"
+              "trendUnits": null,
+              "calculator": "differenceFromPrevious"
             },
             "chart": {
               "type": "column",
               "label": null,
-              "dataLength": 8,
+              "dataLength": 9,
               "dataFormatter": "monthToQuarter",
-              "valueType": "actual",
+              "valueType": "differenceFromPrevious",
+              "values": {
+                "calculator": "differenceFromPrevious",
+                "formatter": "monthToQuarter"
+              },
               "xaxis": {
                 "labelFormatter": "shortQuarter",
                 "type": "date",
                 "tickCount": 2
               },
               "yaxis": {
-                "tickCount": 2,
+                "tickCount": 3,
                 "domain": ["dataMin", "dataMax"],
                 "labelFormatter": "abbreviateNumber"
               },
@@ -469,16 +1314,19 @@
             "label": "CDB Office Occupancy",
             "units": "Occupancy rate",
             "key": "realestate",
-            "dataPath": "realestate.office.submarket.cbd.vacancy_rate",
+            "dataPath": "realestate.office.submarket.Tampa%20CBD.vacancy_rate",
             "summary": {
-              "trendUnits": "pp",
-              "valueCalculation": "differenceFrom100",
+              "trendUnits": "percent",
+              "calculator": "differenceFrom100",
               "formatter": "percent"
             },
             "chart": {
               "type": "donut",
               "label": null,
               "valueType": "single-percentage",
+              "values": {
+                "calculator": "differenceFrom100"
+              },
               "valueCalculation": "differenceFrom100",
               "radius": {
                 "outer": 40,
@@ -494,14 +1342,18 @@
             "key": "newbusiness",
             "dataPath": "newbusiness.city.total",
             "summary": {
-              "trendUnits": "%",
-              "valueCalculation": "actual"
+              "trendUnits": null,
+              "calculator": null
             },
             "chart": {
               "type": "column",
               "label": null,
               "dataLength": 8,
               "valueType": "actual",
+              "values": {
+                "calculator": null,
+                "formatter": null
+              },
               "xaxis": {
                 "type": "date",
                 "labelFormatter": "shortQuarter",
@@ -520,8 +1372,8 @@
             "key": "smallbusiness",
             "dataPath": "smallbusiness.city.rentburden",
             "summary": {
-              "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "trendUnits": "percent",
+              "calculator": null
             },
             "chart": {
               "type": "donut",
@@ -536,8 +1388,8 @@
             "key": "tourism",
             "dataPath": "consumers.city.tourism",
             "summary": {
-              "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "trendUnits": "percent",
+              "calculator": "actual"
             },
             "chart": {
               "type": "donut",
@@ -552,8 +1404,8 @@
             "key": "capital",
             "dataPath": "capital.city.totalinvestment",
             "summary": {
-              "trendUnits": "pp",
-              "valueCalculation": "actual"
+              "trendUnits": "percent",
+              "calculator": "actual"
             },
             "chart": {
               "type": "line",
@@ -572,93 +1424,262 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "jobs.msa",
-        "compareCities": {
-          "title": "Select a Metropolitan Statistical Area (MSA) to highlight the comparative data in the charts:",
-          "cities": [
+        "layout": {
+          "columns": [
             {
-              "key": "la",
-              "text": "Los Angeles, CA"
+              "width": "25%",
+              "height": "100%",
+              "style": {
+                "borderRight": "3px solid #dfe5e9"
+              },
+              "rows": [
+                {
+                  "content": {
+                    "type": "trend-data-toggler",
+                    "config": {
+                      "getterKey": "trend-data-toggler",
+                      "setterKey": "trend-data-toggler"
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": "trend-data-toggler",
+                      "indicator": {
+                        "var": "unemployment",
+                        "label": "Unemployment Rate",
+                        "calculator": null,
+                        "key": "unemployment",
+                        "units": "percent",
+                        "positiveTrendDirection": "down"
+                      },
+                      "displayCompareText": true
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": "trend-data-toggler",
+                      "indicator": {
+                        "var": "total",
+                        "label": "Jobs Added",
+                        "calculator": "differenceFromPrevious",
+                        "key": "jobs_added",
+                        "units": null,
+                        "positiveTrendDirection": "up"
+                      },
+                      "displayCompareText": true
+                    }
+                  }
+                }
+              ]
             },
             {
-              "key": "dallas",
-              "text": "Dallas, TX"
-            },
-            {
-              "key": "saltlake",
-              "text": "Salt Lake City, UT"
-            },
-            {
-              "key": "denver",
-              "text": "Denver-Aurora-Lakewood, CO"
-            },
-            {
-              "key": "chicago",
-              "text": "Chicago, IL"
+              "width": "75%",
+              "height": "100%",
+              "rows": [
+                {
+                  "content": {
+                    "type": "city-compare-selector",
+                    "config": {
+                      "getterKey": "jobs-selected-city",
+                      "setterKey": "jobs-selected-city",
+                      "title": "Compare Tampa-St Petersburg-Clearwater with benchmark metropolitan areas:",
+                      "projectCity": {
+                        "key": "phoenix",
+                        "text": "Phoenix"
+                      },
+                      "compareCities": [
+                        {
+                          "key": "la",
+                          "text": "Los Angeles, CA"
+                        },
+                        {
+                          "key": "dallas",
+                          "text": "Dallas, TX"
+                        },
+                        {
+                          "key": "saltlake",
+                          "text": "Salt Lake City, UT"
+                        },
+                        {
+                          "key": "denver",
+                          "text": "Denver-Aurora-Lakewood, CO"
+                        },
+                        {
+                          "key": "chicago",
+                          "text": "Chicago, IL"
+                        }
+                      ],
+                      "defaultSelected": {
+                        "key": "default",
+                        "text": "Select metro area to compare job data"
+                      }
+                    }
+                  }
+                },
+                {
+                  "columns": [
+                    {
+                      "content": {
+                        "type": "multi-line-chart",
+                        "config": {
+                          "getterKey": "jobs-selected-city",
+                          "height": 300,
+                          "width": 500,
+                          "label": null,
+                          "dataLength": 12,
+                          "fixedIndicator": "unemployment",
+                          "projectColor": "#006aaf",
+                          "compareColor": "#8dc63f",
+                          "otherColor": "#cccccc",
+                          "displayAllCities": true,
+                          "xaxis": {
+                            "labelFormatter": "monthToQuarter",
+                            "type": "date",
+                            "tickCount": 2
+                          },
+                          "yaxis": {
+                            "tickCount": 3,
+                            "domain": [0, "dataMax"],
+                            "label": "Unemployment rate"
+                          },
+                          "indicators": [
+                            {
+                              "var": "unemployment",
+                              "label": "Unemployment Rate",
+                              "calculator": null,
+                              "key": "unemployment",
+                              "units": "percent"
+                            }
+                          ],
+                          "projectCity": {
+                            "key": "phoenix",
+                            "text": "Phoenix"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "content": {
+                        "type": "compare-column-chart",
+                        "config": {
+                          "getterKey": "jobs-selected-city",
+                          "height": 300,
+                          "width": 500,
+                          "label": null,
+                          "dataLength": 13,
+                          "valueType": "thousands",
+                          "valueCalculation": "actual",
+                          "mainColor": "#006aaf",
+                          "compareColor": "#8dc63f",
+                          "xaxis": {
+                            "labelFormatter": "monthToQuarter",
+                            "type": "date",
+                            "tickCount": 2
+                          },
+                          "yaxis": {
+                            "tickCount": 3,
+                            "domain": [0, "dataMax"],
+                            "label": "Thousands"
+                          },
+                          "indicators": [
+                            {
+                              "var": "total",
+                              "label": "Number of Jobs Added All Industries",
+                              "postCalculator": "intToThousands",
+                              "calculator": "differenceFromPreviousQuarter",
+                              "key": "total",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": ["miningconstruction", "mining", "construction"],
+                              "label": "Mining and Construction",
+                              "calculator": "sum",
+                              "key": "mining_construction",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "manufacturing",
+                              "label": "Manufacturing",
+                              "calculator": null,
+                              "key": "manufacturing",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "transportation",
+                              "label": "Transportation",
+                              "calculator": null,
+                              "key": "transportation",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "information",
+                              "label": "Information",
+                              "calculator": null,
+                              "key": "information",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "financial",
+                              "label": "Financial",
+                              "calculator": null,
+                              "key": "financial",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "professional",
+                              "label": "Professional",
+                              "calculator": null,
+                              "key": "professional",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "educationhealth",
+                              "label": "Health and Education",
+                              "calculator": null,
+                              "key": "educationhealth",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "leisure",
+                              "label": "Leisure",
+                              "calculator": null,
+                              "key": "leisure",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "other",
+                              "label": "Other",
+                              "calculator": null,
+                              "key": "other",
+                              "units": "thousands"
+                            },
+                            {
+                              "var": "government",
+                              "label": "Government",
+                              "calculator": null,
+                              "key": "government",
+                              "units": "thousands"
+                            }
+                          ],
+                          "projectCity": {
+                            "key": "phoenix",
+                            "text": "Phoenix"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
             }
           ]
-        },
-        "charts": [
-          {
-            "type": "multi-line",
-            "label": null,
-            "dataLength": 12,
-            "valueType": "rate",
-            "valueCalculation": "unemploymentRate",
-            "preselectedIndicator": "unemployment",
-            "mainColor": "#006aaf",
-            "compareColor": "#8dc63f",
-            "otherColor": "#cccccc",
-            "displayAllCities": true,
-            "xaxis": {
-              "labelFormatter": "monthToQuarter",
-              "type": "date",
-              "tickCount": 2
-            },
-            "yaxis": {
-              "tickCount": 3,
-              "domain": [0, "dataMax"],
-              "label": ""
-            }
-          },
-          {
-            "type": "multi-line",
-            "label": null,
-            "dataLength": 12,
-            "valueType": "thousands",
-            "valueCalculation": "actual",
-            "mainColor": "#006aaf",
-            "compareColor": "#8dc63f",
-            "xaxis": {
-              "labelFormatter": "monthToQuarter",
-              "type": "date",
-              "tickCount": 2
-            },
-            "yaxis": {
-              "tickCount": 3,
-              "domain": [0, "dataMax"],
-              "label": ""
-            }
-          },
-          {
-            "type": "column",
-            "label": null,
-            "dataLength": 12,
-            "valueType": "rate",
-            "valueCalculation": "percentChange",
-            "mainColor": "#006aaf",
-            "compareColor": "#8dc63f",
-            "xaxis": {
-              "labelFormatter": "monthToQuarter",
-              "type": "date",
-              "tickCount": 2
-            },
-            "yaxis": {
-              "tickCount": 3,
-              "domain": [0, "dataMax"],
-              "label": "Thousands"
-            }
-          }
-        ]
+        }
       },
       "realestate": {
         "icon": "building",
@@ -702,7 +1723,52 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "consumers",
-        "charts": [{ "type": null }]
+        "layout": {
+          "columns": [
+            {
+              "width": "40%",
+              "rows": [
+                {
+                  "height": "100%",
+                  "content": {
+                    "type": "selector-map",
+                    "setterKey": "selector-map",
+                    "getterKeys": [],
+                    "config": {
+                      "center": [33.52698, -112.079901],
+                      "zoom": 10,
+                      "geoType": "SafeGraph Subareas",
+                      "color": "#969696",
+                      "strokeColor": "#dfe5e9",
+                      "selectorField": "NAME",
+                      "totalOption": {
+                        "label": "Citywide",
+                        "key": "Citywide"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "charts": [
+          {
+            "type": "selector-map",
+            "config": {
+              "center": [33.52698, -112.079901],
+              "zoom": 10,
+              "geoType": "SafeGraph Subareas",
+              "color": "#969696",
+              "strokeColor": "#dfe5e9",
+              "selectorField": "NAME",
+              "totalOption": {
+                "label": "Citywide",
+                "key": "Citywide"
+              }
+            }
+          }
+        ]
       },
       "tourism": {
         "icon": "money",
@@ -733,15 +1799,68 @@
               "lists": [
                 {
                   "type": "grid",
-                  "indicators": ["pop", "households", "med_hh_income", "med_housing_value"]
+                  "indicators": [
+                    {
+                      "var": "pop",
+                      "label": "Total Population",
+                      "calculator": null,
+                      "key": "pop",
+                      "units": null
+                    },
+                    {
+                      "var": "households",
+                      "label": "NUMBER OF HOUSEHOLDS",
+                      "calculator": null,
+                      "key": "households",
+                      "units": null
+                    },
+                    {
+                      "var": "med_hh_income",
+                      "label": "MEDIAN HOUSEHOLD INCOME",
+                      "calculator": null,
+                      "key": "med_hh_income",
+                      "units": "dollars"
+                    },
+                    {
+                      "var": "med_housing_value",
+                      "label": "MEDIAN HOUSING VALUE",
+                      "calculator": null,
+                      "key": "med_housing_value",
+                      "units": "dollars"
+                    }
+                  ]
                 },
                 {
                   "type": "horizontal-containers-with-trend",
                   "indicators": [
-                    "pop_living_wage",
-                    "p_owner_occupied",
-                    "p_rent_burdened",
-                    "p_with_ba"
+                    {
+                      "var": ["pop_poverty", "pop"],
+                      "label": "Population earning a living wage",
+                      "calculator": "inversePercentageOf",
+                      "key": "p_living_wage",
+                      "units": "percent"
+                    },
+                    {
+                      "var": "p_owner_occupied",
+                      "label": "Home ownership",
+                      "calculator": null,
+                      "key": "p_owner_occupied",
+                      "units": "percent"
+                    },
+                    {
+                      "var": ["p_rent_burdened_30_35", "p_rent_burdened_35_over"],
+                      "label": "Rental cost-burdened households",
+                      "calculator": "sum",
+                      "key": "p_rent_burdened",
+                      "units": "percent"
+                    },
+                    {
+                      "var": "p_with_ba",
+                      "label": "Over 25 with bachelors degree or higher",
+                      "calculator": null,
+                      "key": "p_with_ba",
+                      "units": null
+                    }
                   ]
                 }
               ]
@@ -756,27 +1875,124 @@
               "colors": ["#969696", "#72acd2", "#006aaf", "#002944"],
               "strokeColor": "#dfe5e9",
               "indicators": [
-                "pop",
-                "pop_asian",
-                "pop_hispanic",
-                "pop_white",
-                "pop_american_indian",
-                "pop_pacific_islander",
-                "pop_other_race",
-                "pop_two_or_more",
-                "pop_over_65",
-                "pop_under_19",
-                "p_owner_occupied",
-                "p_rent_burdened_30_35",
-                "p_rent_burdened_35_over",
-                "med_hh_income",
-                "unemployment",
-                "p_with_ba",
-                "commute_time",
-                "pop_poverty",
-                "fam_poverty",
-                "households",
-                "pop_black"
+                {
+                  "var": "pop",
+                  "label": "Total Population",
+                  "calculator": null,
+                  "key": "pop",
+                  "units": null
+                },
+                {
+                  "var": ["pop_asian", "pop"],
+                  "label": "Asian",
+                  "calculator": "percentageOf",
+                  "key": "p_asian",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_hispanic", "pop"],
+                  "label": "Hispanic",
+                  "calculator": "percentageOf",
+                  "key": "p_hispanic",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_white", "pop"],
+                  "label": "White",
+                  "calculator": "percentageOf",
+                  "key": "p_white",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_black", "pop"],
+                  "label": "Black African American",
+                  "calculator": "percentageOf",
+                  "key": "p_black",
+                  "units": "percent"
+                },
+                {
+                  "var": [
+                    "pop_other_race",
+                    "pop_american_indian",
+                    "pop_pacific_islander",
+                    "pop_two_or_more",
+                    "pop"
+                  ],
+                  "label": "Other Race",
+                  "calculator": "percentageOf",
+                  "key": "p_other_race",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_over_65", "pop"],
+                  "label": "Over 65",
+                  "calculator": "percentageOf",
+                  "key": "p_over_65",
+                  "units": "percent"
+                },
+                {
+                  "var": ["pop_under_19", "pop"],
+                  "label": "Under 19",
+                  "calculator": "percentageOf",
+                  "key": "p_under_19",
+                  "units": "percent"
+                },
+                {
+                  "var": "p_owner_occupied",
+                  "label": "Home Ownership",
+                  "calculator": null,
+                  "key": "p_owner_occupied",
+                  "units": "percent"
+                },
+                {
+                  "var": ["p_rent_burdened_30_35", "p_rent_burdened_35_over"],
+                  "label": "Rental cost-burdened households",
+                  "calculator": "sum",
+                  "key": "p_rent_burdened",
+                  "units": "percent"
+                },
+                {
+                  "var": "med_hh_income",
+                  "label": "Median Household Income",
+                  "calculator": null,
+                  "key": "med_hh_income",
+                  "units": null
+                },
+                {
+                  "var": "unemployment",
+                  "label": "Unemployment rate",
+                  "calculator": null,
+                  "key": "unemployment",
+                  "units": "percent"
+                },
+                {
+                  "var": "commute_time",
+                  "label": "Commute Time",
+                  "calculator": null,
+                  "key": "commute_time",
+                  "units": null
+                },
+                {
+                  "var": "p_with_ba",
+                  "label": "Over 25 with bachelors degree or higher",
+                  "calculator": null,
+                  "key": "p_with_ba",
+                  "units": null
+                },
+                {
+                  "var": ["pop_poverty", "pop"],
+                  "label": "Population earning a living wage",
+                  "calculator": "inversePercentageOf",
+                  "key": "p_living_wage",
+                  "units": "percent"
+                },
+                {
+                  "var": ["fam_poverty", "households"],
+                  "label": "Households earning a living wage",
+                  "calculator": "inversePercentageOf",
+                  "key": "p_hh_living_wage",
+                  "units": "percent"
+                }
               ]
             }
           },
@@ -787,21 +2003,77 @@
                 {
                   "title": "RACE AND ETHNICITY",
                   "indicators": [
-                    "pop_asian",
-                    "pop_black",
-                    "pop_hispanic",
-                    "pop_white",
-                    "pop_race_other_than_asian_black_hispanic_white"
+                    {
+                      "var": "pop_asian",
+                      "label": "Asian",
+                      "calculator": null,
+                      "key": "pop_asian",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_black",
+                      "label": "Black African American",
+                      "calculator": null,
+                      "key": "pop_black",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_hispanic",
+                      "label": "Hispanic",
+                      "calculator": null,
+                      "key": "pop_hispanic",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_white",
+                      "label": "White",
+                      "calculator": null,
+                      "key": "pop_white",
+                      "units": null
+                    },
+                    {
+                      "var": [
+                        "pop_other_race",
+                        "pop_american_indian",
+                        "pop_pacific_islander",
+                        "pop_two_or_more"
+                      ],
+                      "label": "Other",
+                      "calculator": "sum",
+                      "key": "pop_other",
+                      "units": null
+                    }
                   ],
                   "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
                 },
                 {
                   "title": "AGE GROUPS",
-                  "indicators": ["pop_under_19", "pop_over_65", "pop_19_to_64"],
+                  "indicators": [
+                    {
+                      "var": "pop_under_19",
+                      "label": "Under 19",
+                      "calculator": null,
+                      "key": "pop_under_19",
+                      "units": null
+                    },
+                    {
+                      "var": "pop_over_65",
+                      "label": "65 or more",
+                      "calculator": null,
+                      "key": "pop_over_65",
+                      "units": null
+                    },
+                    {
+                      "var": ["pop", "pop_over_65", "pop_under_19"],
+                      "label": "",
+                      "calculator": "difference",
+                      "key": "pop_20_to_64",
+                      "units": null
+                    }
+                  ],
                   "colors": ["#002944", "#006aaf", "#dfe5e9"]
                 }
-              ],
-              "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
+              ]
             }
           }
         ]

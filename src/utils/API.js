@@ -35,4 +35,12 @@ const getTractGeoJSON = project =>
     }
   });
 
-export { getConfig, getData, getTractGeoJSON };
+const getGeoJSON = (project, geoType) =>
+  axios.get('https://bloomberg-cities-api.herokuapp.com/geo', {
+    params: {
+      project,
+      geoType
+    }
+  });
+
+export { getConfig, getData, getTractGeoJSON, getGeoJSON };

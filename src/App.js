@@ -2,12 +2,11 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { handleConfig, getManifest } from './App.utils';
+import { handleConfig } from './App.utils';
 import Layout from './components/Layout';
 
 const App = () => {
   const [config, setConfig] = useState(null);
-  const [dataManifest, setDataManifest] = useState(null);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const defaultCity = 'tampa'; // Will be used when no project name is present or spelling issues
@@ -38,13 +37,7 @@ const App = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (config) {
-      setDataManifest(getManifest(config.project, config.dashboardType));
-    }
-  }, [config]);
-
-  return <div className='App'>{config && dataManifest ? <Layout config={config} dataManifest={dataManifest} /> : 'Loading...'}</div>;
+  return <div className='App'>{config ? <Layout config={config} /> : 'Loading...'}</div>;
 };
 
 export default App;

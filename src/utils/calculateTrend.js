@@ -6,7 +6,7 @@
  * @returns {object} { trendValue, trendDirection }
  */
 
-const calculateTrend = (currentValue, oldValue, trendUnits) => {
+const calculateTrend = (currentValue, oldValue, currentValueUnits) => {
   const currentNum = parseFloat(currentValue);
   const oldNum = parseFloat(oldValue);
 
@@ -15,16 +15,16 @@ const calculateTrend = (currentValue, oldValue, trendUnits) => {
   }
 
   const difference = currentNum - oldNum;
-  const change = trendUnits === '%' ? (difference / oldNum) * 100 : difference;
-
+  const change = currentValueUnits !== 'percent' ? (difference / oldNum) * 100 : difference;
   const trendDirection = difference >= 0 ? 'up' : 'down';
   const value = `${change}`.includes('.') ? change.toFixed(2) : change;
-  const trendValue = `${
-    trendDirection === 'up' ? '+' : trendDirection === 'down' ? '-' : null
-  } ${Math.abs(value)}${trendUnits}`;
+  const trendValue = Math.abs(value);
+  const directionText = trendDirection === 'up' ? '+' : trendDirection === 'down' ? '-' : null;
+  const unitsString = currentValueUnits !== 'percent' ? '%' : 'pp';
+  const trendText = `${directionText} ${trendValue}${unitsString}`;
 
   return {
-    trendValue,
+    trendValue: trendText,
     trendDirection
   };
 };
