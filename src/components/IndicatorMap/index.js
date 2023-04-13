@@ -17,6 +17,10 @@ const IndicatorMap = ({ config, geoJSON }) => {
   const numOfBins = colors.length;
   const indicators = config?.indicators || null;
 
+  const handleSetSelectedIndicator = (key,value) => {
+    setSelectedIndicator(value);
+  };
+
   useEffect(() => {
     if (geoJSON) {
       handleGeoJSON(geoJSON, indicators).then(updatedGeoJSON => setMapGeoJSON(updatedGeoJSON));
@@ -48,7 +52,7 @@ const IndicatorMap = ({ config, geoJSON }) => {
       {selectedIndicator && indicators ? (
         <IndicatorDropdown
           selectedOption={selectedIndicator}
-          setter={setSelectedIndicator}
+          setter={handleSetSelectedIndicator}
           options={indicators}
         />
       ) : null}
