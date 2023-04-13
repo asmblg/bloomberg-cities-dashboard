@@ -74,7 +74,7 @@ const handleDataArray = async ({
       }
     });
 
-    const sortedDateKeys = mainLineKey ? sortDatesArray(Object.keys(obj[mainLineKey]), 'ascending') : null;
+    const sortedDateKeys = mainLineKey && obj[mainLineKey] ? sortDatesArray(Object.keys(obj[mainLineKey]), 'ascending') : null;
     const dataArr = sortedDateKeys ? sortedDateKeys.map(dateKey => {
       const chartObj = {};
       chartObj.name = dateToQuarter(dateKey, 'QX YYYY');

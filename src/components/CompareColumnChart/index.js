@@ -15,20 +15,19 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
     mainColor,
     compareColor,
     indicators,
-    mainColumn,
-    getterKey,
-    setterKey,
     width,
     height
   } = config;
-  const selectedIndicator = typeof getterKey !== 'string' ? getter[getterKey[0]] : null;
-  const selectedColumn = typeof getterKey !== 'string' ? getter[getterKey[1]] : null;
-  const allColumnsArray = [mainColumn, selectedColumn || {}];
+  const setterKey = config.setter.selectedOption;
+  const selectedIndicator = getter[config.getter?.selectedOption] || null;
+  const primaryColumn = config.primaryColumn || getter[config.getter?.primaryColumn];
+  const secondaryColumn = getter[config.getter?.secondaryColumn] || null;
+  const allColumnsArray = [primaryColumn, secondaryColumn || {}];
 
   useEffect(() => {
-    if (data && data[mainColumn.key] && selectedIndicator && allColumnsArray) {
+    if (data && data[primaryColumn.key] && selectedIndicator && allColumnsArray) {
       handleDataArray({
-        mainColumnKey: mainColumn.key,
+        primaryColumnKey: primaryColumn.key,
         data,
         selectedIndicator,
         allColumnsArray,
@@ -39,7 +38,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
         }
       });
     }
-  }, [selectedIndicator, selectedColumn, data]);
+  }, [selectedIndicator, primaryColumn, secondaryColumn, data]);
 
   useEffect(() => {
     if (fixedIndicator) {
@@ -54,9 +53,9 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
     <div className='chart-container'>
       {/* ---------- Dropdown ---------- */}
       <IndicatorDropdown
-        selectedOption={selectedIndicator}
         setter={setter}
-        setterKey={setterKey}
+        getter={getter}
+        config={config}
         options={!fixedIndicator ? indicators : null}
       />
       {/* ---------- CHART ---------- */}
@@ -94,7 +93,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
             <Bar
               key={`${key}-line-${i}`}
               dataKey={key}
-              fill={key === mainColumn.key ? mainColor : compareColor}
+              fill={key === primaryColumn.key ? mainColor : compareColor}
               isFront={true}
             />
           ))

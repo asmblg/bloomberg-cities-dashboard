@@ -6,7 +6,7 @@ import dateToQuarter from '../../utils/dateToQuarter';
 const handleDataArray = async ({
   data,
   selectedIndicator,
-  mainColumnKey,
+  primaryColumnKey,
   allColumnsArray,
   dataLength
 }) => {
@@ -62,7 +62,7 @@ const handleDataArray = async ({
       }
     });
 
-    const sortedDateKeys = sortDatesArray(Object.keys(obj[mainColumnKey]), 'ascending');
+    const sortedDateKeys = sortDatesArray(Object.keys(obj[primaryColumnKey]), 'ascending');
     const dataArr = sortedDateKeys.map(dateKey => {
       const chartObj = {};
       chartObj.name = dateToQuarter(dateKey, 'QX YYYY');

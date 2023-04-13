@@ -272,8 +272,13 @@
                       "content": {
                         "type": "multi-line-chart",
                         "config": {
-                          "getterKey": ["jobs-line-indicator", "jobs-selected-city"],
-                          "setterKey": "jobs-line-indicator",
+                          "getter": {
+                            "selectedOption": "jobs-line-indicator",
+                            "secondaryLine": "jobs-selected-city"                        
+                          },
+                          "setter": {
+                            "selectedOption": "jobs-line-indicator"
+                          },
                           "height": 300,
                           "width": 500,
                           "label": null,
@@ -302,7 +307,7 @@
                               "units": "percent"
                             }
                           ],
-                          "mainLine": {
+                          "primaryLine": {
                             "key": "tampa",
                             "text": "Tampa-St Petersburg-Clearwater"
                           }
@@ -313,8 +318,13 @@
                       "content": {
                         "type": "compare-column-chart",
                         "config": {
-                          "getterKey": ["jobs-column-indicator", "jobs-selected-city"],
-                          "setterKey": "jobs-column-indicator",
+                          "getter": {
+                            "selectedOption": "jobs-column-indicator",
+                            "secondaryColumn": "jobs-selected-city"                        
+                          },
+                          "setter": {
+                            "selectedOption": "jobs-column-indicator"
+                          },
                           "height": 300,
                           "width": 500,
                           "label": null,
@@ -416,6 +426,10 @@
                           "mainColumn": {
                             "key": "tampa",
                             "text": "Tampa-St Petersburg-Clearwater"
+                          },
+                          "primaryColumn": {
+                            "key": "tampa",
+                            "text": "Tampa-St Petersburg-Clearwater"
                           }
                         }
                       }
@@ -495,8 +509,13 @@
                   "content": {
                     "type": "multi-line-chart",
                     "config": {
-                      "getterKey": ["office-re-indicator", "office-submarket"],
-                      "setterKey": "office-re-indicator",
+                      "getter": {
+                        "selectedOption": "office-re-indicator",
+                        "primaryLine": "office-submarket"                        
+                      },
+                      "setter": {
+                        "selectedOption": "office-re-indicator"
+                      },
                       "dataPath": "office.submarket",
                       "height": 300,
                       "width": 600,
@@ -539,8 +558,7 @@
                           "key": "ytd_percent_absorption",
                           "units": "percent"
                         }
-                      ],
-                      "mainOption": null
+                      ]
                     }
                   }
                 }
@@ -603,8 +621,13 @@
                   "content": {
                     "type": "multi-line-chart",
                     "config": {
-                      "getterKey": ["industrial-re-indicator", "industrial-submarket"],
-                      "setterKey": "industrial-re-indicator",
+                      "getter": {
+                        "selectedOption": "industrial-re-indicator",
+                        "primaryLine": "industrial-submarket"                        
+                      },
+                      "setter": {
+                        "selectedOption": "industrial-re-indicator"
+                      },
                       "dataPath": "industrial.submarket",
                       "height": 300,
                       "width": 600,
@@ -647,8 +670,7 @@
                           "key": "ytd_percent_absorption",
                           "units": "percent"
                         }
-                      ],
-                      "mainOption": null
+                      ]
                     }
                   }
                 }
@@ -1343,8 +1365,13 @@
                       "content": {
                         "type": "multi-line-chart",
                         "config": {
-                          "getterKey": ["jobs-line-indicator", "jobs-selected-city"],
-                          "setterKey": "jobs-line-indicator",
+                          "getter": {
+                            "selectedOption": "jobs-line-indicator",
+                            "secondaryLine": "jobs-selected-city"                        
+                          },
+                          "setter": {
+                            "selectedOption": "jobs-line-indicator"
+                          },
                           "height": 300,
                           "width": 500,
                           "label": null,
@@ -1373,7 +1400,7 @@
                               "units": "percent"
                             }
                           ],
-                          "mainLine": {
+                          "primaryLine": {
                             "key": "phoenix",
                             "text": "Phoenix"
                           }
@@ -1384,8 +1411,13 @@
                       "content": {
                         "type": "compare-column-chart",
                         "config": {
-                          "getterKey": ["jobs-column-indicator", "jobs-selected-city"],
-                          "setterKey": "jobs-column-indicator",
+                          "getter": {
+                            "selectedOption": "jobs-column-indicator",
+                            "secondaryColumn": "jobs-selected-city"                        
+                          },
+                          "setter": {
+                            "selectedOption": "jobs-column-indicator"
+                          },
                           "height": 300,
                           "width": 500,
                           "label": null,
@@ -1484,7 +1516,7 @@
                               "units": "thousands"
                             }
                           ],
-                          "mainColumn": {
+                          "primaryColumn": {
                             "key": "phoenix",
                             "text": "Phoenix"
                           }
@@ -1566,8 +1598,13 @@
                   "content": {
                     "type": "multi-line-chart",
                     "config": {
-                      "getterKey": ["office-re-indicator", "office-submarket"],
-                      "setterKey": "office-re-indicator",
+                      "getter": {
+                        "selectedOption": "office-re-indicator",
+                        "primaryLine": "office-submarket"                        
+                      },
+                      "setter": {
+                        "selectedOption": "office-re-indicator"
+                      },
                       "dataPath": "office.submarket",
                       "height": 300,
                       "width": 600,
@@ -1610,8 +1647,7 @@
                           "key": "ytd_percent_absorption",
                           "units": "percent"
                         }
-                      ],
-                      "mainOption": null
+                      ]
                     }
                   }
                 }
@@ -1674,8 +1710,13 @@
                   "content": {
                     "type": "multi-line-chart",
                     "config": {
-                      "getterKey": ["industrial-re-indicator", "industrial-submarket"],
-                      "setterKey": "industrial-re-indicator",
+                      "getter": {
+                        "selectedOption": "industrial-re-indicator",
+                        "primaryLine": "industrial-submarket"                        
+                      },
+                      "setter": {
+                        "selectedOption": "industrial-re-indicator"
+                      },
                       "dataPath": "industrial.submarket",
                       "height": 300,
                       "width": 600,
@@ -1718,8 +1759,7 @@
                           "key": "ytd_percent_absorption",
                           "units": "percent"
                         }
-                      ],
-                      "mainOption": null
+                      ]
                     }
                   }
                 }

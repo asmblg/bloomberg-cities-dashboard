@@ -14,9 +14,6 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
 
   const {
     dataPath,
-    mainLine,
-    getterKey,
-    setterKey,
     indicators,
     fixedIndicator,
     dataLength,
@@ -28,13 +25,15 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     width
   } = config;
 
-  const indicatorGetterKey = getterKey[0] || null;
-  const selectedIndicator = getter?.[indicatorGetterKey] || null;
-  const lineGetterKey = getterKey[1];
-  const selectedLine = getter[lineGetterKey] || null;
+  
+  const setterKey = config.setter?.selectedOption;
+  const selectedIndicator = getter?.[config.getter?.selectedOption] || null;
+  // Looks for a primary line from getter, then for a default primaryLine in the config
+  const primaryLine = config.getter?.primaryLine ? getter[config.getter?.primaryLine] : config.primaryLine || null;
+  const secondaryLine = config.getter?.secondaryLine ? getter[config.getter.secondaryLine] : null;
+
   const dataObj = data && dataPath ? getNestedValue(data, dataPath) : data ? data : null;
-  const linesArr = dataObj ? Object.keys(dataObj) : [];
-  const allLinesArray = mainLine?.key ? linesArr.concat([mainLine.key]) : linesArr;
+  const allLinesArray = dataObj ? Object.keys(dataObj) : [];
 
   useEffect(() => {
     if (!selectedIndicator && indicators) {
@@ -45,12 +44,12 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
         setter(setterKey, indicators[0]);
       }
     }
-  }, [getter]);
+  }, [getter, selectedIndicator]);
 
   useEffect(() => {
-    if (data && selectedIndicator && allLinesArray) {
+    if (data && selectedIndicator && allLinesArray && (primaryLine || secondaryLine)) {
       handleDataArray({
-        mainLineKey: mainLine?.key || selectedLine?.key || null,
+        mainLineKey: primaryLine?.key || secondaryLine?.key || null,
         data: dataObj || {},
         selectedIndicator,
         allLinesArray: allLinesArray,
@@ -61,14 +60,16 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
         }
       });
     }
-  }, [selectedIndicator, selectedLine, data]);
+  }, [selectedIndicator, primaryLine, secondaryLine, data]);
 
   return selectedIndicator && dataArray ? (
     <div className='chart-container'>
       <IndicatorDropdown
-        selectedOption={selectedIndicator}
-        setterKey={setterKey}
+        // selectedOption={selectedIndicator}
+        // setterKey={setterKey}
         setter={setter}
+        getter={getter}
+        config={config}
         options={!fixedIndicator ? indicators : null}
       />
       {dataArray[0] ? (
@@ -100,8 +101,8 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
           {allLinesArray.map(city => {
             const { stroke, strokeWidth, zIndex } = handleLineStyle({
               lineKey: city,
-              selectedLineKey: selectedLine?.key,
-              mainLineKey: mainLine?.key,
+              selectedLineKey: secondaryLine?.key,
+              mainLineKey: primaryLine.key,
               projectColor,
               compareColor,
               otherColor
