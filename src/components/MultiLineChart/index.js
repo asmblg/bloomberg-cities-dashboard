@@ -7,14 +7,13 @@ import IndicatorDropdown from '../IndicatorDropdown';
 import { handleDataArray, handleLineStyle } from './utils';
 import formatValue from '../../utils/formatValue';
 import calculateChartDomain from '../../utils/calculateChartDomain';
+import getNestedValue from '../../utils/getNestedValue';
 
-const MultiLineChart = ({ config, data, getter }) => {
-  const [selectedIndicator, setSelectedIndicator] = useState(null);
+const MultiLineChart = ({ config, data, getter, setter }) => {
   const [dataArray, setDataArray] = useState(null);
 
   const {
-    projectCity,
-    getterKey,
+    dataPath,
     indicators,
     fixedIndicator,
     dataLength,
@@ -26,25 +25,34 @@ const MultiLineChart = ({ config, data, getter }) => {
     width
   } = config;
 
-  const selectedCity = getter[getterKey] || null;
-  const allCitiesArray = Object.keys(data).concat([projectCity.key]);
+  
+  const setterKey = config.setter?.selectedOption;
+  const selectedIndicator = getter?.[config.getterKey?.selectedOption] || null;
+  // Looks for a primary line from getter, then for a default primaryLine in the config
+  const primaryLine = config.getterKey?.primaryLine ? getter[config.getterKey?.primaryLine] : config.primaryLine || null;
+  const secondaryLine = config.getterKey?.secondaryLine ? getter[config.getterKey.secondaryLine] : null;
+
+  const dataObj = data && dataPath ? getNestedValue(data, dataPath) : data ? data : null;
+  const allLinesArray = dataObj ? Object.keys(dataObj) : [];
 
   useEffect(() => {
-    if (fixedIndicator) {
-      const indicator = indicators.find(({ key }) => key === fixedIndicator);
-      setSelectedIndicator(indicator);
-    } else {
-      setSelectedIndicator(indicators[0]);
+    if (!selectedIndicator && indicators) {
+      if (fixedIndicator) {
+        const indicator = indicators.find(({ key }) => key === fixedIndicator);
+        setter(setterKey, indicator);
+      } else {
+        setter(setterKey, indicators[0]);
+      }
     }
-  }, []);
+  }, [getter, selectedIndicator]);
 
   useEffect(() => {
-    if (data && data[projectCity.key] && selectedIndicator && allCitiesArray) {
+    if (data && selectedIndicator && allLinesArray && (primaryLine || secondaryLine)) {
       handleDataArray({
-        projectCityKey: projectCity.key,
-        data,
+        mainLineKey: primaryLine?.key || secondaryLine?.key || null,
+        data: dataObj || {},
         selectedIndicator,
-        allCitiesArray,
+        allLinesArray: allLinesArray,
         dataLength
       }).then(array => {
         if (array) {
@@ -52,62 +60,69 @@ const MultiLineChart = ({ config, data, getter }) => {
         }
       });
     }
-  }, [selectedIndicator, selectedCity, data]);
+  }, [selectedIndicator, primaryLine, secondaryLine, data]);
 
   return selectedIndicator && dataArray ? (
     <div className='chart-container'>
-      <IndicatorDropdown
-        selectedOption={selectedIndicator}
-        setter={setSelectedIndicator}
-        options={!fixedIndicator ? indicators : null}
-      />
-      <LineChart
-        height={height || 300}
-        width={width || 300}
-        data={dataArray}
-        margin={{ top: 100, right: 20, left: 20, bottom: 0 }}
-      >
-        <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
-        <XAxis
-          type={'category'}
-          dataKey='name'
-          tickLine={false}
-          interval={'preserveStartEnd'}
-          tickFormatter={(key, i) => {
-            if (i === 0 || i === dataArray.length - 1) {
-              return key;
-            }
-            return '';
-          }}
+      {!config.disableDropdown ? 
+        <IndicatorDropdown
+          // selectedOption={selectedIndicator}
+          // setterKey={setterKey}
+          setter={setter}
+          getter={getter}
+          config={config}
+          options={!fixedIndicator ? indicators : null}
         />
-        <YAxis
-          domain={calculateChartDomain(dataArray)}
-          tickFormatter={text => formatValue(text, selectedIndicator.units)}
-          label={{ value: yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
-        />
-        <Tooltip />
-        {allCitiesArray.map(city => {
-          const { stroke, strokeWidth, zIndex } = handleLineStyle({
-            lineKey: city,
-            selectedCityKey: selectedCity?.key,
-            projectCityKey: projectCity?.key,
-            projectColor,
-            compareColor,
-            otherColor
-          });
-          return (
-            <Line
-              key={`multi-line-city-${city}`}
-              dataKey={city}
-              stroke={stroke}
-              strokeWidth={strokeWidth}
-              zIndex={zIndex}
-              isFront={true}
-              dot={false}
-            />
-          );
-        })}
-      </LineChart>
+        : null}
+      {dataArray[0] ? (
+        <LineChart
+          height={height || 300}
+          width={width || 300}
+          data={dataArray}
+          margin={{ top: 100, right: 20, left: 20, bottom: 0 }}
+        >
+          <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
+          <XAxis
+            type={'category'}
+            dataKey='name'
+            tickLine={false}
+            interval={'preserveStartEnd'}
+            tickFormatter={(key, i) => {
+              if (i === 0 || i === dataArray.length - 1) {
+                return key;
+              }
+              return '';
+            }}
+          />
+          <YAxis
+            domain={calculateChartDomain(dataArray)}
+            tickFormatter={text => formatValue(text, selectedIndicator.units)}
+            label={{ value: yaxis.label === 'indicator' ? selectedIndicator.label : yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
+          />
+          <Tooltip />
+          {allLinesArray.map(city => {
+            const { stroke, strokeWidth, zIndex } = handleLineStyle({
+              lineKey: city,
+              selectedLineKey: secondaryLine?.key,
+              mainLineKey: primaryLine.key,
+              projectColor,
+              compareColor,
+              otherColor
+            });
+            return (
+              <Line
+                key={`multi-line-city-${city}`}
+                dataKey={city}
+                stroke={stroke}
+                strokeWidth={strokeWidth}
+                zIndex={zIndex}
+                isFront={true}
+                dot={false}
+              />
+            );
+          })}
+        </LineChart>
+      ) : null}     
     </div>
   ) : null;
 };
@@ -115,7 +130,8 @@ const MultiLineChart = ({ config, data, getter }) => {
 MultiLineChart.propTypes = {
   data: PropTypes.object,
   config: PropTypes.object,
-  getter: PropTypes.object
+  getter: PropTypes.object,
+  setter: PropTypes.func
 };
 
 export default MultiLineChart;

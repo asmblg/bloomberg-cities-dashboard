@@ -35,6 +35,7 @@ const DetailCard = ({ project, config, sectionKey, viewType }) => {
             backgroundColor: config.tabStyle?.selectedColor || '#ffffff'
           }}
         ></div>
+
         <div className='detail-card-header'>
           <div className='detail-header-titles'>
             {config.title ? (
@@ -46,15 +47,7 @@ const DetailCard = ({ project, config, sectionKey, viewType }) => {
                 {config.title.toUpperCase()}
               </h1>
             ) : null}
-            {!config.title && config.label ? (
-              <h2
-                style={{
-                  color: config.tabStyle?.selectedColor || '#333333'
-                }}
-              >
-                {config.label}
-              </h2>
-            ) : null}
+
           </div>
           {detailData?.updatedOn && config.displayUpdateDate ? (
             <LastUpdateIcon date={detailData.updatedOn} width={'auto'} />
@@ -68,7 +61,7 @@ const DetailCard = ({ project, config, sectionKey, viewType }) => {
             viewType={viewType}
           />
         ) : config.layout && detailData ? (
-          <FlexLayout data={detailData.data} layout={config?.layout || null} project={project} />
+          <FlexLayout key={`flex-layout-${sectionKey}`} data={detailData.data} layout={config?.layout || null} project={project} />
         ) : null}
         <ShareAndPrintIcons />
       </div>

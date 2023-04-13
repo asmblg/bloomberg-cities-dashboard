@@ -23,7 +23,6 @@ const sortDatesArray = (array, order) => {
         : moment(b, 'YYYY-MM-DD') - moment(a, 'YYYY-MM-DD');
     }
   });
-
   return sortedDates;
 };
 

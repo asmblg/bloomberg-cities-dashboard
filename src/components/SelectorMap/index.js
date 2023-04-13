@@ -13,6 +13,10 @@ const SelectorMap = ({ project, config, setter }) => {
   const [selection, setSelection] = useState();
   const [options, setOptions] = useState(config.indicators);
   const fillColor = config.color || '#fff3e2';
+
+  const handleSetSelection = (key, option) => {
+    setSelection(option);
+  };
   
   // console.log(project, config);
 
@@ -66,7 +70,7 @@ const SelectorMap = ({ project, config, setter }) => {
         {selection && options ? (
           <IndicatorDropdown
             selectedOption={selection}
-            setter={setSelection}
+            setter={handleSetSelection}
             options={options}
           />
         ) : null}

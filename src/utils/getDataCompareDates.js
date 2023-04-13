@@ -5,7 +5,7 @@ import getRecentQuarterEndDates from './getRecentQuarterEndDates';
  *
  * @param {array} dateKeys Array of string dates in YYYY-QX or YYYY-MM-DD format
  * @param {string} compareType Either QtQ (quarter-to-quarter) or YtY (year-to-year)
- * @returns {object} { mostRecentDate, previousDate } in the appropriate format
+ * @returns {object} { currentDate, compareDate } in the appropriate format
  */
 
 const getDataCompareDates = (dateKeys, compareType) => {
@@ -22,7 +22,8 @@ const getDataCompareDates = (dateKeys, compareType) => {
     const mostRecentDate = sortedDates[0];
     obj.currentDate = mostRecentDate;
 
-    if (mostRecentDate.includes('Q')) {
+    const regex = /([Qq])/;
+    if (regex.test(mostRecentDate)) {
       const quarterNum = moment(mostRecentDate, 'YYYY-QX').quarter();
       const year = moment(mostRecentDate, 'YYYY-QX').subtract(1, 'year').year();
       obj.compareDate = `${year}-Q${quarterNum}`;

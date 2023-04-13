@@ -6,14 +6,14 @@ import dateToQuarter from '../../utils/dateToQuarter';
 const handleDataArray = async ({
   data,
   selectedIndicator,
-  projectCityKey,
-  allCitiesArray,
+  primaryColumnKey,
+  allColumnsArray,
   dataLength
 }) => {
   try {
     const obj = {};
 
-    allCitiesArray.forEach(({ key: cityKey }) => {
+    allColumnsArray.forEach(({ key: cityKey }) => {
       if (cityKey && cityKey !== 'default') {
         obj[cityKey] = {};
         if (data[cityKey]?.[selectedIndicator.key] && typeof selectedIndicator.var === 'string') {
@@ -62,7 +62,7 @@ const handleDataArray = async ({
       }
     });
 
-    const sortedDateKeys = sortDatesArray(Object.keys(obj[projectCityKey]), 'ascending');
+    const sortedDateKeys = sortDatesArray(Object.keys(obj[primaryColumnKey]), 'ascending');
     const dataArr = sortedDateKeys.map(dateKey => {
       const chartObj = {};
       chartObj.name = dateToQuarter(dateKey, 'QX YYYY');

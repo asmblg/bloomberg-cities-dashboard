@@ -189,6 +189,7 @@
                     "type": "indicator-trend-box",
                     "config": {
                       "getterKey": "trend-data-toggler",
+                      "dataPath": "tampa",
                       "indicator": {
                         "var": "unemployment",
                         "label": "Unemployment Rate",
@@ -206,6 +207,7 @@
                     "type": "indicator-trend-box",
                     "config": {
                       "getterKey": "trend-data-toggler",
+                      "dataPath": "tampa",
                       "indicator": {
                         "var": "total",
                         "label": "Jobs Added",
@@ -226,16 +228,16 @@
               "rows": [
                 {
                   "content": {
-                    "type": "city-compare-selector",
+                    "type": "compare-selector",
                     "config": {
                       "getterKey": "jobs-selected-city",
                       "setterKey": "jobs-selected-city",
                       "title": "Compare Tampa-St Petersburg-Clearwater with benchmark metropolitan areas:",
-                      "projectCity": {
+                      "comparandOption": {
                         "key": "tampa",
                         "text": "Tampa-St Petersburg-Clearwater"
                       },
-                      "compareCities": [
+                      "options": [
                         {
                           "key": "atlanta",
                           "text": "Atlanta-Sandy Springs-Roswell, GA"
@@ -271,7 +273,13 @@
                       "content": {
                         "type": "multi-line-chart",
                         "config": {
-                          "getterKey": "jobs-selected-city",
+                          "getterKey": {
+                            "selectedOption": "jobs-line-indicator",
+                            "secondaryLine": "jobs-selected-city"                        
+                          },
+                          "setter": {
+                            "selectedOption": "jobs-line-indicator"
+                          },
                           "height": 300,
                           "width": 500,
                           "label": null,
@@ -300,7 +308,7 @@
                               "units": "percent"
                             }
                           ],
-                          "projectCity": {
+                          "primaryLine": {
                             "key": "tampa",
                             "text": "Tampa-St Petersburg-Clearwater"
                           }
@@ -312,8 +320,12 @@
                       "content": {
                         "type": "compare-column-chart",
                         "config": {
-                          "getterKey":{ 
-                            "comparisonSelection": "jobs-selected-city"
+                          "getterKey": {
+                            "selectedOption": "jobs-column-indicator",
+                            "secondaryColumn": "jobs-selected-city"                        
+                          },
+                          "setter": {
+                            "selectedOption": "jobs-column-indicator"
                           },
                           "height": 300,
                           "width": 500,
@@ -413,7 +425,11 @@
                               "units": "thousands"
                             }
                           ],
-                          "projectCity": {
+                          "mainColumn": {
+                            "key": "tampa",
+                            "text": "Tampa-St Petersburg-Clearwater"
+                          },
+                          "primaryColumn": {
                             "key": "tampa",
                             "text": "Tampa-St Petersburg-Clearwater"
                           }
@@ -430,13 +446,240 @@
       "realestate": {
         "icon": "building",
         "label": "Real Estate",
-        "title": "OFFICE REAL ESTATE",
+        "title": null,
         "tabStyle": {
           "selectedColor": "#0090c6",
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "realestate",
-        "charts": [{ "type": "donut" }]
+        "layout": {
+          "columns": [
+            {
+              "width": "50%",
+              "height": "100%",
+              "style": {
+                "borderRight": "3px solid #dfe5e9"
+              },
+              "rows": [
+                {
+                  "content": {
+                    "type": "title-with-trend-data-toggler",
+                    "config": {
+                      "getterKey": "office-re-trend-data-toggler",
+                      "setterKey": "office-re-trend-data-toggler",
+                      "title": "OFFICE REAL ESTATE",
+                      "titleStyle": {
+                        "color": "#0090c6"
+                      }
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "compare-selector",
+                    "config": {
+                      "setterKey": "office-submarket",
+                      "getterKey": "office-submarket",
+                      "title": "Select a submarket:",
+                      "options": null,
+                      "optionsDataPath": "office.submarket",
+                      "svgStyle": {
+                        "mainColor": "#006aaf"
+                      },
+                      "style": {
+                        "flexDirection": "row",
+                        "alignItems": "center"
+                      }
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": [
+                        "office-re-trend-data-toggler",
+                        "office-submarket",
+                        "office-re-indicator"
+                      ],
+                      "dataPath": "office.submarket",
+                      "displayCompareText": true
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "multi-line-chart",
+                    "config": {
+                      "getterKey": {
+                        "selectedOption": "office-re-indicator",
+                        "primaryLine": "office-submarket"                        
+                      },
+                      "setter": {
+                        "selectedOption": "office-re-indicator"
+                      },
+                      "dataPath": "office.submarket",
+                      "height": 300,
+                      "width": 600,
+                      "label": null,
+                      "dataLength": 12,
+                      "mainColor": "#006aaf",
+                      "compareColor": "#8dc63f",
+                      "otherColor": "#cccccc",
+                      "displayAllCities": true,
+                      "displayAllKeys": true,
+                      "xaxis": {
+                        "labelFormatter": "monthToQuarter",
+                        "type": "date",
+                        "tickCount": 2
+                      },
+                      "yaxis": {
+                        "tickCount": 3,
+                        "domain": [0, "dataMax"],
+                        "label": "indicator"
+                      },
+                      "indicators": [
+                        {
+                          "var": "vacancy_rate",
+                          "label": "Office Occupancy rate",
+                          "calculator": "differenceFrom100",
+                          "key": "occupancy_rate",
+                          "units": "percent"
+                        },
+                        {
+                          "var": "average_asking_rent_psf",
+                          "label": "Average Rent per square foot",
+                          "calculator": null,
+                          "key": "average_asking_rent_psf",
+                          "units": "dollars"
+                        },
+                        {
+                          "var": "ytd_percent_absorption",
+                          "label": "YTD Percent Absorption",
+                          "calculator": null,
+                          "key": "ytd_percent_absorption",
+                          "units": "percent"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "width": "50%",
+              "height": "100%",
+              "style": {
+                "borderRight": "3px solid #dfe5e9"
+              },
+              "rows": [
+                {
+                  "content": {
+                    "type": "title-with-trend-data-toggler",
+                    "config": {
+                      "getterKey": "industrial-re-trend-data-toggler",
+                      "setterKey": "industrial-re-trend-data-toggler",
+                      "title": "Industrial Real Estate",
+                      "titleStyle": {
+                        "color": "#0090c6"
+                      }
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "compare-selector",
+                    "config": {
+                      "setterKey": "industrial-submarket",
+                      "getterKey": "industrial-submarket",
+                      "title": "Select a submarket:",
+                      "options": null,
+                      "optionsDataPath": "industrial.submarket",
+                      "svgStyle": {
+                        "mainColor": "#006aaf"
+                      },
+                      "style": {
+                        "flexDirection": "row",
+                        "alignItems": "center"
+                      }
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": [
+                        "industrial-re-trend-data-toggler",
+                        "industrial-submarket",
+                        "industrial-re-indicator"
+                      ],
+                      "dataPath": "industrial.submarket",
+                      "displayCompareText": true
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "multi-line-chart",
+                    "config": {
+                      "getterKey": {
+                        "selectedOption": "industrial-re-indicator",
+                        "primaryLine": "industrial-submarket"                        
+                      },
+                      "setter": {
+                        "selectedOption": "industrial-re-indicator"
+                      },
+                      "dataPath": "industrial.submarket",
+                      "height": 300,
+                      "width": 600,
+                      "label": null,
+                      "dataLength": 12,
+                      "mainColor": "#006aaf",
+                      "compareColor": "#8dc63f",
+                      "otherColor": "#cccccc",
+                      "displayAllCities": true,
+                      "displayAllKeys": true,
+                      "xaxis": {
+                        "labelFormatter": "monthToQuarter",
+                        "type": "date",
+                        "tickCount": 2
+                      },
+                      "yaxis": {
+                        "tickCount": 3,
+                        "domain": [0, "dataMax"],
+                        "label": "indicator"
+                      },
+                      "indicators": [
+                        {
+                          "var": "vacancy_rate",
+                          "label": "Industrial Occupancy rate",
+                          "calculator": "differenceFrom100",
+                          "key": "occupancy_rate",
+                          "units": "percent"
+                        },
+                        {
+                          "var": "average_asking_rent_psf",
+                          "label": "Average Rent per square foot",
+                          "calculator": null,
+                          "key": "average_asking_rent_psf",
+                          "units": "dollars"
+                        },
+                        {
+                          "var": "ytd_percent_absorption",
+                          "label": "YTD Percent Absorption",
+                          "calculator": null,
+                          "key": "ytd_percent_absorption",
+                          "units": "percent"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
       },
       "smallbusiness": {
         "icon": "shop",
@@ -1447,6 +1690,7 @@
                     "type": "indicator-trend-box",
                     "config": {
                       "getterKey": "trend-data-toggler",
+                      "dataPath": "phoenix",
                       "indicator": {
                         "var": "unemployment",
                         "label": "Unemployment Rate",
@@ -1464,6 +1708,7 @@
                     "type": "indicator-trend-box",
                     "config": {
                       "getterKey": "trend-data-toggler",
+                      "dataPath": "phoenix",
                       "indicator": {
                         "var": "total",
                         "label": "Jobs Added",
@@ -1484,16 +1729,16 @@
               "rows": [
                 {
                   "content": {
-                    "type": "city-compare-selector",
+                    "type": "compare-selector",
                     "config": {
                       "getterKey": "jobs-selected-city",
                       "setterKey": "jobs-selected-city",
-                      "title": "Compare Tampa-St Petersburg-Clearwater with benchmark metropolitan areas:",
-                      "projectCity": {
+                      "title": "Compare Phoenix with benchmark metropolitan areas:",
+                      "comparandOption": {
                         "key": "phoenix",
                         "text": "Phoenix"
                       },
-                      "compareCities": [
+                      "options": [
                         {
                           "key": "la",
                           "text": "Los Angeles, CA"
@@ -1515,6 +1760,7 @@
                           "text": "Chicago, IL"
                         }
                       ],
+                      "optionsDataPath": null,
                       "defaultSelected": {
                         "key": "default",
                         "text": "Select metro area to compare job data"
@@ -1528,7 +1774,13 @@
                       "content": {
                         "type": "multi-line-chart",
                         "config": {
-                          "getterKey": "jobs-selected-city",
+                          "getter": {
+                            "selectedOption": "jobs-line-indicator",
+                            "secondaryLine": "jobs-selected-city"                        
+                          },
+                          "setter": {
+                            "selectedOption": "jobs-line-indicator"
+                          },
                           "height": 300,
                           "width": 500,
                           "label": null,
@@ -1557,7 +1809,7 @@
                               "units": "percent"
                             }
                           ],
-                          "projectCity": {
+                          "primaryLine": {
                             "key": "phoenix",
                             "text": "Phoenix"
                           }
@@ -1568,7 +1820,13 @@
                       "content": {
                         "type": "compare-column-chart",
                         "config": {
-                          "getterKey": "jobs-selected-city",
+                          "getter": {
+                            "selectedOption": "jobs-column-indicator",
+                            "secondaryColumn": "jobs-selected-city"                        
+                          },
+                          "setter": {
+                            "selectedOption": "jobs-column-indicator"
+                          },
                           "height": 300,
                           "width": 500,
                           "label": null,
@@ -1667,7 +1925,7 @@
                               "units": "thousands"
                             }
                           ],
-                          "projectCity": {
+                          "primaryColumn": {
                             "key": "phoenix",
                             "text": "Phoenix"
                           }
@@ -1684,13 +1942,240 @@
       "realestate": {
         "icon": "building",
         "label": "Real Estate",
-        "title": "OFFICE REAL ESTATE",
+        "title": null,
         "tabStyle": {
           "selectedColor": "#0090c6",
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "realestate",
-        "charts": [{ "type": "donut" }]
+        "layout": {
+          "columns": [
+            {
+              "width": "50%",
+              "height": "100%",
+              "style": {
+                "borderRight": "3px solid #dfe5e9"
+              },
+              "rows": [
+                {
+                  "content": {
+                    "type": "title-with-trend-data-toggler",
+                    "config": {
+                      "getterKey": "office-re-trend-data-toggler",
+                      "setterKey": "office-re-trend-data-toggler",
+                      "title": "OFFICE REAL ESTATE",
+                      "titleStyle": {
+                        "color": "#0090c6"
+                      }
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "compare-selector",
+                    "config": {
+                      "setterKey": "office-submarket",
+                      "getterKey": "office-submarket",
+                      "title": "Select a submarket:",
+                      "options": null,
+                      "optionsDataPath": "office.submarket",
+                      "svgStyle": {
+                        "mainColor": "#006aaf"
+                      },
+                      "style": {
+                        "flexDirection": "row",
+                        "alignItems": "center"
+                      }
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": [
+                        "office-re-trend-data-toggler",
+                        "office-submarket",
+                        "office-re-indicator"
+                      ],
+                      "dataPath": "office.submarket",
+                      "displayCompareText": true
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "multi-line-chart",
+                    "config": {
+                      "getter": {
+                        "selectedOption": "office-re-indicator",
+                        "primaryLine": "office-submarket"                        
+                      },
+                      "setter": {
+                        "selectedOption": "office-re-indicator"
+                      },
+                      "dataPath": "office.submarket",
+                      "height": 300,
+                      "width": 600,
+                      "label": null,
+                      "dataLength": 12,
+                      "mainColor": "#006aaf",
+                      "compareColor": "#8dc63f",
+                      "otherColor": "#cccccc",
+                      "displayAllCities": true,
+                      "displayAllKeys": true,
+                      "xaxis": {
+                        "labelFormatter": "monthToQuarter",
+                        "type": "date",
+                        "tickCount": 2
+                      },
+                      "yaxis": {
+                        "tickCount": 3,
+                        "domain": [0, "dataMax"],
+                        "label": "indicator"
+                      },
+                      "indicators": [
+                        {
+                          "var": "vacancy_rate",
+                          "label": "Office Occupancy rate",
+                          "calculator": "differenceFrom100",
+                          "key": "occupancy_rate",
+                          "units": "percent"
+                        },
+                        {
+                          "var": "average_asking_rent_psf",
+                          "label": "Average Rent per square foot",
+                          "calculator": null,
+                          "key": "average_asking_rent_psf",
+                          "units": "dollars"
+                        },
+                        {
+                          "var": "ytd_percent_absorption",
+                          "label": "YTD Percent Absorption",
+                          "calculator": null,
+                          "key": "ytd_percent_absorption",
+                          "units": "percent"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "width": "50%",
+              "height": "100%",
+              "style": {
+                "borderRight": "3px solid #dfe5e9"
+              },
+              "rows": [
+                {
+                  "content": {
+                    "type": "title-with-trend-data-toggler",
+                    "config": {
+                      "getterKey": "industrial-re-trend-data-toggler",
+                      "setterKey": "industrial-re-trend-data-toggler",
+                      "title": "Industrial Real Estate",
+                      "titleStyle": {
+                        "color": "#0090c6"
+                      }
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "compare-selector",
+                    "config": {
+                      "setterKey": "industrial-submarket",
+                      "getterKey": "industrial-submarket",
+                      "title": "Select a submarket:",
+                      "options": null,
+                      "optionsDataPath": "industrial.submarket",
+                      "svgStyle": {
+                        "mainColor": "#006aaf"
+                      },
+                      "style": {
+                        "flexDirection": "row",
+                        "alignItems": "center"
+                      }
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": [
+                        "industrial-re-trend-data-toggler",
+                        "industrial-submarket",
+                        "industrial-re-indicator"
+                      ],
+                      "dataPath": "industrial.submarket",
+                      "displayCompareText": true
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "multi-line-chart",
+                    "config": {
+                      "getter": {
+                        "selectedOption": "industrial-re-indicator",
+                        "primaryLine": "industrial-submarket"                        
+                      },
+                      "setter": {
+                        "selectedOption": "industrial-re-indicator"
+                      },
+                      "dataPath": "industrial.submarket",
+                      "height": 300,
+                      "width": 600,
+                      "label": null,
+                      "dataLength": 12,
+                      "mainColor": "#006aaf",
+                      "compareColor": "#8dc63f",
+                      "otherColor": "#cccccc",
+                      "displayAllCities": true,
+                      "displayAllKeys": true,
+                      "xaxis": {
+                        "labelFormatter": "monthToQuarter",
+                        "type": "date",
+                        "tickCount": 2
+                      },
+                      "yaxis": {
+                        "tickCount": 3,
+                        "domain": [0, "dataMax"],
+                        "label": "indicator"
+                      },
+                      "indicators": [
+                        {
+                          "var": "vacancy_rate",
+                          "label": "Industrial Occupancy rate",
+                          "calculator": "differenceFrom100",
+                          "key": "occupancy_rate",
+                          "units": "percent"
+                        },
+                        {
+                          "var": "average_asking_rent_psf",
+                          "label": "Average Rent per square foot",
+                          "calculator": null,
+                          "key": "average_asking_rent_psf",
+                          "units": "dollars"
+                        },
+                        {
+                          "var": "ytd_percent_absorption",
+                          "label": "YTD Percent Absorption",
+                          "calculator": null,
+                          "key": "ytd_percent_absorption",
+                          "units": "percent"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
       },
       "smallbusiness": {
         "icon": "shop",

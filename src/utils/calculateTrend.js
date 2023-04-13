@@ -21,7 +21,7 @@ const calculateTrend = (currentValue, oldValue, currentValueUnits) => {
   const trendValue = Math.abs(value);
   const directionText = trendDirection === 'up' ? '+' : trendDirection === 'down' ? '-' : null;
   const unitsString = currentValueUnits !== 'percent' ? '%' : 'pp';
-  const trendText = `${directionText} ${trendValue}${unitsString}`;
+  const trendText = `${directionText} ${trendValue.toFixed(1)}${unitsString}`;
 
   return {
     trendValue: trendText,

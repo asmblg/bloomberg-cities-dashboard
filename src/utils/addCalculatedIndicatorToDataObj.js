@@ -51,6 +51,13 @@ const addCalculatedIndicatorToDataObj = (indicatorObj, dataObj) => {
         }
         break;
       }
+      case 'differenceFrom100': {
+        if (typeof indicatorObj.var === 'string') {
+          const newValue = 100 - parseFloat(data[indicatorObj.var]);
+          data[indicatorObj.key] = newValue;
+        }
+        break;
+      }
       default: {
         break;
       }

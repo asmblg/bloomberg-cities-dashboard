@@ -6,18 +6,17 @@ import dateToQuarter from '../../utils/dateToQuarter';
 const handleDataArray = async ({
   data,
   selectedIndicator,
-  allCitiesArray,
-  projectCityKey,
+  allLinesArray,
+  mainLineKey,
   dataLength
 }) => {
   try {
     const obj = {};
-
-    allCitiesArray.forEach(cityKey => {
-      if (cityKey && cityKey !== 'default') {
-        obj[cityKey] = {};
-        if (data[cityKey]?.[selectedIndicator.key] && typeof selectedIndicator.var === 'string') {
-          const dataObj = data[cityKey]?.[selectedIndicator.key];
+    allLinesArray.forEach(lineKey => {
+      if (lineKey && lineKey !== 'default') {
+        obj[lineKey] = {};
+        if (data[lineKey]?.[selectedIndicator.key] && typeof selectedIndicator.var === 'string') {
+          const dataObj = data[lineKey]?.[selectedIndicator.key];
           const dateKeys = getRecentQuarterEndDates(Object.keys(dataObj), dataLength);
 
           dateKeys.forEach((date, i) => {
@@ -31,67 +30,73 @@ const handleDataArray = async ({
                   ? Number(difference / 1000).toFixed(1)
                   : difference;
 
-              obj[cityKey][date] = Number(value);
+              obj[lineKey][date] = Number(value);
             } else if (!selectedIndicator.calculator) {
-              obj[cityKey][date] = Number(dataObj[date]);
+              obj[lineKey][date] = selectedIndicator.units === 'dollars' && dataObj[date].includes('$')
+                ? parseFloat(dataObj[date].replace('$', ''))
+                : parseFloat(dataObj[date]);
             }
           });
-        } else if (
-          (data[cityKey][selectedIndicator.var[0]] || data[cityKey][selectedIndicator.var[1]]) &&
-          typeof selectedIndicator.var !== 'string' &&
-          selectedIndicator.calculator
-        ) {
-          const firstVarDataObj =
-            data[cityKey][selectedIndicator.var[0]] || data[cityKey][selectedIndicator.var[1]];
+        } else if (selectedIndicator.calculator) {
+
+          const firstVarDataObj = typeof selectedIndicator.var !== 'string' && (data[lineKey][selectedIndicator.var[0]] || data[lineKey][selectedIndicator.var[1]])
+            ? data[lineKey][selectedIndicator.var[0]] || data[lineKey][selectedIndicator.var[1]]
+            : data[lineKey][selectedIndicator.var];
+
           const dateKeys = getRecentQuarterEndDates(Object.keys(firstVarDataObj));
 
           dateKeys.forEach((date, i) => {
             if (i !== dateKeys.length - 1) {
               const tempDataObj = {};
-              selectedIndicator.var.forEach(variable => {
-                const currentValue = data[cityKey][variable]?.[date] || null;
-                const value =
-                  currentValue &&
-                  selectedIndicator.preCalculator &&
-                  selectedIndicator.preCalculator === 'intToThousands' &&
-                  variable === 'total'
-                    ? parseFloat(currentValue / 1000).toFixed(1)
-                    : currentValue
-                      ? parseFloat(currentValue).toFixed(1)
-                      : null;
-                tempDataObj[variable] = Number(value) || null;
-              });
-
+              if (typeof selectedIndicator.var !== 'string') {
+                selectedIndicator.var.forEach(variable => {
+                  const currentValue = data[lineKey][variable]?.[date] || null;
+                  const value =
+                    currentValue &&
+                    selectedIndicator.preCalculator &&
+                    selectedIndicator.preCalculator === 'intToThousands' &&
+                    variable === 'total'
+                      ? parseFloat(currentValue / 1000).toFixed(1)
+                      : currentValue
+                        ? parseFloat(currentValue).toFixed(1)
+                        : null;
+                  tempDataObj[variable] = Number(value) || null;
+                });  
+              } else {
+                tempDataObj[selectedIndicator.var] = data[lineKey][selectedIndicator.var][date];
+              }
               const newObj = addCalculatedIndicatorToDataObj(selectedIndicator, tempDataObj);
               const value = parseFloat(newObj[selectedIndicator.key]).toFixed(1);
-              obj[cityKey][date] = Number(value);
+              obj[lineKey][date] = Number(value);
             }
           });
         }
       }
     });
 
-    const sortedDateKeys = sortDatesArray(Object.keys(obj[projectCityKey]), 'ascending');
-    const dataArr = sortedDateKeys.map(dateKey => {
+    const sortedDateKeys = mainLineKey && obj[mainLineKey] ? sortDatesArray(Object.keys(obj[mainLineKey]), 'ascending') : null;
+    const dataArr = sortedDateKeys ? sortedDateKeys.map(dateKey => {
       const chartObj = {};
       chartObj.name = dateToQuarter(dateKey, 'QX YYYY');
 
-      Object.keys(obj).forEach(cityKey => {
-        chartObj[cityKey] = obj[cityKey][dateKey];
+      Object.keys(obj).forEach(lineKey => {
+        chartObj[lineKey] = obj[lineKey][dateKey];
       });
       return chartObj;
-    });
+    }) : [];
+
     return dataArr;
   } catch (err) {
+    console.log(err);
     return null;
   }
 };
 
 const handleLineStyle = ({
   lineKey,
-  selectedCityKey,
-  projectCityKey,
-  projectColor,
+  selectedLineKey,
+  mainLineKey,
+  mainColor,
   compareColor,
   otherColor
 }) => {
@@ -102,12 +107,12 @@ const handleLineStyle = ({
     zIndex: 1
   };
 
-  if (lineKey === projectCityKey) {
-    obj.stroke = projectColor || 'blue';
+  if (lineKey === mainLineKey || (!mainLineKey && lineKey === selectedLineKey)) {
+    obj.stroke = mainColor || 'purple';
     obj.strokeWidth = 3;
     obj.zIndex = 3;
   }
-  if (lineKey === selectedCityKey) {
+  if (mainLineKey && lineKey === selectedLineKey) {
     obj.stroke = compareColor || 'green';
     obj.strokeWidth = 3;
     obj.zIndex = 2;

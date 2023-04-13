@@ -4,14 +4,15 @@ import { Icon } from 'semantic-ui-react';
 
 import './style.css';
 
-const IndicatorSelectDropdown = ({ selectedOption, setter, options }) => {
+const IndicatorSelectDropdown = ({ setter, getter, config, options, selectedOption }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  // selectedOption && options objects must have a short_name property
-  const text = selectedOption?.label || null;
-  // selectedOption && options objects must have a key property
+
+  const selection = getter?.[config.getterKey?.selectedOption] || selectedOption;
+  const setterKey = config?.setter?.selectedOption;
+  const text = selection?.label || null;
   const key = selectedOption?.key || null;
 
-  return text && key && setter ? (
+  return selection ? (
     <div className='dropdown-container'>
       <div className='dropdown-header' onClick={() => setDropdownOpen(!dropdownOpen)}>
         {options && options[0] ? (
@@ -27,8 +28,8 @@ const IndicatorSelectDropdown = ({ selectedOption, setter, options }) => {
                 key={`indicator-dropdown-option-${option.key}`}
                 className={key === option.key ? 'selected-option bold-font' : 'unselected-option'}
                 onClick={() => {
-                  if (key !== option.key) {
-                    setter(option);
+                  if (key !== option.key && setter) {
+                    setter(setterKey, option);
                   }
                   setDropdownOpen(false);
                 }}
@@ -46,6 +47,9 @@ const IndicatorSelectDropdown = ({ selectedOption, setter, options }) => {
 IndicatorSelectDropdown.propTypes = {
   selectedOption: PropTypes.object,
   setter: PropTypes.func,
+  getter: PropTypes.object,
+  config: PropTypes.object,
+  setterKey: PropTypes.string,
   options: PropTypes.array
 };
 
