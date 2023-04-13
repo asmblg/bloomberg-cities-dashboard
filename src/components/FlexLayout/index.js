@@ -8,11 +8,25 @@ const FlexLayout = ({ layout: { columns, rows }, data, project }) => {
 
   const elementArray = columns || rows;
 
-  const handleSetter = (setterKey, value) =>
-    setter({
-      ...getter,
-      [setterKey]: value
-    });
+  const handleSetter = (setterKey, value) => {
+    const multipleSetters = Array.isArray(setterKey);
+    if (multipleSetters) {
+      const setterObj = { ...getter };
+      setterKey.forEach((key,i) =>{
+        if (key) {
+          setterObj[key]= value[i];
+        }  
+      });
+      setter(setterObj);
+    } else {
+      setter({
+        ...getter,
+        [setterKey]: value
+      });
+    }
+  };
+
+  console.log(getter);
 
   return (
     <div

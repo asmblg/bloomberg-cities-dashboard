@@ -26,7 +26,9 @@ const SelectorWithLegend = ({
                 legendItems
               };
               setSelectedOption(value);
-              setter(setterKey,value);
+              setter(
+                [setterKey.topSelector, setterKey.subSelector, setterKey.topSelectorLabel], 
+                [key, legendItems, label]);
             }}
           >
             <div className={`selector-w-legend-label ${selectedOption?.key === key ? 

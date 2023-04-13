@@ -312,7 +312,9 @@
                       "content": {
                         "type": "compare-column-chart",
                         "config": {
-                          "getterKey": "jobs-selected-city",
+                          "getterKey":{ 
+                            "comparisonSelection": "jobs-selected-city"
+                          },
                           "height": 300,
                           "width": 500,
                           "label": null,
@@ -493,16 +495,19 @@
                     "type": "selector-map",
                     "config": {
                       "label": "1. Select citywide or individual subareas:",
-                      "setterKey": "selector-map",
+                      "setterKey": {
+                        "geoSelection":"geo-data-path"},
                       "center": [27.970253, -82.358835],
                       "zoom": 9.5,
                       "geoType": "SafeGraph Subareas",
                       "color": "#002944",
                       "strokeColor": "white",
                       "selectorField": "NAME",
+                      "selectionDataPath": "subarea",
                       "totalOption": {
                         "label": "CITYWIDE",
-                        "key": "Citywide"
+                        "key": "city",
+                        "dataPath": "city"
                       }
                     }
                   }
@@ -534,7 +539,11 @@
                       "#333333",
                       "#666666"
                     ],
-                    "setterKey": "selected-naics3",
+                    "setterKey": {
+                      "topSelector": "selected-naics3",
+                      "subSelector": "selected-naics4",
+                      "topSelectorLabel": "selected-naics3-text"
+                    },
                     "options": [
                       {
                         "label": "Merchant Wholesalers, Durable Goods  (NAICS 423)",

@@ -9,15 +9,15 @@ import './style.css';
 // import {handleGeoJSON } from './utils';
 
 const SelectorMap = ({ project, config, setter }) => {
-  const [geoJSON, setGeoJSON] = useState(null);
-  const [selection, setSelection] = useState(null);
+  const [geoJSON, setGeoJSON] = useState();
+  const [selection, setSelection] = useState();
   const [options, setOptions] = useState(config.indicators);
   const fillColor = config.color || '#fff3e2';
   
   // console.log(project, config);
 
   useEffect( () => {
-    if (config.geoType) {
+    if (config.geoType && project) {
       getGeoJSON(project, config.geoType).then(({data}) =>{
         console.log(data);
         if (data[0]) {
@@ -42,7 +42,8 @@ const SelectorMap = ({ project, config, setter }) => {
         optionsFromGeoJSON.push(
           {
             label: properties[config.selectorField].toUpperCase(),
-            key: properties[config.selectorField]
+            key: properties[config.selectorField],
+            dataPath: `${config.selectionDataPath ? `${config.selectionDataPath}.` : ''}${properties[config.selectorField]}`
           }
         ));
       setOptions(optionsFromGeoJSON);
@@ -53,11 +54,13 @@ const SelectorMap = ({ project, config, setter }) => {
   }, [geoJSON]);
 
   useEffect(() => {
-    setter(config.setterKey, selection);
+    if (selection) {
+      setter(config.setterKey.geoSelection, selection.dataPath);
+    }
   }, [selection]);
 
-  return geoJSON
-    ? (
+  return geoJSON ? 
+    (
       <div className='selector-map-wrapper'>
         <p>{config.label}</p>
         {selection && options ? (

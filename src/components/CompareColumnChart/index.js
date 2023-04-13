@@ -21,8 +21,8 @@ const CompareColumnChart = ({ config, data, getter }) => {
     width,
     height
   } = config;
-  const selectedCity = getter[getterKey] || null;
-  const allCitiesArray = [projectCity, selectedCity || {}];
+  const comparisonSelection = getter[getterKey.comparisonSelection] || null;
+  const allCitiesArray = [projectCity, comparisonSelection || {}];
 
   useEffect(() => {
     if (data && data[projectCity.key] && selectedIndicator && allCitiesArray) {
@@ -38,7 +38,7 @@ const CompareColumnChart = ({ config, data, getter }) => {
         }
       });
     }
-  }, [selectedIndicator, selectedCity]);
+  }, [selectedIndicator, comparisonSelection]);
 
   useEffect(() => {
     if (fixedIndicator) {
