@@ -277,7 +277,7 @@
                             "selectedOption": "jobs-line-indicator",
                             "secondaryLine": "jobs-selected-city"                        
                           },
-                          "setter": {
+                          "setterKey": {
                             "selectedOption": "jobs-line-indicator"
                           },
                           "height": 300,
@@ -324,7 +324,7 @@
                             "selectedOption": "jobs-column-indicator",
                             "secondaryColumn": "jobs-selected-city"                        
                           },
-                          "setter": {
+                          "setterKey": {
                             "selectedOption": "jobs-column-indicator"
                           },
                           "height": 300,
@@ -515,7 +515,7 @@
                         "selectedOption": "office-re-indicator",
                         "primaryLine": "office-submarket"                        
                       },
-                      "setter": {
+                      "setterKey": {
                         "selectedOption": "office-re-indicator"
                       },
                       "dataPath": "office.submarket",
@@ -627,7 +627,7 @@
                         "selectedOption": "industrial-re-indicator",
                         "primaryLine": "industrial-submarket"                        
                       },
-                      "setter": {
+                      "setterKey": {
                         "selectedOption": "industrial-re-indicator"
                       },
                       "dataPath": "industrial.submarket",
@@ -1778,7 +1778,7 @@
                             "selectedOption": "jobs-line-indicator",
                             "secondaryLine": "jobs-selected-city"                        
                           },
-                          "setter": {
+                          "setterKey": {
                             "selectedOption": "jobs-line-indicator"
                           },
                           "height": 300,
@@ -1824,7 +1824,7 @@
                             "selectedOption": "jobs-column-indicator",
                             "secondaryColumn": "jobs-selected-city"                        
                           },
-                          "setter": {
+                          "setterKey": {
                             "selectedOption": "jobs-column-indicator"
                           },
                           "height": 300,
@@ -2011,7 +2011,7 @@
                         "selectedOption": "office-re-indicator",
                         "primaryLine": "office-submarket"                        
                       },
-                      "setter": {
+                      "setterKey": {
                         "selectedOption": "office-re-indicator"
                       },
                       "dataPath": "office.submarket",
@@ -2123,7 +2123,7 @@
                         "selectedOption": "industrial-re-indicator",
                         "primaryLine": "industrial-submarket"                        
                       },
-                      "setter": {
+                      "setterKey": {
                         "selectedOption": "industrial-re-indicator"
                       },
                       "dataPath": "industrial.submarket",

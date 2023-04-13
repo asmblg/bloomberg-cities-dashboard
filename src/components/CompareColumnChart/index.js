@@ -18,7 +18,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
     width,
     height
   } = config;
-  const setterKey = config.setter.selectedOption;
+  const setterKey = config.setterKey.selectedOption;
   const selectedIndicator = getter[config.getterKey?.selectedOption] || null;
   const primaryColumn = config.primaryColumn || getter[config.getterKey?.primaryColumn];
   const secondaryColumn = getter[config.getterKey?.secondaryColumn] || null;

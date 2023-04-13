@@ -26,7 +26,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
   } = config;
 
   
-  const setterKey = config.setter?.selectedOption;
+  const setterKey = config.setterKey?.selectedOption;
   const selectedIndicator = getter?.[config.getterKey?.selectedOption] || null;
   // Looks for a primary line from getter, then for a default primaryLine in the config
   const primaryLine = config.getterKey?.primaryLine ? getter[config.getterKey?.primaryLine] : config.primaryLine || null;
