@@ -37,26 +37,40 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
         <SelectorMap project={project} config={content.config} setter={setter} />
       ) : content.type === 'trend-data-toggler' ? (
         <TrendDataToggle config={content.config} getter={getter} setter={setter} />
+      ) : content.type === 'title-with-trend-data-toggler' ? (
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+          {content.config.title ? (
+            <h1 style={content.config.titleStyle || {}}>{content.config?.title?.toUpperCase() || ''}</h1>
+          ) : null}
+          <TrendDataToggle config={content.config} getter={getter} setter={setter} />
+        </div>
       ) : content.type === 'indicator-trend-box' ? (
         <IndicatorTrendBox
-          data={data?.[project]}
+          data={data}
           config={content.config}
           getter={getter}
           setter={setter}
         />
-      ) : content.type === 'city-compare-selector' ? (
-        <CompareDropdownSelection config={content.config} getter={getter} setter={setter} />
+      ) : content.type === 'compare-selector' ? (
+        <CompareDropdownSelection
+          data={data}
+          config={content.config}
+          getter={getter}
+          setter={setter}
+        />
       ) : content.type === 'multi-line-chart' ? (
         <MultiLineChart
           data={data || null}
           config={content.config}
           getter={getter}
+          setter={setter}
         />
       ) : content.type === 'compare-column-chart' ? (
         <CompareColumnChart
           data={data || null}
           config={content.config}
           getter={getter}
+          setter={setter}
         />
       ) : (
         JSON.stringify(content)

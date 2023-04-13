@@ -4,11 +4,9 @@ import { Icon } from 'semantic-ui-react';
 
 import './style.css';
 
-const IndicatorSelectDropdown = ({ selectedOption, setter, options }) => {
+const IndicatorSelectDropdown = ({ selectedOption, setter, setterKey, options }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  // selectedOption && options objects must have a short_name property
   const text = selectedOption?.label || null;
-  // selectedOption && options objects must have a key property
   const key = selectedOption?.key || null;
 
   return text && key && setter ? (
@@ -28,7 +26,7 @@ const IndicatorSelectDropdown = ({ selectedOption, setter, options }) => {
                 className={key === option.key ? 'selected-option bold-font' : 'unselected-option'}
                 onClick={() => {
                   if (key !== option.key) {
-                    setter(option);
+                    setter(setterKey, option);
                   }
                   setDropdownOpen(false);
                 }}
@@ -46,6 +44,7 @@ const IndicatorSelectDropdown = ({ selectedOption, setter, options }) => {
 IndicatorSelectDropdown.propTypes = {
   selectedOption: PropTypes.object,
   setter: PropTypes.func,
+  setterKey: PropTypes.string,
   options: PropTypes.array
 };
 

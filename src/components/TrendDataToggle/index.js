@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox } from 'semantic-ui-react';
 
@@ -6,6 +6,15 @@ import './style.css';
 
 const TrendDataToggle = ({ config, getter, setter }) => {
   const ref = useRef();
+
+  useEffect(() => {
+    if (config && !getter[config.getterKey]) {
+      setter(config.setterKey, 'QtQ');
+    } else {
+      setter('QtQ');
+    }
+  }, []);
+
   return (
     <div ref={ref} className='data-toggle-container'>
       <h5>Quarter-to-Quarter</h5>
@@ -27,7 +36,7 @@ const TrendDataToggle = ({ config, getter, setter }) => {
 
 TrendDataToggle.propTypes = {
   config: PropTypes.object,
-  getter: PropTypes.object,
+  getter: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   setter: PropTypes.func
 };
 

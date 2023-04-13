@@ -11,7 +11,8 @@ import sortDatesArray from './sortDatesArray';
 const getRecentQuarterEndDates = (dates, numOfDates) => {
   const sortedDates = sortDatesArray(dates).filter(date => {
     // Remove months that do not represent the end of a quarter
-    const isQuarter = date.includes('Q');
+    const regex = /([Qq])/;
+    const isQuarter = regex.test(date);
     const month = !isQuarter ? moment(date, 'YYYY-MM-DD').month() + 1 : null;
     return isQuarter || month === 3 || month === 6 || month === 9 || month === 12;
   });

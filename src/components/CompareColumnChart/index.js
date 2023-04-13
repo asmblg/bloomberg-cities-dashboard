@@ -7,8 +7,7 @@ import IndicatorDropdown from '../IndicatorDropdown';
 import { handleDataArray } from './utils';
 import calculateChartDomain from '../../utils/calculateChartDomain';
 
-const CompareColumnChart = ({ config, data, getter }) => {
-  const [selectedIndicator, setSelectedIndicator] = useState(null);
+const CompareColumnChart = ({ config, data, getter, setter }) => {
   const [dataArray, setDataArray] = useState([]);
   const {
     fixedIndicator,
@@ -16,21 +15,23 @@ const CompareColumnChart = ({ config, data, getter }) => {
     mainColor,
     compareColor,
     indicators,
-    projectCity,
+    mainColumn,
     getterKey,
+    setterKey,
     width,
     height
   } = config;
-  const selectedCity = getter[getterKey] || null;
-  const allCitiesArray = [projectCity, selectedCity || {}];
+  const selectedIndicator = typeof getterKey !== 'string' ? getter[getterKey[0]] : null;
+  const selectedColumn = typeof getterKey !== 'string' ? getter[getterKey[1]] : null;
+  const allColumnsArray = [mainColumn, selectedColumn || {}];
 
   useEffect(() => {
-    if (data && data[projectCity.key] && selectedIndicator && allCitiesArray) {
+    if (data && data[mainColumn.key] && selectedIndicator && allColumnsArray) {
       handleDataArray({
-        projectCityKey: projectCity.key,
+        mainColumnKey: mainColumn.key,
         data,
         selectedIndicator,
-        allCitiesArray,
+        allColumnsArray,
         dataLength
       }).then(array => {
         if (array) {
@@ -38,14 +39,14 @@ const CompareColumnChart = ({ config, data, getter }) => {
         }
       });
     }
-  }, [selectedIndicator, selectedCity]);
+  }, [selectedIndicator, selectedColumn, data]);
 
   useEffect(() => {
     if (fixedIndicator) {
       const indicator = indicators.find(({ key }) => key === fixedIndicator);
-      setSelectedIndicator(indicator);
+      setter(setterKey, indicator);
     } else {
-      setSelectedIndicator(indicators[0]);
+      setter(setterKey, indicators[0]);
     }
   }, []);
 
@@ -54,7 +55,8 @@ const CompareColumnChart = ({ config, data, getter }) => {
       {/* ---------- Dropdown ---------- */}
       <IndicatorDropdown
         selectedOption={selectedIndicator}
-        setter={setSelectedIndicator}
+        setter={setter}
+        setterKey={setterKey}
         options={!fixedIndicator ? indicators : null}
       />
       {/* ---------- CHART ---------- */}
@@ -87,12 +89,12 @@ const CompareColumnChart = ({ config, data, getter }) => {
         />
         <Tooltip />
 
-        {!fixedIndicator && allCitiesArray
-          ? allCitiesArray.map(({ key }, i) => (
+        {!fixedIndicator && allColumnsArray
+          ? allColumnsArray.map(({ key }, i) => (
             <Bar
               key={`${key}-line-${i}`}
               dataKey={key}
-              fill={key === projectCity.key ? mainColor : compareColor}
+              fill={key === mainColumn.key ? mainColor : compareColor}
               isFront={true}
             />
           ))
@@ -105,7 +107,8 @@ const CompareColumnChart = ({ config, data, getter }) => {
 CompareColumnChart.propTypes = {
   data: PropTypes.object,
   config: PropTypes.object,
-  getter: PropTypes.object
+  getter: PropTypes.object,
+  setter: PropTypes.func
 };
 
 export default CompareColumnChart;
