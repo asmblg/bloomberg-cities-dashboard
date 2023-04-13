@@ -12,7 +12,7 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
 
   const {
     title,
-    comparandOption,
+    comparand,
     defaultSelected,
     options,
     optionsDataPath,
@@ -21,14 +21,20 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
     style,
     svgStyle
   } = config;
-  const selectedOption = getterKey && getter[getterKey] ? getter[getterKey] : defaultSelected;
+
+  const selectedOption =
+    getterKey?.selectedOption && getter?.[getterKey.selectedOption]
+      ? getter[getterKey.selectedOption]
+      : defaultSelected || null;
+  
+  console.log(selectedOption);
 
   useEffect(() => {
     if (options?.[0] && !optionsDataPath) {
       setSelectOptions(options);
 
-      if (!selectedOption) {
-        setter(setterKey, options[0]);
+      if (!selectedOption && setterKey?.selectedOption) {
+        setter(setterKey.selectedOption, options[0]);
       }
     } else if (optionsDataPath && data) {
       const dataObj = getNestedValue(data, optionsDataPath);
@@ -38,15 +44,15 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
           key
         }))
         : null;
-      if (optionsArr) {
+      if (optionsArr && setterKey?.selectedOption) {
         setSelectOptions(optionsArr);
 
         if (!selectedOption) {
-          setter(setterKey, optionsArr[0]);
+          setter(setterKey.selectedOption, optionsArr[0]);
         }
       }
     }
-  }, [data, getter]);
+  }, [getter, data]);
 
   return (
     <div
@@ -57,9 +63,9 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
     >
       <h5 className='bold-font'>{title || ''}</h5>
       <div className='compare-dropdown-legend'>
-        {comparandOption ? (
+        {comparand ? (
           <div className='main-value-container'>
-            <h5>{comparandOption.text || ''}</h5>
+            <h5>{comparand.text || ''}</h5>
             <svg className='main-value-svg' height={'15px'} width={'15px'}>
               <rect height={'15px'} width={'15px'} />
             </svg>
@@ -101,7 +107,9 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
                             : 'none'
                       }}
                       onClick={() => {
-                        setter(setterKey, city);
+                        if (setterKey?.selectedOption) {
+                          setter(setterKey.selectedOption, city);
+                        }
                         setDropdownOpen(false);
                       }}
                     >

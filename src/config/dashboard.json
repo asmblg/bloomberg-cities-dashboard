@@ -179,8 +179,12 @@
                   "content": {
                     "type": "trend-data-toggler",
                     "config": {
-                      "getterKey": "trend-data-toggler",
-                      "setterKey": "trend-data-toggler"
+                      "getterKey": {
+                        "toggleValue": "jobs-trend-toggler"
+                      },
+                      "setterKey": {
+                        "toggleValue": "jobs-trend-toggler"
+                      }
                     }
                   }
                 },
@@ -188,7 +192,9 @@
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
-                      "getterKey": "trend-data-toggler",
+                      "getterKey": {
+                        "trendValue": "jobs-trend-toggler"
+                      },
                       "dataPath": "tampa",
                       "indicator": {
                         "var": "unemployment",
@@ -206,7 +212,9 @@
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
-                      "getterKey": "trend-data-toggler",
+                      "getterKey": {
+                        "trendValue": "jobs-trend-toggler"
+                      },
                       "dataPath": "tampa",
                       "indicator": {
                         "var": "total",
@@ -230,10 +238,10 @@
                   "content": {
                     "type": "compare-selector",
                     "config": {
-                      "getterKey": "jobs-selected-city",
-                      "setterKey": "jobs-selected-city",
+                      "getterKey": { "selectedOption": "jobs-selected-city" },
+                      "setterKey": { "selectedOption": "jobs-selected-city" },
                       "title": "Compare Tampa-St Petersburg-Clearwater with benchmark metropolitan areas:",
-                      "comparandOption": {
+                      "comparand": {
                         "key": "tampa",
                         "text": "Tampa-St Petersburg-Clearwater"
                       },
@@ -275,7 +283,7 @@
                         "config": {
                           "getterKey": {
                             "selectedOption": "jobs-line-indicator",
-                            "secondaryLine": "jobs-selected-city"                        
+                            "secondaryLine": "jobs-selected-city"
                           },
                           "setter": {
                             "selectedOption": "jobs-line-indicator"
@@ -322,7 +330,7 @@
                         "config": {
                           "getterKey": {
                             "selectedOption": "jobs-column-indicator",
-                            "secondaryColumn": "jobs-selected-city"                        
+                            "secondaryColumn": "jobs-selected-city"
                           },
                           "setter": {
                             "selectedOption": "jobs-column-indicator"
@@ -465,8 +473,12 @@
                   "content": {
                     "type": "title-with-trend-data-toggler",
                     "config": {
-                      "getterKey": "office-re-trend-data-toggler",
-                      "setterKey": "office-re-trend-data-toggler",
+                      "getterKey": {
+                        "toggleValue": "office-re-trend-toggler"
+                      },
+                      "setterKey": {
+                        "toggleValue": "office-re-trend-toggler"
+                      },
                       "title": "OFFICE REAL ESTATE",
                       "titleStyle": {
                         "color": "#0090c6"
@@ -478,8 +490,12 @@
                   "content": {
                     "type": "compare-selector",
                     "config": {
-                      "setterKey": "office-submarket",
-                      "getterKey": "office-submarket",
+                      "setterKey": {
+                        "selectedOption": "office-submarket"
+                      },
+                      "getterKey": {
+                        "selectedOption": "office-submarket"
+                      },
                       "title": "Select a submarket:",
                       "options": null,
                       "optionsDataPath": "office.submarket",
@@ -497,11 +513,17 @@
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
-                      "getterKey": [
-                        "office-re-trend-data-toggler",
-                        "office-submarket",
-                        "office-re-indicator"
-                      ],
+                      "getterKey": {
+                        "trendValue": "office-re-trend-toggler",
+                        "selectedCategory": "office-submarket"
+                      },
+                      "indicator": {
+                        "var": "vacancy_rate",
+                        "label": "Office Occupancy rate",
+                        "calculator": "differenceFrom100",
+                        "key": "occupancy_rate",
+                        "units": "percent"
+                      },
                       "dataPath": "office.submarket",
                       "displayCompareText": true
                     }
@@ -513,7 +535,7 @@
                     "config": {
                       "getterKey": {
                         "selectedOption": "office-re-indicator",
-                        "primaryLine": "office-submarket"                        
+                        "primaryLine": "office-submarket"
                       },
                       "setter": {
                         "selectedOption": "office-re-indicator"
@@ -577,8 +599,12 @@
                   "content": {
                     "type": "title-with-trend-data-toggler",
                     "config": {
-                      "getterKey": "industrial-re-trend-data-toggler",
-                      "setterKey": "industrial-re-trend-data-toggler",
+                      "getterKey": {
+                        "toggleValue": "industrial-re-trend-toggler"
+                      },
+                      "setterKey": {
+                        "toggleValue": "industrial-re-trend-toggler"
+                      },
                       "title": "Industrial Real Estate",
                       "titleStyle": {
                         "color": "#0090c6"
@@ -590,8 +616,12 @@
                   "content": {
                     "type": "compare-selector",
                     "config": {
-                      "setterKey": "industrial-submarket",
-                      "getterKey": "industrial-submarket",
+                      "setterKey": {
+                        "selectedOption": "industrial-submarket"
+                      },
+                      "getterKey": {
+                        "selectedOption": "industrial-submarket"
+                      },
                       "title": "Select a submarket:",
                       "options": null,
                       "optionsDataPath": "industrial.submarket",
@@ -609,11 +639,17 @@
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
-                      "getterKey": [
-                        "industrial-re-trend-data-toggler",
-                        "industrial-submarket",
-                        "industrial-re-indicator"
-                      ],
+                      "getterKey": {
+                        "trendValue": "industrial-re-trend-toggler",
+                        "selectedCategory": "industrial-submarket"
+                      },
+                      "indicator": {
+                        "var": "vacancy_rate",
+                        "label": "Industrial Occupancy rate",
+                        "calculator": "differenceFrom100",
+                        "key": "occupancy_rate",
+                        "units": "percent"
+                      },
                       "dataPath": "industrial.submarket",
                       "displayCompareText": true
                     }
@@ -625,7 +661,7 @@
                     "config": {
                       "getterKey": {
                         "selectedOption": "industrial-re-indicator",
-                        "primaryLine": "industrial-submarket"                        
+                        "primaryLine": "industrial-submarket"
                       },
                       "setter": {
                         "selectedOption": "industrial-re-indicator"
@@ -724,8 +760,12 @@
                   "content": {
                     "type": "trend-data-toggler",
                     "config": {
-                      "getterKey": "trend-data-toggler",
-                      "setterKey": "trend-data-toggler"
+                      "getterKey": {
+                        "toggleValue": "trend-data-toggler"
+                      },
+                      "setterKey": {
+                        "toggleValue": "trend-data-toggler"
+                      }
                     }
                   }
                 },
@@ -739,7 +779,8 @@
                     "config": {
                       "label": "1. Select citywide or individual subareas:",
                       "setterKey": {
-                        "geoSelection":"geo-data-path"},
+                        "geoSelection": "geo-data-path"
+                      },
                       "center": [27.970253, -82.358835],
                       "zoom": 9.5,
                       "geoType": "SafeGraph Subareas",
@@ -892,7 +933,7 @@
                           {
                             "label": "Miscellaneous Nondurable Goods Merchant Wholesalers (NAICS 4249)",
                             "key": "4249"
-                          }                        
+                          }
                         ]
                       },
                       {
@@ -1147,19 +1188,19 @@
                   "content": {
                     "description": "INDICATOR DROPDOWN SELECTOR"
                   }
-                  },
+                },
                 {
                   "height": "45%",
                   "content": {
                     "description": "LINE/AREA CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, AND INDICATOR DROPDOWN"
                   }
-                  },
+                },
                 {
                   "height": "45%",
                   "content": {
                     "description": "COMPARISON COLUMN CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, INDICATOR DROPDOWN, AND LINE/AREA CHART"
                   }
-                  }
+                }
               ]
             }
           ]
@@ -1776,7 +1817,7 @@
                         "config": {
                           "getter": {
                             "selectedOption": "jobs-line-indicator",
-                            "secondaryLine": "jobs-selected-city"                        
+                            "secondaryLine": "jobs-selected-city"
                           },
                           "setter": {
                             "selectedOption": "jobs-line-indicator"
@@ -1822,7 +1863,7 @@
                         "config": {
                           "getter": {
                             "selectedOption": "jobs-column-indicator",
-                            "secondaryColumn": "jobs-selected-city"                        
+                            "secondaryColumn": "jobs-selected-city"
                           },
                           "setter": {
                             "selectedOption": "jobs-column-indicator"
@@ -2009,7 +2050,7 @@
                     "config": {
                       "getter": {
                         "selectedOption": "office-re-indicator",
-                        "primaryLine": "office-submarket"                        
+                        "primaryLine": "office-submarket"
                       },
                       "setter": {
                         "selectedOption": "office-re-indicator"
@@ -2121,7 +2162,7 @@
                     "config": {
                       "getter": {
                         "selectedOption": "industrial-re-indicator",
-                        "primaryLine": "industrial-submarket"                        
+                        "primaryLine": "industrial-submarket"
                       },
                       "setter": {
                         "selectedOption": "industrial-re-indicator"

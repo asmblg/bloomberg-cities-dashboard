@@ -11,7 +11,6 @@ import getNestedValue from '../../utils/getNestedValue';
 import './style.css';
 
 const IndicatorTrendBox = ({ data, config, getter }) => {
-  console.log(data);
   const [indicatorTrendData, setIndicatorTrendData] = useState({
     currentDate: null,
     currentValue: null,
@@ -19,46 +18,39 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
     compareValue: null,
     displayValue: null
   });
-  const { indicator, displayCompareText, dataPath } = config;
-  const hasMultipleGetters = config.getterKey && typeof config.getterKey !== 'string';
-
-  const trendDataType =
-    !hasMultipleGetters
-      ? getter[config.getterKey]
-      : getter[config.getterKey[0]];
-
-  const selectedKey =
-    hasMultipleGetters ? getter[config.getterKey[1]] : null;
-  
-  const requiresSelectedKey = hasMultipleGetters && config.getterKey?.[1];
+  const { indicator, displayCompareText, dataPath, getterKey } = config;
+  const trendDataType = getter?.[getterKey?.trendValue] || 'QtQ';
+  const selectedCategory =
+    getter && getterKey?.selectedCategory ? getter[getterKey.selectedCategory] : null;
 
   const selectedIndicator =
-    !indicator && config.getterKey && typeof config.getterKey !== 'string' && config.getterKey[2]
-      ? getter[config.getterKey[2]]
+    !indicator && getterKey?.selectedIndicator
+      ? getter[getterKey.selectedIndicator]
       : indicator || null;
-   
 
   useEffect(() => {
     if (data) {
       const nestedDataObj =
-        dataPath && requiresSelectedKey && selectedKey?.key
-          ? getNestedValue(data, `${dataPath}.${selectedKey.key}`)
-          : dataPath && !requiresSelectedKey
-            ? getNestedValue(data, dataPath)
-            : !dataPath && !selectedKey?.key
-              ? { ...data }
-              : null;
-
+        dataPath && selectedCategory?.key
+          ? getNestedValue(data, `${dataPath}.${selectedCategory.key}`)
+          : dataPath && !selectedCategory
+          ? getNestedValue(data, dataPath)
+          : !dataPath && !selectedCategory
+          ? { ...data }
+          : null;
+      console.log(nestedDataObj);
       if (nestedDataObj && selectedIndicator) {
         const dataObj = handleTrendDisplayData(nestedDataObj, selectedIndicator, trendDataType);
         if (selectedIndicator.units === 'dollars' && dataObj.currentValue) {
           dataObj.currentValue = parseFloat(dataObj.currentValue.replace('$', ''));
-          dataObj.compareValue = dataObj.compareValue ? parseFloat(dataObj.compareValue.replace('$', '')) : null;
+          dataObj.compareValue = dataObj.compareValue
+            ? parseFloat(dataObj.compareValue.replace('$', ''))
+            : null;
         }
         setIndicatorTrendData(dataObj);
       }
     }
-  }, [getter, data, selectedKey]);
+  }, [selectedIndicator, data, selectedCategory, trendDataType]);
 
   return indicatorTrendData?.displayValue && selectedIndicator ? (
     <div className='indicator-trend-container'>
