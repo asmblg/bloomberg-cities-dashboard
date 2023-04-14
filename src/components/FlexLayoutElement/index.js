@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SelectorMap from '../SelectorMap';
 import TrendDataToggle from '../TrendDataToggle';
 import IndicatorTrendBox from '../IndicatorTrendBox';
+import SimpleIndicatorBox from '../SimpleIndicatorBox';
 import CompareDropdownSelection from '../CompareDropdownSelection';
 import MultiLineChart from '../MultiLineChart';
 import CompareColumnChart from '../CompareColumnChart';
@@ -39,9 +40,9 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
       ) : content.type === 'trend-data-toggler' ? (
         <TrendDataToggle config={content.config} getter={getter} setter={setter} />
       ) : content.type === 'title-with-trend-data-toggler' ? (
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-          {content.config.title ? (
-            <h1 style={content.config.titleStyle || {}}>{content.config?.title?.toUpperCase() || ''}</h1>
+        <div className='detail-card-header'>
+          {content?.config?.title ? (
+            <h1 className='detail-card-title' style={content.config.titleStyle || {}}>{content.config?.title?.toUpperCase() || ''}</h1>
           ) : null}
           <TrendDataToggle config={content.config} getter={getter} setter={setter} />
         </div>
@@ -51,6 +52,12 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
           config={content.config}
           getter={getter}
           setter={setter}
+        />
+      ) : content.type === 'simple-indicator-box' ? (
+        <SimpleIndicatorBox
+          data={data}
+          config={content.config}
+          getter={getter}
         />
       ) : content.type === 'compare-selector' ? (
         <CompareDropdownSelection

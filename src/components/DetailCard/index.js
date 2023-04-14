@@ -35,24 +35,21 @@ const DetailCard = ({ project, config, sectionKey, viewType }) => {
             backgroundColor: config.tabStyle?.selectedColor || '#ffffff'
           }}
         ></div>
-
-        <div className='detail-card-header'>
-          <div className='detail-header-titles'>
-            {config.title ? (
-              <h1
-                style={{
-                  color: config.tabStyle?.selectedColor || '#333333'
-                }}
-              >
-                {config.title.toUpperCase()}
-              </h1>
+        {config.title ? (
+          <div className='detail-card-header'>
+            <h1
+              className='detail-card-title'
+              style={{
+                color: config.tabStyle?.selectedColor || '#333333'
+              }}
+            >
+              {config.title.toUpperCase()}
+            </h1>
+            {detailData?.updatedOn && config.displayUpdateDate ? (
+              <LastUpdateIcon date={detailData.updatedOn} width={'auto'} />
             ) : null}
-
           </div>
-          {detailData?.updatedOn && config.displayUpdateDate ? (
-            <LastUpdateIcon date={detailData.updatedOn} width={'auto'} />
-          ) : null}
-        </div>
+        ) : null}
         {sectionKey === 'community' ? (
           <CommunityProfile
             project={project}

@@ -1,12 +1,17 @@
-.indicator-trend-container {
-  padding: 5px;
+.indicator-trend-wrapper {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
 }
 
 .indicator-data-body {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
+  width: 100%;
+}
+
+.indicator-data-body > img {
+  margin-left: 40px;
 }
 
 .indicator-value-container {
@@ -20,9 +25,9 @@
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
-/* Initial Desktio Breakpoint */
+/* Initial Desktop Breakpoint */
 @media screen and (max-width: 1600px) {
   .indicator-value-container {
-    width: 80%
+    width: 200px;
   }
 }

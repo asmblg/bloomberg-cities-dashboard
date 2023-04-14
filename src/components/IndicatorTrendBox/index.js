@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import SinglePercentDonutChart from '../SinglePercentDonutChart';
 import InfoIcon from '../InfoIcon';
 import TrendPill from '../TrendPill';
 
@@ -18,7 +19,7 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
     compareValue: null,
     displayValue: null
   });
-  const { indicator, displayCompareText, dataPath, getterKey } = config;
+  const { indicator, displayCompareText, dataPath, getterKey, chart } = config;
   const trendDataType = getter?.[getterKey?.trendValue] || 'QtQ';
   const selectedCategory =
     getter && getterKey?.selectedCategory ? getter[getterKey.selectedCategory] : null;
@@ -38,7 +39,7 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
             : !dataPath && !selectedCategory
               ? { ...data }
               : null;
-      console.log(nestedDataObj);
+
       if (nestedDataObj && selectedIndicator) {
         const dataObj = handleTrendDisplayData(nestedDataObj, selectedIndicator, trendDataType);
         if (selectedIndicator.units === 'dollars' && dataObj.currentValue) {
@@ -53,28 +54,40 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
   }, [selectedIndicator, data, selectedCategory, trendDataType]);
 
   return indicatorTrendData?.displayValue && selectedIndicator ? (
-    <div className='indicator-trend-container'>
-      <div className='indicator-data-body'>
-        <div className='indicator-value-container'>
-          <h1 className='bold-font'>
-            {formatValue(indicatorTrendData.displayValue, selectedIndicator.units)}
-          </h1>
-          <div>
-            <h4>{selectedIndicator.label?.toUpperCase() || ''}</h4>
-            <h4>{dateToQuarter(indicatorTrendData.currentDate, 'QX YYYY')}</h4>
-          </div>
+    <div className='indicator-trend-wrapper'>
+      {chart?.type === 'donut' && indicatorTrendData.displayValue ? (
+        <div style={{ width: '20%' }}>
+          <SinglePercentDonutChart
+            value={indicatorTrendData.displayValue}
+            height={150}
+            width={'100%'}
+            config={chart.config}
+          />
         </div>
-        <InfoIcon variableDescription={selectedIndicator.label} />
+      ) : null}
+      <div style={{ width: chart ? '80%' : '100%' }}>
+        <div className='indicator-data-body'>
+          <div className='indicator-value-container'>
+            <h1 className='bold-font'>
+              {formatValue(indicatorTrendData.displayValue, selectedIndicator.units)}
+            </h1>
+            <div>
+              <h4>{selectedIndicator.label?.toUpperCase() || ''}</h4>
+              <h4>{dateToQuarter(indicatorTrendData.currentDate, 'QX YYYY')}</h4>
+            </div>
+          </div>
+          <InfoIcon variableDescription={selectedIndicator.label} />
+        </div>
+        <TrendPill
+          currentValue={indicatorTrendData.currentValue}
+          compareValue={indicatorTrendData.compareValue}
+          compareDate={indicatorTrendData.compareDate}
+          units={selectedIndicator.units}
+          positiveTrendDirection={selectedIndicator.positiveTrendDirection}
+          data={data[selectedIndicator.key]}
+          displayCompareText={displayCompareText}
+        />
       </div>
-      <TrendPill
-        currentValue={indicatorTrendData.currentValue}
-        compareValue={indicatorTrendData.compareValue}
-        compareDate={indicatorTrendData.compareDate}
-        units={selectedIndicator.units}
-        positiveTrendDirection={selectedIndicator.positiveTrendDirection}
-        data={data[selectedIndicator.key]}
-        displayCompareText={displayCompareText}
-      />
     </div>
   ) : null;
 };
