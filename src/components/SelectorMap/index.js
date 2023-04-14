@@ -74,18 +74,19 @@ const SelectorMap = ({ project, config, setter }) => {
             options={options}
           />
         ) : null}
-        {selection ? (
-          <div className='selector-map'>
-            <MapContainer
-              // key={`${selection.key}-selector-map`}
-              center={config.center}
-              zoom={config.zoom}
-              zoomControl={false}
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
-                url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
-              />
+        {/* {selection ? ( */}
+        <div className='selector-map'>
+          <MapContainer
+            // key={`${selection.key}-selector-map`}
+            center={config.center}
+            zoom={config.zoom}
+            zoomControl={false}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
+              url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+            />
+            {selection ?
               <GeoJSON
                 // key={`data-layer-${selection.key}`}
                 data={geoJSON}
@@ -100,11 +101,14 @@ const SelectorMap = ({ project, config, setter }) => {
                   };
                 }}
               />
-            </MapContainer>
-          </div>
-        ) : (
+              : null
+            }
+          </MapContainer>
+        </div>
+        {/* ) 
+        : (
           <div className='indicator-map-wrapper'>Loading...</div>
-        )}
+        )} */}
       </div>
     ) : (
       <div className='indicator-map-wrapper'>Loading...</div>

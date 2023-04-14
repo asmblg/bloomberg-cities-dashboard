@@ -17,7 +17,11 @@ const getCurrentAndCompareData = (calculator, data, trendDataType) => {
     compareDate: null
   };
   if (data) {
-    const dateKeys = Object.keys(data);
+    const dateKeys = calculator === 'differenceOfTotalsFromPrevious' ?
+      [...new Set(Object.values(data).map(obj => Object.keys(obj)).flat(1))]
+      : Object.keys(data);
+
+    console.log(dateKeys);
     // Uses trend type to return two dates (keys) to compare in data object
     const { currentDate, compareDate } = getDataCompareDates(dateKeys, trendDataType);
     dataObj.currentDate = currentDate;
@@ -28,6 +32,17 @@ const getCurrentAndCompareData = (calculator, data, trendDataType) => {
       case 'differenceFrom100': {
         dataObj.currentValue = currentDate ? 100 - parseFloat(data[currentDate]) : null;
         dataObj.compareValue = compareDate ? 100 - parseFloat(data[compareDate]) : null;
+        break;
+      }
+      case 'differenceOfTotalsFromPrevious': {
+        if (currentDate) {
+          dataObj.currentValue = 0;
+          Object.values(data).forEach(obj => dataObj.currentValue += obj[currentDate] || 0);
+        }
+        if (compareDate) {
+          dataObj.compareValue = 0;
+          Object.values(data).forEach(obj => dataObj.compareValue += obj[compareDate] || 0);
+        }
         break;
       }
       default: {

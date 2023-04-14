@@ -12,6 +12,7 @@ import getNestedValue from '../../utils/getNestedValue';
 import './style.css';
 
 const IndicatorTrendBox = ({ data, config, getter }) => {
+
   const [indicatorTrendData, setIndicatorTrendData] = useState({
     currentDate: null,
     currentValue: null,
@@ -19,8 +20,15 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
     compareValue: null,
     displayValue: null
   });
-  const { indicator, displayCompareText, dataPath, getterKey, chart } = config;
+  const { 
+    indicator, 
+    displayCompareText,
+    dataPath,
+    getterKey,
+    chart 
+  } = config;
   const trendDataType = getter?.[getterKey?.trendValue] || 'QtQ';
+  // console.log(trendDataType);
   const selectedCategory =
     getter && getterKey?.selectedCategory ? getter[getterKey.selectedCategory] : null;
 
@@ -28,30 +36,34 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
     !indicator && getterKey?.selectedIndicator
       ? getter[getterKey.selectedIndicator]
       : indicator || null;
+  
+  const baseDataPath = getter?.[getterKey?.dataPath] || dataPath;
 
   useEffect(() => {
     if (data) {
       const nestedDataObj =
-        dataPath && selectedCategory?.key
-          ? getNestedValue(data, `${dataPath}.${selectedCategory.key}`)
-          : dataPath && !selectedCategory
-            ? getNestedValue(data, dataPath)
-            : !dataPath && !selectedCategory
+        baseDataPath && selectedCategory?.key
+          ? getNestedValue(data, `${baseDataPath}.${selectedCategory.key}`)
+          : baseDataPath && !selectedCategory
+            ? getNestedValue(data, baseDataPath)
+            : !baseDataPath && !selectedCategory
               ? { ...data }
               : null;
+      // console.log(nestedDataObj);
+      // console.log(selectedIndicator);
 
       if (nestedDataObj && selectedIndicator) {
         const dataObj = handleTrendDisplayData(nestedDataObj, selectedIndicator, trendDataType);
         if (selectedIndicator.units === 'dollars' && dataObj.currentValue) {
-          dataObj.currentValue = parseFloat(dataObj.currentValue.replace('$', ''));
+          dataObj.currentValue = parseFloat(`${dataObj.currentValue}`.replace('$', ''));
           dataObj.compareValue = dataObj.compareValue
-            ? parseFloat(dataObj.compareValue.replace('$', ''))
+            ? parseFloat(`${dataObj.compareValue}`.replace('$', ''))
             : null;
         }
         setIndicatorTrendData(dataObj);
       }
     }
-  }, [selectedIndicator, data, selectedCategory, trendDataType]);
+  }, [selectedIndicator, data, selectedCategory, trendDataType, baseDataPath]);
 
   return indicatorTrendData?.displayValue && selectedIndicator ? (
     <div className='indicator-trend-wrapper'>

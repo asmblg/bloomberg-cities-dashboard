@@ -895,7 +895,23 @@
                 {
                   "height": "20%",
                   "content": {
-                    "description": "INDICATOR TREND BOX OF TOTAL SPENDING CONNECTED SUBAREA SELECTOR"
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": {
+                        "trendValue": "trend-data-toggler",
+                        "dataPath": "geo-data-path"
+                      },
+                      "dataPath": "city",
+                      "indicator": {
+                        "var": "naics3.total_spending",
+                        "label": "Total Consumer Spending",
+                        "calculator": "differenceOfTotalsFromPrevious",
+                        "key": "total_spending",
+                        "units": "dollars",
+                        "positiveTrendDirection": "up"
+                      },
+                      "displayCompareText": true
+                    }
                   }
                 },
                 {
@@ -2460,49 +2476,476 @@
         "layout": {
           "columns": [
             {
-              "width": "40%",
+              "width": "33%",
               "rows": [
                 {
+                  "style": {
+                    "paddingLeft": "10px"
+                  },
+                  "content": {
+                    "type": "trend-data-toggler",
+                    "config": {
+                      "getterKey": {
+                        "toggleValue": "trend-data-toggler"
+                      },
+                      "setterKey": {
+                        "toggleValue": "trend-data-toggler"
+                      }
+                    }
+                  }
+                },
+                {
                   "height": "100%",
+                  "style": {
+                    "padding": "20px"
+                  },
                   "content": {
                     "type": "selector-map",
-                    "setterKey": "selector-map",
-                    "getterKeys": [],
                     "config": {
+                      "label": "1. Select citywide or individual subareas:",
+                      "setterKey": {
+                        "geoSelection": "geo-data-path"
+                      },
                       "center": [33.52698, -112.079901],
                       "zoom": 10,
                       "geoType": "SafeGraph Subareas",
-                      "color": "#969696",
-                      "strokeColor": "#dfe5e9",
+                      "color": "#002944",
+                      "strokeColor": "white",
                       "selectorField": "NAME",
+                      "selectionDataPath": "subarea",
                       "totalOption": {
-                        "label": "Citywide",
-                        "key": "Citywide"
+                        "label": "CITYWIDE",
+                        "key": "city",
+                        "dataPath": "city"
                       }
                     }
                   }
                 }
               ]
+            },
+            {
+              "width": "33%",
+              "rows": [
+                {
+                  "height": "20%",
+                  "content": {
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": {
+                        "trendValue": "trend-data-toggler",
+                        "dataPath": "geo-data-path"
+                      },
+                      "dataPath": "city",
+                      "indicator": {
+                        "var": "naics3.total_spending",
+                        "label": "Total Consumer Spending",
+                        "calculator": "differenceOfTotalsFromPrevious",
+                        "key": "total_spending",
+                        "units": "dollars",
+                        "positiveTrendDirection": "up"
+                      },
+                      "displayCompareText": true
+                    }
+                  }
+                },
+                {
+                  "height": "80%",
+                  "content": {
+                    "type": "selector-with-legend",
+                    "colors": [
+                      "#969696",
+                      "#006AAF",
+                      "#002944",
+                      "#8DC63F",
+                      "#648E2A",
+                      "#72ACD2",
+                      "#A9D66C",
+                      "#D4D4D4",
+                      "#333333",
+                      "#666666"
+                    ],
+                    "setterKey": {
+                      "topSelector": "selected-naics3",
+                      "subSelector": "selected-naics4",
+                      "topSelectorLabel": "selected-naics3-text"
+                    },
+                    "options": [
+                      {
+                        "label": "Merchant Wholesalers, Durable Goods  (NAICS 423)",
+                        "key": "423",
+                        "legendItems": [
+                          {
+                            "label": "Motor Vehicle and Motor Vehicle Parts and Supplies Merchant Wholesalers (NAICS 4231)",
+                            "key": "4231"
+                          },
+                          {
+                            "label": "Furniture and Home Furnishing Merchant Wholesalers (NAICS 4232)",
+                            "key": "4232"
+                          },
+                          {
+                            "label": "Lumber and Other Construction Materials Merchant Wholesalers (NAICS 4233)",
+                            "key": "4233"
+                          },
+                          {
+                            "label": "Professional and Commercial Equipment and Supplies Merchant Wholesalers (NAICS 4234)",
+                            "key": "4234"
+                          },
+                          {
+                            "label": "Metal and Mineral (except Petroleum) Merchant Wholesalers (NAICS 4235)",
+                            "key": "4235"
+                          },
+                          {
+                            "label": "Electrical and Electronic Goods Merchant Wholesalers (NAICS 4236)",
+                            "key": "4236"
+                          },
+                          {
+                            "label": "Hardware, and Plumbing and Heating Equipment and Supplies Merchant Wholesalers (NAICS 4237)",
+                            "key": "4237"
+                          },
+                          {
+                            "label": "Machinery, Equipment, and Supplies Merchant Wholesalers (NAICS 4238)",
+                            "key": "4238"
+                          },
+                          {
+                            "label": "Miscellaneous Durable Goods Merchant Wholesalers (NAICS 4239)",
+                            "key": "4239"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Merchant Wholesalers, Nondurable Goods  (NAICS 424)",
+                        "key": "424",
+                        "legendItems": [
+                          {
+                            "label": "Paper and Paper Product Merchant Wholesalers (NAICS 4241)",
+                            "key": "4241"
+                          },
+                          {
+                            "label": "Drugs and Druggists' Sundries Merchant Wholesalers (NAICS 4242)",
+                            "key": "4242"
+                          },
+                          {
+                            "label": "Apparel, Piece Goods, and Notions Merchant Wholesalers (NAICS 4243)",
+                            "key": "4243"
+                          },
+                          {
+                            "label": "Grocery and Related Product Wholesalers (NAICS 4244)",
+                            "key": "4244"
+                          },
+                          {
+                            "label": "Farm Product Raw Material Merchant Wholesalers (NAICS 4245)",
+                            "key": "4245"
+                          },
+                          {
+                            "label": "Chemical and Allied Products Merchant Wholesalers (NAICS 4246)",
+                            "key": "4246"
+                          },
+                          {
+                            "label": "Petroleum and Petroleum Products Merchant Wholesalers (NAICS 4247)",
+                            "key": "4247"
+                          },
+                          {
+                            "label": "Beer, Wine, and Distilled Alcoholic Beverage Merchant Wholesalers (NAICS 4248)",
+                            "key": "4248"
+                          },
+                          {
+                            "label": "Miscellaneous Nondurable Goods Merchant Wholesalers (NAICS 4249)",
+                            "key": "4249"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Wholesale Electronic Markets and Agents and Brokers (NAICS 425)",
+                        "key": "425",
+                        "legendItems": null
+                      },
+                      {
+                        "label": "Motor Vehicle and Parts Dealers (NAICS 441)",
+                        "key": "441",
+                        "legendItems": [
+                          {
+                            "label": "Automobile Dealers (NAICS 4411)",
+                            "key": "4411"
+                          },
+                          {
+                            "label": "Other Motor Vehicle Dealers (NAICS 4411)",
+                            "key": "4412"
+                          },
+                          {
+                            "label": "Miscellaneous Nondurable Goods Merchant Wholesalers (NAICS 4249)",
+                            "key": "4249"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Furniture and Home Furnishings Stores (NAICS 442)",
+                        "key": "442",
+                        "legendItems": [
+                          {
+                            "label": "Furniture Stores (NAICS 4421)",
+                            "key": "4421"
+                          },
+                          {
+                            "label": "Home Furnishings Stores (NAICS 4422)",
+                            "key": "4422"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Electronics and Appliance Stores (NAICS 443)",
+                        "key": "443",
+                        "legendItems": null
+                      },
+                      {
+                        "label": "Building Material and Garden Equipment and Supplies Dealers (NAICS 444)",
+                        "key": "444",
+                        "legendItems": [
+                          {
+                            "label": "Building Material and Supplies Dealers (NAICS 4441)",
+                            "key": "4441"
+                          },
+                          {
+                            "label": "Lawn and Garden Equipment and Supplies Stores (NAICS 4442)",
+                            "key": "4442"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Food and Beverage Stores (NAICS 445)",
+                        "key": "445",
+                        "legendItems": [
+                          {
+                            "label": "Grocery Stores (NAICS 4451)",
+                            "key": "4451"
+                          },
+                          {
+                            "label": "Specialty Food Stores (NAICS 4452)",
+                            "key": "4452"
+                          },
+                          {
+                            "label": "Beer, Wine, and Liquor Stores (NAICS 4453)",
+                            "key": "4453"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Health and Personal Care Stores (NAICS 446)",
+                        "key": "446",
+                        "legendItems": null
+                      },
+                      {
+                        "label": "Gasoline Stations (NAICS 447)",
+                        "key": "447",
+                        "legendItems": null
+                      },
+                      {
+                        "label": "Clothing and Clothing Accessories Stores  (NAICS 448)",
+                        "key": "448",
+                        "legendItems": [
+                          {
+                            "label": "Clothing Stores (NAICS 4481)",
+                            "key": "4481"
+                          },
+                          {
+                            "label": "Shoe Stores (NAICS 4482)",
+                            "key": "4482"
+                          },
+                          {
+                            "label": "Jewelry, Luggage, and Leather Goods Stores (NAICS 4483)",
+                            "key": "4483"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Sporting Goods, Hobby, Book, and Music Stores (NAICS 451)",
+                        "key": "451",
+                        "legendItems": [
+                          {
+                            "label": "Sporting Goods, Hobby, and Musical Instrument Stores (NAICS 4511)",
+                            "key": "4511"
+                          },
+                          {
+                            "label": "Book, Periodical, and Music Stores (NAICS 4512)",
+                            "key": "4512"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "General Merchandise Stores (NAICS 452)",
+                        "key": "452",
+                        "legendItems": [
+                          {
+                            "label": "Department Stores (NAICS 4521)",
+                            "key": "4521"
+                          },
+                          {
+                            "label": "Other General Merchandise Stores (NAICS 4529)",
+                            "key": "4529"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Miscellaneous Store Retailers (NAICS 453)",
+                        "key": "453",
+                        "legendItems": [
+                          {
+                            "label": "Florists (NAICS 4531)",
+                            "key": "4531"
+                          },
+                          {
+                            "label": "Office Supplies, Stationery, and Gift Stores (NAICS 4532)",
+                            "key": "4532"
+                          },
+                          {
+                            "label": "Used Merchandise Stores (NAICS 4533)",
+                            "key": "4533"
+                          },
+                          {
+                            "label": "Other Miscellaneous Store Retailers (NAICS 4539)",
+                            "key": "4539"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Nonstore Retailers  (NAICS 454)",
+                        "key": "454",
+                        "legendItems": [
+                          {
+                            "label": "Electronic Shopping and Mail-Order Houses (NAICS 4541)",
+                            "key": "4541"
+                          },
+                          {
+                            "label": "Vending Machine Operators (NAICS 4542)",
+                            "key": "4542"
+                          },
+                          {
+                            "label": "Direct Selling Establishments (NAICS 4543)",
+                            "key": "4543"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Performing Arts, Spectator Sports, and Related Industries  (NAICS 711)",
+                        "key": "711",
+                        "legendItems": [
+                          {
+                            "label": "Performing Arts Companies (NAICS 7111)",
+                            "key": "7111"
+                          },
+                          {
+                            "label": "Spectator Sports (NAICS 7112)",
+                            "key": "7112"
+                          },
+                          {
+                            "label": "Promoters of Performing Arts, Sports, and Similar Events (NAICS 7113)",
+                            "key": "7113"
+                          },
+                          {
+                            "label": "Agents and Managers for Artists, Athletes, Entertainers, and Other Public Figures (NAICS 7114)",
+                            "key": "7114"
+                          },
+                          {
+                            "label": "Independent Artists, Writers, and Performers (NAICS 7115)",
+                            "key": "7115"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Museums, Historical Sites, and Similar Institutions  (NAICS 712)",
+                        "key": "712",
+                        "legendItems": null
+                      },
+                      {
+                        "label": "Amusement, Gambling, and Recreation Industries (NAICS 713)",
+                        "key": "713",
+                        "legendItems": [
+                          {
+                            "label": "Amusement Parks and Arcades (NAICS 7131)",
+                            "key": "7131"
+                          },
+                          {
+                            "label": "Gambling Industries (NAICS 7132)",
+                            "key": "7132"
+                          },
+                          {
+                            "label": "Other Amusement and Recreation Industries (NAICS 7139)",
+                            "key": "7139"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Accommodation  (NAICS 721)",
+                        "key": "721",
+                        "legendItems": [
+                          {
+                            "label": "Traveler Accommodation (NAICS 7211)",
+                            "key": "7211"
+                          },
+                          {
+                            "label": "RV (Recreational Vehicle) Parks and Recreational Camps (NAICS 7212)",
+                            "key": "7212"
+                          },
+                          {
+                            "label": "Rooming and Boarding Houses (NAICS 7213)",
+                            "key": "7213"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Food Services and Drinking Places (NAICS 722)",
+                        "key": "722",
+                        "legendItems": [
+                          {
+                            "label": "Full-Service Restaurants (NAICS 7221)",
+                            "key": "7221"
+                          },
+                          {
+                            "label": "Limited-Service Eating Places (NAICS 7222)",
+                            "key": "7222"
+                          },
+                          {
+                            "label": "Special Food Services (NAICS 7223)",
+                            "key": "7223"
+                          },
+                          {
+                            "label": "Drinking Places (Alcoholic Beverages) (NAICS 7224)",
+                            "key": "7224"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "width": "33%",
+              "style": {
+                "padding": "10px"
+              },
+              "rows": [
+                {
+                  "height": "10%",
+                  "content": {
+                    "description": "INDICATOR DROPDOWN SELECTOR"
+                  }
+                },
+                {
+                  "height": "45%",
+                  "content": {
+                    "description": "LINE/AREA CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, AND INDICATOR DROPDOWN"
+                  }
+                },
+                {
+                  "height": "45%",
+                  "content": {
+                    "description": "COMPARISON COLUMN CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, INDICATOR DROPDOWN, AND LINE/AREA CHART"
+                  }
+                }
+              ]
             }
           ]
-        },
-        "charts": [
-          {
-            "type": "selector-map",
-            "config": {
-              "center": [33.52698, -112.079901],
-              "zoom": 10,
-              "geoType": "SafeGraph Subareas",
-              "color": "#969696",
-              "strokeColor": "#dfe5e9",
-              "selectorField": "NAME",
-              "totalOption": {
-                "label": "Citywide",
-                "key": "Citywide"
-              }
-            }
-          }
-        ]
+        }
       },
       "tourism": {
         "icon": "money",
