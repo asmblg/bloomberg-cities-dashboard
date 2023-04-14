@@ -550,6 +550,7 @@
                   }
                 },
                 {
+                  "height": "60%",
                   "columns": [
                     {
                       "width": "70%",
@@ -719,6 +720,7 @@
                   }
                 },
                 {
+                  "height": "60%",
                   "columns": [
                     {
                       "width": "70%",
@@ -2084,15 +2086,21 @@
               "width": "50%",
               "height": "100%",
               "style": {
-                "borderRight": "3px solid #dfe5e9"
+                "borderRight": "3px solid #dfe5e9",
+                "padding": "10px 10px 10px 20px"
               },
               "rows": [
                 {
+                  "height": "auto",
                   "content": {
                     "type": "title-with-trend-data-toggler",
                     "config": {
-                      "getterKey": "office-re-trend-data-toggler",
-                      "setterKey": "office-re-trend-data-toggler",
+                      "getterKey": {
+                        "toggleValue": "office-re-trend-toggler"
+                      },
+                      "setterKey": {
+                        "toggleValue": "office-re-trend-toggler"
+                      },
                       "title": "OFFICE REAL ESTATE",
                       "titleStyle": {
                         "color": "#0090c6"
@@ -2101,11 +2109,19 @@
                   }
                 },
                 {
+                  "height": "auto",
+                  "style": {
+                    "paddingBottom": "20px"
+                  },
                   "content": {
                     "type": "compare-selector",
                     "config": {
-                      "setterKey": "office-submarket",
-                      "getterKey": "office-submarket",
+                      "setterKey": {
+                        "selectedOption": "office-submarket"
+                      },
+                      "getterKey": {
+                        "selectedOption": "office-submarket"
+                      },
                       "title": "Select a submarket:",
                       "options": null,
                       "optionsDataPath": "office.submarket",
@@ -2120,75 +2136,120 @@
                   }
                 },
                 {
+                  "height": "auto",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
-                      "getterKey": [
-                        "office-re-trend-data-toggler",
-                        "office-submarket",
-                        "office-re-indicator"
-                      ],
+                      "getterKey": {
+                        "trendValue": "office-re-trend-toggler",
+                        "selectedCategory": "office-submarket"
+                      },
+                      "indicator": {
+                        "var": "vacancy_rate",
+                        "label": "Office Occupancy rate",
+                        "calculator": "differenceFrom100",
+                        "key": "occupancy_rate",
+                        "units": "percent"
+                      },
                       "dataPath": "office.submarket",
-                      "displayCompareText": true
+                      "displayCompareText": true,
+                      "chart": {
+                        "type": "donut",
+                        "config": {
+                          "radius": {
+                            "outer": 40,
+                            "inner": 25
+                          },
+                          "color": "#006aaf",
+                          "accentColor": "#dfe5e9"
+                        }
+                      }
                     }
                   }
                 },
                 {
-                  "content": {
-                    "type": "multi-line-chart",
-                    "config": {
-                      "getter": {
-                        "selectedOption": "office-re-indicator",
-                        "primaryLine": "office-submarket"
-                      },
-                      "setterKey": {
-                        "selectedOption": "office-re-indicator"
-                      },
-                      "dataPath": "office.submarket",
-                      "height": 300,
-                      "width": 600,
-                      "label": null,
-                      "dataLength": 12,
-                      "mainColor": "#006aaf",
-                      "compareColor": "#8dc63f",
-                      "otherColor": "#cccccc",
-                      "displayAllCities": true,
-                      "displayAllKeys": true,
-                      "xaxis": {
-                        "labelFormatter": "monthToQuarter",
-                        "type": "date",
-                        "tickCount": 2
-                      },
-                      "yaxis": {
-                        "tickCount": 3,
-                        "domain": [0, "dataMax"],
-                        "label": "indicator"
-                      },
-                      "indicators": [
-                        {
-                          "var": "vacancy_rate",
-                          "label": "Office Occupancy rate",
-                          "calculator": "differenceFrom100",
-                          "key": "occupancy_rate",
-                          "units": "percent"
-                        },
-                        {
-                          "var": "average_asking_rent_psf",
-                          "label": "Average Rent per square foot",
-                          "calculator": null,
-                          "key": "average_asking_rent_psf",
-                          "units": "dollars"
-                        },
-                        {
-                          "var": "ytd_percent_absorption",
-                          "label": "YTD Percent Absorption",
-                          "calculator": null,
-                          "key": "ytd_percent_absorption",
-                          "units": "percent"
+                  "height": "60%",
+                  "columns": [
+                    {
+                      "width": "70%",
+                      "height": "90%",
+                      "content": {
+                        "type": "multi-line-chart",
+                        "config": {
+                          "getterKey": {
+                            "selectedOption": "office-re-indicator",
+                            "primaryLine": "office-submarket"
+                          },
+                          "setterKey": {
+                            "selectedOption": "office-re-indicator"
+                          },
+                          "dataPath": "office.submarket",
+                          "label": null,
+                          "dataLength": 12,
+                          "mainColor": "#006aaf",
+                          "compareColor": "#8dc63f",
+                          "otherColor": "#cccccc",
+                          "displayAllCities": true,
+                          "displayAllKeys": true,
+                          "xaxis": {
+                            "labelFormatter": "monthToQuarter",
+                            "type": "date",
+                            "tickCount": 2
+                          },
+                          "yaxis": {
+                            "tickCount": 3,
+                            "domain": [0, "dataMax"],
+                            "label": "indicator"
+                          },
+                          "indicators": [
+                            {
+                              "var": "vacancy_rate",
+                              "label": "Office Occupancy rate",
+                              "calculator": "differenceFrom100",
+                              "key": "occupancy_rate",
+                              "units": "percent"
+                            },
+                            {
+                              "var": "average_asking_rent_psf",
+                              "label": "Average Rent per square foot",
+                              "calculator": null,
+                              "key": "average_asking_rent_psf",
+                              "units": "dollars"
+                            },
+                            {
+                              "var": "ytd_percent_absorption",
+                              "label": "YTD Percent Absorption",
+                              "calculator": null,
+                              "key": "ytd_percent_absorption",
+                              "units": "percent"
+                            }
+                          ]
                         }
-                      ]
+                      }
+                    },
+                    {
+                      "width": "30%",
+                      "content": {
+                        "type": "simple-indicator-box",
+                        "config": {
+                          "getterKey": {
+                            "selectedCategory": "office-submarket"
+                          },
+                          "indicator": {
+                            "var": "ytd_percent_absorption",
+                            "label": "YTD Total Net Absorption",
+                            "subLabel": "(% of stock)",
+                            "calculator": null,
+                            "key": "ytd_percent_absorption",
+                            "units": "percent"
+                          },
+                          "dataPath": "office.submarket",
+                          "displayCompareText": true,
+                          "hideTrend": true
+                        }
+                      }
                     }
-                  }
+                  ]
                 }
               ]
             },
@@ -2196,15 +2257,20 @@
               "width": "50%",
               "height": "100%",
               "style": {
-                "borderRight": "3px solid #dfe5e9"
+                "padding": "10px 10px 10px 20px"
               },
               "rows": [
                 {
+                  "height": "auto",
                   "content": {
                     "type": "title-with-trend-data-toggler",
                     "config": {
-                      "getterKey": "industrial-re-trend-data-toggler",
-                      "setterKey": "industrial-re-trend-data-toggler",
+                      "getterKey": {
+                        "toggleValue": "industrial-re-trend-toggler"
+                      },
+                      "setterKey": {
+                        "toggleValue": "industrial-re-trend-toggler"
+                      },
                       "title": "Industrial Real Estate",
                       "titleStyle": {
                         "color": "#0090c6"
@@ -2213,11 +2279,19 @@
                   }
                 },
                 {
+                  "height": "auto",
+                  "style": {
+                    "paddingBottom": "20px"
+                  },
                   "content": {
                     "type": "compare-selector",
                     "config": {
-                      "setterKey": "industrial-submarket",
-                      "getterKey": "industrial-submarket",
+                      "setterKey": {
+                        "selectedOption": "industrial-submarket"
+                      },
+                      "getterKey": {
+                        "selectedOption": "industrial-submarket"
+                      },
                       "title": "Select a submarket:",
                       "options": null,
                       "optionsDataPath": "industrial.submarket",
@@ -2232,75 +2306,120 @@
                   }
                 },
                 {
+                  "height": "auto",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
-                      "getterKey": [
-                        "industrial-re-trend-data-toggler",
-                        "industrial-submarket",
-                        "industrial-re-indicator"
-                      ],
+                      "getterKey": {
+                        "trendValue": "industrial-re-trend-toggler",
+                        "selectedCategory": "industrial-submarket"
+                      },
+                      "indicator": {
+                        "var": "vacancy_rate",
+                        "label": "Industrial Occupancy rate",
+                        "calculator": "differenceFrom100",
+                        "key": "occupancy_rate",
+                        "units": "percent"
+                      },
                       "dataPath": "industrial.submarket",
-                      "displayCompareText": true
+                      "displayCompareText": true,
+                      "chart": {
+                        "type": "donut",
+                        "config": {
+                          "radius": {
+                            "outer": 40,
+                            "inner": 25
+                          },
+                          "color": "#006aaf",
+                          "accentColor": "#dfe5e9"
+                        }
+                      }
                     }
                   }
                 },
                 {
-                  "content": {
-                    "type": "multi-line-chart",
-                    "config": {
-                      "getter": {
-                        "selectedOption": "industrial-re-indicator",
-                        "primaryLine": "industrial-submarket"
-                      },
-                      "setterKey": {
-                        "selectedOption": "industrial-re-indicator"
-                      },
-                      "dataPath": "industrial.submarket",
-                      "height": 300,
-                      "width": 600,
-                      "label": null,
-                      "dataLength": 12,
-                      "mainColor": "#006aaf",
-                      "compareColor": "#8dc63f",
-                      "otherColor": "#cccccc",
-                      "displayAllCities": true,
-                      "displayAllKeys": true,
-                      "xaxis": {
-                        "labelFormatter": "monthToQuarter",
-                        "type": "date",
-                        "tickCount": 2
-                      },
-                      "yaxis": {
-                        "tickCount": 3,
-                        "domain": [0, "dataMax"],
-                        "label": "indicator"
-                      },
-                      "indicators": [
-                        {
-                          "var": "vacancy_rate",
-                          "label": "Industrial Occupancy rate",
-                          "calculator": "differenceFrom100",
-                          "key": "occupancy_rate",
-                          "units": "percent"
-                        },
-                        {
-                          "var": "average_asking_rent_psf",
-                          "label": "Average Rent per square foot",
-                          "calculator": null,
-                          "key": "average_asking_rent_psf",
-                          "units": "dollars"
-                        },
-                        {
-                          "var": "ytd_percent_absorption",
-                          "label": "YTD Percent Absorption",
-                          "calculator": null,
-                          "key": "ytd_percent_absorption",
-                          "units": "percent"
+                  "height": "60%",
+                  "columns": [
+                    {
+                      "width": "70%",
+                      "height": "90%",
+                      "content": {
+                        "type": "multi-line-chart",
+                        "config": {
+                          "getterKey": {
+                            "selectedOption": "industrial-re-indicator",
+                            "primaryLine": "industrial-submarket"
+                          },
+                          "setterKey": {
+                            "selectedOption": "industrial-re-indicator"
+                          },
+                          "dataPath": "industrial.submarket",
+                          "label": null,
+                          "dataLength": 12,
+                          "mainColor": "#006aaf",
+                          "compareColor": "#8dc63f",
+                          "otherColor": "#cccccc",
+                          "displayAllCities": true,
+                          "displayAllKeys": true,
+                          "xaxis": {
+                            "labelFormatter": "monthToQuarter",
+                            "type": "date",
+                            "tickCount": 2
+                          },
+                          "yaxis": {
+                            "tickCount": 3,
+                            "domain": [0, "dataMax"],
+                            "label": "indicator"
+                          },
+                          "indicators": [
+                            {
+                              "var": "vacancy_rate",
+                              "label": "Industrial Occupancy rate",
+                              "calculator": "differenceFrom100",
+                              "key": "occupancy_rate",
+                              "units": "percent"
+                            },
+                            {
+                              "var": "average_asking_rent_psf",
+                              "label": "Average Rent per square foot",
+                              "calculator": null,
+                              "key": "average_asking_rent_psf",
+                              "units": "dollars"
+                            },
+                            {
+                              "var": "ytd_percent_absorption",
+                              "label": "YTD Percent Absorption",
+                              "calculator": null,
+                              "key": "ytd_percent_absorption",
+                              "units": "percent"
+                            }
+                          ]
                         }
-                      ]
+                      }
+                    },
+                    {
+                      "width": "30%",
+                      "content": {
+                        "type": "simple-indicator-box",
+                        "config": {
+                          "getterKey": {
+                            "selectedCategory": "industrial-submarket"
+                          },
+                          "indicator": {
+                            "var": "ytd_percent_absorption",
+                            "label": "YTD Total Net Absorption",
+                            "subLabel": "(% of stock)",
+                            "calculator": null,
+                            "key": "ytd_percent_absorption",
+                            "units": "percent"
+                          },
+                          "dataPath": "industrial.submarket",
+                          "displayCompareText": true,
+                          "hideTrend": true
+                        }
+                      }
                     }
-                  }
+                  ]
                 }
               ]
             }
