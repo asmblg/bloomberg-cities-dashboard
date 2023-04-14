@@ -8,8 +8,8 @@ const TrendDataToggle = ({ config, getter, setter }) => {
   const ref = useRef();
 
   useEffect(() => {
-    if (config && !getter[config.getterKey]) {
-      setter(config.setterKey, 'QtQ');
+    if (config?.setterKey?.toggleValue) {
+      setter(config.setterKey.toggleValue, 'QtQ');
     } else {
       setter('QtQ');
     }
@@ -20,10 +20,10 @@ const TrendDataToggle = ({ config, getter, setter }) => {
       <h5>Quarter-to-Quarter</h5>
       <Checkbox
         toggle
-        checked={(config && getter[config.getterKey] === 'YtY') || getter === 'YtY'}
+        checked={(config?.getterKey?.toggleValue && getter?.[config.getterKey.toggleValue] === 'YtY') || getter === 'YtY'}
         onChange={(e, { checked }) => {
-          if (config) {
-            setter(config.setterKey, checked ? 'YtY' : 'QtQ');
+          if (config?.setterKey?.toggleValue) {
+            setter(config.setterKey.toggleValue, checked ? 'YtY' : 'QtQ');
           } else {
             setter(checked ? 'YtY' : 'QtQ');
           }

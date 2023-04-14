@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart, XAxis, YAxis, Bar, Tooltip, CartesianGrid } from 'recharts';
+import { 
+  BarChart,
+  XAxis,
+  YAxis,
+  Bar,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer
+} from 'recharts';
 import PropTypes from 'prop-types';
 
 import IndicatorDropdown from '../IndicatorDropdown';
@@ -63,46 +71,49 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
           : null
       }
       {/* ---------- CHART ---------- */}
-      <BarChart
+      <ResponsiveContainer
         height={height || 300}
         width={width || 300}
-        data={dataArray}
-        margin={{ top: 100, right: 20, left: 20, bottom: 0 }}
       >
-        <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
-        <XAxis
-          type={'category'}
-          dataKey='name'
-          tickCount={2}
-          barSize={10}
-          tickLine={{ stroke: 'transparent' }}
-          axisLine={{ stroke: 'black', strokeDasharray: '1 0' }}
-          interval={'preserveStartEnd'}
-          tickFormatter={(key, i) => {
-            if (i === 0 || i === dataArray.length - 1) {
-              return key;
-            }
-            return '';
-          }}
-        />
-        <YAxis
-          domain={calculateChartDomain(dataArray)}
-          type={'number'}
-          label={{ value: config.yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
-        />
-        <Tooltip />
+        <BarChart
+          data={dataArray}
+          margin={{ top: 100, right: 20, left: 20, bottom: 0 }}
+        >
+          <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
+          <XAxis
+            type={'category'}
+            dataKey='name'
+            tickCount={2}
+            barSize={10}
+            tickLine={{ stroke: 'transparent' }}
+            axisLine={{ stroke: 'black', strokeDasharray: '1 0' }}
+            interval={'preserveStartEnd'}
+            tickFormatter={(key, i) => {
+              if (i === 0 || i === dataArray.length - 1) {
+                return key;
+              }
+              return '';
+            }}
+          />
+          <YAxis
+            domain={calculateChartDomain(dataArray)}
+            type={'number'}
+            label={{ value: config.yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
+          />
+          <Tooltip />
 
-        {!fixedIndicator && allColumnsArray
-          ? allColumnsArray.map(({ key }, i) => (
-            <Bar
-              key={`${key}-line-${i}`}
-              dataKey={key}
-              fill={key === primaryColumn.key ? mainColor : compareColor}
-              isFront={true}
-            />
-          ))
-          : null}
-      </BarChart>
+          {!fixedIndicator && allColumnsArray
+            ? allColumnsArray.map(({ key }, i) => (
+              <Bar
+                key={`${key}-line-${i}`}
+                dataKey={key}
+                fill={key === primaryColumn.key ? mainColor : compareColor}
+                isFront={true}
+              />
+            ))
+            : null}
+        </BarChart>
+      </ResponsiveContainer>
     </div>
   ) : null;
 };
