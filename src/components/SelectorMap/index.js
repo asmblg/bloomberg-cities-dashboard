@@ -29,10 +29,10 @@ const SelectorMap = ({ project, config, setter }) => {
         }
       });
     }
+
     if (options && options[0]) {
       setSelection(options[0]);
     }
-
 
   }, []);
 
@@ -50,7 +50,9 @@ const SelectorMap = ({ project, config, setter }) => {
             dataPath: `${config.selectionDataPath ? `${config.selectionDataPath}.` : ''}${properties[config.selectorField]}`
           }
         ));
+
       setOptions(optionsFromGeoJSON);
+
       if (options && options[0]) {
         setSelection(options[0]);
       }
@@ -63,18 +65,16 @@ const SelectorMap = ({ project, config, setter }) => {
     }
   }, [selection]);
 
-  return geoJSON ? 
+
+  return geoJSON && selection && options ? 
     (
       <div className='selector-map-wrapper'>
         <p>{config.label}</p>
-        {selection && options ? (
-          <IndicatorDropdown
-            selectedOption={selection}
-            setter={handleSetSelection}
-            options={options}
-          />
-        ) : null}
-        {/* {selection ? ( */}
+        <IndicatorDropdown
+          selectedOption={selection}
+          setter={handleSetSelection}
+          options={options}
+        />
         <div className='selector-map'>
           <MapContainer
             // key={`${selection.key}-selector-map`}
@@ -86,29 +86,22 @@ const SelectorMap = ({ project, config, setter }) => {
               attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
               url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
             />
-            {selection ?
-              <GeoJSON
-                // key={`data-layer-${selection.key}`}
-                data={geoJSON}
-                style={feature => {
-                  const selected = feature.properties[config.selectorField] === selection.key;
-                  return {
-                    fillColor: fillColor,
-                    color: config.strokeColor || 'black',
-                    weight: selected ? 2 : 1,
-                    opacity: selected ? 1 : 0.5,
-                    fillOpacity:  selected ? 1 :0.5
-                  };
-                }}
-              />
-              : null
-            }
+            <GeoJSON
+              key={`data-layer-${selection.key}`}
+              data={geoJSON}
+              style={feature => {
+                const selected = feature.properties[config.selectorField] === selection.key;
+                return {
+                  fillColor: fillColor,
+                  color: config.strokeColor || 'black',
+                  weight: selected ? 2 : 1,
+                  opacity: selected ? 1 : 0.5,
+                  fillOpacity:  selected ? 1 :0.5
+                };
+              }}
+            />
           </MapContainer>
         </div>
-        {/* ) 
-        : (
-          <div className='indicator-map-wrapper'>Loading...</div>
-        )} */}
       </div>
     ) : (
       <div className='indicator-map-wrapper'>Loading...</div>
