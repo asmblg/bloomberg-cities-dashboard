@@ -235,6 +235,7 @@
               "height": "100%",
               "rows": [
                 {
+                  "height": "25%",
                   "content": {
                     "type": "compare-selector",
                     "config": {
@@ -275,6 +276,7 @@
                   }
                 },
                 {
+                  "height": "75%",
                   "columns": [
                     {
                       "width": "50%",
@@ -288,8 +290,8 @@
                           "setter": {
                             "selectedOption": "jobs-line-indicator"
                           },
-                          "height": 300,
-                          "width": 500,
+                          "height": "100%",
+                          "width": "100%",
                           "label": null,
                           "dataLength": 12,
                           "fixedIndicator": "unemployment",
@@ -335,8 +337,8 @@
                           "setter": {
                             "selectedOption": "jobs-column-indicator"
                           },
-                          "height": 300,
-                          "width": 500,
+                          "height": "100%",
+                          "width": "100%",
                           "label": null,
                           "dataLength": 13,
                           "valueType": "thousands",

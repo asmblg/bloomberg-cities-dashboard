@@ -34,10 +34,10 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
         dataPath && selectedCategory?.key
           ? getNestedValue(data, `${dataPath}.${selectedCategory.key}`)
           : dataPath && !selectedCategory
-          ? getNestedValue(data, dataPath)
-          : !dataPath && !selectedCategory
-          ? { ...data }
-          : null;
+            ? getNestedValue(data, dataPath)
+            : !dataPath && !selectedCategory
+              ? { ...data }
+              : null;
       console.log(nestedDataObj);
       if (nestedDataObj && selectedIndicator) {
         const dataObj = handleTrendDisplayData(nestedDataObj, selectedIndicator, trendDataType);
