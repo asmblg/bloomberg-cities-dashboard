@@ -468,10 +468,12 @@
               "width": "50%",
               "height": "100%",
               "style": {
-                "borderRight": "3px solid #dfe5e9"
+                "borderRight": "3px solid #dfe5e9",
+                "padding": "10px 10px 10px 20px"
               },
               "rows": [
                 {
+                  "height": "auto",
                   "content": {
                     "type": "title-with-trend-data-toggler",
                     "config": {
@@ -489,6 +491,10 @@
                   }
                 },
                 {
+                  "height": "auto",
+                  "style": {
+                    "paddingBottom": "20px" 
+                  },
                   "content": {
                     "type": "compare-selector",
                     "config": {
@@ -512,6 +518,7 @@
                   }
                 },
                 {
+                  "height": "auto",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
@@ -532,6 +539,7 @@
                   }
                 },
                 {
+                  "height": "60%",
                   "content": {
                     "type": "multi-line-chart",
                     "config": {
@@ -543,8 +551,6 @@
                         "selectedOption": "office-re-indicator"
                       },
                       "dataPath": "office.submarket",
-                      "height": 300,
-                      "width": 600,
                       "label": null,
                       "dataLength": 12,
                       "mainColor": "#006aaf",
@@ -594,10 +600,11 @@
               "width": "50%",
               "height": "100%",
               "style": {
-                "borderRight": "3px solid #dfe5e9"
+                "padding": "10px 10px 10px 20px"
               },
               "rows": [
                 {
+                  "height": "auto",
                   "content": {
                     "type": "title-with-trend-data-toggler",
                     "config": {
@@ -615,6 +622,10 @@
                   }
                 },
                 {
+                  "height": "auto",
+                  "style": {
+                    "paddingBottom": "20px" 
+                  },
                   "content": {
                     "type": "compare-selector",
                     "config": {
@@ -638,6 +649,7 @@
                   }
                 },
                 {
+                  "height": "auto",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
@@ -658,6 +670,7 @@
                   }
                 },
                 {
+                  "height": "60%",
                   "content": {
                     "type": "multi-line-chart",
                     "config": {
@@ -669,8 +682,6 @@
                         "selectedOption": "industrial-re-indicator"
                       },
                       "dataPath": "industrial.submarket",
-                      "height": 300,
-                      "width": 600,
                       "label": null,
                       "dataLength": 12,
                       "mainColor": "#006aaf",
@@ -772,7 +783,7 @@
                   }
                 },
                 {
-                  "height": "80%",
+                  "height": "100%",
                   "style": {
                     "padding": "20px"
                   },
@@ -1363,14 +1374,14 @@
                 },
                 {
                   "var": ["pop_over_65", "pop"],
-                  "label": "Over 65",
+                  "label": "65 And Over",
                   "calculator": "percentageOf",
                   "key": "p_over_65",
                   "units": "percent"
                 },
                 {
-                  "var": ["pop_under_19", "pop"],
-                  "label": "Under 19",
+                  "var": ["pop_under_18", "pop"],
+                  "label": "Under 18",
                   "calculator": "percentageOf",
                   "key": "p_under_19",
                   "units": "percent"
@@ -1488,21 +1499,21 @@
                   "title": "AGE GROUPS",
                   "indicators": [
                     {
-                      "var": "pop_under_19",
-                      "label": "Under 19",
+                      "var": "pop_under_18",
+                      "label": "Under 18",
                       "calculator": null,
-                      "key": "pop_under_19",
+                      "key": "pop_under_18",
                       "units": null
                     },
                     {
                       "var": "pop_over_65",
-                      "label": "65 or more",
+                      "label": "65 and over",
                       "calculator": null,
                       "key": "pop_over_65",
                       "units": null
                     },
                     {
-                      "var": ["pop", "pop_over_65", "pop_under_19"],
+                      "var": ["pop", "pop_over_65", "pop_under_18"],
                       "label": "",
                       "calculator": "difference",
                       "key": "pop_20_to_64",
@@ -2453,14 +2464,14 @@
                 },
                 {
                   "var": ["pop_over_65", "pop"],
-                  "label": "Over 65",
+                  "label": "65 And Over",
                   "calculator": "percentageOf",
                   "key": "p_over_65",
                   "units": "percent"
                 },
                 {
-                  "var": ["pop_under_19", "pop"],
-                  "label": "Under 19",
+                  "var": ["pop_under_18", "pop"],
+                  "label": "Under 18",
                   "calculator": "percentageOf",
                   "key": "p_under_19",
                   "units": "percent"
@@ -2578,21 +2589,21 @@
                   "title": "AGE GROUPS",
                   "indicators": [
                     {
-                      "var": "pop_under_19",
-                      "label": "Under 19",
+                      "var": "pop_under_18",
+                      "label": "Under 18",
                       "calculator": null,
-                      "key": "pop_under_19",
+                      "key": "pop_under_18",
                       "units": null
                     },
                     {
                       "var": "pop_over_65",
-                      "label": "65 or more",
+                      "label": "65 and over",
                       "calculator": null,
                       "key": "pop_over_65",
                       "units": null
                     },
                     {
-                      "var": ["pop", "pop_over_65", "pop_under_19"],
+                      "var": ["pop", "pop_over_65", "pop_under_18"],
                       "label": "",
                       "calculator": "difference",
                       "key": "pop_20_to_64",

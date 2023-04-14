@@ -1,5 +1,5 @@
 .indicator-trend-container {
-  padding: 20px;
+  padding: 5px;
 }
 
 .indicator-data-body {
@@ -23,6 +23,6 @@
 /* Initial Desktio Breakpoint */
 @media screen and (max-width: 1600px) {
   .indicator-value-container {
-    width: 200px
+    width: 80%
   }
 }

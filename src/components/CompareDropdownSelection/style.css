@@ -1,7 +1,7 @@
 .compare-dropdown-container {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 5px;
 }
 
 .compare-dropdown-legend {

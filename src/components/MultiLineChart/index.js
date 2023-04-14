@@ -84,12 +84,12 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
         : null}
       {dataArray[0] ? (
         <ResponsiveContainer
-          height={height || 300}
-          width={width || 300}
+          height={height || '100%'}
+          width={width || '100%'}
         >
           <LineChart
             data={dataArray}
-            margin={{ top: 100, right: 20, left: 20, bottom: 0 }}
+            margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
           >
             <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
             <XAxis

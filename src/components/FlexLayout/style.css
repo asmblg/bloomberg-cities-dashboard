@@ -1,7 +1,8 @@
 .flex-layout {
   display: flex;
-  height: 50vh;
+  height: 45vh;
   width: 100%;
+  /* margin-bottom: px; */
 }
 
 .flex-layout-columns {
