@@ -12,7 +12,7 @@ const formatValue = (value, units) => {
         return `${formatNumberWithCommas(parseFloat(value).toFixed(1))}%`;
       }
       case 'dollars': {
-        return `$${formatNumberWithCommas(parseFloat(`${value}`.replace('$', '')).toFixed(2))}`;
+        return `$${formatNumberWithCommas(parseFloat(`${value}`.replace('$', '')).toFixed(0))}`;
       }
       default: {
         return formatNumberWithCommas(value);

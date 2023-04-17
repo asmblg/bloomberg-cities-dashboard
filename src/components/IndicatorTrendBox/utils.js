@@ -3,7 +3,7 @@ import getNestedValue from '../../utils/getNestedValue';
 
 const handleTrendDisplayData = (data, indicatorObj, trendDataType) => {
   if (indicatorObj.calculator) {
-    console.log(indicatorObj.var);
+    // console.log(indicatorObj.var);
     if (typeof indicatorObj.var === 'string') {
       const values = indicatorObj.var.search('.') !== 1 ?
         getNestedValue(data, indicatorObj.var)

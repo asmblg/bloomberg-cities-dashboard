@@ -21,7 +21,7 @@ const getCurrentAndCompareData = (calculator, data, trendDataType) => {
       [...new Set(Object.values(data).map(obj => Object.keys(obj)).flat(1))]
       : Object.keys(data);
 
-    console.log(dateKeys);
+    // console.log(dateKeys);
     // Uses trend type to return two dates (keys) to compare in data object
     const { currentDate, compareDate } = getDataCompareDates(dateKeys, trendDataType);
     dataObj.currentDate = currentDate;
