@@ -12,10 +12,10 @@ const FlexLayout = ({ layout: { columns, rows }, data, project }) => {
     const multipleSetters = Array.isArray(setterKey);
     if (multipleSetters) {
       const setterObj = { ...getter };
-      setterKey.forEach((key,i) =>{
+      setterKey.forEach((key, i) => {
         if (key) {
-          setterObj[key]= value[i];
-        }  
+          setterObj[key] = value[i];
+        }
       });
       setter(setterObj);
     } else {

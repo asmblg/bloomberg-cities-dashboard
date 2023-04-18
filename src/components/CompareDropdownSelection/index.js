@@ -19,15 +19,14 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
     getterKey,
     setterKey,
     style,
-    svgStyle
+    svgStyle,
+    legendStyle
   } = config;
 
   const selectedOption =
     getterKey?.selectedOption && getter?.[getterKey.selectedOption]
       ? getter[getterKey.selectedOption]
       : defaultSelected || null;
-  
-  console.log(selectedOption);
 
   useEffect(() => {
     if (options?.[0] && !optionsDataPath) {
@@ -62,7 +61,7 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
       style={style || {}}
     >
       <h5 className='bold-font'>{title || ''}</h5>
-      <div className='compare-dropdown-legend'>
+      <div className='compare-dropdown-legend' style={legendStyle || {}}>
         {comparand ? (
           <div className='main-value-container'>
             <h5>{comparand.text || ''}</h5>

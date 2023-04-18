@@ -6,22 +6,17 @@ import FlexLayout from '../FlexLayout';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
 import LastUpdateIcon from '../LastUpdateIcon';
 
-import getNestedValue from '../../utils/getNestedValue';
-import { getData } from '../../utils/API';
+import { handleDetailData } from './utils';
 import './style.css';
 
 const DetailCard = ({ project, config, sectionKey, viewType }) => {
   const [detailData, setDetailData] = useState(null);
 
   useEffect(() => {
-    const dataPath = `data.${config.dataPath}`;
-    getData(project, dataPath).then(({ data }) => {
-      const [dataObj] = data;
-
-      setDetailData({
-        updatedOn: dataObj.updatedOn,
-        data: getNestedValue(dataObj, dataPath)
-      });
+    handleDetailData(config, project).then(dataObj => {
+      if (dataObj) {
+        setDetailData(dataObj);
+      }
     });
   }, [project, config.dataPath, sectionKey]);
 
@@ -58,7 +53,12 @@ const DetailCard = ({ project, config, sectionKey, viewType }) => {
             viewType={viewType}
           />
         ) : config.layout && detailData ? (
-          <FlexLayout key={`flex-layout-${sectionKey}`} data={detailData.data} layout={config?.layout || null} project={project} />
+          <FlexLayout
+            key={`flex-layout-${sectionKey}`}
+            data={detailData.data}
+            layout={config?.layout || null}
+            project={project}
+          />
         ) : null}
         <ShareAndPrintIcons />
       </div>

@@ -12,10 +12,9 @@ import PropTypes from 'prop-types';
 
 import IndicatorDropdown from '../IndicatorDropdown';
 
-import { handleDataArray, handleLineStyle } from './utils';
+import { handleDataArray, handleLineStyle, handleDataObject } from './utils';
 import formatValue from '../../utils/formatValue';
 import calculateChartDomain from '../../utils/calculateChartDomain';
-import getNestedValue from '../../utils/getNestedValue';
 
 const MultiLineChart = ({ config, data, getter, setter }) => {
   const [dataArray, setDataArray] = useState(null);
@@ -39,8 +38,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
   // Looks for a primary line from getter, then for a default primaryLine in the config
   const primaryLine = config.getterKey?.primaryLine ? getter[config.getterKey?.primaryLine] : config.primaryLine || null;
   const secondaryLine = config.getterKey?.secondaryLine ? getter[config.getterKey.secondaryLine] : null;
-
-  const dataObj = data && dataPath ? getNestedValue(data, dataPath) : data ? data : null;
+  const dataObj = data ? handleDataObject({ data, dataPath, config, selectedIndicator, getter }) : null;
   const allLinesArray = dataObj ? Object.keys(dataObj) : [];
 
   useEffect(() => {
@@ -55,11 +53,11 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
   }, [getter, selectedIndicator]);
 
   useEffect(() => {
-    if (data && selectedIndicator && allLinesArray && (primaryLine || secondaryLine)) {
+    if (data && allLinesArray && (primaryLine || secondaryLine) && (selectedIndicator || config.noIndicator)) {
       handleDataArray({
         mainLineKey: primaryLine?.key || secondaryLine?.key || null,
         data: dataObj || {},
-        selectedIndicator,
+        selectedIndicator: !config.noIndicator && selectedIndicator ? selectedIndicator : null,
         allLinesArray: allLinesArray,
         dataLength
       }).then(array => {
@@ -68,18 +66,21 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
         }
       });
     }
-  }, [selectedIndicator, primaryLine, secondaryLine, data]);
+  }, [data, getter]);
 
-  return selectedIndicator && dataArray ? (
+  return dataArray ? (
     <div className='chart-container'>
       {!config.disableDropdown ? 
         <IndicatorDropdown
-          // selectedOption={selectedIndicator}
-          // setterKey={setterKey}
+          selectedOption={
+            config.noIndicator && config.label
+              ? { key: config.label, label: config.label }
+              : null
+          }
           setter={setter}
           getter={getter}
           config={config}
-          options={!fixedIndicator ? indicators : null}
+          options={!fixedIndicator && indicators ? indicators : null}
         />
         : null}
       {dataArray[0] ? (
@@ -106,8 +107,8 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
             />
             <YAxis
               domain={calculateChartDomain(dataArray)}
-              tickFormatter={text => formatValue(text, selectedIndicator.units)}
-              label={{ value: yaxis.label === 'indicator' ? selectedIndicator.label : yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
+              tickFormatter={text => formatValue(text, selectedIndicator?.units || yaxis?.units)}
+              label={{ value: yaxis.label === 'indicator' ? selectedIndicator.label : yaxis.label || '', angle: '-90', position: 'insideLeft', dy: 50 }}
             />
             <Tooltip />
             {allLinesArray.map(city => {

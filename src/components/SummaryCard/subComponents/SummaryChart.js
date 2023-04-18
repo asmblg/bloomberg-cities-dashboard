@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ColumnChart from '../../ColumnChart';
+import SimpleColumnChart from '../../SimpleColumnChart';
 import SinglePercentDonutChart from '../../SinglePercentDonutChart';
 
 const SummaryChart = ({ config, data }) => {
@@ -9,7 +9,7 @@ const SummaryChart = ({ config, data }) => {
   switch (type) {
     case 'column': {
       return (
-        <ColumnChart
+        <SimpleColumnChart
           config={config}
           data={data}
           height={150}

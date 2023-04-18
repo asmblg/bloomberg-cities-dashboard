@@ -7,7 +7,8 @@ import './style.css';
 const IndicatorSelectDropdown = ({ setter, getter, config, options, selectedOption }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const selection = getter?.[config.getterKey?.selectedOption] || selectedOption;
+  const selection =
+    getter?.[config?.getterKey?.selectedOption] || config?.fixedSelection || selectedOption;
   const setterKey = config?.setterKey?.selectedOption;
   const text = selection?.label || null;
   const key = selectedOption?.key || null;

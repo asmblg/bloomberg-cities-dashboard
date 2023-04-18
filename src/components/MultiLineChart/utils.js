@@ -2,6 +2,7 @@ import getRecentQuarterEndDates from '../../utils/getRecentQuarterEndDates';
 import addCalculatedIndicatorToDataObj from '../../utils/addCalculatedIndicatorToDataObj';
 import sortDatesArray from '../../utils/sortDatesArray';
 import dateToQuarter from '../../utils/dateToQuarter';
+import getNestedValue from '../../utils/getNestedValue';
 
 const handleDataArray = async ({
   data,
@@ -12,10 +13,12 @@ const handleDataArray = async ({
 }) => {
   try {
     const obj = {};
+
     allLinesArray.forEach(lineKey => {
       if (lineKey && lineKey !== 'default') {
         obj[lineKey] = {};
-        if (data[lineKey]?.[selectedIndicator.key] && typeof selectedIndicator.var === 'string') {
+
+        if (data[lineKey]?.[selectedIndicator?.key] && typeof selectedIndicator?.var === 'string') {
           const dataObj = data[lineKey]?.[selectedIndicator.key];
           const dateKeys = getRecentQuarterEndDates(Object.keys(dataObj), dataLength);
 
@@ -37,8 +40,7 @@ const handleDataArray = async ({
                 : parseFloat(dataObj[date]);
             }
           });
-        } else if (selectedIndicator.calculator) {
-
+        } else if (selectedIndicator?.calculator) {
           const firstVarDataObj = typeof selectedIndicator.var !== 'string' && (data[lineKey][selectedIndicator.var[0]] || data[lineKey][selectedIndicator.var[1]])
             ? data[lineKey][selectedIndicator.var[0]] || data[lineKey][selectedIndicator.var[1]]
             : data[lineKey][selectedIndicator.var];
@@ -70,11 +72,19 @@ const handleDataArray = async ({
               obj[lineKey][date] = Number(value);
             }
           });
+        } else if (!selectedIndicator && data[lineKey]) {
+          const dataObj = data[lineKey];
+          const dateKeys = getRecentQuarterEndDates(Object.keys(dataObj), dataLength);
+
+          dateKeys.forEach(date => {
+            obj[lineKey][date] = parseFloat(dataObj[date]);
+          });
         }
       }
     });
 
     const sortedDateKeys = mainLineKey && obj[mainLineKey] ? sortDatesArray(Object.keys(obj[mainLineKey]), 'ascending') : null;
+
     const dataArr = sortedDateKeys ? sortedDateKeys.map(dateKey => {
       const chartObj = {};
       chartObj.name = dateToQuarter(dateKey, 'QX YYYY');
@@ -90,6 +100,21 @@ const handleDataArray = async ({
     console.log(err);
     return null;
   }
+};
+
+const handleDataObject = ({ data, dataPath, config, getter }) => {
+  let path = dataPath;
+
+  if (config?.getterKey?.selectedCategory) {
+    if (config.getterValueFormatter && getter?.[config.getterValueFormatter.value]) {
+      path += `.${config.getterValueFormatter[getter[config.getterValueFormatter.value]]}`;
+    } else if (config.defaultSelectedCategory) {
+      path += `.${config.defaultSelectedCategory}`;
+    }
+  }
+
+  const dataObj = path ? getNestedValue(data, path) : data;
+  return dataObj;
 };
 
 const handleLineStyle = ({
@@ -121,4 +146,4 @@ const handleLineStyle = ({
   return obj;
 };
 
-export { handleDataArray, handleLineStyle };
+export { handleDataArray, handleLineStyle, handleDataObject };
