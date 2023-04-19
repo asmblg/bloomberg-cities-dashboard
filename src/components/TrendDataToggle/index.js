@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox } from 'semantic-ui-react';
 
+import { handleSetter } from './utils';
 import './style.css';
 
 const TrendDataToggle = ({ config, getter, setter }) => {
@@ -14,11 +15,13 @@ const TrendDataToggle = ({ config, getter, setter }) => {
       : null;
 
   useEffect(() => {
-    if (config?.setterKey?.toggleValue) {
-      setter(config.setterKey.toggleValue, 'QtQ');
-    } else {
-      setter('QtQ');
-    }
+    handleSetter(config?.setterKey?.toggleValue, 'QtQ').then(({ setterKey, value }) => {
+      if (setterKey && value) {
+        setter(setterKey, value);
+      } else if (value) {
+        setter(value);
+      }
+    });
   }, []);
 
   return (
@@ -26,7 +29,7 @@ const TrendDataToggle = ({ config, getter, setter }) => {
       <h5>Quarter-to-Quarter</h5>
       <Checkbox
         toggle
-        checked={toggleValue && toggleValue === 'YtY' || false}
+        checked={(toggleValue && toggleValue === 'YtY') || false}
         onChange={(e, { checked }) => {
           if (config?.setterKey?.toggleValue) {
             setter(config.setterKey.toggleValue, checked ? 'YtY' : 'QtQ');
