@@ -7,20 +7,23 @@ import moment from 'moment';
  * @returns array of dates sorted in the specified order
  */
 
-const sortDatesArray = (array, order) => {
+const sortDatesArray = (array, order, dateKey) => {
   const regex = /^\d{4}-(Q\d)$/;
 
   const sortedDates = array.sort((a, b) => {
-    const isQuarter = regex.test(a) && regex.test(b);
+    const aDate = dateKey ? a[dateKey] : a;
+    const bDate = dateKey ? b[dateKey] : b;
+    
+    const isQuarter = regex.test(aDate) && regex.test(bDate);
 
     if (isQuarter) {
       return order === 'ascending'
-        ? moment(a, 'YYYY-QX') - moment(b, 'YYYY-QX')
-        : moment(b, 'YYYY-QX') - moment(a, 'YYYY-QX');
+        ? moment(aDate, 'YYYY-QX') - moment(bDate, 'YYYY-QX')
+        : moment(bDate, 'YYYY-QX') - moment(aDate, 'YYYY-QX');
     } else {
       return order === 'ascending'
-        ? moment(a, 'YYYY-MM-DD') - moment(b, 'YYYY-MM-DD')
-        : moment(b, 'YYYY-MM-DD') - moment(a, 'YYYY-MM-DD');
+        ? moment(aDate, 'YYYY-MM-DD') - moment(bDate, 'YYYY-MM-DD')
+        : moment(bDate, 'YYYY-MM-DD') - moment(aDate, 'YYYY-MM-DD');
     }
   });
   return sortedDates;

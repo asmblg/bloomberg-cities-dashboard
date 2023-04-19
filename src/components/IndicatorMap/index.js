@@ -17,7 +17,7 @@ const IndicatorMap = ({ config, geoJSON }) => {
   const numOfBins = colors.length;
   const indicators = config?.indicators || null;
 
-  const handleSetSelectedIndicator = (key,value) => {
+  const handleSetSelectedIndicator = (key, value) => {
     setSelectedIndicator(value);
   };
 
@@ -28,7 +28,7 @@ const IndicatorMap = ({ config, geoJSON }) => {
   }, []);
 
   useEffect(() => {
-    if (indicators && indicators[0]) {
+    if (indicators?.[0]) {
       setSelectedIndicator(indicators[0]);
     }
   }, []);
@@ -39,40 +39,41 @@ const IndicatorMap = ({ config, geoJSON }) => {
         handleBinning({
           geoJSON: mapGeoJSON,
           colors,
-          indicator: selectedIndicator.key,
+          indicator: selectedIndicator?.key,
           numOfBins
         })
       );
     }
-  }, [selectedIndicator, mapGeoJSON]);
+  }, [selectedIndicator]);
 
   return bins && mapGeoJSON ? (
     <div className='indicator-map-wrapper'>
       <p>Select socioeconomic variable to map:</p>
-      {selectedIndicator && indicators ? (
-        <IndicatorDropdown
-          selectedOption={selectedIndicator}
-          setter={handleSetSelectedIndicator}
-          options={indicators}
-        />
-      ) : null}
-      {selectedIndicator ? (
-        <div className='indicator-map'>
-          <MapContainer
-            key={`${selectedIndicator.key}-indicator-map`}
-            center={config.center}
-            zoom={config.zoom}
-            zoomControl={false}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
-              url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
-            />
-            <GeoJSON
-              key={`data-layer-${selectedIndicator.key}`}
+      
+      <IndicatorDropdown
+        selectedOption={selectedIndicator || indicators?.[0]}
+        setter={handleSetSelectedIndicator}
+        options={indicators || []}
+      />
+      {/* {selectedIndicator ? ( */}
+      <div className='indicator-map'>
+        <MapContainer
+          key={'indicator-map'}
+          center={config.center}
+          zoom={config.zoom}
+          zoomControl={false}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
+            url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+          />
+
+          { mapGeoJSON 
+            ? <GeoJSON
+              key={`data-layer-${selectedIndicator?.key || indicators?.[0].key }`}
               data={mapGeoJSON}
               style={feature => {
-                const value = feature.properties[selectedIndicator.key];
+                const value = feature.properties[selectedIndicator?.key || indicators?.[0]];
                 const color = value
                   ? bins
                     .filter(({ percentile }) => value <= percentile)
@@ -87,16 +88,16 @@ const IndicatorMap = ({ config, geoJSON }) => {
                 };
               }}
             />
-            <Legend
-              indicator={selectedIndicator}
-              bins={bins}
-              strokeColor={config.strokeColor || 'black'}
-            />
-          </MapContainer>
-        </div>
-      ) : (
-        <div className='indicator-map-wrapper'>Loading...</div>
-      )}
+            : null}
+          <Legend
+            indicator={selectedIndicator || indicators?.[0]}
+            bins={bins}
+            strokeColor={config.strokeColor || 'black'}
+          />
+
+
+        </MapContainer>
+      </div>
     </div>
   ) : (
     <div className='indicator-map-wrapper'>Loading...</div>

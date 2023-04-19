@@ -9,6 +9,9 @@ import CompareDropdownSelection from '../CompareDropdownSelection';
 import MultiLineChart from '../MultiLineChart';
 import CompareColumnChart from '../CompareColumnChart';
 import SelectorWithLegend from '../SelectorWithLegend';
+import IndicatorDropdown from '../IndicatorDropdown';
+import ComboLineAreaChart from '../ComboLineAreaChart';
+
 
 const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
   const { columns, rows, content, height, width, style } = layout;
@@ -82,12 +85,31 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
         />
       ) : content.type === 'selector-with-legend' ? (
         <SelectorWithLegend
-          options={content.options}
-          colors={content.colors}
+          // options={content.options}
+          // colors={content.colors}
           setter={setter}
-          setterKey={content.setterKey}
+          getter={getter}
+          // setterKey={content.setterKey}
+          config={content}
+          data={data}
         />
-      ) : (
+      ) : content.type === 'indicator-dropdown' ? (
+        <IndicatorDropdown
+          setter={setter}
+          getter={getter}
+          config={content}
+          options={!content.fixedIndicator ? content.indicators : null}
+        />
+
+      ) : content.type === 'combo-line-area-chart' ? (
+        <ComboLineAreaChart
+          setter={setter}
+          getter={getter}
+          config={content}
+          data={data}
+        />
+
+      ) : (        
         JSON.stringify(content)
       )}
     </div>

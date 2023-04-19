@@ -11,7 +11,7 @@ import './style.css';
 const SelectorMap = ({ project, config, setter }) => {
   const [geoJSON, setGeoJSON] = useState();
   const [selection, setSelection] = useState();
-  const [options, setOptions] = useState(config.indicators);
+  const [options, setOptions] = useState();
   const fillColor = config.color || '#fff3e2';
 
   const handleSetSelection = (key, option) => {
@@ -23,21 +23,21 @@ const SelectorMap = ({ project, config, setter }) => {
   useEffect( () => {
     if (config.geoType && project) {
       getGeoJSON(project, config.geoType).then(({data}) =>{
-        console.log(data);
+        // console.log(data);
         if (data[0]) {
           setGeoJSON(data[0]);
         }
       });
     }
 
-    if (options && options[0]) {
-      setSelection(options[0]);
+    if ( config?.totalOption || config?.indicators) {
+      setSelection(config?.totalOption || config?.indicators[0]);
     }
 
   }, []);
 
   useEffect(() => {
-    if (!config.indicators && geoJSON) {
+    if (!config?.indicators && geoJSON) {
       const optionsFromGeoJSON = config.totalOption
         ? [config.totalOption]
         : [];
@@ -53,7 +53,7 @@ const SelectorMap = ({ project, config, setter }) => {
 
       setOptions(optionsFromGeoJSON);
 
-      if (options && options[0]) {
+      if (options?.[0]) {
         setSelection(options[0]);
       }
     }
@@ -66,29 +66,29 @@ const SelectorMap = ({ project, config, setter }) => {
   }, [selection]);
 
 
-  return geoJSON && selection && options ? 
-    (
-      <div className='selector-map-wrapper'>
-        <p>{config.label}</p>
-        <IndicatorDropdown
-          selectedOption={selection}
-          setter={handleSetSelection}
-          options={options}
-        />
-        <div className='selector-map'>
-          <MapContainer
-            // key={`${selection.key}-selector-map`}
-            center={config.center}
-            zoom={config.zoom}
-            zoomControl={false}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
-              url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
-            />
+  return (
+    <div className='selector-map-wrapper' key='selector-map'>
+      <p>{config?.label}</p>
+      <IndicatorDropdown
+        selectedOption={selection || config?.totalOption || config?.indicators[0]}
+        setter={handleSetSelection}
+        options={options}
+      />
+      <div className='selector-map'>
+        <MapContainer
+          // key={`${selection.key}-selector-map`}
+          center={config.center}
+          zoom={config.zoom}
+          zoomControl={false}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
+            url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+          />
+          {geoJSON ? 
             <GeoJSON
-              key={`data-layer-${selection.key}`}
-              data={geoJSON}
+              key={`data-layer-${selection?.key}`}
+              data={geoJSON || null}
               style={feature => {
                 const selected = feature.properties[config.selectorField] === selection.key;
                 return {
@@ -100,12 +100,12 @@ const SelectorMap = ({ project, config, setter }) => {
                 };
               }}
             />
-          </MapContainer>
-        </div>
+            : null
+          }
+        </MapContainer>
       </div>
-    ) : (
-      <div className='indicator-map-wrapper'>Loading...</div>
-    );
+    </div>
+  ); 
 };
 
 SelectorMap.propTypes = {

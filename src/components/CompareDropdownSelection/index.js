@@ -27,7 +27,7 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
       ? getter[getterKey.selectedOption]
       : defaultSelected || null;
   
-  console.log(selectedOption);
+  // console.log(selectedOption);
 
   useEffect(() => {
     if (options?.[0] && !optionsDataPath) {

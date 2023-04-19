@@ -27,9 +27,9 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
     height
   } = config;
   const setterKey = config.setterKey.selectedOption;
-  const selectedIndicator = getter[config.getterKey?.selectedOption] || null;
-  const primaryColumn = config.primaryColumn || getter[config.getterKey?.primaryColumn];
-  const secondaryColumn = getter[config.getterKey?.secondaryColumn] || null;
+  const selectedIndicator = getter?.[config.getterKey?.selectedOption] || null;
+  const primaryColumn = config.primaryColumn || getter?.[config.getterKey?.primaryColumn];
+  const secondaryColumn = getter?.[config.getterKey?.secondaryColumn] || null;
   const allColumnsArray = [primaryColumn, secondaryColumn || {}];
 
   useEffect(() => {
@@ -46,7 +46,12 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
         }
       });
     }
-  }, [selectedIndicator, primaryColumn, secondaryColumn, data]);
+  }, [
+    getter?.[config.getterKey?.selectedOption], 
+    getter?.[config.getterKey?.primaryColumn], 
+    getter?.[config.getterKey?.secondaryColumn], 
+    data
+  ]);
 
   useEffect(() => {
     if (fixedIndicator) {

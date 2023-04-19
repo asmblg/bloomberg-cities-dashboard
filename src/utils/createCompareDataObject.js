@@ -28,7 +28,7 @@ import getCurrentAndCompareData from './getCurrentAndCompareData';
  */
 
 const createCompareDataObject = (calculator, data, trendDataType) => {
-  console.log(data, trendDataType);
+  // console.log(data, trendDataType);
   const { currentValue, compareValue, currentDate, compareDate } = getCurrentAndCompareData(
     calculator,
     data,
@@ -66,7 +66,7 @@ const createCompareDataObject = (calculator, data, trendDataType) => {
     }
   }
 
-  console.log(obj);
+  // console.log(obj);
 
   // obj.displayValue = formatValue(obj.displayValue, formatter);
   return obj;

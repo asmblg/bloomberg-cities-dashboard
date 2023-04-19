@@ -5,7 +5,6 @@ import CommunityProfile from '../CommunityProfile';
 import FlexLayout from '../FlexLayout';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
 import LastUpdateIcon from '../LastUpdateIcon';
-
 import getNestedValue from '../../utils/getNestedValue';
 import { getData } from '../../utils/API';
 import './style.css';
