@@ -1302,7 +1302,7 @@
               },
               "rows": [
                 {
-                  "height": "10%",
+                  "height": "20%",
                   "content": {
                     "type": "indicator-dropdown",
                     "key": "consusmer-indicator-dropdown",
@@ -1321,12 +1321,19 @@
                         "calculator": null,
                         "key": "total_spending",
                         "units": "bigDollars"
+                      },
+                      {
+                        "var": "p_tourist_consumers",
+                        "label": "Percent Tourist",
+                        "calculator": null,
+                        "key": "p_tourist_consumers",
+                        "units": "percent"
                       }
                     ]
                   }
                 },
                 {
-                  "height": "45%",
+                  "height": "60%",
                   "content": {
                     "type": "combo-line-area-chart",
                     "lineKey": "naics3",
@@ -1350,12 +1357,6 @@
                       "#666666"
                     ],
                     "description": "LINE/AREA CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, AND INDICATOR DROPDOWN"
-                  }
-                },
-                {
-                  "height": "45%",
-                  "content": {
-                    "description": "COMPARISON COLUMN CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, INDICATOR DROPDOWN, AND LINE/AREA CHART"
                   }
                 }
               ]
