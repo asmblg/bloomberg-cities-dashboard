@@ -18,9 +18,9 @@ const formatValue = (value, units) => {
         const thousands =  value > 1000;
         const millions = value > 1000000;
         const calcValue = millions ?
-          Math.floor(value / 1000000)
+          parseFloat(value / 1000000).toFixed(1)
           : thousands ?
-            Math.floor(value / 1000)
+            parseFloat(value / 1000).toFixed(1)
             : 0;
         const text = parseFloat(calcValue).toFixed(thousands || millions ? 1 : 0).replace('.0', '');
         const unit = millions ? 'M' : thousands ? 'K' : ''; 
