@@ -953,7 +953,7 @@
                       },
                       "dataPath": "smallbusiness.city",
                       "label": "SMALL BUSINESSES CARD REVENUE",
-                      "noIndicator": true, 
+                      "fixedIndicator": true,
                       "dataLength": 12,
                       "mainColor": "#006aaf",
                       "compareColor": "#8dc63f",

@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import CustomLabel from './subComponents/CustomLabel';
 import IndicatorDropdown from '../IndicatorDropdown';
 
-import { handleDataArray, handleLineStyle, handleDataObject } from './utils';
+import { handleDataArray, handleLineStyle, handleDataObject, handleLabel } from './utils';
 import formatValue from '../../utils/formatValue';
 import calculateChartDomain from '../../utils/calculateChartDomain';
 
@@ -22,6 +22,8 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
 
   const {
     dataPath,
+    getterKey,
+    setterKey,
     indicators,
     fixedIndicator,
     dataLength,
@@ -33,14 +35,13 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     width
   } = config;
 
-  const setterKey = config.setterKey?.selectedOption;
-  const selectedIndicator = getter?.[config.getterKey?.selectedOption] || null;
+  const selectedIndicator = getter?.[getterKey?.selectedOption] || null;
   // Looks for a primary line from getter, then for a default primaryLine in the config
-  const primaryLine = config.getterKey?.primaryLine
-    ? getter[config.getterKey?.primaryLine]
+  const primaryLine = getterKey?.primaryLine
+    ? getter[getterKey?.primaryLine]
     : config.primaryLine || null;
-  const secondaryLine = config.getterKey?.secondaryLine
-    ? getter[config.getterKey.secondaryLine]
+  const secondaryLine = getterKey?.secondaryLine
+    ? getter[getterKey.secondaryLine]
     : null;
   const dataObj = data
     ? handleDataObject({ data, dataPath, config, selectedIndicator, getter })
@@ -51,9 +52,9 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     if (!selectedIndicator && indicators) {
       if (fixedIndicator) {
         const indicator = indicators.find(({ key }) => key === fixedIndicator);
-        setter(setterKey, indicator);
+        setter(setterKey?.selectedOption, indicator);
       } else {
-        setter(setterKey, indicators[0]);
+        setter(setterKey?.selectedOption, indicators[0]);
       }
     }
   }, [getter, selectedIndicator]);
@@ -62,13 +63,12 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     if (
       data &&
       allLinesArray &&
-      (primaryLine || secondaryLine) &&
-      (selectedIndicator || config.noIndicator)
+      (primaryLine || secondaryLine)
     ) {
       handleDataArray({
         mainLineKey: primaryLine?.key || secondaryLine?.key || null,
         data: dataObj || {},
-        selectedIndicator: !config.noIndicator && selectedIndicator ? selectedIndicator : null,
+        selectedIndicator: selectedIndicator || null,
         allLinesArray: allLinesArray,
         dataLength
       }).then(array => {
@@ -79,43 +79,12 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     }
   }, [data, getter]);
 
-  const handleLabelFormatter = (formatObject, variable) => {
-    console.log(formatObject, variable);
-    const formattedVariable = formatObject?.[variable] || null;
-
-    let label = '';
-
-    if (formatObject?.prefix) {
-      label += formatObject.prefix;
-    }
-
-    if (formattedVariable) {
-      label += ` ${formattedVariable}\n`;
-    }
-
-    if (formatObject?.suffix) {
-      label += ` ${formatObject.suffix}`;
-    }
-    return label;
-  };
-
-  // handleLabelFormatter(yaxis?.labelFormatter, getter?.[yaxis.labelFormatter?.getterVariable]);
-
-  const handleLabel = (label, selectedIndicator) => {
-    // yaxis?.label === 'indicator' ? selectedIndicator.label : yaxis?.label ? yaxis.label
-    if (label === 'indicator' && selectedIndicator?.label) {
-      return selectedIndicator.label;
-    } else {
-      return label;
-    }
-  };
-
   return dataArray ? (
     <div className='chart-container'>
       {!config.disableDropdown ? (
         <IndicatorDropdown
           selectedOption={
-            config.noIndicator && config.label
+            !selectedIndicator && fixedIndicator && config.label
               ? { key: config.label, label: config.label }
               : null
           }
@@ -150,19 +119,18 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
             <YAxis
               domain={calculateChartDomain(dataArray)}
               tickFormatter={text => formatValue(text, selectedIndicator?.units || yaxis?.units)}
-              label={
-                <CustomLabel
-                  value={
-                    yaxis?.label
-                      ? handleLabel(yaxis.label, selectedIndicator)
-                      : yaxis?.labelFormatter
-                        ? handleLabelFormatter(
-                          yaxis?.labelFormatter,
-                          getter?.[yaxis.labelFormatter?.getterVariable]
-                        )
-                        : ''
-                  }
-                />
+              label={yaxis?.label && !yaxis.labelFormatter ?
+                {
+                  value: handleLabel(yaxis.label, selectedIndicator),
+                  angle: -90,
+                  position: 'insideBottomLeft',
+                  offset: 0
+                } : !yaxis?.label && yaxis?.labelFormatter ?
+                  <CustomLabel
+                    labelConfig={yaxis}
+                    selectedIndicator={selectedIndicator}
+                    getter={getter}
+                  /> : null
               }
             />
             <Tooltip />

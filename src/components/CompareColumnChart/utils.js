@@ -78,4 +78,19 @@ const handleDataArray = async ({
   }
 };
 
-export { handleDataArray };
+const handleDefaultIndicator = ({ fixedIndicator, indicators }) => {
+  return new Promise((resolve, reject) => {
+    if (fixedIndicator && indicators?.[0]) {
+      const indicator = indicators.find(({ key }) => key === fixedIndicator);
+      // setter(setterKey, indicator);
+      resolve(indicator);
+    } else if (indicators?.[0]) {
+      resolve(indicators[0]);
+    } else {
+      reject();
+    }
+  });
+};
+
+export { handleDataArray, handleDefaultIndicator };
+
