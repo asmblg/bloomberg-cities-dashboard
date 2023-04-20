@@ -11,7 +11,7 @@ const SectionRouter = ({
   sections,
   sectionKeys,
   viewType,
-  dashboardType,
+  // dashboardType,
   trendDataType,
   setTrendDataType,
   setSelectedLink
@@ -22,12 +22,12 @@ const SectionRouter = ({
         key === 'home' ? (
           <Route
             key={`home-route-${key}`}
-            path={`/${project.toLowerCase()}/${dashboardType}`}
+            path={`/${project.toLowerCase()}`}
             element={
               <Home
                 config={sections[key]}
                 project={project}
-                dashboardType={dashboardType}
+                // dashboardType={dashboardType}
                 viewType={viewType}
                 trendDataType={trendDataType}
                 setTrendDataType={setTrendDataType}
@@ -38,7 +38,7 @@ const SectionRouter = ({
         ) : (
           <Route
             key={`detail-route-${key}`}
-            path={`/${project.toLowerCase()}/${dashboardType}/${key}`}
+            path={`/${project.toLowerCase()}/${key}`}
             element={
               <DetailCard
                 config={sections[key]}
@@ -55,12 +55,12 @@ const SectionRouter = ({
       : null}
     <Route
       key={'about-route'}
-      path={`/${project.toLowerCase()}/${dashboardType}/about`}
+      path={`/${project.toLowerCase()}/about`}
       element={<AboutProject viewType={viewType} />}
     />
     <Route
       key={'docs-route'}
-      path={`/${project.toLowerCase()}/${dashboardType}/docs`}
+      path={`/${project.toLowerCase()}/docs`}
       element={<Home config={sections['home']} project={project} viewType={viewType} docs={true} />}
     />
   </Routes>

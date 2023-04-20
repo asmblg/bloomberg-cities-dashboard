@@ -38,7 +38,7 @@ const Layout = ({ config }) => {
       setSelectedLink(section);
 
       if (redirect) {
-        navigate(`${config.project.toLowerCase()}/${config.dashboardType}`);
+        navigate(`${config.project.toLowerCase()}`);
       }
     }
   }, []);

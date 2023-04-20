@@ -5,6 +5,8 @@ const handleHomeData = async (project, summaryCards) => {
   const selectStr = summaryCards.map(({ dataPath }) => `data.${dataPath}`).join(' ');
   const { data: d } = await getData(project, selectStr);
 
+  console.log(d);
+
   return { ...d[0].data, updatedOn: d[0].updatedOn };
 };
 

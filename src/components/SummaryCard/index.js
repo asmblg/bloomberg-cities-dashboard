@@ -16,11 +16,12 @@ const SummaryCard = ({
   data,
   viewType,
   project,
-  dashboardType,
+  // dashboardType,
   cardKey,
   setSelectedLink,
   trendDataType
 }) => {
+  console.log(data);
   const { chart, dataPath, key, label, units, summary } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
@@ -33,7 +34,7 @@ const SummaryCard = ({
   const scrollToRef = useRef();
   const navigate = useNavigate();
   const allSummaryData = getNestedValue(data, dataPath, key);
-  const route = `/${project}/${dashboardType}/${cardKey}`;
+  const route = `/${project}/${cardKey}`;
 
   useEffect(() => {
     if (data && allSummaryData) {

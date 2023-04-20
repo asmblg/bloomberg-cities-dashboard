@@ -12,7 +12,7 @@ import './style.css';
 const Header = ({
   headerConfig,
   project,
-  dashboardType,
+  // dashboardType,
   sectionKeys,
   sections,
   viewType,
@@ -52,7 +52,7 @@ const Header = ({
             />
           ) : (
             <>
-              <div
+              {/* <div
                 className={
                   selectedLink !== 'about' && dashboardType === 'economic'
                     ? 'selected-about-link-container'
@@ -66,7 +66,7 @@ const Header = ({
                 >
                   {'Economic Dashboard'}
                 </Link>
-              </div>
+              </div> */}
               <div
                 className={
                   selectedLink !== 'about'
@@ -76,7 +76,7 @@ const Header = ({
               >
                 <Link
                   className='about-link'
-                  to={`/${project}/${dashboardType}/about`}
+                  to={`/${project}/about`}
                   onClick={() => linkClickHandler('about')}
                 >
                   {'About the project'}
@@ -96,8 +96,8 @@ const Header = ({
               key={`nav-link-${key}`}
               to={
                 key === 'home'
-                  ? `/${project}/${dashboardType}`
-                  : `/${project}/${dashboardType}/${key}`
+                  ? `/${project}`
+                  : `/${project}/${key}`
               }
               onClick={() => linkClickHandler(key)}
             >
@@ -115,7 +115,7 @@ const Header = ({
                   selectedLink === 'about' ? 'selected-nav-link' : 'unselected-nav-link'
                 }`}
                 key={'nav-link-about'}
-                to={`/${project}/${dashboardType}/about`}
+                to={`/${project}/about`}
                 onClick={() => linkClickHandler('about')}
               >
                 About the project
@@ -126,7 +126,7 @@ const Header = ({
                     selectedLink === 'docs' ? 'selected-nav-link' : 'unselected-nav-link'
                   }`}
                   key={'nav-link-docs'}
-                  to={`/${project}/${dashboardType}/docs`}
+                  to={`/${project}/docs`}
                   onClick={() => linkClickHandler('docs')}
                 >
                   Data documentation

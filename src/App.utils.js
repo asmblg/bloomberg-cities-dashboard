@@ -1,27 +1,29 @@
 import { getConfig } from './utils/API';
 
-const handleConfig = async (pathname, defaultCity, defaultDashboardType) => {
+const handleConfig = async (pathname, defaultCity) => {
   try {
     const pathnameArr = pathname.split('/').filter(val => val);
     const pathnameCity = pathnameArr[0];
-    const pathnameDashboardType = pathnameArr[1];
+    // const pathnameDashboardType = pathnameArr[1];
     const projectName = pathnameCity?.toLowerCase() || defaultCity;
-    const projectType = pathnameDashboardType || defaultDashboardType;
+    // const projectType = pathnameDashboardType || defaultDashboardType;
 
-    const initialConfig = await getConfig(projectName, projectType);
+    const initialConfig = await getConfig(projectName);
+    console.log(pathnameArr);
+    console.log(initialConfig);
 
     if (initialConfig) {
       return {
         config: initialConfig,
-        redirect: pathnameDashboardType?.toLowerCase() !== initialConfig.dashboardType
+        redirect: false
       };
     } else {
-      const defaultConfig = await getConfig(defaultCity, defaultDashboardType);
+      const defaultConfig = await getConfig(defaultCity);
 
       if (defaultConfig) {
         return {
           config: defaultConfig,
-          redirect: true
+          redirect: false
         };
       }
     }

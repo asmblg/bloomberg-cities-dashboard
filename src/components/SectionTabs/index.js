@@ -9,7 +9,7 @@ const SectionTabs = ({
   sectionKeys,
   sections,
   project,
-  dashboardType,
+  // dashboardType,
   selectedLink,
   setSelectedLink
 }) => {
@@ -25,7 +25,7 @@ const SectionTabs = ({
               selectedLink === key ? 'selected-tab' : 'unselected-tab'
             }${key === 'home' ? ' home-tab' : ''}
         `}
-            to={`/${project.toLowerCase()}/${dashboardType}${key !== 'home' ? `/${key}` : ''}`}
+            to={`/${project.toLowerCase()}${key !== 'home' ? `/${key}` : ''}`}
             onClick={() => setSelectedLink(key)}
             style={
               selectedLink === key
