@@ -31,76 +31,103 @@ const SelectorWithLegend = ({
   // console.log(baseDataPath);
   // console.log(data);
 
-  const [selectedOption, setSelectedOption] = useState();
+  const [selectedOption, setSelectedOption] = useState({
+    key: getter?.[getterKey?.topSelector],
+    legendItems: getter?.[getterKey?.subSelector]
+  });
   // const [optionFilters, setOptionFilters] = useState();
-  const [optionsArray, setOptionsArray] = useState();
+  const [optionsArray, setOptionsArray] = useState(options);
 
   useEffect(() => {
-    if (data) {
+    if (data && baseDataPath) {
       const nestedData = getNestedValue(data, baseDataPath);
-      console.log(nestedData);
+      // console.log(nestedData);
       const filterObj = {
         topFilter: [],
         subFilter: []
       };
 
-      if (nestedData) {
+      if (nestedData && topFilterKey && subFilterKey) {
+        const topItems = getNestedValue(nestedData, topFilterKey);
+        const subItems = getNestedValue(nestedData, subFilterKey);
 
-        Object.entries(getNestedValue(nestedData, topFilterKey)).forEach(([key, value]) =>{
-          if (value) {
-            const minValue = Math.min(...Object.values(value).filter(v => !isNaN(parseInt(v))));
-            if (minValue > topFilterMinValue ){
-              filterObj.topFilter.push(key);
+        if (topItems) {        
+          Object.entries(topItems).forEach(([key, value]) =>{
+            if (value) {
+              const minValue = Math.min(...Object.values(value).filter(v => !isNaN(parseInt(v))));
+              if (minValue > topFilterMinValue ){
+                filterObj.topFilter.push(key);
+              }
             }
-          }
-        });
-        Object.entries(getNestedValue(nestedData, subFilterKey)).forEach(([key, value]) =>{
-          console.log('SUBFILTER', value);
-          if (value) {
-            const minValue = Math.min(...Object.values(value).filter(v => !isNaN(parseInt(v))));
-            console.log(minValue);
-            if (minValue > subFilterMinValue ){
-              filterObj.subFilter.push(key);
-            }          
-          }
-        });
+          });
+        }
+        if (subItems) {
+          Object.entries(subItems).forEach(([key, value]) =>{
+            // console.log('SUBFILTER', value);
+            if (value) {
+              const minValue = Math.min(...Object.values(value).filter(v => !isNaN(parseInt(v))));
+              // console.log(minValue);
+              if (minValue > subFilterMinValue ){
+                filterObj.subFilter.push(key);
+              }          
+            }
+          });        
+        }
+
 
         // setOptionFilters(obj);
-
-        const filteredOptions = options
-          .filter(({ key }) => filterObj.topFilter ?
-            (
-              filterObj.topFilter.includes(key) ||
-              key === 'total'
-            )
-            : true)
-          .map(({ label, key, legendItems }) => ({
-            key,
-            label,
-            legendItems: legendItems ? 
-              filterObj.subFilter?
-                legendItems.filter(({ key }) => 
-                  filterObj.subFilter ?
-                    filterObj.subFilter.includes(key)
-                    : true)
-                  .map((item, i) => ({
+        if (options) {
+          const filteredOptions = options
+            .filter(({ key }) => filterObj.topFilter ?
+              (
+                filterObj.topFilter.includes(key) ||
+                key === 'total'
+              )
+              : true)
+            .map(({ label, key, legendItems }) => ({
+              key,
+              label,
+              legendItems: legendItems ? 
+                filterObj.subFilter?
+                  legendItems.filter(({ key }) => 
+                    filterObj.subFilter ?
+                      filterObj.subFilter.includes(key)
+                      : true)
+                    .map((item, i) => ({
+                      ...item,
+                      color: colors[i + 1]
+                    }))
+                  : legendItems.map((item, i) => ({
                     ...item,
                     color: colors[i + 1]
                   }))
-                : legendItems.map((item, i) => ({
-                  ...item,
-                  color: colors[i + 1]
-                }))
-              : null        
-          }));
-        
-        setOptionsArray(filteredOptions);
-
+                : null        
+            }));
+          
+          setOptionsArray(filteredOptions);        
+        }
       }
     }
 
 
   }, [getter?.[getterKey?.baseDataPath]]);
+
+  useEffect(() => {
+    //RESET TO DEFAULT OPTION
+    if (optionsArray?.[0]) {
+      const {
+        key,
+        legendItems,
+        label
+      } = optionsArray[0];
+      setSelectedOption(optionsArray[0]);
+      setter(
+        [setterKey?.topSelector, setterKey?.subSelector, setterKey?.topSelectorLabel],
+        [key, legendItems, label]);    
+    }
+  }, 
+  [getter?.[getterKey?.baseDataPath]]);
+
 
   // console.log(optionFilters);
 

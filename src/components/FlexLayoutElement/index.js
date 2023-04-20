@@ -25,6 +25,8 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
     width
   };
 
+  console.log(getter);
+
   return (
     <div key={elementRef} style={elementStyle || {}} className={`flex-layout-${type}`}>
       {!content ? (

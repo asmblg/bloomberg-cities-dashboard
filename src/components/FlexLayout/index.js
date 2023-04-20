@@ -3,8 +3,19 @@ import PropTypes from 'prop-types';
 import FlexLayoutElement from '../FlexLayoutElement';
 import './style.css';
 
-const FlexLayout = ({ layout: { columns, rows }, data, project }) => {
-  const [getter, setter] = useState({});
+const FlexLayout = ({ 
+  initialState,
+  layout: { 
+    columns,
+    rows 
+  }, 
+  data, 
+  project 
+}) => {
+
+  console.log(initialState);
+
+  const [getter, setter] = useState(initialState);
 
   const elementArray = columns || rows;
 
@@ -26,7 +37,7 @@ const FlexLayout = ({ layout: { columns, rows }, data, project }) => {
     }
   };
 
-  console.log(getter);
+  console.log(JSON.stringify(getter));
 
   return (
     <div
@@ -54,7 +65,8 @@ const FlexLayout = ({ layout: { columns, rows }, data, project }) => {
 FlexLayout.propTypes = {
   layout: PropTypes.object,
   data: PropTypes.object,
-  project: PropTypes.string
+  project: PropTypes.string,
+  initialState: PropTypes.object
 };
 
 export default FlexLayout;

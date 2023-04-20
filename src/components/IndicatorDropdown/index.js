@@ -27,8 +27,6 @@ const IndicatorSelectDropdown = ({ setter, getter, config, options, selectedOpti
     selectedOption
   ]);
 
-  // const subHeading = getter?.[config?.getterKey?.subHeading] || options.subHeading;
-  // const text = selection?.label || null;
 
   return (
     <div className='dropdown-container' key={key}>

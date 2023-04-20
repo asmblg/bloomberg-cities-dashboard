@@ -23,15 +23,20 @@ const IndicatorMap = ({ config, geoJSON }) => {
 
   useEffect(() => {
     if (geoJSON) {
-      handleGeoJSON(geoJSON, indicators).then(updatedGeoJSON => setMapGeoJSON(updatedGeoJSON));
+      handleGeoJSON(geoJSON, indicators).then(updatedGeoJSON => {
+        setMapGeoJSON(updatedGeoJSON);
+        if (indicators?.[0]) {
+          setSelectedIndicator(indicators[0]);
+        }
+      });
+
     }
+
   }, []);
 
-  useEffect(() => {
-    if (indicators?.[0]) {
-      setSelectedIndicator(indicators[0]);
-    }
-  }, []);
+  // useEffect(() => {
+
+  // }, []);
 
   useEffect(() => {
     if (colors && selectedIndicator && mapGeoJSON) {
@@ -44,7 +49,9 @@ const IndicatorMap = ({ config, geoJSON }) => {
         })
       );
     }
-  }, [selectedIndicator]);
+  }, [selectedIndicator, mapGeoJSON, colors]);
+
+
 
   return bins && mapGeoJSON ? (
     <div className='indicator-map-wrapper'>
@@ -68,27 +75,25 @@ const IndicatorMap = ({ config, geoJSON }) => {
             url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
           />
 
-          { mapGeoJSON 
-            ? <GeoJSON
-              key={`data-layer-${selectedIndicator?.key || indicators?.[0].key }`}
-              data={mapGeoJSON}
-              style={feature => {
-                const value = feature.properties[selectedIndicator?.key || indicators?.[0]];
-                const color = value
-                  ? bins
-                    .filter(({ percentile }) => value <= percentile)
-                    .map(({ color }) => color)[0]
-                  : 'transparent';
-                return {
-                  fillColor: color,
-                  color: config.strokeColor || 'black',
-                  weight: 1,
-                  opacity: 0.8,
-                  fillOpacity: 0.9
-                };
-              }}
-            />
-            : null}
+          <GeoJSON
+            key={`data-layer-${selectedIndicator?.key || indicators?.[0].key }`}
+            data={mapGeoJSON}
+            style={feature => {
+              const value = feature.properties[selectedIndicator?.key || indicators?.[0].key];
+              const color = value
+                ? bins
+                  .filter(({ percentile }) => value <= percentile)
+                  .map(({ color }) => color)[0]
+                : 'transparent';
+              return {
+                fillColor: color,
+                color: config.strokeColor || 'black',
+                weight: 1,
+                opacity: 0.8,
+                fillOpacity: 0.9
+              };
+            }}
+          />
           <Legend
             indicator={selectedIndicator || indicators?.[0]}
             bins={bins}

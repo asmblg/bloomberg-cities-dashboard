@@ -67,8 +67,10 @@ const ComboLineAreaChart = ({
   }, [
     getter?.[getterKey?.basePath],
     getter?.[getterKey?.indicator],
-    getter?.[getterKey?.areaSelector]
+    getter?.[getterKey?.areaSelector],
+    getter?.[getterKey?.lineSelector]
   ]);
+
 
   return (areas?.[0] || lines?.[0] ?
     <ResponsiveContainer
@@ -95,7 +97,8 @@ const ComboLineAreaChart = ({
         <XAxis dataKey="name" />
         {
           lines && getter?.[getterKey?.lineSelector] ?
-            <Line 
+            <Line
+              type='monotone'
               key={`line-${getter?.[getterKey?.lineSelector]}-${getter?.[getterKey?.basePath]}`}
               dataKey={getter?.[getterKey?.lineSelector]}
               stroke={colors[1]}
@@ -108,6 +111,7 @@ const ComboLineAreaChart = ({
             getter?.[getterKey?.areaSelector]
               .map(({key, color}) =>
                 <Area
+                  type='monotone'
                   key={`area-${key}-${getter?.[getterKey?.basePath]}`}
                   dataKey={key}
                   stackId='1'

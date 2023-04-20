@@ -57,7 +57,13 @@ const DetailCard = ({ project, config, sectionKey, viewType }) => {
             viewType={viewType}
           />
         ) : config.layout && detailData ? (
-          <FlexLayout key={`flex-layout-${sectionKey}`} data={detailData.data} layout={config?.layout || null} project={project} />
+          <FlexLayout 
+            key={`flex-layout-${sectionKey}`}
+            initialState={config?.initialState} 
+            data={detailData.data} 
+            layout={config?.layout} 
+            project={project}
+          />
         ) : null}
         <ShareAndPrintIcons />
       </div>

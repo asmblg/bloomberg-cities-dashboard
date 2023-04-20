@@ -23,7 +23,7 @@ const handleData = ({
   // Handle data selection if total, string, or array
   const dataArray = [];
   const nestedData = getNestedValue(data, dataPath);
-  if (dataSelection) {
+  if (dataSelection && nestedData) {
     if (dataSelection === 'total') {
       const dataObj = {};
       Object.values(nestedData).forEach(values => {

@@ -30,15 +30,17 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     otherColor,
     yaxis,
     height,
-    width
+    width,
+    setterKey,
+    getterKey
   } = config;
 
   
-  const setterKey = config.setterKey?.selectedOption;
-  const selectedIndicator = getter?.[config.getterKey?.selectedOption] || null;
+  // const setterKey = config.setterKey?.selectedOption;
+  const selectedIndicator = getter?.[getterKey?.selectedOption] || null;
   // Looks for a primary line from getter, then for a default primaryLine in the config
-  const primaryLine = config.getterKey?.primaryLine ? getter[config.getterKey?.primaryLine] : config.primaryLine || null;
-  const secondaryLine = config.getterKey?.secondaryLine ? getter[config.getterKey.secondaryLine] : null;
+  const primaryLine = getterKey?.primaryLine ? getter?.[getterKey?.primaryLine] : config.primaryLine || null;
+  const secondaryLine = getterKey?.secondaryLine ? getter?.[getterKey?.secondaryLine] : null;
 
   const dataObj = data && dataPath ? getNestedValue(data, dataPath) : data ? data : null;
   const allLinesArray = dataObj ? Object.keys(dataObj) : [];
@@ -47,9 +49,9 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     if (!selectedIndicator && indicators) {
       if (fixedIndicator) {
         const indicator = indicators.find(({ key }) => key === fixedIndicator);
-        setter(setterKey, indicator);
+        setter(setterKey?.selectedOption, indicator);
       } else {
-        setter(setterKey, indicators[0]);
+        setter(setterKey?.selectedOption, indicators[0]);
       }
     }
   }, [getter, selectedIndicator]);
@@ -121,6 +123,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
               });
               return (
                 <Line
+                  type='monotone'
                   key={`multi-line-city-${city}`}
                   dataKey={city}
                   stroke={stroke}

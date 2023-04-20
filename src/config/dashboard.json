@@ -839,6 +839,19 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "consumers",
+        "initialState": {
+          "selected-indicator": { 
+            "var":"total_spending",
+            "label":"Total Spending",
+            "calculator":null,
+            "key":"total_spending",
+            "units":"bigDollars"
+          },
+          "geo-data-path":"city",
+          "selected-naics3":"total",
+          "selected-naics4":null,
+          "selected-naics3-text":"All Consumer Industries"
+        },
         "layout": {
           "columns": [
             {
@@ -936,7 +949,9 @@
                       "topSelectorLabel": "selected-naics3-text"
                     },
                     "getterKey" : {
-                      "baseDataPath" : "geo-data-path"
+                      "baseDataPath" : "geo-data-path",
+                      "topSelector": "selected-naics3",
+                      "subSelector": "selected-naics4"
                     },
                     "topFilterKey": "naics3.total_spending",
                     "subFilterKey": "naics4.total_spending",
@@ -1323,11 +1338,11 @@
                         "units": "bigDollars"
                       },
                       {
-                        "var": "p_tourist_consumers",
-                        "label": "Percent Tourist",
+                        "var": "total_transactions",
+                        "label": "Total Transactions",
                         "calculator": null,
-                        "key": "p_tourist_consumers",
-                        "units": "percent"
+                        "key": "total_transactions",
+                        "units": null
                       }
                     ]
                   }
