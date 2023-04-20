@@ -9,8 +9,8 @@ const handleConfig = async (pathname, defaultCity) => {
     // const projectType = pathnameDashboardType || defaultDashboardType;
 
     const initialConfig = await getConfig(projectName);
-    console.log(pathnameArr);
-    console.log(initialConfig);
+    // console.log(pathnameArr);
+    // console.log(initialConfig);
 
     if (initialConfig) {
       return {

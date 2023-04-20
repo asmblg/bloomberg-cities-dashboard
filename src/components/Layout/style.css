@@ -12,8 +12,9 @@
 }
 
 #section-container {
-  padding: 2% var(--desktop-outer-margin);;
-  height: calc(100vh - (var(--desktop-header-height) + var(--desktop-footer-height)));
+  padding: 0 var(--desktop-outer-margin);
+  margin: 20px 0;
+  height: calc(100vh - 40px - (var(--desktop-header-height) + var(--desktop-footer-height)));
   overflow-y: auto;
 }
 

@@ -10,48 +10,56 @@ const dataPathConstructor = ({
 
 const handleData = ({
   data,
+  totalFilter,
   basePathKey,
   categoryKey,
   indicatorKey,
-  dataSelection
+  dataSelection,
 }) => {
   const dataPath = dataPathConstructor({
     basePathKey,
     categoryKey,
     indicatorKey
   });
+
+  console.log(totalFilter);
   // Handle data selection if total, string, or array
   const dataArray = [];
   const nestedData = getNestedValue(data, dataPath);
   if (dataSelection && nestedData) {
     if (dataSelection === 'total') {
       const dataObj = {};
-      Object.values(nestedData).forEach(values => {
-        Object.entries(values).forEach(([key, nestedValue]) => {
-          const date = new Date(key);
-          const year = date.getFullYear();
-          const month = date.getMonth();
-          const quarter = month >= 0 && month <= 2 ?
-            1
-            : month >= 3 && month <= 5 ?
-              2
-              : month >= 6 && month <= 8 ?
-                3
-                : month >= 9 && month <= 11 ?
-                  4
-                  : null;
+      // console.log(nestedData);
+      Object.entries(nestedData)
+        .filter(([key,]) => totalFilter ? totalFilter.includes(key): true)
+        .forEach(([k,values]) => {
+          console.log(k,values);
+          Object.entries(values).forEach(([key, nestedValue]) => {
+            const date = new Date(key);
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            const quarter = month >= 0 && month <= 2 ?
+              1
+              : month >= 3 && month <= 5 ?
+                2
+                : month >= 6 && month <= 8 ?
+                  3
+                  : month >= 9 && month <= 11 ?
+                    4
+                    : null;
 
-          const dateKey = `${year}-Q${quarter}`;
+            const dateKey = `${year}-Q${quarter}`;
 
-          if (!isNaN(parseInt(nestedValue))) {
-            if (!dataObj[dateKey]) {
-              dataObj[dateKey] = parseInt(nestedValue);
-            } else {
-              dataObj[dateKey] += parseInt(nestedValue);
+            if (!isNaN(parseInt(nestedValue))) {
+              if (!dataObj[dateKey]) {
+                dataObj[dateKey] = parseInt(nestedValue);
+              } else {
+                dataObj[dateKey] += parseInt(nestedValue);
+              }
             }
-          }
+          });
         });
-      });
+      // console.log(dataObj);
       Object.entries(dataObj)
         .forEach(([key, value]) => {
           const formattedObj = {};

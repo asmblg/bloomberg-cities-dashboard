@@ -32,17 +32,21 @@ const ComboLineAreaChart = ({
     areaKey,
     getterKey,
     colors,
-    yaxis
+    yaxis,
+    indicator,
+    basePath,
+    totalFilter
   } = config;
 
 
   useEffect(() => {
     const lineData = handleData({
       data,
-      basePathKey: getter?.[getterKey?.basePath],
+      totalFilter,
+      basePathKey: basePath || getter?.[getterKey?.basePath],
       categoryKey: lineKey,
-      indicatorKey: getter?.[getterKey?.indicator]?.var,
-      dataSelection: getter?.[getterKey?.lineSelector]
+      indicatorKey: indicator?.var || getter?.[getterKey?.indicator]?.var,
+      dataSelection: getter?.[getterKey?.lineSelector] || 'total'
     });
 
     setLines(lineData);
@@ -57,9 +61,9 @@ const ComboLineAreaChart = ({
   useEffect(() => {
     const areaData = handleData({
       data,
-      basePathKey: getter?.[getterKey?.basePath],
+      basePathKey: basePath || getter?.[getterKey?.basePath],
       categoryKey: areaKey,
-      indicatorKey: getter?.[getterKey?.indicator]?.var,
+      indicatorKey: indicator?.var || getter?.[getterKey?.indicator]?.var,
       dataSelection: getter?.[getterKey?.areaSelector]
     });
 
@@ -71,6 +75,7 @@ const ComboLineAreaChart = ({
     getter?.[getterKey?.lineSelector]
   ]);
 
+  console.log(lines);
 
   return (areas?.[0] || lines?.[0] ?
     <ResponsiveContainer
@@ -84,10 +89,10 @@ const ComboLineAreaChart = ({
         <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
         <YAxis
           // domain={calculateChartDomain(dataArray)}
-          tickFormatter={text => formatValue(text, getter?.[getterKey?.indicator]?.units)}
+          tickFormatter={text => formatValue(text, indicator?.units || getter?.[getterKey?.indicator]?.units)}
           label={{ 
             value: yaxis?.label === 'indicator' ? 
-              getter?.[getterKey?.indicator]?.label 
+              indicator?.label || getter?.[getterKey?.indicator]?.label 
               : yaxis?.label, 
             angle: '-90',
             position: 'insideLeft', 

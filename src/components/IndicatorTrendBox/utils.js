@@ -8,13 +8,13 @@ const handleTrendDisplayData = (data, indicatorObj, trendDataType) => {
       const values = indicatorObj.var.search('.') !== 1 ?
         getNestedValue(data, indicatorObj.var)
         : data[indicatorObj.var];
-      return createCompareDataObject(indicatorObj.calculator, values, trendDataType);
+      return createCompareDataObject(indicatorObj.calculator, values, trendDataType, indicatorObj.filter);
     } else {
       // Handle multiple var calculations - no instances yet
       return null;
     }
   } else {
-    return createCompareDataObject(indicatorObj.calculator, data[indicatorObj.key], trendDataType);
+    return createCompareDataObject(indicatorObj.calculator, data[indicatorObj.key], trendDataType, indicatorObj.filter);
   }
 };
 

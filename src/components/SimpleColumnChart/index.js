@@ -23,7 +23,7 @@ const SimpleColumnChart = ({ config, data, margin }) => {
   }, [data]);
 
   return dataArray ? (
-    <ResponsiveContainer height={height || 300} width={width || '100%'}>
+    <ResponsiveContainer height={height || '100%'} width={width || '100%'}>
       <BarChart data={dataArray} barSize={10} barCategoryGap={0} margin={margin}>
         {cartesianGrid ? (
           <CartesianGrid

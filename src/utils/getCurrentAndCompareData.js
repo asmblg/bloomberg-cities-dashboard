@@ -1,4 +1,5 @@
 import getDataCompareDates from './getDataCompareDates';
+import moment from 'moment';
 // import sortDatesArray from './sortDatesArray';
 
 /**
@@ -9,16 +10,31 @@ import getDataCompareDates from './getDataCompareDates';
  * @returns {object} { currentValue, compareValue, currentDate, compareDate }
  */
 
-const getCurrentAndCompareData = (calculator, data, trendDataType) => {
+const getCurrentAndCompareData = (
+  calculator, 
+  data, 
+  trendDataType, 
+  filterArray
+) => {
   const dataObj = {
     currentValue: null,
     compareValue: null,
     currentDate: null,
     compareDate: null
   };
+
+  const sumQuarterly = true;
+
   if (data) {
     const dateKeys = calculator === 'differenceOfTotalsFromPrevious' ?
-      [...new Set(Object.values(data).map(obj => Object.keys(obj)).flat(1))]
+      [
+        ...new Set(
+          Object.entries(data)
+            .filter(([key,]) => filterArray ? filterArray.includes(key): true)
+            .map(([,obj]) => Object.keys(obj))
+            .flat(1)
+        )
+      ]
       : Object.keys(data);
 
     // console.log(dateKeys);
@@ -36,13 +52,31 @@ const getCurrentAndCompareData = (calculator, data, trendDataType) => {
       }
       case 'differenceOfTotalsFromPrevious': {
         if (currentDate) {
+          console.log(currentDate);
           dataObj.currentValue = 0;
-          Object.values(data).forEach(obj => dataObj.currentValue += obj[currentDate] || 0);
+          Object.entries(data)            
+            .filter(([key,]) => filterArray ? filterArray.includes(key): true)
+            .forEach(([,obj]) => {
+              dataObj.currentValue += obj[currentDate] || 0;
+              if (sumQuarterly){
+                dataObj.currentValue += obj[moment(currentDate).subtract(1, 'month').format('YYYY-M-D')] || 0;
+                dataObj.currentValue += obj[moment(currentDate).subtract(2, 'month').format('YYYY-M-D')] || 0;              
+                dataObj.currentDate = `${moment(currentDate).year()}-Q${moment(currentDate).quarter()}`;
+              }
+            });
         }
         if (compareDate) {
           dataObj.compareValue = 0;
-          Object.values(data).forEach(obj => dataObj.compareValue += obj[compareDate] || 0);
-        }
+          Object.entries(data)
+            .filter(([key,]) => filterArray ? filterArray.includes(key): true)
+            .forEach(([,obj]) => {
+              dataObj.compareValue += obj[compareDate] || 0;
+              if (sumQuarterly){
+                dataObj.compareValue += obj[moment(compareDate).subtract(1, 'month').format('YYYY-M-D')] || 0;
+                dataObj.compareValue += obj[moment(compareDate).subtract(2, 'month').format('YYYY-M-D')] || 0;              
+                dataObj.compareDate = `${moment(compareDate).year()}-Q${moment(compareDate).quarter()}`;
+              }
+            });        }
         break;
       }
       default: {
@@ -52,6 +86,7 @@ const getCurrentAndCompareData = (calculator, data, trendDataType) => {
       }
     }
   }
+  console.log(dataObj);
   return dataObj;
 };
 

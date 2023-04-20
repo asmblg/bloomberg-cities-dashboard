@@ -21,7 +21,7 @@ const SummaryCard = ({
   setSelectedLink,
   trendDataType
 }) => {
-  console.log(data);
+  // console.log(data);
   const { chart, dataPath, key, label, units, summary } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({

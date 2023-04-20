@@ -1558,8 +1558,238 @@
           "selectedColor": "#008a5f",
           "unselectedColor": "#dfe5e9"
         },
-        "dataPath": "consumers.city.tourism",
-        "charts": [{ "type": null }]
+        "dataPath": "consumers",
+        "layout": {
+          "columns": [
+            {
+              "width": "33%",
+              "rows": [
+                {
+                  "style": {
+                    "paddingLeft": "10px"
+                  },
+                  "height": "50px",
+                  "content": {
+                    "type": "trend-data-toggler",
+                    "config": {
+                      "getterKey": {
+                        "toggleValue": "trend-data-toggler"
+                      },
+                      "setterKey": {
+                        "toggleValue": "trend-data-toggler"
+                      }
+                    }
+                  }
+                },
+                {
+                  "height": "calc(100% - 50px)",
+                  "style": {
+                    "paddingLeft": "10px"
+                  },
+                  "content": {
+                    "type": "selector-with-legend",
+                    "colors": [
+                      "#969696",
+                      "#006AAF",
+                      "#002944",
+                      "#8DC63F",
+                      "#648E2A",
+                      "#72ACD2",
+                      "#A9D66C",
+                      "#D4D4D4",
+                      "#333333",
+                      "#666666"
+                    ],
+                    "setterKey": {
+                      "topSelector": "selected-naics3",
+                      "subSelector": "selected-naics4",
+                      "topSelectorLabel": "selected-naics3-text"
+                    },
+                    "getterKey" : {
+                      "topSelector": "selected-naics3",
+                      "subSelector": "selected-naics4"
+                    },
+                    "baseDataPath": "city",
+                    "topFilterKey": "naics3.total_spending",
+                    "subFilterKey": "naics4.total_spending",
+                    "topFilterMinValue": 10000,
+                    "subFilterMinValue": 10000,
+                    "options": [
+                      {
+                        "label": "All Tourist Industries",
+                        "key": "total"
+                      },
+                      {
+                        "label": "Performing Arts, Spectator Sports, and Related Industries  (NAICS 711)",
+                        "key": "711",
+                        "legendItems": [
+                          {
+                            "label": "Performing Arts Companies (NAICS 7111)",
+                            "key": "7111"
+                          },
+                          {
+                            "label": "Spectator Sports (NAICS 7112)",
+                            "key": "7112"
+                          },
+                          {
+                            "label": "Promoters of Performing Arts, Sports, and Similar Events (NAICS 7113)",
+                            "key": "7113"
+                          },
+                          {
+                            "label": "Agents and Managers for Artists, Athletes, Entertainers, and Other Public Figures (NAICS 7114)",
+                            "key": "7114"
+                          },
+                          {
+                            "label": "Independent Artists, Writers, and Performers (NAICS 7115)",
+                            "key": "7115"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Museums, Historical Sites, and Similar Institutions  (NAICS 712)",
+                        "key": "712",
+                        "legendItems": null
+                      },
+                      {
+                        "label": "Amusement, Gambling, and Recreation Industries (NAICS 713)",
+                        "key": "713",
+                        "legendItems": [
+                          {
+                            "label": "Amusement Parks and Arcades (NAICS 7131)",
+                            "key": "7131"
+                          },
+                          {
+                            "label": "Gambling Industries (NAICS 7132)",
+                            "key": "7132"
+                          },
+                          {
+                            "label": "Other Amusement and Recreation Industries (NAICS 7139)",
+                            "key": "7139"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Accommodation  (NAICS 721)",
+                        "key": "721",
+                        "legendItems": [
+                          {
+                            "label": "Traveler Accommodation (NAICS 7211)",
+                            "key": "7211"
+                          },
+                          {
+                            "label": "RV (Recreational Vehicle) Parks and Recreational Camps (NAICS 7212)",
+                            "key": "7212"
+                          },
+                          {
+                            "label": "Rooming and Boarding Houses (NAICS 7213)",
+                            "key": "7213"
+                          }
+                        ]
+                      },
+                      {
+                        "label": "Food Services and Drinking Places (NAICS 722)",
+                        "key": "722",
+                        "legendItems": [
+                          {
+                            "label": "Full-Service Restaurants (NAICS 7221)",
+                            "key": "7221"
+                          },
+                          {
+                            "label": "Limited-Service Eating Places (NAICS 7222)",
+                            "key": "7222"
+                          },
+                          {
+                            "label": "Special Food Services (NAICS 7223)",
+                            "key": "7223"
+                          },
+                          {
+                            "label": "Drinking Places (Alcoholic Beverages) (NAICS 7224)",
+                            "key": "7224"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+
+              ]
+            },
+            {
+              "width": "33%",
+              "rows": [
+                {
+                  "height": "150px",
+                  "content": {
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": {
+                        "trendValue": "trend-data-toggler"
+                      },
+                      "dataPath": "city",
+                      "indicator": {
+                        "var": "naics3.total_spending",
+                        "label": "Total Tourism Spending",
+                        "calculator": "differenceOfTotalsFromPrevious",
+                        "filter": [
+                          "711",
+                          "712",
+                          "713",
+                          "721",
+                          "722"
+                        ],
+                        "key": "total_spending",
+                        "units": "bigDollars",
+                        "positiveTrendDirection": "up"
+                      },
+                      "displayCompareText": true
+                    }
+                  }
+                },
+                {
+                  "height": "60%",
+                  "content": {
+                    "type": "combo-line-area-chart",
+                    "lineKey": "naics3",
+                    "areaKey": "naics4",
+                    "totalFilter": [
+                      "711",
+                      "712",
+                      "713",
+                      "721",
+                      "722"
+                    ],
+                    "getterKey": {
+                      "lineSelector": "selected-naics3",
+                      "areaSelector": "selected-naics4"
+                    },
+                    "indicator": {
+                      "var": "total_spending",
+                      "label": "Total Spending",
+                      "calculator": null,
+                      "key": "total_spending",
+                      "units": "bigDollars"
+
+                    },
+                    "basePath": "city",
+                    "colors": [
+                      "#969696",
+                      "#006AAF",
+                      "#002944",
+                      "#8DC63F",
+                      "#648E2A",
+                      "#72ACD2",
+                      "#A9D66C",
+                      "#D4D4D4",
+                      "#333333",
+                      "#666666"
+                    ],
+                    "description": "LINE/AREA CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, AND INDICATOR DROPDOWN"
+                  }
+                }              ]
+            }          
+          ] 
+        }
+
       },
       "community": {
         "title": "COMMUNITY PROFILES",

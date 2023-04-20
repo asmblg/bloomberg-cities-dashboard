@@ -61,6 +61,7 @@ const DetailCard = ({ project, config, sectionKey, viewType }) => {
             data={detailData.data} 
             layout={config?.layout} 
             project={project}
+            viewType={viewType}
           />
         ) : null}
         <ShareAndPrintIcons />

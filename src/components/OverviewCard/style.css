@@ -6,6 +6,11 @@
 .overview-title {
   width: 100%;
   padding-bottom: 0;
+  
+}
+
+.overview-title > h1 > span {
+  font-size: 2.5rem;
 }
 
 .overview-body {

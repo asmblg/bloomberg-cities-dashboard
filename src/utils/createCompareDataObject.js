@@ -27,12 +27,13 @@ import getCurrentAndCompareData from './getCurrentAndCompareData';
  * @returns {object} { currentValue, currentDate, compareDate, compareValue }
  */
 
-const createCompareDataObject = (calculator, data, trendDataType) => {
+const createCompareDataObject = (calculator, data, trendDataType, filterArray) => {
   // console.log(data, trendDataType);
   const { currentValue, compareValue, currentDate, compareDate } = getCurrentAndCompareData(
     calculator,
     data,
-    trendDataType || 'QtQ'
+    trendDataType || 'QtQ',
+    filterArray
   );
 
   const obj = {

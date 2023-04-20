@@ -10,13 +10,12 @@ const FlexLayout = ({
     rows 
   }, 
   data, 
-  project 
+  project,
+  viewType 
 }) => {
-
-  console.log(initialState);
+  console.log(viewType);
 
   const [getter, setter] = useState(initialState);
-
   const elementArray = columns || rows;
 
   const handleSetter = (setterKey, value) => {
@@ -37,7 +36,7 @@ const FlexLayout = ({
     }
   };
 
-  console.log(JSON.stringify(getter));
+  // console.log(JSON.stringify(getter));
 
   return (
     <div
@@ -66,7 +65,8 @@ FlexLayout.propTypes = {
   layout: PropTypes.object,
   data: PropTypes.object,
   project: PropTypes.string,
-  initialState: PropTypes.object
+  initialState: PropTypes.object,
+  viewType: PropTypes.string
 };
 
 export default FlexLayout;

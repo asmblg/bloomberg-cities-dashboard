@@ -27,7 +27,7 @@ const SelectorWithLegend = ({
     subFilterMinValue
   } = config;
 
-  const baseDataPath = getter?.[getterKey?.baseDataPath];
+  const baseDataPath = config?.baseDataPath || getter?.[getterKey?.baseDataPath];
   // console.log(baseDataPath);
   // console.log(data);
 
