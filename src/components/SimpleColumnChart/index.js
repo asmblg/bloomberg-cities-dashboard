@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
-// import getRecentQuarterEndDates from '../../utils/getRecentQuarterEndDates';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 
 import { handleData } from './utils';
+import calculateChartDomain from '../../utils/calculateChartDomain';
 import formatChartTick from '../../utils/formatChartTick';
 import formatNumberWithCommas from '../../utils/formatNumberWithCommas';
 
-const ColumnChart = ({ config, data, margin, height, width, hasTooltip }) => {
+const SimpleColumnChart = ({ config, data, margin }) => {
   const [dataArray, setDataArray] = useState(null);
-  const { color, accentColor, yaxis, xaxis } = config;
+  const { color, accentColor, yaxis, xaxis, cartesianGrid, hasTooltip, height, width } = config;
 
   useEffect(() => {
     if (data) {
@@ -23,8 +23,15 @@ const ColumnChart = ({ config, data, margin, height, width, hasTooltip }) => {
   }, [data]);
 
   return dataArray ? (
-    <ResponsiveContainer height={height || 200} width={width || 200}>
+    <ResponsiveContainer height={height || 300} width={width || '100%'}>
       <BarChart data={dataArray} barSize={10} barCategoryGap={0} margin={margin}>
+        {cartesianGrid ? (
+          <CartesianGrid
+            vertical={cartesianGrid !== 'horizontal' || cartesianGrid === 'all'}
+            horizontal={cartesianGrid === 'horizontal' || cartesianGrid === 'all'}
+            opacity={0.5}
+          />
+        ) : null}
         <XAxis
           dataKey={'name'}
           tickFormatter={text => formatChartTick(text, xaxis?.labelFormatter)}
@@ -33,7 +40,17 @@ const ColumnChart = ({ config, data, margin, height, width, hasTooltip }) => {
           axisLine={false}
           tickFormatter={text => formatChartTick(text, yaxis?.labelFormatter)}
           tickCount={yaxis?.tickCount || 4}
-          domain={yaxis?.domain || [0, 'dataMax']}
+          domain={yaxis?.domain || calculateChartDomain(dataArray)}
+          label={
+            yaxis?.label
+              ? {
+                value: yaxis.label,
+                angle: -90,
+                position: 'insideLeft',
+                dy: 50
+              }
+              : null
+          }
         />
         {hasTooltip ? (
           <Tooltip content={() => renderTooltip(dataArray, config.xaxis?.labelFormatter)} />
@@ -49,7 +66,7 @@ const ColumnChart = ({ config, data, margin, height, width, hasTooltip }) => {
   ) : null;
 };
 
-ColumnChart.propTypes = {
+SimpleColumnChart.propTypes = {
   config: PropTypes.object,
   data: PropTypes.object,
   margin: PropTypes.object,
@@ -70,4 +87,4 @@ function renderTooltip(arr, keyFormatter) {
   ) : null;
 }
 
-export default ColumnChart;
+export default SimpleColumnChart;

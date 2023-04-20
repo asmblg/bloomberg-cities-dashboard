@@ -816,8 +816,179 @@
           "selectedColor": "#00b2c1",
           "unselectedColor": "#dfe5e9"
         },
-        "dataPath": "smallbusiness",
-        "charts": null
+        "dataPath": ["smallbusiness", "newbusiness"],
+        "layout": {
+          "columns": [
+            {
+              "width": "50%",
+              "height": "100%",
+              "rows": [
+                {
+                  "content": {
+                    "type": "trend-data-toggler",
+                    "config": {
+                      "getterKey": {
+                        "toggleValue": "sb-trend-toggler"
+                      },
+                      "setterKey": {
+                        "toggleValue": "sb-trend-toggler"
+                      }
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": {
+                        "trendValue": "sb-trend-toggler"
+                      },
+                      "dataPath": "newbusiness.city",
+                      "indicator": {
+                        "var": "total",
+                        "label": "New Businesses",
+                        "calculator": null,
+                        "key": "total",
+                        "units": "int"
+                      },
+                      "displayCompareText": true
+                    }
+                  }
+                },
+                {
+                  "width": "100%",
+                  "content": {
+                    "type": "indicator-dropdown",
+                    "config": {
+                      "fixedSelection": {
+                        "key": "newbusinesses",
+                        "label": "NEW BUSINESSES"
+                      }
+                    }
+                  }
+                },
+                {
+                  "width": "100%",
+                  "height": "30vh",
+                  "content": {
+                    "type": "simple-column-chart",
+                    "config": {
+                      "dataPath": "newbusiness.city.total",
+                      "height": "100%",
+                      "width": "100%",
+                      "label": "New Businesses",
+                      "dataLength": 13,
+                      "color": "#006aaf",
+                      "xaxis": {
+                        "labelFormatter": "longQuarter",
+                        "type": "date",
+                        "tickCount": 2
+                      },
+                      "yaxis": {
+                        "label": "New Businesses",
+                        "labelInfo": true
+                      },
+                      "cartesianGrid": "horizontal"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "width": "50%",
+              "height": "100%",
+              "rows": [
+                {
+                  "width": "100%",
+                  "content": {
+                    "type": "compare-selector",
+                    "config": {
+                      "setterKey": {
+                        "selectedOption": "sb-business-type"
+                      },
+                      "getterKey": {
+                        "selectedOption": "sb-business-type"
+                      },
+                      "title": "Select a type of business to compare median percentage change in card revenue with other industries:",
+                      "options": [
+                        { "key": "leisure_and_entertainment", "text": "Leisure and entertainment" },
+                        { "key": "professional_services", "text": "Professional services" },
+                        { "key": "food_and_drink", "text": "Food and drink" },
+                        { "key": "health_care_and_fitness", "text": "Healthcare and fitness" },
+                        { "key": "transportation", "text": "Transportation" },
+                        { "key": "casual_use", "text": "Casual use" },
+                        {
+                          "key": "charities_education_and_membership",
+                          "text": "Charities education and membership"
+                        },
+                        { "key": "beauty_and_personal_care", "text": "Beauty and personal care" },
+                        { "key": "home_and_repair", "text": "Home and repair" },
+                        { "key": "retail", "text": "Retail" }
+                      ],
+                      "comparand": {
+                        "key": "All_Business_types",
+                        "text": "All business types"
+                      },
+                      "legendStyle": {
+                        "flexDirection": "column",
+                        "alignItems": "flex-start"
+                      }
+                    }
+                  }
+                },
+                {
+                  "width": "100%",
+                  "height": "30vh",
+                  "content": {
+                    "type": "multi-line-chart",
+                    "config": {
+                      "getterKey": {
+                        "secondaryLine": "sb-business-type",
+                        "selectedCategory": "sb-trend-toggler"
+                      },
+                      "getterValueFormatter": {
+                        "value": "sb-trend-toggler",
+                        "QtQ": "quarterly_percent_change",
+                        "YtY": "annual_percent_change"
+                      },
+                      "dataPath": "smallbusiness.city",
+                      "label": "SMALL BUSINESSES CARD REVENUE",
+                      "fixedIndicator": true,
+                      "dataLength": 12,
+                      "mainColor": "#006aaf",
+                      "compareColor": "#8dc63f",
+                      "otherColor": "#cccccc",
+                      "displayAllCities": true,
+                      "displayAllKeys": true,
+                      "xaxis": {
+                        "labelFormatter": "monthToQuarter",
+                        "type": "date",
+                        "tickCount": 2
+                      },
+                      "yaxis": {
+                        "tickCount": 3,
+                        "domain": [0, "dataMax"],
+                        "labelFormatter": {
+                          "prefix": "Median",
+                          "suffix": "percentage change",
+                          "getterVariable": "sb-trend-toggler",
+                          "YtY": "Year-to-Year",
+                          "QtQ": "Quarter-to-Quarter"
+                        },
+                        "units": "percent"
+                      },
+                      "primaryLine": {
+                        "key": "All_Business_Types",
+                        "text": "All business types"
+                      },
+                      "defaultSelectedCategory": "quarterly_percent_change"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
       },
       "newbusiness": {
         "icon": "horizon",

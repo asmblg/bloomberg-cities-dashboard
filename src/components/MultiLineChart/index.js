@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { 
+import {
   LineChart,
   XAxis,
   YAxis,
@@ -10,18 +10,20 @@ import {
 } from 'recharts';
 import PropTypes from 'prop-types';
 
+import CustomLabel from './subComponents/CustomLabel';
 import IndicatorDropdown from '../IndicatorDropdown';
 
-import { handleDataArray, handleLineStyle } from './utils';
+import { handleDataArray, handleLineStyle, handleDataObject, handleLabel } from './utils';
 import formatValue from '../../utils/formatValue';
 import calculateChartDomain from '../../utils/calculateChartDomain';
-import getNestedValue from '../../utils/getNestedValue';
 
 const MultiLineChart = ({ config, data, getter, setter }) => {
   const [dataArray, setDataArray] = useState(null);
 
   const {
     dataPath,
+    getterKey,
+    setterKey,
     indicators,
     fixedIndicator,
     dataLength,
@@ -31,18 +33,19 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     yaxis,
     height,
     width,
-    setterKey,
-    getterKey
   } = config;
 
-  
-  // const setterKey = config.setterKey?.selectedOption;
   const selectedIndicator = getter?.[getterKey?.selectedOption] || null;
   // Looks for a primary line from getter, then for a default primaryLine in the config
-  const primaryLine = getterKey?.primaryLine ? getter?.[getterKey?.primaryLine] : config.primaryLine || null;
-  const secondaryLine = getterKey?.secondaryLine ? getter?.[getterKey?.secondaryLine] : null;
-
-  const dataObj = data && dataPath ? getNestedValue(data, dataPath) : data ? data : null;
+  const primaryLine = getterKey?.primaryLine
+    ? getter?.[getterKey?.primaryLine]
+    : config.primaryLine || null;
+  const secondaryLine = getterKey?.secondaryLine
+    ? getter?.[getterKey?.secondaryLine]
+    : null;
+  const dataObj = data
+    ? handleDataObject({ data, dataPath, config, selectedIndicator, getter })
+    : null;
   const allLinesArray = dataObj ? Object.keys(dataObj) : [];
 
   useEffect(() => {
@@ -57,11 +60,15 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
   }, [getter, selectedIndicator]);
 
   useEffect(() => {
-    if (data && selectedIndicator && allLinesArray && (primaryLine || secondaryLine)) {
+    if (
+      data &&
+      allLinesArray &&
+      (primaryLine || secondaryLine)
+    ) {
       handleDataArray({
         mainLineKey: primaryLine?.key || secondaryLine?.key || null,
         data: dataObj || {},
-        selectedIndicator,
+        selectedIndicator: selectedIndicator || null,
         allLinesArray: allLinesArray,
         dataLength
       }).then(array => {
@@ -70,20 +77,23 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
         }
       });
     }
-  }, [selectedIndicator, primaryLine, secondaryLine, data]);
+  }, [data, getter]);
 
-  return selectedIndicator && dataArray ? (
+  return dataArray ? (
     <div className='chart-container'>
-      {!config.disableDropdown ? 
+      {!config.disableDropdown ? (
         <IndicatorDropdown
-          // selectedOption={selectedIndicator}
-          // setterKey={setterKey}
+          selectedOption={
+            !selectedIndicator && fixedIndicator && config.label
+              ? { key: config.label, label: config.label }
+              : null
+          }
           setter={setter}
           getter={getter}
           config={config}
-          options={!fixedIndicator ? indicators : null}
+          options={!fixedIndicator && indicators ? indicators : null}
         />
-        : null}
+      ) : null}
       {dataArray[0] ? (
         <ResponsiveContainer
           height={height || '100%'}
@@ -91,7 +101,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
         >
           <LineChart
             data={dataArray}
-            margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
+            margin={{ top: 20, right: 20, left: 50, bottom: 20 }}
           >
             <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
             <XAxis
@@ -108,8 +118,20 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
             />
             <YAxis
               domain={calculateChartDomain(dataArray)}
-              tickFormatter={text => formatValue(text, selectedIndicator.units)}
-              label={{ value: yaxis.label === 'indicator' ? selectedIndicator.label : yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
+              tickFormatter={text => formatValue(text, selectedIndicator?.units || yaxis?.units)}
+              label={yaxis?.label && !yaxis.labelFormatter ?
+                {
+                  value: handleLabel(yaxis.label, selectedIndicator),
+                  angle: -90,
+                  position: 'insideBottomLeft',
+                  offset: 0
+                } : !yaxis?.label && yaxis?.labelFormatter ?
+                  <CustomLabel
+                    labelConfig={yaxis}
+                    selectedIndicator={selectedIndicator}
+                    getter={getter}
+                  /> : null
+              }
             />
             <Tooltip />
             {allLinesArray.map(city => {
@@ -136,7 +158,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
             })}
           </LineChart>
         </ResponsiveContainer>
-      ) : null}     
+      ) : null}
     </div>
   ) : null;
 };

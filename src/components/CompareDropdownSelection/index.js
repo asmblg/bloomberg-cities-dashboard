@@ -19,7 +19,8 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
     getterKey,
     setterKey,
     style,
-    svgStyle
+    svgStyle,
+    legendStyle
   } = config;
 
   const selectedOption =
@@ -62,7 +63,7 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
       style={style || {}}
     >
       <h5 className='bold-font'>{title || ''}</h5>
-      <div className='compare-dropdown-legend'>
+      <div className='compare-dropdown-legend' style={legendStyle || {}}>
         {comparand ? (
           <div className='main-value-container'>
             <h5>{comparand.text || ''}</h5>

@@ -4,15 +4,16 @@ import { Icon } from 'semantic-ui-react';
 
 import './style.css';
 
-const IndicatorSelectDropdown = ({ setter, getter, config, options, selectedOption }) => {
+const IndicatorDropdown = ({ setter, getter, config, options, selectedOption }) => {
   const key = config?.key;
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selection, setSelection] = useState();
   const [subHeading, setSubHeading] = useState();
 
+  // const selection = getter?.[config?.getterKey?.selectedOption] || config?.fixedSelection || selectedOption;
   const setterKey = config?.setterKey?.selectedOption;
 
-  useEffect(() => setter(config?.setterKey?.selectedOption, config?.indicators[0]), []);
+  useEffect(() => setter(config?.setterKey?.selectedOption, config?.indicators?.[0]), []);
 
   useEffect(() => {
     if (getter?.[config?.getterKey?.selectedOption] || selectedOption) {
@@ -71,7 +72,7 @@ const IndicatorSelectDropdown = ({ setter, getter, config, options, selectedOpti
   // : null;
 };
 
-IndicatorSelectDropdown.propTypes = {
+IndicatorDropdown.propTypes = {
   selectedOption: PropTypes.object,
   setter: PropTypes.func,
   getter: PropTypes.object,
@@ -80,4 +81,4 @@ IndicatorSelectDropdown.propTypes = {
   options: PropTypes.array
 };
 
-export default IndicatorSelectDropdown;
+export default IndicatorDropdown;

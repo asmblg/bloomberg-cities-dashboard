@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 
 import IndicatorDropdown from '../IndicatorDropdown';
 
-import { handleDataArray } from './utils';
+import { handleDataArray, handleDefaultIndicator } from './utils';
 import calculateChartDomain from '../../utils/calculateChartDomain';
 
 const CompareColumnChart = ({ config, data, getter, setter }) => {
@@ -54,11 +54,13 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
   ]);
 
   useEffect(() => {
-    if (fixedIndicator) {
-      const indicator = indicators.find(({ key }) => key === fixedIndicator);
-      setter(setterKey, indicator);
-    } else {
-      setter(setterKey, indicators[0]);
+    if (setterKey) {
+      handleDefaultIndicator({ fixedIndicator, indicators })
+        .then(indicator => {
+          if (indicator) {
+            setter(setterKey, indicator);
+          }
+        });
     }
   }, []);
 

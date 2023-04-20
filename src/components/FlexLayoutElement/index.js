@@ -8,6 +8,7 @@ import SimpleIndicatorBox from '../SimpleIndicatorBox';
 import CompareDropdownSelection from '../CompareDropdownSelection';
 import MultiLineChart from '../MultiLineChart';
 import CompareColumnChart from '../CompareColumnChart';
+import SimpleColumnChart from '../SimpleColumnChart';
 import SelectorWithLegend from '../SelectorWithLegend';
 import IndicatorDropdown from '../IndicatorDropdown';
 import ComboLineAreaChart from '../ComboLineAreaChart';
@@ -47,9 +48,15 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
       ) : content.type === 'title-with-trend-data-toggler' ? (
         <div className='detail-card-header'>
           {content?.config?.title ? (
-            <h1 className='detail-card-title' style={content.config.titleStyle || {}}>{content.config?.title?.toUpperCase() || ''}</h1>
+            <h1 className='detail-card-title' style={content.config.titleStyle || {}}>
+              {content.config?.title?.toUpperCase() || ''}
+            </h1>
           ) : null}
-          <TrendDataToggle config={content.config} getter={getter} setter={setter} />
+          <TrendDataToggle
+            config={content.config}
+            getter={getter}
+            setter={setter}
+          />
         </div>
       ) : content.type === 'indicator-trend-box' ? (
         <IndicatorTrendBox
@@ -84,6 +91,11 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
           config={content.config}
           getter={getter}
           setter={setter}
+        />
+      ) : content.type === 'simple-column-chart' ? (
+        <SimpleColumnChart
+          config={content.config}
+          data={data}
         />
       ) : content.type === 'selector-with-legend' ? (
         <SelectorWithLegend
