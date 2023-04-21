@@ -820,7 +820,7 @@
         "layout": {
           "columns": [
             {
-              "width": "50%",
+              "width": "34%",
               "height": "100%",
               "rows": [
                 {
@@ -895,7 +895,53 @@
               ]
             },
             {
-              "width": "50%",
+              "width": "33%",
+              "height": "100%",
+              "rows": [
+                {
+                  "width": "100%",
+                  "height": "10%",
+                  "content": {
+                    "type": "indicator-dropdown",
+                    "config": {
+                      "fixedSelection": {
+                        "key": "rent_burden",
+                        "label": "RENT-BURDEN"
+                      }
+                    }
+                  }
+                },
+                {
+                  "width": "100%",
+                  "height": "100%",
+                  "content": {
+                    "type": "under-construction"
+                  }
+                },
+                {
+                  "width": "100%",
+                  "height": "10%",
+                  "content": {
+                    "type": "indicator-dropdown",
+                    "config": {
+                      "fixedSelection": {
+                        "key": "cash_flow_capacity",
+                        "label": "CASH FLOW CAPACITY"
+                      }
+                    }
+                  }
+                },
+                {
+                  "width": "100%",
+                  "height": "50%",
+                  "content": {
+                    "type": "under-construction"
+                  }
+                }
+              ]
+            },
+            {
+              "width": "33%",
               "height": "100%",
               "rows": [
                 {
@@ -999,7 +1045,96 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "newbusiness",
-        "charts": [{ "type": null }]
+        "layout": {
+          "columns": [
+            {
+              "width": "30%",
+              "style": {
+                "padding": "40px",
+                "borderRight": "3px solid #dfe5e9"
+              },
+              "rows": [
+                {
+                  "width": "100%",
+                  "content": {
+                    "type": "trend-data-toggler",
+                    "config": {
+                      "disabled": true,
+                      "getterKey": {
+                        "toggleValue": "trend-data-toggler"
+                      },
+                      "setterKey": {
+                        "toggleValue": "trend-data-toggler"
+                      }
+                    }
+                  }
+                },
+                {
+                  "width": "100%",
+                  "height": "100%",
+                  "style": {
+                    "padding": "20px 0"
+                  },
+                  "content": {
+                    "type": "under-construction"
+                  }
+                }
+              ]
+            },
+            {
+              "width": "70%",
+              "style": {
+                "padding": "40px"
+              },
+              "rows": [
+                {
+                  "columns": [
+                    {
+                      "width": "50%",
+                      "style": {
+                        "margin": "0 20px"
+                      },
+                      "content": {
+                        "type": "indicator-dropdown",
+                        "config": {
+                          "fixedSelection": {
+                            "key": "startups",
+                            "label": "STARTUPS"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "width": "50%",
+                      "style": {
+                        "margin": "0 20px"
+                      },
+                      "content": {
+                        "type": "indicator-dropdown",
+                        "config": {
+                          "fixedSelection": {
+                            "key": "startup_funding",
+                            "label": "STARTUP FUNDING"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "width": "100%",
+                  "height": "100%",
+                  "style": {
+                    "padding": "20px 0"
+                  },
+                  "content": {
+                    "type": "under-construction"
+                  }
+                }
+              ]
+            }
+          ]
+        }
       },
       "consumers": {
         "icon": "jet",
@@ -1011,7 +1146,7 @@
         },
         "dataPath": "consumers",
         "initialState": {
-          "selected-indicator": { 
+          "selected-indicator": {
             "var":"total_spending",
             "label":"Total Spending",
             "calculator":null,
@@ -1119,8 +1254,8 @@
                       "subSelector": "selected-naics4",
                       "topSelectorLabel": "selected-naics3-text"
                     },
-                    "getterKey" : {
-                      "baseDataPath" : "geo-data-path",
+                    "getterKey": {
+                      "baseDataPath": "geo-data-path",
                       "topSelector": "selected-naics3",
                       "subSelector": "selected-naics4"
                     },
@@ -1491,7 +1626,7 @@
                   "height": "20%",
                   "content": {
                     "type": "indicator-dropdown",
-                    "key": "consusmer-indicator-dropdown",
+                    "key": "consumer-indicator-dropdown",
                     "description": "INDICATOR DROPDOWN SELECTOR",
                     "setterKey": {
                       "selectedOption": "selected-indicator"
@@ -1731,12 +1866,12 @@
                         "label": "Total Tourism Spending",
                         "calculator": "differenceOfTotalsFromPrevious",
                         "filter": [
-                          "711",
-                          "712",
-                          "713",
+                          "711", 
+                          "712", 
+                          "713", 
                           "721",
-                          "722"
-                        ],
+                           "722"
+                          ],
                         "key": "total_spending",
                         "units": "bigDollars",
                         "positiveTrendDirection": "up"
@@ -1753,10 +1888,10 @@
                     "areaKey": "naics4",
                     "totalFilter": [
                       "711",
-                      "712",
-                      "713",
-                      "721",
-                      "722"
+                     "712", 
+                     "713", 
+                     "721", 
+                     "722"
                     ],
                     "getterKey": {
                       "lineSelector": "selected-naics3",
@@ -1785,11 +1920,11 @@
                     ],
                     "description": "LINE/AREA CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, AND INDICATOR DROPDOWN"
                   }
-                }              ]
-            }          
-          ] 
+                }
+              ]
+            }
+          ]
         }
-
       },
       "community": {
         "title": "COMMUNITY PROFILES",
@@ -2974,7 +3109,7 @@
                         "geoSelection": "geo-data-path"
                       },
                       "center": [33.52698, -112.079901],
-                      "zoom": 10,        
+                      "zoom": 10,
                       "geoType": "SafeGraph Subareas",
                       "color": "#002944",
                       "strokeColor": "white",
@@ -3406,7 +3541,7 @@
                   "height": "10%",
                   "content": {
                     "type": "indicator-dropdown",
-                    "key": "consusmer-indicator-dropdown",
+                    "key": "consumer-indicator-dropdown",
                     "description": "INDICATOR DROPDOWN SELECTOR",
                     "setterKey": {
                       "selectedOption": "selected-indicator"

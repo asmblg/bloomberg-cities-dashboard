@@ -12,7 +12,7 @@ import SimpleColumnChart from '../SimpleColumnChart';
 import SelectorWithLegend from '../SelectorWithLegend';
 import IndicatorDropdown from '../IndicatorDropdown';
 import ComboLineAreaChart from '../ComboLineAreaChart';
-
+import UnderConstructionBox from '../UnderConstructionBox';
 
 const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
   const { columns, rows, content, height, width, style } = layout;
@@ -113,8 +113,8 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
           getter={getter}
           config={content}
           options={!content.fixedIndicator ? content.indicators : null}
+          selectedOption={content?.config?.fixedSelection || null}
         />
-
       ) : content.type === 'combo-line-area-chart' ? (
         <ComboLineAreaChart
           setter={setter}
@@ -122,8 +122,9 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
           config={content}
           data={data}
         />
-
-      ) : (        
+      ) : content.type === 'under-construction' ? (
+        <UnderConstructionBox />
+      ) : (
         JSON.stringify(content)
       )}
     </div>
