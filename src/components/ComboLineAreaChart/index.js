@@ -12,7 +12,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import { handleData } from './utils';
-import  formatValue  from '../../utils/formatValue';
+import formatValue from '../../utils/formatValue';
 import PropTypes from 'prop-types';
 
 const ComboLineAreaChart = ({
@@ -35,7 +35,9 @@ const ComboLineAreaChart = ({
     yaxis,
     indicator,
     basePath,
-    totalFilter
+    totalFilter,
+    average,
+    linesInsteadOfArea
   } = config;
 
 
@@ -46,7 +48,8 @@ const ComboLineAreaChart = ({
       basePathKey: basePath || getter?.[getterKey?.basePath],
       categoryKey: lineKey,
       indicatorKey: indicator?.var || getter?.[getterKey?.indicator]?.var,
-      dataSelection: getter?.[getterKey?.lineSelector] || 'total'
+      dataSelection: getter?.[getterKey?.lineSelector] || 'total',
+      average
     });
 
     setLines(lineData);
@@ -64,7 +67,8 @@ const ComboLineAreaChart = ({
       basePathKey: basePath || getter?.[getterKey?.basePath],
       categoryKey: areaKey,
       indicatorKey: indicator?.var || getter?.[getterKey?.indicator]?.var,
-      dataSelection: getter?.[getterKey?.areaSelector]
+      dataSelection: getter?.[getterKey?.areaSelector],
+      average
     });
 
     setAreas(areaData);
@@ -75,7 +79,7 @@ const ComboLineAreaChart = ({
     getter?.[getterKey?.lineSelector]
   ]);
 
-  console.log(lines);
+  // console.log(lines);
 
   return (areas?.[0] || lines?.[0] ?
     <ResponsiveContainer
@@ -90,13 +94,13 @@ const ComboLineAreaChart = ({
         <YAxis
           // domain={calculateChartDomain(dataArray)}
           tickFormatter={text => formatValue(text, indicator?.units || getter?.[getterKey?.indicator]?.units)}
-          label={{ 
-            value: yaxis?.label === 'indicator' ? 
-              indicator?.label || getter?.[getterKey?.indicator]?.label 
-              : yaxis?.label, 
+          label={{
+            value: yaxis?.label === 'indicator' ?
+              indicator?.label || getter?.[getterKey?.indicator]?.label
+              : yaxis?.label,
             angle: '-90',
-            position: 'insideLeft', 
-            dy: 50 
+            position: 'insideLeft',
+            dy: 50
           }}
         />
         <XAxis dataKey="name" />
@@ -114,16 +118,27 @@ const ComboLineAreaChart = ({
         {
           areas && getter?.[getterKey?.areaSelector] ?
             getter?.[getterKey?.areaSelector]
-              .map(({key, color}) =>
-                <Area
-                  type='monotone'
-                  key={`area-${key}-${getter?.[getterKey?.basePath]}`}
-                  dataKey={key}
-                  stackId='1'
-                  fill={color}
-                  stroke={color}
+              .map(({ key, color }) =>
+                linesInsteadOfArea ?
+                  <Line
+                    type='monotone'
+                    key={`line-${key}-${getter?.[getterKey?.basePath]}`}
+                    dataKey={key}
+                    // stackId='1'
+                    // fill={color}
+                    stroke={color}
 
-                />
+                  />
+                  : <Area
+                    type='monotone'
+                    key={`area-${key}-${getter?.[getterKey?.basePath]}`}
+                    dataKey={key}
+                    stackId='1'
+                    fill={color}
+                    stroke={color}
+
+                  />
+
               )
 
             : null

@@ -63,9 +63,10 @@ a:hover {
   width: 100%;
   background-color: var(--white-color);
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 100%;
+  justify-content: flex-start;
+  /* flex-direction: row; */
+  /* justify-content: space-between; */
+  height: 80vh;
 
 }
 

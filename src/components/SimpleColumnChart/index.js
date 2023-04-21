@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import { 
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid, 
+  ReferenceLine
+} from 'recharts';
 
 import { handleData } from './utils';
 import calculateChartDomain from '../../utils/calculateChartDomain';
@@ -32,8 +41,11 @@ const SimpleColumnChart = ({ config, data, margin }) => {
             opacity={0.5}
           />
         ) : null}
+        <ReferenceLine y={0} stroke="#000000" />
+
         <XAxis
           dataKey={'name'}
+          axisLine={false}
           tickFormatter={text => formatChartTick(text, xaxis?.labelFormatter)}
         />
         <YAxis
@@ -62,6 +74,7 @@ const SimpleColumnChart = ({ config, data, margin }) => {
           stroke={accentColor || 'white'}
         />
       </BarChart>
+
     </ResponsiveContainer>
   ) : null;
 };

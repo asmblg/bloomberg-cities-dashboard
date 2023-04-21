@@ -13,6 +13,7 @@
 .detail-card-container {
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 300px);
 }
 
 .detail-card-section {

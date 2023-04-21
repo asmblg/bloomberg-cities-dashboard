@@ -12,6 +12,7 @@
 
 .summary-wrapper {
   width: calc(100% - 350px);
+  height: calc(100vh - 300px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -26,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 5% 0;
+  margin: 20px 0;
 }
 
 .large-summary-title {
@@ -36,8 +37,8 @@
 .summary-cards-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 50px;
-  height: 100%;
+  gap: 15px;
+  height: calc(100vh - 400px);
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */

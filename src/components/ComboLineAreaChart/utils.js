@@ -8,6 +8,26 @@ const dataPathConstructor = ({
 }) =>
   `${basePathKey}.${categoryKey}.${indicatorKey}`.replace(/\.\.+/, '.');
 
+
+const getQuarterDateKey = key => {
+  const date = new Date(key);
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const quarter = month >= 0 && month <= 2 ?
+    1
+    : month >= 3 && month <= 5 ?
+      2
+      : month >= 6 && month <= 8 ?
+        3
+        : month >= 9 && month <= 11 ?
+          4
+          : null;
+
+  return `${year}-Q${quarter}`;
+
+};
+
+
 const handleData = ({
   data,
   totalFilter,
@@ -15,6 +35,7 @@ const handleData = ({
   categoryKey,
   indicatorKey,
   dataSelection,
+  average
 }) => {
   const dataPath = dataPathConstructor({
     basePathKey,
@@ -22,36 +43,27 @@ const handleData = ({
     indicatorKey
   });
 
-  console.log(totalFilter);
   // Handle data selection if total, string, or array
   const dataArray = [];
   const nestedData = getNestedValue(data, dataPath);
   if (dataSelection && nestedData) {
     if (dataSelection === 'total') {
       const dataObj = {};
-      // console.log(nestedData);
       Object.entries(nestedData)
         .filter(([key,]) => totalFilter ? totalFilter.includes(key): true)
-        .forEach(([k,values]) => {
-          console.log(k,values);
+        .forEach(([,values]) => {
           Object.entries(values).forEach(([key, nestedValue]) => {
-            const date = new Date(key);
-            const year = date.getFullYear();
-            const month = date.getMonth();
-            const quarter = month >= 0 && month <= 2 ?
-              1
-              : month >= 3 && month <= 5 ?
-                2
-                : month >= 6 && month <= 8 ?
-                  3
-                  : month >= 9 && month <= 11 ?
-                    4
-                    : null;
 
-            const dateKey = `${year}-Q${quarter}`;
+            const dateKey = getQuarterDateKey(key);
 
             if (!isNaN(parseInt(nestedValue))) {
-              if (!dataObj[dateKey]) {
+              if (average){
+                if (!dataObj[dateKey]) {
+                  dataObj[dateKey] = [parseInt(nestedValue)];
+                } else {
+                  dataObj[dateKey].push(parseInt(nestedValue));
+                }
+              } else if (!dataObj[dateKey]) {
                 dataObj[dateKey] = parseInt(nestedValue);
               } else {
                 dataObj[dateKey] += parseInt(nestedValue);
@@ -64,7 +76,11 @@ const handleData = ({
         .forEach(([key, value]) => {
           const formattedObj = {};
           formattedObj.name = key;
-          formattedObj[dataSelection] = value;
+          if (average) {
+            formattedObj[dataSelection] = value[0] ? value.reduce((a,b) => a + b, 0)/value.length : null;
+          } else {
+            formattedObj[dataSelection] = value;
+          }
           dataArray.push(formattedObj);
         });
     } else if (!Array.isArray(dataSelection)) {
@@ -73,23 +89,25 @@ const handleData = ({
 
       if (selectedData) {
         Object.entries(selectedData).forEach(([key, nestedValue]) => {
-          const date = new Date(key);
-          const year = date.getFullYear();
-          const month = date.getMonth();
-          const quarter = month >= 0 && month <= 2 ?
-            1
-            : month >= 3 && month <= 5 ?
-              2
-              : month >= 6 && month <= 8 ?
-                3
-                : month >= 9 && month <= 11 ?
-                  4
-                  : null;
 
-          const dateKey = `${year}-Q${quarter}`;
+          const dateKey = getQuarterDateKey(key);
+
+          // if (!isNaN(parseInt(nestedValue))) {
+          //   if (!dataObj[dateKey]) {
+          //     dataObj[dateKey] = parseInt(nestedValue);
+          //   } else {
+          //     dataObj[dateKey] += parseInt(nestedValue);
+          //   }
+          // }
 
           if (!isNaN(parseInt(nestedValue))) {
-            if (!dataObj[dateKey]) {
+            if (average){
+              if (!dataObj[dateKey]) {
+                dataObj[dateKey] = [parseInt(nestedValue)];
+              } else {
+                dataObj[dateKey].push(parseInt(nestedValue));
+              }
+            } else if (!dataObj[dateKey]) {
               dataObj[dateKey] = parseInt(nestedValue);
             } else {
               dataObj[dateKey] += parseInt(nestedValue);
@@ -100,7 +118,11 @@ const handleData = ({
           .forEach(([key, value]) => {
             const formattedObj = {};
             formattedObj.name = key;
-            formattedObj[dataSelection] = value;
+            if (average) {
+              formattedObj[dataSelection] = value[0] ? value.reduce((a,b) => a + b, 0)/value.length : null;
+            } else {
+              formattedObj[dataSelection] = value;
+            }
             dataArray.push(formattedObj);
           });
       }
@@ -110,30 +132,23 @@ const handleData = ({
         key: selectionKey
       }) => {
         if (nestedData[selectionKey]) {
-          // dataObj[selectionKey] = {};
 
           const nestedValues = nestedData[selectionKey];
           Object.entries(nestedValues).forEach(([key, nestedValue]) => {
-            const date = new Date(key);
-            const year = date.getFullYear();
-            const month = date.getMonth();
-            const quarter = month >= 0 && month <= 2 ?
-              1
-              : month >= 3 && month <= 5 ?
-                2
-                : month >= 6 && month <= 8 ?
-                  3
-                  : month >= 9 && month <= 11 ?
-                    4
-                    : null;
 
-            const dateKey = `${year}-Q${quarter}`;
+            const dateKey = getQuarterDateKey(key);
 
             if (!isNaN(parseInt(nestedValue))) {
               if (!dataObj[dateKey]) {
                 dataObj[dateKey] = {};
               }
-              if (!dataObj[dateKey][selectionKey]) {
+              if (average){
+                if (!dataObj[dateKey][selectionKey]) {
+                  dataObj[dateKey][selectionKey] = [parseInt(nestedValue)];
+                } else {
+                  dataObj[dateKey][selectionKey].push(parseInt(nestedValue));
+                }
+              } else if (!dataObj[dateKey][selectionKey]) {
                 dataObj[dateKey][selectionKey] = parseInt(nestedValue);
               } else {
                 dataObj[dateKey][selectionKey] += parseInt(nestedValue);
@@ -147,9 +162,14 @@ const handleData = ({
         .forEach(([key, values]) => {
           const formattedObj = {};
           formattedObj.name = key;
-          Object.entries(values).forEach(([nestedKey, nestedValue]) =>
-            formattedObj[nestedKey] = nestedValue
-          );
+          Object.entries(values).forEach(([nestedKey, nestedValue]) =>{
+            if (average) {
+              formattedObj[nestedKey] = nestedValue[0] ? nestedValue.reduce((a,b) => a + b, 0)/nestedValue.length : null;
+            } else {
+              formattedObj[nestedKey] = nestedValue;
+            }  
+          // formattedObj[nestedKey] = nestedValue
+          });
           dataArray.push(formattedObj);
         });
     }

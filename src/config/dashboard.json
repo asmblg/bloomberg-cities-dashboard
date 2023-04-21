@@ -46,7 +46,10 @@
               },
               "yaxis": {
                 "tickCount": 3,
-                "domain": ["dataMin", "dataMax"],
+                "domain": [
+                  "dataMin",
+                  "dataMax"
+                ],
                 "labelFormatter": "abbreviateNumber"
               },
               "color": "#006aaf"
@@ -169,13 +172,14 @@
         "layout": {
           "columns": [
             {
-              "width": "25%",
+              "width": "33%",
               "height": "100%",
               "style": {
                 "borderRight": "3px solid #dfe5e9"
               },
               "rows": [
                 {
+                  "height": "50px",
                   "content": {
                     "type": "trend-data-toggler",
                     "config": {
@@ -189,6 +193,7 @@
                   }
                 },
                 {
+                  "height": "150px",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
@@ -231,7 +236,7 @@
               ]
             },
             {
-              "width": "75%",
+              "width": "67%",
               "height": "100%",
               "rows": [
                 {
@@ -239,8 +244,12 @@
                   "content": {
                     "type": "compare-selector",
                     "config": {
-                      "getterKey": { "selectedOption": "jobs-selected-city" },
-                      "setterKey": { "selectedOption": "jobs-selected-city" },
+                      "getterKey": {
+                        "selectedOption": "jobs-selected-city"
+                      },
+                      "setterKey": {
+                        "selectedOption": "jobs-selected-city"
+                      },
                       "title": "Compare Tampa-St Petersburg-Clearwater with benchmark metropolitan areas:",
                       "comparand": {
                         "key": "tampa",
@@ -306,7 +315,10 @@
                           },
                           "yaxis": {
                             "tickCount": 3,
-                            "domain": [0, "dataMax"],
+                            "domain": [
+                              0,
+                              "dataMax"
+                            ],
                             "label": "Unemployment rate"
                           },
                           "indicators": [
@@ -352,8 +364,11 @@
                           },
                           "yaxis": {
                             "tickCount": 3,
-                            "domain": [0, "dataMax"],
-                            "label": "Thousands"
+                            "domain": [
+                              0,
+                              "dataMax"
+                            ],
+                            "label": "Jobs Added"
                           },
                           "indicators": [
                             {
@@ -365,7 +380,11 @@
                               "units": "thousands"
                             },
                             {
-                              "var": ["miningconstruction", "mining", "construction"],
+                              "var": [
+                                "miningconstruction",
+                                "mining",
+                                "construction"
+                              ],
                               "label": "Mining and Construction",
                               "calculator": "sum",
                               "key": "mining_construction",
@@ -580,7 +599,10 @@
                           },
                           "yaxis": {
                             "tickCount": 3,
-                            "domain": [0, "dataMax"],
+                            "domain": [
+                              0,
+                              "dataMax"
+                            ],
                             "label": "indicator"
                           },
                           "indicators": [
@@ -750,7 +772,10 @@
                           },
                           "yaxis": {
                             "tickCount": 3,
-                            "domain": [0, "dataMax"],
+                            "domain": [
+                              0,
+                              "dataMax"
+                            ],
                             "label": "indicator"
                           },
                           "indicators": [
@@ -816,7 +841,10 @@
           "selectedColor": "#00b2c1",
           "unselectedColor": "#dfe5e9"
         },
-        "dataPath": ["smallbusiness", "newbusiness"],
+        "dataPath": [
+          "smallbusiness",
+          "newbusiness"
+        ],
         "layout": {
           "columns": [
             {
@@ -911,19 +939,46 @@
                       },
                       "title": "Select a type of business to compare median percentage change in card revenue with other industries:",
                       "options": [
-                        { "key": "leisure_and_entertainment", "text": "Leisure and entertainment" },
-                        { "key": "professional_services", "text": "Professional services" },
-                        { "key": "food_and_drink", "text": "Food and drink" },
-                        { "key": "health_care_and_fitness", "text": "Healthcare and fitness" },
-                        { "key": "transportation", "text": "Transportation" },
-                        { "key": "casual_use", "text": "Casual use" },
+                        {
+                          "key": "leisure_and_entertainment",
+                          "text": "Leisure and entertainment"
+                        },
+                        {
+                          "key": "professional_services",
+                          "text": "Professional services"
+                        },
+                        {
+                          "key": "food_and_drink",
+                          "text": "Food and drink"
+                        },
+                        {
+                          "key": "health_care_and_fitness",
+                          "text": "Healthcare and fitness"
+                        },
+                        {
+                          "key": "transportation",
+                          "text": "Transportation"
+                        },
+                        {
+                          "key": "casual_use",
+                          "text": "Casual use"
+                        },
                         {
                           "key": "charities_education_and_membership",
                           "text": "Charities education and membership"
                         },
-                        { "key": "beauty_and_personal_care", "text": "Beauty and personal care" },
-                        { "key": "home_and_repair", "text": "Home and repair" },
-                        { "key": "retail", "text": "Retail" }
+                        {
+                          "key": "beauty_and_personal_care",
+                          "text": "Beauty and personal care"
+                        },
+                        {
+                          "key": "home_and_repair",
+                          "text": "Home and repair"
+                        },
+                        {
+                          "key": "retail",
+                          "text": "Retail"
+                        }
                       ],
                       "comparand": {
                         "key": "All_Business_types",
@@ -967,7 +1022,10 @@
                       },
                       "yaxis": {
                         "tickCount": 3,
-                        "domain": [0, "dataMax"],
+                        "domain": [
+                          0,
+                          "dataMax"
+                        ],
                         "labelFormatter": {
                           "prefix": "Median",
                           "suffix": "percentage change",
@@ -999,7 +1057,11 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "newbusiness",
-        "charts": [{ "type": null }]
+        "charts": [
+          {
+            "type": null
+          }
+        ]
       },
       "consumers": {
         "icon": "jet",
@@ -1011,17 +1073,18 @@
         },
         "dataPath": "consumers",
         "initialState": {
-          "selected-indicator": { 
-            "var":"total_spending",
-            "label":"Total Spending",
-            "calculator":null,
-            "key":"total_spending",
-            "units":"bigDollars"
+          "selected-indicator": {
+            "var": "total_spending",
+            "label": "Total Spending",
+            "calculator": null,
+            "key": "total_spending",
+            "units": "bigDollars"
           },
-          "geo-data-path":"city",
-          "selected-naics3":"total",
-          "selected-naics4":null,
-          "selected-naics3-text":"All Consumer Industries"
+          "geo-data-path": "city",
+          "selected-naics3": "total",
+          "selected-naics4": null,
+          "selected-naics3-text": "All Consumer Industries",
+          "trend-data-toggler": "QtQ"
         },
         "layout": {
           "columns": [
@@ -1056,7 +1119,10 @@
                       "setterKey": {
                         "geoSelection": "geo-data-path"
                       },
-                      "center": [27.970253, -82.358835],
+                      "center": [
+                        27.970253,
+                        -82.358835
+                      ],
                       "zoom": 9.5,
                       "geoType": "SafeGraph Subareas",
                       "color": "#002944",
@@ -1119,8 +1185,8 @@
                       "subSelector": "selected-naics4",
                       "topSelectorLabel": "selected-naics3-text"
                     },
-                    "getterKey" : {
-                      "baseDataPath" : "geo-data-path",
+                    "getterKey": {
+                      "baseDataPath": "geo-data-path",
                       "topSelector": "selected-naics3",
                       "subSelector": "selected-naics4"
                     },
@@ -1513,7 +1579,7 @@
                         "label": "Total Transactions",
                         "calculator": null,
                         "key": "total_transactions",
-                        "units": null
+                        "units": "bigNumbers"
                       }
                     ]
                   }
@@ -1559,6 +1625,12 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "consumers",
+        "initialState": {
+          "trend-data-toggler": "QtQ",
+          "selected-naics3": "total",
+          "selected-naics4": null,
+          "selected-naics3-text": "All Tourist Industries"
+        },
         "layout": {
           "columns": [
             {
@@ -1605,7 +1677,7 @@
                       "subSelector": "selected-naics4",
                       "topSelectorLabel": "selected-naics3-text"
                     },
-                    "getterKey" : {
+                    "getterKey": {
                       "topSelector": "selected-naics3",
                       "subSelector": "selected-naics4"
                     },
@@ -1711,7 +1783,6 @@
                     ]
                   }
                 }
-
               ]
             },
             {
@@ -1728,7 +1799,7 @@
                       "dataPath": "city",
                       "indicator": {
                         "var": "naics3.total_spending",
-                        "label": "Total Tourism Spending",
+                        "label": "Total Spending in Tourist-Related Industries",
                         "calculator": "differenceOfTotalsFromPrevious",
                         "filter": [
                           "711",
@@ -1768,7 +1839,6 @@
                       "calculator": null,
                       "key": "total_spending",
                       "units": "bigDollars"
-
                     },
                     "basePath": "city",
                     "colors": [
@@ -1785,11 +1855,86 @@
                     ],
                     "description": "LINE/AREA CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, AND INDICATOR DROPDOWN"
                   }
-                }              ]
-            }          
-          ] 
+                }
+              ]
+            },
+            {
+              "width": "33%",
+              "rows": [
+                {
+                  "height": "150px",
+                  "content": {
+                    "type": "indicator-trend-box",
+                    "config": {
+                      "getterKey": {
+                        "trendValue": "trend-data-toggler"
+                      },
+                      "dataPath": "city",
+                      "indicator": {
+                        "var": "naics3.p_tourist_consumers",
+                        "label": "Percent of Consumers from Out of State",
+                        "calculator": "differenceOfAveragesFromPrevious",
+                        "filter": [
+                          "711",
+                          "712",
+                          "713",
+                          "721",
+                          "722"
+                        ],
+                        "key": "p_tourist_consumers",
+                        "units": "percent",
+                        "positiveTrendDirection": "up"
+                      },
+                      "displayCompareText": true
+                    }
+                  }
+                },
+                {
+                  "height": "60%",
+                  "content": {
+                    "type": "combo-line-area-chart",
+                    "lineKey": "naics3",
+                    "areaKey": "naics4",
+                    "linesInsteadOfArea": true,
+                    "average": true,
+                    "totalFilter": [
+                      "711",
+                      "712",
+                      "713",
+                      "721",
+                      "722"
+                    ],
+                    "getterKey": {
+                      "lineSelector": "selected-naics3",
+                      "areaSelector": "selected-naics4"
+                    },
+                    "indicator": {
+                      "var": "p_tourist_consumers",
+                      "label": "Total Spending",
+                      "calculator": "quarterlyAverage",
+                      "key": "p_tourist_consumers",
+                      "units": "percent"
+                    },
+                    "basePath": "city",
+                    "colors": [
+                      "#969696",
+                      "#006AAF",
+                      "#002944",
+                      "#8DC63F",
+                      "#648E2A",
+                      "#72ACD2",
+                      "#A9D66C",
+                      "#D4D4D4",
+                      "#333333",
+                      "#666666"
+                    ],
+                    "description": "LINE/AREA CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, AND INDICATOR DROPDOWN"
+                  }
+                }
+              ]
+            }
+          ]
         }
-
       },
       "community": {
         "title": "COMMUNITY PROFILES",
@@ -1844,7 +1989,10 @@
                   "type": "horizontal-containers-with-trend",
                   "indicators": [
                     {
-                      "var": ["pop_poverty", "pop"],
+                      "var": [
+                        "pop_poverty",
+                        "pop"
+                      ],
                       "label": "Population earning a living wage",
                       "calculator": "inversePercentageOf",
                       "key": "p_living_wage",
@@ -1858,7 +2006,10 @@
                       "units": "percent"
                     },
                     {
-                      "var": ["p_rent_burdened_30_35", "p_rent_burdened_35_over"],
+                      "var": [
+                        "p_rent_burdened_30_35",
+                        "p_rent_burdened_35_over"
+                      ],
                       "label": "Rental cost-burdened households",
                       "calculator": "sum",
                       "key": "p_rent_burdened",
@@ -1879,10 +2030,18 @@
           {
             "type": "map",
             "config": {
-              "center": [27.970253, -82.358835],
+              "center": [
+                27.970253,
+                -82.358835
+              ],
               "zoom": 9.5,
               "geoType": "Census Tracts",
-              "colors": ["#969696", "#72acd2", "#006aaf", "#002944"],
+              "colors": [
+                "#969696",
+                "#72acd2",
+                "#006aaf",
+                "#002944"
+              ],
               "strokeColor": "#dfe5e9",
               "indicators": [
                 {
@@ -1893,28 +2052,40 @@
                   "units": null
                 },
                 {
-                  "var": ["pop_asian", "pop"],
+                  "var": [
+                    "pop_asian",
+                    "pop"
+                  ],
                   "label": "Asian",
                   "calculator": "percentageOf",
                   "key": "p_asian",
                   "units": "percent"
                 },
                 {
-                  "var": ["pop_hispanic", "pop"],
+                  "var": [
+                    "pop_hispanic",
+                    "pop"
+                  ],
                   "label": "Hispanic",
                   "calculator": "percentageOf",
                   "key": "p_hispanic",
                   "units": "percent"
                 },
                 {
-                  "var": ["pop_white", "pop"],
+                  "var": [
+                    "pop_white",
+                    "pop"
+                  ],
                   "label": "White",
                   "calculator": "percentageOf",
                   "key": "p_white",
                   "units": "percent"
                 },
                 {
-                  "var": ["pop_black", "pop"],
+                  "var": [
+                    "pop_black",
+                    "pop"
+                  ],
                   "label": "Black African American",
                   "calculator": "percentageOf",
                   "key": "p_black",
@@ -1934,14 +2105,20 @@
                   "units": "percent"
                 },
                 {
-                  "var": ["pop_over_65", "pop"],
+                  "var": [
+                    "pop_over_65",
+                    "pop"
+                  ],
                   "label": "65 And Over",
                   "calculator": "percentageOf",
                   "key": "p_over_65",
                   "units": "percent"
                 },
                 {
-                  "var": ["pop_under_18", "pop"],
+                  "var": [
+                    "pop_under_18",
+                    "pop"
+                  ],
                   "label": "Under 18",
                   "calculator": "percentageOf",
                   "key": "p_under_19",
@@ -1955,7 +2132,10 @@
                   "units": "percent"
                 },
                 {
-                  "var": ["p_rent_burdened_30_35", "p_rent_burdened_35_over"],
+                  "var": [
+                    "p_rent_burdened_30_35",
+                    "p_rent_burdened_35_over"
+                  ],
                   "label": "Rental cost-burdened households",
                   "calculator": "sum",
                   "key": "p_rent_burdened",
@@ -1990,14 +2170,20 @@
                   "units": null
                 },
                 {
-                  "var": ["pop_poverty", "pop"],
+                  "var": [
+                    "pop_poverty",
+                    "pop"
+                  ],
                   "label": "Population earning a living wage",
                   "calculator": "inversePercentageOf",
                   "key": "p_living_wage",
                   "units": "percent"
                 },
                 {
-                  "var": ["fam_poverty", "households"],
+                  "var": [
+                    "fam_poverty",
+                    "households"
+                  ],
                   "label": "Households earning a living wage",
                   "calculator": "inversePercentageOf",
                   "key": "p_hh_living_wage",
@@ -2054,7 +2240,13 @@
                       "units": null
                     }
                   ],
-                  "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
+                  "colors": [
+                    "#002944",
+                    "#006aaf",
+                    "#72acd2",
+                    "#8dc63f",
+                    "#648e2a"
+                  ]
                 },
                 {
                   "title": "AGE GROUPS",
@@ -2074,14 +2266,22 @@
                       "units": null
                     },
                     {
-                      "var": ["pop", "pop_over_65", "pop_under_18"],
+                      "var": [
+                        "pop",
+                        "pop_over_65",
+                        "pop_under_18"
+                      ],
                       "label": "",
                       "calculator": "difference",
                       "key": "pop_20_to_64",
                       "units": null
                     }
                   ],
-                  "colors": ["#002944", "#006aaf", "#dfe5e9"]
+                  "colors": [
+                    "#002944",
+                    "#006aaf",
+                    "#dfe5e9"
+                  ]
                 }
               ]
             }
@@ -2162,7 +2362,10 @@
               },
               "yaxis": {
                 "tickCount": 3,
-                "domain": ["dataMin", "dataMax"],
+                "domain": [
+                  "dataMin",
+                  "dataMax"
+                ],
                 "labelFormatter": "abbreviateNumber"
               },
               "color": "#006aaf"
@@ -2412,7 +2615,10 @@
                           },
                           "yaxis": {
                             "tickCount": 3,
-                            "domain": [0, "dataMax"],
+                            "domain": [
+                              0,
+                              "dataMax"
+                            ],
                             "label": "Unemployment rate"
                           },
                           "indicators": [
@@ -2457,7 +2663,10 @@
                           },
                           "yaxis": {
                             "tickCount": 3,
-                            "domain": [0, "dataMax"],
+                            "domain": [
+                              0,
+                              "dataMax"
+                            ],
                             "label": "Thousands"
                           },
                           "indicators": [
@@ -2470,7 +2679,11 @@
                               "units": "thousands"
                             },
                             {
-                              "var": ["miningconstruction", "mining", "construction"],
+                              "var": [
+                                "miningconstruction",
+                                "mining",
+                                "construction"
+                              ],
                               "label": "Mining and Construction",
                               "calculator": "sum",
                               "key": "mining_construction",
@@ -2681,7 +2894,10 @@
                           },
                           "yaxis": {
                             "tickCount": 3,
-                            "domain": [0, "dataMax"],
+                            "domain": [
+                              0,
+                              "dataMax"
+                            ],
                             "label": "indicator"
                           },
                           "indicators": [
@@ -2851,7 +3067,10 @@
                           },
                           "yaxis": {
                             "tickCount": 3,
-                            "domain": [0, "dataMax"],
+                            "domain": [
+                              0,
+                              "dataMax"
+                            ],
                             "label": "indicator"
                           },
                           "indicators": [
@@ -2929,7 +3148,11 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "newbusiness",
-        "charts": [{ "type": null }]
+        "charts": [
+          {
+            "type": null
+          }
+        ]
       },
       "consumers": {
         "icon": "jet",
@@ -2973,8 +3196,11 @@
                       "setterKey": {
                         "geoSelection": "geo-data-path"
                       },
-                      "center": [33.52698, -112.079901],
-                      "zoom": 10,        
+                      "center": [
+                        33.52698,
+                        -112.079901
+                      ],
+                      "zoom": 10,
                       "geoType": "SafeGraph Subareas",
                       "color": "#002944",
                       "strokeColor": "white",
@@ -3036,8 +3262,8 @@
                       "subSelector": "selected-naics4",
                       "topSelectorLabel": "selected-naics3-text"
                     },
-                    "getterKey" : {
-                      "baseDataPath" : "geo-data-path"
+                    "getterKey": {
+                      "baseDataPath": "geo-data-path"
                     },
                     "topFilterKey": "naics3.total_spending",
                     "subFilterKey": "naics4.total_spending",
@@ -3473,7 +3699,11 @@
           "unselectedColor": "#dfe5e9"
         },
         "dataPath": "consumers.city.tourism",
-        "charts": [{ "type": null }]
+        "charts": [
+          {
+            "type": null
+          }
+        ]
       },
       "community": {
         "title": "COMMUNITY PROFILES",
@@ -3528,7 +3758,10 @@
                   "type": "horizontal-containers-with-trend",
                   "indicators": [
                     {
-                      "var": ["pop_poverty", "pop"],
+                      "var": [
+                        "pop_poverty",
+                        "pop"
+                      ],
                       "label": "Population earning a living wage",
                       "calculator": "inversePercentageOf",
                       "key": "p_living_wage",
@@ -3542,7 +3775,10 @@
                       "units": "percent"
                     },
                     {
-                      "var": ["p_rent_burdened_30_35", "p_rent_burdened_35_over"],
+                      "var": [
+                        "p_rent_burdened_30_35",
+                        "p_rent_burdened_35_over"
+                      ],
                       "label": "Rental cost-burdened households",
                       "calculator": "sum",
                       "key": "p_rent_burdened",
@@ -3563,10 +3799,18 @@
           {
             "type": "map",
             "config": {
-              "center": [33.52698, -112.079901],
+              "center": [
+                33.52698,
+                -112.079901
+              ],
               "zoom": 10,
               "geoType": "Census Tracts",
-              "colors": ["#969696", "#72acd2", "#006aaf", "#002944"],
+              "colors": [
+                "#969696",
+                "#72acd2",
+                "#006aaf",
+                "#002944"
+              ],
               "strokeColor": "#dfe5e9",
               "indicators": [
                 {
@@ -3577,28 +3821,40 @@
                   "units": null
                 },
                 {
-                  "var": ["pop_asian", "pop"],
+                  "var": [
+                    "pop_asian",
+                    "pop"
+                  ],
                   "label": "Asian",
                   "calculator": "percentageOf",
                   "key": "p_asian",
                   "units": "percent"
                 },
                 {
-                  "var": ["pop_hispanic", "pop"],
+                  "var": [
+                    "pop_hispanic",
+                    "pop"
+                  ],
                   "label": "Hispanic",
                   "calculator": "percentageOf",
                   "key": "p_hispanic",
                   "units": "percent"
                 },
                 {
-                  "var": ["pop_white", "pop"],
+                  "var": [
+                    "pop_white",
+                    "pop"
+                  ],
                   "label": "White",
                   "calculator": "percentageOf",
                   "key": "p_white",
                   "units": "percent"
                 },
                 {
-                  "var": ["pop_black", "pop"],
+                  "var": [
+                    "pop_black",
+                    "pop"
+                  ],
                   "label": "Black African American",
                   "calculator": "percentageOf",
                   "key": "p_black",
@@ -3618,14 +3874,20 @@
                   "units": "percent"
                 },
                 {
-                  "var": ["pop_over_65", "pop"],
+                  "var": [
+                    "pop_over_65",
+                    "pop"
+                  ],
                   "label": "65 And Over",
                   "calculator": "percentageOf",
                   "key": "p_over_65",
                   "units": "percent"
                 },
                 {
-                  "var": ["pop_under_18", "pop"],
+                  "var": [
+                    "pop_under_18",
+                    "pop"
+                  ],
                   "label": "Under 18",
                   "calculator": "percentageOf",
                   "key": "p_under_19",
@@ -3639,7 +3901,10 @@
                   "units": "percent"
                 },
                 {
-                  "var": ["p_rent_burdened_30_35", "p_rent_burdened_35_over"],
+                  "var": [
+                    "p_rent_burdened_30_35",
+                    "p_rent_burdened_35_over"
+                  ],
                   "label": "Rental cost-burdened households",
                   "calculator": "sum",
                   "key": "p_rent_burdened",
@@ -3674,14 +3939,20 @@
                   "units": null
                 },
                 {
-                  "var": ["pop_poverty", "pop"],
+                  "var": [
+                    "pop_poverty",
+                    "pop"
+                  ],
                   "label": "Population earning a living wage",
                   "calculator": "inversePercentageOf",
                   "key": "p_living_wage",
                   "units": "percent"
                 },
                 {
-                  "var": ["fam_poverty", "households"],
+                  "var": [
+                    "fam_poverty",
+                    "households"
+                  ],
                   "label": "Households earning a living wage",
                   "calculator": "inversePercentageOf",
                   "key": "p_hh_living_wage",
@@ -3738,7 +4009,13 @@
                       "units": null
                     }
                   ],
-                  "colors": ["#002944", "#006aaf", "#72acd2", "#8dc63f", "#648e2a"]
+                  "colors": [
+                    "#002944",
+                    "#006aaf",
+                    "#72acd2",
+                    "#8dc63f",
+                    "#648e2a"
+                  ]
                 },
                 {
                   "title": "AGE GROUPS",
@@ -3758,14 +4035,22 @@
                       "units": null
                     },
                     {
-                      "var": ["pop", "pop_over_65", "pop_under_18"],
+                      "var": [
+                        "pop",
+                        "pop_over_65",
+                        "pop_under_18"
+                      ],
                       "label": "",
                       "calculator": "difference",
                       "key": "pop_20_to_64",
                       "units": null
                     }
                   ],
-                  "colors": ["#002944", "#006aaf", "#dfe5e9"]
+                  "colors": [
+                    "#002944",
+                    "#006aaf",
+                    "#dfe5e9"
+                  ]
                 }
               ]
             }
