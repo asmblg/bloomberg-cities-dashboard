@@ -11,7 +11,7 @@ import LastUpdateIcon from '../LastUpdateIcon';
 import { handleDetailData } from './utils';
 import './style.css';
 
-const DetailCard = ({ project, config, sectionKey, viewType }) => {
+const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink }) => {
   const [detailData, setDetailData] = useState(null);
 
   useEffect(() => {
@@ -25,13 +25,16 @@ const DetailCard = ({ project, config, sectionKey, viewType }) => {
   return (
     <div key={`${sectionKey}-detail-card`} className='full-card-wrapper'>
       <div className='full-card-container detail-card-container'>
-        <div
-          style={{
-            width: '100%',
-            height: '50px',
-            backgroundColor: config.tabStyle?.selectedColor || '#ffffff'
-          }}
-        ></div>
+        {sectionKey !== 'about' ? (
+          <div
+            style={{
+              width: '100%',
+              height: '50px',
+              backgroundColor: config.tabStyle?.selectedColor || '#ffffff'
+            }}
+          />
+        ) : null}
+       
         {config.title ? (
           <div className='detail-card-header'>
             <h1
@@ -62,6 +65,7 @@ const DetailCard = ({ project, config, sectionKey, viewType }) => {
             layout={config?.layout} 
             project={project}
             viewType={viewType}
+            setSelectedLink={setSelectedLink}
           />
         ) : null}
         <ShareAndPrintIcons />
@@ -76,7 +80,8 @@ DetailCard.propTypes = {
   sectionKey: PropTypes.string,
   viewType: PropTypes.string,
   trendDataType: PropTypes.string,
-  setTrendDataType: PropTypes.func
+  setTrendDataType: PropTypes.func,
+  setSelectedLink: PropTypes.func
 };
 
 export default DetailCard;

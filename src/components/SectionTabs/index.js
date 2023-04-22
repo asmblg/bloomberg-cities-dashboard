@@ -17,7 +17,7 @@ const SectionTabs = ({
     <div className='desktop-tabs'>
       {sectionKeys.map(key => {
         const section = sections[key];
-        return (
+        return key !== 'about' ? (
           <Link
             key={`${key}-tab-link`}
             id={`${key}-tab-link`}
@@ -60,7 +60,7 @@ const SectionTabs = ({
               <div>{section.label?.toUpperCase() || key}</div>
             )}
           </Link>
-        );
+        ) : null;
       })}
     </div>
   );

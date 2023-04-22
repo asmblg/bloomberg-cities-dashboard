@@ -11,7 +11,8 @@ const FlexLayout = ({
   }, 
   data, 
   project,
-  viewType 
+  viewType,
+  setSelectedLink
 }) => {
   console.log(viewType);
 
@@ -55,6 +56,7 @@ const FlexLayout = ({
           // width={width}
           setter={handleSetter}
           getter={getter}
+          setSelectedLink={setSelectedLink}
         />
       ))}
     </div>
@@ -66,7 +68,8 @@ FlexLayout.propTypes = {
   data: PropTypes.object,
   project: PropTypes.string,
   initialState: PropTypes.object,
-  viewType: PropTypes.string
+  viewType: PropTypes.string,
+  setSelectedLink: PropTypes.func
 };
 
 export default FlexLayout;

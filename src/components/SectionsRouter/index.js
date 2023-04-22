@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import Home from '../Home';
 import DetailCard from '../DetailCard';
-import AboutProject from '../AboutProject';
 
 const SectionRouter = ({
   project,
@@ -47,22 +46,13 @@ const SectionRouter = ({
                 viewType={viewType}
                 trendDataType={trendDataType}
                 setTrendDataType={setTrendDataType}
+                setSelectedLink={setSelectedLink}
               />
             }
           />
         )
       )
       : null}
-    <Route
-      key={'about-route'}
-      path={`/${project.toLowerCase()}/about`}
-      element={<AboutProject viewType={viewType} />}
-    />
-    <Route
-      key={'docs-route'}
-      path={`/${project.toLowerCase()}/docs`}
-      element={<Home config={sections['home']} project={project} viewType={viewType} docs={true} />}
-    />
   </Routes>
 );
 

@@ -13,8 +13,9 @@ import SelectorWithLegend from '../SelectorWithLegend';
 import IndicatorDropdown from '../IndicatorDropdown';
 import ComboLineAreaChart from '../ComboLineAreaChart';
 import UnderConstructionBox from '../UnderConstructionBox';
+import AboutProject from '../AboutTheData';
 
-const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
+const FlexLayoutElement = ({ data, setter, getter, layout, project, setSelectedLink }) => {
   const { columns, rows, content, height, width, style } = layout;
   const elementRef = useRef();
   const type = columns ? 'columns' : rows ? 'rows' : content ? 'content' : '';
@@ -25,8 +26,6 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
     height,
     width
   };
-
-  // console.log(getter);
 
   return (
     <div key={elementRef} style={elementStyle || {}} className={`flex-layout-${type}`}>
@@ -39,6 +38,7 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
             getter={getter}
             layout={element}
             project={project}
+            setSelectedLink={setSelectedLink}
           />
         ))
       ) : content.type === 'selector-map' ? (
@@ -124,6 +124,12 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project }) => {
         />
       ) : content.type === 'under-construction' ? (
         <UnderConstructionBox />
+      ) : content.type === 'about-the-data' ? (
+        <AboutProject
+          config={content.config}
+          project={project}
+          setSelectedLink={setSelectedLink}                            
+        />
       ) : (
         JSON.stringify(content)
       )}
@@ -136,7 +142,8 @@ FlexLayoutElement.propTypes = {
   setter: PropTypes.func,
   getter: PropTypes.object,
   layout: PropTypes.object,
-  project: PropTypes.string
+  project: PropTypes.string,
+  setSelectedLink: PropTypes.func
 };
 
 export default FlexLayoutElement;

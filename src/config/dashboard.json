@@ -2222,6 +2222,93 @@
             }
           }
         ]
+      },
+      "about": {
+        "layout": {
+          "columns": [{
+            "width": "100%",
+            "content": {
+              "type": "about-the-data",
+              "config": {
+                "title": "ABOUT THE DATA",
+                "titleStyle": {
+                  "color": "#002944",
+                  "justifyContent": "space-between"
+                },
+                "variableTable": {
+                  "headerRow": [
+                    {
+                      "key": "variable",
+                      "text": "VARIABLE"
+                    },
+                    {
+                      "key": "description",
+                      "text": "DESCRIPTION"
+                    },
+                    {
+                      "key": "insights",
+                      "text": "INSIGHTS AND USE CASES"
+                    },
+                    {
+                      "key": "source",
+                      "text": "SOURCE"
+                    }
+                  ],
+                  "variables": [
+                    {
+                      "variable": "Variable name goes here",
+                      "description": "Variable description goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "insights": "Variable insights goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "source": "Variable source goes here"
+                    },
+                    {
+                      "variable": "Variable name goes here",
+                      "description": "Variable description goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "insights": "Variable insights goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "source": "Variable source goes here"
+                    },
+                    {
+                      "variable": "Variable name goes here",
+                      "description": "Variable description goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "insights": "Variable insights goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "source": "Variable source goes here"
+                    },
+                    {
+                      "variable": "Variable name goes here",
+                      "description": "Variable description goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "insights": "Variable insights goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "source": "Variable source goes here"
+                    },
+                    {
+                      "variable": "Variable name goes here",
+                      "description": "Variable description goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "insights": "Variable insights goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "source": "Variable source goes here"
+                    },
+                    {
+                      "variable": "Variable name goes here",
+                      "description": "Variable description goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "insights": "Variable insights goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "source": "Variable source goes here"
+                    },
+                    {
+                      "variable": "Variable name goes here",
+                      "description": "Variable description goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "insights": "Variable insights goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "source": "Variable source goes here"
+                    },
+                    {
+                      "variable": "Variable name goes here",
+                      "description": "Variable description goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "insights": "Variable insights goes here - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis convallis convallis tellus id interdum. Id cursus metus aliquam eleifend mi in nulla. Viverra maecenas accumsan lacus vel facilisis volutpat est velit egestas. Auctor elit sed vulputate mi sit amet mauris commodo quis.",
+                      "source": "Variable source goes here"
+                    }
+                  ]
+                }
+              }
+          }
+          }]
+        }
       }
     },
     "footer": {

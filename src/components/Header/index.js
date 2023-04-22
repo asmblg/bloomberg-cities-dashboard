@@ -52,21 +52,6 @@ const Header = ({
             />
           ) : (
             <>
-              {/* <div
-                className={
-                  selectedLink !== 'about' && dashboardType === 'economic'
-                    ? 'selected-about-link-container'
-                    : 'about-link-container'
-                }
-              >
-                <Link
-                  className='about-link'
-                  to={`/${project}/${dashboardType}`}
-                  onClick={() => linkClickHandler('home')}
-                >
-                  {'Economic Dashboard'}
-                </Link>
-              </div> */}
               <div
                 className={
                   selectedLink !== 'about'
@@ -79,7 +64,7 @@ const Header = ({
                   to={`/${project}/about`}
                   onClick={() => linkClickHandler('about')}
                 >
-                  {'About the project'}
+                  {'About the data'}
                 </Link>
               </div>
             </>
