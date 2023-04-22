@@ -8,18 +8,19 @@ import './style.css';
 const AboutTheData = ({ config, project, setSelectedLink }) => {
   const navigate = useNavigate();
 
-  // const handleScroll = () => {
-  //   console.log('happening');
-  //   const container = document.querySelector('.about-data-container');
-  //   const opaqueElement = document.querySelector('#opaque-el');
-  //   const isAtBottom = container.scrollHeight - container.scrollTop === container.clientHeight;
-  //   if (!isAtBottom) {
-  //     opaqueElement.style.bottom = `${-container.scrollTop}px`;
-  //   } else {
-  //     opaqueElement.style.bottom = '0';
-  //   }
-  // };
-  // <div className='about-data-container' onScroll={() => handleScroll()}></div>
+  const handleScroll = () => {
+    const container = document.querySelector('.about-table-vars-container');
+    const opaqueElement = document.querySelector('#opaque-el');
+    const pxTolerance = 1;
+    const isAtBottom =
+      container.scrollHeight - container.scrollTop <= container.clientHeight - pxTolerance;
+
+    if (!isAtBottom) {
+      opaqueElement.style.bottom = `${-container.scrollTop}px`;
+    } else {
+      opaqueElement.style.bottom = '0';
+    }
+  };
 
   return (
     <div className='about-data-container'>
@@ -44,10 +45,12 @@ const AboutTheData = ({ config, project, setSelectedLink }) => {
         <div className='about-table-container'>
           <div className='about-table-header-container'>
             {config.variableTable.headerRow.map((row, i) => (
-              <div key={`table-header-${row.key}-${i}`}>{row.text}</div>
+              <div role='table' key={`table-header-${row.key}-${i}`}>
+                {row.text}
+              </div>
             ))}
           </div>
-          <div className='about-table-vars-container'>
+          <div role='table' className='about-table-vars-container' onScroll={() => handleScroll()}>
             <table className='about-table'>
               {config.variableTable.variables.map((variable, i) => (
                 <tr key={`variable-row-${i}`} className='about-table-row'>
@@ -62,10 +65,10 @@ const AboutTheData = ({ config, project, setSelectedLink }) => {
                 </tr>
               ))}
             </table>
+            <div id='opaque-el' />
           </div>
         </div>
       ) : null}
-      {/* <div id='opaque-el' /> */}
     </div>
   );
 };
