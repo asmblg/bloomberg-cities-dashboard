@@ -6,7 +6,8 @@ import {
   Bar,
   Tooltip,
   CartesianGrid,
-  ResponsiveContainer
+  ResponsiveContainer,
+  ReferenceLine
 } from 'recharts';
 import PropTypes from 'prop-types';
 
@@ -93,7 +94,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
             tickCount={2}
             barSize={10}
             tickLine={{ stroke: 'transparent' }}
-            axisLine={{ stroke: 'black', strokeDasharray: '1 0' }}
+            axisLine={false}
             interval={'preserveStartEnd'}
             tickFormatter={(key, i) => {
               if (i === 0 || i === dataArray.length - 1) {
@@ -108,7 +109,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
             label={{ value: config.yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
           />
           <Tooltip />
-
+          <ReferenceLine y={0} stroke="#000000" />
           {!fixedIndicator && allColumnsArray
             ? allColumnsArray.map(({ key }, i) => (
               <Bar

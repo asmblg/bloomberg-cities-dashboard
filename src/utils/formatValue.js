@@ -15,8 +15,8 @@ const formatValue = (value, units) => {
         return `$${formatNumberWithCommas(parseFloat(`${value}`.replace('$', '')).toFixed(0))}`;
       }
       case 'bigDollars': {
-        const thousands =  value > 1000;
-        const millions = value > 1000000;
+        const thousands =  value >= 1000;
+        const millions = value >= 1000000;
         const calcValue = millions ?
           parseFloat(value / 1000000).toFixed(1)
           : thousands ?
@@ -28,6 +28,22 @@ const formatValue = (value, units) => {
         
           
       }
+      case 'bigNumbers': {
+        const thousands =  value >= 1000;
+        const millions = value >= 1000000;
+        const calcValue = millions ?
+          parseFloat(value / 1000000).toFixed(1)
+          : thousands ?
+            parseFloat(value / 1000).toFixed(1)
+            : 0;
+        const text = parseFloat(calcValue).toFixed(thousands || millions ? 1 : 0).replace('.0', '');
+        const unit = millions ? 'M' : thousands ? 'K' : ''; 
+        return `${text}${unit}`;
+      }
+      // case 'thousands': {
+      //   return `${value}K`;
+      // }
+
       default: {
         return formatNumberWithCommas(value);
       }

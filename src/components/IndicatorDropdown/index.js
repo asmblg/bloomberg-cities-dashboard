@@ -32,18 +32,20 @@ const IndicatorDropdown = ({ setter, getter, config, options, selectedOption }) 
   return (
     <div className='dropdown-container' key={key}>
       <div className='dropdown-header' onClick={() => setDropdownOpen(!dropdownOpen)}>
+        {options?.[1] ? (
+          <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
+        ) : null}
+        <div className='dropdown-header-label'>
+          <h4>
+            {selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || ''}
+          </h4>
+          {
+            subHeading ?
+              <h4>{subHeading}</h4>
+              : null
+          }        
+        </div>
 
-        <h4>
-          {options?.[1] ? (
-            <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
-          ) : null}
-          {selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || ''}
-        </h4>
-        {
-          subHeading ?
-            <h4>{subHeading}</h4>
-            : null
-        }
 
       </div>
       {dropdownOpen && options?.[1] ? (

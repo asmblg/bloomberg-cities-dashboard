@@ -8,6 +8,7 @@ import TrendPill from '../TrendPill';
 import InfoIcon from '../InfoIcon';
 
 import getNestedValue from '../../utils/getNestedValue';
+import formatValue from '../../utils/formatValue';
 import createCompareDataObject from '../../utils/createCompareDataObject';
 import './style.css';
 
@@ -76,7 +77,7 @@ const SummaryCard = ({
           />
         </div>
 
-        {viewType === 'mobile' && summaryData.currentValue && summaryData.compareValue ? (
+        {viewType === 'mobile' ? (
           <TrendPill
             currentValue={summaryData.currentValue}
             compareValue={summaryData.compareValue}
@@ -92,7 +93,9 @@ const SummaryCard = ({
         <>
           <div className='summary-data-wrapper'>
             <div className='summary-data bold-font'>
-              <h1 className='bold-font'>{summaryData.displayValue || '-'}</h1>
+              <h1 className='bold-font'>{summaryData.displayValue ?
+                formatValue(summaryData.displayValue, units) 
+                : '-'}</h1>
               {units ? <h5 className='summary-units'>{units}</h5> : null}
             </div>
 
@@ -109,7 +112,7 @@ const SummaryCard = ({
               ) : null}
             </div>
           </div>
-          {viewType !== 'mobile' && summaryData.currentValue && summaryData.compareValue ? (
+          {viewType !== 'mobile' ? (
             <TrendPill
               currentValue={summaryData.currentValue}
               compareValue={summaryData.compareValue}

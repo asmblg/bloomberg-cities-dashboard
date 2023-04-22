@@ -37,7 +37,7 @@ const FlexLayout = ({
     }
   };
 
-  // console.log(JSON.stringify(getter));
+  console.log(JSON.stringify(getter));
 
   return (
     <div
