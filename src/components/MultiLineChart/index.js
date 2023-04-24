@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   ResponsiveContainer
 } from 'recharts';
+import CustomTooltip from '../CustomTooltip';
 import PropTypes from 'prop-types';
 
 import CustomLabel from './subComponents/CustomLabel';
@@ -133,7 +134,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
                   /> : null
               }
             />
-            <Tooltip />
+            <Tooltip content={<CustomTooltip />} />
             {allLinesArray.map(city => {
               const { stroke, strokeWidth, zIndex } = handleLineStyle({
                 lineKey: city,
