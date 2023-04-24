@@ -7,15 +7,14 @@ const FlexLayout = ({
   initialState,
   layout: { 
     columns,
-    rows 
+    rows,
+    mobileStyle
   }, 
   data, 
   project,
   viewType,
   setSelectedLink
 }) => {
-  console.log(viewType);
-
   const [getter, setter] = useState(initialState || {});
   const elementArray = columns || rows;
 
@@ -39,12 +38,28 @@ const FlexLayout = ({
 
   console.log(JSON.stringify(getter));
 
+  // const flexDirection = columns
+  //   ? 'row'
+  //   : 'column';
+  // console.log(flexDirection);
+
+  const handleStyle = (isColumn, viewType, mobileStyle) => {
+    let obj = {};
+    obj.flexDirection = isColumn ? 'row' : 'column';
+
+    if (viewType !== 'desktop' && mobileStyle) {
+      obj = {
+        ...obj,
+        ...mobileStyle
+      };
+    }
+    return obj;
+  };
+
   return (
     <div
       className='flex-layout'
-      style={{
-        flexDirection: columns ? 'row' : 'column'
-      }}
+      style={handleStyle(columns, viewType, mobileStyle)}
     >
       {elementArray.map((element, i) => (
         <FlexLayoutElement
@@ -57,6 +72,7 @@ const FlexLayout = ({
           setter={handleSetter}
           getter={getter}
           setSelectedLink={setSelectedLink}
+          viewType={viewType}
         />
       ))}
     </div>

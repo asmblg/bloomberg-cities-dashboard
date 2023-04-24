@@ -241,12 +241,20 @@
         },
         "dataPath": "jobs.msa",
         "layout": {
+          "mobileStyle": {
+            "flexDirection": "column",
+            "height": "100%"
+          },
           "columns": [
             {
               "width": "33%",
               "height": "100%",
               "style": {
                 "borderRight": "3px solid #dfe5e9"
+              },
+              "mobileStyle": {
+                "borderRight": "none",
+                "width": "100%"
               },
               "rows": [
                 {
@@ -287,6 +295,7 @@
                   }
                 },
                 {
+                  "height": "150px",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
@@ -313,6 +322,9 @@
             {
               "width": "67%",
               "height": "100%",
+              "mobileStyle": {
+                "width": "100%"
+              },
               "rows": [
                 {
                   "height": "25%",
@@ -361,9 +373,16 @@
                 },
                 {
                   "height": "75%",
+                  "mobileStyle": {
+                    "flexDirection": "column"
+                  },
                   "columns": [
                     {
                       "width": "50%",
+                      "mobileStyle": {
+                        "width": "100%",
+                        "height": "200px"
+                      },
                       "content": {
                         "type": "multi-line-chart",
                         "config": {
@@ -414,6 +433,10 @@
                     },
                     {
                       "width": "50%",
+                      "mobileStyle": {
+                        "width": "100%",
+                        "height": "200px"
+                      },
                       "content": {
                         "type": "compare-column-chart",
                         "config": {
@@ -557,13 +580,20 @@
         },
         "dataPath": "realestate",
         "layout": {
+          "mobileStyle": {
+            "flexDirection": "column",
+            "height": "100%"
+          },
           "columns": [
             {
               "width": "50%",
               "height": "100%",
               "style": {
-                "borderRight": "3px solid #dfe5e9",
-                "padding": "10px 10px 10px 20px"
+                "borderRight": "3px solid #dfe5e9"
+              },
+              "mobileStyle": {
+                "width": "100%",
+                "borderRight": "none"
               },
               "rows": [
                 {
@@ -647,10 +677,17 @@
                 },
                 {
                   "height": "60%",
+                  "mobileStyle": {
+                    "flexDirection": "column"
+                  },
                   "columns": [
                     {
                       "width": "70%",
                       "height": "90%",
+                      "mobileStyle": {
+                        "height": "200px",
+                        "width": "100%"
+                      },
                       "content": {
                         "type": "multi-line-chart",
                         "config": {
@@ -716,6 +753,9 @@
                     },
                     {
                       "width": "30%",
+                      "mobileStyle": {
+                        "width": "100%"
+                      },
                       "content": {
                         "type": "simple-indicator-box",
                         "config": {
@@ -745,8 +785,9 @@
             {
               "width": "50%",
               "height": "100%",
-              "style": {
-                "padding": "10px 10px 10px 20px"
+              "mobileStyle": {
+                "width": "100%",
+                "borderRight": "none"
               },
               "rows": [
                 {
@@ -830,10 +871,17 @@
                 },
                 {
                   "height": "60%",
+                  "mobileStyle": {
+                    "flexDirection": "column"
+                  },
                   "columns": [
                     {
                       "width": "70%",
                       "height": "90%",
+                      "mobileStyle": {
+                        "height": "200px",
+                        "width": "100%"
+                      },
                       "content": {
                         "type": "multi-line-chart",
                         "config": {
@@ -899,6 +947,9 @@
                     },
                     {
                       "width": "30%",
+                      "mobileStyle": {
+                        "width": "100%"
+                      },
                       "content": {
                         "type": "simple-indicator-box",
                         "config": {
@@ -941,10 +992,18 @@
           "newbusiness"
         ],
         "layout": {
+          "mobileStyle": {
+            "flexDirection": "column",
+            "height": "100%"
+          },
           "columns": [
             {
               "width": "34%",
               "height": "100%",
+              "mobileStyle": {
+                "width": "auto",
+                "padding": "10px"
+              },
               "rows": [
                 {
                   "content": {
@@ -1024,6 +1083,10 @@
             {
               "width": "33%",
               "height": "100%",
+              "mobileStyle": {
+                "width": "auto",
+                "padding": "10px"
+              },
               "rows": [
                 {
                   "width": "100%",
@@ -1043,6 +1106,9 @@
                 {
                   "width": "100%",
                   "height": "100%",
+                  "mobileStyle": {
+                    "height": "150px"
+                  },
                   "content": {
                     "type": "under-construction"
                   }
@@ -1065,6 +1131,9 @@
                 {
                   "width": "100%",
                   "height": "50%",
+                  "mobileStyle": {
+                    "height": "150px"
+                  },
                   "content": {
                     "type": "under-construction"
                   }
@@ -1074,6 +1143,10 @@
             {
               "width": "33%",
               "height": "100%",
+              "mobileStyle": {
+                "width": "auto",
+                "padding": "10px"
+              },
               "rows": [
                 {
                   "width": "100%",
@@ -1212,12 +1285,19 @@
         },
         "dataPath": "newbusiness",
         "layout": {
+          "mobileStyle": {
+            "flexDirection": "column"
+          },
           "columns": [
             {
               "width": "30%",
               "style": {
                 "padding": "40px",
                 "borderRight": "3px solid #dfe5e9"
+              },
+              "mobileStyle": {
+                "width": "auto",
+                "borderRight": "none"
               },
               "rows": [
                 {
@@ -1251,6 +1331,9 @@
               "width": "70%",
               "style": {
                 "padding": "40px"
+              },
+              "mobileStyle": {
+                "width": "auto"
               },
               "rows": [
                 {
@@ -1326,9 +1409,16 @@
           "trend-data-toggler": "QtQ"
         },
         "layout": {
+          "mobileStyle": {
+            "flexDirection": "column",
+            "height": "100%"
+          },
           "columns": [
             {
               "width": "33%",
+              "mobileStyle": {
+                "width": "auto"
+              },
               "rows": [
                 {
                   "style": {
@@ -1380,6 +1470,9 @@
             },
             {
               "width": "33%",
+              "mobileStyle": {
+                "width": "auto"
+              },
               "rows": [
                 {
                   "height": "20%",
@@ -1793,6 +1886,9 @@
               "style": {
                 "padding": "10px"
               },
+              "mobileStyle": {
+                "width": "auto"
+              },
               "rows": [
                 {
                   "height": "20%",
@@ -1831,6 +1927,9 @@
                 },
                 {
                   "height": "60%",
+                  "mobileStyle": {
+                    "height": "200px"
+                  },
                   "content": {
                     "type": "combo-line-area-chart",
                     "lineKey": "naics3",
@@ -1877,9 +1976,16 @@
           "selected-naics3-text": "All Tourist Industries"
         },
         "layout": {
+          "mobileStyle": {
+            "flexDirection": "column",
+            "height": "100%"
+          },
           "columns": [
             {
               "width": "33%",
+              "mobileStyle": {
+                "width": "auto"
+              },
               "rows": [
                 {
                   "style": {
@@ -2032,6 +2138,9 @@
             },
             {
               "width": "33%",
+              "mobileStyle": {
+                "width": "auto"
+              },
               "rows": [
                 {
                   "height": "150px",
@@ -2065,6 +2174,9 @@
                 },
                 {
                   "height": "60%",
+                  "mobileStyle": {
+                    "height": "200px"
+                  },
                   "content": {
                     "type": "combo-line-area-chart",
                     "lineKey": "naics3",
@@ -2109,6 +2221,9 @@
             },
             {
               "width": "33%",
+              "mobileStyle": {
+                "width": "auto"
+              },
               "rows": [
                 {
                   "height": "150px",
@@ -2142,6 +2257,9 @@
                 },
                 {
                   "height": "60%",
+                  "mobileStyle": {
+                    "height": "200px"
+                  },
                   "content": {
                     "type": "combo-line-area-chart",
                     "lineKey": "naics3",

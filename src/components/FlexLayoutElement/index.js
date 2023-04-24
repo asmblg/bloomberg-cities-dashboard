@@ -15,20 +15,16 @@ import ComboLineAreaChart from '../ComboLineAreaChart';
 import UnderConstructionBox from '../UnderConstructionBox';
 import AboutProject from '../AboutTheData';
 
-const FlexLayoutElement = ({ data, setter, getter, layout, project, setSelectedLink }) => {
-  const { columns, rows, content, height, width, style } = layout;
+import { handleElementStyle } from './utils';
+
+const FlexLayoutElement = ({ data, setter, getter, layout, project, setSelectedLink, viewType }) => {
+  const { columns, rows, content, height, width, style, mobileStyle } = layout;
   const elementRef = useRef();
   const type = columns ? 'columns' : rows ? 'rows' : content ? 'content' : '';
   const elementArray = columns || rows;
 
-  const elementStyle = {
-    ...style,
-    height,
-    width
-  };
-
   return (
-    <div key={elementRef} style={elementStyle || {}} className={`flex-layout-${type}`}>
+    <div key={elementRef} style={handleElementStyle(style, mobileStyle, height, width, viewType)} className={`flex-layout-${type}`}>
       {!content ? (
         elementArray.map((element, i) => (
           <FlexLayoutElement
@@ -39,6 +35,7 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project, setSelectedL
             layout={element}
             project={project}
             setSelectedLink={setSelectedLink}
+            viewType={viewType}
           />
         ))
       ) : content.type === 'selector-map' ? (
@@ -143,7 +140,8 @@ FlexLayoutElement.propTypes = {
   getter: PropTypes.object,
   layout: PropTypes.object,
   project: PropTypes.string,
-  setSelectedLink: PropTypes.func
+  setSelectedLink: PropTypes.func,
+  viewType: PropTypes.string
 };
 
 export default FlexLayoutElement;

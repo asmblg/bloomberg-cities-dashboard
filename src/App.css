@@ -135,14 +135,14 @@ a:hover {
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1280px) {
   .full-card-wrapper {
-    height: 98%;
+    margin: 20px 0;
   }
 
-  .full-card-container {
+  /* .full-card-container {
     flex-direction: column;
     margin-left: var(--tablet-outer-margin);
     margin-right: var(--tablet-outer-margin);
-  }
+  } */
 
   .edd-title {
     width: 125px;
