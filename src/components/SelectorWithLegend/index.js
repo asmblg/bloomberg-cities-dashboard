@@ -110,7 +110,11 @@ const SelectorWithLegend = ({
     }
 
 
-  }, [getter?.[getterKey?.baseDataPath]]);
+  }, [
+    getter?.[getterKey?.baseDataPath],
+    config,
+    data
+  ]);
 
   useEffect(() => {
     //RESET TO DEFAULT OPTION

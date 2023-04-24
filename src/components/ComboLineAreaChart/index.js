@@ -58,7 +58,8 @@ const ComboLineAreaChart = ({
   }, [
     getter?.[getterKey?.basePath],
     getter?.[getterKey?.indicator],
-    getter?.[getterKey?.lineSelector]
+    getter?.[getterKey?.lineSelector],
+    data
   ]);
 
   useEffect(() => {
@@ -76,7 +77,8 @@ const ComboLineAreaChart = ({
     getter?.[getterKey?.basePath],
     getter?.[getterKey?.indicator],
     getter?.[getterKey?.areaSelector],
-    getter?.[getterKey?.lineSelector]
+    getter?.[getterKey?.lineSelector],
+    data
   ]);
 
   // console.log(lines);

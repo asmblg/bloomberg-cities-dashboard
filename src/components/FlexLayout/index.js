@@ -16,7 +16,7 @@ const FlexLayout = ({
 }) => {
   console.log(viewType);
 
-  const [getter, setter] = useState(initialState);
+  const [getter, setter] = useState(initialState || {});
   const elementArray = columns || rows;
 
   const handleSetter = (setterKey, value) => {
