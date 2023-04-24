@@ -80,6 +80,10 @@ const SelectorMap = ({ project, config, setter }) => {
           center={config.center}
           zoom={config.zoom}
           zoomControl={false}
+          dragging={false}
+          doubleClickZoom={false}
+          zoomSnap={.25}
+          
         >
           <TileLayer
             attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'

@@ -19,7 +19,7 @@ const Home = ({
   setSelectedLink
 }) => {
   const [data, setData] = useState(null);
-  const { summaryCards } = config;
+  const { summaryCards, overview } = config;
 
   useEffect(() => {
     handleHomeData(project, summaryCards).then(res => setData(res));
@@ -28,7 +28,7 @@ const Home = ({
   return (
     <div className='home-wrapper'>
       <div className='overview-wrapper'>
-        <OverviewCard viewType={viewType} />
+        <OverviewCard viewType={viewType} config={overview} />
       </div>
       <div className='summary-wrapper'>
         <>
