@@ -19,6 +19,53 @@
         },
         "body": "",
         "linkURL": "",
+        "overview": {
+          "title": "ECONOMIC DASHBOARD",
+          "content": [
+            {
+              "lines": [
+                {
+                  "text": "CITY OF TAMPA ECONOMIC DATA."
+                },
+                {
+                  "text": "UPDATED QUARTERLY."
+                }
+              ],
+              "style": {
+                "fontFamily": "RobotoThin",
+                "marginBottom": "40px"
+              }
+            },
+            {
+              "lines": [
+                {
+                  "text": "How to use this dashboard?",
+                  "style": {
+                    "fontFamily": "RobotoBold"
+                  }
+                },
+                {
+                  "text": "The home screen shows one key indicator per topic. Hover over the charts to see more detailed information.",
+                  "style": {
+                    "marginBottom": "10px"
+                  }
+                },
+                {
+                  "text": "Use the tabs to explore additional indicators for each topic.",
+                  "style": {
+                    "marginBottom": "10px"
+                  }
+                },
+                {
+                  "text": "Learn where the data comes from in the \"About the data\" section on the top menu."
+                }
+              ],
+              "style": {
+                "fontFamily": "RobotoThin"
+              }
+            }
+          ] 
+        },
         "summaryCards": [
           {
             "label": "Job growth",

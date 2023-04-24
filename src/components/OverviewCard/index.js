@@ -5,41 +5,26 @@ import { Icon } from 'semantic-ui-react';
 import DashboardTitle from '../DashboardTitle';
 import './style.css';
 
-const OverviewCard = ({ viewType }) => {
+const OverviewCard = ({ viewType, config }) => {
   const [overviewOpen, setOverviewOpen] = useState(true);
-  const overviewConfig = {
-    title: 'ECONOMIC DASHBOARD',
-    content: [
-      {
-        title: 'CITY OF TAMPA ECONOMIC DATA.',
-        text: 'UPDATED QUARTERLY.',
-        type: 'overview'
-      },
-      {
-        title: 'How to use this dashboard?',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.',
-        type: 'instructions'
-      }
-    ]
-  };
 
   return (
     <>
-      {overviewOpen ? (
+      {overviewOpen && config ? (
         <>
           {viewType === 'desktop' ? (
             <div className='overview-title'>
-              <DashboardTitle title={'ECONOMIC DASHBOARD'} fontSize={'3rem'} />
+              <DashboardTitle title={config.title} fontSize={'3rem'} />
             </div>
           ) : null}
 
           <div className='overview-body'>
-            {overviewConfig.content.map(({ title, text, type }, i) => (
-              <div key={`overview-body-content-${i}`}>
-                {title ? (
-                  <div className={type === 'instructions' ? 'bold-font' : 'thin-font'}>{title}</div>
-                ) : null}
-                {text ? <div className={'thin-font'}>{text}</div> : null}
+            {config.content.map(({ style, lines }, i) => (
+              <div key={`overview-body-content-${i}`} style={style || {}}>
+                {lines?.[0]
+                  ? lines.map(({ text, style: lineStyle }, ii) => (
+                    <div key={`overview-content-${i}-line-${ii}`} style={lineStyle || {}}>{text}</div>
+                  )) : null}
               </div>
             ))}
           </div>
@@ -60,7 +45,8 @@ const OverviewCard = ({ viewType }) => {
 };
 
 OverviewCard.propTypes = {
-  viewType: PropTypes.string
+  viewType: PropTypes.string,
+  config: PropTypes.object
 };
 
 export default OverviewCard;
