@@ -11,8 +11,10 @@ import {
   ComposedChart,
   ResponsiveContainer
 } from 'recharts';
+import CustomTooltip from '../CustomTooltip';
 import { handleData } from './utils';
 import formatValue from '../../utils/formatValue';
+import dateToQuarter from '../../utils/dateToQuarter';
 import PropTypes from 'prop-types';
 
 const ComboLineAreaChart = ({
@@ -37,7 +39,8 @@ const ComboLineAreaChart = ({
     basePath,
     totalFilter,
     average,
-    linesInsteadOfArea
+    linesInsteadOfArea,
+    quarterDateFormat
   } = config;
 
 
@@ -90,7 +93,7 @@ const ComboLineAreaChart = ({
     >
       <ComposedChart
         data={areas[0] ? areas : lines}
-        margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
+        margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
       >
         <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
         <YAxis
@@ -105,7 +108,10 @@ const ComboLineAreaChart = ({
             dy: 50
           }}
         />
-        <XAxis dataKey="name" />
+        <XAxis 
+          tickFormatter={text => dateToQuarter(text) }
+          dataKey="name" 
+        />
         {
           lines && getter?.[getterKey?.lineSelector] ?
             <Line
@@ -145,7 +151,15 @@ const ComboLineAreaChart = ({
 
             : null
         }
-        <Tooltip />
+        <Tooltip 
+          content={
+            <CustomTooltip
+              units={indicator?.units || getter?.[getterKey?.indicator]?.units}
+              quarterDateFormat={quarterDateFormat}
+
+            />
+          } 
+        />
 
       </ComposedChart>
 

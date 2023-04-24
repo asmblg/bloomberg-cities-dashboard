@@ -196,14 +196,14 @@
         "layout": {
           "columns": [
             {
-              "width": "33%",
-              "height": "100%",
+              "width": "30%",
+              "height": "90%",
               "style": {
                 "borderRight": "3px solid #dfe5e9"
               },
               "rows": [
                 {
-                  "height": "50px",
+                  "height": "60px",
                   "content": {
                     "type": "trend-data-toggler",
                     "config": {
@@ -217,7 +217,7 @@
                   }
                 },
                 {
-                  "height": "150px",
+                  "height": "120px",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
@@ -240,6 +240,7 @@
                   }
                 },
                 {
+                  "height": "120px",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
@@ -264,11 +265,14 @@
               ]
             },
             {
-              "width": "67%",
+              "width": "70%",
               "height": "100%",
               "rows": [
                 {
-                  "height": "25%",
+                  "height": "100px",
+                  "style": { 
+                    "maxHeight": "25%"
+                  },
                   "content": {
                     "type": "compare-selector",
                     "config": {
@@ -313,7 +317,7 @@
                   }
                 },
                 {
-                  "height": "75%",
+                  "height": "calc(80vh - 350px)",
                   "columns": [
                     {
                       "width": "50%",
@@ -327,8 +331,6 @@
                           "setterKey": {
                             "selectedOption": "jobs-line-indicator"
                           },
-                          "height": "100%",
-                          "width": "100%",
                           "label": null,
                           "dataLength": 12,
                           "fixedIndicator": "unemployment",
@@ -345,7 +347,7 @@
                             "tickCount": 3,
                             "domain": [
                               0,
-                              "dataMax"
+                              "dataMax" 
                             ],
                             "label": "Unemployment rate"
                           },
@@ -377,8 +379,6 @@
                           "setterKey": {
                             "selectedOption": "jobs-column-indicator"
                           },
-                          "height": "100%",
-                          "width": "100%",
                           "label": null,
                           "dataLength": 13,
                           "valueType": "thousands",
@@ -393,7 +393,7 @@
                           "yaxis": {
                             "tickCount": 3,
                             "domain": [
-                              0,
+                              "dataMin",
                               "dataMax"
                             ],
                             "label": "Jobs Added"
@@ -513,14 +513,14 @@
           "columns": [
             {
               "width": "50%",
-              "height": "100%",
+              "height":  "calc(80vh - 180px)",
               "style": {
                 "borderRight": "3px solid #dfe5e9",
                 "padding": "10px 10px 10px 20px"
               },
               "rows": [
                 {
-                  "height": "auto",
+                  "height": "60px",
                   "content": {
                     "type": "title-with-trend-data-toggler",
                     "config": {
@@ -538,7 +538,7 @@
                   }
                 },
                 {
-                  "height": "auto",
+                  "height": "60px",
                   "style": {
                     "paddingBottom": "20px"
                   },
@@ -565,7 +565,7 @@
                   }
                 },
                 {
-                  "height": "auto",
+                  "height": "120px",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
@@ -599,11 +599,11 @@
                   }
                 },
                 {
-                  "height": "60%",
+                  "height": "calc(100% - 240px)",
                   "columns": [
                     {
                       "width": "70%",
-                      "height": "90%",
+                      "height": "100%",
                       "content": {
                         "type": "multi-line-chart",
                         "config": {
@@ -697,13 +697,13 @@
             },
             {
               "width": "50%",
-              "height": "100%",
+              "height":  "calc(80vh - 180px)",
               "style": {
                 "padding": "10px 10px 10px 20px"
               },
               "rows": [
                 {
-                  "height": "auto",
+                  "height": "60px",
                   "content": {
                     "type": "title-with-trend-data-toggler",
                     "config": {
@@ -721,7 +721,7 @@
                   }
                 },
                 {
-                  "height": "auto",
+                  "height": "60px",
                   "style": {
                     "paddingBottom": "20px"
                   },
@@ -748,7 +748,7 @@
                   }
                 },
                 {
-                  "height": "auto",
+                  "height": "120px",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
@@ -782,11 +782,11 @@
                   }
                 },
                 {
-                  "height": "60%",
+                  "height": "calc(100% - 240px)",
                   "columns": [
                     {
                       "width": "70%",
-                      "height": "90%",
+                      "height": "100%",
                       "content": {
                         "type": "multi-line-chart",
                         "config": {
@@ -897,9 +897,13 @@
           "columns": [
             {
               "width": "34%",
-              "height": "100%",
+              "height": "calc(80vh - 350px)",
+              "style": {
+                "padding": "10px"
+              },
               "rows": [
                 {
+                  "height": "60px",
                   "content": {
                     "type": "trend-data-toggler",
                     "config": {
@@ -913,6 +917,7 @@
                   }
                 },
                 {
+                  "height": "120px",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
@@ -935,6 +940,7 @@
                 },
                 {
                   "width": "100%",
+                  "height": "60px",
                   "content": {
                     "type": "indicator-dropdown",
                     "config": {
@@ -949,13 +955,12 @@
                 },
                 {
                   "width": "100%",
-                  "height": "30vh",
+                  "height": "100%",
                   "content": {
                     "type": "simple-column-chart",
                     "config": {
-                      "dataPath": "newbusiness.city.total",
                       "height": "100%",
-                      "width": "100%",
+                      "dataPath": "newbusiness.city.total",
                       "label": "New Businesses",
                       "dataLength": 13,
                       "color": "#006aaf",
@@ -980,7 +985,7 @@
               "rows": [
                 {
                   "width": "100%",
-                  "height": "10%",
+                  "height": "40px",
                   "content": {
                     "type": "indicator-dropdown",
                     "config": {
@@ -995,14 +1000,14 @@
                 },
                 {
                   "width": "100%",
-                  "height": "100%",
+                  "height": "calc(50% - 50px)",
                   "content": {
                     "type": "under-construction"
                   }
                 },
                 {
                   "width": "100%",
-                  "height": "10%",
+                  "height": "40px",
                   "content": {
                     "type": "indicator-dropdown",
                     "config": {
@@ -1017,7 +1022,7 @@
                 },
                 {
                   "width": "100%",
-                  "height": "50%",
+                  "height": "calc(50% - 50px)",
                   "content": {
                     "type": "under-construction"
                   }
@@ -1282,11 +1287,13 @@
           "columns": [
             {
               "width": "33%",
+              "height":"calc(80vh - 250px)",
               "rows": [
                 {
                   "style": {
                     "paddingLeft": "10px"
                   },
+                  "height": "20px",
                   "content": {
                     "type": "trend-data-toggler",
                     "config": {
@@ -1333,9 +1340,10 @@
             },
             {
               "width": "33%",
+              "height":"calc(80vh - 250px)",
               "rows": [
                 {
-                  "height": "20%",
+                  "height": "120px",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
@@ -1359,7 +1367,7 @@
                   }
                 },
                 {
-                  "height": "80%",
+                  "height": "calc(100% - 140px)",
                   "content": {
                     "type": "selector-with-legend",
                     "colors": [
@@ -1743,12 +1751,15 @@
             },
             {
               "width": "33%",
+              "height":"calc(80vh - 250px)",
+
               "style": {
-                "padding": "10px"
+                "padding": "10px",
+                "alignSelf": "flex-end"
               },
               "rows": [
                 {
-                  "height": "20%",
+                  "height": "60px",
                   "content": {
                     "type": "indicator-dropdown",
                     "key": "consumer-indicator-dropdown",
@@ -1783,7 +1794,7 @@
                   }
                 },
                 {
-                  "height": "60%",
+                  "height": "calc(100% - 60px)",
                   "content": {
                     "type": "combo-line-area-chart",
                     "lineKey": "naics3",
@@ -1806,6 +1817,7 @@
                       "#333333",
                       "#666666"
                     ],
+                    "quarterDateFormat": "QX YYYY",
                     "description": "LINE/AREA CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, AND INDICATOR DROPDOWN"
                   }
                 }
@@ -1987,7 +1999,7 @@
               "width": "33%",
               "rows": [
                 {
-                  "height": "150px",
+                  "height": "120px",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
@@ -2017,7 +2029,7 @@
                   }
                 },
                 {
-                  "height": "60%",
+                  "height": "calc(100% - 120px)",
                   "content": {
                     "type": "combo-line-area-chart",
                     "lineKey": "naics3",
@@ -2055,6 +2067,7 @@
                       "#333333",
                       "#666666"
                     ],
+                    "quarterDateFormat": "QX YYYY",
                     "description": "LINE/AREA CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, AND INDICATOR DROPDOWN"
                   }
                 }
@@ -2064,7 +2077,7 @@
               "width": "33%",
               "rows": [
                 {
-                  "height": "150px",
+                  "height": "120px",
                   "content": {
                     "type": "indicator-trend-box",
                     "config": {
@@ -2094,7 +2107,7 @@
                   }
                 },
                 {
-                  "height": "60%",
+                  "height": "calc(100% - 120px)",
                   "content": {
                     "type": "combo-line-area-chart",
                     "lineKey": "naics3",
@@ -2132,6 +2145,7 @@
                       "#333333",
                       "#666666"
                     ],
+                    "quarterDateFormat": "QX YYYY",
                     "description": "LINE/AREA CHART CONNECTED TO SUBAREA SELECTOR, INDUSTRY SELECTOR, AND INDICATOR DROPDOWN"
                   }
                 }

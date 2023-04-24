@@ -56,6 +56,7 @@ a:hover {
 .full-card-wrapper {
   width: 100%;
   display: flex;
+  /* height: calc(100vh - 500px); */
 }
 
 .full-card-container {
@@ -66,7 +67,7 @@ a:hover {
   justify-content: flex-start;
   /* flex-direction: row; */
   /* justify-content: space-between; */
-  height: 80vh;
+  /* height: calc(100vh - 200px); */
 
 }
 

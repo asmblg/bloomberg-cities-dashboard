@@ -11,10 +11,15 @@ import {
 import CustomTooltip from '../CustomTooltip';
 import PropTypes from 'prop-types';
 
-import CustomLabel from './subComponents/CustomLabel';
+// import CustomLabel from './subComponents/CustomLabel';
 import IndicatorDropdown from '../IndicatorDropdown';
 
-import { handleDataArray, handleLineStyle, handleDataObject, handleLabel } from './utils';
+import { 
+  handleDataArray,
+  handleLineStyle, 
+  handleDataObject, 
+  // handleLabel 
+} from './utils';
 import formatValue from '../../utils/formatValue';
 import calculateChartDomain from '../../utils/calculateChartDomain';
 
@@ -102,7 +107,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
         >
           <LineChart
             data={dataArray}
-            margin={{ top: 20, right: 20, left: 50, bottom: 20 }}
+            margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
           >
             <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
             <XAxis
@@ -120,21 +125,31 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
             <YAxis
               domain={calculateChartDomain(dataArray)}
               tickFormatter={text => formatValue(text, selectedIndicator?.units || yaxis?.units)}
-              label={yaxis?.label && !yaxis.labelFormatter ?
-                {
-                  value: handleLabel(yaxis.label, selectedIndicator),
-                  angle: -90,
-                  position: 'insideBottomLeft',
-                  offset: 0
-                } : !yaxis?.label && yaxis?.labelFormatter ?
-                  <CustomLabel
-                    labelConfig={yaxis}
-                    selectedIndicator={selectedIndicator}
-                    getter={getter}
-                  /> : null
-              }
+              // label={yaxis?.label && !yaxis.labelFormatter ?
+              //   {
+              //     value: handleLabel(yaxis.label, selectedIndicator),
+              //     angle: -90,
+              //     position: 'center',
+              //     offset: 0
+              //   } : !yaxis?.label && yaxis?.labelFormatter ?
+              //     <CustomLabel
+              //       labelConfig={yaxis}
+              //       selectedIndicator={selectedIndicator}
+              //       getter={getter}
+              //     /> : null
+              // }
             />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip 
+              content={
+                <CustomTooltip 
+                  filter={[
+                    secondaryLine?.key,
+                    primaryLine?.key
+                  ]}
+                  units={selectedIndicator?.units}
+                />
+              } 
+            />
             {allLinesArray.map(city => {
               const { stroke, strokeWidth, zIndex } = handleLineStyle({
                 lineKey: city,

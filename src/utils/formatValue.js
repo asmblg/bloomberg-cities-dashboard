@@ -40,9 +40,9 @@ const formatValue = (value, units) => {
         const unit = millions ? 'M' : thousands ? 'K' : ''; 
         return `${text}${unit}`;
       }
-      // case 'thousands': {
-      //   return `${value}K`;
-      // }
+      case 'thousands': {
+        return `${value}K`;
+      }
 
       default: {
         return formatNumberWithCommas(value);

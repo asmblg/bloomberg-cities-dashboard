@@ -9,6 +9,8 @@ import {
   ResponsiveContainer,
   ReferenceLine
 } from 'recharts';
+import CustomTooltip from '../CustomTooltip';
+import formatValue from '../../utils/formatValue';
 import PropTypes from 'prop-types';
 
 import IndicatorDropdown from '../IndicatorDropdown';
@@ -85,14 +87,14 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
       >
         <BarChart
           data={dataArray}
-          margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
+          margin={{ top: 20, right: 20, left: 10, bottom: 20 }}
         >
           <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
           <XAxis
             type={'category'}
             dataKey='name'
             tickCount={2}
-            barSize={10}
+            barSize={30}
             tickLine={{ stroke: 'transparent' }}
             axisLine={false}
             interval={'preserveStartEnd'}
@@ -106,9 +108,16 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
           <YAxis
             domain={calculateChartDomain(dataArray)}
             type={'number'}
+            tickFormatter={text => formatValue(text, selectedIndicator?.units)}
             label={{ value: config.yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
           />
-          <Tooltip />
+          <Tooltip 
+            content={
+              <CustomTooltip 
+                units={selectedIndicator?.units}
+              />
+            } 
+          />
           <ReferenceLine y={0} stroke="#000000" />
           {!fixedIndicator && allColumnsArray
             ? allColumnsArray.map(({ key }, i) => (

@@ -1,0 +1,17 @@
+.recharts-tooltip-wrapper {
+  border: 1px solid var(--primary-grey-color);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.323);
+  background-color: var(--white-color);
+  padding: 10px;
+  border-radius: 5px;
+  outline: solid 1px rgb(202, 202, 202);
+
+}
+
+.custom-tooltip-header {
+  margin-bottom: 10px;
+}
+
+.custom-tooltip > p {
+  line-height: 1rem;
+}
