@@ -1,5 +1,5 @@
 import getCurrentAndCompareData from './getCurrentAndCompareData';
-// import getRecentQuarterEndDates from '../../utils/getRecentQuarterEndDates';
+import getRecentQuarterEndDates from './getRecentQuarterEndDates';
 // import formatValue from '../../utils/formatValue';
 
 // const handleDataForPreviousValueChange = ({ data, compareDate }) => {
@@ -28,7 +28,6 @@ import getCurrentAndCompareData from './getCurrentAndCompareData';
  */
 
 const createCompareDataObject = (calculator, data, trendDataType, filterArray) => {
-  // console.log(data, trendDataType);
   const { currentValue, compareValue, currentDate, compareDate } = getCurrentAndCompareData(
     calculator,
     data,
@@ -47,17 +46,22 @@ const createCompareDataObject = (calculator, data, trendDataType, filterArray) =
   switch (calculator) {
     case 'differenceFromPrevious': {
       if (obj.currentValue && obj.compareValue) {
-        obj.displayValue =
-          parseFloat(obj.currentValue) - parseFloat(obj.compareValue);
+        const currentVal = parseFloat(obj.currentValue) - parseFloat(obj.compareValue);
+        obj.currentValue = currentVal;
+        obj.displayValue = currentVal;
 
-        // const updatedDataObj = handleDataForPreviousValueChange({ data, compareDate });
-        // const { currentValue: curVal, compareValue: compVal } = getCurrentAndCompareData(
-        //   calculator,
-        //   updatedDataObj,
-        //   trendDataType
-        // );
-        // console.log(parseFloat(curVal) - parseFloat(compVal));
-        // obj.previousDisplayValue = parseFloat(curVal) - parseFloat(compVal);
+        // Filter out most current date to get the compare value difference in total
+        const dateKeys = Object.keys(data);
+        const [filterDate] = getRecentQuarterEndDates(Object.keys(data), 1);
+        const filtersArr = dateKeys.filter(key => key !== filterDate);
+
+        const compareObj = getCurrentAndCompareData(
+          calculator,
+          data,
+          trendDataType,
+          filtersArr
+        );
+        obj.compareValue = parseFloat(compareObj.currentValue) - parseFloat(compareObj.compareValue);
       }
       break;
     }
@@ -66,10 +70,6 @@ const createCompareDataObject = (calculator, data, trendDataType, filterArray) =
       break;
     }
   }
-
-  // console.log(obj);
-
-  // obj.displayValue = formatValue(obj.displayValue, formatter);
   return obj;
 };
 

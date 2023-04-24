@@ -24,7 +24,6 @@ const getCurrentAndCompareData = (
   };
 
   const aggQuarterly = true;
-  console.log(data);
 
   const aggregationCalculators = [
     'differenceOfTotalsFromPrevious',
@@ -41,15 +40,15 @@ const getCurrentAndCompareData = (
             .flat(1)
         )
       ]
-      : Object.keys(data);
+      : calculator === 'differenceFromPrevious'
+        ? Object.keys(data)
+          .filter(key => filterArray ? filterArray.includes(key) : true)
+        : Object.keys(data);
 
-    // console.log(dateKeys);
     // Uses trend type to return two dates (keys) to compare in data object
     const { currentDate, compareDate } = getDataCompareDates(dateKeys, trendDataType);
     dataObj.currentDate = currentDate;
     dataObj.compareDate = compareDate;
-
-    console.log(dataObj);
 
     // Handles calculations needed on values before comparing two values
     switch (calculator) {
@@ -129,7 +128,7 @@ const getCurrentAndCompareData = (
       }
     }
   }
-  console.log(dataObj);
+  // console.log(dataObj);
   return dataObj;
 };
 
