@@ -43,11 +43,11 @@ const CommunityProfile = ({ config, detailData, project, viewType }) => {
                     <IndicatorMap config={c} geoJSON={geoJSON} />
                   ) : null
                 ) : type === 'donut-charts' && c.donuts && c.donuts[0] ? (
-                  c.donuts.map(({ title, indicators, colors }, i) => (
+                  c.donuts.map(({ title, indicators, colors, description, source }, i) => (
                     <div key={`cp-donut-${i}`} className='cp-chart-container'>
                       <div className='cp-chart-header'>
                         <h3>{title.toUpperCase()}</h3>
-                        <InfoIcon variableDescription={'A description...'} />
+                        <InfoIcon config={{ description, source }} />
                       </div>
                       <DonutWithLegend
                         title={title}

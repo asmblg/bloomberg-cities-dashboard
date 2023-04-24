@@ -88,7 +88,7 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
               <h4>{dateToQuarter(indicatorTrendData.currentDate, 'QX YYYY')}</h4>
             </div>
           </div>
-          <InfoIcon variableDescription={selectedIndicator.label} />
+          <InfoIcon config={selectedIndicator} />
         </div>
         <TrendPill
           currentValue={indicatorTrendData.currentValue}

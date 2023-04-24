@@ -26,10 +26,7 @@ const IndicatorListSection = ({ config, data }) => {
                 >
                   <div className='title-info-container'>
                     <h5>{indicator.label.toUpperCase() || ''}</h5>
-                    <InfoIcon
-                      source={'A good source'}
-                      variableDescription={'A great description...'}
-                    />
+                    <InfoIcon config={indicator} />
                   </div>
                   <h2 className='bold-font'>{formatValue(value, indicator.units)}</h2>
                 </div>
@@ -49,7 +46,7 @@ const IndicatorListSection = ({ config, data }) => {
                   <h2 className='bold-font'>{formatValue(value, indicator.units)}</h2>
                   <div style={{ display: 'flex', justifyItems: 'center' }}>
                     <h5>{indicator.label || ''}</h5>
-                    <InfoIcon source={'The Source Spot'} />
+                    <InfoIcon config={indicator} />
                   </div>
                   {/* No data for comparison */}
                   {/* <TrendPill direction={'up'} value={'+ XX.X%'} height={30} width={190} /> */}

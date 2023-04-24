@@ -69,12 +69,7 @@ const SummaryCard = ({
           >
             {label.toUpperCase()}
           </h4>
-          <InfoIcon
-            source={'Test Data Inc'}
-            variableDescription={
-              'A data description that describes the data that needs to be described...'
-            }
-          />
+          <InfoIcon config={config?.indicator} />
         </div>
 
         {viewType === 'mobile' ? (

@@ -45,7 +45,7 @@ const SimpleIndicatorBox = ({ data, config, getter }) => {
             <h5>{selectedIndicator.subLabel}</h5>
           ) : null}
         </div>
-        <InfoIcon variableDescription={selectedIndicator.label} />
+        <InfoIcon config={selectedIndicator} />
       </div>
       <h1 className='bold-font'>
         {formatValue(displayObject.value, selectedIndicator.units)}

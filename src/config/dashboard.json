@@ -29,6 +29,10 @@
               "trendUnits": null,
               "calculator": "differenceFromPrevious"
             },
+            "indicator": {
+              "description": "Total number of jobs added or lost since last quarter.",
+              "source": "Economy at a Glance Data, Bureau of Labor Statistics (BLS)"
+            },
             "chart": {
               "type": "column",
               "label": null,
@@ -65,6 +69,10 @@
               "calculator": "differenceFrom100",
               "formatter": "percent"
             },
+            "indicator": {
+              "description": "Percentage of occupied office space downtown or in Central Business District (CBD).",
+              "source": "JLL Quarterly Office Market Reports."
+            },
             "chart": {
               "type": "donut",
               "label": null,
@@ -89,6 +97,10 @@
             "summary": {
               "trendUnits": null,
               "calculator": null
+            },
+            "indicator": {
+              "description": "Total new businesses formed.",
+              "source": "Data Axle USA New Businesses Database"
             },
             "chart": {
               "type": "column",
@@ -120,6 +132,10 @@
               "trendUnits": "percent",
               "calculator": null
             },
+            "indicator": {
+              "description": "Percentage of businesses that perceive the cost of rent burdensome as a monthly expenditure.",
+              "source": "Alignable Small Businesses' Rent-Burden Survey."
+            },
             "chart": {
               "type": "donut",
               "label": "SB",
@@ -136,6 +152,10 @@
               "trendUnits": "percent",
               "calculator": "actual"
             },
+            "indicator": {
+              "description": "Total amount spent in leisure and hospitality in credit and debit card transactions.",
+              "source": "Dewey Data, Safegraph's places and transaction data."
+            },
             "chart": {
               "type": "donut",
               "label": "CBD",
@@ -151,6 +171,10 @@
             "summary": {
               "trendUnits": "percent",
               "calculator": "actual"
+            },
+            "indicator": {
+              "description": "Total amount collected by startups.",
+              "source": "Dealroom Data Platform"
             },
             "chart": {
               "type": "line",
@@ -203,11 +227,13 @@
                       "dataPath": "tampa",
                       "indicator": {
                         "var": "unemployment",
-                        "label": "Unemployment Rate",
+                        "label": "Unemployment rate",
                         "calculator": null,
                         "key": "unemployment",
                         "units": "percent",
-                        "positiveTrendDirection": "down"
+                        "positiveTrendDirection": "down",
+                        "description": "Percentage of people unemployed (not seasonally adjusted)",
+                        "source": "Economy at a Glance Data, Bureau of Labor Statistics (BLS)"
                       },
                       "displayCompareText": true
                     }
@@ -223,11 +249,13 @@
                       "dataPath": "tampa",
                       "indicator": {
                         "var": "total",
-                        "label": "Jobs Added",
+                        "label": "Jobs added/lost",
                         "calculator": "differenceFromPrevious",
                         "key": "jobs_added",
                         "units": null,
-                        "positiveTrendDirection": "up"
+                        "positiveTrendDirection": "up",
+                        "description": "Total number of people employed, in thousands, not seasonally adjusted.",
+                        "source": "Economy at a Glance Data, Bureau of Labor Statistics (BLS)"
                       },
                       "displayCompareText": true
                     }
@@ -547,10 +575,12 @@
                       },
                       "indicator": {
                         "var": "vacancy_rate",
-                        "label": "Office Occupancy rate",
+                        "label": "Office occupancy rate",
                         "calculator": "differenceFrom100",
                         "key": "occupancy_rate",
-                        "units": "percent"
+                        "units": "percent",
+                        "description": "Percentage of occupied office space in selected submarket.",
+                        "source": "JLL Quarterly Office Market Reports."
                       },
                       "dataPath": "office.submarket",
                       "displayCompareText": true,
@@ -608,24 +638,30 @@
                           "indicators": [
                             {
                               "var": "vacancy_rate",
-                              "label": "Office Occupancy rate",
+                              "label": "Office occupancy rate",
                               "calculator": "differenceFrom100",
                               "key": "occupancy_rate",
-                              "units": "percent"
+                              "units": "percent",
+                              "description": "Percentage of occupied office space in selected submarket.",
+                              "source": "JLL Quarterly Office Market Reports."
                             },
                             {
                               "var": "average_asking_rent_psf",
-                              "label": "Average Rent per square foot",
+                              "label": "Average total asking rent ($ p.s.f.)",
                               "calculator": null,
                               "key": "average_asking_rent_psf",
-                              "units": "dollars"
+                              "units": "dollars",
+                              "description": "Average rental price listed by landlords per square foot of office space.",
+                              "source": "JLL Quarterly Office Market Reports."
                             },
                             {
                               "var": "ytd_percent_absorption",
-                              "label": "YTD Percent Absorption",
+                              "label": "YTD total net absorption (% of stock)",
                               "calculator": null,
                               "key": "ytd_percent_absorption",
-                              "units": "percent"
+                              "units": "percent",
+                              "description": "Change in physically occupied office space since the beginning of the calendar year.",
+                              "source": "JLL Quarterly Office Market Reports."
                             }
                           ]
                         }
@@ -641,11 +677,13 @@
                           },
                           "indicator": {
                             "var": "ytd_percent_absorption",
-                            "label": "YTD Total Net Absorption",
+                            "label": "YTD total net absorption",
                             "subLabel": "(% of stock)",
                             "calculator": null,
                             "key": "ytd_percent_absorption",
-                            "units": "percent"
+                            "units": "percent",
+                            "description": "Change in physically occupied office space since the beginning of the calendar year.",
+                            "source": "JLL Quarterly Office Market Reports."
                           },
                           "dataPath": "office.submarket",
                           "displayCompareText": true,
@@ -720,10 +758,12 @@
                       },
                       "indicator": {
                         "var": "vacancy_rate",
-                        "label": "Industrial Occupancy rate",
+                        "label": "Industrial occupancy rate",
                         "calculator": "differenceFrom100",
                         "key": "occupancy_rate",
-                        "units": "percent"
+                        "units": "percent",
+                        "description": "Percentage of occupied industrial space in selected submarket.",
+                        "source": "JLL Quarterly Industrial Market Reports."
                       },
                       "dataPath": "industrial.submarket",
                       "displayCompareText": true,
@@ -781,24 +821,30 @@
                           "indicators": [
                             {
                               "var": "vacancy_rate",
-                              "label": "Industrial Occupancy rate",
+                              "label": "Industrial occupancy rate",
                               "calculator": "differenceFrom100",
                               "key": "occupancy_rate",
-                              "units": "percent"
+                              "units": "percent",
+                              "description": "Percentage of occupied industrial space in selected submarket.",
+                              "source": "JLL Quarterly Industrial Market Reports."
                             },
                             {
                               "var": "average_asking_rent_psf",
-                              "label": "Average Rent per square foot",
+                              "label": "Average total asking rent ($ p.s.f.)",
                               "calculator": null,
                               "key": "average_asking_rent_psf",
-                              "units": "dollars"
+                              "units": "dollars",
+                              "description": "Percentage of occupied industrial space in selected submarket.",
+                              "source": "JLL Quarterly Industrial Market Reports."
                             },
                             {
                               "var": "ytd_percent_absorption",
-                              "label": "YTD Percent Absorption",
+                              "label": "YTD total net absorption (% of stock)",
                               "calculator": null,
                               "key": "ytd_percent_absorption",
-                              "units": "percent"
+                              "units": "percent",
+                              "description": "Change in physically occupied industrial space since the beginning of the calendar year.",
+                              "source": "JLL Quarterly Industrial Market Reports."
                             }
                           ]
                         }
@@ -814,11 +860,13 @@
                           },
                           "indicator": {
                             "var": "ytd_percent_absorption",
-                            "label": "YTD Total Net Absorption",
+                            "label": "YTD total net absorption",
                             "subLabel": "(% of stock)",
                             "calculator": null,
                             "key": "ytd_percent_absorption",
-                            "units": "percent"
+                            "units": "percent",
+                            "description": "Change in physically occupied industrial space since the beginning of the calendar year.",
+                            "source": "JLL Quarterly Industrial Market Reports."
                           },
                           "dataPath": "industrial.submarket",
                           "displayCompareText": true,
@@ -874,10 +922,12 @@
                       "dataPath": "newbusiness.city",
                       "indicator": {
                         "var": "total",
-                        "label": "New Businesses",
+                        "label": "New businesses",
                         "calculator": null,
                         "key": "total",
-                        "units": "int"
+                        "units": "int",
+                        "description": "Total new businesses formed.",
+                        "source": "Data Axle USA New Businesses Database"
                       },
                       "displayCompareText": true
                     }
@@ -890,7 +940,9 @@
                     "config": {
                       "fixedSelection": {
                         "key": "newbusinesses",
-                        "label": "NEW BUSINESSES"
+                        "label": "NEW BUSINESSES",
+                        "description": "Total new businesses formed.",
+                        "source": "Data Axle USA New Businesses Database"
                       }
                     }
                   }
@@ -934,7 +986,9 @@
                     "config": {
                       "fixedSelection": {
                         "key": "rent_burden",
-                        "label": "RENT-BURDEN"
+                        "label": "RENT-BURDEN",
+                        "description": "",
+                        "source": ""
                       }
                     }
                   }
@@ -954,7 +1008,9 @@
                     "config": {
                       "fixedSelection": {
                         "key": "cash_flow_capacity",
-                        "label": "CASH FLOW CAPACITY"
+                        "label": "CASH FLOW CAPACITY",
+                        "description": "",
+                        "source": ""
                       }
                     }
                   }
@@ -1054,7 +1110,12 @@
                       },
                       "dataPath": "smallbusiness.city",
                       "label": "SMALL BUSINESSES CARD REVENUE",
-                      "fixedIndicator": true,
+                      "fixedIndicator": {
+                        "key": "small_business_card_revenue",
+                        "label": "SMALL BUSINESSES CARD REVENUE",
+                        "description": "Percentage change in small businesses card revenue.",
+                        "source": "Block, Inc."
+                      },
                       "dataLength": 12,
                       "mainColor": "#006aaf",
                       "compareColor": "#8dc63f",
@@ -1289,7 +1350,9 @@
                         "calculator": "differenceOfTotalsFromPrevious",
                         "key": "total_spending",
                         "units": "bigDollars",
-                        "positiveTrendDirection": "up"
+                        "positiveTrendDirection": "up",
+                        "description": "Total amount spent in consumer industries in credit and debit card transactions.",
+                        "source": "Dewey Data, Safegraph's places and transaction data."
                       },
                       "displayCompareText": true
                     }
@@ -1700,17 +1763,21 @@
                     "indicators": [
                       {
                         "var": "total_spending",
-                        "label": "Total Spending",
+                        "label": "Total Consumer Spending",
                         "calculator": null,
                         "key": "total_spending",
-                        "units": "bigDollars"
+                        "units": "bigDollars",
+                        "description": "Total amount spent in consumer industries in credit and debit card transactions.",
+                        "source": "Dewey Data, Safegraph's places and transaction data."
                       },
                       {
                         "var": "total_transactions",
                         "label": "Total Transactions",
                         "calculator": null,
                         "key": "total_transactions",
-                        "units": "bigNumbers"
+                        "units": "bigNumbers",
+                        "description": "Total number of credit and debit card transactions made in consumer industries.",
+                        "source": "Dewey Data, Safegraph's places and transaction data."
                       }
                     ]
                   }
@@ -1930,7 +1997,7 @@
                       "dataPath": "city",
                       "indicator": {
                         "var": "naics3.total_spending",
-                        "label": "Total Spending in Tourist-Related Industries",
+                        "label": "Tourism Spending",
                         "calculator": "differenceOfTotalsFromPrevious",
                         "filter": [
                           "711", 
@@ -1941,7 +2008,9 @@
                           ],
                         "key": "total_spending",
                         "units": "bigDollars",
-                        "positiveTrendDirection": "up"
+                        "positiveTrendDirection": "up",
+                        "description": "Total amount spent in leisure and hospitality in credit and debit card transactions.",
+                        "source": "Dewey Data, Safegraph's places and transaction data."
                       },
                       "displayCompareText": true
                     }
@@ -1969,7 +2038,9 @@
                       "label": "Total Spending",
                       "calculator": null,
                       "key": "total_spending",
-                      "units": "bigDollars"
+                      "units": "bigDollars",
+                      "description": "",
+                      "source": ""
                     },
                     "basePath": "city",
                     "colors": [
@@ -2003,7 +2074,7 @@
                       "dataPath": "city",
                       "indicator": {
                         "var": "naics3.p_tourist_consumers",
-                        "label": "Percent of Consumers from Out of State",
+                        "label": "Percentage of out of state customers",
                         "calculator": "differenceOfAveragesFromPrevious",
                         "filter": [
                           "711",
@@ -2014,7 +2085,9 @@
                         ],
                         "key": "p_tourist_consumers",
                         "units": "percent",
-                        "positiveTrendDirection": "up"
+                        "positiveTrendDirection": "up",
+                        "description": "Monthly average percentage of customers from out of state.",
+                        "source": "Dewey Data, Safegraph's places and transaction data."
                       },
                       "displayCompareText": true
                     }
@@ -2088,31 +2161,39 @@
                   "indicators": [
                     {
                       "var": "pop",
-                      "label": "Total Population",
+                      "label": "Total population",
                       "calculator": null,
                       "key": "pop",
-                      "units": null
+                      "units": null,
+                      "description": "Total population",
+                      "source": "Census American Community Survey (ACS), 1-year estimates (2021)"
                     },
                     {
                       "var": "households",
-                      "label": "NUMBER OF HOUSEHOLDS",
+                      "label": "Number of households",
                       "calculator": null,
                       "key": "households",
-                      "units": null
+                      "units": null,
+                      "description": "Total number of households",
+                      "source": "Census American Community Survey (ACS), 1-year estimates (2021)"
                     },
                     {
                       "var": "med_hh_income",
-                      "label": "MEDIAN HOUSEHOLD INCOME",
+                      "label": "Median household income",
                       "calculator": null,
                       "key": "med_hh_income",
-                      "units": "dollars"
+                      "units": "dollars",
+                      "description": "Median household income",
+                      "source": "Census American Community Survey (ACS), 1-year estimates (2021)"
                     },
                     {
                       "var": "med_housing_value",
-                      "label": "MEDIAN HOUSING VALUE",
+                      "label": "Median housing value",
                       "calculator": null,
                       "key": "med_housing_value",
-                      "units": "dollars"
+                      "units": "dollars",
+                      "description": "Median housing value",
+                      "source": "Census American Community Survey (ACS), 1-year estimates (2021)"
                     }
                   ]
                 },
@@ -2124,17 +2205,21 @@
                         "pop_poverty",
                         "pop"
                       ],
-                      "label": "Population earning a living wage",
-                      "calculator": "inversePercentageOf",
-                      "key": "p_living_wage",
-                      "units": "percent"
+                      "label": "Population in poverty",
+                      "calculator": "percentageOf",
+                      "key": "p_poverty",
+                      "units": "percent",
+                      "description": "Percentage of population below 200% of the poverty line",
+                      "source": "Census American Community Survey (ACS), 1-year estimates (2021)"
                     },
                     {
                       "var": "p_owner_occupied",
                       "label": "Home ownership",
                       "calculator": null,
                       "key": "p_owner_occupied",
-                      "units": "percent"
+                      "units": "percent",
+                      "description": "Percentage of owner-occupied housing units",
+                      "source": "Census American Community Survey (ACS), 1-year estimates (2021)"
                     },
                     {
                       "var": [
@@ -2144,14 +2229,18 @@
                       "label": "Rental cost-burdened households",
                       "calculator": "sum",
                       "key": "p_rent_burdened",
-                      "units": "percent"
+                      "units": "percent",
+                      "description": "Percentage of households paying 30.0% of their income or more on rent",
+                      "source": "Census American Community Survey (ACS), 1-year estimates (2021)"
                     },
                     {
                       "var": "p_with_ba",
-                      "label": "Over 25 with bachelors degree or higher",
+                      "label": "Population 25 years and over with a bachelor's degree or higher",
                       "calculator": null,
                       "key": "p_with_ba",
-                      "units": null
+                      "units": null,
+                      "description": "Population 25 years and over with a bachelor's degree or higher",
+                      "source": "Census American Community Survey (ACS), 1-year estimates (2021)"
                     }
                   ]
                 }
@@ -2177,50 +2266,60 @@
               "indicators": [
                 {
                   "var": "pop",
-                  "label": "Total Population",
+                  "label": "Total population",
                   "calculator": null,
                   "key": "pop",
-                  "units": null
+                  "units": null,
+                  "description": "Total population",
+                  "source": "Census American Community Survey (ACS), 1-year estimates (2021)"
                 },
                 {
                   "var": [
                     "pop_asian",
                     "pop"
                   ],
-                  "label": "Asian",
+                  "label": "Asian population",
                   "calculator": "percentageOf",
                   "key": "p_asian",
-                  "units": "percent"
-                },
-                {
-                  "var": [
-                    "pop_hispanic",
-                    "pop"
-                  ],
-                  "label": "Hispanic",
-                  "calculator": "percentageOf",
-                  "key": "p_hispanic",
-                  "units": "percent"
-                },
-                {
-                  "var": [
-                    "pop_white",
-                    "pop"
-                  ],
-                  "label": "White",
-                  "calculator": "percentageOf",
-                  "key": "p_white",
-                  "units": "percent"
+                  "units": "percent",
+                  "description": "Percentage of non-Hispanic Asian population alone",
+                  "source": "Census American Community Survey (ACS), 5-year estimates (2017-2021)"
                 },
                 {
                   "var": [
                     "pop_black",
                     "pop"
                   ],
-                  "label": "Black African American",
+                  "label": "Black or African American population",
                   "calculator": "percentageOf",
                   "key": "p_black",
-                  "units": "percent"
+                  "units": "percent",
+                  "description": "Percentage of non-Hispanic Black or African American population alone",
+                  "source": "Census American Community Survey (ACS), 5-year estimates (2017-2021)"
+                },
+                {
+                  "var": [
+                    "pop_hispanic",
+                    "pop"
+                  ],
+                  "label": "Hispanic population",
+                  "calculator": "percentageOf",
+                  "key": "p_hispanic",
+                  "units": "percent",
+                  "description": "Percentage of Hispanic population of any race",
+                  "source": "Census American Community Survey (ACS), 5-year estimates (2017-2021)"
+                },
+                {
+                  "var": [
+                    "pop_white",
+                    "pop"
+                  ],
+                  "label": "White population",
+                  "calculator": "percentageOf",
+                  "key": "p_white",
+                  "units": "percent",
+                  "description": "Percentage of non-Hispanic white population",
+                  "source": "Census American Community Survey (ACS), 5-year estimates (2017-2021)"
                 },
                 {
                   "var": [
@@ -2230,61 +2329,87 @@
                     "pop_two_or_more",
                     "pop"
                   ],
-                  "label": "Other Race",
+                  "label": "Population from other races (not listed above)",
                   "calculator": "percentageOf",
                   "key": "p_other_race",
-                  "units": "percent"
+                  "units": "percent",
+                  "description": "Percentage of non-Hispanic population of other races (not listed above)",
+                  "source": "Census American Community Survey (ACS), 5-year estimates (2017-2021)"
                 },
                 {
                   "var": [
                     "pop_over_65",
                     "pop"
                   ],
-                  "label": "65 And Over",
+                  "label": "Population over 65 years old",
                   "calculator": "percentageOf",
                   "key": "p_over_65",
-                  "units": "percent"
+                  "units": "percent",
+                  "description": "Percentage population over 65 years old",
+                  "source": "Census American Community Survey (ACS), 5-year estimates (2017-2021)"
                 },
                 {
                   "var": [
                     "pop_under_18",
                     "pop"
                   ],
-                  "label": "Under 18",
+                  "label": "Population under 19 years old",
                   "calculator": "percentageOf",
                   "key": "p_under_19",
-                  "units": "percent"
+                  "units": "percent",
+                  "description": "Percentage population under 19 years old",
+                  "source": "Census American Community Survey (ACS), 5-year estimates (2017-2021)"
+                },
+                {
+                  "var": "med_hh_income",
+                  "label": "Median household income",
+                  "calculator": null,
+                  "key": "med_hh_income",
+                  "units": null,
+                  "description": "Median household income",
+                  "source": "Census American Community Survey (ACS), 5-year estimates (2017-2021)"
+                },
+                {
+                  "var": [
+                    "pop_poverty",
+                    "pop"
+                  ],
+                  "label": "Population in poverty",
+                  "calculator": "percentageOf",
+                  "key": "p_poverty",
+                  "units": "percent",
+                  "description": "Percentage of population below 200% of the poverty line",
+                  "source": "Census American Community Survey (ACS), 5-year estimates (2017-2021)"
                 },
                 {
                   "var": "p_owner_occupied",
-                  "label": "Home Ownership",
+                  "label": "Home ownership",
                   "calculator": null,
                   "key": "p_owner_occupied",
-                  "units": "percent"
+                  "units": "percent",
+                  "description": "Percentage of owner-occupied housing units",
+                  "source": "Census American Community Survey (ACS), 5-year estimates (2017-2021)"
                 },
                 {
                   "var": [
                     "p_rent_burdened_30_35",
                     "p_rent_burdened_35_over"
                   ],
-                  "label": "Rental cost-burdened households",
+                  "label": "Rent burdened households",
                   "calculator": "sum",
                   "key": "p_rent_burdened",
-                  "units": "percent"
+                  "units": "percent",
+                  "description": "Percentage of households paying 30.0% of their income or more on rent",
+                  "source": "Census American Community Survey (ACS), 5-year estimates (2017-2021)"
                 },
                 {
-                  "var": "med_hh_income",
-                  "label": "Median Household Income",
+                  "var": "p_with_ba",
+                  "label": "Educational attainment",
                   "calculator": null,
-                  "key": "med_hh_income",
-                  "units": null
-                },
-                {
-                  "var": "unemployment",
-                  "label": "Unemployment rate",
-                  "calculator": null,
-                  "key": "unemployment",
-                  "units": "percent"
+                  "key": "p_with_ba",
+                  "units": null,
+                  "description": "Population 25 years and over with a bachelor's degree or higher",
+                  "source": "Census American Community Survey (ACS), 5-year estimates (2017-2021)"
                 },
                 {
                   "var": "commute_time",
@@ -2292,33 +2417,6 @@
                   "calculator": null,
                   "key": "commute_time",
                   "units": null
-                },
-                {
-                  "var": "p_with_ba",
-                  "label": "Over 25 with bachelors degree or higher",
-                  "calculator": null,
-                  "key": "p_with_ba",
-                  "units": null
-                },
-                {
-                  "var": [
-                    "pop_poverty",
-                    "pop"
-                  ],
-                  "label": "Population earning a living wage",
-                  "calculator": "inversePercentageOf",
-                  "key": "p_living_wage",
-                  "units": "percent"
-                },
-                {
-                  "var": [
-                    "fam_poverty",
-                    "households"
-                  ],
-                  "label": "Households earning a living wage",
-                  "calculator": "inversePercentageOf",
-                  "key": "p_hh_living_wage",
-                  "units": "percent"
                 }
               ]
             }
@@ -2328,7 +2426,9 @@
             "config": {
               "donuts": [
                 {
-                  "title": "RACE AND ETHNICITY",
+                  "title": "Race and Ethnicity",
+                  "description": "Percentage of population from a given race or ethnicity",
+                  "source": "Census American Community Survey (ACS), 1-year estimates (2021)",
                   "indicators": [
                     {
                       "var": "pop_asian",
@@ -2380,7 +2480,9 @@
                   ]
                 },
                 {
-                  "title": "AGE GROUPS",
+                  "title": "Age Groups",
+                  "description": "Percentage of population from a given age group",
+                  "source": "Census American Community Survey (ACS), 1-year estimates (2021)",
                   "indicators": [
                     {
                       "var": "pop_under_18",
