@@ -59,7 +59,13 @@ const AboutTheData = ({ config, project, setSelectedLink }) => {
                       key={`variable-${i}-data-${ii}`}
                       style={obj.key === 'variable' ? { fontWeight: 'bold' } : {}}
                     >
-                      {variable[obj.key] || ''}
+                      {obj.key === 'source' && variable.source_link ? (
+                        <a href={variable.source_link} target='_blank' rel='noreferrer'>
+                          {variable[obj.key]}
+                        </a>
+                      ) : (
+                        variable[obj.key]
+                      )}
                     </td>
                   ))}
                 </tr>
