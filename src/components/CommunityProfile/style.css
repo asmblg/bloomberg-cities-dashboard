@@ -104,16 +104,16 @@
     margin: 20px 0;
   }
 
-  .cp-body {
-    flex-direction: column;
-  }
-
   .cp-donut-legend {
     width: 200px;
   }
 }
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1280px) {
+  .cp-body {
+    flex-direction: column;
+  }
+
   .cp-section {
     margin: 0;
   }
