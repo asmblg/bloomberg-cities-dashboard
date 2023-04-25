@@ -13,10 +13,10 @@ const handleViewType = () => {
 
 const getCurrentRoute = (project, sectionKeys, pathname) => {
   const keys = [...sectionKeys];
-  keys.push('about', 'docs');
+  keys.push('about');
 
   const parsedRoute = pathname.split('/').filter(str => str);
-  const routeSection = parsedRoute[2];
+  const routeSection = parsedRoute[1];
 
   const isValidSection = keys.includes(routeSection);
   const currentSection = routeSection && isValidSection ? routeSection : 'home';
