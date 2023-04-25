@@ -30,20 +30,20 @@ const CommunityProfile = ({ config, detailData, project, viewType }) => {
   }, [detailData]);
 
   return (
-    <div>
-      <div className='cp-container'>
-        <div className='cp-body'>
-          {config.sections && config.sections[0]
-            ? config.sections.map(({ config: c, type }, i) => (
-              <div key={`cp-section-${type}-${i}`} className='cp-section'>
-                {type === 'indicator-lists' ? (
-                  <IndicatorListSection config={c} data={cpData || null} />
-                ) : type === 'map' ? (
-                  geoJSON && detailData?.data ? (
-                    <IndicatorMap config={c} geoJSON={geoJSON} />
-                  ) : null
-                ) : type === 'donut-charts' && c.donuts && c.donuts[0] ? (
-                  c.donuts.map(({ title, indicators, colors, description, source }, i) => (
+    <div className='cp-container'>
+      <div className='cp-body'>
+        {config.sections && config.sections[0]
+          ? config.sections.map(({ config: c, type }, i) => (
+            <div key={`cp-section-${type}-${i}`} className='cp-section'>
+              {type === 'indicator-lists' ? (
+                <IndicatorListSection config={c} data={cpData || null} />
+              ) : type === 'map' ? (
+                geoJSON && detailData?.data ? (
+                  <IndicatorMap config={c} geoJSON={geoJSON} />
+                ) : null
+              ) : type === 'donut-charts' && c.donuts && c.donuts[0] ? (
+                c.donuts.map(({ title, indicators, colors, description, source }, i) => (
+                  <>
                     <div key={`cp-donut-${i}`} className='cp-chart-container'>
                       <div className='cp-chart-header'>
                         <h3>{title.toUpperCase()}</h3>
@@ -58,16 +58,16 @@ const CommunityProfile = ({ config, detailData, project, viewType }) => {
                         startAngle={-270}
                         endAngle={90}
                       />
-                      {i !== c.donuts.length - 1 ? (
-                        <div className={'cp-donut-separator'}></div>
-                      ) : null}
                     </div>
-                  ))
-                ) : null}
-              </div>
-            ))
-            : null}
-        </div>
+                    {i !== c.donuts.length - 1 ? (
+                      <div className={'cp-donut-separator'}></div>
+                    ) : null}
+                  </>
+                ))
+              ) : null}
+            </div>
+          ))
+          : null}
       </div>
     </div>
   );

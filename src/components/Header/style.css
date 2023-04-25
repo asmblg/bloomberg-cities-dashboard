@@ -47,7 +47,7 @@
 
 .header-logo {
   width: auto;
-  height: 75%;
+  height: 45%;
 }
 
 .nav-dropdown-menu {
@@ -122,19 +122,19 @@
 @media screen and (max-width: 767px) {
   .title-container {
     padding: 0 var(--mobile-outer-margin);
-    width: 25%;
+    width: 50%;
     justify-content: center;
   }
 
   .about-container {
-    width: 75%;
+    width: 50%;
     padding-right: var(--mobile-outer-margin);
-    justify-content: space-between;
+    /* justify-content: space-between; */
     padding-left: 20px;
   }
 
   .header-logo {
-    height: 50%;
+    height: 20%;
   }
 
   .nav-dropdown-menu {

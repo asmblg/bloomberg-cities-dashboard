@@ -13,7 +13,7 @@ const DonutWithLegend = ({ indicators, data, colors }) => {
     }
   }, [indicators, data, colors]);
   return dataArray && dataArray[0] ? (
-    <ResponsiveContainer width={'100%'} height={250}>
+    <ResponsiveContainer width={'100%'} height={150}>
       <PieChart>
         <Pie
           data={dataArray}

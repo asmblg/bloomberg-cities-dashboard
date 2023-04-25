@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
-import DashboardTitle from '../DashboardTitle';
+// import DashboardTitle from '../DashboardTitle';
 
 import { logos } from '../../config/logos';
 import homeIcon from '../../assets/icons/home_icon.png';
 import './style.css';
 
 const Header = ({
-  headerConfig,
+  // headerConfig,
   project,
   // dashboardType,
   sectionKeys,
@@ -35,12 +35,12 @@ const Header = ({
       <div id='dashboard-header'>
         <div className='title-container'>
           <img className='header-logo' src={logoSrc} />
-          {viewType !== 'mobile' ? <DashboardTitle title={headerConfig.title} /> : null}
+          {/* {viewType !== 'mobile' ? <DashboardTitle title={headerConfig.title} /> : null} */}
         </div>
         <div className='about-container'>
-          {viewType === 'mobile' ? (
+          {/* {viewType === 'mobile' ? (
             <DashboardTitle title={headerConfig.title} padding={'5%'} />
-          ) : null}
+          ) : null} */}
           {viewType === 'tablet' || viewType === 'mobile' ? (
             <Icon
               className='burger-menu-button'
