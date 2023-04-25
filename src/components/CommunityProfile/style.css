@@ -65,8 +65,9 @@
 .cp-chart-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 100%;
+  gap: 10px;
 }
 
 .cp-donut-separator {
@@ -89,6 +90,7 @@
   display: flex;
   align-items: center;
   padding-top: 10px;
+  /* max-width: 40%; */
 }
 
 .cp-donut-legend:first-child {
