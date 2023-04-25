@@ -3,6 +3,7 @@
   opacity: 0.5;
   height: 20px;
   width: auto;
+  /* float: right; */
 }
 
 .info-icon:hover {

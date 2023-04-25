@@ -38,7 +38,7 @@ const formatValue = (value, units) => {
             : 0;
         const text = parseFloat(calcValue).toFixed(thousands || millions ? 1 : 0).replace('.0', '');
         const unit = millions ? 'M' : thousands ? 'K' : ''; 
-        return `${text}${unit}`;
+        return thousands ? `${text}${unit}` : value;
       }
       case 'thousands': {
         return `${value}K`;

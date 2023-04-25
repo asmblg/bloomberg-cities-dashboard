@@ -16,6 +16,7 @@ const CustomTooltip = ({
   units,
   quarterDateFormat
 }) => {
+  console.log(manifest);
   // console.log({ active, payload, label, filter, manifest, units });
   
   if (active && payload?.[0]) {
