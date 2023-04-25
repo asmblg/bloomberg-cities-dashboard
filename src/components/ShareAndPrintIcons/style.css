@@ -20,11 +20,11 @@
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1281px) {
-  .share-print-icons {
+  /* .share-print-icons {
     position: static;
     display: flex;
     justify-content: flex-end;
-  }
+  } */
 
   .share-print-icons > img {
     width: 24px;
