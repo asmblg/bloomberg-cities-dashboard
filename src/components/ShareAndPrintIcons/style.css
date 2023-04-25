@@ -1,6 +1,9 @@
 .share-print-icons {
-  display: flex;
-  justify-content: flex-end;
+  /* display: flex;
+  justify-content: flex-end; */
+  position: absolute;
+  bottom: 125px;
+  right: calc(var(--desktop-outer-margin) + 5px);
 }
 
 .share-print-icons > img {
@@ -16,11 +19,19 @@
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1281px) {
+  .share-print-icons {
+    position: static;
+    display: flex;
+    justify-content: flex-end;
+  }
+
   .share-print-icons > img {
     width: 24px;
     opacity: 0.8;
   }
+
+
 }
 
 /* Initial Mobile Breakpoint */
