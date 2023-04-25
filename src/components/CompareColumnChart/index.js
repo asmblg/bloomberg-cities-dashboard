@@ -88,13 +88,15 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
         <BarChart
           data={dataArray}
           margin={{ top: 20, right: 20, left: 10, bottom: 20 }}
+          barCategoryGap={'15%'}
+          barGap={'10%'}
         >
           <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
           <XAxis
             type={'category'}
             dataKey='name'
             tickCount={2}
-            barSize={30}
+            // barSize={30}
             tickLine={{ stroke: 'transparent' }}
             axisLine={false}
             interval={'preserveStartEnd'}

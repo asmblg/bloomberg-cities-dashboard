@@ -3,7 +3,7 @@
   justify-content: flex-end; */
   position: absolute;
   bottom: 125px;
-  right: calc(var(--desktop-outer-margin) + 5px);
+  right: calc(var(--desktop-outer-margin) + 15px);
 }
 
 .share-print-icons > img {

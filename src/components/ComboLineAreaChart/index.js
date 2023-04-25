@@ -119,6 +119,8 @@ const ComboLineAreaChart = ({
               key={`line-${getter?.[getterKey?.lineSelector]}-${getter?.[getterKey?.basePath]}`}
               dataKey={getter?.[getterKey?.lineSelector]}
               stroke={colors[1]}
+              dot={false}
+              strokeWidth={3}
             />
             : null
         }
@@ -134,6 +136,8 @@ const ComboLineAreaChart = ({
                     dataKey={key}
                     // stackId='1'
                     // fill={color}
+                    strokeWidth={3}
+                    dot={false}
                     stroke={color}
 
                   />

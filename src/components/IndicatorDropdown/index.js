@@ -37,11 +37,13 @@ const IndicatorDropdown = ({ setter, getter, config, options, selectedOption }) 
         ) : null}
         <div className='dropdown-header-label'>
           <h4>
-            {selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || ''}
+            {            
+              `${selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || ''}`.toUpperCase()
+            }
           </h4>
           {
             subHeading ?
-              <h4>{subHeading}</h4>
+              <h4>{`${subHeading}`.toUpperCase()}</h4>
               : null
           }        
         </div>

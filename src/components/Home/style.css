@@ -13,9 +13,10 @@
 .summary-wrapper {
   width: calc(100% - 350px);
   height: calc(100vh - 300px);
+  min-height: 500px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-color: var(--white-color);
   border-top: 2px solid var(--primary-gray-color);
   border-right: 2px solid var(--primary-gray-color);

@@ -135,7 +135,7 @@ const handleLineStyle = ({
   lineKey,
   selectedLineKey,
   mainLineKey,
-  mainColor,
+  projectColor,
   compareColor,
   otherColor
 }) => {
@@ -147,7 +147,7 @@ const handleLineStyle = ({
   };
 
   if (lineKey === mainLineKey || (!mainLineKey && lineKey === selectedLineKey)) {
-    obj.stroke = mainColor || 'purple';
+    obj.stroke = projectColor || 'purple';
     obj.strokeWidth = 3;
     obj.zIndex = 3;
   }

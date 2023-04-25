@@ -39,6 +39,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     yaxis,
     height,
     width,
+    manifest
   } = config;
 
   const selectedIndicator = getter?.[getterKey?.selectedOption] || null;
@@ -146,7 +147,8 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
                     secondaryLine?.key,
                     primaryLine?.key
                   ]}
-                  units={selectedIndicator?.units}
+                  units={fixedIndicator?.units || selectedIndicator?.units}
+                  manifest={manifest}
                 />
               } 
             />

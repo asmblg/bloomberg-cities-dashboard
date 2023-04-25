@@ -89,7 +89,7 @@ const SummaryCard = ({
           <div className='summary-data-wrapper'>
             <div className='summary-data bold-font'>
               <h1 className='bold-font'>{summaryData.displayValue ?
-                formatValue(summaryData.displayValue, units) 
+                formatValue(summaryData.displayValue, config?.summary?.trendUnits) 
                 : '-'}</h1>
               {units ? <h5 className='summary-units'>{units}</h5> : null}
             </div>
