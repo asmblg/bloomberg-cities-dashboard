@@ -34,7 +34,7 @@ const SummaryCard = ({
   });
   const scrollToRef = useRef();
   const navigate = useNavigate();
-  const allSummaryData = getNestedValue(data, dataPath, key);
+  const allSummaryData = getNestedValue(data, summary?.dataPath || dataPath, key);
   const route = `/${project}/${cardKey}`;
 
   useEffect(() => {

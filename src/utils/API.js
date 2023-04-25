@@ -1,13 +1,16 @@
 import axios from 'axios';
-import config from '../config/dashboard.json';
+// import config from '../config/dashboard.json';
 
 const getConfig = async (projectCity) => {
-  // axios.get('https://bloomberg-cities-api.herokuapp.com/config/', {
-  //   params: {
-  //     project: project
-  //   }
-  // });
-  const res = config.filter(({ project }) => project.toLowerCase() === projectCity.toLowerCase());
+ 
+  const res =  await axios.get('https://bloomberg-cities-api.herokuapp.com/config/', {
+    params: {
+      project: projectCity
+    }
+  });
+
+  // console.log(res);
+  // config.filter(({ project }) => project.toLowerCase() === projectCity.toLowerCase());
 
   // if (res.length > 1) {
   //   const obj = res.find(
@@ -16,7 +19,7 @@ const getConfig = async (projectCity) => {
   //   return obj || res[0];
   // }
 
-  return res[0];
+  return res.data[0];
 };
 
 const getData = (project, select) =>

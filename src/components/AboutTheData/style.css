@@ -18,8 +18,8 @@
 }
 
 .about-table-container {
-  height: 450px;
-  padding-top: 40px;
+  height: calc(100% - 60px);
+  /* padding-top: 40px; */
 }
 
 .about-table-header-container {

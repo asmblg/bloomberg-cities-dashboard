@@ -7,6 +7,7 @@
  */
 
 const getNestedValue = (object, string, mainKey) => {
+  // console.log(string);
   if (object && string) {
     const path = mainKey ? string.replace(`${mainKey}.`, '') : string; // Remove the first key from string because this is only needed in API call
     const keys = path.split('.'); // split string by dot to get nested keys

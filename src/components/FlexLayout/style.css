@@ -1,6 +1,6 @@
 .flex-layout {
   display: flex;
-  height: calc(100vh - 300px);
+  height: calc(100vh - 450px);
   width: 100%;
   /* margin-bottom: px; */
 }
