@@ -5,7 +5,7 @@ import { Icon } from 'semantic-ui-react';
 
 import './style.css';
 
-const AboutTheData = ({ config, project, setSelectedLink }) => {
+const AboutTheData = ({ config, project, setSelectedLink, viewType }) => {
   const navigate = useNavigate();
 
   const handleScroll = () => {
@@ -71,7 +71,7 @@ const AboutTheData = ({ config, project, setSelectedLink }) => {
                 </tr>
               ))}
             </table>
-            <div id='opaque-el' />
+            {viewType === 'desktop' ? <div id='opaque-el' /> : null}
           </div>
         </div>
       ) : null}

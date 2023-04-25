@@ -125,7 +125,8 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project, setSelectedL
         <AboutProject
           config={content.config}
           project={project}
-          setSelectedLink={setSelectedLink}                            
+          setSelectedLink={setSelectedLink}
+          viewType={viewType}                            
         />
       ) : (
         JSON.stringify(content)
