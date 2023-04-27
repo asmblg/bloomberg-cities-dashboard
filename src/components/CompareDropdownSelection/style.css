@@ -68,7 +68,7 @@
 }
 
 .selected-option-svg > rect {
-  fill: var(--success-accent-color);
+  fill: var(--data-comparand-color);
 }
 
 .main-value-svg > rect {

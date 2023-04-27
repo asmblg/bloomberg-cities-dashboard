@@ -36,4 +36,16 @@ const handleConfig = async (pathname, defaultCity) => {
   }
 };
 
-export { handleConfig };
+const handleRootVariables = async config => {
+  if (config?.colorPalette) {
+    const root = document.documentElement;
+
+    // Loop through the colorPalette object and set each color as a CSS root variable
+    Object.entries(config.colorPalette).forEach(([name, value]) => {
+      root.style.setProperty(`--${name}`, value);
+    });
+  }
+  return;
+};
+
+export { handleConfig, handleRootVariables };

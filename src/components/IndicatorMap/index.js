@@ -13,7 +13,7 @@ const IndicatorMap = ({ config, geoJSON }) => {
   const [mapGeoJSON, setMapGeoJSON] = useState(null);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
   // Default colors are a random palette not related to any city project
-  const colors = config.colors ? config.colors : ['#fff3e2', '#ffe5ca', '#fa9884', '#e74646'];
+  const colors = config?.colors || ['#fff3e2', '#ffe5ca', '#fa9884', '#e74646'];
   const numOfBins = colors.length;
   const indicators = config?.indicators || null;
 
