@@ -49,12 +49,7 @@
     margin-right: var(--tablet-outer-margin);
     padding: 10px 0;
     flex-direction: column;
-    justify-content: space-between;
     align-items: flex-start;
-  }
-
-  .footer-container > div {
-    width: 100%;
   }
 
   .partner-logos-container > img {

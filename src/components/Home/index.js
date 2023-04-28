@@ -60,10 +60,8 @@ const Home = ({
             ))}
           </div>
         </>
-        <div className='home-icons-container'>
-          <ShareAndPrintIcons />
-        </div>
       </div>
+      <ShareAndPrintIcons />
     </div>
   );
 };

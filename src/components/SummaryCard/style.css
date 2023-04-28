@@ -31,8 +31,6 @@
   display: flex;
   width: 100%;
   align-items: center;
-  height: 40px;
-  /* margin: 5px 0; */
 }
 
 .summary-chart,
@@ -56,6 +54,13 @@
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Desktop Breakpoint */
+@media screen and (max-width: 1675px) {
+  .summary-card-title > h4 {
+    width: 150px;
+  }
+}
+
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1280px) {
   .summary-card-title {
@@ -64,14 +69,20 @@
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1000px) {
   .summary-card {
     padding: 2%;
     border: 1px solid var(--primary-gray-color);
-    height: fit-content
+    height: fit-content;
   }
 
   .summary-card-title {
     width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .summary-card-title > h4 {
+    width: 100px;
   }
 }

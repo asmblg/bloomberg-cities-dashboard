@@ -35,13 +35,9 @@ const Header = ({
       <div id='dashboard-header'>
         <div className='title-container'>
           <img className='header-logo' src={logoSrc} />
-          {/* {viewType !== 'mobile' ? <DashboardTitle title={headerConfig.title} /> : null} */}
         </div>
         <div className='about-container'>
-          {/* {viewType === 'mobile' ? (
-            <DashboardTitle title={headerConfig.title} padding={'5%'} />
-          ) : null} */}
-          {viewType === 'tablet' || viewType === 'mobile' ? (
+          {viewType === 'mobile' ? (
             <Icon
               className='burger-menu-button'
               // name={menuOpen ? 'angle down' : 'bars'}
@@ -71,7 +67,7 @@ const Header = ({
           )}
         </div>
       </div>
-      {viewType !== 'desktop' && menuOpen ? (
+      {viewType === 'mobile' && menuOpen ? (
         <nav className='nav-dropdown-menu'>
           {sectionKeys.map(key => (
             <Link
@@ -93,32 +89,6 @@ const Header = ({
               )}
             </Link>
           ))}
-          {viewType !== 'desktop' ? (
-            <>
-              <Link
-                className={`nav-link ${
-                  selectedLink === 'about' ? 'selected-nav-link' : 'unselected-nav-link'
-                }`}
-                key={'nav-link-about'}
-                to={`/${project}/about`}
-                onClick={() => linkClickHandler('about')}
-              >
-                About the project
-              </Link>
-              {viewType === 'mobile' ? (
-                <Link
-                  className={`nav-link ${
-                    selectedLink === 'docs' ? 'selected-nav-link' : 'unselected-nav-link'
-                  }`}
-                  key={'nav-link-docs'}
-                  to={`/${project}/docs`}
-                  onClick={() => linkClickHandler('docs')}
-                >
-                  Data documentation
-                </Link>
-              ) : null}
-            </>
-          ) : null}
         </nav>
       ) : null}
     </>

@@ -44,7 +44,11 @@ const SummaryCard = ({
   }, [allSummaryData, trendDataType]);
 
   return (
-    <div id={`${key}-summary-card`} ref={scrollToRef} className='summary-card'>
+    <div
+      id={`${key}-summary-card`}
+      ref={scrollToRef}
+      className='summary-card'
+    >
       <div className='summary-card-header' role='heading'>
         <div className='summary-card-title'>
           {viewType === 'mobile' ? (

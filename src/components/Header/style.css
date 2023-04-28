@@ -98,17 +98,11 @@
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1280px) {
-  #dashboard-header {
-    height: 100%;
-  }
-
   .title-container {
-    padding-left: var(--tablet-outer-margin);
     width: 50%;
   }
 
   .about-container {
-    padding-right: var(--tablet-outer-margin);
     width: 50%;
   }
 
@@ -119,11 +113,10 @@
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1000px) {
   .title-container {
-    padding: 0 var(--mobile-outer-margin);
+    padding-left: var(--mobile-outer-margin);
     width: 50%;
-    justify-content: center;
   }
 
   .about-container {
@@ -134,7 +127,7 @@
   }
 
   .header-logo {
-    height: 20%;
+    height: 30%;
   }
 
   .nav-dropdown-menu {

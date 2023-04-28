@@ -17,7 +17,7 @@ const SectionTabs = ({
     <div className='desktop-tabs'>
       {sectionKeys.map(key => {
         const section = sections[key];
-        return key !== 'about' ? (
+        return !section.noTab ? (
           <Link
             key={`${key}-tab-link`}
             id={`${key}-tab-link`}

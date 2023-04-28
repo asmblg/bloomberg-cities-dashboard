@@ -14,12 +14,12 @@
   --warning-accent-color: #e46062;
   --desktop-outer-margin: 8%;
   --tablet-outer-margin: 8%;
-  --mobile-outer-margin: 2%;
+  --mobile-outer-margin: 4%;
   --desktop-header-height: 100px;
   --tablet-header-height: 100px;
   --mobile-header-height: 100px;
   --desktop-footer-height: 100px;
-  --tablet-footer-height: 200px;
+  --tablet-footer-height: 125px;
   --mobile-footer-height: 125px;
 }
 /* ------------------------------ FONTS ------------------------------ */
