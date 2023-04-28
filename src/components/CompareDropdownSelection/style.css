@@ -68,11 +68,11 @@
 }
 
 .selected-option-svg > rect {
-  fill: var(--data-comparand-color);
+  fill: var(--data-secondary-color);
 }
 
 .main-value-svg > rect {
-  fill: var(--secondary-color);
+  fill: var(--data-primary-color);
 }
 
 .compare-options-container {
