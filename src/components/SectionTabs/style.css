@@ -55,8 +55,27 @@
   text-align: left;
 }
 
-.navigation-icon {
+.tab-home-icon {
   margin-right: 10px;
   height: 1.5rem;
   width: auto;
+}
+
+/* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Tablet Breakpoint */
+@media screen and (max-width: 920px) {
+  .desktop-tabs {
+    gap: 2px;
+  }
+
+  .selected-tab,
+  .unselected-tab {
+    width: calc(
+      100% / 8
+    ); /* Width of container divided by number of tabs -- adjust when tabs added/removed */
+    height: 40px;
+    font-size: 12px;
+    padding: 0;
+    line-height: 1.25;
+  }
 }

@@ -67,6 +67,7 @@ const Layout = ({ config }) => {
               dashboardType={dashboardType}
               selectedLink={selectedLink}
               setSelectedLink={setSelectedLink}
+              viewType={viewType}
             />
           ) : null}
 

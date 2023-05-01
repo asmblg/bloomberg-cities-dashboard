@@ -83,8 +83,6 @@ const Header = ({
                   <img className='header-nav-icon' src={homeIcon} />
                   Key Indicators
                 </>
-                
-                
               ) : (
                 sections[key].label
               )}
@@ -93,11 +91,7 @@ const Header = ({
         </nav>
       ) : null}
     </>
-  ) : (
-    <header id='mobile-header-container'>
-      <h1>Mobile Header</h1>
-    </header>
-  );
+  ) : null;
 };
 
 Header.propTypes = {

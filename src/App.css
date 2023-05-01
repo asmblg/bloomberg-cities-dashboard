@@ -126,27 +126,15 @@ a:hover {
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 1280px) {
-  .edd-title {
-    width: 125px;
-    font-size: 20px;
-    line-height: 1;
-  }
-}
+/* @media screen and (max-width: 920px) {} */
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 760px) {
   .full-card-wrapper {
     margin: 20px 0;
   }
   .full-card-container {
     margin-left: var(--mobile-outer-margin);
     margin-right: var(--mobile-outer-margin);
-  }
-
-  .edd-title {
-    width: 150px;
-    font-size: 20px;
-    line-height: 1;
   }
 }
