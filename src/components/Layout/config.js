@@ -1,6 +1,6 @@
 const viewBreakpoints = {
-  mobile: 1000, // iPad mini vw is 768px
-  tablet: 1280
+  mobile: 760, // iPad mini vw is 768px
+  tablet: 920
 };
 
 export { viewBreakpoints };

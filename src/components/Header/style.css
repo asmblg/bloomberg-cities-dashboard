@@ -12,9 +12,9 @@
   color: var(--white-color);
 }
 
-.title-container > img,
-.title-container > h2 {
-  margin-right: 5%;
+.header-logo {
+  width: auto;
+  height: 43%;
 }
 
 .about-container {
@@ -37,7 +37,7 @@
 }
 
 .about-link:hover {
-  opacity: 0.9;
+  opacity: 0.75;
   color: var(--white-color);
 }
 
@@ -45,9 +45,8 @@
   border-bottom: 5px solid var(--white-color);
 }
 
-.header-logo {
-  width: auto;
-  height: 45%;
+#burger-menu-button {
+  color: var(--white-color);
 }
 
 .nav-dropdown-menu {
@@ -57,8 +56,10 @@
   justify-content: space-evenly;
   align-items: center;
   position: absolute;
-  right: calc(var(--tablet-outer-margin) + 3px);
-  top: calc((var(--tablet-header-height) / 2) + 15px);
+  right: calc(var(--mobile-outer-margin) + 3px);
+  top: calc((var(--mobile-header-height) / 2) + 15px);
+  /* right: calc(var(--tablet-outer-margin) + 3px);
+  top: calc((var(--tablet-header-height) / 2) + 15px); */
   height: 40%;
   width: 275px;
   padding: 5px 0;
@@ -67,21 +68,17 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.nav-dropdown-menu > a {
-  height: auto;
-  width: 75%;
-  margin: auto;
+.header-nav-icon {
+  width: 16px;
+  margin-right: 10px;
 }
 
 .nav-link {
   color: var(--black-color);
-  width: 150px;
+  width: 75%;
+  height: auto;
+  margin: auto;
   text-align: center;
-}
-
-.nav-link:hover {
-  color: var(--black-color);
-  font-family: 'RobotoBold';
 }
 
 .selected-nav-link {
@@ -90,48 +87,31 @@
   border-bottom: 5px solid var(--primary-color);
 }
 
-.burger-menu-button {
-  opacity: 1 !important;
-  color: var(--white-color) !important;
-}
-
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 920px)  {
   .title-container {
     width: 50%;
+    padding-left: var(--tablet-outer-margin);
   }
 
   .about-container {
     width: 50%;
-  }
-
-  .about-container > i {
-    color: var(--white-color);
-    width: auto;
+    padding-right: var(--tablet-outer-margin);
   }
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 760px) {
   .title-container {
     padding-left: var(--mobile-outer-margin);
-    width: 50%;
   }
 
   .about-container {
-    width: 50%;
     padding-right: var(--mobile-outer-margin);
-    /* justify-content: space-between; */
-    padding-left: 20px;
   }
 
   .header-logo {
     height: 30%;
-  }
-
-  .nav-dropdown-menu {
-    right: calc(var(--mobile-outer-margin) + 3px);
-    top: calc((var(--mobile-header-height) / 2) + 15px);
   }
 }

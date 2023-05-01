@@ -3,16 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
-// import DashboardTitle from '../DashboardTitle';
-
 import { logos } from '../../config/logos';
 import homeIcon from '../../assets/icons/home_icon.png';
 import './style.css';
 
 const Header = ({
-  // headerConfig,
   project,
-  // dashboardType,
   sectionKeys,
   sections,
   viewType,
@@ -25,7 +21,7 @@ const Header = ({
   const linkClickHandler = key => {
     setSelectedLink(key);
 
-    if (viewType !== 'desktop' && menuOpen) {
+    if (viewType === 'mobile' && menuOpen) {
       setMenuOpen(false);
     }
   };
@@ -39,7 +35,7 @@ const Header = ({
         <div className='about-container'>
           {viewType === 'mobile' ? (
             <Icon
-              className='burger-menu-button'
+              id='burger-menu-button'
               // name={menuOpen ? 'angle down' : 'bars'}
               name='bars'
               size={viewType === 'tablet' ? 'big' : 'large'}
@@ -83,7 +79,12 @@ const Header = ({
               onClick={() => linkClickHandler(key)}
             >
               {key === 'home' ? (
-                <img className='navigation-icon' src={homeIcon} />
+                <>
+                  <img className='header-nav-icon' src={homeIcon} />
+                  Key Indicators
+                </>
+                
+                
               ) : (
                 sections[key].label
               )}
