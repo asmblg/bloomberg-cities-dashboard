@@ -36,14 +36,21 @@
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Tablet Breakpoint */
+@media screen and (max-width: 920px) {
+  .overview-body {
+    padding: 20px;
+  }
+}
+
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 760px) {
   .overview-wrapper {
     width: 100vw;
   }
 
   .overview-body {
-    padding: 2%;
+    padding: 10px;
   }
 
   .overview-body > div {

@@ -76,7 +76,7 @@ const SummaryCard = ({
           <InfoIcon config={config?.indicator} />
         </div>
 
-        {viewType === 'mobile' ? (
+        {viewType === 'mobile' && !cardFullSize ? (
           <TrendPill
             currentValue={summaryData.currentValue}
             compareValue={summaryData.compareValue}
@@ -84,7 +84,7 @@ const SummaryCard = ({
             units={config.summary.trendUnits}
             data={allSummaryData}
             trendDataType={trendDataType}
-            displayCompareText
+            displayCompareText={viewType !== 'mobile'}
           />
         ) : null}
       </div>
@@ -111,7 +111,7 @@ const SummaryCard = ({
               ) : null}
             </div>
           </div>
-          {viewType !== 'mobile' ? (
+          {viewType !== 'mobile' || cardFullSize ? (
             <TrendPill
               currentValue={summaryData.currentValue}
               compareValue={summaryData.compareValue}
