@@ -1,7 +1,7 @@
 .summary-card {
   border-top: 1px solid var(--primary-gray-color);
   background-color: var(--white-color);
-  height: 200px;
+  height: 100%;
   width: 100%;
   padding: 5%;
   display: flex;
@@ -63,6 +63,9 @@
 
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 920px) {
+  .summary-card {
+    height: 200px;
+  }
   .summary-card-title {
     font-size: 18px;
   }
@@ -73,7 +76,6 @@
   .summary-card {
     padding: 20px;
     border: 1px solid var(--primary-gray-color);
-    height: fit-content;
   }
 
   .summary-card-header-text {
