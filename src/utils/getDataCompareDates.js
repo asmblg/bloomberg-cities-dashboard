@@ -19,8 +19,10 @@ const getDataCompareDates = (dateKeys, compareType) => {
 
   if (compareType === 'YtY') {
     const sortedDates = getRecentQuarterEndDates(dateKeys);
+    console.log(sortedDates);
     const mostRecentDate = sortedDates[0];
     obj.currentDate = mostRecentDate;
+    // const compareDate = sortedDates[0];
 
     const regex = /([Qq])/;
     if (regex.test(mostRecentDate)) {
@@ -32,6 +34,7 @@ const getDataCompareDates = (dateKeys, compareType) => {
       obj.compareDate = dateString;
     }
   }
+  // console.log(obj);
   return obj;
 };
 

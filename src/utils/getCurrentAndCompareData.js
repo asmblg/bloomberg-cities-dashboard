@@ -64,7 +64,7 @@ const getCurrentAndCompareData = (
           Object.entries(data)            
             .filter(([key,]) => filterArray ? filterArray.includes(key): true)
             .forEach(([,obj]) => {
-              dataObj.currentValue += obj[currentDate] || 0;
+              dataObj.currentValue += obj[moment(currentDate).format('YYYY-M-D')] || 0;
               if (aggQuarterly){
                 dataObj.currentValue += obj[moment(currentDate).subtract(1, 'month').format('YYYY-M-D')] || 0;
                 dataObj.currentValue += obj[moment(currentDate).subtract(2, 'month').format('YYYY-M-D')] || 0;              
@@ -73,17 +73,20 @@ const getCurrentAndCompareData = (
             });
         }
         if (compareDate) {
+          console.log(compareDate);
           dataObj.compareValue = 0;
           Object.entries(data)
             .filter(([key,]) => filterArray ? filterArray.includes(key): true)
             .forEach(([,obj]) => {
-              dataObj.compareValue += obj[compareDate] || 0;
+              dataObj.compareValue += obj[moment(compareDate).format('YYYY-M-D')] || 0;
               if (aggQuarterly){
                 dataObj.compareValue += obj[moment(compareDate).subtract(1, 'month').format('YYYY-M-D')] || 0;
                 dataObj.compareValue += obj[moment(compareDate).subtract(2, 'month').format('YYYY-M-D')] || 0;              
                 dataObj.compareDate = `${moment(compareDate).year()}-Q${moment(compareDate).quarter()}`;
               }
-            });        }
+            });        
+        }
+        console.log(dataObj);
         break;
       }
       case 'differenceOfAveragesFromPrevious': {

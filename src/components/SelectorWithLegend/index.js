@@ -95,11 +95,11 @@ const SelectorWithLegend = ({
                       : true)
                     .map((item, i) => ({
                       ...item,
-                      color: colors[i + 1]
+                      color: colors[i]
                     }))
                   : legendItems.map((item, i) => ({
                     ...item,
-                    color: colors[i + 1]
+                    color: colors[i]
                   }))
                 : null        
             }));
@@ -183,7 +183,7 @@ const SelectorWithLegend = ({
                 {
                   selectedOption?.key === key ?
                     <svg className='selector-w-legend-selected-svg' height={'15px'} width={'15px'}>
-                      <rect fill={legendItems?.[0] ? colors[0] : colors[1] } height={'15px'} width={'15px'} />
+                      <rect fill={legendItems?.[0] ? 'transparent' : colors[0] } height={'15px'} width={'15px'} />
                     </svg>
                     : null
                 }

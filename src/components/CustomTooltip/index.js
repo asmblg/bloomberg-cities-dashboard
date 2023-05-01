@@ -28,6 +28,7 @@ const CustomTooltip = ({
         {
           payload
             .filter(({name}) => filter?.length > 0 ? filter.includes(name) : true)
+            .reverse()
             .map(({name, value, color}, i) =>
               <p
                 style={{color: color }} 

@@ -118,7 +118,7 @@ const ComboLineAreaChart = ({
               type='monotone'
               key={`line-${getter?.[getterKey?.lineSelector]}-${getter?.[getterKey?.basePath]}`}
               dataKey={getter?.[getterKey?.lineSelector]}
-              stroke={colors[1]}
+              stroke={colors[0]}
               dot={false}
               strokeWidth={3}
             />
