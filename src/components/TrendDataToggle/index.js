@@ -28,6 +28,7 @@ const TrendDataToggle = ({ config, getter, setter }) => {
     <div ref={ref} className='data-toggle-container'>
       <h5>Quarter-to-Quarter</h5>
       <Checkbox
+        className='toggle-el'
         toggle
         checked={(toggleValue && toggleValue === 'YtY') || false}
         onChange={(e, { checked }) => {

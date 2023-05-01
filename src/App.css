@@ -131,7 +131,7 @@ a:hover {
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 760px) {
   .full-card-wrapper {
-    margin: 20px 0;
+    margin: 10px 0;
   }
   .full-card-container {
     margin-left: var(--mobile-outer-margin);
