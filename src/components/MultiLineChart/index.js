@@ -156,7 +156,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
               const { stroke, strokeWidth, zIndex } = handleLineStyle({
                 lineKey: city,
                 selectedLineKey: secondaryLine?.key,
-                mainLineKey: primaryLine.key,
+                mainLineKey: primaryLine?.key,
                 projectColor,
                 compareColor,
                 otherColor

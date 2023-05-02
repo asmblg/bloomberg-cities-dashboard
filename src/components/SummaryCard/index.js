@@ -61,16 +61,7 @@ const SummaryCard = ({
               }}
             />
           ) : null}
-          <h4
-            className='summary-card-header-text'
-            // Where does Venture Capital Investment link to?
-            onClick={() => {
-              if (label !== 'Venture Capital Investment') {
-                setSelectedLink(cardKey);
-                navigate(route);
-              }
-            }}
-          >
+          <h4 className='summary-card-header-text'>
             {label.toUpperCase()}
           </h4>
           <InfoIcon config={config?.indicator} />
@@ -90,7 +81,15 @@ const SummaryCard = ({
       </div>
       {viewType !== 'mobile' || cardFullSize ? (
         <>
-          <div className='summary-data-wrapper'>
+          <div
+            className='summary-data-wrapper'
+            onClick={() => {
+              // if (label !== 'Venture Capital Investment') {
+              setSelectedLink(cardKey);
+              navigate(route);
+              // }
+            }}
+          >
             <div className='summary-data bold-font'>
               <h1 className='bold-font'>{summaryData.displayValue ?
                 formatValue(summaryData.displayValue, config?.summary?.trendUnits) 
