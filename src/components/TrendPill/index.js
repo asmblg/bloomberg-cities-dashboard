@@ -35,10 +35,10 @@ const TrendPill = ({
           style={{ height: heightVal || '', width: widthVal || '' }}
         >
           <img src={trendDirection === 'up' ? upwardTrendIcon : downwardTrendIcon} />
-          <p>{trendValue}</p>
+          <p className='trend-pill-text'>{trendValue}</p>
         </div>
         {displayCompareText ? (
-          <p>{`vs ${formatValue(compareValue, units)} in ${dateToQuarter(
+          <p className='trend-pill-text'>{`vs ${formatValue(compareValue, units)} in ${dateToQuarter(
             compareDate,
             'QX YYYY'
           )}`}</p>

@@ -18,9 +18,9 @@
   --desktop-header-height: 100px;
   --tablet-header-height: 100px;
   --mobile-header-height: 75px;
-  --desktop-footer-height: 100px;
+  --desktop-footer-height: 120px;
   --tablet-footer-height: 125px;
-  --mobile-footer-height: 125px;
+  --mobile-footer-height: 225px;
 }
 /* ------------------------------ FONTS ------------------------------ */
 @font-face {

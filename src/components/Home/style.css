@@ -42,6 +42,14 @@
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Desktop Breakpoint */
+@media screen and (max-width: 1300px) {
+  .summary-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 920px) {
   .home-wrapper {
@@ -62,11 +70,6 @@
   .large-summary-title {
     font-size: 22px;
   }
-
-  .summary-cards-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
 }
 
 /* Initial Mobile Breakpoint */
@@ -80,10 +83,6 @@
   .summary-wrapper {
     padding-left: var(--mobile-outer-margin);
     padding-right: var(--mobile-outer-margin);
-  }
-
-  .summary-wrapper {
-    height: 100vh;
   }
 
   .overview-wrapper {
@@ -114,9 +113,11 @@
   }
 
   .summary-cards-container {
+    display: block;
     grid-template-columns: repeat(1, 1fr);
     height: 100%;
     padding-bottom: 20px;
+    flex-grow: unset;
     gap: 10px;
   }
 }
