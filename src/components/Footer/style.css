@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  margin: 0 var(--desktop-outer-margin);
+  margin: 5px var(--desktop-outer-margin);
 }
 
 .footer-container > div {
@@ -20,8 +20,9 @@
 }
 
 .bloomberg-logo {
-  width: 130px;
+  width: 120px;
   height: auto;
+  margin-bottom: 10px;
 }
 
 .partner-logos-container {
@@ -33,48 +34,41 @@
 
 .partner-logos-container > img {
   width: auto;
-  height: 45px;
+  height: 30px;
   align-self: center;
+  margin-right: 10px;
 }
 
 #block-footer-logo {
-  height: 55px;
+  height: 45px;
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Sizing */
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 920px) {
   .footer-container {
     margin-left: var(--tablet-outer-margin);
     margin-right: var(--tablet-outer-margin);
     padding: 10px 0;
-    flex-direction: column;
-    justify-content: space-between;
     align-items: flex-start;
   }
 
-  .footer-container > div {
-    width: 100%;
-  }
-
-  .partner-logos-container > img {
-    height: 45px;
-  }
-
-  #block-footer-logo {
-    height: 55px;
+  .partner-logos-container {
+    justify-content: space-evenly;
   }
 }
 
 /* Initial Mobile Sizing */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 760px) {
   .footer-container {
+    justify-content: flex-start;
     margin-left: var(--mobile-outer-margin);
     margin-right: var(--mobile-outer-margin);
   }
 
   .footer-container > div {
-    width: 100%;
+    width: 50%;
+    padding: 10px 0;
   }
 
   .footer-container > div > p {
@@ -83,11 +77,27 @@
   }
 
   .bloomberg-logo {
-    width: 75px;
+    width: 100px;
+  }
+
+  .partner-logos-container {
+    justify-content: space-evenly;
   }
 
   .partner-logos-container > img {
-    height: 25px;
+    margin-right: 10px;
+    height: 30px;
+  }
+
+  #block-footer-logo {
+    height: 45px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .partner-logos-container > img {
+    margin-right: 5px;
+    height: 20px;
   }
 
   #block-footer-logo {

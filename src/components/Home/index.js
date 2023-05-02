@@ -7,6 +7,7 @@ import ShareAndPrintIcons from '../ShareAndPrintIcons';
 import DataToggle from '../TrendDataToggle';
 
 import { handleHomeData } from './utils';
+// import dateToQuarter from '../../utils/dateToQuarter';
 import './style.css';
 
 const Home = ({
@@ -39,8 +40,8 @@ const Home = ({
                 color: config.tabStyle?.selectedColor || '#333333'
               }}
             >
-              {/* Calculate "Q1 2023" via last update? */}
-              {config.title} | {'Q1 2023'} UPDATE
+              {config.title.toUpperCase()} | {'Q1 2023'} UPDATE
+              {/* {config.title.toUpperCase()} | {dateToQuarter(data.updatedOn, 'QX YYYY')} UPDATE */}
             </h1>
             <DataToggle getter={trendDataType} setter={setTrendDataType} />
           </div>
@@ -60,10 +61,8 @@ const Home = ({
             ))}
           </div>
         </>
-        <div className='home-icons-container'>
-          <ShareAndPrintIcons />
-        </div>
       </div>
+      <ShareAndPrintIcons />
     </div>
   );
 };

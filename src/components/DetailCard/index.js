@@ -25,7 +25,7 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink }) 
   return (
     <div key={`${sectionKey}-detail-card`} className='full-card-wrapper'>
       <div className='full-card-container detail-card-container' style={config.layout?.noTabs ? {height: 'calc(100vh - 250px'} : {}}>
-        {sectionKey !== 'about' ? (
+        {sectionKey !== 'about' && viewType !== 'mobile' ? (
           <div
             style={{
               width: '100%',

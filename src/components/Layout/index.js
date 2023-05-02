@@ -59,7 +59,7 @@ const Layout = ({ config }) => {
           />
         </nav>
         <div id='section-container'>
-          {viewType === 'desktop' && selectedLink !== 'about' ? (
+          {viewType !== 'mobile' && selectedLink !== 'about' ? (
             <SectionTabs
               sectionKeys={sectionKeys}
               sections={sections}
@@ -67,6 +67,7 @@ const Layout = ({ config }) => {
               dashboardType={dashboardType}
               selectedLink={selectedLink}
               setSelectedLink={setSelectedLink}
+              viewType={viewType}
             />
           ) : null}
 

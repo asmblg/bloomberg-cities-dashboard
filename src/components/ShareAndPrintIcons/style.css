@@ -19,12 +19,11 @@
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 1281px) {
-  /* .share-print-icons {
-    position: static;
-    display: flex;
-    justify-content: flex-end;
-  } */
+@media screen and (max-width: 920px) {
+  .share-print-icons {
+    bottom: 150px;
+    right: 50px;
+  }
 
   .share-print-icons > img {
     width: 24px;
@@ -35,7 +34,11 @@
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 760px) {
+  .share-print-icons {
+    bottom: 130px;
+    right: 10px;
+  }
   .share-print-icons > img {
     width: 18px;
     margin: 5px;

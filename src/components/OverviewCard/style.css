@@ -28,6 +28,7 @@
 }
 
 .overview-arrow-container {
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,37 +36,21 @@
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
-/* Initial Desktop Breakpoint */
-@media screen and (max-width: 1770px) {
-  .overview-body {
-    font-size: 18px;
-  }
-}
-
-@media screen and (max-width: 1580px) {
-  .overview-body {
-    font-size: 16px;
-  }
-}
-
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 920px) {
   .overview-body {
-    padding: 0;
-  }
-  .overview-body > div {
-    margin: 10px 0;
+    padding: 20px;
   }
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 760px) {
   .overview-wrapper {
     width: 100vw;
   }
 
   .overview-body {
-    padding: 2%;
+    padding: 10px;
   }
 
   .overview-body > div {

@@ -44,7 +44,11 @@ const SummaryCard = ({
   }, [allSummaryData, trendDataType]);
 
   return (
-    <div id={`${key}-summary-card`} ref={scrollToRef} className='summary-card'>
+    <div
+      id={`${key}-summary-card`}
+      ref={scrollToRef}
+      className='summary-card'
+    >
       <div className='summary-card-header' role='heading'>
         <div className='summary-card-title'>
           {viewType === 'mobile' ? (
@@ -57,22 +61,13 @@ const SummaryCard = ({
               }}
             />
           ) : null}
-          <h4
-            className='summary-card-header-text'
-            // Where does Venture Capital Investment link to?
-            onClick={() => {
-              if (label !== 'Venture Capital Investment') {
-                setSelectedLink(cardKey);
-                navigate(route);
-              }
-            }}
-          >
+          <h4 className='summary-card-header-text'>
             {label.toUpperCase()}
           </h4>
           <InfoIcon config={config?.indicator} />
         </div>
 
-        {viewType === 'mobile' ? (
+        {viewType === 'mobile' && !cardFullSize ? (
           <TrendPill
             currentValue={summaryData.currentValue}
             compareValue={summaryData.compareValue}
@@ -80,13 +75,21 @@ const SummaryCard = ({
             units={config.summary.trendUnits}
             data={allSummaryData}
             trendDataType={trendDataType}
-            displayCompareText
+            displayCompareText={viewType !== 'mobile'}
           />
         ) : null}
       </div>
       {viewType !== 'mobile' || cardFullSize ? (
         <>
-          <div className='summary-data-wrapper'>
+          <div
+            className='summary-data-wrapper'
+            onClick={() => {
+              // if (label !== 'Venture Capital Investment') {
+              setSelectedLink(cardKey);
+              navigate(route);
+              // }
+            }}
+          >
             <div className='summary-data bold-font'>
               <h1 className='bold-font'>{summaryData.displayValue ?
                 formatValue(summaryData.displayValue, config?.summary?.trendUnits) 
@@ -107,7 +110,7 @@ const SummaryCard = ({
               ) : null}
             </div>
           </div>
-          {viewType !== 'mobile' ? (
+          {viewType !== 'mobile' || cardFullSize ? (
             <TrendPill
               currentValue={summaryData.currentValue}
               compareValue={summaryData.compareValue}

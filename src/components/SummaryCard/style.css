@@ -1,7 +1,7 @@
 .summary-card {
   border-top: 1px solid var(--primary-gray-color);
   background-color: var(--white-color);
-  height: 200px;
+  height: 100%;
   width: 100%;
   padding: 5%;
   display: flex;
@@ -23,16 +23,14 @@
   height: 30px;
 }
 
-.summary-card-header-text:hover {
-  cursor: pointer;
-}
-
 .summary-data-wrapper {
   display: flex;
   width: 100%;
   align-items: center;
-  height: 40px;
-  /* margin: 5px 0; */
+}
+
+.summary-data-wrapper:hover {
+  cursor: pointer;
 }
 
 .summary-chart,
@@ -56,22 +54,47 @@
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Desktop Breakpoint */
+@media screen and (max-width: 1675px) {
+  .summary-card-title > h4 {
+    width: 150px;
+  }
+}
+
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 920px) {
+  .summary-card {
+    height: 200px;
+  }
   .summary-card-title {
     font-size: 18px;
   }
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 760px) {
   .summary-card {
-    padding: 2%;
+    height: fit-content;
+    padding: 20px;
+    margin-bottom: 10px;
     border: 1px solid var(--primary-gray-color);
-    height: fit-content
   }
 
-  .summary-card-title {
+  .summary-card-header-text {
+    font-size: 16px;
+    width: 100px;
+  }
+
+  .summary-data {
+    width: 30%;
+  }
+  .summary-chart {
     width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .summary-card-title > h4 {
+    width: 100px;
   }
 }

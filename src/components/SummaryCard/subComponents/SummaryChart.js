@@ -24,9 +24,8 @@ const SummaryChart = ({ config, data }) => {
         <SinglePercentDonutChart
           config={config}
           value={data?.value}
-          height={75}
+          height={100}
           width={'100%'}
-          // margin={{ top: 10, right: 5, bottom: 0, left: -20 }}
         />
       );
     }

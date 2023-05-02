@@ -1,37 +1,32 @@
 .compare-dropdown-container {
   display: flex;
   flex-direction: column;
-  padding: 5px;
-}
-
-.compare-dropdown-container > h5 {
-  padding-left: 20px;
-  /* margin: 0 auto; */
+  padding: 5px 5px 5px 20px;
 }
 
 .compare-dropdown-legend {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-left: 20px;
-  width: fit-content;
-  /* margin: 0 auto */
+  width: 100%;
 }
 
 .main-value-container,
 .option-selection-container {
-  margin-top: 30px;
-  margin-right: 40px;
-  width: fit-content;
+  margin-top: 20px;
+  width: auto;
 }
 
 .main-value-container {
+  margin-right: 10px;
   display: flex;
   flex-direction: row;
+  align-items: center;
   position: relative;
 }
 
 .option-selection-container {
+  margin-left: 10px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -99,4 +94,21 @@
 
 .compare-unselected-option:hover {
   opacity: 0.5;
+}
+
+/* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Mobile Breakpoint */
+@media screen and (max-width: 760px) {
+  .main-value-container > h5, .option-selector > div > h5 {
+    font-size: 10px;
+  }
+
+  .compare-options-container {
+    top: 24px;
+  }
+
+  .compare-selected-option > h5,
+  .compare-unselected-option > h5 {
+  font-size: 10px;
+}
 }

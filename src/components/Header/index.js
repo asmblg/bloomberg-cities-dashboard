@@ -3,16 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
-// import DashboardTitle from '../DashboardTitle';
-
 import { logos } from '../../config/logos';
 import homeIcon from '../../assets/icons/home_icon.png';
 import './style.css';
 
 const Header = ({
-  // headerConfig,
   project,
-  // dashboardType,
   sectionKeys,
   sections,
   viewType,
@@ -25,7 +21,7 @@ const Header = ({
   const linkClickHandler = key => {
     setSelectedLink(key);
 
-    if (viewType !== 'desktop' && menuOpen) {
+    if (viewType === 'mobile' && menuOpen) {
       setMenuOpen(false);
     }
   };
@@ -35,15 +31,11 @@ const Header = ({
       <div id='dashboard-header'>
         <div className='title-container'>
           <img className='header-logo' src={logoSrc} />
-          {/* {viewType !== 'mobile' ? <DashboardTitle title={headerConfig.title} /> : null} */}
         </div>
         <div className='about-container'>
-          {/* {viewType === 'mobile' ? (
-            <DashboardTitle title={headerConfig.title} padding={'5%'} />
-          ) : null} */}
-          {viewType === 'tablet' || viewType === 'mobile' ? (
+          {viewType === 'mobile' ? (
             <Icon
-              className='burger-menu-button'
+              id='burger-menu-button'
               // name={menuOpen ? 'angle down' : 'bars'}
               name='bars'
               size={viewType === 'tablet' ? 'big' : 'large'}
@@ -71,7 +63,7 @@ const Header = ({
           )}
         </div>
       </div>
-      {viewType !== 'desktop' && menuOpen ? (
+      {viewType === 'mobile' && menuOpen ? (
         <nav className='nav-dropdown-menu'>
           {sectionKeys.map(key => (
             <Link
@@ -87,46 +79,19 @@ const Header = ({
               onClick={() => linkClickHandler(key)}
             >
               {key === 'home' ? (
-                <img className='navigation-icon' src={homeIcon} />
+                <>
+                  <img className='header-nav-icon' src={homeIcon} />
+                  Key Indicators
+                </>
               ) : (
                 sections[key].label
               )}
             </Link>
           ))}
-          {viewType !== 'desktop' ? (
-            <>
-              <Link
-                className={`nav-link ${
-                  selectedLink === 'about' ? 'selected-nav-link' : 'unselected-nav-link'
-                }`}
-                key={'nav-link-about'}
-                to={`/${project}/about`}
-                onClick={() => linkClickHandler('about')}
-              >
-                About the project
-              </Link>
-              {viewType === 'mobile' ? (
-                <Link
-                  className={`nav-link ${
-                    selectedLink === 'docs' ? 'selected-nav-link' : 'unselected-nav-link'
-                  }`}
-                  key={'nav-link-docs'}
-                  to={`/${project}/docs`}
-                  onClick={() => linkClickHandler('docs')}
-                >
-                  Data documentation
-                </Link>
-              ) : null}
-            </>
-          ) : null}
         </nav>
       ) : null}
     </>
-  ) : (
-    <header id='mobile-header-container'>
-      <h1>Mobile Header</h1>
-    </header>
-  );
+  ) : null;
 };
 
 Header.propTypes = {

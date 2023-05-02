@@ -9,22 +9,21 @@ const SectionTabs = ({
   sectionKeys,
   sections,
   project,
-  // dashboardType,
   selectedLink,
-  setSelectedLink
+  setSelectedLink,
+  viewType
 }) => {
   return (
     <div className='desktop-tabs'>
       {sectionKeys.map(key => {
         const section = sections[key];
-        return key !== 'about' ? (
+        return !section.noTab ? (
           <Link
             key={`${key}-tab-link`}
             id={`${key}-tab-link`}
-            className={`${
-              selectedLink === key ? 'selected-tab' : 'unselected-tab'
-            }${key === 'home' ? ' home-tab' : ''}
-        `}
+            className={`${selectedLink === key ? 'selected-tab' : 'unselected-tab'}${
+              key === 'home' ? ' home-tab' : ''
+            }`}
             to={`/${project.toLowerCase()}${key !== 'home' ? `/${key}` : ''}`}
             onClick={() => setSelectedLink(key)}
             style={
@@ -51,10 +50,10 @@ const SectionTabs = ({
               }
             }}
           >
-            {key === 'home' ? (
+            {key === 'home' && viewType === 'desktop' ? (
               <div className='icon-and-text-tab'>
-                <img className='navigation-icon' src={homeIcon} />
-                {section.title?.toUpperCase() || key}
+                <img className='tab-home-icon' src={homeIcon} />
+                {section.label?.toUpperCase() || key}
               </div>
             ) : (
               <div>{section.label?.toUpperCase() || key}</div>
@@ -72,7 +71,8 @@ SectionTabs.propTypes = {
   project: PropTypes.string,
   dashboardType: PropTypes.string,
   selectedLink: PropTypes.string,
-  setSelectedLink: PropTypes.func
+  setSelectedLink: PropTypes.func,
+  viewType: PropTypes.string
 };
 
 export default SectionTabs;
