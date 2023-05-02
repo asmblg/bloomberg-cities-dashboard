@@ -84,6 +84,13 @@
     font-size: 16px;
     width: 100px;
   }
+
+  .summary-data {
+    width: 30%;
+  }
+  .summary-chart {
+    width: 50%;
+  }
 }
 
 @media screen and (max-width: 600px) {
