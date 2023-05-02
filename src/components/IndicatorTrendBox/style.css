@@ -10,14 +10,11 @@
   width: 100%;
 }
 
-.indicator-data-body > img {
-  margin-left: 40px;
-}
-
 .indicator-value-container {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  /* width: 250px; */
 }
 
 .indicator-value-container > h1 {
