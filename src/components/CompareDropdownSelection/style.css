@@ -13,8 +13,13 @@
 
 .main-value-container,
 .option-selection-container {
-  margin-top: 20px;
   width: auto;
+}
+
+.main-value-container,
+.option-selection-container,
+.compare-dropdown-container > h5 {
+  margin-top: 10px;
 }
 
 .main-value-container {
