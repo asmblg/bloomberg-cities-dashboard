@@ -1,7 +1,5 @@
 import getDataCompareDates from './getDataCompareDates';
 import moment from 'moment';
-// import sortDatesArray from './sortDatesArray';
-
 /**
  *
  * @param {object} config
@@ -10,12 +8,7 @@ import moment from 'moment';
  * @returns {object} { currentValue, compareValue, currentDate, compareDate }
  */
 
-const getCurrentAndCompareData = (
-  calculator, 
-  data, 
-  trendDataType, 
-  filterArray
-) => {
+const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray) => {
   const dataObj = {
     currentValue: null,
     compareValue: null,
@@ -31,18 +24,17 @@ const getCurrentAndCompareData = (
   ];
 
   if (data) {
-    const dateKeys = aggregationCalculators.includes(calculator) ?
-      [
+    const dateKeys = aggregationCalculators.includes(calculator)
+      ? [
         ...new Set(
           Object.entries(data)
-            .filter(([key,]) => filterArray ? filterArray.includes(key): true)
-            .map(([,obj]) => Object.keys(obj))
+            .filter(([key]) => (filterArray ? filterArray.includes(key) : true))
+            .map(([, obj]) => Object.keys(obj))
             .flat(1)
         )
       ]
       : calculator === 'differenceFromPrevious'
-        ? Object.keys(data)
-          .filter(key => filterArray ? filterArray.includes(key) : true)
+        ? Object.keys(data).filter(key => (filterArray ? filterArray.includes(key) : true))
         : Object.keys(data);
 
     // Uses trend type to return two dates (keys) to compare in data object
@@ -61,14 +53,18 @@ const getCurrentAndCompareData = (
         if (currentDate) {
           // console.log(currentDate);
           dataObj.currentValue = 0;
-          Object.entries(data)            
-            .filter(([key,]) => filterArray ? filterArray.includes(key): true)
-            .forEach(([,obj]) => {
+          Object.entries(data)
+            .filter(([key]) => (filterArray ? filterArray.includes(key) : true))
+            .forEach(([, obj]) => {
               dataObj.currentValue += obj[moment(currentDate).format('YYYY-M-D')] || 0;
-              if (aggQuarterly){
-                dataObj.currentValue += obj[moment(currentDate).subtract(1, 'month').format('YYYY-M-D')] || 0;
-                dataObj.currentValue += obj[moment(currentDate).subtract(2, 'month').format('YYYY-M-D')] || 0;              
-                dataObj.currentDate = `${moment(currentDate).year()}-Q${moment(currentDate).quarter()}`;
+              if (aggQuarterly) {
+                dataObj.currentValue +=
+                  obj[moment(currentDate).subtract(1, 'month').format('YYYY-M-D')] || 0;
+                dataObj.currentValue +=
+                  obj[moment(currentDate).subtract(2, 'month').format('YYYY-M-D')] || 0;
+                dataObj.currentDate = `${moment(currentDate).year()}-Q${moment(
+                  currentDate
+                ).quarter()}`;
               }
             });
         }
@@ -76,15 +72,19 @@ const getCurrentAndCompareData = (
           console.log(compareDate);
           dataObj.compareValue = 0;
           Object.entries(data)
-            .filter(([key,]) => filterArray ? filterArray.includes(key): true)
-            .forEach(([,obj]) => {
+            .filter(([key]) => (filterArray ? filterArray.includes(key) : true))
+            .forEach(([, obj]) => {
               dataObj.compareValue += obj[moment(compareDate).format('YYYY-M-D')] || 0;
-              if (aggQuarterly){
-                dataObj.compareValue += obj[moment(compareDate).subtract(1, 'month').format('YYYY-M-D')] || 0;
-                dataObj.compareValue += obj[moment(compareDate).subtract(2, 'month').format('YYYY-M-D')] || 0;              
-                dataObj.compareDate = `${moment(compareDate).year()}-Q${moment(compareDate).quarter()}`;
+              if (aggQuarterly) {
+                dataObj.compareValue +=
+                  obj[moment(compareDate).subtract(1, 'month').format('YYYY-M-D')] || 0;
+                dataObj.compareValue +=
+                  obj[moment(compareDate).subtract(2, 'month').format('YYYY-M-D')] || 0;
+                dataObj.compareDate = `${moment(compareDate).year()}-Q${moment(
+                  compareDate
+                ).quarter()}`;
               }
-            });        
+            });
         }
         console.log(dataObj);
         break;
@@ -94,34 +94,51 @@ const getCurrentAndCompareData = (
           // console.log(currentDate);
           // dataObj.currentValue = null;
           const valueArray = [];
-          Object.entries(data)            
-            .filter(([key,]) => filterArray ? filterArray.includes(key): true)
-            .forEach(([,obj]) => {
+          Object.entries(data)
+            .filter(([key]) => (filterArray ? filterArray.includes(key) : true))
+            .forEach(([, obj]) => {
               valueArray.push(obj[currentDate] || 0);
-              valueArray.push(obj[moment(currentDate).subtract(1, 'month').format('YYYY-M-D')] || 0);
-              valueArray.push(obj[moment(currentDate).subtract(2, 'month').format('YYYY-M-D')] || 0);
-              const calcArray = valueArray
-                .map(value => parseInt(value))
-                .filter(value => value > 0);
-              dataObj.currentValue = calcArray[0] ? calcArray.reduce((a,b) => a + b, 0) / calcArray.length : null;          
-              dataObj.currentDate = `${moment(currentDate).year()}-Q${moment(currentDate).quarter()}`;
+              valueArray.push(
+                obj[moment(currentDate).subtract(1, 'month').format('YYYY-M-D')] || 0
+              );
+              valueArray.push(
+                obj[moment(currentDate).subtract(2, 'month').format('YYYY-M-D')] || 0
+              );
+              const calcArray = valueArray.map(value => parseInt(value)).filter(value => value > 0);
+              dataObj.currentValue = calcArray[0]
+                ? calcArray.reduce((a, b) => a + b, 0) / calcArray.length
+                : null;
+              dataObj.currentDate = `${moment(currentDate).year()}-Q${moment(
+                currentDate
+              ).quarter()}`;
             });
         }
         if (compareDate) {
           const valueArray = [];
           Object.entries(data)
-            .filter(([key,]) => filterArray ? filterArray.includes(key): true)
-            .forEach(([,obj]) => {
+            .filter(([key]) => (filterArray ? filterArray.includes(key) : true))
+            .forEach(([, obj]) => {
               valueArray.push(obj[compareDate] || 0);
-              valueArray.push(obj[moment(compareDate).subtract(1, 'month').format('YYYY-M-D')] || 0);
-              valueArray.push(obj[moment(compareDate).subtract(2, 'month').format('YYYY-M-D')] || 0);
-              const calcArray = valueArray
-                .map(value => parseInt(value))
-                .filter(value => value > 0);
-              dataObj.compareValue = calcArray[0] ? calcArray.reduce((a,b) => a + b, 0) / calcArray.length : null;          
-              dataObj.compareDate = `${moment(compareDate).year()}-Q${moment(compareDate).quarter()}`;
-            });        
+              valueArray.push(
+                obj[moment(compareDate).subtract(1, 'month').format('YYYY-M-D')] || 0
+              );
+              valueArray.push(
+                obj[moment(compareDate).subtract(2, 'month').format('YYYY-M-D')] || 0
+              );
+              const calcArray = valueArray.map(value => parseInt(value)).filter(value => value > 0);
+              dataObj.compareValue = calcArray[0]
+                ? calcArray.reduce((a, b) => a + b, 0) / calcArray.length
+                : null;
+              dataObj.compareDate = `${moment(compareDate).year()}-Q${moment(
+                compareDate
+              ).quarter()}`;
+            });
         }
+        break;
+      }
+      case 'differenceFromPrevious': {
+        dataObj.currentValue = calcDifferenceOfTotalFromPrevQtr(data, currentDate);
+        dataObj.compareValue = calcDifferenceOfTotalFromPrevQtr(data, compareDate);
         break;
       }
       default: {
@@ -134,5 +151,19 @@ const getCurrentAndCompareData = (
   // console.log(dataObj);
   return dataObj;
 };
+
+function calcDifferenceOfTotalFromPrevQtr(data, date) {
+  const prevQtrKeyFromDate = date
+    ? moment(date, 'YYYY-MM-D').subtract(3, 'month').format('YYYY-MM-D')
+    : null;
+
+  const value = prevQtrKeyFromDate
+    ? data[prevQtrKeyFromDate]
+      ? data[date] - data[prevQtrKeyFromDate]
+      : data[date]
+    : null;
+  
+  return value;
+}
 
 export default getCurrentAndCompareData;
