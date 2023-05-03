@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
 import FlexLayoutElement from '../FlexLayoutElement';
+
+import { handleStyle } from './utils';
 import './style.css';
 
 const FlexLayout = ({ 
@@ -8,7 +11,8 @@ const FlexLayout = ({
   layout: { 
     columns,
     rows,
-    mobileStyle
+    mobileStyle,
+    tabletStyle
   }, 
   data, 
   project,
@@ -36,30 +40,12 @@ const FlexLayout = ({
     }
   };
 
-  console.log(JSON.stringify(getter));
-
-  // const flexDirection = columns
-  //   ? 'row'
-  //   : 'column';
-  // console.log(flexDirection);
-
-  const handleStyle = (isColumn, viewType, mobileStyle) => {
-    let obj = {};
-    obj.flexDirection = isColumn ? 'row' : 'column';
-
-    if (viewType !== 'desktop' && mobileStyle) {
-      obj = {
-        ...obj,
-        ...mobileStyle
-      };
-    }
-    return obj;
-  };
+  // console.log(JSON.stringify(getter));
 
   return (
     <div
       className='flex-layout'
-      style={handleStyle(columns, viewType, mobileStyle)}
+      style={handleStyle(columns, viewType, mobileStyle, tabletStyle)}
     >
       {elementArray.map((element, i) => (
         <FlexLayoutElement
