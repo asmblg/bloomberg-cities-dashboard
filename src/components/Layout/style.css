@@ -4,23 +4,29 @@
 }
 
 #content {
-  height: calc(100vh - var(--desktop-footer-height));
+  height: 100vh;
+  /* overflow-y: auto; */
 }
 
 #header-container {
   height: var(--desktop-header-height);
 }
 
+#scrollable-body {
+  overflow-y: auto;
+  height: calc(100vh - var(--desktop-header-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 #section-container {
   padding: 0 var(--desktop-outer-margin);
   margin: 20px 0;
-  height: calc(100vh - 40px - (var(--desktop-header-height) + var(--desktop-footer-height)));
-  overflow-y: auto;
+  height: calc(100vh - (var(--desktop-header-height) + var(--desktop-footer-height)));
 }
 
 #footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
   height: var(--desktop-footer-height);
   background-color: var(--black-color);
@@ -30,17 +36,18 @@
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 920px) {
-  #content {
-    height: calc(100vh - var(--tablet-footer-height));
-  }
-
   #header-container {
     height: var(--tablet-header-height);
   }
 
+  #scrollable-body {
+    overflow-y: auto;
+    height: calc(100vh - var(--tablet-header-height));
+    /* height: 100%; */
+  }
+
   #section-container {
-    height: calc(100vh - (var(--tablet-header-height) + var(--tablet-footer-height)));
-    overflow-y: scroll;
+    height: auto;
     padding: 0 var(--tablet-outer-margin);
   }
 
@@ -51,18 +58,11 @@
 
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 760px) {
-  #content {
-    height: calc(100vh - var(--mobile-footer-height));
-  }
-
   #header-container {
     height: var(--mobile-header-height);
   }
 
   #section-container {
-    height: calc(
-      (100vh - (var(--mobile-header-height) + var(--mobile-footer-height))) + 1px
-    ); /* Added a pixel to fix minor overlap  */
     padding: 0;
     margin: 0;
   }

@@ -58,34 +58,36 @@ const Layout = ({ config }) => {
             setSelectedLink={setSelectedLink}
           />
         </nav>
-        <div id='section-container'>
-          {viewType !== 'mobile' && selectedLink !== 'about' ? (
-            <SectionTabs
+        <div id='scrollable-body'>
+          <div id='section-container'>
+            {viewType !== 'mobile' && selectedLink !== 'about' ? (
+              <SectionTabs
+                sectionKeys={sectionKeys}
+                sections={sections}
+                project={project}
+                dashboardType={dashboardType}
+                selectedLink={selectedLink}
+                setSelectedLink={setSelectedLink}
+                viewType={viewType}
+              />
+            ) : null}
+
+            <SectionsRouter
+              project={project.toLowerCase()}
+              dashboardType={dashboardType}
               sectionKeys={sectionKeys}
               sections={sections}
-              project={project}
-              dashboardType={dashboardType}
-              selectedLink={selectedLink}
-              setSelectedLink={setSelectedLink}
               viewType={viewType}
+              trendDataType={trendDataType}
+              setTrendDataType={setTrendDataType}
+              setSelectedLink={setSelectedLink}
             />
-          ) : null}
-
-          <SectionsRouter
-            project={project.toLowerCase()}
-            dashboardType={dashboardType}
-            sectionKeys={sectionKeys}
-            sections={sections}
-            viewType={viewType}
-            trendDataType={trendDataType}
-            setTrendDataType={setTrendDataType}
-            setSelectedLink={setSelectedLink}
-          />
+          </div>
+          <footer id='footer'>
+            <Footer config={footer} />
+          </footer>
         </div>
       </div>
-      <footer id='footer'>
-        <Footer config={footer} />
-      </footer>
     </div>
   );
 };

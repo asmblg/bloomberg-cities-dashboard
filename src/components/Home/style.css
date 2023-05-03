@@ -63,8 +63,7 @@
   }
 
   .summary-wrapper {
-    height: auto;
-    margin-bottom: 50px;
+    height: 820px;
   }
 
   .large-summary-title {
@@ -92,6 +91,10 @@
     color: var(--white-color);
     margin: 0;
     padding-bottom: 0;
+  }
+
+  .summary-wrapper {
+    height: auto;
   }
 
   .summary-content {

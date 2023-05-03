@@ -100,6 +100,10 @@
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Desktop Breakpoint */
 @media screen and (max-width: 1670px) {
+  .cp-container {
+    height: auto;
+  }
+
   .cp-donut-legend {
     width: 135px;
   }
@@ -115,7 +119,7 @@
   }
 }
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 920px) {
   .cp-body {
     flex-direction: column;
   }
@@ -143,7 +147,7 @@
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 760px) {
   .cp-header-title > h2 {
     font-size: 22px;
   }
