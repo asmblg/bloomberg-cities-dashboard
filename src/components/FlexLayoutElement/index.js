@@ -17,14 +17,26 @@ import AboutProject from '../AboutTheData';
 
 import { handleElementStyle } from './utils';
 
-const FlexLayoutElement = ({ data, setter, getter, layout, project, setSelectedLink, viewType }) => {
-  const { columns, rows, content, height, width, style, mobileStyle } = layout;
+const FlexLayoutElement = ({
+  data,
+  setter,
+  getter,
+  layout,
+  project,
+  setSelectedLink,
+  viewType
+}) => {
+  const { columns, rows, content, height, width, style, mobileStyle, tabletStyle } = layout;
   const elementRef = useRef();
   const type = columns ? 'columns' : rows ? 'rows' : content ? 'content' : '';
   const elementArray = columns || rows;
 
   return (
-    <div key={elementRef} style={handleElementStyle(style, mobileStyle, height, width, viewType)} className={`flex-layout-${type}`}>
+    <div
+      key={elementRef}
+      style={handleElementStyle(style, mobileStyle, height, width, viewType, tabletStyle)}
+      className={`flex-layout-${type}`}
+    >
       {!content ? (
         elementArray.map((element, i) => (
           <FlexLayoutElement
@@ -126,7 +138,7 @@ const FlexLayoutElement = ({ data, setter, getter, layout, project, setSelectedL
           config={content.config}
           project={project}
           setSelectedLink={setSelectedLink}
-          viewType={viewType}                            
+          viewType={viewType}
         />
       ) : (
         JSON.stringify(content)

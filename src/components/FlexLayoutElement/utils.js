@@ -1,4 +1,4 @@
-const handleElementStyle = (style, mobileStyle, height, width, viewType) => {
+const handleElementStyle = (style, mobileStyle, height, width, viewType, tabletStyle) => {
   let obj = {};
 
   if (height) {
@@ -16,7 +16,14 @@ const handleElementStyle = (style, mobileStyle, height, width, viewType) => {
     };
   }
 
-  if (viewType !== 'desktop' && mobileStyle) {
+  if (viewType !== 'desktop' && tabletStyle) {
+    obj = {
+      ...obj,
+      ...tabletStyle
+    };
+  }
+
+  if (viewType === 'mobile' && mobileStyle) {
     obj = {
       ...obj,
       ...mobileStyle
