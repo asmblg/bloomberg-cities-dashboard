@@ -9,13 +9,13 @@ const abbreviateNumber = (num) => {
     const number = typeof num === 'string' ? parseInt(num) : num;
 
     if (number >= 1000000000 || number <= -1000000000) {
-      return (number / 1000000000).toFixed(1) + 'b';
+      return (number / 1000000000).toFixed(1) + 'B';
     }
     if (number >= 1000000 || number <= -1000000) {
-      return (number / 1000000).toFixed(1) + 'm';
+      return (number / 1000000).toFixed(1) + 'M';
     }
     if (number >= 1000 || number <= -1000) {
-      return (number / 1000).toFixed(1) + 'k';
+      return (number / 1000).toFixed(1) + 'K';
     }
     return number.toString();
   }
