@@ -3,7 +3,6 @@ const handleStyle = (isColumn, viewType, mobileStyle, tabletStyle) => {
   obj.flexDirection = isColumn ? 'row' : 'column';
 
   if (viewType !== 'desktop' && tabletStyle) {
-    console.log('hit', { tabletStyle });
     obj = {
       ...obj,
       ...tabletStyle
@@ -11,13 +10,11 @@ const handleStyle = (isColumn, viewType, mobileStyle, tabletStyle) => {
   }
 
   if (viewType === 'mobile' && mobileStyle) {
-    console.log('hit', { mobileStyle });
     obj = {
       ...obj,
       ...mobileStyle
     };
   }
-  // console.log({ obj });
   return obj;
 };
 
