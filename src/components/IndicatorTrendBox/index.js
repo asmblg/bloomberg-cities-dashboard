@@ -12,7 +12,6 @@ import getNestedValue from '../../utils/getNestedValue';
 import './style.css';
 
 const IndicatorTrendBox = ({ data, config, getter }) => {
-
   const [indicatorTrendData, setIndicatorTrendData] = useState({
     currentDate: null,
     currentValue: null,
@@ -28,7 +27,7 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
     chart 
   } = config;
   const trendDataType = getter?.[getterKey?.trendValue] || 'QtQ';
-  // console.log(trendDataType);
+
   const selectedCategory =
     getter && getterKey?.selectedCategory ? getter[getterKey.selectedCategory] : null;
 
@@ -49,8 +48,6 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
             : !baseDataPath && !selectedCategory
               ? { ...data }
               : null;
-      // console.log(nestedDataObj);
-      // console.log(selectedIndicator);
 
       if (nestedDataObj && selectedIndicator) {
         const dataObj = handleTrendDisplayData(nestedDataObj, selectedIndicator, trendDataType);

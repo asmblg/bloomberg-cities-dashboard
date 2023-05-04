@@ -7,7 +7,7 @@
 .indicator-data-body {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .indicator-value-container {
@@ -29,9 +29,14 @@
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 760px) {
   .indicator-value-container > h1 {
-    font-size: 22px;
+    font-size: 20px;
+    margin-right: 5px;
   }
+  .indicator-value-container > div {
+    width: 150px;
+  }
+
   .indicator-value-container > div > h4 {
-    font-size: 14px;
+    font-size: 12px;
   }
 }

@@ -16,6 +16,7 @@ import UnderConstructionBox from '../UnderConstructionBox';
 import AboutProject from '../AboutTheData';
 
 import { handleElementStyle } from './utils';
+import './style.css';
 
 const FlexLayoutElement = ({
   data,
@@ -55,7 +56,7 @@ const FlexLayoutElement = ({
       ) : content.type === 'trend-data-toggler' ? (
         <TrendDataToggle config={content.config} getter={getter} setter={setter} />
       ) : content.type === 'title-with-trend-data-toggler' ? (
-        <div className='detail-card-header'>
+        <div className='title-with-trend-data-toggler'>
           {content?.config?.title ? (
             <h1 className='detail-card-title' style={content.config.titleStyle || {}}>
               {content.config?.title?.toUpperCase() || ''}

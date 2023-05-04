@@ -7,6 +7,7 @@
   min-height: 30px;
   display: flex;
   flex-direction: row;
+  align-items: center;
   height: 100%;
   border-bottom: 3px solid var(--primary-gray-color);
 }
@@ -61,4 +62,13 @@
 
 .dropdown-options-container > li:last-child {
   border-bottom: none;
+}
+
+/* ---------- Media Queries ---------- */
+/* Initial Mobile Breakpoint */
+@media screen and (max-width: 920px) {
+  .dropdown-header-label > h4 {
+    font-size: 14px;
+    /* padding-bottom: 10px; */
+  }
 }

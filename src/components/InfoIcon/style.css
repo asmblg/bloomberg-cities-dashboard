@@ -14,3 +14,11 @@
 .info-icon-description {
   margin-bottom: 20px;
 }
+
+/* ---------- Media Queries ---------- */
+/* Initial Mobile Breakpoint */
+@media screen and (max-width: 920px) {
+  .info-icon {
+    height: 15px;
+  }
+}

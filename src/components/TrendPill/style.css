@@ -39,4 +39,14 @@
 /* @media screen and (max-width: 920px) {} */
 
 /* Initial Mobile Breakpoint */
-/* @media screen and (max-width: 760px) {} */
+@media screen and (max-width: 760px) {
+  .upward-trend, .downward-trend {
+    font-size: 12px;
+    /* height: px; */
+    min-width: 80px;
+  }
+
+  .trend-pill-text {
+    font-size: 12px;
+  }
+}
