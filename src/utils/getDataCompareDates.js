@@ -1,5 +1,6 @@
 import moment from 'moment';
 import getRecentQuarterEndDates from './getRecentQuarterEndDates';
+import padDate from './padDate';
 
 /**
  *
@@ -19,18 +20,18 @@ const getDataCompareDates = (dateKeys, compareType) => {
 
   if (compareType === 'YtY') {
     const sortedDates = getRecentQuarterEndDates(dateKeys);
-    console.log(sortedDates);
+    // console.log(sortedDates);
     const mostRecentDate = sortedDates[0];
     obj.currentDate = mostRecentDate;
     // const compareDate = sortedDates[0];
 
     const regex = /([Qq])/;
     if (regex.test(mostRecentDate)) {
-      const quarterNum = moment(mostRecentDate, 'YYYY-QX').quarter();
-      const year = moment(mostRecentDate, 'YYYY-QX').subtract(1, 'year').year();
+      const quarterNum = moment(padDate(mostRecentDate), 'YYYY-QX').utc().quarter();
+      const year = moment(padDate(mostRecentDate), 'YYYY-QX').utc().subtract(1, 'year').year();
       obj.compareDate = `${year}-Q${quarterNum}`;
     } else {
-      const dateString = moment(new Date(mostRecentDate)).subtract(1, 'year').format('YYYY-MM-D');
+      const dateString = moment(padDate(mostRecentDate)).utc().subtract(1, 'year').format('YYYY-MM-D');
       obj.compareDate = dateString;
     }
   }

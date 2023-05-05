@@ -13,7 +13,7 @@ const getRecentQuarterEndDates = (dates, numOfDates) => {
     // Remove months that do not represent the end of a quarter
     const regex = /([Qq])/;
     const isQuarter = regex.test(date);
-    const month = !isQuarter ? moment(date, 'YYYY-MM-DD').month() + 1 : null;
+    const month = !isQuarter ? moment(date, 'YYYY-MM-DD').utc().month() + 1 : null;
     return isQuarter || month === 3 || month === 6 || month === 9 || month === 12;
   });
 

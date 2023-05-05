@@ -16,7 +16,7 @@ const SectionRouter = ({
   setSelectedLink
 }) => (
   <Routes>
-    {sectionKeys && sectionKeys[0]
+    { sectionKeys?.[0]
       ? sectionKeys.map(key =>
         key === 'home' ? (
           <Route

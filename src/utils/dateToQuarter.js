@@ -7,7 +7,7 @@ import moment from 'moment';
  */
 const dateToQuarter = (date, format) => {
   const regex = /([Qq])/;
-  const dateObj = regex.test(date) ? moment(date, 'YYYY-QX') : moment(date, 'YYYY-M-D');
+  const dateObj = regex.test(date) ? moment(date, 'YYYY-QX').utc() : moment(date, 'YYYY-M-D').utc();
 
   const quarterNum = dateObj.quarter();
   const year = format === 'QX-YY' ? dateObj.format('YY') : dateObj.year();

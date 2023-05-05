@@ -18,12 +18,12 @@ const sortDatesArray = (array, order, dateKey) => {
 
     if (isQuarter) {
       return order === 'ascending'
-        ? moment(aDate, 'YYYY-QX') - moment(bDate, 'YYYY-QX')
-        : moment(bDate, 'YYYY-QX') - moment(aDate, 'YYYY-QX');
+        ? moment(aDate, 'YYYY-QX').utc() - moment(bDate, 'YYYY-QX').utc()
+        : moment(bDate, 'YYYY-QX').utc() - moment(aDate, 'YYYY-QX').utc();
     } else {
       return order === 'ascending'
-        ? moment(aDate, 'YYYY-MM-DD') - moment(bDate, 'YYYY-MM-DD')
-        : moment(bDate, 'YYYY-MM-DD') - moment(aDate, 'YYYY-MM-DD');
+        ? moment(aDate, 'YYYY-MM-DD').utc() - moment(bDate, 'YYYY-MM-DD').utc()
+        : moment(bDate, 'YYYY-MM-DD').utc() - moment(aDate, 'YYYY-MM-DD').utc();
     }
   });
   return sortedDates;

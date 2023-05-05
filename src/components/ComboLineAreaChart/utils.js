@@ -1,5 +1,7 @@
 import getNestedValue from '../../utils/getNestedValue';
 import sortDatesArray from '../../utils/sortDatesArray';
+import padDate from '../../utils/padDate';
+import moment from 'moment';
 
 const dataPathConstructor = ({
   basePathKey,
@@ -10,18 +12,30 @@ const dataPathConstructor = ({
 
 
 const getQuarterDateKey = key => {
-  const date = new Date(key);
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const quarter = month >= 0 && month <= 2 ?
-    1
-    : month >= 3 && month <= 5 ?
-      2
-      : month >= 6 && month <= 8 ?
-        3
-        : month >= 9 && month <= 11 ?
-          4
-          : null;
+  let date = new Date(key);
+  if (Object.prototype.toString.call(date) === '[object Date]') {
+    if (isNaN(date)) {
+      date = new Date(padDate(key));
+    }
+  }
+  // const year = date.getFullYear();
+  // const month = date.getMonth();
+  const year = moment(date.getTime()).utc().year();
+  const quarter = moment(date.getTime()).utc().quarter();
+  // const quarter = month >= 0 && month <= 2 ?
+  //   1
+  //   : month >= 3 && month <= 5 ?
+  //     2
+  //     : month >= 6 && month <= 8 ?
+  //       3
+  //       : month >= 9 && month <= 11 ?
+  //         4
+  //         : null;
+
+  if (key.match(/2022-1/)) { 
+    console.log(padDate(key), year, quarter);
+  }
+
 
   return `${year}-Q${quarter}`;
 

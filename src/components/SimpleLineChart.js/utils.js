@@ -63,7 +63,7 @@ const handleDataArray = {
 
 const labelFormatter = {
   monthToQuarter: date => {
-    const dateObj = moment(date, 'YYYY-MM-DD');
+    const dateObj = moment(date, 'YYYY-MM-DD').utc();
     const quarter = dateObj.quarter();
     const year = dateObj.format('YY');
 

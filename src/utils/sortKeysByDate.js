@@ -8,7 +8,7 @@ import moment from 'moment';
 
 const sortKeysByDate = object => {
   const keys = Object.keys(object);
-  return keys.sort((a, b) => moment(new Date(a)) - moment(new Date(b)));
+  return keys.sort((a, b) => moment(new Date(a)).utc() - moment(new Date(b)).utc());
 };
 
 export default sortKeysByDate;
