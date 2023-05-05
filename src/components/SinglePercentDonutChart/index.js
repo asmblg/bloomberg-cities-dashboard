@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ResponsiveContainer, PieChart, Pie, Cell, Label as PieLabel } from 'recharts';
 
+import './style.css';
+
 const SinglePercentDonutChart = ({ config, height, width, value }) => {
   const dataArray = value
     ? [
