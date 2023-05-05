@@ -1,0 +1,4 @@
+/* Fixes width: fit-content property being set in Recharts on iOS */
+svg.recharts-surface {
+  width: inherit;
+}

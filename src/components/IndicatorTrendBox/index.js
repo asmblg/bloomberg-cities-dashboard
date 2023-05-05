@@ -65,7 +65,7 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
   return indicatorTrendData?.displayValue && selectedIndicator ? (
     <div className='indicator-trend-wrapper'>
       {chart?.type === 'donut' && indicatorTrendData.displayValue ? (
-        <div style={{ width: '20%' }}>
+        <div style={{ width: '25%' }}>
           <SinglePercentDonutChart
             value={indicatorTrendData.displayValue}
             height={150}
@@ -74,7 +74,7 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
           />
         </div>
       ) : null}
-      <div style={{ width: chart ? '80%' : '100%' }}>
+      <div style={{ width: chart ? '75%' : '100%' }}>
         <div className='indicator-data-body'>
           <div className='indicator-value-container'>
             <h1 className='bold-font'>
