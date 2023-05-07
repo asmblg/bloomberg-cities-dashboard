@@ -19,7 +19,7 @@
   font-size: 16px;
 }
 
-.bloomberg-logo {
+#bloomberg-logo {
   width: 120px;
   height: auto;
   margin-bottom: 10px;
@@ -32,7 +32,7 @@
   width: 100%;
 }
 
-.partner-logos-container > img {
+.partner-logo {
   width: auto;
   height: 30px;
   align-self: center;
@@ -76,7 +76,7 @@
     font-size: 10px;
   }
 
-  .bloomberg-logo {
+  #bloomberg-logo {
     width: 100px;
   }
 
