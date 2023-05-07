@@ -12,9 +12,9 @@
   color: var(--white-color);
 }
 
-.header-logo {
-  width: auto;
-  height: 43%;
+#header-logo {
+  width: 50%;
+  height: auto;
 }
 
 .about-container {
@@ -111,7 +111,7 @@
     padding-right: var(--mobile-outer-margin);
   }
 
-  .header-logo {
+  /* #header-logo {
     height: 30%;
-  }
+  } */
 }
