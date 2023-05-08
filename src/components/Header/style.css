@@ -107,6 +107,11 @@
     padding-left: var(--mobile-outer-margin);
   }
 
+  #header-logo {
+    width: 100%;
+    height: auto;
+  }
+
   .about-container {
     padding-right: var(--mobile-outer-margin);
   }
