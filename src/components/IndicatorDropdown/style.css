@@ -4,11 +4,11 @@
 
 .dropdown-header {
   position: relative;
-  min-height: 30px;
+  min-height: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 100%;
+  /* height: 40px; */
   border-bottom: 3px solid var(--primary-gray-color);
 }
 /* .dropdown-header > i {

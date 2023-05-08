@@ -6,6 +6,7 @@ import './style.css';
 
 const IndicatorDropdown = ({ setter, getter, config, options, selectedOption }) => {
   const key = config?.key;
+  const superHeading = config?.superHeading;
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selection, setSelection] = useState();
   const [subHeading, setSubHeading] = useState();
@@ -36,6 +37,11 @@ const IndicatorDropdown = ({ setter, getter, config, options, selectedOption }) 
           <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
         ) : null}
         <div className='dropdown-header-label'>
+          {
+            superHeading ?
+              <h4>{`${superHeading}`.toUpperCase()}</h4>
+              : null
+          } 
           <h4>
             {            
               `${selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || ''}`.toUpperCase()

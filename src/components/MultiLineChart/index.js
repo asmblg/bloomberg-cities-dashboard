@@ -6,7 +6,8 @@ import {
   Line,
   Tooltip,
   CartesianGrid,
-  ResponsiveContainer
+  ResponsiveContainer,
+  ReferenceLine
 } from 'recharts';
 import CustomTooltip from '../CustomTooltip';
 import PropTypes from 'prop-types';
@@ -44,7 +45,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
   } = config;
 
   const selectedIndicator = getter?.[getterKey?.selectedOption] || null;
-  console.log(selectedIndicator);
+  // console.log(selectedIndicator);
   // Looks for a primary line from getter, then for a default primaryLine in the config
   const primaryLine = getterKey?.primaryLine
     ? getter?.[getterKey?.primaryLine]
@@ -112,11 +113,14 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
             data={dataArray}
             margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
           >
+            <ReferenceLine y={0} stroke="#000000" />
+
             <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
             <XAxis
               type={'category'}
               dataKey='name'
               tickLine={false}
+              axisLine={false}
               interval={'preserveStartEnd'}
               tickFormatter={(key, i) => {
                 if (i === 0 || i === dataArray.length - 1) {
@@ -154,7 +158,12 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
                 />
               } 
             />
-            {allLinesArray.map(city => {
+            {allLinesArray.sort((a,b) => 
+              b === secondaryLine?.key ||
+              b === primaryLine?.key ?
+                -1
+                : 0
+            ).map(city => {
               const { stroke, strokeWidth, zIndex } = handleLineStyle({
                 lineKey: city,
                 selectedLineKey: secondaryLine?.key,
