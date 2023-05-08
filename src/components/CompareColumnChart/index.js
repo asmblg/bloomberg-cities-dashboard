@@ -16,7 +16,7 @@ import PropTypes from 'prop-types';
 import IndicatorDropdown from '../IndicatorDropdown';
 
 import { handleDataArray, handleDefaultIndicator } from './utils';
-import calculateChartDomain from '../../utils/calculateChartDomain';
+// import calculateChartDomain from '../../utils/calculateChartDomain';
 
 const CompareColumnChart = ({ config, data, getter, setter }) => {
   const [dataArray, setDataArray] = useState([]);
@@ -27,7 +27,8 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
     compareColor,
     indicators,
     width,
-    height
+    height,
+    domain
   } = config;
   const setterKey = config.setterKey.selectedOption;
   const selectedIndicator = getter?.[config.getterKey?.selectedOption] || null;
@@ -108,7 +109,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
             }}
           />
           <YAxis
-            domain={calculateChartDomain(dataArray)}
+            domain={domain}
             type={'number'}
             tickFormatter={text => formatValue(text, selectedIndicator?.units)}
             label={{ value: config.yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}

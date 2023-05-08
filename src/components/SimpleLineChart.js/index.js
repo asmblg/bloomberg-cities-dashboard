@@ -5,7 +5,7 @@ import { LineChart as LChart, XAxis, YAxis, Line, ResponsiveContainer, Tooltip }
 import { handleLabelFormatter } from './utils';
 
 // Needs to be reworked when we have Tourism Spending data and Venture Capital Investment
-const SimpleLineChart = ({ config, dataArray, color, height, width, margin }) => {
+const SimpleLineChart = ({ config, dataArray, color, height, width, margin, domain }) => {
   return dataArray ? (
     <ResponsiveContainer height={height} width={width}>
       <LChart data={dataArray} margin={margin}>
@@ -20,7 +20,7 @@ const SimpleLineChart = ({ config, dataArray, color, height, width, margin }) =>
           tickCount={config.yaxis?.tickCount || 1}
           tickLine={false}
           tickFormatter={str => handleLabelFormatter(config.yaxis?.labelFormatter, str)}
-          domain={config.yaxis?.domain ? config.yaxis.domain : [0, 'dataMax']}
+          domain={domain}
         />
         <Tooltip content={() => renderTooltip(dataArray, config.xaxis?.labelFormatter)} />
         <Line dataKey={'value'} dot={false} stroke={color || 'black'} strokeWidth={4} />
@@ -37,7 +37,8 @@ SimpleLineChart.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   margin: PropTypes.object,
   dataArray: PropTypes.array,
-  range: PropTypes.number
+  range: PropTypes.number,
+  domain: PropTypes.array
 };
 
 function renderTooltip(arr, keyFormatter) {

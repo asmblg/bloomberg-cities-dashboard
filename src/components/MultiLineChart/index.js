@@ -21,7 +21,7 @@ import {
   // handleLabel 
 } from './utils';
 import formatValue from '../../utils/formatValue';
-import calculateChartDomain from '../../utils/calculateChartDomain';
+// import calculateChartDomain from '../../utils/calculateChartDomain';
 
 const MultiLineChart = ({ config, data, getter, setter }) => {
   const [dataArray, setDataArray] = useState(null);
@@ -39,10 +39,12 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     yaxis,
     height,
     width,
-    manifest
+    manifest,
+    domain
   } = config;
 
   const selectedIndicator = getter?.[getterKey?.selectedOption] || null;
+  console.log(selectedIndicator);
   // Looks for a primary line from getter, then for a default primaryLine in the config
   const primaryLine = getterKey?.primaryLine
     ? getter?.[getterKey?.primaryLine]
@@ -124,7 +126,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
               }}
             />
             <YAxis
-              domain={calculateChartDomain(dataArray)}
+              domain={domain || selectedIndicator?.domain}
               tickFormatter={text => formatValue(text, selectedIndicator?.units || yaxis?.units)}
               // label={yaxis?.label && !yaxis.labelFormatter ?
               //   {

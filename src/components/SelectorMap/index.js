@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
+// import MapEvents from './MapEvents';
 import { getGeoJSON } from '../../utils/API';
 
 import IndicatorDropdown from '../IndicatorDropdown';
@@ -85,6 +86,11 @@ const SelectorMap = ({ project, config, setter }) => {
           zoomSnap={.25}
           
         >
+          {/* <MapEvents 
+            setter={handleSetSelection}
+            options={options}
+          /> */}
+
           <TileLayer
             attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
             url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
@@ -93,6 +99,15 @@ const SelectorMap = ({ project, config, setter }) => {
             <GeoJSON
               key={`data-layer-${selection?.key}`}
               data={geoJSON || null}
+              eventHandlers={{
+                click: e => {
+                  const value = e.propagatedFrom?.feature?.properties?.[config.selectorField];
+                  const option = value ?
+                    options.find(({key}) => key.toUpperCase() === value.toUpperCase())
+                    : options[0];
+                  handleSetSelection(null, option);
+                }
+              }}
               style={feature => {
                 const selected = feature.properties[config.selectorField] === selection.key;
                 return {

@@ -40,7 +40,8 @@ const ComboLineAreaChart = ({
     totalFilter,
     average,
     linesInsteadOfArea,
-    quarterDateFormat
+    quarterDateFormat,
+    domain
   } = config;
 
 
@@ -97,7 +98,7 @@ const ComboLineAreaChart = ({
       >
         <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
         <YAxis
-          // domain={calculateChartDomain(dataArray)}
+          domain={domain}
           tickFormatter={text => formatValue(text, indicator?.units || getter?.[getterKey?.indicator]?.units)}
           label={{
             value: yaxis?.label === 'indicator' ?

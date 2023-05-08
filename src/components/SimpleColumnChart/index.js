@@ -12,13 +12,23 @@ import {
 } from 'recharts';
 
 import { handleData } from './utils';
-import calculateChartDomain from '../../utils/calculateChartDomain';
+// import calculateChartDomain from '../../utils/calculateChartDomain';
 import formatChartTick from '../../utils/formatChartTick';
 import formatNumberWithCommas from '../../utils/formatNumberWithCommas';
 
 const SimpleColumnChart = ({ config, data, margin }) => {
   const [dataArray, setDataArray] = useState(null);
-  const { color, accentColor, yaxis, xaxis, cartesianGrid, hasTooltip, height, width } = config;
+  const { 
+    color,
+    accentColor,
+    yaxis,
+    xaxis,
+    cartesianGrid,
+    hasTooltip,
+    height,
+    width,
+    domain
+  } = config;
 
   useEffect(() => {
     if (data) {
@@ -52,7 +62,7 @@ const SimpleColumnChart = ({ config, data, margin }) => {
           axisLine={false}
           tickFormatter={text => formatChartTick(text, yaxis?.labelFormatter)}
           tickCount={yaxis?.tickCount || 4}
-          domain={yaxis?.domain || calculateChartDomain(dataArray)}
+          domain={domain}
           label={
             yaxis?.label
               ? {

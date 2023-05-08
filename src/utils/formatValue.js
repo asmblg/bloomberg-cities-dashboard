@@ -14,6 +14,9 @@ const formatValue = (value, units) => {
       case 'dollars': {
         return `$${formatNumberWithCommas(parseFloat(`${value}`.replace('$', '')).toFixed(0))}`;
       }
+      case 'dollarsAndCents': {
+        return `$${formatNumberWithCommas(parseFloat(`${value}`.replace('$', '')).toFixed(2))}`;
+      }
       case 'bigDollars': {
         const thousands =  value >= 1000;
         const millions = value >= 1000000;

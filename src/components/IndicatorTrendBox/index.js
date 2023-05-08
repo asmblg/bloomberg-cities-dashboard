@@ -51,7 +51,7 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
 
       if (nestedDataObj && selectedIndicator) {
         const dataObj = handleTrendDisplayData(nestedDataObj, selectedIndicator, trendDataType);
-        if (selectedIndicator.units === 'dollars' && dataObj.currentValue) {
+        if (selectedIndicator.units?.match(/dollars/i) && dataObj.currentValue) {
           dataObj.currentValue = parseFloat(`${dataObj.currentValue}`.replace('$', ''));
           dataObj.compareValue = dataObj.compareValue
             ? parseFloat(`${dataObj.compareValue}`.replace('$', ''))

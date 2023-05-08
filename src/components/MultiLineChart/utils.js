@@ -37,7 +37,7 @@ const handleDataArray = async ({
                 obj[lineKey][date] = Number(value);
               } else if (!selectedIndicator.calculator) {
                 obj[lineKey][date] =
-                  selectedIndicator.units === 'dollars' && dataObj[date].includes('$')
+                  selectedIndicator.units.match(/dollars/i) && dataObj[date].includes('$')
                     ? parseFloat(dataObj[date].replace('$', ''))
                     : parseFloat(dataObj[date]);
               }

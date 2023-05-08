@@ -32,9 +32,6 @@ const getQuarterDateKey = key => {
   //         4
   //         : null;
 
-  if (key.match(/2022-1/)) { 
-    console.log(padDate(key), year, quarter);
-  }
 
 
   return `${year}-Q${quarter}`;
