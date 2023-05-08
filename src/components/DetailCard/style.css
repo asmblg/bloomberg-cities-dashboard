@@ -13,7 +13,7 @@
 .detail-card-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 300px);
+  height: calc(100vh - 350px);
 }
 
 .detail-card-section {
@@ -23,6 +23,11 @@
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
+@media screen and (max-width > 920px), (max-height: 1000px) {
+  .detail-card-container {
+    height: 600px;
+  }
+}
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 920px) {
   .detail-card-container {

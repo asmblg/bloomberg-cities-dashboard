@@ -23,7 +23,7 @@
 #section-container {
   padding: 0 var(--desktop-outer-margin);
   margin: 20px 0;
-  height: calc(100vh - (var(--desktop-header-height) + var(--desktop-footer-height)));
+  height: auto;
 }
 
 #footer {

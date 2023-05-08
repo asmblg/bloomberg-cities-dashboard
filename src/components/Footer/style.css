@@ -3,8 +3,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  height: 100%;
-  margin: 5px var(--desktop-outer-margin);
+  margin: 20px var(--desktop-outer-margin);
 }
 
 .footer-container > div {
@@ -12,11 +11,12 @@
   flex-direction: column;
   justify-content: center;
   width: 40%;
+  padding: 20px;
 }
 
 .footer-container > div > p {
   margin: 0;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 #bloomberg-logo {
