@@ -2,19 +2,20 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - 450px);
+  height: 100%;
 }
 
 .cp-body {
   display: flex;
   flex-direction: row;
+  height: 100%;
 }
 
 .cp-section {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: calc(100vh - 450px);
+  justify-content: flex-start;
+  height: 100%;
   width: 100%;
   padding: 0 2%;
   font-size: 16px;
@@ -24,7 +25,6 @@
 .cp-data-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   height: 100%;
 }
 
@@ -52,14 +52,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  margin-top: 20px;
-  /* background-image: linear-gradient(to right, var(--secondary-gray-color), var(--primary-gray-color)); */
-  background-color: var(--primary-gray-color);
-}
-
-.horizontal-percentage-indicator > div {
-  width: 100%;
-  margin-left: 20px;
+  margin-bottom: 20px;
+  background-color: #e8eeed;
 }
 
 .cp-chart-container {
@@ -90,7 +84,6 @@
   display: flex;
   align-items: center;
   padding-top: 10px;
-  /* max-width: 40%; */
 }
 
 .cp-donut-legend:first-child {
@@ -98,24 +91,9 @@
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
-/* Initial Desktop Breakpoint */
-@media screen and (max-width: 1670px) {
-  .cp-container {
-    height: auto;
-  }
-
-  .cp-donut-legend {
-    width: 135px;
-  }
-}
-
-@media screen and (max-width: 1465px) {
-  .cp-section {
-    margin: 20px 0;
-  }
-
-  .cp-donut-legend {
-    width: 200px;
+@media screen and (max-height: 1000px) {
+  .horizontal-percentage-indicator {
+    margin: 10px 0;
   }
 }
 /* Initial Tablet Breakpoint */
@@ -144,6 +122,14 @@
     padding-bottom: 50px;
     background-color: var(--white-color);
   }
+
+  .large-indicator-values-container {
+    height: auto;
+  }
+
+  .horizontal-percentage-indicator {
+    margin: 20px 0 0 0;
+  }
 }
 
 /* Initial Mobile Breakpoint */
@@ -158,10 +144,6 @@
 
   .cp-header > div > i {
     font-size: 28px !important;
-  }
-
-  .cp-data-wrapper {
-    height: 100%;
   }
 
   .cp-donut-legend {

@@ -23,30 +23,32 @@ const TrendPill = ({
   const heightVal = height ? (typeof height === 'number' ? `${height}px` : height) : null;
   const widthVal = width ? (typeof width === 'number' ? `${width}px` : width) : null;
 
-  return (<div className='trend-display-wrapper'> {
-    currentValue && compareValue && compareDate ? 
-      <>
-        <div
-          className={
-            trendDirection === 'up' || positiveTrendDirection === 'down'
-              ? 'upward-trend'
-              : 'downward-trend'
-          }
-          style={{ height: heightVal || '', width: widthVal || '' }}
-        >
-          <img src={trendDirection === 'up' ? upwardTrendIcon : downwardTrendIcon} />
-          <p className='trend-pill-text'>{trendValue}</p>
-        </div>
-        {displayCompareText ? (
-          <p className='trend-pill-text'>{`vs ${formatValue(compareValue, units)} in ${dateToQuarter(
-            compareDate,
-            'QX YYYY'
-          )}`}</p>
-        ) : null}
-      </>
-      : null
-  }
-  </div>);
+  return (
+    <div className='trend-display-wrapper'> {
+      currentValue && compareValue && compareDate ? 
+        <>
+          <div
+            className={
+              positiveTrendDirection === 'down' && trendDirection === 'down' || positiveTrendDirection === 'up' && trendDirection === 'up'
+                ? 'upward-trend'
+                : 'downward-trend'
+            }
+            style={{ height: heightVal || '', width: widthVal || '' }}
+          >
+            <img src={trendDirection === 'up' ? upwardTrendIcon : downwardTrendIcon} />
+            <p className='trend-pill-text'>{trendValue}</p>
+          </div>
+          {displayCompareText ? (
+            <p className='trend-pill-text'>{`vs ${formatValue(compareValue, units)} in ${dateToQuarter(
+              compareDate,
+              'QX YYYY'
+            )}`}</p>
+          ) : null}
+        </>
+        : null
+    }
+    </div>
+  );
 };
 
 TrendPill.propTypes = {
