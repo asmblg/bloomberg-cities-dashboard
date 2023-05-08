@@ -18,7 +18,7 @@
 }
 
 .about-container {
-  width: 60%;
+  width: calc(100% - var(--desktop-outer-margin) - 350px);
   background-color: var(--secondary-color);
   display: flex;
   align-items: center;
