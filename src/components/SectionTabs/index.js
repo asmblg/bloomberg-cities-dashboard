@@ -27,9 +27,18 @@ const SectionTabs = ({
             to={`/${project.toLowerCase()}${key !== 'home' ? `/${key}` : ''}`}
             onClick={() => setSelectedLink(key)}
             style={
-              selectedLink === key
-                ? { backgroundColor: section.tabStyle?.selectedColor || '#ffffff' }
-                : { backgroundColor: section.tabStyle?.unselectedColor || '#dfe5e9' }
+              selectedLink === key ? 
+                { 
+                  backgroundColor: section.tabStyle?.selectedColor || '#ffffff' ,
+                  border: `2px solid ${section.tabStyle?.selectedColor || '#ffffff'}`,
+                  borderRight: 'none'
+                } : 
+                { 
+                  backgroundColor: section.tabStyle?.unselectedColor || '#dfe5e9', 
+                  border: `2px solid ${section.tabStyle?.unselectedColor || '#dfe5e9'}`,
+                  borderRight: 'none'
+
+                }
             }
             onMouseEnter={() =>
               document

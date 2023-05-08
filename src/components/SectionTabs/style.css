@@ -6,6 +6,10 @@
   position: relative;
 }
 
+.desktop-tabs > a {
+  font-size: 1rem;
+}
+
 .desktop-tabs:hover {
   cursor: pointer;
 }
@@ -42,6 +46,7 @@
 
 .home-tab {
   color: var(--white-color);
+  /* border: 2px co */
 }
 
 .home-tab > img {
@@ -66,6 +71,10 @@
 @media screen and (max-width: 920px) {
   .desktop-tabs {
     gap: 2px;
+  }
+
+  .desktop-tabs > a {
+    font-size: .8rem;
   }
 
   .selected-tab,

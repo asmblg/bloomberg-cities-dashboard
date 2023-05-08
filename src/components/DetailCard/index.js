@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CommunityProfile from '../CommunityProfile';
 import FlexLayout from '../FlexLayout';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
-import LastUpdateIcon from '../LastUpdateIcon';
+// import LastUpdateIcon from '../LastUpdateIcon';
 // import getNestedValue from '../../utils/getNestedValue';
 // import { getData } from '../../utils/API';
 
@@ -30,7 +30,7 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink }) 
             style={{
               width: '100%',
               height: '50px',
-              backgroundColor: config.tabStyle?.selectedColor || '#ffffff'
+              backgroundColor: config.tabStyle?.selectedColor || '#ffffff',
             }}
           />
         ) : null}
@@ -45,9 +45,9 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink }) 
             >
               {config.title.toUpperCase()}
             </h1>
-            {detailData?.updatedOn && config.displayUpdateDate ? (
+            {/* {detailData?.updatedOn && config.displayUpdateDate ? (
               <LastUpdateIcon date={detailData.updatedOn} width={'auto'} />
-            ) : null}
+            ) : null} */}
           </div>
         ) : null}
         {sectionKey === 'community' ? (

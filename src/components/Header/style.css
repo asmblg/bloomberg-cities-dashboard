@@ -1,19 +1,21 @@
 #dashboard-header {
   height: 100%;
   display: flex;
+  width: 100%;
+  background-color: var(--primary-color);
 }
 
 .title-container {
-  width: calc(var(--desktop-outer-margin) + 350px);
+  width: 350px;
   background-color: var(--primary-color);
   display: flex;
   align-items: center;
-  padding-left: var(--desktop-outer-margin);
+  margin-left: var(--desktop-outer-margin);
   color: var(--white-color);
 }
 
 #header-logo {
-  width: 50%;
+  width: 80%;
   height: auto;
 }
 
@@ -92,7 +94,7 @@
 @media screen and (max-width: 920px)  {
   .title-container {
     width: calc(var(--tablet-outer-margin) + 350px);
-    padding-left: var(--tablet-outer-margin);
+    /* padding-left: var(--tablet-outer-margin); */
   }
 
   .about-container {
@@ -104,7 +106,7 @@
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 760px) {
   .title-container {
-    padding-left: var(--mobile-outer-margin);
+    /* padding-left: var(--mobile-outer-margin); */
     /* width: 40%; */
   }
 
