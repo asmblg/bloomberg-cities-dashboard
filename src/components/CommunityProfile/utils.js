@@ -1,5 +1,17 @@
 import addCalculatedIndicatorToDataObj from '../../utils/addCalculatedIndicatorToDataObj';
 
+const handleCpData = (data) => {
+  const obj = {};
+  Object.entries(data).forEach(([key, value]) => {
+    Object.keys(value).forEach(year => {
+      obj[year] = obj[year] ? { ...obj[year] } : {};
+      obj[year][key] = value[year];
+    });
+  });
+
+  return obj;
+};
+
 const handleDonutDataArray = (indicators, data, colors) => {
   const colorMap = indicators.length <= colors.length ? colors : null;
 
@@ -18,4 +30,13 @@ const handleDonutDataArray = (indicators, data, colors) => {
   return null;
 };
 
-export { handleDonutDataArray };
+const handleCalculator = (data, indicator) => {
+  const calculatedData = indicator.calculator
+    ? addCalculatedIndicatorToDataObj(indicator, data)
+    : data;
+  
+  const value = calculatedData?.[indicator.key] || null;
+  return value;
+};
+
+export { handleCpData, handleDonutDataArray, handleCalculator };

@@ -11,7 +11,13 @@ const Footer = ({ config }) => {
   return (
     <div className='footer-container'>
       <div>
-        <img src={footerLogos.bloomberg} className='bloomberg-logo' />
+        <a
+          href='https://associates.bloomberg.org/'
+          target='_blank'
+          rel='noreferrer'
+        >
+          <img src={footerLogos.bloomberg} id='bloomberg-logo' />
+        </a>
         <p>
           <span>&#169;</span> {copyright}
         </p>
@@ -19,13 +25,19 @@ const Footer = ({ config }) => {
       <div>
         <p>Data partners</p>
         <div className='partner-logos-container'>
-          {partners.map(({ name, key }) => (
-            <img
-              key={`footer-partner-logo-${key}`}
-              src={footerLogos[key]}
-              alt={`${name} Logo`}
-              id={`${key}-footer-logo`}
-            />
+          {partners.map(({ name, key, url }) => (
+            <a
+              key={`footer-partner-link-${key}`}
+              href={url || '/'} target='_blank'
+              rel='noreferrer'
+            >
+              <img
+                className='partner-logo'
+                src={footerLogos[key]}
+                alt={`${name} Logo and link to website`}
+                id={`${key}-footer-logo`}
+              />
+            </a>
           ))}
         </div>
       </div>

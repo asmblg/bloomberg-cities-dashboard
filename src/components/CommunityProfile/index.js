@@ -5,15 +5,16 @@ import IndicatorListSection from './subComponents/IndicatorListSection';
 import IndicatorMap from '../IndicatorMap';
 import DonutWithLegend from './subComponents/DonutWithLegend';
 import InfoIcon from '../InfoIcon';
-// import TrendPill from '../TrendPill';
 
-import getAllNestedValuesByYear from '../../utils/getNestedValueByMostRecentYear';
+import { handleCpData } from './utils';
 import { getTractGeoJSON } from '../../utils/API';
+import getMostRecentDateKeys from '../../utils/getMostRecentDateKeys';
 import './style.css';
 
 const CommunityProfile = ({ config, detailData, project, viewType }) => {
   const [geoJSON, setGeoJSON] = useState(null);
   const [cpData, setCpData] = useState(null);
+  const [yearKeys, setYearKeys] = useState(null);
 
   useEffect(() => {
     getTractGeoJSON(project).then(({ data }) => {
@@ -24,8 +25,9 @@ const CommunityProfile = ({ config, detailData, project, viewType }) => {
 
   useEffect(() => {
     if (detailData?.data) {
-      const dataObj = getAllNestedValuesByYear(detailData.data);
-      setCpData(dataObj);
+      const data = handleCpData(detailData.data);
+      setCpData(data);
+      setYearKeys(getMostRecentDateKeys(Object.keys(data), 2));
     }
   }, [detailData]);
 
@@ -36,7 +38,11 @@ const CommunityProfile = ({ config, detailData, project, viewType }) => {
           ? config.sections.map(({ config: c, type }, i) => (
             <div key={`cp-section-${type}-${i}`} className='cp-section'>
               {type === 'indicator-lists' ? (
-                <IndicatorListSection config={c} data={cpData || null} />
+                <IndicatorListSection
+                  config={c}
+                  data={cpData || null}
+                  yearKeys={yearKeys || null}
+                />
               ) : type === 'map' ? (
                 geoJSON && detailData?.data ? (
                   <IndicatorMap config={c} geoJSON={geoJSON} />
@@ -52,7 +58,7 @@ const CommunityProfile = ({ config, detailData, project, viewType }) => {
                       <DonutWithLegend
                         title={title}
                         indicators={indicators}
-                        data={cpData || null}
+                        data={yearKeys?.[0] && cpData?.[yearKeys[0]] ? cpData[yearKeys[0]] : null}
                         colors={colors}
                         viewType={viewType}
                         startAngle={-270}

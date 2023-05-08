@@ -18,3 +18,9 @@
   flex-direction: column;
   justify-content: flex-start;
 }
+
+/* @media screen and (max-height: 1000px) {
+  .flex-layout {
+    height: 100%;
+  }
+} */

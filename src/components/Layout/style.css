@@ -23,12 +23,11 @@
 #section-container {
   padding: 0 var(--desktop-outer-margin);
   margin: 20px 0;
-  height: calc(100vh - (var(--desktop-header-height) + var(--desktop-footer-height)));
+  height: auto;
 }
 
 #footer {
   width: 100%;
-  height: var(--desktop-footer-height);
   background-color: var(--black-color);
   color: var(--white-color);
 }
@@ -50,10 +49,6 @@
     height: auto;
     padding: 0 var(--tablet-outer-margin);
   }
-
-  #footer {
-    height: var(--tablet-footer-height);
-  }
 }
 
 /* Initial Mobile Breakpoint */
@@ -70,9 +65,5 @@
   #section-container {
     padding: 0;
     margin: 0;
-  }
-
-  #footer {
-    height: var(--mobile-footer-height);
   }
 }

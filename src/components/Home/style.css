@@ -1,5 +1,6 @@
 .home-wrapper {
   display: flex;
+  height: calc(100vh - 350px);
 }
 
 .overview-wrapper {
@@ -11,8 +12,7 @@
 }
 
 .summary-wrapper {
-  width: calc(100% - 350px);
-  height: calc(100vh - 300px);
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -47,6 +47,12 @@
   .summary-cards-container {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+  }
+}
+
+@media screen and (max-height: 1000px) {
+  .home-wrapper {
+    height: auto;
   }
 }
 

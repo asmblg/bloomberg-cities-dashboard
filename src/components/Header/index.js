@@ -30,7 +30,9 @@ const Header = ({
     <>
       <div id='dashboard-header'>
         <div className='title-container'>
-          <img className='header-logo' src={logoSrc} />
+          <Link to={`/${project}`}>
+            <img id='header-logo' src={logoSrc} />
+          </Link>
         </div>
         <div className='about-container'>
           {viewType === 'mobile' ? (
