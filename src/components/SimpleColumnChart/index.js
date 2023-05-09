@@ -33,6 +33,7 @@ const SimpleColumnChart = ({ config, data, margin }) => {
   useEffect(() => {
     if (data) {
       const array = handleData(config, data);
+      console.log(array);
 
       if (array) {
         const filteredData = array.filter(({ value }) => value || value === 0);

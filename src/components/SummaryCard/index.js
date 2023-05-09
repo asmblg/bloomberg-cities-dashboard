@@ -39,7 +39,7 @@ const SummaryCard = ({
 
   useEffect(() => {
     if (data && allSummaryData) {
-      setSummaryData(createCompareDataObject(summary.calculator, allSummaryData, trendDataType));
+      setSummaryData(createCompareDataObject(summary?.calculator, allSummaryData, trendDataType, summary?.filter));
     }
   }, [allSummaryData, trendDataType]);
 

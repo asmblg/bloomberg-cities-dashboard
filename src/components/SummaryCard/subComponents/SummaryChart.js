@@ -6,6 +6,8 @@ import SinglePercentDonutChart from '../../SinglePercentDonutChart';
 
 const SummaryChart = ({ config, data }) => {
   const { type } = config;
+
+  console.log(config, data);
   switch (type) {
     case 'column': {
       return (
