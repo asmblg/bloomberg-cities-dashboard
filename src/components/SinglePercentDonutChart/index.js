@@ -30,8 +30,8 @@ const SinglePercentDonutChart = ({ config, height, width, value }) => {
           cy={'50%'}
           // outerRadius={config?.radius?.outer || 60}
           // innerRadius={config?.radius?.inner || 30}
-          outerRadius={30}
-          innerRadius={18}
+          outerRadius={50}
+          innerRadius={30}
           startAngle={-270}
           endAngle={90}
         >

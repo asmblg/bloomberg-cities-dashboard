@@ -20,8 +20,8 @@ const DonutWithLegend = ({ indicators, data, colors }) => {
           dataKey='value'
           cx='40%'
           cy='50%'
-          innerRadius={'40%'}
-          outerRadius={'65%'}
+          innerRadius={'50%'}
+          outerRadius={'80%'}
           labelLine={false}
           label={renderCustomLabels}
           startAngle={-270}
