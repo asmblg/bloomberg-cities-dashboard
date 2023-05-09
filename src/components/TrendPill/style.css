@@ -43,7 +43,7 @@
   .upward-trend, .downward-trend {
     font-size: 12px;
     /* height: px; */
-    min-width: 80px;
+    min-width: 100px;
   }
 
   .trend-pill-text {
