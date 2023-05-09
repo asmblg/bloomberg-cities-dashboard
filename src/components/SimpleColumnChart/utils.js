@@ -18,7 +18,7 @@ const getQuarterDateKey = key => {
 };
 
 const handleData = (config, data) => {
-  if (config?.values.calculator === 'total') {
+  if (config?.values?.calculator === 'total') {
     const dataArray = [];
     const dataObj = {};
     Object.entries(data)
