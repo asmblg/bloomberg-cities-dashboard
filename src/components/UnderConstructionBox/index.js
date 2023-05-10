@@ -15,7 +15,8 @@ const UnderConstructionBox = () => {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
-        backgroundColor: '#F5F7F8'
+        backgroundColor: '#F5F7F8',
+        padding: '20px'
       }}
     >
       <h4 style={{ ...textStyle, marginBottom: '20px' }}>{'CURRENTLY UNDER DEVELOPMENT'}</h4>

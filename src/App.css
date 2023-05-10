@@ -132,9 +132,20 @@ a:hover {
 @media screen and (max-width: 760px) {
   .full-card-wrapper {
     margin: 10px 0;
+
   }
   .full-card-container {
     margin-left: var(--mobile-outer-margin);
     margin-right: var(--mobile-outer-margin);
+    height: fit-content !important;
   }
 }
+
+@media screen and (orientation: portrait) {
+  .full-card-container {
+    /* margin-left: var(--tablet-outer-margin);
+    margin-right: var(--tablet-outer-margin); */
+    height: fit-content !important;
+  }
+}
+

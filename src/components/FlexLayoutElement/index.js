@@ -27,16 +27,37 @@ const FlexLayoutElement = ({
   setSelectedLink,
   viewType
 }) => {
-  const { columns, rows, content, height, width, style, mobileStyle, tabletStyle } = layout;
+  const { 
+    columns,
+    rows,
+    content,
+    height,
+    width,
+    style,
+    // mobileStyle, 
+    // tabletStyle 
+  } = layout;
+
+  const mobile = viewType === 'mobile';
   const elementRef = useRef();
-  const type = columns ? 'columns' : rows ? 'rows' : content ? 'content' : '';
+  const type = columns ? 
+    'columns' : rows ? 
+      'rows' : content ? 
+        'content' : '';
   const elementArray = columns || rows;
 
   return (
     <div
       key={elementRef}
-      style={handleElementStyle(style, mobileStyle, height, width, viewType, tabletStyle)}
-      className={`flex-layout-${type}`}
+      style={handleElementStyle(
+        style,
+        // mobileStyle,
+        height,
+        width,
+        viewType,
+        // tabletStyle
+      )}
+      className={`flex-layout-${mobile && type !== 'content' ? 'rows' : type}`}
     >
       {!content ? (
         elementArray.map((element, i) => (
@@ -94,6 +115,7 @@ const FlexLayoutElement = ({
           config={content.config}
           getter={getter}
           setter={setter}
+          viewType={viewType}
         />
       ) : content.type === 'compare-column-chart' ? (
         <CompareColumnChart
@@ -131,6 +153,7 @@ const FlexLayoutElement = ({
           getter={getter}
           config={content}
           data={data}
+          viewType={viewType}
         />
       ) : content.type === 'under-construction' ? (
         <UnderConstructionBox />

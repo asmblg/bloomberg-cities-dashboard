@@ -1,4 +1,11 @@
-const handleElementStyle = (style, mobileStyle, height, width, viewType, tabletStyle) => {
+const handleElementStyle = (
+  style,
+  // mobileStyle,
+  height,
+  width,
+  viewType,
+  // tabletStyle
+) => {
   let obj = {};
 
   if (height) {
@@ -16,19 +23,11 @@ const handleElementStyle = (style, mobileStyle, height, width, viewType, tabletS
     };
   }
 
-  if (viewType !== 'desktop' && tabletStyle) {
-    obj = {
-      ...obj,
-      ...tabletStyle
-    };
+  if (viewType === 'mobile' || viewType === 'tablet') {
+    obj.height = 'fit-content';
   }
 
-  if (viewType === 'mobile' && mobileStyle) {
-    obj = {
-      ...obj,
-      ...mobileStyle
-    };
-  }
+
   return obj;
 };
 

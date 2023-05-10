@@ -88,88 +88,91 @@ const ComboLineAreaChart = ({
   // console.log(lines);
 
   return (areas?.[0] || lines?.[0] ?
-    <ResponsiveContainer
-      height={height || '100%'}
-      width={width || '100%'}
-    >
-      <ComposedChart
-        data={areas[0] ? areas : lines}
-        margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
+    <div className='chart-container'>
+      <ResponsiveContainer
+        height={height || '100%'}
+        width={width || '100%'}
       >
-        <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
-        <YAxis
-          domain={domain}
-          tickFormatter={text => formatValue(text, indicator?.units || getter?.[getterKey?.indicator]?.units)}
-          label={{
-            value: yaxis?.label === 'indicator' ?
-              indicator?.label || getter?.[getterKey?.indicator]?.label
-              : yaxis?.label,
-            angle: '-90',
-            position: 'insideLeft',
-            dy: 50
-          }}
-        />
-        <XAxis 
-          tickFormatter={text => dateToQuarter(text) }
-          dataKey="name" 
-        />
-        {
-          lines && getter?.[getterKey?.lineSelector] ?
-            <Line
-              type='monotone'
-              key={`line-${getter?.[getterKey?.lineSelector]}-${getter?.[getterKey?.basePath]}`}
-              dataKey={getter?.[getterKey?.lineSelector]}
-              stroke={colors[0]}
-              dot={false}
-              strokeWidth={3}
-            />
-            : null
-        }
+        <ComposedChart
+          data={areas[0] ? areas : lines}
+          margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
+        >
+          <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
+          <YAxis
+            domain={domain}
+            tickFormatter={text => formatValue(text, indicator?.units || getter?.[getterKey?.indicator]?.units)}
+            label={{
+              value: yaxis?.label === 'indicator' ?
+                indicator?.label || getter?.[getterKey?.indicator]?.label
+                : yaxis?.label,
+              angle: '-90',
+              position: 'insideLeft',
+              dy: 50
+            }}
+          />
+          <XAxis 
+            tickFormatter={text => dateToQuarter(text) }
+            dataKey="name" 
+          />
+          {
+            lines && getter?.[getterKey?.lineSelector] ?
+              <Line
+                type='monotone'
+                key={`line-${getter?.[getterKey?.lineSelector]}-${getter?.[getterKey?.basePath]}`}
+                dataKey={getter?.[getterKey?.lineSelector]}
+                stroke={colors[0]}
+                dot={false}
+                strokeWidth={3}
+              />
+              : null
+          }
 
-        {
-          areas && getter?.[getterKey?.areaSelector] ?
-            getter?.[getterKey?.areaSelector]
-              .map(({ key, color }) =>
-                linesInsteadOfArea ?
-                  <Line
-                    type='monotone'
-                    key={`line-${key}-${getter?.[getterKey?.basePath]}`}
-                    dataKey={key}
-                    // stackId='1'
-                    // fill={color}
-                    strokeWidth={3}
-                    dot={false}
-                    stroke={color}
+          {
+            areas && getter?.[getterKey?.areaSelector] ?
+              getter?.[getterKey?.areaSelector]
+                .map(({ key, color }) =>
+                  linesInsteadOfArea ?
+                    <Line
+                      type='monotone'
+                      key={`line-${key}-${getter?.[getterKey?.basePath]}`}
+                      dataKey={key}
+                      // stackId='1'
+                      // fill={color}
+                      strokeWidth={3}
+                      dot={false}
+                      stroke={color}
 
-                  />
-                  : <Area
-                    type='monotone'
-                    key={`area-${key}-${getter?.[getterKey?.basePath]}`}
-                    dataKey={key}
-                    stackId='1'
-                    fill={color}
-                    stroke={color}
+                    />
+                    : <Area
+                      type='monotone'
+                      key={`area-${key}-${getter?.[getterKey?.basePath]}`}
+                      dataKey={key}
+                      stackId='1'
+                      fill={color}
+                      stroke={color}
 
-                  />
+                    />
 
-              )
+                )
 
-            : null
-        }
-        <Tooltip 
-          content={
-            <CustomTooltip
-              units={indicator?.units || getter?.[getterKey?.indicator]?.units}
-              quarterDateFormat={quarterDateFormat}
+              : null
+          }
+          <Tooltip 
+            content={
+              <CustomTooltip
+                units={indicator?.units || getter?.[getterKey?.indicator]?.units}
+                quarterDateFormat={quarterDateFormat}
 
-            />
-          } 
-        />
+              />
+            } 
+          />
 
-      </ComposedChart>
+        </ComposedChart>
 
 
-    </ResponsiveContainer>
+      </ResponsiveContainer>
+    </div>
+
     : null
   );
 

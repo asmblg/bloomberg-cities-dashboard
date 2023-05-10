@@ -3,12 +3,19 @@ import { viewBreakpoints } from './config';
 const handleViewType = () => {
   // Note: window.innerWidth lowest value will be 320.
   const width = window.innerWidth;
+  const height = window.innerHeight;
 
-  return width > viewBreakpoints.tablet
-    ? 'desktop'
-    : width <= viewBreakpoints.tablet && width >= viewBreakpoints.mobile
-      ? 'tablet'
-      : 'mobile';
+  // return width > viewBreakpoints.tablet
+  //   ? 'desktop'
+  //   : width <= viewBreakpoints.tablet && width >= viewBreakpoints.mobile
+  //     ? 'tablet'
+  //     : 'mobile';
+    
+  return width <= viewBreakpoints.mobile 
+    ? 'mobile' 
+    : height > width 
+      ? 'tablet' 
+      : 'desktop'; 
 };
 
 const getCurrentRoute = (project, sectionKeys, pathname) => {

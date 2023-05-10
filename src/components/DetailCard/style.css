@@ -25,13 +25,13 @@
 /* -------------------- MEDIA QUERIES -------------------- */
 @media screen and (max-width > 920px), (max-height: 1000px) {
   .detail-card-container {
-    height: 600px;
+    height: 'fit-content';
   }
 }
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 920px) {
   .detail-card-container {
-    height: 100%;
+    height: 'fit-content';
   }
 }
 

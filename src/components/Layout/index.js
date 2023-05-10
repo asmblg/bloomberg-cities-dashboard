@@ -43,6 +43,8 @@ const Layout = ({ config }) => {
     }
   }, []);
 
+  console.log(viewType);
+
   return (
     <div id='layout'>
       <div id='content'>

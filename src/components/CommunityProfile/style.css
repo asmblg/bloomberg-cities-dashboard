@@ -1,6 +1,7 @@
 .cp-container {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   width: 100%;
   height: 100%;
 }
@@ -8,7 +9,7 @@
 .cp-body {
   display: flex;
   flex-direction: row;
-  height: calc(100% - 50px);
+  height: fit-content;
 }
 
 .cp-section {
@@ -96,8 +97,13 @@
     margin: 10px 0;
   }
 }
+
+@media screen and (orientation: portrait) {
+  
+}
+
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 920px), (orientation: portrait) {
   .cp-body {
     flex-direction: column;
   }

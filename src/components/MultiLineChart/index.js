@@ -196,7 +196,8 @@ MultiLineChart.propTypes = {
   data: PropTypes.object,
   config: PropTypes.object,
   getter: PropTypes.object,
-  setter: PropTypes.func
+  setter: PropTypes.func,
+  // viewType: PropTypes.string
 };
 
 export default MultiLineChart;

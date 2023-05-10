@@ -11,8 +11,8 @@ const FlexLayout = ({
   layout: { 
     columns,
     rows,
-    mobileStyle,
-    tabletStyle
+    // mobileStyle,
+    // tabletStyle
   }, 
   data, 
   project,
@@ -45,7 +45,12 @@ const FlexLayout = ({
   return (
     <div
       className='flex-layout'
-      style={handleStyle(columns, viewType, mobileStyle, tabletStyle)}
+      style={handleStyle(
+        columns, 
+        viewType, 
+        // mobileStyle, 
+        // tabletStyle
+      )}
     >
       {elementArray.map((element, i) => (
         <FlexLayoutElement

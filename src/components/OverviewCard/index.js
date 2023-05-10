@@ -30,7 +30,7 @@ const OverviewCard = ({ viewType, config }) => {
           </div>
         </>
       ) : null}
-      {viewType !== 'desktop' ? (
+      {viewType === 'mobile' ? (
         <div className='overview-arrow-container'>
           <Icon
             name={`angle ${overviewOpen ? 'up' : 'down'}`}

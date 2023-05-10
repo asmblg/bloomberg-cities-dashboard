@@ -64,6 +64,7 @@
     justify-content: flex-start;
     margin-left: var(--mobile-outer-margin);
     margin-right: var(--mobile-outer-margin);
+    /* align-self: flex-end; */
   }
 
   .footer-container > div {
