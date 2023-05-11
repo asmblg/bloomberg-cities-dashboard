@@ -1,6 +1,6 @@
 .home-wrapper {
   display: flex;
-  height: calc(100vh - 350px);
+  min-height: calc(100vh - 350px);
 }
 
 .overview-wrapper {
@@ -52,7 +52,7 @@
 
 @media screen and (max-height: 1000px) {
   .home-wrapper {
-    height: auto;
+    /* height: auto; */
   }
 }
 
@@ -60,16 +60,19 @@
 @media screen and (max-width: 920px) {
   .home-wrapper {
     flex-direction: column;
+    height: fit-content;
   }
 
   .overview-wrapper,
   .summary-wrapper {
     width: 100%;
     margin: 0;
+    
   }
 
   .summary-wrapper {
-    height: 820px;
+    height: fit-content;
+    min-height: 820px;
   }
 
   .large-summary-title {

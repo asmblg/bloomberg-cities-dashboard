@@ -23,7 +23,8 @@
 #section-container {
   padding: 0 var(--desktop-outer-margin);
   margin: 20px 0;
-  height: auto;
+  /* height: fit-content; */
+  /* max-height: 100vh - 650px !important; */
 }
 
 #footer {

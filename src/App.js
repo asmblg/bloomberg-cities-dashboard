@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { handleConfig, handleRootVariables } from './App.utils';
 import Layout from './components/Layout';
+import { TailSpin } from 'react-loader-spinner';
 
 const App = () => {
   const [config, setConfig] = useState(null);
@@ -33,7 +34,11 @@ const App = () => {
     };
   }, []);
 
-  return <div className='App'>{config ? <Layout config={config} /> : 'Loading...'}</div>;
+  return <div className='App'>{
+    config ? <Layout config={config} /> 
+      : <TailSpin color={' #006aaf'}/>
+  }
+  </div>;
 };
 
 export default App;

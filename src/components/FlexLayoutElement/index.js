@@ -14,6 +14,7 @@ import IndicatorDropdown from '../IndicatorDropdown';
 import ComboLineAreaChart from '../ComboLineAreaChart';
 import UnderConstructionBox from '../UnderConstructionBox';
 import AboutProject from '../AboutTheData';
+import { TailSpin } from 'react-loader-spinner';
 
 import { handleElementStyle } from './utils';
 import './style.css';
@@ -59,7 +60,7 @@ const FlexLayoutElement = ({
       )}
       className={`flex-layout-${mobile && type !== 'content' ? 'rows' : type}`}
     >
-      {!content ? (
+      {!content && data ? (
         elementArray.map((element, i) => (
           <FlexLayoutElement
             key={`recursive-flex-layout-el-${i}`}
@@ -164,9 +165,7 @@ const FlexLayoutElement = ({
           setSelectedLink={setSelectedLink}
           viewType={viewType}
         />
-      ) : (
-        JSON.stringify(content)
-      )}
+      ) : <TailSpin />}
     </div>
   );
 };

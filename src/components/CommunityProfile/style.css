@@ -54,7 +54,8 @@
   align-items: center;
   padding: 10px;
   margin-bottom: 20px;
-  background-color: #e8eeed;
+  /* background-color: #e8eeed; */
+  background: linear-gradient(to right, #e8eeed , transparent)
 }
 
 .cp-chart-container {

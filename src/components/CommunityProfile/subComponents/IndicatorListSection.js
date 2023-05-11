@@ -47,9 +47,9 @@ const IndicatorListSection = ({ config, data, yearKeys }) => {
                 <div style={{
                   display: 'flex', alignItems: 'center'}}>
                   <h3 className='bold-font'>{formatValue(currentValue, indicator.units)}</h3>
-                  <h5 style={{marginLeft: '20px'}}>{indicator.label || ''}</h5>
+                  <h5 style={{marginLeft: '10px'}}>{indicator.label || ''}</h5>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }}>
                   <TrendPill
                     currentValue={currentValue}
                     compareValue={compareValue}
