@@ -55,7 +55,7 @@
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1280px) {
   .indicator-map {
-    height: 500px;
+    height: 400px;
     width: 100%;
   }
 }

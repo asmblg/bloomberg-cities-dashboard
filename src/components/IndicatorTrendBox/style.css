@@ -7,15 +7,18 @@
 .indicator-data-body {
   display: flex;
   flex-wrap: wrap;
-  /* width: 100%; */
+  /* width: fit-content; */
+  width: 100%;
 }
 
 .indicator-value-container {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  max-width: calc(90% - 10px);
   /* width: 250px; */
 }
+
 
 .indicator-value-container > h1 {
   margin-right: 20px;

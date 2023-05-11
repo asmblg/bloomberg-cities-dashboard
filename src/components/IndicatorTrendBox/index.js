@@ -68,7 +68,7 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
         <div style={{ width: '25%' }}>
           <SinglePercentDonutChart
             value={indicatorTrendData.displayValue}
-            height={150}
+            height={100}
             width={'100%'}
             config={chart.config}
           />

@@ -16,8 +16,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: 100%;
-  width: 100%;
+  height: calc(100% - 60px);
+  width: 33%;
   padding: 0 2%;
   font-size: 16px;
   line-height: 1.5;
@@ -98,14 +98,18 @@
   }
 }
 
-@media screen and (orientation: portrait) {
-  
+@media screen and (max-width: 1280) {
+  .detail-card-container, .full-card-container, .full-card-wrapper {
+    height: fit-content !important;
+  }
 }
 
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 920px), (orientation: portrait) {
   .cp-body {
     flex-direction: column;
+    padding: 20px;
+    width: 100%;
   }
 
   .cp-section {
@@ -135,6 +139,18 @@
 
   .horizontal-percentage-indicator {
     margin: 20px 0 0 0;
+  }
+
+  .cp-chart-container, .horizontal-percentage-indicator {
+    max-width: 500px !important;
+  }
+
+  .cp-chart-container {
+    padding-top: 10px;
+  }
+
+  .cp-data-wrapper {
+    margin-top: 20px;
   }
 }
 

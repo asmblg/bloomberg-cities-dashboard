@@ -2,6 +2,16 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-around;
+  max-width: 200px;
+}
+
+.data-toggle-container > h5 {
+  padding: 0;
+  margin: 0;
+  width: 60px;
+  text-align: center;
+  font-size: .9rem;
 }
 
 .toggle-el {
