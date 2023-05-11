@@ -114,6 +114,7 @@
 
   .cp-section {
     margin: 0;
+    width: 100%;
   }
 
   .cp-header-title > h2 {
