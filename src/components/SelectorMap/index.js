@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, Tooltip } from 'react-leaflet';
 // import MapEvents from './MapEvents';
 import { getGeoJSON } from '../../utils/API';
 
@@ -13,6 +13,8 @@ const SelectorMap = ({ project, config, setter }) => {
   const [geoJSON, setGeoJSON] = useState();
   const [selection, setSelection] = useState();
   const [options, setOptions] = useState();
+  const [hoveredFeature, setHoveredFeature] = useState();  
+  
   const fillColor = config.color || '#fff3e2';
 
   const handleSetSelection = (key, option) => {
@@ -66,6 +68,8 @@ const SelectorMap = ({ project, config, setter }) => {
     }
   }, [selection]);
 
+  console.log(hoveredFeature);
+
 
   return (
     <div className='selector-map-wrapper' key='selector-map'>
@@ -80,9 +84,10 @@ const SelectorMap = ({ project, config, setter }) => {
           // key={`${selection.key}-selector-map`}
           center={config.center}
           zoom={config.zoom}
-          zoomControl={false}
-          dragging={false}
-          doubleClickZoom={false}
+          zoomControl={true}
+          // zoomControl={false}
+          // dragging={false}
+          // doubleClickZoom={false}
           zoomSnap={.25}
           
         >
@@ -106,6 +111,10 @@ const SelectorMap = ({ project, config, setter }) => {
                     options.find(({key}) => key.toUpperCase() === value.toUpperCase())
                     : options[0];
                   handleSetSelection(null, option);
+                },
+                mouseover: e => {
+                  const value = e.propagatedFrom?.feature?.properties?.[config.selectorField];
+                  setHoveredFeature(value);
                 }
               }}
               style={feature => {
@@ -118,7 +127,11 @@ const SelectorMap = ({ project, config, setter }) => {
                   fillOpacity:  selected ? 1 :0.5
                 };
               }}
-            />
+            >
+              <Tooltip>
+                {hoveredFeature}
+              </Tooltip>
+            </GeoJSON>
             : null
           }
         </MapContainer>

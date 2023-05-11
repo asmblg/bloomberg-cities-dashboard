@@ -12,9 +12,10 @@ import {
 } from 'recharts';
 
 import { handleData } from './utils';
+import CustomTooltip from '../CustomTooltip';
 // import calculateChartDomain from '../../utils/calculateChartDomain';
 import formatChartTick from '../../utils/formatChartTick';
-import formatNumberWithCommas from '../../utils/formatNumberWithCommas';
+// import formatNumberWithCommas from '../../utils/formatNumberWithCommas';
 
 const SimpleColumnChart = ({ config, data, margin }) => {
   const [dataArray, setDataArray] = useState(null);
@@ -24,7 +25,7 @@ const SimpleColumnChart = ({ config, data, margin }) => {
     yaxis,
     xaxis,
     cartesianGrid,
-    hasTooltip,
+    tooltip,
     height,
     width,
     domain
@@ -75,8 +76,17 @@ const SimpleColumnChart = ({ config, data, margin }) => {
               : null
           }
         />
-        {hasTooltip ? (
-          <Tooltip content={() => renderTooltip(dataArray, config.xaxis?.labelFormatter)} />
+        {tooltip ? (
+          <Tooltip 
+            // content={() => renderTooltip(dataArray, config.xaxis?.labelFormatter)} 
+            content={
+              <CustomTooltip 
+                units={tooltip.units}
+                quarterDateFormat={tooltip.quarterDateFormat}
+                manifest={tooltip.manifest}
+              />
+            }
+          />
         ) : null}
         <Bar
           dataKey={'value'}
@@ -96,19 +106,19 @@ SimpleColumnChart.propTypes = {
   margin: PropTypes.object,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  hasTooltip: PropTypes.bool
+  tooltip: PropTypes.object
 };
 
-function renderTooltip(arr, keyFormatter) {
-  return arr && arr[0] ? (
-    <div className='chart-tooltip'>
-      {arr.map((obj, i) => (
-        <p key={`tooltip-item-${i}`}>{`${
-          keyFormatter ? formatChartTick(obj.name, keyFormatter) : obj.name
-        }: ${formatNumberWithCommas(obj.value)}`}</p>
-      ))}
-    </div>
-  ) : null;
-}
+// function renderTooltip(arr, keyFormatter) {
+//   return arr && arr[0] ? (
+//     <div className='chart-tooltip'>
+//       {arr.map((obj, i) => (
+//         <p key={`tooltip-item-${i}`}>{`${
+//           keyFormatter ? formatChartTick(obj.name, keyFormatter) : obj.name
+//         }: ${formatNumberWithCommas(obj.value)}`}</p>
+//       ))}
+//     </div>
+//   ) : null;
+// }
 
 export default SimpleColumnChart;

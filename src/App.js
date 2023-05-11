@@ -35,8 +35,20 @@ const App = () => {
   }, []);
 
   return <div className='App'>{
-    config ? <Layout config={config} /> 
-      : <TailSpin color={' #006aaf'}/>
+    config ? 
+      <Layout config={config} /> :
+      <TailSpin 
+        color={' #006aaf'}
+        width={200}
+        height={200}
+        wrapperStyle={{
+          // height: '100vh',
+          width: '100vw',
+          justifyContent: 'center',
+          paddingTop: 'calc(50vh - 250px)'
+          // margin: 'auto',
+        }}
+      />
   }
   </div>;
 };

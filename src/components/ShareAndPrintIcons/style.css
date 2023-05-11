@@ -1,9 +1,10 @@
 .share-print-icons {
   /* display: flex;
   justify-content: flex-end; */
-  position: absolute;
+  position: fixed;
   bottom: 180px;
   right: calc(var(--desktop-outer-margin) + 15px);
+  z-index: 99999999;
 }
 
 .share-print-icons > img {
