@@ -78,7 +78,6 @@ const SimpleColumnChart = ({ config, data, margin }) => {
         />
         {tooltip ? (
           <Tooltip 
-            // content={() => renderTooltip(dataArray, config.xaxis?.labelFormatter)} 
             content={
               <CustomTooltip 
                 units={tooltip.units}

@@ -16,31 +16,27 @@ const CustomTooltip = ({
   units,
   quarterDateFormat
 }) => {
-  // console.log(manifest);
-  // console.log({ active, payload, label, filter, manifest, units });
+  // console.log(label);
+  // console.log({ active, payload, label, filter, manifest, units, quarterDateFormat });
   
   if (active && payload?.[0]) {
     return (
       <div className='custom-tooltip'>
         <h4 className='custom-tooltip-header'>
-          {quarterDateFormat ? formatQuarterDate(label, quarterDateFormat): label}
+          {quarterDateFormat ? formatQuarterDate(label || payload?.[0]?.name, quarterDateFormat): label}
         </h4> 
         {
           payload
             .filter(({name}) => filter?.length > 0 ? filter.includes(name) : true)
             .reverse()
-            .map(({name, value, color}, i) =>
+            .map(({name, value, color, dataKey}, i) =>
               <p
                 style={{color: color }} 
-                key={`custom-tooltip-${label.replace(/ /g, '-')}-${name}-${i}`}>
-                {manifest?.[name] || name.toUpperCase()}: {formatValue(value, units)}
+                key={`custom-tooltip-${label?.replace(/ /g, '-') || 'label'}-${name}-${i}`}>
+                {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}: {formatValue(value, units)}
               </p>
             )
         }
-          
-        {/* ${formatValue(payload[0].value)}`} */}
-        {/* <p className='intro'></p>
-        <p className='desc'>Anything you want can be displayed here.</p> */}
       </div>
     );
   }

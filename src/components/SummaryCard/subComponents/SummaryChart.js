@@ -26,6 +26,7 @@ const SummaryChart = ({ config, data }) => {
         <SinglePercentDonutChart
           config={config}
           value={data?.value}
+          label={data?.key}
           height={100}
           width={'100%'}
         />

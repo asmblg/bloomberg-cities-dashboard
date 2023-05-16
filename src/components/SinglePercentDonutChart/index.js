@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ResponsiveContainer, PieChart, Pie, Cell, Label as PieLabel } from 'recharts';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
+
+import CustomTooltip from '../CustomTooltip';
 
 import './style.css';
 
-const SinglePercentDonutChart = ({ config, height, width, value }) => {
+const SinglePercentDonutChart = ({ config, height, width, value, label }) => {
   const dataArray = value
     ? [
       {
-        name: 'percentage',
+        name: label,
         value: parseFloat(value),
         fillColor: config?.color || '#333333'
       },
       {
-        name: 'percentage',
+        name: label,
         value: 100 - parseFloat(value),
         fillColor: config?.accentColor || '#dfe5e9'
       }
@@ -28,22 +30,27 @@ const SinglePercentDonutChart = ({ config, height, width, value }) => {
           dataKey={'value'}
           cx={'50%'}
           cy={'50%'}
-          // outerRadius={config?.radius?.outer || 60}
-          // innerRadius={config?.radius?.inner || 30}
           outerRadius={'80%'}
           innerRadius={'40%'}
           startAngle={-270}
           endAngle={90}
-        >
-          {config?.label ? (
-            <PieLabel opacity={0.5} position={'center'} value={config.label} />
-          ) : null}
+        > 
 
           {dataArray.map(({ fillColor, value }, i) => (
             <Cell key={`donut-chart-cell-${value}-${i}`} fill={fillColor} />
           ))}
         </Pie>
-        {/* <Tooltip content={() => renderTooltip(dataArray[0])} /> */}
+        {config?.tooltip && label ? (
+          <Tooltip 
+            content={
+              <CustomTooltip 
+                units={config.tooltip.units}
+                quarterDateFormat={config.tooltip.quarterDateFormat}
+                manifest={config.tooltip.manifest}
+              />
+            }
+          />
+        ) : null}
       </PieChart>
     </ResponsiveContainer>
   ) : null;
@@ -53,13 +60,8 @@ SinglePercentDonutChart.propTypes = {
   config: PropTypes.object,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  label: PropTypes.string
 };
-
-// function renderTooltip(data) {
-//   return data && data.name && data.value ? (
-//     <div className='chart-tooltip'>{`${data.name}: ${data.value}`}</div>
-//   ) : null;
-// }
 
 export default SinglePercentDonutChart;

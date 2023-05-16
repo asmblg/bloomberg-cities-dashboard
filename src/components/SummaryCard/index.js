@@ -104,7 +104,7 @@ const SummaryCard = ({
                   data={
                     chart.type !== 'donut'
                       ? allSummaryData
-                      : { key: units, value: summaryData.displayValue }
+                      : { key: summaryData.currentDate, value: summaryData.displayValue }
                   }
                 />
               ) : null}
