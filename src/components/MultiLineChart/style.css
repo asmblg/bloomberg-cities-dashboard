@@ -1,0 +1,5 @@
+.line-chart-yaxis-label {
+  text-anchor: middle;
+  font-size: 11px;
+  color: var(--black-color);
+}

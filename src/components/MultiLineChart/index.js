@@ -7,22 +7,22 @@ import {
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
-  ReferenceLine
+  ReferenceLine,
+  Label
 } from 'recharts';
 import CustomTooltip from '../CustomTooltip';
 import PropTypes from 'prop-types';
 
-// import CustomLabel from './subComponents/CustomLabel';
 import IndicatorDropdown from '../IndicatorDropdown';
 
 import { 
   handleDataArray,
   handleLineStyle, 
-  handleDataObject, 
-  // handleLabel 
+  handleDataObject,
+  handleLabelValue
 } from './utils';
 import formatValue from '../../utils/formatValue';
-// import calculateChartDomain from '../../utils/calculateChartDomain';
+import './style.css';
 
 const MultiLineChart = ({ config, data, getter, setter }) => {
   const [dataArray, setDataArray] = useState(null);
@@ -132,20 +132,20 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
             <YAxis
               domain={domain || selectedIndicator?.domain}
               tickFormatter={text => formatValue(text, selectedIndicator?.units || yaxis?.units)}
-              // label={yaxis?.label && !yaxis.labelFormatter ?
-              //   {
-              //     value: handleLabel(yaxis.label, selectedIndicator),
-              //     angle: -90,
-              //     position: 'center',
-              //     offset: 0
-              //   } : !yaxis?.label && yaxis?.labelFormatter ?
-              //     <CustomLabel
-              //       labelConfig={yaxis}
-              //       selectedIndicator={selectedIndicator}
-              //       getter={getter}
-              //     /> : null
-              // }
-            />
+            >
+              {yaxis?.labelFormatter ? (
+                <Label
+                  className='line-chart-yaxis-label'
+                  value={
+                    handleLabelValue(yaxis.labelFormatter, getter?.[getterKey?.selectedCategory])
+                  }
+                  angle={-90}
+                  position={'insideLeft'}
+                  offset={10}
+                  dx={-5}
+                />
+              ) : null}
+            </YAxis>
             <Tooltip 
               content={
                 <CustomTooltip 
@@ -196,8 +196,7 @@ MultiLineChart.propTypes = {
   data: PropTypes.object,
   config: PropTypes.object,
   getter: PropTypes.object,
-  setter: PropTypes.func,
-  // viewType: PropTypes.string
+  setter: PropTypes.func
 };
 
 export default MultiLineChart;

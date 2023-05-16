@@ -179,11 +179,11 @@ const handleLabelFormatter = (formatObject, variable) => {
   return label;
 };
 
-const handleLabel = (label, selectedIndicator) => {
-  if (label === 'indicator' && selectedIndicator?.label) {
-    return selectedIndicator.label;
+const handleLabelValue = (config, selectedCategory) => {
+  if (config?.[selectedCategory]) {
+    return config[selectedCategory];
   } else {
-    return label;
+    return '';
   }
 };
 
@@ -191,6 +191,6 @@ export {
   handleDataArray,
   handleLineStyle,
   handleDataObject,
-  handleLabel,
+  handleLabelValue,
   handleLabelFormatter
 };
