@@ -29,9 +29,9 @@ const CustomTooltip = ({
           payload
             .filter(({name}) => filter?.length > 0 ? filter.includes(name) : true)
             .reverse()
-            .map(({name, value, color, dataKey}, i) =>
+            .map(({name, value, color, dataKey, payload: innerPayload}, i) =>
               <p
-                style={{color: color }} 
+                style={{color: color || innerPayload?.fillColor }} 
                 key={`custom-tooltip-${label?.replace(/ /g, '-') || 'label'}-${name}-${i}`}>
                 {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}: {formatValue(value, units)}
               </p>
