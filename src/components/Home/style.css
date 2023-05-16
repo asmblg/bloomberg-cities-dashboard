@@ -20,7 +20,7 @@
   border-top: 2px solid var(--primary-gray-color);
   border-right: 2px solid var(--primary-gray-color);
   border-bottom: 2px solid var(--primary-gray-color);
-  padding: 2%;
+  padding: 10px;
 }
 
 .summary-header {
@@ -50,11 +50,8 @@
   }
 }
 
-@media screen and (max-height: 1000px) {
-  .home-wrapper {
-    /* height: auto; */
-  }
-}
+/* @media screen and (max-height: 1000px) {
+} */
 
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 920px) {

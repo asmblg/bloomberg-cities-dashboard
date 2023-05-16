@@ -133,7 +133,6 @@ a:hover {
 @media screen and (max-width: 760px) {
   .full-card-wrapper {
     margin: 10px 0;
-
   }
   .full-card-container {
     margin-left: var(--mobile-outer-margin);
@@ -149,4 +148,3 @@ a:hover {
     height: fit-content !important;
   }
 }
-

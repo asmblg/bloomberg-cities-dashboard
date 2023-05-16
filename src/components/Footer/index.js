@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import bloombergLogo from './images/bloomberg_associates.png';
-import { footerLogos } from './config';
+import config from './config';
 import './style.css';
 
-const Footer = ({ config }) => {
-  const { partners, copyright } = config;
+const Footer = () => {
+  const { partners, copyright, mainLogo } = config;
 
   return (
     <div className='footer-container'>
@@ -16,7 +16,7 @@ const Footer = ({ config }) => {
           target='_blank'
           rel='noreferrer'
         >
-          <img src={footerLogos.bloomberg} id='bloomberg-logo' />
+          <img src={mainLogo} id='bloomberg-logo' />
         </a>
         <p>
           <span>&#169;</span> {copyright}
@@ -25,15 +25,16 @@ const Footer = ({ config }) => {
       <div>
         <p>Data partners</p>
         <div className='partner-logos-container'>
-          {partners.map(({ name, key, url }) => (
+          {partners.map(({ name, key, url, logo }) => (
             <a
               key={`footer-partner-link-${key}`}
-              href={url || '/'} target='_blank'
+              href={url || '/'}
+              target='_blank'
               rel='noreferrer'
             >
               <img
                 className='partner-logo'
-                src={footerLogos[key]}
+                src={logo}
                 alt={`${name} Logo and link to website`}
                 id={`${key}-footer-logo`}
               />

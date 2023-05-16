@@ -20,8 +20,7 @@ const Layout = ({ config }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const { project, sections, footer, dashboardType } = config;
-  const sectionKeys = Object.keys(sections);
+  const sectionKeys = config ? Object.keys(config.sections) : null;
 
   useEffect(() => {
     const updateViewType = () => setViewType(handleViewType());
@@ -33,8 +32,8 @@ const Layout = ({ config }) => {
   }, []);
 
   useEffect(() => {
-    if (project && sectionKeys) {
-      const { section, redirect } = getCurrentRoute(project, sectionKeys, pathname);
+    if (config?.project && sectionKeys) {
+      const { section, redirect } = getCurrentRoute(config.project, sectionKeys, pathname);
       setSelectedLink(section);
 
       if (redirect) {
@@ -43,31 +42,37 @@ const Layout = ({ config }) => {
     }
   }, []);
 
-  console.log(viewType);
-
   return (
     <div id='layout'>
       <div id='content'>
-        <nav id='header-container'>
-          <Header
-            headerConfig={config.header}
-            project={project.toLowerCase()}
-            dashboardType={dashboardType}
-            sectionKeys={sectionKeys}
-            sections={sections}
-            viewType={viewType}
-            selectedLink={selectedLink}
-            setSelectedLink={setSelectedLink}
-          />
-        </nav>
-        <div id='scrollable-body'>
+        {config && pathname !== '/' ? (
+          <nav id='header-container'>
+            <Header
+              headerConfig={config.header}
+              project={config.project.toLowerCase()}
+              dashboardType={config.dashboardType}
+              sectionKeys={sectionKeys}
+              sections={config.sections}
+              viewType={viewType}
+              selectedLink={selectedLink}
+              setSelectedLink={setSelectedLink}
+            />
+          </nav>
+        ) : null}
+
+        <div
+          id='scrollable-body'
+          style={{
+            height: pathname !== '/' ? `calc(100vh - var(--${viewType}-header-height))` : '100%'
+          }}
+        >
           <div id='section-container'>
-            {viewType !== 'mobile' && selectedLink !== 'about' ? (
+            {viewType !== 'mobile' && selectedLink !== 'about' && config && pathname !== '/' ? (
               <SectionTabs
                 sectionKeys={sectionKeys}
-                sections={sections}
-                project={project}
-                dashboardType={dashboardType}
+                sections={config.sections}
+                project={config.project}
+                dashboardType={config.dashboardType}
                 selectedLink={selectedLink}
                 setSelectedLink={setSelectedLink}
                 viewType={viewType}
@@ -75,10 +80,10 @@ const Layout = ({ config }) => {
             ) : null}
 
             <SectionsRouter
-              project={project.toLowerCase()}
-              dashboardType={dashboardType}
+              project={config?.project.toLowerCase()}
+              dashboardType={config?.dashboardType}
               sectionKeys={sectionKeys}
-              sections={sections}
+              sections={config?.sections}
               viewType={viewType}
               trendDataType={trendDataType}
               setTrendDataType={setTrendDataType}
@@ -86,7 +91,7 @@ const Layout = ({ config }) => {
             />
           </div>
           <footer id='footer'>
-            <Footer config={footer} />
+            <Footer />
           </footer>
         </div>
       </div>

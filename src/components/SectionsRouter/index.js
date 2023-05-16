@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import LandingPage from '../LandingPage';
 import Home from '../Home';
 import DetailCard from '../DetailCard';
 
@@ -16,7 +17,9 @@ const SectionRouter = ({
   setSelectedLink
 }) => (
   <Routes>
-    { sectionKeys?.[0]
+    <Route path={'/'} element={<LandingPage viewType={viewType} />} />
+
+    {sectionKeys?.[0]
       ? sectionKeys.map(key =>
         key === 'home' ? (
           <Route

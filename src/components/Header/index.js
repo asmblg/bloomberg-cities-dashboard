@@ -30,9 +30,9 @@ const Header = ({
     <>
       <div id='dashboard-header'>
         <div className='title-container'>
-          <Link to={`/${project}`}>
+          <a href={`/${project}`}>
             <img id='header-logo' src={logoSrc} />
-          </Link>
+          </a>
         </div>
         <div className='about-container'>
           {viewType === 'mobile' ? (

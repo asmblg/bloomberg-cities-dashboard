@@ -1,17 +1,45 @@
-import bloombergLogo from './images/bloomberg_associates.png';
-import alignableLogo from './images/alignable.png';
-import blockLogo from './images/block.png';
-import deweyLogo from './images/dewey.png';
-import jllLogo from './images/jll.png';
-import dealroomLogo from './images/dealroom.png';
+import bloombergLogo from '../../assets/logos/bloomberg_associates.png';
+import alignableLogo from './logos/alignable.png';
+import blockLogo from './logos/block.png';
+import deweyLogo from './logos/dewey.png';
+import jllLogo from './logos/jll.png';
+import dealroomLogo from './logos/dealroom.png';
 
-const footerLogos = {
-  bloomberg: bloombergLogo,
-  alignable: alignableLogo,
-  block: blockLogo,
-  dewey: deweyLogo,
-  jll: jllLogo,
-  dealroom: dealroomLogo
+const footerConfig = {
+  mainLogo: bloombergLogo,
+  copyright: '2023 Bloomberg Associates. All Rights Reserved.',
+  partners: [
+    {
+      key: 'alignable',
+      name: 'Alignable',
+      url: 'https://www.alignable.com/',
+      logo: alignableLogo
+    },
+    {
+      key: 'jll',
+      name: 'JLL',
+      url: 'https://www.us.jll.com/',
+      logo: jllLogo
+    },
+    {
+      key: 'dewey',
+      name: 'Dewey',
+      url: 'https://www.deweydata.io/',
+      logo: deweyLogo
+    },
+    {
+      key: 'block',
+      name: 'Block',
+      url: 'https://block.xyz/',
+      logo: blockLogo
+    },
+    {
+      key: 'dealroom',
+      name: 'Dealroom.co',
+      url: ' https://dealroom.co/',
+      logo: dealroomLogo
+    }
+  ]
 };
 
-export { footerLogos };
+export default footerConfig;
