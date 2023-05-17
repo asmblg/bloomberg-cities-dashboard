@@ -30,8 +30,18 @@
   margin: 20px 0;
 }
 
+.summary-title-container {
+  display: flex;
+  align-items: center;
+}
+
+.summary-title-container > h5 {
+  font-size: 0.9rem;
+}
+
 .large-summary-title {
   font-family: 'RobotoBlack';
+  margin-right: 5px;
 }
 
 .summary-cards-container {

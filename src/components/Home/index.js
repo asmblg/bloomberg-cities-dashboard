@@ -6,7 +6,7 @@ import SummaryCard from '../SummaryCard';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
 import DataToggle from '../TrendDataToggle';
 
-import { handleHomeData } from './utils';
+import { handleHomeData, formatUpdatedOnDate } from './utils';
 // import dateToQuarter from '../../utils/dateToQuarter';
 import './style.css';
 
@@ -34,15 +34,29 @@ const Home = ({
       <div className='summary-wrapper'>
         <>
           <div role='heading' className='summary-header'>
-            <h1
-              className='large-summary-title'
-              style={{
-                color: config.tabStyle?.selectedColor || '#333333'
-              }}
-            >
-              {config.title.toUpperCase()} | {'Q1 2023'} UPDATE
-              {/* {config.title.toUpperCase()} | {dateToQuarter(data.updatedOn, 'QX YYYY')} UPDATE */}
-            </h1>
+            <div className='summary-title-container'>
+              <h1
+                className='large-summary-title'
+                style={{
+                  color: config.tabStyle?.selectedColor || '#333333'
+                }}
+              >
+                {'KEY INDICATORS'}
+              </h1>
+              {data?.updatedOn ? (
+                <>
+                  <h1
+                    className='large-summary-title'
+                    style={{
+                      color: config.tabStyle?.selectedColor || '#333333'
+                    }}>
+                    {'|'}
+                  </h1>
+                  <h5 style={{ opacity: 0.8 }}>{`LATEST UPDATE: ${formatUpdatedOnDate(data.updatedOn)}`}</h5>
+                </>
+              ) : null}
+            </div>
+            
             <DataToggle getter={trendDataType} setter={setTrendDataType} />
           </div>
           <div className='summary-cards-container'>
