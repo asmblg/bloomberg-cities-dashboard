@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
+import { TailSpin } from 'react-loader-spinner';
 
 import SelectorMap from '../SelectorMap';
 import TrendDataToggle from '../TrendDataToggle';
@@ -14,10 +15,9 @@ import IndicatorDropdown from '../IndicatorDropdown';
 import ComboLineAreaChart from '../ComboLineAreaChart';
 import UnderConstructionBox from '../UnderConstructionBox';
 import AboutProject from '../AboutTheData';
-import { TailSpin } from 'react-loader-spinner';
+import SectionTitle from '../SectionTitle';
 
 import { handleElementStyle } from './utils';
-import './style.css';
 
 const FlexLayoutElement = ({
   data,
@@ -25,8 +25,11 @@ const FlexLayoutElement = ({
   getter,
   layout,
   project,
+  selectedLink,
   setSelectedLink,
-  viewType
+  viewType,
+  infoIconConfig,
+  setInfoIconConfig
 }) => {
   const { 
     columns,
@@ -69,7 +72,10 @@ const FlexLayoutElement = ({
             getter={getter}
             layout={element}
             project={project}
+            selectedLink={selectedLink}
             setSelectedLink={setSelectedLink}
+            infoIconConfig={infoIconConfig}
+            setInfoIconConfig={setInfoIconConfig}
             viewType={viewType}
           />
         ))
@@ -77,19 +83,17 @@ const FlexLayoutElement = ({
         <SelectorMap project={project} config={content.config} setter={setter} />
       ) : content.type === 'trend-data-toggler' ? (
         <TrendDataToggle config={content.config} getter={getter} setter={setter} />
-      ) : content.type === 'title-with-trend-data-toggler' ? (
-        <div className='title-with-trend-data-toggler'>
-          {content?.config?.title ? (
-            <h1 className='detail-card-title' style={content.config.titleStyle || {}}>
-              {content.config?.title?.toUpperCase() || ''}
-            </h1>
-          ) : null}
-          <TrendDataToggle
-            config={content.config}
-            getter={getter}
-            setter={setter}
-          />
-        </div>
+      ) : content.type === 'title-with-trend-data-toggler' && content?.config ? (
+        <SectionTitle
+          config={content.config}
+          setInfoIconConfig={setInfoIconConfig}
+          selectedLink={selectedLink}
+          setSelectedLink={setSelectedLink}
+          project={project}
+          getter={getter}
+          setter={setter}
+          toggler
+        />
       ) : content.type === 'indicator-trend-box' ? (
         <IndicatorTrendBox
           data={data}
@@ -162,8 +166,8 @@ const FlexLayoutElement = ({
         <AboutProject
           config={content.config}
           project={project}
-          setSelectedLink={setSelectedLink}
           viewType={viewType}
+          infoIconConfig={infoIconConfig}
         />
       ) : <TailSpin />}
     </div>
@@ -176,8 +180,11 @@ FlexLayoutElement.propTypes = {
   getter: PropTypes.object,
   layout: PropTypes.object,
   project: PropTypes.string,
+  selectedLink: PropTypes.string,
   setSelectedLink: PropTypes.func,
-  viewType: PropTypes.string
+  viewType: PropTypes.string,
+  infoIconConfig: PropTypes.object,
+  setInfoIconConfig: PropTypes.func
 };
 
 export default FlexLayoutElement;

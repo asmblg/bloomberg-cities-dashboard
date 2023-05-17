@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import SinglePercentDonutChart from '../SinglePercentDonutChart';
-import InfoIcon from '../InfoIcon';
+// import InfoIcon from '../InfoIcon';
 import TrendPill from '../TrendPill';
 
 import { handleTrendDisplayData } from './utils';
@@ -85,7 +85,7 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
               <h4>{dateToQuarter(indicatorTrendData.currentDate, 'QX YYYY')}</h4>
             </div>
           </div>
-          <InfoIcon config={selectedIndicator} />
+          {/* <InfoIcon config={selectedIndicator} /> */}
         </div>
         <TrendPill
           currentValue={indicatorTrendData.currentValue}

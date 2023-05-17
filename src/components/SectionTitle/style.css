@@ -1,0 +1,51 @@
+.section-title-with-trend-data-toggler {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-title-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+
+.section-title-text {
+  font-family: 'RobotoBlack';
+  margin-right: 10px;
+  font-size: 1.9rem;
+}
+
+/* ---------- Media Queries ---------- */
+@media screen and (max-width: 1000px) {
+  .section-title-text {
+    font-size: 1.75rem;
+  }
+}
+
+/* Initial Tablet Breakpoint */
+@media screen and (max-width: 920px) {
+  .section-title-text {
+    font-size: 1.9rem;
+  }
+}
+
+/* Initial Mobile Breakpoint */
+@media screen and (max-width: 760px) {
+  .section-title-with-trend-data-toggler {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .section-title-container {
+    padding-bottom: 0 !important;
+  }
+
+  .section-title-text {
+    font-size: 1.5rem;
+  }
+}

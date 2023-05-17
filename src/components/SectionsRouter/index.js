@@ -14,6 +14,7 @@ const SectionRouter = ({
   // dashboardType,
   trendDataType,
   setTrendDataType,
+  selectedLink,
   setSelectedLink
 }) => (
   <Routes>
@@ -49,6 +50,7 @@ const SectionRouter = ({
                 viewType={viewType}
                 trendDataType={trendDataType}
                 setTrendDataType={setTrendDataType}
+                selectedLink={selectedLink}
                 setSelectedLink={setSelectedLink}
               />
             }
@@ -67,6 +69,7 @@ SectionRouter.propTypes = {
   viewType: PropTypes.string,
   trendDataType: PropTypes.string,
   setTrendDataType: PropTypes.func,
+  selectedLink: PropTypes.string,
   setSelectedLink: PropTypes.func
 };
 

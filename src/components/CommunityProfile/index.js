@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import IndicatorListSection from './subComponents/IndicatorListSection';
 import IndicatorMap from '../IndicatorMap';
 import DonutWithLegend from './subComponents/DonutWithLegend';
-import InfoIcon from '../InfoIcon';
+// import InfoIcon from '../InfoIcon';
 
 import { handleCpData } from './utils';
 import { getTractGeoJSON } from '../../utils/API';
@@ -48,12 +48,12 @@ const CommunityProfile = ({ config, detailData, project, viewType }) => {
                   <IndicatorMap config={c} geoJSON={geoJSON} />
                 ) : null
               ) : type === 'donut-charts' && c.donuts && c.donuts[0] ? (
-                c.donuts.map(({ title, indicators, colors, description, source }, i) => (
+                c.donuts.map(({ title, indicators, colors }, i) => (
                   <>
                     <div key={`cp-donut-${i}`} className='cp-chart-container'>
                       <div className='cp-chart-header'>
                         <h3>{title.toUpperCase()}</h3>
-                        <InfoIcon config={{ description, source }} />
+                        {/* <InfoIcon config={{ description, source }} /> */}
                       </div>
                       <DonutWithLegend
                         title={title}

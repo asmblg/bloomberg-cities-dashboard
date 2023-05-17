@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import TrendPill from '../../TrendPill';
-import InfoIcon from '../../InfoIcon';
+// import InfoIcon from '../../InfoIcon';
 
 import { handleCalculator } from '../utils';
 import addCalculatedIndicatorToDataObj from '../../../utils/addCalculatedIndicatorToDataObj';
@@ -27,7 +27,7 @@ const IndicatorListSection = ({ config, data, yearKeys }) => {
                 >
                   <div className='title-info-container'>
                     <h5>{indicator.label.toUpperCase() || ''}</h5>
-                    <InfoIcon config={indicator} />
+                    {/* <InfoIcon config={indicator} /> */}
                   </div>
                   <h2 className='bold-font'>{formatValue(value, indicator.units)}</h2>
                 </div>
@@ -58,7 +58,7 @@ const IndicatorListSection = ({ config, data, yearKeys }) => {
                     positiveTrendDirection={indicator.positiveTrendDirection}
                     // displayCompareText
                   />
-                  <InfoIcon config={indicator} />
+                  {/* <InfoIcon config={indicator} /> */}
                 </div>
               </div>
             );

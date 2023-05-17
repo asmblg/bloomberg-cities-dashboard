@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import InfoIcon from '../InfoIcon';
+// import InfoIcon from '../InfoIcon';
 
 import { handleDisplayObject } from './utils';
 import formatValue from '../../utils/formatValue';
@@ -45,7 +45,7 @@ const SimpleIndicatorBox = ({ data, config, getter }) => {
             <h5>{selectedIndicator.subLabel}</h5>
           ) : null}
         </div>
-        <InfoIcon config={selectedIndicator} />
+        {/* <InfoIcon config={selectedIndicator} /> */}
       </div>
       <h1 className='bold-font'>
         {formatValue(displayObject.value, selectedIndicator.units)}

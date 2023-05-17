@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Popup } from 'semantic-ui-react';
+import { Popup, Icon } from 'semantic-ui-react';
 
-import infoIcon from './icons/info.png';
 import './style.css';
 
-const InfoIcon = ({ config }) =>
-  config?.variableDescription || config?.source ? (
+const InfoIcon = ({ config, popup, onClick }) =>
+  popup && (config?.variableDescription || config?.source) ? (
     <Popup
       position='top center'
       on={'click'}
-      trigger={<img className='info-icon' src={infoIcon} />}
+      trigger={<Icon name='info circle' className='info-icon' />}
     >
       <Popup.Content>
         {config.description ? (
@@ -20,10 +19,16 @@ const InfoIcon = ({ config }) =>
         {config.source ? <h5>{`Source: ${config.source}`}</h5> : null}
       </Popup.Content>
     </Popup>
-  ) : null;
+  ) : (
+    <div onClick={() => onClick ? onClick() : null}>
+      <Icon name='info circle' className='info-icon' />
+    </div>
+  );
 
 InfoIcon.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  popup: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 export default InfoIcon;

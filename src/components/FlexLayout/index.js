@@ -17,7 +17,10 @@ const FlexLayout = ({
   data, 
   project,
   viewType,
-  setSelectedLink
+  selectedLink,
+  setSelectedLink,
+  infoIconConfig,
+  setInfoIconConfig
 }) => {
   const [getter, setter] = useState(initialState || {});
   const elementArray = columns || rows;
@@ -58,12 +61,13 @@ const FlexLayout = ({
           data={data}
           project={project}
           layout={element}
-          // height={height}
-          // width={width}
           setter={handleSetter}
           getter={getter}
+          selectedLink={selectedLink}
           setSelectedLink={setSelectedLink}
           viewType={viewType}
+          infoIconConfig={infoIconConfig}
+          setInfoIconConfig={setInfoIconConfig}
         />
       ))}
     </div>
@@ -76,7 +80,10 @@ FlexLayout.propTypes = {
   project: PropTypes.string,
   initialState: PropTypes.object,
   viewType: PropTypes.string,
-  setSelectedLink: PropTypes.func
+  selectedLink: PropTypes.string,
+  setSelectedLink: PropTypes.func,
+  infoIconConfig: PropTypes.object,
+  setInfoIconConfig: PropTypes.func
 };
 
 export default FlexLayout;

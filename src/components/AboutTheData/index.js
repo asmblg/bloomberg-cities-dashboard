@@ -1,45 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
+import { handleScroll } from './utils';
 import './style.css';
 
-const AboutTheData = ({ config, project, setSelectedLink, viewType }) => {
-  const navigate = useNavigate();
-
-  const handleScroll = () => {
-    const container = document.querySelector('.about-table-vars-container');
-    const opaqueElement = document.querySelector('#opaque-el');
-    const pxTolerance = 1;
-    const isAtBottom =
-      container.scrollHeight - container.scrollTop <= container.clientHeight - pxTolerance;
-
-    if (!isAtBottom) {
-      opaqueElement.style.bottom = `${-container.scrollTop}px`;
-    } else {
-      opaqueElement.style.bottom = '0';
-    }
-  };
-
+const AboutTheData = ({ config, project, viewType, infoIconConfig }) => {
   return (
     <div className='about-data-container'>
-      <div className='detail-card-header'>
-        {config?.title ? (
-          <h1 className='detail-card-title' style={config.titleStyle || {}}>
-            {config.title.toUpperCase() || ''}
-          </h1>
-        ) : null}
-        <div
+      <div className='about-data-header'>
+        <h1
+          className='about-data-title'
+          style={{ color: infoIconConfig?.aboutDataTitleColor || 'var(--black-color)' }}
+        >
+          {infoIconConfig?.title
+            ? infoIconConfig.title.toUpperCase()
+            : config?.title
+              ? config.title.toUpperCase()
+              : 'ABOUT THE DATA'}
+        </h1>
+        <a
           className='about-back-link'
-          onClick={() => {
-            setSelectedLink('home');
-            navigate(`/${project}`);
-          }}
+          href={infoIconConfig?.tab ? `/${project}/${infoIconConfig.tab}` : `/${project}`}
         >
           <h5>{'BACK TO DASHBOARD'}</h5>
-          <Icon size='large' name='close' />
-        </div>
+          <div>
+            <Icon size={viewType !== 'mobile' ? '' : 'small'} name='close' />
+          </div>
+        </a>
       </div>
       {config?.variableTable?.headerRow?.[0] && config.variableTable.variables?.[0] ? (
         <div className='about-table-container'>
@@ -51,26 +39,28 @@ const AboutTheData = ({ config, project, setSelectedLink, viewType }) => {
             ))}
           </div>
           <div role='table' className='about-table-vars-container' onScroll={() => handleScroll()}>
-            <table className='about-table'>
-              {config.variableTable.variables.map((variable, i) => (
-                <tr key={`variable-row-${i}`} className='about-table-row'>
-                  {config.variableTable.headerRow.map((obj, ii) => (
-                    <td
-                      key={`variable-${i}-data-${ii}`}
-                      style={obj.key === 'variable' ? { fontWeight: 'bold' } : {}}
-                    >
-                      {obj.key === 'source' && variable.source_link ? (
-                        <a href={variable.source_link} target='_blank' rel='noreferrer'>
-                          {variable[obj.key]}
-                        </a>
-                      ) : (
-                        variable[obj.key]
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </table>
+            <div className='about-table'>
+              {config.variableTable.variables
+                .filter(({ Tab }) => (infoIconConfig?.tab ? infoIconConfig.tab === Tab : true))
+                .map((variable, i) => (
+                  <div key={`variable-row-${i}`} className='about-table-row'>
+                    {config.variableTable.headerRow.map((obj, ii) => (
+                      <div
+                        key={`variable-${i}-data-${ii}`}
+                        style={obj.key === 'Variable' ? { fontFamily: 'RobotoBold' } : {}}
+                      >
+                        {obj.key === 'source' && variable.source_link ? (
+                          <a href={variable.source_link} target='_blank' rel='noreferrer'>
+                            {variable[obj.key]}
+                          </a>
+                        ) : (
+                          variable[obj.key]
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+            </div>
             {viewType === 'desktop' ? <div id='opaque-el' /> : null}
           </div>
         </div>
@@ -83,7 +73,8 @@ AboutTheData.propTypes = {
   config: PropTypes.object,
   project: PropTypes.string,
   viewType: PropTypes.string,
-  setSelectedLink: PropTypes.func
+  setSelectedLink: PropTypes.func,
+  infoIconConfig: PropTypes.object
 };
 
 export default AboutTheData;

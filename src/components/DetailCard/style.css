@@ -1,15 +1,3 @@
-.detail-card-header {
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.detail-card-title {
-  font-family: 'RobotoBlack';
-}
-
 .detail-card-container {
   display: flex;
   flex-direction: column;

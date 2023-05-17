@@ -87,6 +87,7 @@ const Layout = ({ config }) => {
               viewType={viewType}
               trendDataType={trendDataType}
               setTrendDataType={setTrendDataType}
+              selectedLink={selectedLink}
               setSelectedLink={setSelectedLink}
             />
           </div>

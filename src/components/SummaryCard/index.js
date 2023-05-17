@@ -64,7 +64,9 @@ const SummaryCard = ({
           <h4 className='summary-card-header-text'>
             {label.toUpperCase()}
           </h4>
-          <InfoIcon config={config?.indicator} />
+          <div>
+            <InfoIcon config={config?.indicator} popup />
+          </div>
         </div>
 
         {viewType === 'mobile' && !cardFullSize ? (

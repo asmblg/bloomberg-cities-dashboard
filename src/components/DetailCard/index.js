@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from 'react';
+// import { Icon } from 'semantic-ui-react';
+// import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import CommunityProfile from '../CommunityProfile';
 import FlexLayout from '../FlexLayout';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
-// import LastUpdateIcon from '../LastUpdateIcon';
-// import getNestedValue from '../../utils/getNestedValue';
-// import { getData } from '../../utils/API';
+// import InfoIcon from '../InfoIcon';
+import SectionTitle from '../SectionTitle';
 
 import { handleDetailData } from './utils';
 import './style.css';
 
-const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink }) => {
+const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, selectedLink }) => {
   const [detailData, setDetailData] = useState(null);
+  const [infoIconConfig, setInfoIconConfig] = useState({
+    title: '',
+    aboutDataTitleColor: '',
+    tab: ''
+  });
+  // const navigate = useNavigate();
+
+  // console.log(selectedLink);
 
   useEffect(() => {
     handleDetailData(config, project).then(dataObj => {
@@ -24,32 +33,30 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink }) 
 
   return (
     <div key={`${sectionKey}-detail-card`} className='full-card-wrapper'>
-      <div className='full-card-container detail-card-container' style={config.layout?.noTabs ? {height: 'calc(100vh - 250px'} : {}}>
+      <div
+        className='full-card-container detail-card-container'
+        style={config.layout?.noTabs ? { height: 'calc(100vh - 250px' } : {}}
+      >
         {sectionKey !== 'about' && viewType !== 'mobile' ? (
           <div
             style={{
               width: '100%',
               height: '50px',
-              backgroundColor: config.tabStyle?.selectedColor || '#ffffff',
+              backgroundColor: config.tabStyle?.selectedColor || '#ffffff'
             }}
           />
         ) : null}
-       
+
         {config.title ? (
-          <div className='detail-card-header'>
-            <h1
-              className='detail-card-title'
-              style={{
-                color: config.tabStyle?.selectedColor || '#333333'
-              }}
-            >
-              {config.title.toUpperCase()}
-            </h1>
-            {/* {detailData?.updatedOn && config.displayUpdateDate ? (
-              <LastUpdateIcon date={detailData.updatedOn} width={'auto'} />
-            ) : null} */}
-          </div>
+          <SectionTitle
+            config={config}
+            setInfoIconConfig={setInfoIconConfig}
+            selectedLink={selectedLink}
+            setSelectedLink={setSelectedLink}
+            project={project}
+          />
         ) : null}
+
         {sectionKey === 'community' ? (
           <CommunityProfile
             project={project}
@@ -58,14 +65,17 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink }) 
             viewType={viewType}
           />
         ) : config.layout && detailData ? (
-          <FlexLayout 
+          <FlexLayout
             key={`flex-layout-${sectionKey}`}
-            initialState={config?.initialState} 
-            data={detailData.data} 
-            layout={config?.layout} 
+            initialState={config?.initialState}
+            data={detailData.data}
+            layout={config?.layout}
             project={project}
             viewType={viewType}
+            selectedLink={selectedLink}
             setSelectedLink={setSelectedLink}
+            infoIconConfig={infoIconConfig}
+            setInfoIconConfig={setInfoIconConfig}
           />
         ) : null}
         <ShareAndPrintIcons />
@@ -81,6 +91,7 @@ DetailCard.propTypes = {
   viewType: PropTypes.string,
   trendDataType: PropTypes.string,
   setTrendDataType: PropTypes.func,
+  selectedLink: PropTypes.string,
   setSelectedLink: PropTypes.func
 };
 
