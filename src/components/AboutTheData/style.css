@@ -74,7 +74,7 @@
   justify-content: center;
 }
 
-.about-table-row > div > a:hover {
+.source-link:hover {
   opacity: 0.8;
 }
 

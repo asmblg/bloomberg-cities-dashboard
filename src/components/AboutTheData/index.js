@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
+import SourceLink from './subComponents/SourceLink';
+
 import { handleScroll } from './utils';
 import './style.css';
 
@@ -49,10 +51,12 @@ const AboutTheData = ({ config, project, viewType, infoIconConfig }) => {
                         key={`variable-${i}-data-${ii}`}
                         style={obj.key === 'Variable' ? { fontFamily: 'RobotoBold' } : {}}
                       >
-                        {obj.key === 'source' && variable.source_link ? (
-                          <a href={variable.source_link} target='_blank' rel='noreferrer'>
-                            {variable[obj.key]}
-                          </a>
+                        {obj.key === 'Source' ? (
+                          <SourceLink
+                            source={variable[obj.key]}
+                            link1={variable.Source_link}
+                            link2={variable.Source_link_2}
+                          />
                         ) : (
                           variable[obj.key]
                         )}
