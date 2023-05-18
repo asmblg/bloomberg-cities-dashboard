@@ -4,6 +4,21 @@
 
 .info-icon:hover {
   cursor: pointer;
+  opacity: 0.8;
+}
+
+.info-icon-popup-container > * {
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.info-icon-text-container > * {
+  font-family: 'RobotoRegular';
+}
+
+.info-icon-text-container > *,
+.info-icon-popup-text {
+  font-size: 12px;
 }
 
 /* ---------- Media Queries ---------- */

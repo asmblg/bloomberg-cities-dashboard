@@ -22,7 +22,6 @@ const SummaryCard = ({
   setSelectedLink,
   trendDataType
 }) => {
-  // console.log(data);
   const { chart, dataPath, key, label, units, summary } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
@@ -35,20 +34,20 @@ const SummaryCard = ({
   const scrollToRef = useRef();
   const navigate = useNavigate();
   const allSummaryData = getNestedValue(data, summary?.dataPath || dataPath, key);
-  const route = `/${project}/${cardKey}`;
+  // Handles issue with there being newbusiness data but the actual section on the dashboard is smallbusiness
+  const sectionKey = cardKey === 'newbusiness' ? 'smallbusiness' : cardKey;
+  const route = `/${project}/${sectionKey}`;
 
   useEffect(() => {
     if (data && allSummaryData) {
-      setSummaryData(createCompareDataObject(summary?.calculator, allSummaryData, trendDataType, summary?.filter));
+      setSummaryData(
+        createCompareDataObject(summary?.calculator, allSummaryData, trendDataType, summary?.filter)
+      );
     }
   }, [allSummaryData, trendDataType]);
 
   return (
-    <div
-      id={`${key}-summary-card`}
-      ref={scrollToRef}
-      className='summary-card'
-    >
+    <div id={`${key}-summary-card`} ref={scrollToRef} className='summary-card'>
       <div className='summary-card-header' role='heading'>
         <div className='summary-card-title'>
           {viewType === 'mobile' ? (
@@ -61,9 +60,7 @@ const SummaryCard = ({
               }}
             />
           ) : null}
-          <h4 className='summary-card-header-text'>
-            {label.toUpperCase()}
-          </h4>
+          <h4 className='summary-card-header-text'>{label.toUpperCase()}</h4>
           <div>
             <InfoIcon config={config?.indicator} popup />
           </div>
@@ -87,15 +84,17 @@ const SummaryCard = ({
             className='summary-data-wrapper'
             onClick={() => {
               // if (label !== 'Venture Capital Investment') {
-              setSelectedLink(cardKey);
+              setSelectedLink(sectionKey);
               navigate(route);
               // }
             }}
           >
             <div className='summary-data bold-font'>
-              <h1 className='bold-font'>{summaryData.displayValue ?
-                formatValue(summaryData.displayValue, config?.summary?.trendUnits) 
-                : '-'}</h1>
+              <h1 className='bold-font'>
+                {summaryData.displayValue
+                  ? formatValue(summaryData.displayValue, config?.summary?.trendUnits)
+                  : '-'}
+              </h1>
               {units ? <h5 className='summary-units'>{units}</h5> : null}
             </div>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
-import SourceLink from './subComponents/SourceLink';
+import SourceLink from '../SourceLink';
 
 import { handleScroll } from './utils';
 import './style.css';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import '../style.css';
+import './style.css';
 
 const SourceLink = ({ source, link1, link2 }) => {
   if (source && link1 && !link2) {
