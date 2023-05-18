@@ -59,7 +59,10 @@ const handleData = (config, data) => {
         dataArray.push(formattedObj);
       });
 
-    return dataArray;
+    // Sort by Name 
+    return dataArray.sort((a,b) => 
+      parseInt(a.name.replace('-Q', '')) - parseInt(b.name.replace('-Q', ''))
+    );
 
   }
   else {
