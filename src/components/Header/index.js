@@ -68,12 +68,12 @@ const Header = ({
       {viewType === 'mobile' && menuOpen ? (
         <nav className='nav-dropdown-menu'>
           {sectionKeys.map(key => (
-            <Link
+            <a
               className={`nav-link ${
                 key === selectedLink ? 'selected-nav-link' : 'unselected-nav-link'
               }`}
               key={`nav-link-${key}`}
-              to={
+              href={
                 key === 'home'
                   ? `/${project}`
                   : `/${project}/${key}`
@@ -88,7 +88,7 @@ const Header = ({
               ) : (
                 sections[key].label
               )}
-            </Link>
+            </a>
           ))}
         </nav>
       ) : null}
