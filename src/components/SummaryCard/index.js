@@ -68,6 +68,7 @@ const SummaryCard = ({
 
         {viewType === 'mobile' && !cardFullSize ? (
           <TrendPill
+            positiveTrendDirection={summary?.positiveTrendDirection}
             currentValue={summaryData.currentValue}
             compareValue={summaryData.compareValue}
             compareDate={summaryData.compareDate}
@@ -113,6 +114,7 @@ const SummaryCard = ({
           </div>
           {viewType !== 'mobile' || cardFullSize ? (
             <TrendPill
+              positiveTrendDirection={summary?.positiveTrendDirection}
               currentValue={summaryData.currentValue}
               compareValue={summaryData.compareValue}
               compareDate={summaryData.compareDate}

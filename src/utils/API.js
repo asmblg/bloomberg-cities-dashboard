@@ -9,7 +9,7 @@ const getConfig = async (projectCity) => {
     }
   });
 
-  return res.data[0];
+  return res?.data?.[0];
 
   // LOCAL CONFIG FOR DEV
   // const res = config;
