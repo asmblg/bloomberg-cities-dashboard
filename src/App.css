@@ -67,6 +67,13 @@ a:hover {
   justify-content: flex-start;
 }
 
+.section-bottom-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* width: 100%; */
+}
+
 .chart-tooltip {
   background-color: var(--white-color);
   border: 1px solid var(--primary-gray-color);

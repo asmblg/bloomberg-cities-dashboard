@@ -78,7 +78,11 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
             setInfoIconConfig={setInfoIconConfig}
           />
         ) : null}
-        <ShareAndPrintIcons />
+        {/* <div className='section-bottom-container' style={{ margin: '10px' }}> */}
+        <div style={{ margin: '10px', position: 'relative' }}>
+          {/* <div>text</div> */}
+          <ShareAndPrintIcons />
+        </div>
       </div>
     </div>
   );

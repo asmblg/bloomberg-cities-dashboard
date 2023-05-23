@@ -1,5 +1,6 @@
 .about-data-container {
   position: relative;
+  min-height: 500px;
 }
 
 .about-data-header {
@@ -93,6 +94,10 @@
 
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 767px) {
+  .about-data-container {
+    min-height: 350px;
+  }
+
   .about-data-header {
     padding: 10px 0;
   }
