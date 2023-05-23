@@ -3,17 +3,24 @@ import PropTypes from 'prop-types';
 
 const MapEvents = ({
   setter,
-  options
+  options,
+  active
 }) => {
-  const map = useMapEvents({
-    click: () => console.log(setter, options, map)
+  useMapEvents({
+
+    click: () =>{
+      if (active)  {
+        setter(null, options[0]);
+      }
+    }
   });
   return null;
 };
 
 MapEvents.propTypes = {
   setter: PropTypes.func,
-  options: PropTypes.array
+  options: PropTypes.array,
+  active: PropTypes.bool
 };
 
 export default MapEvents;
