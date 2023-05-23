@@ -22,7 +22,7 @@ const SummaryCard = ({
   setSelectedLink,
   trendDataType
 }) => {
-  const { chart, dataPath, key, label, units, summary } = config;
+  const { chart, dataPath, key, label, units, summary, indicator } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
     displayValue: null,
@@ -52,7 +52,7 @@ const SummaryCard = ({
         <div className='summary-card-title'>
           {viewType === 'mobile' ? (
             <Icon
-              name={`angle ${cardFullSize ? 'up' : 'down'}`}
+              name={`angle ${cardFullSize ? 'down' : 'up'}`}
               link
               onClick={() => {
                 setCardFullSize(!cardFullSize);
@@ -79,6 +79,12 @@ const SummaryCard = ({
           />
         ) : null}
       </div>
+      {indicator?.Geography &&
+      (viewType === 'desktop' ||
+        viewType === 'tablet' ||
+        (viewType === 'mobile' && cardFullSize)) ? (
+          <h5 className='summary-card-sub-header'>{indicator.Geography}</h5>
+        ) : null}
       {viewType !== 'mobile' || cardFullSize ? (
         <>
           <div

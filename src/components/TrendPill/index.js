@@ -24,12 +24,13 @@ const TrendPill = ({
   const widthVal = width ? (typeof width === 'number' ? `${width}px` : width) : null;
 
   return (
-    <div className='trend-display-wrapper'> {
-      currentValue && compareValue && compareDate ? 
+    <div className='trend-display-wrapper'>
+      {currentValue && compareValue && compareDate ? (
         <>
           <div
             className={
-              positiveTrendDirection === 'down' && trendDirection === 'down' || positiveTrendDirection === 'up' && trendDirection === 'up'
+              (positiveTrendDirection === 'down' && trendDirection === 'down') ||
+              (positiveTrendDirection === 'up' && trendDirection === 'up')
                 ? 'upward-trend'
                 : 'downward-trend'
             }
@@ -39,14 +40,13 @@ const TrendPill = ({
             <p className='trend-pill-text'>{trendValue}</p>
           </div>
           {displayCompareText ? (
-            <p className='trend-pill-text'>{`vs ${formatValue(compareValue, units)} in ${dateToQuarter(
-              compareDate,
-              'QX YYYY'
-            )}`}</p>
+            <p className='trend-pill-text' style={{ opacity: '0.8' }}>{`vs ${formatValue(
+              compareValue,
+              units
+            )} in ${dateToQuarter(compareDate, 'QX YYYY')}`}</p>
           ) : null}
         </>
-        : null
-    }
+      ) : null}
     </div>
   );
 };

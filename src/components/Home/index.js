@@ -29,7 +29,7 @@ const Home = ({
   return (
     <div className='home-wrapper'>
       <div className='overview-wrapper'>
-        <OverviewCard viewType={viewType} config={overview} />
+        <OverviewCard viewType={viewType} config={overview} project={project} />
       </div>
       <div className='summary-wrapper'>
         <>
@@ -49,14 +49,17 @@ const Home = ({
                     className='large-summary-title'
                     style={{
                       color: config.tabStyle?.selectedColor || '#333333'
-                    }}>
+                    }}
+                  >
                     {'|'}
                   </h1>
-                  <h5 style={{ opacity: 0.8 }}>{`LATEST UPDATE: ${formatUpdatedOnDate(data.updatedOn)}`}</h5>
+                  <h5 style={{ opacity: 0.8 }}>{`LATEST UPDATE: ${formatUpdatedOnDate(
+                    data.updatedOn
+                  )}`}</h5>
                 </>
               ) : null}
             </div>
-            
+
             <DataToggle getter={trendDataType} setter={setTrendDataType} />
           </div>
           <div className='summary-cards-container'>
@@ -75,8 +78,10 @@ const Home = ({
             ))}
           </div>
         </>
+        <div>
+          <ShareAndPrintIcons />
+        </div>
       </div>
-      <ShareAndPrintIcons />
     </div>
   );
 };

@@ -1,47 +1,25 @@
 .share-print-icons {
-  /* display: flex;
-  justify-content: flex-end; */
-  position: fixed;
-  bottom: 180px;
-  right: calc(var(--desktop-outer-margin) + 15px);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   z-index: 99999999;
 }
 
-.share-print-icons > img {
-  margin: 10px;
-  width: 30px;
-  opacity: 0.5;
+.sap-icon {
+  background-color: var(--secondary-gray-color);
+  /* color: var(--black-color); */
+  color: var(--white-color);
+  box-shadow: none !important;
 }
 
-.share-print-icons > img:hover {
+.sap-icon:hover {
+  opacity: 0.85;
   cursor: pointer;
-  opacity: 1;
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 920px) {
-  .share-print-icons {
-    bottom: 260px;
-    right: 50px;
-  }
-
-  .share-print-icons > img {
-    width: 24px;
-    opacity: 0.8;
-  }
-
-
-}
+/* @media screen and (max-width: 920px) {} */
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 760px) {
-  .share-print-icons {
-    bottom: 225px;
-    right: 10px;
-  }
-  .share-print-icons > img {
-    width: 18px;
-    margin: 5px;
-  }
-}
+/* @media screen and (max-width: 760px) {} */
