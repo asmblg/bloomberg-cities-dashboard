@@ -78,7 +78,7 @@ const SelectorMap = ({ project, config, setter }) => {
       />
       <div className='selector-map'>
         <MapContainer
-          // key={`${selection.key}-selector-map`}
+          key={'selector-map'}
           center={config.center}
           zoom={config.zoom}
           zoomControl={true}
@@ -86,7 +86,7 @@ const SelectorMap = ({ project, config, setter }) => {
           // dragging={false}
           // doubleClickZoom={false}
           zoomSnap={.25}
-          
+          zoomDelta={.25}          
         >
           <MapEvents 
             setter={handleSetSelection}

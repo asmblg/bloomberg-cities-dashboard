@@ -44,6 +44,32 @@
   margin-right: 10px;
 }
 
+.indicator-map-tooltip {
+  width: 120px;
+  padding: 5px;
+  text-align: center;
+  /* text-overflow: ellipsis; */
+}
+
+.indicator-map-tooltip > p {
+  max-width: 110px;
+  white-space: pre-wrap;
+  word-wrap: normal;
+  margin: 0 0 10px 0;
+  padding: 0;
+  /* line-height: 10px;
+  font-size: .9rem; */
+}
+
+.indicator-map-tooltip > strong {
+  max-width: 110px;
+  /* white-space: pre-wrap;
+  word-wrap: normal; */
+  /* margin: 10px 0 0 0; */
+  /* padding: 0; */
+  /* line-height: 10px; */
+  font-size: .9rem;
+}
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Desktop Breakpoint */
 @media screen and (max-width: 1465px) {

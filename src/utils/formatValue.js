@@ -48,7 +48,7 @@ const formatValue = (value, units) => {
       }
 
       default: {
-        return formatNumberWithCommas(value);
+        return `${formatNumberWithCommas(value)}${units ? ` ${units}` : ''}`;
       }
     }
   }
