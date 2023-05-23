@@ -29,7 +29,7 @@ const Home = ({
   return (
     <div className='home-wrapper'>
       <div className='overview-wrapper'>
-        <OverviewCard viewType={viewType} config={overview} />
+        <OverviewCard viewType={viewType} config={overview} project={project} />
       </div>
       <div className='summary-wrapper'>
         <>
