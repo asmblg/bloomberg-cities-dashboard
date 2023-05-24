@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { 
+import {
   BarChart,
   XAxis,
   YAxis,
@@ -20,16 +20,8 @@ import { handleDataArray, handleDefaultIndicator } from './utils';
 
 const CompareColumnChart = ({ config, data, getter, setter }) => {
   const [dataArray, setDataArray] = useState([]);
-  const {
-    fixedIndicator,
-    dataLength,
-    mainColor,
-    compareColor,
-    indicators,
-    width,
-    height,
-    domain
-  } = config;
+  const { fixedIndicator, dataLength, mainColor, compareColor, indicators, width, height, domain } =
+    config;
   const setterKey = config.setterKey.selectedOption;
   const selectedIndicator = getter?.[config.getterKey?.selectedOption] || null;
   const primaryColumn = config.primaryColumn || getter?.[config.getterKey?.primaryColumn];
@@ -51,41 +43,35 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
       });
     }
   }, [
-    getter?.[config.getterKey?.selectedOption], 
-    getter?.[config.getterKey?.primaryColumn], 
-    getter?.[config.getterKey?.secondaryColumn], 
+    getter?.[config.getterKey?.selectedOption],
+    getter?.[config.getterKey?.primaryColumn],
+    getter?.[config.getterKey?.secondaryColumn],
     data
   ]);
 
   useEffect(() => {
     if (setterKey) {
-      handleDefaultIndicator({ fixedIndicator, indicators })
-        .then(indicator => {
-          if (indicator) {
-            setter(setterKey, indicator);
-          }
-        });
+      handleDefaultIndicator({ fixedIndicator, indicators }).then(indicator => {
+        if (indicator) {
+          setter(setterKey, indicator);
+        }
+      });
     }
   }, []);
 
   return selectedIndicator && dataArray ? (
     <div className='chart-container'>
       {/* ---------- Dropdown ---------- */}
-      {
-        !config.disableDropdown ? 
-          <IndicatorDropdown
-            setter={setter}
-            getter={getter}
-            config={config}
-            options={!fixedIndicator ? indicators : null}
-          />
-          : null
-      }
+      {!config.disableDropdown ? (
+        <IndicatorDropdown
+          setter={setter}
+          getter={getter}
+          config={config}
+          options={!fixedIndicator ? indicators : null}
+        />
+      ) : null}
       {/* ---------- CHART ---------- */}
-      <ResponsiveContainer
-        height={height || '100%'}
-        width={width || '100%'}
-      >
+      <ResponsiveContainer height={height || '100%'} width={width || '100%'}>
         <BarChart
           data={dataArray}
           margin={{ top: 20, right: 20, left: 10, bottom: 20 }}
@@ -96,17 +82,18 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
           <XAxis
             type={'category'}
             dataKey='name'
-            tickCount={2}
+            // tickCount={2}
             // barSize={30}
             tickLine={{ stroke: 'transparent' }}
             axisLine={false}
             interval={'preserveStartEnd'}
-            tickFormatter={(key, i) => {
-              if (i === 0 || i === dataArray.length - 1) {
-                return key;
-              }
-              return '';
-            }}
+            
+            // tickFormatter={(key, i) => {
+            //   if (i === 0 || i === dataArray.length - 1) {
+            //     return key;
+            //   }
+            //   return '';
+            // }}
           />
           <YAxis
             domain={domain}
@@ -114,14 +101,8 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
             tickFormatter={text => formatValue(text, selectedIndicator?.units)}
             label={{ value: config.yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
           />
-          <Tooltip 
-            content={
-              <CustomTooltip 
-                units={selectedIndicator?.units}
-              />
-            } 
-          />
-          <ReferenceLine y={0} stroke="#000000" />
+          <Tooltip content={<CustomTooltip units={selectedIndicator?.units} />} />
+          <ReferenceLine y={0} stroke='#000000' />
           {!fixedIndicator && allColumnsArray
             ? allColumnsArray.map(({ key }, i) => (
               <Bar
