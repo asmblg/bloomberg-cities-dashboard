@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, GeoJSON, Tooltip } from 'react-leaflet';
-// import MapEvents from './MapEvents';
+import MapEvents from './MapEvents';
 import { getGeoJSON } from '../../utils/API';
 
 import IndicatorDropdown from '../IndicatorDropdown';
@@ -68,9 +68,6 @@ const SelectorMap = ({ project, config, setter }) => {
     }
   }, [selection]);
 
-  console.log(hoveredFeature);
-
-
   return (
     <div className='selector-map-wrapper' key='selector-map'>
       <p>{config?.label}</p>
@@ -81,7 +78,7 @@ const SelectorMap = ({ project, config, setter }) => {
       />
       <div className='selector-map'>
         <MapContainer
-          // key={`${selection.key}-selector-map`}
+          key={'selector-map'}
           center={config.center}
           zoom={config.zoom}
           zoomControl={true}
@@ -89,12 +86,13 @@ const SelectorMap = ({ project, config, setter }) => {
           // dragging={false}
           // doubleClickZoom={false}
           zoomSnap={.25}
-          
+          zoomDelta={.25}          
         >
-          {/* <MapEvents 
+          <MapEvents 
             setter={handleSetSelection}
             options={options}
-          /> */}
+            active={!hoveredFeature}
+          />
 
           <TileLayer
             attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
@@ -110,12 +108,14 @@ const SelectorMap = ({ project, config, setter }) => {
                   const option = value ?
                     options.find(({key}) => key.toUpperCase() === value.toUpperCase())
                     : options[0];
+                  console.log(value);
                   handleSetSelection(null, option);
                 },
                 mouseover: e => {
                   const value = e.propagatedFrom?.feature?.properties?.[config.selectorField];
                   setHoveredFeature(value);
-                }
+                },
+                mouseout: () => setHoveredFeature()
               }}
               style={feature => {
                 const selected = feature.properties[config.selectorField] === selection.key;
