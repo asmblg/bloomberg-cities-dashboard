@@ -1,6 +1,6 @@
 .landing-wrapper {
   border: 1px solid var(--primary-gray-color);
-  height: calc(100vh - 250px);
+  /* min-height: calc(100vh - 250px); */
   background-color: var(--white-color);
   display: flex;
   justify-content: flex-start;
@@ -10,7 +10,7 @@
 .landing-container {
   display: flex;
   margin: 40px;
-  min-height: calc(100vh - 362px);
+  /* height: calc(100vh - 380px); */
 }
 
 .landing-info-container {
@@ -40,18 +40,24 @@
 }
 
 .landing-cities-content {
-  padding: 40px 0 40px 40px;
+  padding: 40px 0 0 40px;
+  height: 100%;
 }
+
+/* .landing-cities-content > h5 {
+  height: 5%;
+} */
 
 .landing-city-links {
   display: flex;
   justify-content: space-between;
   margin-top: 60px;
+  /* height: 95%; */
 }
 
 .landing-city-box {
-  width: 46%;
-  height: 150px;
+  width: 48%;
+  height: 400px;
   background-color: #dfe5e9;
   display: flex;
   justify-content: center;
@@ -95,6 +101,7 @@
   .landing-info-content {
     margin-right: 20px;
   }
+
   .landing-info-content > h1,
   .landing-info-content > h5 {
     width: auto;
@@ -110,6 +117,15 @@
 
   .landing-container {
     height: 100%;
+  }
+
+  .landing-city-links {
+    flex-direction: column;
+  }
+
+  .landing-city-box {
+    width: 100%;
+    margin-bottom: 20px;
   }
 }
 
@@ -160,10 +176,12 @@
 
   .landing-city-links {
     margin-top: 20px;
+    flex-direction: row;
   }
 
   .landing-city-box {
-    height: 75px;
+    height: 125px;
+    width: 48%;
     background-color: #dfe5e9;
     display: flex;
     justify-content: center;
