@@ -24,12 +24,15 @@ const LandingPage = ({ viewType }) => {
             <a href='https://associates.bloomberg.org/' target='_blank' rel='noreferrer'>
               <img src={bbLogo} alt='Bloomberg Logo' />
             </a>
-            <h1 className='bold-font' style={{ color: themeColor }}>
+            <h1 className='bold-font landing-header' style={{ color: themeColor }}>
               {infoSection.title.toUpperCase()}
             </h1>
-            {infoSection.textBoxes.map((text, i) => (
-              <h5 key={`landing-info-text-${i}`}>{text}</h5>
-            ))}
+            <div className='landing-sub-headers'>
+              {infoSection.textBoxes.map((text, i) => (
+                <h5 key={`landing-info-text-${i}`}>{text}</h5>
+              ))}
+            </div>
+            <h5 className='landing-paragraph'>{infoSection.paragraph}</h5>
           </div>
         </div>
 

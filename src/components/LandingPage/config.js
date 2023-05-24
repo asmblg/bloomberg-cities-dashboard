@@ -8,10 +8,9 @@ const landingConfig = {
   infoSection: {
     logo: '',
     title: 'Economic Dashboards',
-    textBoxes: [
-      'CITY LEVEL ECONOMIC DATA. UPDATED QUARTERLY.',
-      '20+ Economic indicators and 15+ socioeconomic and demographic variables to explore for each city.'
-    ]
+    textBoxes: ['CITY-LEVEL ECONOMIC DATA.', 'UPDATED QUARTERLY.'],
+    paragraph:
+      'Bloomberg Associates, the philanthropic consulting arm of Bloomberg Philanthropies, partnered with cities to create dashboards that provide a detailed view into local key economic indicators in real-time, helping the city and county government officials, philanthropy, and community groups make smarter, more targeted investments.'
   },
   citiesSection: {
     title: 'SELECT A CITY TO EXPLORE THE DASHBOARD',
