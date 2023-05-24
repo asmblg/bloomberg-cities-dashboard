@@ -10,8 +10,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 40%;
-  padding: 20px;
+  max-width: 60%;
+  padding: 20px 0;
 }
 
 .footer-container > div > p {
@@ -26,13 +26,15 @@
 }
 
 .partner-logos-container {
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   width: 100%;
 }
 
-.partner-logo, #block-footer-logo {
+.partner-logo,
+#block-footer-logo {
   margin-right: 10px;
 }
 
@@ -47,6 +49,18 @@
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
+@media screen and (max-width: 1060px) {
+  .footer-container > div {
+    max-width: 50%;
+  }
+  .partner-logo {
+    height: 15px;
+  }
+
+  #block-footer-logo {
+    height: 30px;
+  }
+}
 /* Initial Tablet Sizing */
 @media screen and (max-width: 920px) {
   .footer-container {
@@ -54,48 +68,60 @@
     margin-right: var(--tablet-outer-margin);
     padding: 10px 0;
     align-items: flex-start;
+    /* justify-content: space-between; */
+  }
+
+  .partner-logos-container {
+    justify-content: space-between;
   }
 
   .partner-logo {
-    margin-right: 10px;
-    height: 20px;
+    height: 30px;
   }
 
   #block-footer-logo {
-    height: 35px;
+    height: 45px;
   }
 }
 
 /* Initial Mobile Sizing */
 @media screen and (max-width: 760px) {
   .footer-container {
+    flex-direction: column;
     justify-content: flex-start;
     margin-left: var(--mobile-outer-margin);
     margin-right: var(--mobile-outer-margin);
+    /* Allows all logos to be seen on Safari and Chrome mobile apps */
+    margin-bottom: 100px;
   }
 
   .footer-container > div {
-    width: 50%;
+    max-width: 100%;
     padding: 10px 0;
   }
 
   .footer-container > div > p {
     margin: 0;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   #bloomberg-logo {
     width: 100px;
   }
-}
 
-@media screen and (max-width: 580px) {
+  .partner-logos-container {
+    width: calc(100vw - 25px);
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
+    grid-gap: 10px; /* Gap between grid items */
+  }
+
   .partner-logo {
-    margin-right: 5px;
-    height: 15px;
+    height: 30px;
   }
 
   #block-footer-logo {
-    height: 30px;
+    height: 45px;
   }
 }

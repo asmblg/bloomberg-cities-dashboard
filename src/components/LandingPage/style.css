@@ -50,6 +50,7 @@
 
 .landing-city-box {
   width: 50%;
+  background-color: #dfe5e9;
   height: 200px;
   display: flex;
   justify-content: center;
