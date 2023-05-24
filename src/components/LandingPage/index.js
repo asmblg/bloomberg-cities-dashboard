@@ -24,12 +24,15 @@ const LandingPage = ({ viewType }) => {
             <a href='https://associates.bloomberg.org/' target='_blank' rel='noreferrer'>
               <img src={bbLogo} alt='Bloomberg Logo' />
             </a>
-            <h1 className='bold-font' style={{ color: themeColor }}>
+            <h1 className='bold-font landing-header' style={{ color: themeColor }}>
               {infoSection.title.toUpperCase()}
             </h1>
-            {infoSection.textBoxes.map((text, i) => (
-              <h5 key={`landing-info-text-${i}`}>{text}</h5>
-            ))}
+            <div className='landing-sub-headers'>
+              {infoSection.textBoxes.map((text, i) => (
+                <h5 key={`landing-info-text-${i}`}>{text}</h5>
+              ))}
+            </div>
+            <h5 className='landing-paragraph'>{infoSection.paragraph}</h5>
           </div>
         </div>
 
@@ -37,19 +40,30 @@ const LandingPage = ({ viewType }) => {
           <div className='landing-cities-content'>
             <h5>{citiesSection.title}</h5>
             <div className='landing-city-links'>
-              {citiesSection.cities.map(({ id, name, route, bgColor }) => (
+              {citiesSection.cities.map(({ id, name, route, img, hoverImg }) => (
                 <a
-                  className='landing-city-box'
                   key={`landing-city-${id}`}
+                  className='landing-city-box'
                   href={route}
                   style={{
-                    backgroundColor:
-                      hoveredLink === id || viewType !== 'desktop' ? bgColor : '#dfe5e9'
+                    backgroundImage: `url(${
+                      hoveredLink === id || viewType !== 'desktop' ? hoverImg : img
+                    })`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat'
                   }}
                   onMouseEnter={() => setHoveredLink(id)}
                   onMouseLeave={() => setHoveredLink(null)}
                 >
-                  <h1 className='bold-font'>{name}</h1>
+                  <div style={{ backgroundColor: 'var(--black-color)' }}>
+                    <h1
+                      style={{ color: 'var(--white-color)', margin: '10px' }}
+                      className='bold-font'
+                    >
+                      {name}
+                    </h1>
+                  </div>
                 </a>
               ))}
             </div>

@@ -11,8 +11,8 @@ const SimpleLineChart = ({ config, dataArray, color, height, width, margin, doma
       <LChart data={dataArray} margin={margin}>
         <XAxis
           dataKey={'name'}
-          tickCount={config.xaxis?.tickCount || 2}
-          interval={'preserveEnd'}
+          // tickCount={config.xaxis?.tickCount || 2}
+          interval={'preserveStartEnd'}
           tickFormatter={str => handleLabelFormatter(config.xaxis?.labelFormatter, str)}
         />
         <YAxis

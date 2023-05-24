@@ -122,12 +122,12 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
               tickLine={false}
               axisLine={false}
               interval={'preserveStartEnd'}
-              tickFormatter={(key, i) => {
-                if (i === 0 || i === dataArray.length - 1) {
-                  return key;
-                }
-                return '';
-              }}
+              // tickFormatter={(key, i) => {
+              //   if (i === 0 || i === dataArray.length - 1) {
+              //     return key;
+              //   }
+              //   return '';
+              // }}
             />
             <YAxis
               domain={domain || selectedIndicator?.domain}
