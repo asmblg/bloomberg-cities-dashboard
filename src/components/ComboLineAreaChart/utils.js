@@ -46,7 +46,9 @@ const handleData = ({
   categoryKey,
   indicatorKey,
   dataSelection,
-  average
+  average,
+  calculator,
+  trendValue
 }) => {
   const dataPath = dataPathConstructor({
     basePathKey,
@@ -184,6 +186,48 @@ const handleData = ({
           dataArray.push(formattedObj);
         });
     }
+  }
+
+  if (calculator === 'percentChange') {
+    const calculatedArray = [];
+    const dataObj = {};
+    dataArray.forEach(obj => {
+      const dateKey = obj.name;
+      delete obj.name;
+      dataObj[dateKey] = obj; 
+    });
+
+    Object.entries(dataObj).forEach(([dateKey, obj]) => {
+      // console.log(dateKey);
+      const splitDateKey = dateKey.split('-');
+      const dataQuarter = splitDateKey[1].replace(/q/i, '');
+      const dataYear = splitDateKey[0];
+
+      const calculatedObj = {
+        name: dateKey
+      };
+      // console.log(dateKey, obj);
+      Object.entries(obj).forEach(([valueKey, value]) => {
+        // if (trendValue === 'QtQ') {
+        const comparisonQuarter = trendValue === 'QtQ' 
+          ? parseInt(dataQuarter) === 1 ? 4 : parseInt(dataQuarter) - 1
+          : parseInt(dataQuarter);
+        const comparisonYear = trendValue === 'QtQ' 
+          ? parseInt(dataQuarter) === 1 ? parseInt(dataYear) - 1 : dataYear
+          : parseInt(dataYear) - 1;
+        const comparisonDateKey = `${comparisonYear}-Q${comparisonQuarter}`;
+        const comparisonValue = dataObj?.[comparisonDateKey]?.[valueKey];
+        if (comparisonValue) {
+          calculatedObj[valueKey] = 100 * ((value - comparisonValue)/comparisonValue);
+        }
+        // }
+      });
+      if (Object.keys(calculatedObj)?.[1]) {
+        calculatedArray.push(calculatedObj);
+      }
+    });
+    const sortedArray = sortDatesArray(calculatedArray, 'ascending', 'name');
+    return sortedArray;
   }
 
   const sortedArray = sortDatesArray(dataArray, 'ascending', 'name');

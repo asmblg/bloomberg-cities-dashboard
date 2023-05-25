@@ -62,7 +62,7 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray) 
     dataObj.currentDate = currentDate;
     dataObj.compareDate = compareDate;
 
-    console.log(dataObj);
+    // console.log(dataObj);
 
     // Handles calculations needed on values before comparing two values
     switch (calculator) {
