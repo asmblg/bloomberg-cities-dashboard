@@ -36,4 +36,24 @@ const handleDetailData = async (config, project) => {
   }
 };
 
-export { handleDetailData };
+const addWidthToSourcesArray = (sources, layout) => {
+  if (layout?.columns?.length > 1 && sources?.length > 1) {
+    const arr = sources.map((source, i) => {
+      const obj = { ...source };
+      const width = layout.columns[i]?.width || 'auto';
+      obj.width = width;
+      return obj;
+    });
+
+    return arr;
+  } else if (sources?.[0]) {
+    return sources.map(source => ({
+      ...source,
+      width: 'auto'
+    }));
+  } else {
+    return null;
+  }
+};
+
+export { handleDetailData, addWidthToSourcesArray };

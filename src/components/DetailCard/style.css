@@ -10,6 +10,22 @@
   width: 100%;
 }
 
+.tab-src-container {
+  display: flex;
+}
+
+.tab-src-link {
+  padding: 0 20px;
+}
+
+.tab-src-link > h5 {
+  color: var(--secondary-gray-color);
+}
+
+.tab-src-link > h5:hover {
+  opacity: 0.8;
+}
+
 /* -------------------- MEDIA QUERIES -------------------- */
 @media screen and (max-width > 920px), (max-height: 1000px) {
   .detail-card-container {
@@ -20,6 +36,18 @@
 @media screen and (max-width: 920px) {
   .detail-card-container {
     height: 'fit-content';
+  }
+
+  .tab-src-container > a > h5 {
+    line-height: 1.5;
+  }
+
+  .tab-src-link {
+    padding: 0 10px;
+  }
+
+  .tab-src-name {
+    text-decoration: underline;
   }
 }
 
