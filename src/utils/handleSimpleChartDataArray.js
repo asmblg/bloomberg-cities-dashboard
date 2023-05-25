@@ -1,23 +1,11 @@
-import getRecentQuarterEndDates from '../../utils/getRecentQuarterEndDates';
-import sortDatesArray from '../../utils/sortDatesArray';
-import getNestedValue from '../../utils/getNestedValue';
-import padDate from '../../utils/padDate';
+
 import moment from 'moment';
+import getRecentQuarterEndDates from './getRecentQuarterEndDates';
+import sortDatesArray from './sortDatesArray';
+import getNestedValue from './getNestedValue';
+import padDate from './padDate';
 
-
-const getQuarterDateKey = key => {
-  let date = new Date(key);
-  if (Object.prototype.toString.call(date) === '[object Date]') {
-    if (isNaN(date)) {
-      date = new Date(padDate(key));
-    }
-  }
-  const year = moment(date.getTime()).utc().year();
-  const quarter = moment(date.getTime()).utc().quarter();
-  return `${year}-Q${quarter}`;
-};
-
-const handleData = (config, data) => {
+const handleSimpleChartDataArray = (config, data) => {
   if (config?.values?.calculator === 'total') {
     const dataArray = [];
     const dataObj = {};
@@ -98,4 +86,16 @@ const handleData = (config, data) => {
   }
 };
 
-export { handleData };
+function getQuarterDateKey(key) {
+  let date = new Date(key);
+  if (Object.prototype.toString.call(date) === '[object Date]') {
+    if (isNaN(date)) {
+      date = new Date(padDate(key));
+    }
+  }
+  const year = moment(date.getTime()).utc().year();
+  const quarter = moment(date.getTime()).utc().quarter();
+  return `${year}-Q${quarter}`;
+}
+
+export default handleSimpleChartDataArray;

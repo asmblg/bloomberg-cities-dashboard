@@ -11,11 +11,10 @@ import {
   ReferenceLine
 } from 'recharts';
 
-import { handleData } from './utils';
 import CustomTooltip from '../CustomTooltip';
-// import calculateChartDomain from '../../utils/calculateChartDomain';
+
+import handleSimpleChartDataArray from '../../utils/handleSimpleChartDataArray';
 import formatChartTick from '../../utils/formatChartTick';
-// import formatNumberWithCommas from '../../utils/formatNumberWithCommas';
 
 const SimpleColumnChart = ({ config, data, margin }) => {
   const [dataArray, setDataArray] = useState(null);
@@ -33,7 +32,7 @@ const SimpleColumnChart = ({ config, data, margin }) => {
 
   useEffect(() => {
     if (data) {
-      const array = handleData(config, data);
+      const array = handleSimpleChartDataArray(config, data);
       // console.log(array);
 
       if (array) {
