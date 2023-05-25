@@ -80,7 +80,7 @@ const OverviewCard = ({ viewType, config, project }) => {
                 <div>
                   <Icon name={`angle ${displayingSection === 'use' ? 'down' : 'up'}`} />
                 </div>
-                <h5>How to use this dashboard?</h5>
+                <h5>How to use this dashboard</h5>
               </div>
               {displayingSection === 'use' ? (
                 <div className='overview-text-body'>
