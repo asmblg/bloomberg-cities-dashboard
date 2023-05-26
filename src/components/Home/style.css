@@ -28,6 +28,7 @@
   align-items: center;
   justify-content: space-between;
   margin: 20px 0;
+  padding-left: 10px;
 }
 
 .summary-title-container {
