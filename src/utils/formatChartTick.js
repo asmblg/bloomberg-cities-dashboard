@@ -20,6 +20,9 @@ const formatChartTick = (text, formatter) => {
       case 'shortQuarter': {
         return dateToQuarter(text, 'QX-YY');
       }
+      case 'percent': {
+        return `${text}%`;
+      } 
       default: {
         return text;
       }

@@ -1,29 +1,56 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { LineChart as LChart, XAxis, YAxis, Line, ResponsiveContainer, Tooltip } from 'recharts';
 
-import { handleLabelFormatter } from './utils';
+import CustomTooltip from '../CustomTooltip';
 
-// Needs to be reworked when we have Tourism Spending data and Venture Capital Investment
-const SimpleLineChart = ({ config, dataArray, color, height, width, margin, domain }) => {
+import formatChartTick from '../../utils/formatChartTick';
+import handleSimpleChartDataArray from '../../utils/handleSimpleChartDataArray';
+
+const SimpleLineChart = ({ config, data, height, width, margin }) => {
+  const [dataArray, setDataArray] = useState(null);
+
+  useEffect(() => {
+    const dataArr = handleSimpleChartDataArray(config, data);
+
+    if (dataArr?.[0]) {
+      setDataArray(dataArr);
+    }
+  }, []);
+
   return dataArray ? (
-    <ResponsiveContainer height={height} width={width}>
+    <ResponsiveContainer height={height || '100%'} width={width || '100%'}>
       <LChart data={dataArray} margin={margin}>
         <XAxis
           dataKey={'name'}
-          // tickCount={config.xaxis?.tickCount || 2}
           interval={'preserveStartEnd'}
-          tickFormatter={str => handleLabelFormatter(config.xaxis?.labelFormatter, str)}
+          tickFormatter={text => formatChartTick(text, config?.xaxis?.labelFormatter)}
         />
         <YAxis
           axisLine={false}
           tickCount={config.yaxis?.tickCount || 1}
-          tickLine={false}
-          tickFormatter={str => handleLabelFormatter(config.yaxis?.labelFormatter, str)}
-          domain={domain}
+          tickFormatter={text => formatChartTick(text, config?.yaxis?.labelFormatter)}
         />
-        <Tooltip content={() => renderTooltip(dataArray, config.xaxis?.labelFormatter)} />
-        <Line dataKey={'value'} dot={false} stroke={color || 'black'} strokeWidth={4} />
+
+        {config.tooltip ? (
+          <Tooltip 
+            content={
+              <CustomTooltip 
+                units={config.tooltip.units}
+                quarterDateFormat={config.tooltip.quarterDateFormat}
+                manifest={config.tooltip.manifest}
+              />
+            }
+          />
+        ) : null}
+        
+        <Line                   
+          type='monotone'
+          dataKey={'value'}
+          dot={false}
+          stroke={config.color}
+          strokeWidth={3} 
+        />
       </LChart>
     </ResponsiveContainer>
   ) : null;
@@ -36,21 +63,9 @@ SimpleLineChart.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   margin: PropTypes.object,
-  dataArray: PropTypes.array,
+  data: PropTypes.object,
   range: PropTypes.number,
   domain: PropTypes.array
 };
-
-function renderTooltip(arr, keyFormatter) {
-  return arr && arr[0] ? (
-    <div className='summary-chart-tooltip'>
-      {arr.map((obj, i) => (
-        <p key={`tooltip-item-${i}`}>{`${
-          keyFormatter ? handleLabelFormatter(keyFormatter, obj.name) : obj.name
-        }: ${obj.value}`}</p>
-      ))}
-    </div>
-  ) : null;
-}
 
 export default SimpleLineChart;
