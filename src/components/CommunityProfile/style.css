@@ -34,6 +34,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 25px;
   height: 100%;
+  margin-bottom: 20px;
 }
 
 .large-indicator-value > h5 {
@@ -56,6 +57,23 @@
   margin-bottom: 20px;
   /* background-color: #e8eeed; */
   background: linear-gradient(to right, #e8eeed , transparent)
+}
+
+.horizontal-containers-with-trend-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  font-size: .9rem;
+  color: #CCCCCC
+}
+
+.horizontal-containers-with-trend-header > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100px;
+  margin-right: 10px;
 }
 
 .cp-chart-container {

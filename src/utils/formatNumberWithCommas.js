@@ -11,7 +11,7 @@ const formatNumberWithCommas = num => {
     const stringToFormat = decimalStr ? integerStr : numString;
     const chars = stringToFormat.split('');
     // allows to add commas after every 3rd char from the right
-    if (chars.length > 3) {
+    if (chars.length > 3 && chars?.[0] !== '-') {
       chars.reverse();
 
       for (var i = 3; i < chars.length; i += 3) {

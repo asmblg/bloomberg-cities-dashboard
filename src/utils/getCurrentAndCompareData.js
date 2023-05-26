@@ -10,7 +10,7 @@ import padDate from './padDate';
  * @returns {object} { currentValue, compareValue, currentDate, compareDate }
  */
 
-const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray) => {
+const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, postCalculator) => {
   const dataObj = {
     currentValue: null,
     compareValue: null,
@@ -168,6 +168,17 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray) 
         break;
       }
     }
+  }
+
+  if (postCalculator === 'percentChange') {
+    console.log(dataObj);
+    const calculatedCurrent = 100* ((dataObj.currentValue - dataObj.compareValue)/dataObj.compareValue);
+    return {
+      ...dataObj,
+      compareValue: null,
+      currentValue: calculatedCurrent
+    };
+
   }
   // console.log(dataObj);
   return dataObj;

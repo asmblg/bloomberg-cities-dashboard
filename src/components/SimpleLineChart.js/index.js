@@ -33,9 +33,9 @@ const SimpleLineChart = ({ config, data, height, width, margin }) => {
         />
 
         {config.tooltip ? (
-          <Tooltip 
+          <Tooltip
             content={
-              <CustomTooltip 
+              <CustomTooltip
                 units={config.tooltip.units}
                 quarterDateFormat={config.tooltip.quarterDateFormat}
                 manifest={config.tooltip.manifest}
@@ -43,13 +43,13 @@ const SimpleLineChart = ({ config, data, height, width, margin }) => {
             }
           />
         ) : null}
-        
-        <Line                   
-          type='monotone'
+
+        <Line
+          type={'monotone'}
           dataKey={'value'}
           dot={false}
           stroke={config.color}
-          strokeWidth={3} 
+          strokeWidth={3}
         />
       </LChart>
     </ResponsiveContainer>

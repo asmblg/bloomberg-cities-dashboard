@@ -4,6 +4,7 @@
   flex-direction: row;
   gap: 5px;
   position: relative;
+  justify-content: space-between;
 }
 
 .desktop-tabs > a {
@@ -17,7 +18,8 @@
 .selected-tab,
 .unselected-tab {
   height: 50px;
-  width: 20%;
+  width: 100%;
+  /* width: 20%; */
   font-size: 1.2rem;
   display: flex;
   align-items: center;
@@ -30,9 +32,9 @@
   color: var(--white-color);
   position: relative;
   top: 1.5px;
-  border-top: 2px solid var(--primary-gray-color);
+  /* border-top: 2px solid var(--primary-gray-color);
   border-left: 2px solid var(--primary-gray-color);
-  border-right: 2px solid var(--primary-gray-color);
+  border-right: 2px solid var(--primary-gray-color); */
 }
 
 .unselected-tab {
@@ -70,7 +72,8 @@
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 920px) {
   .desktop-tabs {
-    gap: 2px;
+    gap: 5px;
+    justify-content: space-between
   }
 
   .desktop-tabs > a {
@@ -86,5 +89,6 @@
     font-size: 12px;
     padding: 0;
     line-height: 1.25;
+    width: 100%;
   }
 }

@@ -102,7 +102,7 @@ const ComboLineAreaChart = ({
       >
         <ComposedChart
           data={areas[0] ? areas : lines}
-          margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
+          margin={{ top: 20, right: 20, left: 0, bottom: 10 }}
         >
           <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
           <ReferenceLine y={0} stroke='#000000' />
@@ -116,7 +116,7 @@ const ComboLineAreaChart = ({
             label={{
               value: yaxis?.label === 'indicator' ?
                 indicator?.label || getter?.[getterKey?.indicator]?.label
-                : yaxis?.label || 'QtQ Percent Change',
+                : yaxis?.label || 'Percent Change',
               angle: '-90',
               position: 'insideLeft',
               dy: 50

@@ -1,6 +1,6 @@
 .flex-layout {
   display: flex;
-  min-height: calc(100vh - 450px);
+  min-height: fit-content;
   /* height: fit-content; */
   width: 100%;
   /* margin-bottom: px; */
@@ -21,6 +21,7 @@
 }
 
 .flex-layout-content > .recharts-responsive-container {
+  min-height: fit-content;
   max-height: 250px;
 }
 
@@ -32,7 +33,7 @@
 @media screen and (max-width: 760px), (orientation: portrait) {
   
   .chart-container {
-    height: 300px !important;
+    height: 250px !important;
     padding: 0 !important;
   }
   .selector-w-legend {

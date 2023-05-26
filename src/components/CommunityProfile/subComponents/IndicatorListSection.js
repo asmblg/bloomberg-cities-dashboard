@@ -35,34 +35,44 @@ const IndicatorListSection = ({ config, data, yearKeys }) => {
             })}
           </div>
         ) : type === 'horizontal-containers-with-trend' && indicators && indicators[0] ? (
-          indicators.map((indicator, ii) => {
-            const currentValue = handleCalculator(data[yearKeys[0]], indicator);
-            const compareValue = yearKeys[1] ? handleCalculator(data[yearKeys[1]], indicator) : null;
-
-            return (
-              <div
-                key={`horizontal-container-indicator-${indicator.key}-${ii}`}
-                className='horizontal-percentage-indicator'
-              >
-                <div style={{
-                  display: 'flex', alignItems: 'center'}}>
-                  <h3 className='bold-font'>{formatValue(currentValue, indicator.units)}</h3>
-                  <h5 style={{marginLeft: '10px'}}>{indicator.label || ''}</h5>
-                </div>
-                <div style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }}>
-                  <TrendPill
-                    currentValue={currentValue}
-                    compareValue={compareValue}
-                    compareDate={yearKeys[1]}
-                    units={indicator.units}
-                    positiveTrendDirection={indicator.positiveTrendDirection}
-                    // displayCompareText
-                  />
-                  {/* <InfoIcon config={indicator} /> */}
-                </div>
+          <div style={{width: 'fit-content'}}>
+            <div className='horizontal-containers-with-trend-header'>
+              <div>
+                <div>Change</div>
+                <div>2019-2021</div>
               </div>
-            );
-          })
+            </div>
+            {
+              indicators.map((indicator, ii) => {
+                const currentValue = handleCalculator(data[yearKeys[0]], indicator);
+                const compareValue = yearKeys[1] ? handleCalculator(data[yearKeys[1]], indicator) : null;
+
+                return (
+                  <div
+                    key={`horizontal-container-indicator-${indicator.key}-${ii}`}
+                    className='horizontal-percentage-indicator'
+                  >
+                    <div style={{
+                      display: 'flex', alignItems: 'center'}}>
+                      <h3 className='bold-font'>{formatValue(currentValue, indicator.units)}</h3>
+                      <h5 style={{marginLeft: '10px'}}>{indicator.label || ''}</h5>
+                    </div>
+                    <div style={{ marginLeft: '10px', display: 'flex', alignItems: 'center' }}>
+                      <TrendPill
+                        currentValue={currentValue}
+                        compareValue={compareValue}
+                        compareDate={yearKeys[1]}
+                        units={indicator.units}
+                        positiveTrendDirection={indicator.positiveTrendDirection}
+                        // displayCompareText
+                      />
+                      {/* <InfoIcon config={indicator} /> */}
+                    </div>
+                  </div>
+                );
+              })
+            }
+          </div>
         ) : null}
       </div>
     ))

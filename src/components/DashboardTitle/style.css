@@ -9,6 +9,6 @@
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 760px) {
   .dashboard-title {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 }

@@ -28,7 +28,7 @@ const CustomTooltip = ({
         {
           payload
             .filter(({name}) => filter?.length > 0 ? filter.includes(name) : true)
-            .reverse()
+            .sort((a,b) => parseInt(b.value) - parseInt(a.value))
             .map(({name, value, color, dataKey, payload: innerPayload}, i) =>
               <p
                 style={{color: color || innerPayload?.fillColor }} 

@@ -16,9 +16,9 @@ const OverviewCard = ({ viewType, config, project }) => {
     <>
       {overviewOpen && config ? (
         <>
-          {viewType === 'desktop' ? (
+          {viewType === 'desktop'|| viewType === 'tablet' ? (
             <div className='overview-title'>
-              <DashboardTitle title={config.title} fontSize={'3rem'} />
+              <DashboardTitle title={config.title}/>
             </div>
           ) : null}
 
@@ -80,7 +80,7 @@ const OverviewCard = ({ viewType, config, project }) => {
                 <div>
                   <Icon name={`angle ${displayingSection === 'use' ? 'down' : 'up'}`} />
                 </div>
-                <h5>How to use this dashboard?</h5>
+                <h5>How to use this dashboard</h5>
               </div>
               {displayingSection === 'use' ? (
                 <div className='overview-text-body'>

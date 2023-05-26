@@ -24,7 +24,8 @@ const SelectorWithLegend = ({
     topFilterKey,
     subFilterKey,
     topFilterMinValue,
-    subFilterMinValue
+    subFilterMinValue,
+    label
   } = config;
 
   const baseDataPath = config?.baseDataPath || getter?.[getterKey?.baseDataPath];
@@ -136,84 +137,89 @@ const SelectorWithLegend = ({
   // console.log(optionFilters);
 
   return optionsArray ?
-    <div className='selector-w-legend'>
-      {
-        optionsArray
-          // .filter(({ key }) => optionFilters?.topFilter ?
-          //   (
-          //     optionFilters?.topFilter.includes(key) ||
-          //     key === 'total'
-          //   )
-          //   : true)
-          .map(({ label, key, legendItems }) =>
-            <div
-              className='selector-w-legend-option'
-              key={key}
-              onClick={() => {
-                const value = {
-                  key,
-                  legendItems
-                };
-                // const legendItemKeys = legendItems ?
-                //   legendItems
-                //     .filter(({ key }) => optionFilters?.subFilter ?
-                //       optionFilters?.subFilter.includes(key)
-                //       : true)
-                //     .map(({ key }) => key)
-                //   : null;
-                setSelectedOption(value);
-                setter(
-                  [setterKey.topSelector, setterKey.subSelector, setterKey.topSelectorLabel],
-                  [key, legendItems, label]);
-              }}
-            >
-              <div className={`selector-w-legend-label ${selectedOption?.key === key ?
-                'selector-w-legend-label-selected'
-                : ''
-              }`}>
-                <Icon
-                  name={legendItems?.[0] ?
+    <>
+      <p>{label}</p>
+      <div className='selector-w-legend'>
+
+        {
+          optionsArray
+            // .filter(({ key }) => optionFilters?.topFilter ?
+            //   (
+            //     optionFilters?.topFilter.includes(key) ||
+            //     key === 'total'
+            //   )
+            //   : true)
+            .map(({ label, key, legendItems }) =>
+              <div
+                className='selector-w-legend-option'
+                key={key}
+                onClick={() => {
+                  const value = {
+                    key,
+                    legendItems
+                  };
+                  // const legendItemKeys = legendItems ?
+                  //   legendItems
+                  //     .filter(({ key }) => optionFilters?.subFilter ?
+                  //       optionFilters?.subFilter.includes(key)
+                  //       : true)
+                  //     .map(({ key }) => key)
+                  //   : null;
+                  setSelectedOption(value);
+                  setter(
+                    [setterKey.topSelector, setterKey.subSelector, setterKey.topSelectorLabel],
+                    [key, legendItems, label]);
+                }}
+              >
+                <div className={`selector-w-legend-label ${selectedOption?.key === key ?
+                  'selector-w-legend-label-selected'
+                  : ''
+                }`}>
+                  <Icon
+                    name={legendItems?.[0] ?
+                      selectedOption?.key === key ?
+                        'angle down'
+                        : 'angle up'
+                      : 'minus'}
+                    size={legendItems?.[0] ? 'big' : 'small'}
+                  />
+                  <h5>{label}</h5>
+                  {
                     selectedOption?.key === key ?
-                      'angle down'
-                      : 'angle up'
-                    : 'minus'}
-                  size={legendItems?.[0] ? 'big' : 'small'}
-                />
-                <h5>{label}</h5>
+                      <svg className='selector-w-legend-selected-svg' height={'15px'} width={'15px'}>
+                        <rect fill={legendItems?.[0] ? 'transparent' : colors[0] } height={'15px'} width={'15px'} />
+                      </svg>
+                      : null
+                  }
+                </div>
                 {
-                  selectedOption?.key === key ?
-                    <svg className='selector-w-legend-selected-svg' height={'15px'} width={'15px'}>
-                      <rect fill={legendItems?.[0] ? 'transparent' : colors[0] } height={'15px'} width={'15px'} />
-                    </svg>
+                  selectedOption?.key === key && legendItems ?
+                    <div className='selector-w-legend-selected-legend'>
+                      {
+                        legendItems
+                          // .filter(({ key }) => optionFilters?.subFilter ?
+                          //   optionFilters?.subFilter.includes(key)
+                          //   : true)
+                          .map(({ label, key, color }) =>
+                            <div
+                              key={key}
+                              className='selector-w-legend-selected-legend-item'>
+                              <h5>{label}</h5>
+                              <svg className='selector-w-legend-selected-svg' height={'15px'} width={'15px'}>
+                                <rect fill={color} height={'15px'} width={'15px'} />
+                              </svg>
+                            </div>
+                          )
+                      }
+                    </div>
                     : null
                 }
               </div>
-              {
-                selectedOption?.key === key && legendItems ?
-                  <div className='selector-w-legend-selected-legend'>
-                    {
-                      legendItems
-                        // .filter(({ key }) => optionFilters?.subFilter ?
-                        //   optionFilters?.subFilter.includes(key)
-                        //   : true)
-                        .map(({ label, key, color }) =>
-                          <div
-                            key={key}
-                            className='selector-w-legend-selected-legend-item'>
-                            <h5>{label}</h5>
-                            <svg className='selector-w-legend-selected-svg' height={'15px'} width={'15px'}>
-                              <rect fill={color} height={'15px'} width={'15px'} />
-                            </svg>
-                          </div>
-                        )
-                    }
-                  </div>
-                  : null
-              }
-            </div>
-          )
-      }
-    </div>
+            )
+        }
+      </div>
+    </>
+
     : null;
 
 

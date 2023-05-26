@@ -9,7 +9,7 @@ import ShareAndPrintIcons from '../ShareAndPrintIcons';
 // import InfoIcon from '../InfoIcon';
 import SectionTitle from '../SectionTitle';
 
-import { handleDetailData } from './utils';
+import { handleDetailData, addWidthToSourcesArray } from './utils';
 import './style.css';
 
 const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, selectedLink }) => {
@@ -19,9 +19,8 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
     aboutDataTitleColor: '',
     tab: ''
   });
-  // const navigate = useNavigate();
 
-  // console.log(selectedLink);
+  const sourcesArray = addWidthToSourcesArray(config.sources, config.layout);
 
   useEffect(() => {
     handleDetailData(config, project).then(dataObj => {
@@ -78,9 +77,51 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
             setInfoIconConfig={setInfoIconConfig}
           />
         ) : null}
-        {/* <div className='section-bottom-container' style={{ margin: '10px' }}> */}
+
+        {sourcesArray?.[0] ? (
+          <div
+            className='tab-src-container'
+            style={{ flexDirection: 'row' }}
+          >
+            {sourcesArray.length > 2 && viewType === 'desktop' ? (
+              sourcesArray.map(({ name, link, width }, i) => (
+                <a
+                  key={`tab-src-link-${i}`}
+                  className='tab-src-link'
+                  href={link}
+                  target='_blank'
+                  rel='noreferrer'
+                  style={viewType === 'desktop' ? { width: width || 'auto' } : {}}
+                >
+                  <h5 className='tab-src-text'>
+                    Source: <span className='tab-src-name'>{name}</span>
+                  </h5>
+                </a>
+
+              ))
+            ) : (
+              <>
+                <h5 className='tab-src-text'>
+                  {sourcesArray.length > 1 ? 'Sources:' : 'Source:'}
+                </h5>
+                {sourcesArray.map(({ name, link }, i) => (
+                  <a
+                    key={`tab-src-link-${i}`}
+                    className='tab-src-link'
+                    href={link}
+                    target='_blank'
+                    rel='noreferrer'
+                    style={viewType === 'desktop' ? { width: 'auto' } : {}}
+                  >
+                    <h5 className='tab-src-text tab-src-name'>{i === 0 && sourcesArray[1] ? `${name},` : name}</h5>
+                  </a>
+                ))}
+              </>
+            )}
+          </div>
+        ) : null}
+
         <div style={{ margin: '10px', position: 'relative' }}>
-          {/* <div>text</div> */}
           <ShareAndPrintIcons />
         </div>
       </div>

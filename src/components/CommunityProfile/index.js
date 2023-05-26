@@ -43,6 +43,7 @@ const CommunityProfile = ({ config, detailData, project, viewType }) => {
                   data={cpData || null}
                   yearKeys={yearKeys || null}
                 />
+
               ) : type === 'map' ? (
                 geoJSON && detailData?.data ? (
                   <IndicatorMap config={c} geoJSON={geoJSON} />

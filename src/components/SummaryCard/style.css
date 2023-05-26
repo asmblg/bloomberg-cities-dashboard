@@ -2,7 +2,7 @@
   border-top: 1px solid var(--primary-gray-color);
   background-color: var(--white-color);
   height: 100%;
-  width: 100%;
+  max-width: 100%;
   padding: 5%;
   display: flex;
   flex-direction: column;
@@ -22,6 +22,7 @@
 }
 
 .summary-card-header-text {
+  /* min-width: fit-content; */
   margin-right: 10px;
   font-size: 16px;
 }
@@ -97,7 +98,8 @@
 
   .summary-card-header-text {
     font-size: 14px;
-    width: 100px;
+    min-width: 140px;
+    justify-content: flex-start;
   }
 
   .summary-data {
@@ -112,6 +114,7 @@
 
 @media screen and (max-width: 600px) {
   .summary-card-title > h4 {
-    width: 100px;
+    max-width: 120px;
+    text-overflow: ellipsis;
   }
 }

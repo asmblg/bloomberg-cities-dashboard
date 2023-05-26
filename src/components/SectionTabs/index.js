@@ -30,13 +30,13 @@ const SectionTabs = ({
               selectedLink === key ? 
                 { 
                   backgroundColor: section.tabStyle?.selectedColor || '#ffffff' ,
-                  border: `2px solid ${section.tabStyle?.selectedColor || '#ffffff'}`,
-                  borderRight: 'none'
+                  // border: `2px solid ${section.tabStyle?.selectedColor || '#ffffff'}`,
+                  // borderRight: 'none'
                 } : 
                 { 
                   backgroundColor: section.tabStyle?.unselectedColor || '#dfe5e9', 
-                  border: `2px solid ${section.tabStyle?.unselectedColor || '#dfe5e9'}`,
-                  borderRight: 'none'
+                  // border: `2px solid ${section.tabStyle?.unselectedColor || '#dfe5e9'}`,
+                  // borderRight: 'none'
 
                 }
             }

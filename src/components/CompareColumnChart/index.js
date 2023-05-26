@@ -101,7 +101,14 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
             tickFormatter={text => formatValue(text, selectedIndicator?.units)}
             label={{ value: config.yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
           />
-          <Tooltip content={<CustomTooltip units={selectedIndicator?.units} />} />
+          <Tooltip 
+            content={
+              <CustomTooltip 
+                units={selectedIndicator?.units}
+                manifest={config?.manifest} 
+              />
+            } 
+          />
           <ReferenceLine y={0} stroke='#000000' />
           {!fixedIndicator && allColumnsArray
             ? allColumnsArray.map(({ key }, i) => (

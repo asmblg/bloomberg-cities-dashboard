@@ -1,6 +1,6 @@
 .home-wrapper {
   display: flex;
-  min-height: calc(100vh - 350px);
+  min-height: fit-content;
 }
 
 .overview-wrapper {
@@ -79,7 +79,7 @@
 
   .summary-wrapper {
     height: fit-content;
-    min-height: 820px;
+    /* min-height: 620px; */
   }
 
   .large-summary-title {
@@ -90,7 +90,7 @@
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 760px) {
   .home-wrapper {
-    height: 100%;
+    height: fit-content;
     margin: 0;
   }
 
@@ -110,7 +110,7 @@
   }
 
   .summary-wrapper {
-    height: auto;
+    height: fit-content;
   }
 
   .summary-content {
@@ -132,9 +132,10 @@
   }
 
   .summary-cards-container {
-    display: block;
+    display: flex;
+    flex-direction: column;
     grid-template-columns: repeat(1, 1fr);
-    height: 100%;
+    height: fit-content;
     padding-bottom: 20px;
     flex-grow: unset;
     gap: 10px;
