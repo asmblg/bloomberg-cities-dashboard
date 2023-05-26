@@ -44,7 +44,13 @@ const SimpleLineChart = ({ config, data, height, width, margin }) => {
           />
         ) : null}
         
-        <Line dataKey={'value'} dot={false} stroke={config.color} strokeWidth={3} />
+        <Line                   
+          type='monotone'
+          dataKey={'value'}
+          dot={false}
+          stroke={config.color}
+          strokeWidth={3} 
+        />
       </LChart>
     </ResponsiveContainer>
   ) : null;
