@@ -765,7 +765,6 @@
   }
 },
 
-
 {
   "label": "Tourism Spending",
   "units": "Spending in tourism-related industries",
@@ -827,3 +826,18 @@
     }
   }
 },
+
+
+{
+  "All_business_types": "All business types",
+  "leisure_and_entertainment": "Leisure and entertainment",
+  "professional_services": "Professional services",
+  "food_and_drink": "Food and drink",
+  "health_care_and_fitness": "Healthcare and fitness",
+  "transportation": "Transportation",
+  "casual_use": "Casual use",
+  "charities_education_and_membership": "Charities education and membership",
+  "beauty_and_personal_care": "Beauty and personal care",
+  "home_and_repair": "Home and repair",
+  "retail": "Retail"
+}

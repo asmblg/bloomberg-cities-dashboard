@@ -86,7 +86,7 @@ const IndicatorMap = ({ config, geoJSON }) => {
               mouseover: e => {
                 const value = e.propagatedFrom?.feature?.properties?.[selectedIndicator?.key || indicators?.[0].key];
                 const indicator = selectedIndicator?.label || indicators?.[0].label;
-                const geo = e.propagatedFrom?.feature?.properties?.['GEOID'];
+                const geo = e.propagatedFrom?.feature?.properties?.['Name'];
                 const units = selectedIndicator?.units || indicators?.[0].units;
                 setHoveredFeature({value, indicator, geo, units});
               }            
@@ -95,7 +95,7 @@ const IndicatorMap = ({ config, geoJSON }) => {
             data={mapGeoJSON}
             filter={feature => {
               const value = feature?.properties?.[selectedIndicator?.key || indicators?.[0].key];
-              if (!isNaN(parseInt(value)) && parseInt(value) >= 0) {
+              if (!isNaN(parseInt(value)) && parseInt(value) > 0) {
                 return true;
               } else {
                 return false;
@@ -119,8 +119,8 @@ const IndicatorMap = ({ config, geoJSON }) => {
           >
             <Tooltip>
               <div className='indicator-map-tooltip'>
-                {/* <p>{hoveredFeature?.geo}</p> */}
-                <p>{hoveredFeature?.indicator}</p>
+                <p>{hoveredFeature?.geo}</p>
+                {/* <p>{hoveredFeature?.indicator}</p> */}
                 <strong>{formatValue(hoveredFeature?.value, hoveredFeature?.units)}</strong>
               </div>
             </Tooltip>
