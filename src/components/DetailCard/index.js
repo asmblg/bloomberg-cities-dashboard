@@ -81,22 +81,43 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
         {sourcesArray?.[0] ? (
           <div
             className='tab-src-container'
-            style={{ flexDirection: viewType === 'desktop' ? 'row' : 'column' }}
+            style={{ flexDirection: 'row' }}
           >
-            {sourcesArray.map(({ name, link, width }, i) => (
-              <a
-                key={`tab-src-link-${i}`}
-                className='tab-src-link'
-                href={link}
-                target='_blank'
-                rel='noreferrer'
-                style={viewType === 'desktop' ? { width: width || 'auto' } : {}}
-              >
-                <h5>
-                  Source: <span className='tab-src-name'>{name}</span>
+            {sourcesArray.length > 2 && viewType === 'desktop' ? (
+              sourcesArray.map(({ name, link, width }, i) => (
+                <a
+                  key={`tab-src-link-${i}`}
+                  className='tab-src-link'
+                  href={link}
+                  target='_blank'
+                  rel='noreferrer'
+                  style={viewType === 'desktop' ? { width: width || 'auto' } : {}}
+                >
+                  <h5 className='tab-src-text'>
+                    Source: <span className='tab-src-name'>{name}</span>
+                  </h5>
+                </a>
+
+              ))
+            ) : (
+              <>
+                <h5 className='tab-src-text'>
+                  {sourcesArray.length > 1 ? 'Sources:' : 'Source:'}
                 </h5>
-              </a>
-            ))}
+                {sourcesArray.map(({ name, link }, i) => (
+                  <a
+                    key={`tab-src-link-${i}`}
+                    className='tab-src-link'
+                    href={link}
+                    target='_blank'
+                    rel='noreferrer'
+                    style={viewType === 'desktop' ? { width: 'auto' } : {}}
+                  >
+                    <h5 className='tab-src-text tab-src-name'>{i === 0 && sourcesArray[1] ? `${name},` : name}</h5>
+                  </a>
+                ))}
+              </>
+            )}
           </div>
         ) : null}
 
