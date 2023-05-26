@@ -28,7 +28,7 @@ const SectionTitle = ({
           </h1>
           <InfoIcon
             onClick={() => {
-              console.log(config);
+              // console.log(config);
               setInfoIconConfig({
                 title: config.title.toUpperCase(),
                 aboutDataTitleColor: config.titleStyle?.color || 'var(--black-color)',

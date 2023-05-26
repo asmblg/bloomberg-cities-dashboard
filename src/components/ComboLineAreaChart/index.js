@@ -9,6 +9,7 @@ import {
   Area,
   CartesianGrid,
   ComposedChart,
+  ReferenceLine,
   ResponsiveContainer
 } from 'recharts';
 import CustomTooltip from '../CustomTooltip';
@@ -53,7 +54,9 @@ const ComboLineAreaChart = ({
       categoryKey: lineKey,
       indicatorKey: indicator?.var || getter?.[getterKey?.indicator]?.var,
       dataSelection: getter?.[getterKey?.lineSelector] || 'total',
-      average
+      average,
+      calculator : indicator?.calculator || getter?.[getterKey?.indicator]?.calculator ,
+      trendValue: getter?.[getterKey?.trendValue] || 'QtQ'
     });
 
     setLines(lineData);
@@ -63,6 +66,7 @@ const ComboLineAreaChart = ({
     getter?.[getterKey?.basePath],
     getter?.[getterKey?.indicator],
     getter?.[getterKey?.lineSelector],
+    getter?.[getterKey?.trendValue],
     data
   ]);
 
@@ -73,7 +77,9 @@ const ComboLineAreaChart = ({
       categoryKey: areaKey,
       indicatorKey: indicator?.var || getter?.[getterKey?.indicator]?.var,
       dataSelection: getter?.[getterKey?.areaSelector],
-      average
+      average,
+      calculator : indicator?.calculator || getter?.[getterKey?.indicator]?.calculator ,
+      trendValue: getter?.[getterKey?.trendValue] || 'QtQ'
     });
 
     setAreas(areaData);
@@ -82,6 +88,7 @@ const ComboLineAreaChart = ({
     getter?.[getterKey?.indicator],
     getter?.[getterKey?.areaSelector],
     getter?.[getterKey?.lineSelector],
+    getter?.[getterKey?.trendValue],
     data
   ]);
 
@@ -98,13 +105,18 @@ const ComboLineAreaChart = ({
           margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
         >
           <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
+          <ReferenceLine y={0} stroke='#000000' />
           <YAxis
             domain={domain}
-            tickFormatter={text => formatValue(text, indicator?.units || getter?.[getterKey?.indicator]?.units)}
+            tickFormatter={text => formatValue(
+              text, 
+              indicator?.units || getter?.[getterKey?.indicator]?.units,
+              true //onAxis?
+            )}
             label={{
               value: yaxis?.label === 'indicator' ?
                 indicator?.label || getter?.[getterKey?.indicator]?.label
-                : yaxis?.label,
+                : yaxis?.label || 'QtQ Percent Change',
               angle: '-90',
               position: 'insideLeft',
               dy: 50
@@ -113,6 +125,7 @@ const ComboLineAreaChart = ({
           <XAxis 
             tickFormatter={text => dateToQuarter(text) }
             dataKey="name" 
+            axisLine={false}
           />
           {
             lines && getter?.[getterKey?.lineSelector] ?

@@ -2,7 +2,7 @@ import moment from 'moment';
 
 
 const formatQuarterDate = (date, format) => {
-  console.log({ date, format });
+  // console.log({ date, format });
   const textArray = date.search(' ') !== -1 ?
     date.split(' ')
     : date.search('-') !== -1 ?

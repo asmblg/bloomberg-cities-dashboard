@@ -108,7 +108,7 @@ const SelectorMap = ({ project, config, setter }) => {
                   const option = value ?
                     options.find(({key}) => key.toUpperCase() === value.toUpperCase())
                     : options[0];
-                  console.log(value);
+                  // console.log(value);
                   handleSetSelection(null, option);
                 },
                 mouseover: e => {

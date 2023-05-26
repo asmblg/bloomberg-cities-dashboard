@@ -8,7 +8,7 @@ import SimpleLineChart from '../../SimpleLineChart.js';
 const SummaryChart = ({ config, data }) => {
   const { type } = config;
 
-  console.log(config, data);
+  // console.log(config, data);
   switch (type) {
     case 'column': {
       return (
