@@ -47,6 +47,7 @@
     height: fit-content !important;
     padding: 5px !important;
     border-color: transparent !important;
+    gap: 20px;
   }
   .flex-layout-content {
     height: fit-content !important;
@@ -55,7 +56,7 @@
     padding-bottom: 0 !important;
   }
   .flex-layout {
-    gap: 10px !important;
+    /* gap: 10px !important; */
     height: fit-content !important;
     padding: 0 10px 20px 10px;
   }
