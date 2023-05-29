@@ -6,7 +6,7 @@ import CustomTooltip from '../CustomTooltip';
 
 import './style.css';
 
-const SinglePercentDonutChart = ({ config, height, width, value, label }) => {
+const SinglePercentDonutChart = ({ config, height, width, value, label, mobile }) => {
   const dataArray = value
     ? [
       {
@@ -28,10 +28,10 @@ const SinglePercentDonutChart = ({ config, height, width, value, label }) => {
         <Pie
           data={dataArray}
           dataKey={'value'}
-          cx={'50%'}
+          cx={mobile ? '65%' : '50%'}
           cy={'50%'}
-          outerRadius={'80%'}
-          innerRadius={'40%'}
+          outerRadius={mobile ? '100%' : '80%'}
+          innerRadius={mobile ? '50%' : '40%'}
           startAngle={-270}
           endAngle={90}
         > 
@@ -61,7 +61,8 @@ SinglePercentDonutChart.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  label: PropTypes.string
+  label: PropTypes.string,
+  mobile: PropTypes.bool
 };
 
 export default SinglePercentDonutChart;

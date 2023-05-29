@@ -30,11 +30,21 @@
 }
 
 .large-indicator-values-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr); */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
   gap: 25px;
   height: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+}
+
+.large-indicator-value > h2.bold-font {
+  text-align: center;
+  /* font-size:2rem; */
+  padding-top: 5px;
 }
 
 .large-indicator-value > h5 {
@@ -193,4 +203,19 @@
   .cp-donut-legend {
     width: 135px;
   }
+
+  .large-indicator-value > h2.bold-font {
+  /* text-align: center; */
+  font-size:2rem;
+  /* padding-top: 5px; */
+  }
+
+  .horizontal-percentage-indicator > div > .bold-font {
+    font-size: 2rem;
+  }
+
+  .large-indicator-values-container {
+    margin-bottom: 0;
+  }
+
 }

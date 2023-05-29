@@ -5,7 +5,7 @@ import SimpleColumnChart from '../../SimpleColumnChart';
 import SinglePercentDonutChart from '../../SinglePercentDonutChart';
 import SimpleLineChart from '../../SimpleLineChart.js';
 
-const SummaryChart = ({ config, data }) => {
+const SummaryChart = ({ config, data, viewType  }) => {
   const { type } = config;
 
   // console.log(config, data);
@@ -30,6 +30,7 @@ const SummaryChart = ({ config, data }) => {
           label={data?.key}
           height={100}
           width={'100%'}
+          mobile={viewType === 'mobile'}
         />
       );
     }
@@ -52,7 +53,8 @@ const SummaryChart = ({ config, data }) => {
 
 SummaryChart.propTypes = {
   config: PropTypes.object,
-  data: PropTypes.object
+  data: PropTypes.object,
+  viewType: PropTypes.string
 };
 
 export default SummaryChart;

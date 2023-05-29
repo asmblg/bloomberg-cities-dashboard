@@ -36,6 +36,7 @@
   display: flex;
   width: 100%;
   align-items: center;
+  margin-top: 10px;
 }
 
 .summary-data-wrapper:hover {
@@ -103,12 +104,22 @@
   }
 
   .summary-data {
-    width: 30%;
+    min-width: 30%;
+    padding-left: 20px;
   }
+
+  .summary-data > .bold-font {
+    font-size: 2.5rem;
+  }
+
   .summary-chart {
     width: 70%;
     padding-left: 20px;
     height: 120px;
+  }
+
+  .summary-data-wrapper {
+    margin: 15px 0 5px 0;
   }
 }
 

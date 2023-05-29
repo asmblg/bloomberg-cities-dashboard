@@ -109,6 +109,7 @@ const SummaryCard = ({
               {chart?.type && allSummaryData ? (
                 <SummaryChart
                   config={chart}
+                  viewType={viewType}
                   data={
                     chart.type !== 'donut'
                       ? allSummaryData

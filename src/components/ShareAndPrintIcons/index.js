@@ -22,9 +22,9 @@ const ShareAndPrintIcons = () => {
       >
         <Icon className='sap-icon' name='share alternate' circular />
       </div>
-      <div onClick={() => window.print()}>
+      {/* <div onClick={() => window.print()}>
         <Icon className='sap-icon' name='file pdf' circular />
-      </div>
+      </div> */}
     </div>
   );
 };
