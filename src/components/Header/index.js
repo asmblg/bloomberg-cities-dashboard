@@ -32,7 +32,14 @@ const Header = ({
         <div className='title-container'>
           <a href={`/${project}`}>
             <img id='header-logo' src={logoSrc} />
+            <div id='beta-tag'>
+              <span>
+              BETA
+              </span>
+            </div>
+
           </a>
+
         </div>
         <div className='about-container'>
           {viewType === 'mobile' ? (

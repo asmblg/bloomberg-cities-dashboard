@@ -33,6 +33,30 @@
   color: var(--white-color);
 }
 
+
+
+#beta-tag {
+  /* color: var(--white-color); */
+  align-self: flex-end;
+  text-align: right;
+  line-height: .2rem;
+  width: 80%;
+  font-size: .7rem;
+  /* padding-bottom: 9px; */
+  /* padding-left: 4px; */
+
+}
+
+#beta-tag > span {
+  background-color: var(--white-color);
+  color: var(--primary-color);
+  padding-left: 3px;
+  padding-right: 3px;
+  border-radius: 2px;
+  
+  /* font-weight: 700; */
+}
+
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 920px) {
