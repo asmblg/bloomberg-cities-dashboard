@@ -13,8 +13,9 @@
   border-radius: 16px;
   color: var(--white-color);
   height: 30px;
-  min-width: 90px;
-  padding: 2%;
+  min-width: 100px;
+
+  padding: 0;
   margin-right: 10px;
 }
 

@@ -113,7 +113,7 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
                     rel='noreferrer'
                     style={viewType === 'desktop' ? { width: 'auto' } : {}}
                   >
-                    <h5 className='tab-src-text tab-src-name'>{i === 0 && sourcesArray[1] ? `${name},` : name}</h5>
+                    <h5 className='tab-src-text tab-src-name'>{i === 0 && sourcesArray[1] && viewType !== 'mobile' ? `${name},` : name}</h5>
                   </a>
                 ))}
               </>

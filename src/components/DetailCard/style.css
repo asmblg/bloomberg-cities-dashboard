@@ -64,5 +64,12 @@
   }
 }
 
+
+
 /* Initial Mobile Breakpoint */
-/* @media screen and (max-width: 767px) {} */
+@media screen and (max-width: 767px) {
+  .tab-src-container {
+    flex-direction: column !important;
+    gap: 5px;
+  }
+}
