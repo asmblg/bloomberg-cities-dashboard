@@ -27,7 +27,7 @@ const SimpleColumnChart = ({ config, data, margin }) => {
     tooltip,
     height,
     width,
-    domain
+    // domain
   } = config;
 
   useEffect(() => {
@@ -41,6 +41,8 @@ const SimpleColumnChart = ({ config, data, margin }) => {
       }
     }
   }, [data]);
+
+  console.log(config,data);
 
   return dataArray ? (
     <ResponsiveContainer height={height || '100%'} width={width || '100%'}>
@@ -63,7 +65,7 @@ const SimpleColumnChart = ({ config, data, margin }) => {
           axisLine={false}
           tickFormatter={text => formatChartTick(text, yaxis?.labelFormatter)}
           tickCount={yaxis?.tickCount || 4}
-          domain={domain}
+          domain={yaxis?.domain}
           label={
             yaxis?.label
               ? {

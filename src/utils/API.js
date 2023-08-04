@@ -1,13 +1,16 @@
 import axios from 'axios';
-// import config from '../dev/configs.json';
+const baseURL = 'https://bloomberg-cities-api.herokuapp.com'; //' http://localhost:3001';
 
 const getConfig = async (projectCity) => {
+
  
-  const res =  await axios.get('https://bloomberg-cities-api.herokuapp.com/config/', {
+  const res =  await axios.get(`${baseURL}/config/`, {
     params: {
       project: projectCity
     }
   });
+
+  console.log(res?.data);
 
   return res?.data?.[0];
 
@@ -24,7 +27,7 @@ const getConfig = async (projectCity) => {
 };
 
 const getData = (project, select) =>
-  axios.get('https://bloomberg-cities-api.herokuapp.com/data', {
+  axios.get(`${baseURL}/data`, {
     params: {
       project,
       select: `updatedOn ${select}`
@@ -32,7 +35,7 @@ const getData = (project, select) =>
   });
 
 const getTractGeoJSON = project =>
-  axios.get('https://bloomberg-cities-api.herokuapp.com/geo', {
+  axios.get(`${baseURL}/geo`, {
     params: {
       project,
       geoType: 'Census Tracts'
@@ -40,7 +43,7 @@ const getTractGeoJSON = project =>
   });
 
 const getGeoJSON = (project, geoType) =>
-  axios.get('https://bloomberg-cities-api.herokuapp.com/geo', {
+  axios.get(`${baseURL}/geo`, {
     params: {
       project,
       geoType
