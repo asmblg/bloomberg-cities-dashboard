@@ -11,6 +11,7 @@
 .hbc-row-container {
   display: flex;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .hbc-row-label {
@@ -21,6 +22,11 @@
   justify-content: flex-end;
   width: 40%;
   min-width: 40%;
+}
+
+.hbc-bar-container {
+  width: 60%;
+  display: flex;
 }
 
 .hbc-bar {
