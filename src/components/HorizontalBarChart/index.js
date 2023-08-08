@@ -9,12 +9,14 @@ const HorizontalBarChart = ({ config, data }) => {
   const [dataArray, setDataArray] = useState(null);
 
   useEffect(() => {
-    const dataArr = handleData(data, config);
+    if (data) {
+      const dataArr = handleData(data, config);
 
-    if (dataArr) {
-      setDataArray(dataArr);
+      if (dataArr) {
+        setDataArray(dataArr);
+      }
     }
-  }, []);
+  }, [data]);
 
   return dataArray ? (
     <div className='hbc-container'>

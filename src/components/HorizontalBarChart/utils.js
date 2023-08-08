@@ -4,35 +4,36 @@ import getMostRecentDateKeys from '../../utils/getMostRecentDateKeys';
 const handleData = (data, config) => {
   if (data) {
     const nestedData = config?.dataPath ? getNestedValue(data, config.dataPath) : data;
-    const [mostRecentDateKey] = getMostRecentDateKeys(Object.keys(nestedData), 1);
-    const dataObj = nestedData[mostRecentDateKey];
+    const mostRecentDateKey = nestedData ? getMostRecentDateKeys(Object.keys(nestedData), 1) : null;
+    const dataObj = mostRecentDateKey ? nestedData[mostRecentDateKey[0]] : null;
 
-    const dataArray = config?.labels?.[0]?.key
-      ? config.labels.map(label => ({
-        name: label.text || label.key,
-        value: dataObj[label.key] || ''
-      })).filter(({ value }) => value)
-      : Object.keys(dataObj).map(key => ({
-        name: key,
-        value: dataObj[key]
-      }));
-
-    const valueCalculation = config?.valueCalculation;
-
-    switch (valueCalculation) {
-      case 'valuesToPercentages': {
-        return arrayValuesToPercentage(dataArray);
-      }
-      default: {
-        return dataArray.map(({ name, value }) => ({
-          widthValue: `${value}px`,
-          value,
-          name
+    if (dataObj) {
+      const dataArray = config?.labels?.[0]?.key
+        ? config.labels.map(label => ({
+          name: label.text || label.key,
+          value: dataObj[label.key] || ''
+        })).filter(({ value }) => value)
+        : Object.keys(dataObj).map(key => ({
+          name: key,
+          value: dataObj[key]
         }));
+
+      const valueCalculation = config?.valueCalculation;
+
+      switch (valueCalculation) {
+        case 'valuesToPercentages': {
+          return arrayValuesToPercentage(dataArray);
+        }
+        default: {
+          return dataArray.map(({ name, value }) => ({
+            widthValue: `${value}px`,
+            value,
+            name
+          }));
+        }
       }
     }
   }
-
   return null;
 };
 

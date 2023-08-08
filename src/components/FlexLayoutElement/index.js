@@ -32,7 +32,7 @@ const FlexLayoutElement = ({
   infoIconConfig,
   setInfoIconConfig
 }) => {
-  const { 
+  const {
     columns,
     rows,
     content,
@@ -45,15 +45,16 @@ const FlexLayoutElement = ({
 
   const mobile = viewType === 'mobile';
   const elementRef = useRef();
-  const type = columns ? 
-    'columns' : rows ? 
-      'rows' : content ? 
+  const type = columns ?
+    'columns' : rows ?
+      'rows' : content ?
         'content' : '';
   const elementArray = columns || rows;
 
   return (
     <div
       key={elementRef}
+      className={`flex-layout-${mobile && type !== 'content' ? 'rows' : type}`}
       style={handleElementStyle(
         style,
         // mobileStyle,
@@ -62,7 +63,6 @@ const FlexLayoutElement = ({
         viewType,
         // tabletStyle
       )}
-      className={`flex-layout-${mobile && type !== 'content' ? 'rows' : type}`}
     >
       {!content && data ? (
         elementArray.map((element, i) => (
@@ -101,6 +101,7 @@ const FlexLayoutElement = ({
           config={content.config}
           getter={getter}
           setter={setter}
+          viewType={viewType}
         />
       ) : content.type === 'simple-indicator-box' ? (
         <SimpleIndicatorBox

@@ -26,8 +26,6 @@ const handleElementStyle = (
   if (viewType === 'mobile' || viewType === 'tablet') {
     obj.height = 'fit-content';
   }
-
-
   return obj;
 };
 

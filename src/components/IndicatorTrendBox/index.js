@@ -24,7 +24,8 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
     displayCompareText,
     dataPath,
     getterKey,
-    chart 
+    chart,
+    layoutVariation
   } = config;
   const trendDataType = getter?.[getterKey?.trendValue] || 'QtQ';
 
@@ -63,7 +64,7 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
   }, [selectedIndicator, data, selectedCategory, trendDataType, baseDataPath]);
 
   return indicatorTrendData?.displayValue && selectedIndicator ? (
-    <div className='indicator-trend-wrapper'>
+    <div className='indicator-trend-wrapper' style={layoutVariation === 'label-on-top' ? {padding: '0'} : {}}>
       {chart?.type === 'donut' && indicatorTrendData.displayValue ? (
         <div style={{ width: '25%' }}>
           <SinglePercentDonutChart
@@ -75,27 +76,48 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
         </div>
       ) : null}
       <div style={{ width: chart ? '75%' : '100%' }}>
+        {layoutVariation === 'label-on-top' ? (
+          <div style={{ maxWidth: '75%', height: '50px' }}>
+            <h4 style={{fontFamily: 'RobotoBold'}}>{selectedIndicator.label || ''}</h4>
+          </div>
+        ) : null}
         <div className='indicator-data-body'>
           <div className='indicator-value-container'>
             <h1 className='bold-font'>
               {formatValue(indicatorTrendData.displayValue, selectedIndicator.units)}
             </h1>
-            <div>
-              <h4>{selectedIndicator.label?.toUpperCase() || ''}</h4>
-              <h4>{dateToQuarter(indicatorTrendData.currentDate, 'QX YYYY')}</h4>
-            </div>
+            {layoutVariation !== 'label-on-top' ? (
+              <div>
+                <h4>{selectedIndicator.label?.toUpperCase() || ''}</h4>
+                <h4>{dateToQuarter(indicatorTrendData.currentDate, 'QX YYYY')}</h4>
+              </div>
+            ) : (
+              <TrendPill
+                currentValue={indicatorTrendData.currentValue}
+                compareValue={indicatorTrendData.compareValue}
+                compareDate={indicatorTrendData.compareDate}
+                units={selectedIndicator.units}
+                positiveTrendDirection={selectedIndicator.positiveTrendDirection}
+                data={data[selectedIndicator.key]}
+                displayCompareText={displayCompareText}
+              />
+            )}
+            
           </div>
           {/* <InfoIcon config={selectedIndicator} /> */}
         </div>
-        <TrendPill
-          currentValue={indicatorTrendData.currentValue}
-          compareValue={indicatorTrendData.compareValue}
-          compareDate={indicatorTrendData.compareDate}
-          units={selectedIndicator.units}
-          positiveTrendDirection={selectedIndicator.positiveTrendDirection}
-          data={data[selectedIndicator.key]}
-          displayCompareText={displayCompareText}
-        />
+        {layoutVariation !== 'label-on-top' ? (
+          <TrendPill
+            currentValue={indicatorTrendData.currentValue}
+            compareValue={indicatorTrendData.compareValue}
+            compareDate={indicatorTrendData.compareDate}
+            units={selectedIndicator.units}
+            positiveTrendDirection={selectedIndicator.positiveTrendDirection}
+            data={data[selectedIndicator.key]}
+            displayCompareText={displayCompareText}
+          />
+        ) : null}
+        
       </div>
     </div>
   ) : null;
@@ -104,7 +126,8 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
 IndicatorTrendBox.propTypes = {
   data: PropTypes.object,
   config: PropTypes.object,
-  getter: PropTypes.object
+  getter: PropTypes.object,
+  viewType: PropTypes.string
 };
 
 export default IndicatorTrendBox;
