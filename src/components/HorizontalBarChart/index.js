@@ -38,7 +38,6 @@ const HorizontalBarChart = ({ config, data }) => {
               {item.value}
             </h5>
           </div>
-          
         </div>
       ))}
     </div>
