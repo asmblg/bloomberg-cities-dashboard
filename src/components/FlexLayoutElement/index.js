@@ -16,6 +16,7 @@ import ComboLineAreaChart from '../ComboLineAreaChart';
 import UnderConstructionBox from '../UnderConstructionBox';
 import AboutProject from '../AboutTheData';
 import SectionTitle from '../SectionTitle';
+import HorizontalBarChart from '../HorizontalBarChart';
 
 import { handleElementStyle } from './utils';
 
@@ -169,6 +170,11 @@ const FlexLayoutElement = ({
           viewType={viewType}
           infoIconConfig={infoIconConfig}
         />
+      ) : content.type === 'horizontal-bar-chart' ? (
+        <HorizontalBarChart
+          config={content.config}
+          data={data}
+        />                       
       ) : <TailSpin />}
     </div>
   );

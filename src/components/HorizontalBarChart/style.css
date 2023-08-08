@@ -1,0 +1,36 @@
+.hbc-container {
+  width: 100%;
+}
+
+.hbc-title {
+  width: 70%;
+  margin: 20px 0;
+  font-family: 'RobotoBold';
+}
+
+.hbc-row-container {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.hbc-row-label {
+  margin-left: 5px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 40%;
+  min-width: 40%;
+}
+
+.hbc-bar {
+  height: 20px;
+  display: flex;
+}
+
+.hbc-row-value {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  color: #006aaf;
+}
