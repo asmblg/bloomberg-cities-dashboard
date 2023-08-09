@@ -62,7 +62,7 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
       className='compare-dropdown-container'
       style={style || {}}
     >
-      <h5 className='bold-font'>{title || ''}</h5>
+      <h4 className='bold-font'>{title || ''}</h4>
       <div className='compare-dropdown-legend' style={legendStyle || {}}>
         {comparand ? (
           <div className='main-value-container'>

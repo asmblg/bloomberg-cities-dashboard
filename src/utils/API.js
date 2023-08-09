@@ -1,5 +1,5 @@
 import axios from 'axios';
-import config from '../dev/configs.json';
+import config from '../dev/configs2.json';
 
 const baseURL = 'https://bloomberg-cities-api.herokuapp.com'; 
 
