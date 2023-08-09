@@ -1,7 +1,7 @@
 .indicator-trend-wrapper {
-  padding: 0 20px;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .indicator-data-body {
@@ -9,14 +9,14 @@
   flex-wrap: wrap;
   /* width: fit-content; */
   width: 100%;
+  height: 50px;
 }
 
 .indicator-value-container {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
-  max-width: calc(90% - 10px);
-  /* width: 250px; */
+  margin-bottom: 10px;
+  width: 100%;
 }
 
 

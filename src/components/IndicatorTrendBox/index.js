@@ -78,7 +78,7 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
       <div style={{ width: chart ? '75%' : '100%' }}>
         {layoutVariation === 'label-on-top' ? (
           <div style={{ maxWidth: '75%', height: '50px' }}>
-            <h4 style={{fontFamily: 'RobotoBold'}}>{selectedIndicator.label || ''}</h4>
+            <h4 className='bold-font'>{selectedIndicator.label || ''}</h4>
           </div>
         ) : null}
         <div className='indicator-data-body'>
