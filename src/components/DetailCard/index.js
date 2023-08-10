@@ -40,7 +40,7 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
           <div
             style={{
               width: '100%',
-              height: '50px',
+              minHeight: '50px',
               backgroundColor: config.tabStyle?.selectedColor || '#ffffff'
             }}
           />

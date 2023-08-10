@@ -3,16 +3,22 @@ import PropTypes from 'prop-types';
 import { TailSpin } from 'react-loader-spinner';
 
 import { handleData } from './utils';
+import formatQuarterDate from '../../utils/formatQuarterDate';
 import './style.css';
 
-const HorizontalBarChart = ({ config, data }) => {
+const HorizontalBarChart = ({ config, data, setter }) => {
   const [dataArray, setDataArray] = useState(null);
+  // console.log(config);
 
   useEffect(() => {
     if (data) {
-      const dataArr = handleData(data, config);
+      const {dataArr, currentAsOf} = handleData(data, config);
 
       if (dataArr) {
+        if (config?.setterKey?.currentAsOf && currentAsOf){
+          console.log(config?.setterKey?.currentAsOf);
+          setter(config?.setterKey?.currentAsOf, formatQuarterDate(currentAsOf, 'QX YYYY'));
+        }
         setDataArray(dataArr);
       }
     }
@@ -59,7 +65,8 @@ const HorizontalBarChart = ({ config, data }) => {
 
 HorizontalBarChart.propTypes = {
   config: PropTypes.object,
-  data: PropTypes.object
+  data: PropTypes.object,
+  setter: PropTypes.func
 };
 
 export default HorizontalBarChart;

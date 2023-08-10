@@ -175,6 +175,7 @@ const FlexLayoutElement = ({
         <HorizontalBarChart
           config={content.config}
           data={data}
+          setter={setter}
         />                       
       ) : <TailSpin />}
     </div>

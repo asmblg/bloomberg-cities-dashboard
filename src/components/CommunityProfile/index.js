@@ -34,7 +34,7 @@ const CommunityProfile = ({ config, detailData, project, viewType }) => {
   return (
     <div className='cp-container'>
       <div className='cp-body'>
-        {config.sections && config.sections[0]
+        {config.sections && config.sections[0] && cpData
           ? config.sections.map(({ config: c, type }, i) => (
             <div key={`cp-section-${type}-${i}`} className='cp-section'>
               {type === 'indicator-lists' ? (

@@ -22,19 +22,22 @@ const handleData = (data, config) => {
 
       switch (valueCalculation) {
         case 'valuesToPercentages': {
-          return arrayValuesToPercentage(dataArray);
+          return {dataArr: arrayValuesToPercentage(dataArray), currentAsOf: mostRecentDateKey?.[0]};
         }
         default: {
-          return dataArray.map(({ name, value }) => ({
-            widthValue: `${value}px`,
-            value,
-            name
-          }));
+          return {
+            dataArr: dataArray.map(({ name, value }) => ({
+              widthValue: `${value}px`,
+              value,
+              name
+            })),
+            currentAsOf: mostRecentDateKey
+          };
         }
       }
     }
   }
-  return null;
+  return {};
 };
 
 function arrayValuesToPercentage(data) {
