@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import config from '../dev/configs2.json';
 
-const baseURL = 'http://localhost:3001'; //'https://bloomberg-cities-api.herokuapp.com'; 
+const baseURL = 'https://bloomberg-cities-api.herokuapp.com'; 
 
 const getConfig = async (projectCity) => {
   const res =  await axios.get(`${baseURL}/config`, {
