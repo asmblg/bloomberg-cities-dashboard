@@ -42,7 +42,7 @@ const handleData = (data, config) => {
 
 function arrayValuesToPercentage(data) {
   const total = data.reduce((accumulator, current) => accumulator + current.value || 0, 0);
-  console.log(total);
+  // console.log(total);
   
   return data.map(({ name, value }) => {
     const percentValue = value ? (value / total) * 100 : null;

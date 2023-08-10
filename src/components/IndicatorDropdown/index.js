@@ -8,13 +8,13 @@ const IndicatorDropdown = ({ setter, getter, config, options, selectedOption }) 
   const superHeading = config?.superHeading;
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selection, setSelection] = useState();
-  // const [subHeading, setSubHeading] = useState();
-  const subHeading = getter?.[config?.getterKey?.subHeading] || config?.subHeading;
+  const [subHeading, setSubHeading] = useState();
+  // const subHeading = getter?.[config?.getterKey?.subHeading] || config?.subHeading;
 
   // const selection = getter?.[config?.getterKey?.selectedOption] || config?.fixedSelection || selectedOption;
   const setterKey = config?.setterKey?.selectedOption;
 
-  const key = `indicator-selector-${selection || 'no-selection'}-${subHeading || 'no-subheading'}-${superHeading || 'no-superheading'}`;
+  const key = `indicator-selector-${selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || 'no-selection'}-${subHeading || 'no-subheading'}-${superHeading || 'no-superheading'}`;
 
   // useEffect(() => setter(config?.setterKey?.selectedOption, config?.indicators?.[0]), []);
 
@@ -22,12 +22,12 @@ const IndicatorDropdown = ({ setter, getter, config, options, selectedOption }) 
     if (getter?.[config?.getterKey?.selectedOption] || selectedOption) {
       setSelection(getter?.[config?.getterKey?.selectedOption] || selectedOption || options[0]);
     }
-    // if (getter?.[config?.getterKey?.subHeading] || config?.subHeading ){  
-    //   setSubHeading(getter?.[config?.getterKey?.subHeading] || config?.subHeading);
-    // }
+    if (getter?.[config?.getterKey?.subHeading] || config?.subHeading ){  
+      setSubHeading(getter?.[config?.getterKey?.subHeading] || config?.subHeading);
+    }
   },[
     getter?.[config?.getterKey?.selectedOption],
-    // getter?.[config?.getterKey?.subHeading],
+    getter?.[config?.getterKey?.subHeading],
     selectedOption
   ]);
 

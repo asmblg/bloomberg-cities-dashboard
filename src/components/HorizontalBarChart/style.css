@@ -19,6 +19,7 @@
   margin-right: 10px;
   display: flex;
   align-items: center;
+  text-align: end;
   justify-content: flex-end;
   width: 40%;
   min-width: 40%;

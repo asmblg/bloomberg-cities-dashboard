@@ -42,7 +42,7 @@ const SimpleColumnChart = ({ config, data, margin }) => {
     }
   }, [data]);
 
-  console.log(config,data);
+  // console.log(config,data);
 
   return dataArray ? (
     <ResponsiveContainer height={height || '100%'} width={width || '100%'}>

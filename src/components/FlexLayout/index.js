@@ -54,6 +54,7 @@ const FlexLayout = ({
         // mobileStyle, 
         // tabletStyle
       )}
+      // key={JSON.stringify(getter)}
     >
       {elementArray.map((element, i) => (
         <FlexLayoutElement
