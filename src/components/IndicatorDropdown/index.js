@@ -22,9 +22,9 @@ const IndicatorDropdown = ({ setter, getter, config, options, selectedOption }) 
     if (getter?.[config?.getterKey?.selectedOption] || selectedOption) {
       setSelection(getter?.[config?.getterKey?.selectedOption] || selectedOption || options[0]);
     }
-    if (getter?.[config?.getterKey?.subHeading] || config?.subHeading ){  
-      setSubHeading(getter?.[config?.getterKey?.subHeading] || config?.subHeading);
-    }
+    // if (getter?.[config?.getterKey?.subHeading] || config?.subHeading ){  
+    setSubHeading(getter?.[config?.getterKey?.subHeading] || config?.subHeading);
+    // }
   },[
     getter?.[config?.getterKey?.selectedOption],
     getter?.[config?.getterKey?.subHeading],
