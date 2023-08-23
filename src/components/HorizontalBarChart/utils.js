@@ -17,6 +17,12 @@ const handleData = (data, config) => {
           name: key,
           value: dataObj[key]
         }));
+      
+      if (config.sortValues) {
+        dataArray.sort((a, b) =>
+          config.sortValues === 'descending' ? b.value - a.value : a.value - b.value
+        );
+      }
 
       const valueCalculation = config?.valueCalculation;
 
