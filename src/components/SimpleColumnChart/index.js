@@ -15,6 +15,7 @@ import CustomTooltip from '../CustomTooltip';
 
 import handleSimpleChartDataArray from '../../utils/handleSimpleChartDataArray';
 import formatChartTick from '../../utils/formatChartTick';
+import { getStackedKeys } from './utils';
 
 const SimpleColumnChart = ({ config, data, margin }) => {
   const [dataArray, setDataArray] = useState(null);
@@ -33,7 +34,6 @@ const SimpleColumnChart = ({ config, data, margin }) => {
   useEffect(() => {
     if (data) {
       const array = handleSimpleChartDataArray(config, data);
-      // console.log(array);
 
       if (array) {
         const filteredData = array.filter(({ value }) => value || value === 0);
@@ -41,8 +41,6 @@ const SimpleColumnChart = ({ config, data, margin }) => {
       }
     }
   }, [data]);
-
-  // console.log(config,data);
 
   return dataArray ? (
     <ResponsiveContainer height={height || '100%'} width={width || '100%'}>
@@ -88,12 +86,24 @@ const SimpleColumnChart = ({ config, data, margin }) => {
             }
           />
         ) : null}
-        <Bar
-          dataKey={'value'}
-          stackId='a'
-          fill={color || 'black'}
-          stroke={accentColor || 'white'}
-        />
+        {!config.stacked ? (
+          <Bar
+            dataKey={'value'}
+            stackId='a'
+            fill={color || 'black'}
+            stroke={accentColor || 'white'}
+          />
+        ) : 
+          getStackedKeys(dataArray).map(key => (
+            <Bar
+              key={`bar-${key}`}
+              dataKey={key}
+              stackId='a'
+              fill={color || 'black'}
+              stroke={accentColor || 'white'}
+            />
+          ))}
+        
       </BarChart>
 
     </ResponsiveContainer>
@@ -108,17 +118,5 @@ SimpleColumnChart.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   tooltip: PropTypes.object
 };
-
-// function renderTooltip(arr, keyFormatter) {
-//   return arr && arr[0] ? (
-//     <div className='chart-tooltip'>
-//       {arr.map((obj, i) => (
-//         <p key={`tooltip-item-${i}`}>{`${
-//           keyFormatter ? formatChartTick(obj.name, keyFormatter) : obj.name
-//         }: ${formatNumberWithCommas(obj.value)}`}</p>
-//       ))}
-//     </div>
-//   ) : null;
-// }
 
 export default SimpleColumnChart;
