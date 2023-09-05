@@ -8,15 +8,13 @@ import './style.css';
 
 const HorizontalBarChart = ({ config, data, setter }) => {
   const [dataArray, setDataArray] = useState(null);
-  // console.log(config);
 
   useEffect(() => {
     if (data) {
-      const {dataArr, currentAsOf} = handleData(data, config);
+      const { dataArr, currentAsOf } = handleData(data, config);
 
       if (dataArr) {
         if (config?.setterKey?.currentAsOf && currentAsOf){
-          // console.log(config?.setterKey?.currentAsOf);
           setter(config?.setterKey?.currentAsOf, formatQuarterDate(currentAsOf, 'QX YYYY'));
         }
         setDataArray(dataArr);
@@ -26,17 +24,29 @@ const HorizontalBarChart = ({ config, data, setter }) => {
 
   return dataArray ? (
     <div className='hbc-container'>
-      {config?.title ? <h4 className='hbc-title'>{config.title}</h4> : null}
+      {config?.title
+        ? config.titleSize === 'small'
+          ? <h5 style={{margin: '0 0 10px 0'}}>{config.title}</h5>
+          : <h4 className='hbc-title'>{config.title}</h4>
+        : null
+      }
 
       {dataArray.map((item, index) => (
         <div key={index} className='hbc-row-container'>
-          <h5 className='hbc-row-label'>{item.name}</h5>
+          <h5 className='hbc-row-label' style={config.layoutType === 'sorted-list'
+            ? { justifyContent: 'flex-start', margin: '0 10px 0 0', padding: '5px 5px 5px 10px', backgroundColor: 'var(--primary-gray-color)' }
+            : { justifyContent: 'flex-end', margin: '0 10px 0 5px' }
+          }>
+            {item.name}
+          </h5>
           <div className='hbc-bar-container'>
             <div
               className='hbc-bar'
               style={{
                 width: item.widthValue,
-                backgroundColor: config.primaryColor || 'var(--secondary-color)'
+                backgroundColor: config.primaryColor || 'var(--secondary-color)',
+                height: config.layoutType === 'sorted-list' ? '50%' : '100%',
+                margin: config.layoutType === 'sorted-list' ? 'auto 0' : '0'
               }}
             />
             <h5

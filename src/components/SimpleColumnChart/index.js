@@ -36,7 +36,7 @@ const SimpleColumnChart = ({ config, data, margin }) => {
       const array = handleSimpleChartDataArray(config, data);
 
       if (array) {
-        const filteredData = array.filter(({ value }) => value || value === 0);
+        const filteredData = !config.stacked ? array.filter(({ value }) => value || value === 0) : array;
         setDataArray(filteredData);
       }
     }

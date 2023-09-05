@@ -4,22 +4,33 @@ import getMostRecentDateKeys from '../../utils/getMostRecentDateKeys';
 const handleData = (data, config) => {
   if (data) {
     const nestedData = config?.dataPath ? getNestedValue(data, config.dataPath) : data;
-    const mostRecentDateKey = nestedData ? getMostRecentDateKeys(Object.keys(nestedData), 1) : null;
-    const dataObj = mostRecentDateKey ? nestedData[mostRecentDateKey[0]] : null;
+
+    const dataKeys =
+      nestedData && config.dataPathInfo !== 'no-dates'
+        ? getMostRecentDateKeys(Object.keys(nestedData), 1)
+        : null;
+
+    const dataObj = dataKeys
+      ? nestedData[dataKeys[0]]
+      : config.dataPathInfo === 'no-dates'
+        ? nestedData
+        : null;
 
     if (dataObj) {
       const dataArray = config?.labels?.[0]?.key
         ? config.labels.map(label => ({
           name: label.text || label.key,
           value: dataObj[label.key] || ''
-        })).filter(({ value }) => value)
+        }))
         : Object.keys(dataObj).map(key => ({
           name: key,
           value: dataObj[key]
         }));
-      
+
+      const filteredDataArray = dataArray.filter(({ value }) => value);
+
       if (config.sortValues) {
-        dataArray.sort((a, b) =>
+        filteredDataArray.sort((a, b) =>
           config.sortValues === 'descending' ? b.value - a.value : a.value - b.value
         );
       }
@@ -28,16 +39,12 @@ const handleData = (data, config) => {
 
       switch (valueCalculation) {
         case 'valuesToPercentages': {
-          return {dataArr: arrayValuesToPercentage(dataArray), currentAsOf: mostRecentDateKey?.[0]};
+          return { dataArr: arrayValuesToPercentage(filteredDataArray), currentAsOf: dataKeys?.[0] };
         }
         default: {
           return {
-            dataArr: dataArray.map(({ name, value }) => ({
-              widthValue: `${value}px`,
-              value,
-              name
-            })),
-            currentAsOf: mostRecentDateKey
+            dataArr: calculateBarPercentages(filteredDataArray),
+            currentAsOf: dataKeys?.[0]
           };
         }
       }
@@ -48,8 +55,7 @@ const handleData = (data, config) => {
 
 function arrayValuesToPercentage(data) {
   const total = data.reduce((accumulator, current) => accumulator + current.value || 0, 0);
-  // console.log(total);
-  
+
   return data.map(({ name, value }) => {
     const percentValue = value ? (value / total) * 100 : null;
 
@@ -59,6 +65,22 @@ function arrayValuesToPercentage(data) {
       name
     };
   });
+}
+
+function calculateBarPercentages(array) {
+  // Find the highest value
+  let maxValue = 0;
+  array.forEach(obj => {
+    if (obj.value > maxValue) {
+      maxValue = obj.value;
+    }
+  });
+
+  // Calculate and assign bar percentages
+  return array.map(obj => ({
+    ...obj,
+    widthValue: `${(obj.value / maxValue) * 100}%`
+  }));
 }
 
 export { handleData };

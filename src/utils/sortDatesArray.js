@@ -8,24 +8,29 @@ import moment from 'moment';
  */
 
 const sortDatesArray = (array, order, dateKey) => {
-  const regex = /^\d{4}-(Q\d)$/;
+  const regexQuarter = /^(Q\d) \d{4}$/;
+  const regexYearQuarter = /^\d{4}-(Q\d)$/;
 
   const sortedDates = array.sort((a, b) => {
     const aDate = dateKey ? a[dateKey] : a;
     const bDate = dateKey ? b[dateKey] : b;
     
-    const isQuarter = regex.test(aDate) && regex.test(bDate);
+    const isQuarterA = regexQuarter.test(aDate) || regexYearQuarter.test(aDate);
+    const isQuarterB = regexQuarter.test(bDate) || regexYearQuarter.test(bDate);
 
-    if (isQuarter) {
-      return order === 'ascending'
-        ? moment(aDate, 'YYYY-QX').utc() - moment(bDate, 'YYYY-QX').utc()
-        : moment(bDate, 'YYYY-QX').utc() - moment(aDate, 'YYYY-QX').utc();
+    if (isQuarterA && isQuarterB) {
+      const aMoment = moment(aDate, isQuarterA ? 'Q YYYY' : 'YYYY-QX').utc();
+      const bMoment = moment(bDate, isQuarterB ? 'Q YYYY' : 'YYYY-QX').utc();
+      
+      return order === 'ascending' ? aMoment - bMoment : bMoment - aMoment;
     } else {
-      return order === 'ascending'
-        ? moment(aDate, 'YYYY-MM-DD').utc() - moment(bDate, 'YYYY-MM-DD').utc()
-        : moment(bDate, 'YYYY-MM-DD').utc() - moment(aDate, 'YYYY-MM-DD').utc();
+      const aNormalDate = moment(aDate, 'YYYY-MM-DD').utc();
+      const bNormalDate = moment(bDate, 'YYYY-MM-DD').utc();
+      
+      return order === 'ascending' ? aNormalDate - bNormalDate : bNormalDate - aNormalDate;
     }
   });
+  
   return sortedDates;
 };
 

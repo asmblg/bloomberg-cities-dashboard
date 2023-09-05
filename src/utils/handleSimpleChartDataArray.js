@@ -10,14 +10,13 @@ const handleSimpleChartDataArray = (config, data) => {
     const dataArray = [];
     const dataObj = {};
     Object.entries(data)
-      .filter(([key,]) => config?.values.filter ? config?.values.filter.includes(key): true)
-      .forEach(([,values]) => {
+      .filter(([key,]) => config?.values.filter ? config?.values.filter.includes(key) : true)
+      .forEach(([, values]) => {
         Object.entries(values).forEach(([key, nestedValue]) => {
-
           const dateKey = getQuarterDateKey(key);
 
           if (!isNaN(parseInt(nestedValue))) {
-            if (config?.values.average){
+            if (config?.values.average) {
               if (!dataObj[dateKey]) {
                 dataObj[dateKey] = [parseInt(nestedValue)];
               } else {
@@ -31,15 +30,15 @@ const handleSimpleChartDataArray = (config, data) => {
           }
         });
       });
-    // console.log(dataObj);
+
     Object.entries(dataObj)
       .forEach(([key, value]) => {
         const formattedObj = {};
         formattedObj.name = key;
         if (config?.average) {
-          formattedObj[config?.calculator] = value[0] ? 
-            value.reduce((a,b) => 
-              a + b, 0)/value.length 
+          formattedObj[config?.calculator] = value[0] ?
+            value.reduce((a, b) =>
+              a + b, 0) / value.length
             : null;
         } else {
           formattedObj.value = value;
@@ -48,11 +47,11 @@ const handleSimpleChartDataArray = (config, data) => {
       });
 
     // Sort by Name 
-    return dataArray.sort((a,b) => 
+    return dataArray.sort((a, b) =>
       parseInt(a.name.replace('-Q', '')) - parseInt(b.name.replace('-Q', ''))
     );
 
-  }
+  } 
   else {
     const dataObj = config.dataPath ? getNestedValue(data, config.dataPath) : data;
     const quarterDateKeys = dataObj ? getRecentQuarterEndDates(Object.keys(dataObj), config.dataLength) : null;
@@ -76,7 +75,15 @@ const handleSimpleChartDataArray = (config, data) => {
             break;
           }
           default: {
-            obj.value = dataObj[key];
+            if (!config.stacked) {
+              obj.value = dataObj[key];
+            } else {
+              Object.entries(dataObj[key]).forEach(([k, v]) => {
+                if (v && v !== 0) {
+                  obj[k] = v;
+                }
+              });
+            }
           }
         }
         return obj;

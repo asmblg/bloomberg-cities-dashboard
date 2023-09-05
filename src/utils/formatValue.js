@@ -20,13 +20,18 @@ const formatValue = (value, units, onAxis) => {
       case 'bigDollars': {
         const thousands =  value >= 1000;
         const millions = value >= 1000000;
-        const calcValue = millions ?
-          parseFloat(value / 1000000).toFixed(1)
-          : thousands ?
-            parseFloat(value / 1000).toFixed(1)
-            : 0;
+        const billions = value >= 1000000000;
+
+        const calcValue = billions
+          ? parseFloat(value / 1000000000).toFixed(1)
+          : millions
+            ? parseFloat(value / 1000000).toFixed(1)
+            : thousands
+              ? parseFloat(value / 1000).toFixed(1)
+              : 0;
+
         const text = parseFloat(calcValue).toFixed(thousands || millions ? 1 : 0).replace('.0', '');
-        const unit = millions ? 'M' : thousands ? 'K' : ''; 
+        const unit = billions ? 'B' : millions ? 'M' : thousands ? 'K' : ''; 
         return `$${text}${unit}`;
         
           
@@ -34,13 +39,18 @@ const formatValue = (value, units, onAxis) => {
       case 'bigNumbers': {
         const thousands =  value >= 1000;
         const millions = value >= 1000000;
-        const calcValue = millions ?
-          parseFloat(value / 1000000).toFixed(1)
-          : thousands ?
-            parseFloat(value / 1000).toFixed(1)
-            : 0;
+        const billions = value >= 1000000000;
+
+        const calcValue = billions
+          ? parseFloat(value / 1000000000).toFixed(1)
+          : millions
+            ? parseFloat(value / 1000000).toFixed(1)
+            : thousands
+              ? parseFloat(value / 1000).toFixed(1)
+              : 0;
+
         const text = parseFloat(calcValue).toFixed(thousands || millions ? 1 : 0).replace('.0', '');
-        const unit = millions ? 'M' : thousands ? 'K' : ''; 
+        const unit = billions ? 'B' : millions ? 'M' : thousands ? 'K' : ''; 
         return thousands ? `${text}${unit}` : value;
       }
       case 'thousands': {

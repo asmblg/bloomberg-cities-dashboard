@@ -20,13 +20,17 @@ const getDataCompareDates = (dateKeys, compareType) => {
 
   if (compareType === 'YtY') {
     const sortedDates = getRecentQuarterEndDates(dateKeys);
-    // console.log(sortedDates);
     const mostRecentDate = sortedDates[0];
     obj.currentDate = mostRecentDate;
-    // const compareDate = sortedDates[0];
 
-    const regex = /([Qq])/;
-    if (regex.test(mostRecentDate)) {
+    const qtrYrRegex = /^(Q\d) \d{4}$/;
+    const yrQtrRegex = /^\d{4}-(Q\d)$/;
+
+    if (qtrYrRegex.test(mostRecentDate)) {
+      const quarterNum = moment(padDate(mostRecentDate), 'Q[x] YYYY').utc().quarter();
+      const year = moment(padDate(mostRecentDate), 'Q[x] YYYY').utc().subtract(1, 'year').year();
+      obj.compareDate = `Q${quarterNum} ${year}`;
+    } else if (yrQtrRegex.test(mostRecentDate)) {
       const quarterNum = moment(padDate(mostRecentDate), 'YYYY-QX').utc().quarter();
       const year = moment(padDate(mostRecentDate), 'YYYY-QX').utc().subtract(1, 'year').year();
       obj.compareDate = `${year}-Q${quarterNum}`;

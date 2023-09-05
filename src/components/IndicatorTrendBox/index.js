@@ -19,14 +19,15 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
     compareValue: null,
     displayValue: null
   });
-  const { 
-    indicator, 
+  const {
+    indicator,
     displayCompareText,
     dataPath,
     getterKey,
     chart,
     layoutVariation
   } = config;
+
   const trendDataType = getter?.[getterKey?.trendValue] || 'QtQ';
 
   const selectedCategory =
@@ -52,13 +53,15 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
 
       if (nestedDataObj && selectedIndicator) {
         const dataObj = handleTrendDisplayData(nestedDataObj, selectedIndicator, trendDataType);
-        if (selectedIndicator.units?.match(/dollars/i) && dataObj.currentValue) {
+        if (selectedIndicator.units?.match(/dollars/i) && dataObj?.currentValue) {
           dataObj.currentValue = parseFloat(`${dataObj.currentValue}`.replace('$', ''));
           dataObj.compareValue = dataObj.compareValue
             ? parseFloat(`${dataObj.compareValue}`.replace('$', ''))
             : null;
         }
-        setIndicatorTrendData(dataObj);
+        if (dataObj) {
+          setIndicatorTrendData(dataObj);
+        }
       }
     }
   }, [selectedIndicator, data, selectedCategory, trendDataType, baseDataPath]);
@@ -88,7 +91,7 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
             </h1>
             {layoutVariation !== 'label-on-top' ? (
               <div>
-                <h4>{selectedIndicator.label?.toUpperCase() || ''}</h4>
+                <h4>{selectedIndicator.trendBoxLabel?.toUpperCase() || selectedIndicator.label?.toUpperCase() || ''}</h4>
                 <h4>{dateToQuarter(indicatorTrendData.currentDate, 'QX YYYY')}</h4>
               </div>
             ) : (

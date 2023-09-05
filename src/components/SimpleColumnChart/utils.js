@@ -1,6 +1,5 @@
 function getStackedKeys(array) {
   const keysSet = new Set(); // using a Set to only allow unique values
-
   array.forEach(obj => {
     const objKeys = Object.keys(obj);
     objKeys.forEach(key => {
