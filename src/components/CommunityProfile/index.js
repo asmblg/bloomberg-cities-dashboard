@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import IndicatorListSection from './subComponents/IndicatorListSection';
@@ -50,8 +50,8 @@ const CommunityProfile = ({ config, detailData, project, viewType }) => {
                 ) : null
               ) : type === 'donut-charts' && c.donuts && c.donuts[0] ? (
                 c.donuts.map(({ title, indicators, colors }, i) => (
-                  <>
-                    <div key={`cp-donut-${i}`} className='cp-chart-container'>
+                  <Fragment  key={`cp-donut-${i}`}>
+                    <div className='cp-chart-container'>
                       <div className='cp-chart-header'>
                         <h3>{title.toUpperCase()}</h3>
                         {/* <InfoIcon config={{ description, source }} /> */}
@@ -69,7 +69,7 @@ const CommunityProfile = ({ config, detailData, project, viewType }) => {
                     {i !== c.donuts.length - 1 ? (
                       <div className={'cp-donut-separator'}></div>
                     ) : null}
-                  </>
+                  </Fragment>
                 ))
               ) : null}
             </div>

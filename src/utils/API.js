@@ -1,35 +1,35 @@
 import axios from 'axios';
 import config from '../dev/configs.json';
 
-const baseURL = 'https://bloomberg-cities-api.herokuapp.com'; 
+const baseURL = 'https://bloomberg-cities-api.herokuapp.com';
+const devURL = 'http://localhost:3001';
+const dev = true;
+const localConfig = false; 
 
 const getConfig = async (projectCity) => {
-  // const res =  await axios.get(`${baseURL}/config`, {
-  //   params: {
-  //     project: projectCity
-  //   }
-  // });
+  if (!localConfig) {
+    const res =  await axios.get(`${!dev ? baseURL : devURL}/config`, {
+      params: {
+        project: projectCity
+      }
+    });
 
-  // return res?.data?.[0];
-
-  // LOCAL CONFIG FOR DEV
-  const res = config;
-  
-  if (res.length > 1) {
-    const obj = res.find(
-      ({ project }) => project.toLowerCase() === projectCity.toLowerCase()
-    );
-    return obj || res[0];
+    return res?.data?.[0];
+  } else {
+    // LOCAL CONFIG FOR DEV
+    const res = config;
+    
+    if (res.length > 1) {
+      const obj = res.find(
+        ({ project }) => project.toLowerCase() === projectCity.toLowerCase()
+      );
+      return obj || res[0];
+    }
   }
 };
 
 const getData = (project, select) =>
-  // axios.get(`${baseURL}/data`, {
-  //   params: {
-  //     project,
-  //     select: `updatedOn ${select}`
-  //   }
-  axios.get('http://localhost:3001/data', {
+  axios.get(`${!dev ? baseURL : devURL}/data`, {
     params: {
       project,
       select: `updatedOn ${select}`

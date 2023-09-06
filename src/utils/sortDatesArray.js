@@ -14,13 +14,13 @@ const sortDatesArray = (array, order, dateKey) => {
   const sortedDates = array.sort((a, b) => {
     const aDate = dateKey ? a[dateKey] : a;
     const bDate = dateKey ? b[dateKey] : b;
-    
-    const isQuarterA = regexQuarter.test(aDate) || regexYearQuarter.test(aDate);
-    const isQuarterB = regexQuarter.test(bDate) || regexYearQuarter.test(bDate);
 
-    if (isQuarterA && isQuarterB) {
-      const aMoment = moment(aDate, isQuarterA ? 'Q YYYY' : 'YYYY-QX').utc();
-      const bMoment = moment(bDate, isQuarterB ? 'Q YYYY' : 'YYYY-QX').utc();
+    const isRegexQuarterYear = regexQuarter.test(aDate) && regexQuarter.test(bDate);
+    const isRegexYearQuarter = regexYearQuarter.test(aDate) && regexQuarter.test(bDate);
+
+    if (isRegexQuarterYear || isRegexYearQuarter) {
+      const aMoment = moment(aDate, isRegexQuarterYear ? 'Q YYYY' : 'YYYY-QX').utc();
+      const bMoment = moment(bDate, isRegexQuarterYear ? 'Q YYYY' : 'YYYY-QX').utc();
       
       return order === 'ascending' ? aMoment - bMoment : bMoment - aMoment;
     } else {
@@ -30,7 +30,7 @@ const sortDatesArray = (array, order, dateKey) => {
       return order === 'ascending' ? aNormalDate - bNormalDate : bNormalDate - aNormalDate;
     }
   });
-  
+
   return sortedDates;
 };
 
