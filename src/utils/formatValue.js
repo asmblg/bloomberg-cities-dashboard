@@ -6,10 +6,12 @@ import formatNumberWithCommas from './formatNumberWithCommas';
  * @returns {string} Formatted value - all returns will be formatted with commas
  */
 const formatValue = (value, units, onAxis) => {
+  const fixedPointNum = onAxis ? 0 : 1;
+
   if (value) {
     switch (units) {
       case 'percent': {
-        return `${formatNumberWithCommas(parseFloat(value).toFixed(onAxis ? 0 : 1))}%`;
+        return `${formatNumberWithCommas(parseFloat(value).toFixed(fixedPointNum))}%`;
       }
       case 'dollars': {
         return `$${formatNumberWithCommas(parseFloat(`${value}`.replace('$', '')).toFixed(0))}`;
@@ -23,11 +25,11 @@ const formatValue = (value, units, onAxis) => {
         const billions = value >= 1000000000;
 
         const calcValue = billions
-          ? parseFloat(value / 1000000000).toFixed(1)
+          ? parseFloat(value / 1000000000).toFixed(fixedPointNum)
           : millions
-            ? parseFloat(value / 1000000).toFixed(1)
+            ? parseFloat(value / 1000000).toFixed(fixedPointNum)
             : thousands
-              ? parseFloat(value / 1000).toFixed(1)
+              ? parseFloat(value / 1000).toFixed(fixedPointNum)
               : 0;
 
         const text = parseFloat(calcValue).toFixed(thousands || millions ? 1 : 0).replace('.0', '');
@@ -42,11 +44,11 @@ const formatValue = (value, units, onAxis) => {
         const billions = value >= 1000000000;
 
         const calcValue = billions
-          ? parseFloat(value / 1000000000).toFixed(1)
+          ? parseFloat(value / 1000000000).toFixed(fixedPointNum)
           : millions
-            ? parseFloat(value / 1000000).toFixed(1)
+            ? parseFloat(value / 1000000).toFixed(fixedPointNum)
             : thousands
-              ? parseFloat(value / 1000).toFixed(1)
+              ? parseFloat(value / 1000).toFixed(fixedPointNum)
               : 0;
 
         const text = parseFloat(calcValue).toFixed(thousands || millions ? 1 : 0).replace('.0', '');

@@ -61,7 +61,7 @@ const SimpleColumnChart = ({ config, data, margin }) => {
         />
         <YAxis
           axisLine={false}
-          tickFormatter={text => formatChartTick(text, yaxis?.labelFormatter)}
+          tickFormatter={text => formatChartTick(text, yaxis?.labelFormatter, yaxis?.units)}
           tickCount={yaxis?.tickCount || 4}
           domain={yaxis?.domain}
           label={

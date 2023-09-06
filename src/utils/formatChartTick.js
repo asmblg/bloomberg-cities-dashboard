@@ -1,5 +1,6 @@
 import abbreviateNumber from './abbreviateNumber';
 import dateToQuarter from './dateToQuarter';
+import formatValue from './formatValue';
 
 /**
  *
@@ -8,7 +9,7 @@ import dateToQuarter from './dateToQuarter';
  * @returns formatted tick
  */
 
-const formatChartTick = (text, formatter) => {
+const formatChartTick = (text, formatter, units) => {
   if (text) {
     switch (formatter) {
       case 'abbreviateNumber': {
@@ -23,6 +24,9 @@ const formatChartTick = (text, formatter) => {
       case 'percent': {
         return `${text}%`;
       } 
+      case 'formatValue': {
+        return formatValue(text, units, true);
+      }
       default: {
         return text;
       }
