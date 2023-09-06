@@ -7,15 +7,17 @@ import './style.css';
 const IndicatorDropdown = ({ setter, getter, config, options, selectedOption }) => {
   const superHeading = config?.superHeading;
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selection, setSelection] = useState();
-  const [subHeading, setSubHeading] = useState();
+  const [selection, setSelection] = useState(null);
+  const [subHeading, setSubHeading] = useState(null);
 
   const setterKey = config?.setterKey?.selectedOption;
   const key = `indicator-selector-${selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || 'no-selection'}-${subHeading || 'no-subheading'}-${superHeading || 'no-superheading'}`;
 
   useEffect(() => {
-    if (getter?.[config?.getterKey?.selectedOption] || selectedOption || options?.[0]) {
-      setSelection(getter?.[config?.getterKey?.selectedOption] || selectedOption || options[0]);
+    const initialValue = getter?.[config?.getterKey?.selectedOption] || selectedOption || options?.[0];
+
+    if (initialValue) {
+      setSelection(initialValue);
     } 
     setSubHeading(getter?.[config?.getterKey?.subHeading] || config?.subHeading);
   },[
@@ -23,6 +25,12 @@ const IndicatorDropdown = ({ setter, getter, config, options, selectedOption }) 
     getter?.[config?.getterKey?.subHeading],
     selectedOption
   ]);
+
+  useEffect(() => {
+    if (selection && !getter?.[config?.getterKey?.selectedOption] && setterKey) {
+      setter(setterKey, selection);
+    }
+  }, [selection, getter, setterKey]);
 
   return (
     <div className='dropdown-container' key={key}>
