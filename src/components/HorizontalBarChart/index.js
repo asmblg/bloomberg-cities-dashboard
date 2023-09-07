@@ -23,7 +23,7 @@ const HorizontalBarChart = ({ config, data, setter }) => {
   }, [data]);
 
   return dataArray ? (
-    <div className='hbc-container'>
+    <>
       {config?.title
         ? config.titleSize === 'small'
           ? <h5 style={{margin: '0 0 10px 0'}}>{config.title}</h5>
@@ -31,34 +31,39 @@ const HorizontalBarChart = ({ config, data, setter }) => {
         : null
       }
 
-      {dataArray.map((item, index) => (
-        <div key={index} className='hbc-row-container'>
-          <h5 className='hbc-row-label' style={config.layoutType === 'sorted-list'
-            ? { justifyContent: 'flex-start', margin: '0 10px 0 0', padding: '5px 5px 5px 10px', backgroundColor: 'var(--primary-gray-color)' }
-            : { justifyContent: 'flex-end', margin: '0 10px 0 5px' }
-          }>
-            {item.name}
-          </h5>
-          <div className='hbc-bar-container'>
-            <div
-              className='hbc-bar'
-              style={{
-                width: item.widthValue,
-                backgroundColor: config.primaryColor || 'var(--secondary-color)',
-                height: config.layoutType === 'sorted-list' ? '50%' : '100%',
-                margin: config.layoutType === 'sorted-list' ? 'auto 0' : '0'
-              }}
-            />
-            <h5
-              className='hbc-row-value'
-              style={{ color: config.primaryColor || 'var(--secondary-color)' }}
-            >
-              {item.value}
+      <div className='hbc-container' style={config?.chartWrapperStyle || {}}>
+        {dataArray.map((item, index) => (
+          <div key={index} className='hbc-row-container'>
+            <h5 className='hbc-row-label' style={config.layoutType === 'sorted-list'
+              ? { justifyContent: 'flex-start', margin: '0 10px 0 0', padding: '5px 5px 5px 10px', backgroundColor: 'var(--primary-gray-color)' }
+              : { justifyContent: 'flex-end', margin: '0 10px 0 5px' }
+            }>
+              {item.name}
             </h5>
+            <div className='hbc-bar-container'>
+              <div
+                className='hbc-bar'
+                style={{
+                  width: item.widthValue,
+                  backgroundColor: config.primaryColor || 'var(--secondary-color)',
+                  height: config.layoutType === 'sorted-list' ? '50%' : '100%',
+                  margin: config.layoutType === 'sorted-list' ? 'auto 0' : '0'
+                }}
+              />
+              <h5
+                className='hbc-row-value'
+                style={{
+                  color: config.primaryColor || 'var(--secondary-color)',
+                  marginRight: config.chartWrapperStyle?.overflowY ? '5px' : '0'
+                }}
+              >
+                {item.value}
+              </h5>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   ) : (
     <TailSpin
       color={'#006aaf'}
