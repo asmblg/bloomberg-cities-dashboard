@@ -62,8 +62,6 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
     dataObj.currentDate = currentDate;
     dataObj.compareDate = compareDate;
 
-    // console.log(dataObj);
-
     // Handles calculations needed on values before comparing two values
     switch (calculator) {
       case 'differenceFrom100': {
@@ -162,6 +160,19 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
         dataObj.compareValue = calcDifferenceOfTotalFromPrevQtr(data, compareDate);
         break;
       }
+      case 'total': {
+        const currentVal = data[currentDate]
+          ? Object.values(data[currentDate]).reduce((a, b) => a + b)
+          : null;
+
+        const compareVal = data[compareDate]
+          ? Object.values(data[compareDate]).reduce((a, b) => a + b)
+          : null;
+
+        dataObj.currentValue = currentVal;
+        dataObj.compareValue = compareVal;
+        break;
+      }
       default: {
         dataObj.currentValue = currentDate ? data[currentDate] : null;
         dataObj.compareValue = compareDate ? data[compareDate] : null;
@@ -171,7 +182,6 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
   }
 
   if (postCalculator === 'percentChange') {
-    console.log(dataObj);
     const calculatedCurrent = 100* ((dataObj.currentValue - dataObj.compareValue)/dataObj.compareValue);
     return {
       ...dataObj,
@@ -180,7 +190,6 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
     };
 
   }
-  // console.log(dataObj);
   return dataObj;
 };
 

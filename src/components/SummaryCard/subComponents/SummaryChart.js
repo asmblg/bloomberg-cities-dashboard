@@ -5,16 +5,21 @@ import SimpleColumnChart from '../../SimpleColumnChart';
 import SinglePercentDonutChart from '../../SinglePercentDonutChart';
 import SimpleLineChart from '../../SimpleLineChart.js';
 
+import { handleChartCalculator } from '../utils';
+
 const SummaryChart = ({ config, data, viewType  }) => {
   const { type } = config;
 
-  // console.log(config, data);
   switch (type) {
     case 'column': {
+      const chartData = config.calculator
+        ? handleChartCalculator(data, config.calculator)
+        : data;
+
       return (
         <SimpleColumnChart
           config={config}
-          data={data}
+          data={chartData}
           height={150}
           width={'100%'}
           margin={{ top: 10, right: 5, bottom: 0, left: 0 }}

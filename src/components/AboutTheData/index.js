@@ -27,7 +27,7 @@ const AboutTheData = ({ config, project, viewType, infoIconConfig }) => {
         >
           <h5>{'BACK TO DASHBOARD'}</h5>
           <div>
-            <Icon size={viewType !== 'mobile' ? '' : 'small'} name='close' />
+            <Icon size={viewType !== 'mobile' ? 'large' : 'small'} name='close' />
           </div>
         </a>
       </div>

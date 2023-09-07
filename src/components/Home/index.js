@@ -67,7 +67,7 @@ const Home = ({
               <SummaryCard
                 key={`home-summary-card-${i}`}
                 config={card}
-                data={data?.[card.key]}
+                data={data?.[card.key] || data}
                 project={project}
                 dashboardType={dashboardType}
                 cardKey={card.key}
