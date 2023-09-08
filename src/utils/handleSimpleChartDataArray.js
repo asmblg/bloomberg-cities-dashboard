@@ -53,7 +53,7 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
 
   }
   else {
-    const dataObj = dataPath ? getNestedValue(data, dataPath) : null;
+    const dataObj = dataPath ? getNestedValue(data, dataPath) : data;
     const quarterDateKeys = dataObj ? getRecentQuarterEndDates(Object.keys(dataObj), config.dataLength) : null;
     
     if (quarterDateKeys && quarterDateKeys[0]) {
