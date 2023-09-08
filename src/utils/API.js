@@ -6,7 +6,7 @@ const devURL = 'http://localhost:3001';
 const dev = true;
 const localConfig = false; 
 
-const getConfig = async (projectCity) => {
+const getConfig = async projectCity => {
   if (!localConfig) {
     const res =  await axios.get(`${!dev ? baseURL : devURL}/config`, {
       params: {

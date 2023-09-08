@@ -72,7 +72,7 @@ function renderCustomLabels({ innerRadius, outerRadius, midAngle, cx, cy, percen
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <text x={x} y={y} fill={fill} textAnchor={x > cx ? 'start' : 'end'} dominantBaseline='central'>
+    <text fontSize={'12px'} x={x} y={y} fill={fill} textAnchor={x > cx ? 'start' : 'end'} dominantBaseline='central'>
       {`${Number(percent * 100).toFixed(1)}%`}
     </text>
   );

@@ -48,7 +48,7 @@ h4 {
 }
 
 h5 {
-  font-size: .75rem;
+  font-size: var(--smallest-font);
 }
 
 a {
