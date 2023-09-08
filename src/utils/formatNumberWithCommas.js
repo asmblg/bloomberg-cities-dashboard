@@ -1,3 +1,4 @@
+import numeral from 'numeral';
 /**
  *
  * @param {number} num Number or string (that represents a number)
@@ -22,7 +23,7 @@ const formatNumberWithCommas = num => {
       return decimalStr ? `${numberWithCommas}.${decimalStr}` : numberWithCommas;
     }
   }
-  return num;
+  return numeral(num).format('0,0');
 };
 
 export default formatNumberWithCommas;

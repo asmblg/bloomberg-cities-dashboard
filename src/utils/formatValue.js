@@ -20,9 +20,9 @@ const formatValue = (value, units, onAxis) => {
         return `$${formatNumberWithCommas(parseFloat(`${value}`.replace('$', '')).toFixed(2))}`;
       }
       case 'bigDollars': {
-        const thousands =  value >= 1000;
-        const millions = value >= 1000000;
-        const billions = value >= 1000000000;
+        const thousands =  Math.abs(value) >= 1000;
+        const millions = Math.abs(value) >= 1000000;
+        const billions = Math.abs(value) >= 1000000000;
 
         const calcValue = billions
           ? parseFloat(value / 1000000000).toFixed(fixedPointNum)
@@ -39,9 +39,9 @@ const formatValue = (value, units, onAxis) => {
           
       }
       case 'bigNumbers': {
-        const thousands =  value >= 1000;
-        const millions = value >= 1000000;
-        const billions = value >= 1000000000;
+        const thousands =  Math.abs(value) >= 1000;
+        const millions = Math.abs(value) >= 1000000;
+        const billions = Math.abs(value) >= 1000000000;
 
         const calcValue = billions
           ? parseFloat(value / 1000000000).toFixed(fixedPointNum)
