@@ -4,7 +4,7 @@ import config from '../dev/configs.json';
 const baseURL = 'https://bloomberg-cities-api.herokuapp.com';
 const devURL = 'http://localhost:3001';
 const dev = true;
-const localConfig = true; 
+const localConfig = false; 
 
 const getConfig = async projectCity => {
   if (!localConfig) {
