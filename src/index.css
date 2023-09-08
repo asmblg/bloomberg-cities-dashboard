@@ -21,6 +21,7 @@
   --desktop-footer-height: 200px;
   --tablet-footer-height: 200px;
   --mobile-footer-height: 200px;
+  --smallest-font: 12px;
 }
 /* ------------------------------ FONTS ------------------------------ */
 @font-face {

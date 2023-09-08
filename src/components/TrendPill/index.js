@@ -37,13 +37,13 @@ const TrendPill = ({
             style={{ height: heightVal || '', width: widthVal || '' }}
           >
             <img src={trendDirection === 'up' ? upwardTrendIcon : downwardTrendIcon} />
-            <p className='trend-pill-text'>{trendValue}</p>
+            <h5 className='trend-pill-text'>{trendValue}</h5>
           </div>
           {displayCompareText ? (
-            <p className='trend-pill-text' style={{ opacity: '0.8' }}>{`vs ${formatValue(
+            <h5 className='trend-pill-text' style={{ opacity: '0.8' }}>{`vs ${formatValue(
               compareValue,
               units
-            )} in ${dateToQuarter(compareDate, 'QX YYYY')}`}</p>
+            )} in ${dateToQuarter(compareDate, 'QX YYYY')}`}</h5>
           ) : null}
         </>
       ) : null}

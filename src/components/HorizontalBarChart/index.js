@@ -54,7 +54,7 @@ const HorizontalBarChart = ({ config, data, setter }) => {
                 className='hbc-row-value'
                 style={{
                   color: config.primaryColor || 'var(--secondary-color)',
-                  marginRight: config.chartWrapperStyle?.overflowY ? '5px' : '0'
+                  marginRight: config.chartWrapperStyle?.overflowY ? '10px' : '0'
                 }}
               >
                 {item.value}

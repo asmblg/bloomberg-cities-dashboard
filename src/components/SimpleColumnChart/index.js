@@ -17,30 +17,48 @@ import handleSimpleChartDataArray from '../../utils/handleSimpleChartDataArray';
 import formatChartTick from '../../utils/formatChartTick';
 import { getStackedKeys } from './utils';
 
-const SimpleColumnChart = ({ config, data, margin }) => {
+const SimpleColumnChart = ({ config, data, margin, getter }) => {
+  const [dataPath, setDataPath] = useState(config?.dataPath || null);
   const [dataArray, setDataArray] = useState(null);
-  const { 
+  const [chartConfig, setChartConfig] = useState({
+    xaxis: config?.xaxis,
+    yaxis: config?.yaxis,
+    tooltip: config?.tooltip
+  });
+
+  const {
     color,
     accentColor,
-    yaxis,
-    xaxis,
     cartesianGrid,
-    tooltip,
     height,
     width,
-    // domain
+    getterKey
   } = config;
+  
+  useEffect(() => {
+    const selectedIndicator = getter?.[getterKey?.selectedIndicator] || null;
+
+    if (selectedIndicator) {
+      if (selectedIndicator.key) {
+        setDataPath(selectedIndicator.key);
+      }
+
+      if (selectedIndicator.chartConfig) {
+        setChartConfig(selectedIndicator.chartConfig);
+      }
+    }
+  }, [getter]);
 
   useEffect(() => {
     if (data) {
-      const array = handleSimpleChartDataArray(config, data);
+      const array = handleSimpleChartDataArray(config, data, dataPath);
 
       if (array) {
         const filteredData = !config.stacked ? array.filter(({ value }) => value || value === 0) : array;
         setDataArray(filteredData);
       }
     }
-  }, [data]);
+  }, [data, dataPath]);
 
   return dataArray ? (
     <ResponsiveContainer height={height || '100%'} width={width || '100%'}>
@@ -57,17 +75,17 @@ const SimpleColumnChart = ({ config, data, margin }) => {
         <XAxis
           dataKey={'name'}
           axisLine={false}
-          tickFormatter={text => formatChartTick(text, xaxis?.labelFormatter)}
+          tickFormatter={text => formatChartTick(text, chartConfig?.xaxis?.labelFormatter)}
         />
         <YAxis
           axisLine={false}
-          tickFormatter={text => formatChartTick(text, yaxis?.labelFormatter, yaxis?.units)}
-          tickCount={yaxis?.tickCount || 4}
-          domain={yaxis?.domain}
+          tickFormatter={text => formatChartTick(text, chartConfig?.yaxis?.labelFormatter, chartConfig?.yaxis?.units)}
+          tickCount={chartConfig?.yaxis?.tickCount || 4}
+          domain={chartConfig?.yaxis?.domain}
           label={
-            yaxis?.label
+            chartConfig?.yaxis?.label
               ? {
-                value: yaxis.label,
+                value: chartConfig?.yaxis.label,
                 angle: -90,
                 position: 'insideLeft',
                 dy: 50
@@ -75,13 +93,13 @@ const SimpleColumnChart = ({ config, data, margin }) => {
               : null
           }
         />
-        {tooltip ? (
+        {chartConfig?.tooltip ? (
           <Tooltip 
             content={
               <CustomTooltip 
-                units={tooltip.units}
-                quarterDateFormat={tooltip.quarterDateFormat}
-                manifest={tooltip.manifest}
+                units={chartConfig?.tooltip.units}
+                quarterDateFormat={chartConfig?.tooltip.quarterDateFormat}
+                manifest={chartConfig?.tooltip.manifest}
               />
             }
           />
@@ -116,7 +134,8 @@ SimpleColumnChart.propTypes = {
   margin: PropTypes.object,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  tooltip: PropTypes.object
+  tooltip: PropTypes.object,
+  getter: PropTypes.object
 };
 
 export default SimpleColumnChart;
