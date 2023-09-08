@@ -135,6 +135,7 @@ const FlexLayoutElement = ({
         <SimpleColumnChart
           config={content.config}
           data={data}
+          getter={getter}
         />
       ) : content.type === 'selector-with-legend' ? (
         <SelectorWithLegend

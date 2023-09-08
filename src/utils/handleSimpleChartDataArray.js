@@ -5,7 +5,7 @@ import sortDatesArray from './sortDatesArray';
 import getNestedValue from './getNestedValue';
 import padDate from './padDate';
 
-const handleSimpleChartDataArray = (config, data) => {
+const handleSimpleChartDataArray = (config, data, dataPath) => {
   if (config?.values?.calculator === 'total') {
     const dataArray = [];
     const dataObj = {};
@@ -51,9 +51,9 @@ const handleSimpleChartDataArray = (config, data) => {
       parseInt(a.name.replace('-Q', '')) - parseInt(b.name.replace('-Q', ''))
     );
 
-  } 
+  }
   else {
-    const dataObj = config.dataPath ? getNestedValue(data, config.dataPath) : data;
+    const dataObj = dataPath ? getNestedValue(data, dataPath) : null;
     const quarterDateKeys = dataObj ? getRecentQuarterEndDates(Object.keys(dataObj), config.dataLength) : null;
     
     if (quarterDateKeys && quarterDateKeys[0]) {
@@ -75,7 +75,7 @@ const handleSimpleChartDataArray = (config, data) => {
             break;
           }
           default: {
-            if (!config.stacked) {
+            if (typeof dataObj[key] !== 'object') {
               obj.value = dataObj[key];
             } else {
               Object.entries(dataObj[key]).forEach(([k, v]) => {
