@@ -6,6 +6,7 @@ import { TailSpin } from 'react-loader-spinner';
 import Layout from './components/Layout';
 
 import { handleConfig, handleRootVariables } from './App.utils';
+import { trackReferrer } from './utils/googleAnalytics';
 
 const App = () => {
   const [config, setConfig] = useState(null);
@@ -34,6 +35,8 @@ const App = () => {
       controller = false;
     };
   }, []);
+
+  useEffect(() => trackReferrer(document.referrer), []);
 
   return (
     <div className='App'>

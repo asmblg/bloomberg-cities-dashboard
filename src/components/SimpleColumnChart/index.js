@@ -51,9 +51,7 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
 
   useEffect(() => {
     if (data) {
-      console.log(data, dataPath);
       const array = handleSimpleChartDataArray(config, data, dataPath);
-      console.log(array);
 
       if (array) {
         const filteredData = !config.stacked ? array.filter(({ value }) => value || value === 0) : array;

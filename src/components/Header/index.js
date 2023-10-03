@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
+import { trackTabClick } from '../../utils/googleAnalytics';
 import { logos } from '../../config/logos';
 import homeIcon from '../../assets/icons/home_icon.png';
 import './style.css';
@@ -19,11 +20,13 @@ const Header = ({
   const logoSrc = logos[project];
 
   const linkClickHandler = key => {
-    setSelectedLink(key);
+    trackTabClick(project, key).then(() => {
+      setSelectedLink(key);
 
-    if (viewType === 'mobile' && menuOpen) {
-      setMenuOpen(false);
-    }
+      if (viewType === 'mobile' && menuOpen) {
+        setMenuOpen(false);
+      }
+    });
   };
 
   return viewType ? (

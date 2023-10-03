@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import { trackCitySelection, trackReferrer } from '../../utils/googleAnalytics';
 import config from './config';
 import './style.css';
 import bbLogo from '../../assets/logos/bloomberg_associates.png';
@@ -8,6 +9,8 @@ import bbLogo from '../../assets/logos/bloomberg_associates.png';
 const LandingPage = ({ viewType }) => {
   const [hoveredLink, setHoveredLink] = useState(null);
   const { themeColor, infoSection, citiesSection } = config;
+
+  useEffect(() => trackReferrer(document.referrer), []);
 
   return (
     <div className='landing-wrapper' style={{ display: 'block' }}>
@@ -55,6 +58,7 @@ const LandingPage = ({ viewType }) => {
                   }}
                   onMouseEnter={() => setHoveredLink(id)}
                   onMouseLeave={() => setHoveredLink(null)}
+                  onClick={() => trackCitySelection(name)}
                 >
                   <div style={{ backgroundColor: 'var(--black-color)' }}>
                     <h1

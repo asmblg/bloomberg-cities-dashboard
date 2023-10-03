@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import { trackTabClick } from '../../utils/googleAnalytics';
 import homeIcon from '../../assets/icons/home_icon_white.png';
 import './style.css';
 
@@ -25,7 +26,9 @@ const SectionTabs = ({
               key === 'home' ? ' home-tab' : ''
             }`}
             to={`/${project.toLowerCase()}${key !== 'home' ? `/${key}` : ''}`}
-            onClick={() => setSelectedLink(key)}
+            onClick={() => {
+              trackTabClick(project, key).then(() => setSelectedLink(key));
+            }}
             style={
               selectedLink === key ? 
                 { 
