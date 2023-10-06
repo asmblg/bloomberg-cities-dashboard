@@ -15,7 +15,7 @@ const HorizontalBarChart = ({ config, data, setter }) => {
 
       if (dataArr) {
         if (config?.setterKey?.currentAsOf && currentAsOf){
-          setter(config?.setterKey?.currentAsOf, formatQuarterDate(currentAsOf, 'QX YYYY'));
+          setTimeout(() => setter(config?.setterKey?.currentAsOf, formatQuarterDate(currentAsOf, 'QX YYYY')), 0);
         }
         setDataArray(dataArr);
       }
