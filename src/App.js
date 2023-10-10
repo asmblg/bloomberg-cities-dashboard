@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { TailSpin } from 'react-loader-spinner';
 
 import Layout from './components/Layout';
-import GoogleTranslate from './components/GoogleTranslate';
 import { handleConfig, handleRootVariables } from './App.utils';
 import { trackReferrer } from './utils/googleAnalytics';
 
@@ -13,7 +12,7 @@ const App = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  //Get Config
+  // Get Config
   useEffect(() => {
     // will use abort controller/controller signal when using cloud DB && Axios
     let controller = true;
@@ -40,7 +39,6 @@ const App = () => {
 
   return (
     <div className='App'>
-      <GoogleTranslate />
       {config || pathname === '/' ? (
         <Layout config={config} />
       ) : (

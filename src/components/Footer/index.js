@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // import bloombergLogo from './images/bloomberg_associates.png';
+import GoogleTranslate from '../GoogleTranslate';
 import config from './config';
 import './style.css';
 
@@ -11,13 +12,16 @@ const Footer = () => {
   return (
     <div className='footer-container'>
       <div>
-        <a
-          href='https://associates.bloomberg.org/'
-          target='_blank'
-          rel='noreferrer'
-        >
-          <img src={mainLogo} id='bloomberg-logo' />
-        </a>
+        <div className='logo-translator-container'>
+          <a
+            href='https://associates.bloomberg.org/'
+            target='_blank'
+            rel='noreferrer'
+          >
+            <img src={mainLogo} id='bloomberg-logo' />
+          </a>
+          <GoogleTranslate />
+        </div>
         <p>
           <span>&#169;</span> {copyright}
         </p>
