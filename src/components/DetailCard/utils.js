@@ -17,7 +17,7 @@ const handleDetailData = async (config, project) => {
     const [dataObj] = data;
 
     const obj = {
-      updatedOn: dataObj.updatedOn,
+      updatedOn: dataObj?.updatedOn || null,
       data: null
     };
 

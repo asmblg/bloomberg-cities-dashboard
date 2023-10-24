@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import IndicatorListSection from './subComponents/IndicatorListSection';
 import IndicatorMap from '../IndicatorMap';
 import DonutWithLegend from './subComponents/DonutWithLegend';
-// import InfoIcon from '../InfoIcon';
+import UnderConstructionBox from '../UnderConstructionBox';
 
 import { handleCpData } from './utils';
 import { getTractGeoJSON } from '../../utils/API';
@@ -74,7 +74,7 @@ const CommunityProfile = ({ config, detailData, project, viewType }) => {
               ) : null}
             </div>
           ))
-          : null}
+          : <UnderConstructionBox notInConfig />}
       </div>
     </div>
   );

@@ -55,10 +55,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
 }
 
-.landing-city-box:first-child {
-  margin-right: 20px;
+.landing-city-box:last-child {
+  margin-right: 0;
 }
 
 .landing-city-box > h1 {

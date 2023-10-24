@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { TailSpin } from 'react-loader-spinner';
 
 import SelectorMap from '../SelectorMap';
 import TrendDataToggle from '../TrendDataToggle';
@@ -80,11 +79,11 @@ const FlexLayoutElement = ({
             viewType={viewType}
           />
         ))
-      ) : content.type === 'selector-map' ? (
+      ) : content?.type === 'selector-map' ? (
         <SelectorMap project={project} config={content.config} setter={setter} />
-      ) : content.type === 'trend-data-toggler' ? (
+      ) : content?.type === 'trend-data-toggler' ? (
         <TrendDataToggle config={content.config} getter={getter} setter={setter} />
-      ) : content.type === 'title-with-trend-data-toggler' && content?.config ? (
+      ) : content?.type === 'title-with-trend-data-toggler' && content?.config ? (
         <SectionTitle
           config={content.config}
           setInfoIconConfig={setInfoIconConfig}
@@ -95,7 +94,7 @@ const FlexLayoutElement = ({
           setter={setter}
           toggler
         />
-      ) : content.type === 'indicator-trend-box' ? (
+      ) : content?.type === 'indicator-trend-box' ? (
         <IndicatorTrendBox
           data={data}
           config={content.config}
@@ -103,20 +102,20 @@ const FlexLayoutElement = ({
           setter={setter}
           viewType={viewType}
         />
-      ) : content.type === 'simple-indicator-box' ? (
+      ) : content?.type === 'simple-indicator-box' ? (
         <SimpleIndicatorBox
           data={data}
           config={content.config}
           getter={getter}
         />
-      ) : content.type === 'compare-selector' ? (
+      ) : content?.type === 'compare-selector' ? (
         <CompareDropdownSelection
           data={data}
           config={content.config}
           getter={getter}
           setter={setter}
         />
-      ) : content.type === 'multi-line-chart' ? (
+      ) : content?.type === 'multi-line-chart' ? (
         <MultiLineChart
           data={data || null}
           config={content.config}
@@ -124,20 +123,20 @@ const FlexLayoutElement = ({
           setter={setter}
           viewType={viewType}
         />
-      ) : content.type === 'compare-column-chart' ? (
+      ) : content?.type === 'compare-column-chart' ? (
         <CompareColumnChart
           data={data || null}
           config={content.config}
           getter={getter}
           setter={setter}
         />
-      ) : content.type === 'simple-column-chart' ? (
+      ) : content?.type === 'simple-column-chart' ? (
         <SimpleColumnChart
           config={content.config}
           data={data}
           getter={getter}
         />
-      ) : content.type === 'selector-with-legend' ? (
+      ) : content?.type === 'selector-with-legend' ? (
         <SelectorWithLegend
           // options={content.options}
           // colors={content.colors}
@@ -147,7 +146,7 @@ const FlexLayoutElement = ({
           config={content}
           data={data}
         />
-      ) : content.type === 'indicator-dropdown' ? (
+      ) : content?.type === 'indicator-dropdown' ? (
         <IndicatorDropdown
           setter={setter}
           getter={getter}
@@ -155,7 +154,7 @@ const FlexLayoutElement = ({
           options={!content.fixedIndicator ? content.indicators : null}
           selectedOption={content?.config?.fixedSelection || null}
         />
-      ) : content.type === 'combo-line-area-chart' ? (
+      ) : content?.type === 'combo-line-area-chart' ? (
         <ComboLineAreaChart
           setter={setter}
           getter={getter}
@@ -163,22 +162,22 @@ const FlexLayoutElement = ({
           data={data}
           viewType={viewType}
         />
-      ) : content.type === 'under-construction' ? (
+      ) : content?.type === 'under-construction' ? (
         <UnderConstructionBox />
-      ) : content.type === 'about-the-data' ? (
+      ) : content?.type === 'about-the-data' ? (
         <AboutProject
           config={content.config}
           project={project}
           viewType={viewType}
           infoIconConfig={infoIconConfig}
         />
-      ) : content.type === 'horizontal-bar-chart' ? (
+      ) : content?.type === 'horizontal-bar-chart' ? (
         <HorizontalBarChart
           config={content.config}
           data={data}
           setter={setter}
         />                       
-      ) : <TailSpin />}
+      ) : <UnderConstructionBox notInConfig />}
     </div>
   );
 };
