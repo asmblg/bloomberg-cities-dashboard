@@ -72,7 +72,7 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins }) => {
 };
 
 const formatLegendLabel = (label, formatter) => {
-  const splitStr = label.split('-').map(str => formatValue(str.trim(), formatter));
+  const splitStr = `${label || ''}`.split('-').map(str => formatValue(str.trim(), formatter));
   return splitStr.join(' - ');
 };
 

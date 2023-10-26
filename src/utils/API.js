@@ -37,7 +37,7 @@ const getData = (project, select) =>
   });
 
 const getTractGeoJSON = project =>
-  axios.get(`${baseURL}/geo`, {
+  axios.get(`${!dev ? baseURL : devURL}/geo`, {
     params: {
       project,
       geoType: 'Census Tracts'
