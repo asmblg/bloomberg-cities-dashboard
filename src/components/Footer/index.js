@@ -20,12 +20,15 @@ const Footer = () => {
           >
             <img src={mainLogo} id='bloomberg-logo' />
           </a>
-          <GoogleTranslate />
         </div>
         <p>
           <span>&#169;</span> {copyright}
         </p>
       </div>
+      <div>
+        <GoogleTranslate />
+      </div>
+
       <div>
         <p>Data partners</p>
         <div className='partner-logos-container'>
