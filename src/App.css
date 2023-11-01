@@ -156,9 +156,49 @@ path:focus {
   outline: none;
 }
 
+.in-text-link {
+  text-decoration: underline;
+}
+
+.in-text-link:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  text-decoration: none;
+}
+
+.consent-button {
+  height: 32px;
+  border: 1px solid var(--black-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px 32px;
+}
+
+.consent-button:first-child {
+  margin-right: 20px;
+}
+
+.consent-button:hover {
+  cursor: pointer;
+  background-color: var(--black-color);
+  color: var(--white-color);
+}
+
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
-/* @media screen and (max-width: 920px) {} */
+@media screen and (max-width: 920px) {
+  .consent-button {
+    width: 100%;
+  }
+
+  .consent-button:first-child {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
 
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 760px) {

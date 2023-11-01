@@ -13,27 +13,19 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RKDT2C9ZHZ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-RKDT2C9ZHZ');
-    </script>
-
     <!-- Google Translate -->
-    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+    <script
+      src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+      async
+    ></script>
     <script type="text/javascript">
-      window['googleTranslateElementInit'] = function() {
+      window['googleTranslateElementInit'] = function () {
         new google.translate.TranslateElement(
           { pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.VERTICAL },
           'google_translate_element'
         );
       };
-    </script>  
+    </script>
     <script type="text/javascript">
       function loadGoogleTranslate() {
         var script = document.createElement('script');

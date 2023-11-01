@@ -13,7 +13,7 @@ import Footer from '../Footer';
 import { handleViewType, getCurrentRoute } from './utils';
 import './style.css';
 
-const Layout = ({ config }) => {
+const Layout = ({ config, setShowModal }) => {
   const [viewType, setViewType] = useState('');
   const [selectedLink, setSelectedLink] = useState('');
   const [trendDataType, setTrendDataType] = useState('QtQ'); // Can be toggled between YtY and QtQ
@@ -92,7 +92,7 @@ const Layout = ({ config }) => {
             />
           </div>
           <footer id='footer'>
-            <Footer />
+            <Footer setShowModal={setShowModal} />
           </footer>
         </div>
       </div>
@@ -101,7 +101,8 @@ const Layout = ({ config }) => {
 };
 
 Layout.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  setShowModal: PropTypes.func
 };
 
 export default Layout;

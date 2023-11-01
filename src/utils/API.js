@@ -4,11 +4,11 @@ import axios from 'axios';
 const baseURL = 'https://bloomberg-cities-api.herokuapp.com';
 const devURL = 'http://localhost:3001';
 const dev = true;
-// const localConfig = false; 
+// const localConfig = false;
 
-const getConfig = async (projectCity) => {
+const getConfig = async projectCity => {
   // if (!localConfig) {
-  const res =  await axios.get(`${!dev ? baseURL : devURL}/config`, {
+  const res = await axios.get(`${!dev ? baseURL : devURL}/config`, {
     params: {
       project: projectCity
     }
@@ -18,7 +18,7 @@ const getConfig = async (projectCity) => {
   // } else {
   //   // LOCAL CONFIG FOR DEV
   //   const res = config;
-    
+
   //   if (res.length > 1) {
   //     const obj = res.find(
   //       ({ project }) => project.toLowerCase() === projectCity.toLowerCase()
