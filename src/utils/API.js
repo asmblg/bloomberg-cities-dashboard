@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const baseURL = 'https://bloomberg-cities-api.herokuapp.com';
 const devURL = 'http://localhost:3001';
-const dev = true;
+const dev = false;
 // const localConfig = false;
 
 const getConfig = async projectCity => {
