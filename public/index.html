@@ -14,10 +14,10 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
     <!-- Google Translate -->
-    <script
+    <!-- <script
       src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
       async
-    ></script>
+    ></script> -->
     <script type="text/javascript">
       window['googleTranslateElementInit'] = function () {
         new google.translate.TranslateElement(
@@ -50,7 +50,7 @@
 
     <title>Bloomberg Economic Development Dashboard</title>
   </head>
-  <body onload="setTimeout(() => loadGoogleTranslate(), 1000)">
+  <body onload="setTimeout(() => loadGoogleTranslate(), 0)">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
