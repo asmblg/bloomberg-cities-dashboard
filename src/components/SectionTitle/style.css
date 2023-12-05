@@ -20,14 +20,14 @@
 }
 
 /* ---------- Media Queries ---------- */
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1250px) {
   .section-title-text {
-    font-size: 1.75rem;
+    font-size: 1.3rem;
   }
 }
 
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 910px) {
   .section-title-text {
     font-size: 1.9rem;
   }

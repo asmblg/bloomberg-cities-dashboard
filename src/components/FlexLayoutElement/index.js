@@ -18,6 +18,7 @@ import SectionTitle from '../SectionTitle';
 import HorizontalBarChart from '../HorizontalBarChart';
 
 import { handleElementStyle } from './utils';
+import SelectedImage from '../SelectedImage';
 
 const FlexLayoutElement = ({
   data,
@@ -37,17 +38,14 @@ const FlexLayoutElement = ({
     content,
     height,
     width,
-    style,
-    // mobileStyle, 
-    // tabletStyle 
+    style
+    // mobileStyle,
+    // tabletStyle
   } = layout;
 
   const mobile = viewType === 'mobile';
   const elementRef = useRef();
-  const type = columns ?
-    'columns' : rows ?
-      'rows' : content ?
-        'content' : '';
+  const type = columns ? 'columns' : rows ? 'rows' : content ? 'content' : '';
   const elementArray = columns || rows;
 
   return (
@@ -59,7 +57,7 @@ const FlexLayoutElement = ({
         // mobileStyle,
         height,
         width,
-        viewType,
+        viewType
         // tabletStyle
       )}
     >
@@ -103,11 +101,7 @@ const FlexLayoutElement = ({
           viewType={viewType}
         />
       ) : content?.type === 'simple-indicator-box' ? (
-        <SimpleIndicatorBox
-          data={data}
-          config={content.config}
-          getter={getter}
-        />
+        <SimpleIndicatorBox data={data} config={content.config} getter={getter} />
       ) : content?.type === 'compare-selector' ? (
         <CompareDropdownSelection
           data={data}
@@ -131,11 +125,7 @@ const FlexLayoutElement = ({
           setter={setter}
         />
       ) : content?.type === 'simple-column-chart' ? (
-        <SimpleColumnChart
-          config={content.config}
-          data={data}
-          getter={getter}
-        />
+        <SimpleColumnChart config={content.config} data={data} getter={getter} />
       ) : content?.type === 'selector-with-legend' ? (
         <SelectorWithLegend
           // options={content.options}
@@ -172,12 +162,17 @@ const FlexLayoutElement = ({
           infoIconConfig={infoIconConfig}
         />
       ) : content?.type === 'horizontal-bar-chart' ? (
-        <HorizontalBarChart
+        <HorizontalBarChart config={content.config} data={data} setter={setter} />
+      ) : content?.type === 'selected-image' ? (
+        <SelectedImage
           config={content.config}
-          data={data}
-          setter={setter}
-        />                       
-      ) : <UnderConstructionBox notInConfig />}
+          getter={getter}
+          project={project}
+          viewType={viewType}
+        />
+      ) : (
+        <UnderConstructionBox notInConfig />
+      )}
     </div>
   );
 };
