@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import config from '../dev/configs.json';
 
-const dev = true;
+const dev = false;
 const prodURL = 'https://bloomberg-cities-api.herokuapp.com';
 const devURL = 'http://localhost:3001';
 const baseURL = !dev ? prodURL : devURL;
