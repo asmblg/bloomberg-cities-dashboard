@@ -39,7 +39,7 @@ const IndicatorListSection = ({ config, data, yearKeys }) => {
             <div className='horizontal-containers-with-trend-header'>
               <div>
                 <div>Change</div>
-                <div>2019-2021</div>
+                <div>{yearKeys?.[1] || '?'}-{yearKeys?.[0] || '?'}</div>
               </div>
             </div>
             {
