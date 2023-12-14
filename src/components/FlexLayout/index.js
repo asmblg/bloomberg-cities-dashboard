@@ -27,7 +27,7 @@ const FlexLayout = ({
 }) => {
   const [getter, setter] = useState(initialState || {});
   const [elementArray, setElementArray] = useState();
-  const [view, setView] = useState(viewOptions?.[0]?.key); // string
+  const [view, setView] = useState(viewOptions?.[0]); // string
   const [isColumns, setColumns] = useState();
 
   const handleElementArray = () => {
@@ -36,8 +36,8 @@ const FlexLayout = ({
       if (columns) {setColumns(true);}
       setElementArray(columns || rows);
     }
-    if (views) {
-      const {columns, rows} = layout[view];
+    if (views && view) {
+      const {columns, rows} = layout[view.key];
       if (columns) {setColumns(true);}
       setElementArray(columns || rows);
     }
