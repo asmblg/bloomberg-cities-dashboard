@@ -27,8 +27,8 @@ const FlexLayout = ({
 }) => {
   const [getter, setter] = useState(initialState || {});
   const [elementArray, setElementArray] = useState();
-  const [view, setView] = useState(viewOptions?.[0]?.key);
-  const [isColumns, setColumns] = useState()
+  const [view, setView] = useState(viewOptions?.[0]?.key); // string
+  const [isColumns, setColumns] = useState();
 
   const handleElementArray = () => {
     if (!views) {
@@ -69,13 +69,14 @@ const FlexLayout = ({
     <div
       className='flex-layout'
       style={handleStyle(
-        columns, 
+        isColumns, 
         viewType, 
         // mobileStyle, 
         // tabletStyle
       )}
       // key={JSON.stringify(getter)}
     >
+      {/* <ViewSwitcher /> */}
       {elementArray.map((element, i) => (
         <FlexLayoutElement
           key={`flex-layout-el-${i}`}
@@ -104,7 +105,9 @@ FlexLayout.propTypes = {
   selectedLink: PropTypes.string,
   setSelectedLink: PropTypes.func,
   infoIconConfig: PropTypes.object,
-  setInfoIconConfig: PropTypes.func
+  setInfoIconConfig: PropTypes.func,
+  views: PropTypes.object,
+  viewOptions: PropTypes.array
 };
 
 export default FlexLayout;
