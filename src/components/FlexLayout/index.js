@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import FlexLayoutElement from '../FlexLayoutElement';
@@ -8,12 +8,15 @@ import './style.css';
 
 const FlexLayout = ({ 
   initialState,
-  layout: { 
-    columns,
-    rows,
-    // mobileStyle,
-    // tabletStyle
-  }, 
+  layout,
+  // layout: { 
+  //   columns,
+  //   rows,
+  //   // mobileStyle,
+  //   // tabletStyle
+  // },
+  views, // { }
+  viewOptions, // [{}, {}]
   data, 
   project,
   viewType,
@@ -23,7 +26,22 @@ const FlexLayout = ({
   setInfoIconConfig
 }) => {
   const [getter, setter] = useState(initialState || {});
-  const elementArray = columns || rows;
+  const [elementArray, setElementArray] = useState();
+  const [view, setView] = useState(viewOptions?.[0]?.key);
+  const [isColumns, setColumns] = useState()
+
+  const handleElementArray = () => {
+    if (!views) {
+      const {columns, rows} = layout;
+      if (columns) {setColumns(true);}
+      setElementArray(columns || rows);
+    }
+    if (views) {
+      const {columns, rows} = layout[view];
+      if (columns) {setColumns(true);}
+      setElementArray(columns || rows);
+    }
+  };
 
   const handleSetter = (setterKey, value) => {
     const multipleSetters = Array.isArray(setterKey);
@@ -42,6 +60,8 @@ const FlexLayout = ({
       });
     }
   };
+
+  useEffect(() => handleElementArray(), []);
 
   // console.log(JSON.stringify(getter));
 
