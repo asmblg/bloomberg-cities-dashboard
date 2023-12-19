@@ -2,43 +2,43 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import FlexLayoutElement from '../FlexLayoutElement';
+import ViewSwitcher from '../ViewSwitcher';
 
 import { handleStyle } from './utils';
 import './style.css';
 
-const FlexLayout = ({ 
+const FlexLayout = ({
   initialState,
   layout,
-  // layout: { 
-  //   columns,
-  //   rows,
-  //   // mobileStyle,
-  //   // tabletStyle
-  // },
-  views, // { }
-  viewOptions, // [{}, {}]
-  data, 
+  views,
+  viewOptions,
+  data,
   project,
   viewType,
   selectedLink,
   setSelectedLink,
   infoIconConfig,
-  setInfoIconConfig
+  setInfoIconConfig,
+  tabStyle
 }) => {
   const [getter, setter] = useState(initialState || {});
-  const [elementArray, setElementArray] = useState();
-  const [view, setView] = useState(viewOptions?.[0]?.key); // string
-  const [isColumns, setColumns] = useState();
+  const [elementArray, setElementArray] = useState(null);
+  const [view, setView] = useState(viewOptions?.[0]); // object
+  const [isColumns, setIsColumns] = useState(null);
 
   const handleElementArray = () => {
     if (!views) {
-      const {columns, rows} = layout;
-      if (columns) {setColumns(true);}
+      const { columns, rows } = layout;
+      if (columns) {
+        setIsColumns(true);
+      }
       setElementArray(columns || rows);
-    }
-    if (views) {
-      const {columns, rows} = layout[view];
-      if (columns) {setColumns(true);}
+    } else if (views[view?.key]) {
+      // console.log(views[view]);
+      const { columns, rows } = views[view.key].layout;
+      if (columns) {
+        setIsColumns(true);
+      }
       setElementArray(columns || rows);
     }
   };
@@ -61,37 +61,42 @@ const FlexLayout = ({
     }
   };
 
-  useEffect(() => handleElementArray(), []);
-
-  // console.log(JSON.stringify(getter));
+  useEffect(() => handleElementArray(), [layout, views, view]);
 
   return (
-    <div
-      className='flex-layout'
-      style={handleStyle(
-        isColumns, 
-        viewType, 
-        // mobileStyle, 
-        // tabletStyle
-      )}
-      // key={JSON.stringify(getter)}
-    >
-      {/* <ViewSwitcher /> */}
-      {elementArray.map((element, i) => (
-        <FlexLayoutElement
-          key={`flex-layout-el-${i}`}
-          data={data}
+    <div style={view && views?.[view.key] ? { display: 'flex', flexDirection: 'column' } : {}}>
+      {view && views?.[view.key] && (
+        <ViewSwitcher
+          key={`view-switcher-${view.key}`}
           project={project}
-          layout={element}
-          setter={handleSetter}
-          getter={getter}
+          setView={setView}
+          viewObject={view}
+          viewOptions={viewOptions}
+          tabStyle={tabStyle}
           selectedLink={selectedLink}
           setSelectedLink={setSelectedLink}
-          viewType={viewType}
           infoIconConfig={infoIconConfig}
           setInfoIconConfig={setInfoIconConfig}
+          viewType={viewType}
         />
-      ))}
+      )}
+      <div className='flex-layout' style={handleStyle(isColumns, viewType)}>
+        {elementArray?.map((element, i) => (
+          <FlexLayoutElement
+            key={`flex-layout-el-${i}`}
+            data={data}
+            project={project}
+            layout={element}
+            setter={handleSetter}
+            getter={getter}
+            selectedLink={selectedLink}
+            setSelectedLink={setSelectedLink}
+            viewType={viewType}
+            infoIconConfig={infoIconConfig}
+            setInfoIconConfig={setInfoIconConfig}
+          />
+        ))}
+      </div>
     </div>
   );
 };
@@ -107,7 +112,8 @@ FlexLayout.propTypes = {
   infoIconConfig: PropTypes.object,
   setInfoIconConfig: PropTypes.func,
   views: PropTypes.object,
-  viewOptions: PropTypes.array
+  viewOptions: PropTypes.array,
+  tabStyle: PropTypes.object
 };
 
 export default FlexLayout;

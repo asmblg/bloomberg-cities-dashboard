@@ -1,0 +1,15 @@
+.view-switcher-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-switcher-link {
+  padding: 20px;
+  text-decoration: underline;
+}
+
+.view-switcher-link:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}

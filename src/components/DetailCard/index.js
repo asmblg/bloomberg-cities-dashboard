@@ -63,26 +63,27 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
             detailData={detailData}
             viewType={viewType}
           />
-        ) : config.layout && detailData ? (
+        ) : config && detailData ? (
           <FlexLayout
             key={`flex-layout-${sectionKey}`}
-            initialState={config?.initialState}
+            // config={config}
+            initialState={config.initialState}
             data={detailData.data}
-            layout={config?.layout}
+            layout={config.layout}
             project={project}
             viewType={viewType}
             selectedLink={selectedLink}
             setSelectedLink={setSelectedLink}
             infoIconConfig={infoIconConfig}
             setInfoIconConfig={setInfoIconConfig}
+            tabStyle={config.tabStyle}
+            views={config.views}
+            viewOptions={config.viewOptions}
           />
         ) : null}
 
         {sourcesArray?.[0] ? (
-          <div
-            className='tab-src-container'
-            style={{ flexDirection: 'row' }}
-          >
+          <div className='tab-src-container' style={{ flexDirection: 'row' }}>
             {sourcesArray.length > 2 && viewType === 'desktop' ? (
               sourcesArray.map(({ name, link, width }, i) => (
                 <a
@@ -97,13 +98,10 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
                     Source: <span className='tab-src-name'>{name}</span>
                   </h5>
                 </a>
-
               ))
             ) : (
               <>
-                <h5 className='tab-src-text'>
-                  {sourcesArray.length > 1 ? 'Sources:' : 'Source:'}
-                </h5>
+                <h5 className='tab-src-text'>{sourcesArray.length > 1 ? 'Sources:' : 'Source:'}</h5>
                 {sourcesArray.map(({ name, link }, i) => (
                   <a
                     key={`tab-src-link-${i}`}
@@ -113,7 +111,9 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
                     rel='noreferrer'
                     style={viewType === 'desktop' ? { width: 'auto' } : {}}
                   >
-                    <h5 className='tab-src-text tab-src-name'>{i === 0 && sourcesArray[1] && viewType !== 'mobile' ? `${name},` : name}</h5>
+                    <h5 className='tab-src-text tab-src-name'>
+                      {i === 0 && sourcesArray[1] && viewType !== 'mobile' ? `${name},` : name}
+                    </h5>
                   </a>
                 ))}
               </>

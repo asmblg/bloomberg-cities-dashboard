@@ -50,12 +50,12 @@ const SectionTitle = ({
           color: config.tabStyle?.selectedColor || '#333333'
         }}
       >
-        {config.title.toUpperCase()}
+        {config.title?.toUpperCase()}
       </h1>
       <InfoIcon
         onClick={() => {
           setInfoIconConfig({
-            title: config.title.toUpperCase(),
+            title: config.title?.toUpperCase(),
             tab: selectedLink,
             aboutDataTitleColor: config.tabStyle.selectedColor || 'var(--black-color)'
           });
