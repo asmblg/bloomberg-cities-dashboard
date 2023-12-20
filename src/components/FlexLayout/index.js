@@ -64,7 +64,7 @@ const FlexLayout = ({
   useEffect(() => handleElementArray(), [layout, views, view]);
 
   return (
-    <div style={view && views?.[view.key] ? { display: 'flex', flexDirection: 'column' } : {}}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       {view && views?.[view.key] && (
         <ViewSwitcher
           key={`view-switcher-${view.key}`}
