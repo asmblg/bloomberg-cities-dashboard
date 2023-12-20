@@ -40,6 +40,7 @@ const FlexLayout = ({
         setIsColumns(true);
       }
       setElementArray(columns || rows);
+      setter(initialState || {});
     }
   };
 
@@ -61,7 +62,7 @@ const FlexLayout = ({
     }
   };
 
-  useEffect(() => handleElementArray(), [layout, views, view]);
+  useEffect(() => (handleElementArray()), [layout, views, view]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
