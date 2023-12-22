@@ -58,6 +58,11 @@ const addCalculatedIndicatorToDataObj = (indicatorObj, dataObj) => {
         }
         break;
       }
+      case 'decimalToPercent': {
+        const value = parseFloat(data[indicatorObj.var]) * 100;
+        data[indicatorObj.key] = value;
+        break;
+      }
       default: {
         break;
       }
