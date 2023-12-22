@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
 import getNestedValue from '../../utils/getNestedValue';
+import { handleSearch } from './utils';
 import './style.css';
 
 const CompareDropdownSelection = ({ config, getter, setter, data }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectOptions, setSelectOptions] = useState(null);
+  const [search, setSearch] = useState('');
   const compareDropdownRef = useRef();
+
+  const enableSearch = config?.searchable;
 
   const {
     title,
@@ -75,11 +79,33 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
 
         {selectOptions && selectOptions[0] && selectedOption ? (
           <div className='option-selection-container'>
-            <div className='option-selector' onClick={() => setDropdownOpen(!dropdownOpen)}>
+            <div className='option-selector' onClick={() => {
+              if (!enableSearch) {
+                setDropdownOpen(!dropdownOpen);
+              }
+            }}>
               <div>
-                <Icon name='angle down' size='big' />
-                <h5>{selectedOption.text}</h5>
+                <div onClick={() => setDropdownOpen(!dropdownOpen)}>
+                  <Icon name={dropdownOpen ? 'angle up' : 'angle down'} size='big' />
+                </div>
+                {!enableSearch ? (
+                  <h5>{selectedOption.text}</h5>
+                ) : (
+                  <input
+                    className='compare-dropdown-search'
+                    placeholder={selectedOption.text}
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                    onFocus={() => {
+                      setSearch('');
+                      if (!dropdownOpen) {
+                        setDropdownOpen(true);
+                      }
+                    }}
+                  />
+                )}
               </div>
+
               {selectedOption.key && selectedOption.key !== 'default' ? (
                 <svg className='selected-option-svg' height={'15px'} width={'15px'}>
                   <rect
@@ -93,32 +119,35 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
             {dropdownOpen ? (
               <ul className='compare-options-container'>
                 {selectOptions && selectOptions[0]
-                  ? selectOptions.map((city, i) => (
-                    <li
-                      key={`compare-option-${city.key}-${i}`}
-                      className={
-                        selectedOption.key === city.key
-                          ? 'compare-selected-option'
-                          : 'compare-unselected-option'
-                      }
-                      style={{
-                        borderBottom:
-                          i !== selectOptions.length - 1
-                            ? '1px solid var(--secondary-gray-color)'
-                            : 'none'
-                      }}
-                      onClick={() => {
-                        if (setterKey?.selectedOption) {
-                          setter(setterKey.selectedOption, city);
+                  ? selectOptions
+                    .filter(({ text }) => handleSearch(text, search))
+                    .map((city, i) => (
+                      <li
+                        key={`compare-option-${city.key}-${i}`}
+                        className={
+                          selectedOption.key === city.key
+                            ? 'compare-selected-option'
+                            : 'compare-unselected-option'
                         }
-                        setDropdownOpen(false);
-                      }}
-                    >
-                      <h5 className={selectedOption.key === city.key ? 'bold-font' : null}>
-                        {city.text}
-                      </h5>
-                    </li>
-                  ))
+                        style={{
+                          borderBottom:
+                            i !== selectOptions.length - 1
+                              ? '1px solid var(--secondary-gray-color)'
+                              : 'none'
+                        }}
+                        onClick={() => {
+                          if (setterKey?.selectedOption) {
+                            setter(setterKey.selectedOption, city);
+                          }
+                          setSearch('');
+                          setDropdownOpen(false);
+                        }}
+                      >
+                        <h5 className={selectedOption.key === city.key ? 'bold-font' : null}>
+                          {city.text}
+                        </h5>
+                      </li>
+                    ))
                   : null}
               </ul>
             ) : null}
