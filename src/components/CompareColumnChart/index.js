@@ -12,32 +12,61 @@ import {
 import CustomTooltip from '../CustomTooltip';
 import formatValue from '../../utils/formatValue';
 import PropTypes from 'prop-types';
+import getNestedValue from '../../utils/getNestedValue';
 
 import IndicatorDropdown from '../IndicatorDropdown';
+
 
 import { handleDataArray, handleDefaultIndicator } from './utils';
 // import calculateChartDomain from '../../utils/calculateChartDomain';
 
 const CompareColumnChart = ({ config, data, getter, setter }) => {
+  const { 
+    fixedIndicator, 
+    dataLength, 
+    mainColor, 
+    compareColor, 
+    indicators, 
+    width, 
+    height, 
+    domain,
+    dataPath 
+  } =
+  config;
+
+  console.log(data);
+
+  const nestedData = dataPath 
+    ? getNestedValue(data, dataPath)
+    : null;
+
+  console.log(nestedData);
+  
   const [dataArray, setDataArray] = useState([]);
-  const { fixedIndicator, dataLength, mainColor, compareColor, indicators, width, height, domain } =
-    config;
+
   const setterKey = config.setterKey.selectedOption;
   const selectedIndicator = getter?.[config.getterKey?.selectedOption] || null;
   const primaryColumn = config.primaryColumn || getter?.[config.getterKey?.primaryColumn];
   const secondaryColumn = getter?.[config.getterKey?.secondaryColumn] || null;
   const allColumnsArray = [primaryColumn, secondaryColumn || {}];
 
+  // Handle data path
   useEffect(() => {
-    if (data && data[primaryColumn.key] && selectedIndicator && allColumnsArray) {
+    if (
+      (nestedData || data) && 
+      (nestedData?.[primaryColumn.key] || data?.[primaryColumn.key]) && 
+      selectedIndicator && 
+      allColumnsArray
+    ) {
       handleDataArray({
         primaryColumnKey: primaryColumn.key,
-        data,
+        data: nestedData || data,
         selectedIndicator,
         allColumnsArray,
         dataLength
       }).then(array => {
         if (array) {
+          console.log(array);
           setDataArray(array);
         }
       });

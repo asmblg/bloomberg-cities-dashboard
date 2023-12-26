@@ -6,21 +6,40 @@ import { handleData } from './utils';
 import formatQuarterDate from '../../utils/formatQuarterDate';
 import './style.css';
 
-const HorizontalBarChart = ({ config, data, setter }) => {
+const HorizontalBarChart = ({ config, data, setter, getter }) => {
   const [dataArray, setDataArray] = useState(null);
 
-  useEffect(() => {
-    if (data) {
-      const { dataArr, currentAsOf } = handleData(data, config);
+  const selectorPath = config?.getterKey?.selectorPath;
 
-      if (dataArr) {
-        if (config?.setterKey?.currentAsOf && currentAsOf){
-          setTimeout(() => setter(config?.setterKey?.currentAsOf, formatQuarterDate(currentAsOf, 'QX YYYY')), 0);
-        }
-        setDataArray(dataArr);
+
+  useEffect(() => {
+    console.log(getter?.[selectorPath]);
+    if (data) {
+      // if (selectorPath && getter?.[selectorPath]) {
+      //   config.dataPath = `${config.dataPath}.${getter?.[selectorPath]?.key}`;
+      // }
+      // console.log(config.dataPath);
+      if ((selectorPath && getter?.[selectorPath]) || !selectorPath) {
+        const { dataArr, currentAsOf } = handleData(data, {
+          ...config,
+          dataPath: selectorPath && getter?.[selectorPath] 
+            ? `${config.dataPath}.${getter?.[selectorPath]?.key}`
+            : config.dataPath
+        });
+        if (dataArr) {
+          if (config?.setterKey?.currentAsOf && currentAsOf){
+            setTimeout(() => setter(config?.setterKey?.currentAsOf, formatQuarterDate(currentAsOf, 'QX YYYY')), 0);
+          }
+          setDataArray(dataArr);
+        }      
       }
+
     }
-  }, [data]);
+    return;
+  }, [
+    data,
+    getter?.[selectorPath]
+  ]);
 
   return dataArray ? (
     <>
@@ -81,7 +100,8 @@ const HorizontalBarChart = ({ config, data, setter }) => {
 HorizontalBarChart.propTypes = {
   config: PropTypes.object,
   data: PropTypes.object,
-  setter: PropTypes.func
+  setter: PropTypes.func,
+  getter: PropTypes.object
 };
 
 export default HorizontalBarChart;

@@ -40,7 +40,7 @@ const FlexLayout = ({
         setIsColumns(true);
       }
       setElementArray(columns || rows);
-      setter(initialState || {});
+      // setter(initialState || {});
     }
   };
 

@@ -7,6 +7,7 @@ const handleConfig = async pathname => {
     const projectName = pathnameCity?.toLowerCase();
     const initialConfig = await getConfig(projectName);
 
+    console.log(initialConfig);
     if (initialConfig) {
       return {
         config: initialConfig,

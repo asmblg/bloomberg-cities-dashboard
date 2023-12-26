@@ -162,7 +162,12 @@ const FlexLayoutElement = ({
           infoIconConfig={infoIconConfig}
         />
       ) : content?.type === 'horizontal-bar-chart' ? (
-        <HorizontalBarChart config={content.config} data={data} setter={setter} />
+        <HorizontalBarChart 
+          config={content.config} 
+          data={data} 
+          setter={setter} 
+          getter={getter} 
+        />
       ) : content?.type === 'selected-image' ? (
         <SelectedImage
           config={content.config}
