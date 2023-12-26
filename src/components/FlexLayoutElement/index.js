@@ -16,6 +16,7 @@ import UnderConstructionBox from '../UnderConstructionBox';
 import AboutProject from '../AboutTheData';
 import SectionTitle from '../SectionTitle';
 import HorizontalBarChart from '../HorizontalBarChart';
+import IndicatorMap from '../IndicatorMap';
 
 import { handleElementStyle } from './utils';
 import SelectedImage from '../SelectedImage';
@@ -175,6 +176,8 @@ const FlexLayoutElement = ({
           project={project}
           viewType={viewType}
         />
+      ) : content?.type === 'indicator-map' ? (
+        <IndicatorMap config={content.config} project={project} />                                 
       ) : (
         <UnderConstructionBox notInConfig />
       )}

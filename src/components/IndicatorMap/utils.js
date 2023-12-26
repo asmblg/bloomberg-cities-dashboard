@@ -2,6 +2,7 @@ import addCalculatedIndicatorToDataObj from '../../utils/addCalculatedIndicatorT
 import percentile from 'percentile';
 import incrementDecimalNumber from '../../utils/incrementDecimalNumber';
 import formatValue from '../../utils/formatValue';
+import { getGeoJSON } from '../../utils/API';
 
 /**
  * 
@@ -23,6 +24,29 @@ const handleGeoJSON = async (geoJSON, indicators) => {
 
   tempGeoJSON.features = featuresArr;
   return tempGeoJSON;
+};
+
+/**
+ * 
+ * @param {string} project - Project city name
+ * @param {string} geoType - Geo type from config
+ * @param {array} indicators - array of indicators to run calculations on and add to GeoJSON. If using a getter and only passing in one indicator to the component, wrap that getter indicator object in [ ] when passing in as a argument
+ * @returns updated GeoJSON to be set into state
+ */
+
+const handleNoGeoJsonProp = async (project, geoType, indicators) => {
+  try {
+    if (project && geoType && indicators?.[0]) {
+      const { data } = await getGeoJSON(project, geoType);
+      const returnedGeoJSON = data[0];
+      const updatedGeoJSON = await handleGeoJSON(returnedGeoJSON, indicators);
+      return updatedGeoJSON;
+    }
+    return null;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
 };
 
 /**
@@ -76,4 +100,4 @@ const formatLegendLabel = (label, formatter) => {
   return splitStr.join(' - ');
 };
 
-export { handleBinning, handleGeoJSON, formatLegendLabel };
+export { handleBinning, handleGeoJSON, formatLegendLabel, handleNoGeoJsonProp };

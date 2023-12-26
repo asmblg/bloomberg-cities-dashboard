@@ -5,12 +5,13 @@ import { MapContainer, TileLayer, GeoJSON, Tooltip } from 'react-leaflet';
 import IndicatorDropdown from '../IndicatorDropdown';
 import Legend from './subComponents/Legend';
 
-import { handleBinning, handleGeoJSON } from './utils';
+import { handleBinning, handleGeoJSON, handleNoGeoJsonProp } from './utils';
+// import { getGeoJSON } from '../../utils/API';
 import formatValue from '../../utils/formatValue';
 
 import './style.css';
 
-const IndicatorMap = ({ config, geoJSON }) => {
+const IndicatorMap = ({ config, geoJSON, project }) => {
   const [bins, setBins] = useState(null);
   const [mapGeoJSON, setMapGeoJSON] = useState(null);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
@@ -20,12 +21,22 @@ const IndicatorMap = ({ config, geoJSON }) => {
   const colors = config?.colors || ['#fff3e2', '#ffe5ca', '#fa9884', '#e74646'];
   const numOfBins = colors.length;
   const indicators = config?.indicators || null;
+  // Fill in selected option - this is where we can bring in the getter
+  const selectedOption = {
+    'var': 'living_wage',
+    'label': 'Living Wage',
+    'calculator': 'decimalToPercent',
+    'key': 'living_wage',
+    'units': 'percent',
+    'description': 'Living Wage'
+  };
 
   const handleSetSelectedIndicator = (key, value) => {
     setSelectedIndicator(value);
   };
 
   useEffect(() => {
+    // Handles CP instance
     if (geoJSON) {
       handleGeoJSON(geoJSON, indicators).then(updatedGeoJSON => {
         setMapGeoJSON(updatedGeoJSON);
@@ -34,13 +45,27 @@ const IndicatorMap = ({ config, geoJSON }) => {
         }
       });
 
+    } else {
+      // allows indicators present in config or an indicator obtained from a getter
+      const indicatorOptions = indicators
+        ? indicators
+        : selectedOption
+          ? [selectedOption]
+          : null;
+
+      if (indicatorOptions) {
+        handleNoGeoJsonProp(project, config?.geoType, indicatorOptions).then(updatedGeoJSON => {
+          if (updatedGeoJSON) {
+            setMapGeoJSON(updatedGeoJSON);
+
+            if (indicatorOptions?.[0]) {
+              setSelectedIndicator(indicatorOptions[0]);
+            }
+          }
+        });
+      }
     }
-
   }, []);
-
-  // useEffect(() => {
-
-  // }, []);
 
   useEffect(() => {
     if (colors && selectedIndicator && mapGeoJSON) {
@@ -55,18 +80,19 @@ const IndicatorMap = ({ config, geoJSON }) => {
     }
   }, [selectedIndicator, mapGeoJSON, colors]);
 
-
-
   return bins && mapGeoJSON ? (
     <div className='indicator-map-wrapper'>
-      <p>Select socioeconomic variable to map:</p>
-      
-      <IndicatorDropdown
-        selectedOption={selectedIndicator || indicators?.[0]}
-        setter={handleSetSelectedIndicator}
-        options={indicators || []}
-      />
-      {/* {selectedIndicator ? ( */}
+      {!config.externalDropdown && (
+        <>
+          <p>Select socioeconomic variable to map:</p>
+          <IndicatorDropdown
+            selectedOption={selectedIndicator || indicators?.[0]}
+            setter={handleSetSelectedIndicator}
+            options={indicators || []}
+          />
+        </>
+      )}
+
       <div className='indicator-map'>
         <MapContainer
           key={'indicator-map'}
@@ -86,7 +112,7 @@ const IndicatorMap = ({ config, geoJSON }) => {
               mouseover: e => {
                 const value = e.propagatedFrom?.feature?.properties?.[selectedIndicator?.key || indicators?.[0].key];
                 const indicator = selectedIndicator?.label || indicators?.[0].label;
-                const geo = e.propagatedFrom?.feature?.properties?.['Name'];
+                const geo = e.propagatedFrom?.feature?.properties?.[config.nameProperty?.key ? config.nameProperty.key : 'Name'] || '';
                 const units = selectedIndicator?.units || indicators?.[0].units;
                 setHoveredFeature({value, indicator, geo, units});
               }            
@@ -119,8 +145,7 @@ const IndicatorMap = ({ config, geoJSON }) => {
           >
             <Tooltip>
               <div className='indicator-map-tooltip'>
-                <p>{hoveredFeature?.geo}</p>
-                {/* <p>{hoveredFeature?.indicator}</p> */}
+                <p>{config?.nameProperty?.prefix || ''} {hoveredFeature?.geo}</p>
                 <strong>{formatValue(hoveredFeature?.value, hoveredFeature?.units)}</strong>
               </div>
             </Tooltip>
@@ -142,7 +167,8 @@ const IndicatorMap = ({ config, geoJSON }) => {
 
 IndicatorMap.propTypes = {
   config: PropTypes.object,
-  geoJSON: PropTypes.object
+  geoJSON: PropTypes.object,
+  project: PropTypes.string
 };
 
 export default IndicatorMap;
