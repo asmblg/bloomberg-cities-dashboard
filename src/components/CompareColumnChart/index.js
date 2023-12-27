@@ -34,13 +34,13 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
   } =
   config;
 
-  console.log(data);
+  // console.log(data);
 
   const nestedData = dataPath 
     ? getNestedValue(data, dataPath)
     : null;
 
-  console.log(nestedData);
+  // console.log(nestedData);
   
   const [dataArray, setDataArray] = useState([]);
 
@@ -75,7 +75,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
     getter?.[config.getterKey?.selectedOption],
     getter?.[config.getterKey?.primaryColumn],
     getter?.[config.getterKey?.secondaryColumn],
-    data
+    nestedData || data
   ]);
 
   useEffect(() => {

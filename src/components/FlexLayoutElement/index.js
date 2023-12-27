@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import SelectorMap from '../SelectorMap';
@@ -31,7 +31,11 @@ const FlexLayoutElement = ({
   setSelectedLink,
   viewType,
   infoIconConfig,
-  setInfoIconConfig
+  setInfoIconConfig,
+  setViewLoaded,
+  viewLoaded,
+  lastElement,
+  lastRecursiveElement
 }) => {
   const {
     columns,
@@ -49,9 +53,16 @@ const FlexLayoutElement = ({
   const type = columns ? 'columns' : rows ? 'rows' : content ? 'content' : '';
   const elementArray = columns || rows;
 
+  useEffect(() => {
+    if (lastRecursiveElement) {
+      console.log(lastRecursiveElement);
+      setViewLoaded(true);
+    }
+  }, []);
+
   return (
     <div
-      key={elementRef}
+      ref={elementRef}
       className={`flex-layout-${mobile && type !== 'content' ? 'rows' : type}`}
       style={handleElementStyle(
         style,
@@ -76,6 +87,10 @@ const FlexLayoutElement = ({
             infoIconConfig={infoIconConfig}
             setInfoIconConfig={setInfoIconConfig}
             viewType={viewType}
+            lastElement={elementArray.length - 1 === i }
+            setViewLoaded={setViewLoaded}
+            viewLoaded={viewLoaded}
+            lastRecursiveElement={lastElement && elementArray.length - 1 === i }
           />
         ))
       ) : content?.type === 'selector-map' ? (
@@ -100,6 +115,7 @@ const FlexLayoutElement = ({
           getter={getter}
           setter={setter}
           viewType={viewType}
+          viewLoaded={viewLoaded}
         />
       ) : content?.type === 'simple-indicator-box' ? (
         <SimpleIndicatorBox data={data} config={content.config} getter={getter} />
@@ -143,7 +159,8 @@ const FlexLayoutElement = ({
           getter={getter}
           config={content}
           options={!content.fixedIndicator ? content.indicators : null}
-          selectedOption={content?.config?.fixedSelection || null}
+          selectedOption={getter?.[content?.getterKey?.selectedOption] || content?.config?.fixedSelection }
+          viewLoaded={viewLoaded}
         />
       ) : content?.type === 'combo-line-area-chart' ? (
         <ComboLineAreaChart
@@ -177,7 +194,12 @@ const FlexLayoutElement = ({
           viewType={viewType}
         />
       ) : content?.type === 'indicator-map' ? (
-        <IndicatorMap config={content.config} project={project} />                                 
+        <IndicatorMap 
+          config={content.config} 
+          project={project} 
+          getter={getter}
+          // getterKey={content.getterKey}
+        />                                 
       ) : (
         <UnderConstructionBox notInConfig />
       )}
@@ -195,7 +217,12 @@ FlexLayoutElement.propTypes = {
   setSelectedLink: PropTypes.func,
   viewType: PropTypes.string,
   infoIconConfig: PropTypes.object,
-  setInfoIconConfig: PropTypes.func
+  setInfoIconConfig: PropTypes.func,
+  setViewLoaded: PropTypes.func,
+  viewLoaded: PropTypes.bool,
+  lastElement: PropTypes.bool,
+  lastRecursiveElement: PropTypes.bool
+
 };
 
 export default FlexLayoutElement;

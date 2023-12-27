@@ -11,7 +11,8 @@ import formatValue from '../../utils/formatValue';
 
 import './style.css';
 
-const IndicatorMap = ({ config, geoJSON, project }) => {
+const IndicatorMap = ({ config, geoJSON, project, getter }) => {
+  console.log(getter);
   const [bins, setBins] = useState(null);
   const [mapGeoJSON, setMapGeoJSON] = useState(null);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
@@ -21,51 +22,55 @@ const IndicatorMap = ({ config, geoJSON, project }) => {
   const colors = config?.colors || ['#fff3e2', '#ffe5ca', '#fa9884', '#e74646'];
   const numOfBins = colors.length;
   const indicators = config?.indicators || null;
+  const title = config?.title || 'Select socioeconomic variable to map:';
   // Fill in selected option - this is where we can bring in the getter
-  const selectedOption = {
-    'var': 'living_wage',
-    'label': 'Living Wage',
-    'calculator': 'decimalToPercent',
-    'key': 'living_wage',
-    'units': 'percent',
-    'description': 'Living Wage'
-  };
+  // const selectedOption = {
+  //   'var': 'living_wage',
+  //   'label': 'Living Wage',
+  //   'calculator': 'decimalToPercent',
+  //   'key': 'living_wage',
+  //   'units': 'percent',
+  //   'description': 'Living Wage'
+  // };
+  const defaultSelection = getter?.[config?.getterKey?.selectedIndicator] || indicators?.[0]; 
+  console.log(defaultSelection);
 
   const handleSetSelectedIndicator = (key, value) => {
     setSelectedIndicator(value);
   };
 
   useEffect(() => {
+
     // Handles CP instance
     if (geoJSON) {
       handleGeoJSON(geoJSON, indicators).then(updatedGeoJSON => {
         setMapGeoJSON(updatedGeoJSON);
-        if (indicators?.[0]) {
-          setSelectedIndicator(indicators[0]);
+        if (defaultSelection) {
+          console.log(defaultSelection);
+          setSelectedIndicator(defaultSelection);
         }
       });
 
     } else {
-      // allows indicators present in config or an indicator obtained from a getter
-      const indicatorOptions = indicators
-        ? indicators
-        : selectedOption
-          ? [selectedOption]
-          : null;
 
-      if (indicatorOptions) {
-        handleNoGeoJsonProp(project, config?.geoType, indicatorOptions).then(updatedGeoJSON => {
+      console.log(indicators, defaultSelection);
+
+      // allows indicators present in config or an indicator obtained from a getter
+
+      if (defaultSelection) {
+        handleNoGeoJsonProp(project, config?.geoType, indicators || [defaultSelection]).then(updatedGeoJSON => {
           if (updatedGeoJSON) {
             setMapGeoJSON(updatedGeoJSON);
 
-            if (indicatorOptions?.[0]) {
-              setSelectedIndicator(indicatorOptions[0]);
+            if (defaultSelection) {
+
+              setSelectedIndicator(defaultSelection);
             }
           }
         });
       }
     }
-  }, []);
+  }, [getter?.[config?.getterKey?.selectedIndicator]]);
 
   useEffect(() => {
     if (colors && selectedIndicator && mapGeoJSON) {
@@ -78,15 +83,22 @@ const IndicatorMap = ({ config, geoJSON, project }) => {
         })
       );
     }
-  }, [selectedIndicator, mapGeoJSON, colors]);
+  }, [
+    selectedIndicator, 
+    mapGeoJSON, 
+    colors,
+    getter?.[config?.getterKey?.selectedIndicator]
+  ]);
+
+  console.log(selectedIndicator);
 
   return bins && mapGeoJSON ? (
     <div className='indicator-map-wrapper'>
       {!config.externalDropdown && (
         <>
-          <p>Select socioeconomic variable to map:</p>
+          <p>{title}</p>
           <IndicatorDropdown
-            selectedOption={selectedIndicator || indicators?.[0]}
+            selectedOption={selectedIndicator || defaultSelection}
             setter={handleSetSelectedIndicator}
             options={indicators || []}
           />
@@ -95,7 +107,7 @@ const IndicatorMap = ({ config, geoJSON, project }) => {
 
       <div className='indicator-map'>
         <MapContainer
-          key={'indicator-map'}
+          key={`indicator-map-${selectedIndicator.key}`}
           center={config.center}
           zoom={config.zoom}
           zoomControl={true}
@@ -110,17 +122,17 @@ const IndicatorMap = ({ config, geoJSON, project }) => {
           <GeoJSON
             eventHandlers={{
               mouseover: e => {
-                const value = e.propagatedFrom?.feature?.properties?.[selectedIndicator?.key || indicators?.[0].key];
-                const indicator = selectedIndicator?.label || indicators?.[0].label;
+                const value = e.propagatedFrom?.feature?.properties?.[selectedIndicator?.key || defaultSelection.key];
+                const indicator = selectedIndicator?.label || defaultSelection.label;
                 const geo = e.propagatedFrom?.feature?.properties?.[config.nameProperty?.key ? config.nameProperty.key : 'Name'] || '';
-                const units = selectedIndicator?.units || indicators?.[0].units;
+                const units = selectedIndicator?.units || defaultSelection.units;
                 setHoveredFeature({value, indicator, geo, units});
               }            
             }}
-            key={`data-layer-${selectedIndicator?.key || indicators?.[0].key }`}
+            key={`data-layer-${selectedIndicator?.key || defaultSelection.key }`}
             data={mapGeoJSON}
             filter={feature => {
-              const value = feature?.properties?.[selectedIndicator?.key || indicators?.[0].key];
+              const value = feature?.properties?.[selectedIndicator?.key || defaultSelection.key];
               if (!isNaN(parseInt(value)) && parseInt(value) > 0) {
                 return true;
               } else {
@@ -128,7 +140,7 @@ const IndicatorMap = ({ config, geoJSON, project }) => {
               }
             }}
             style={feature => {
-              const value = feature.properties[selectedIndicator?.key || indicators?.[0].key];
+              const value = feature.properties[selectedIndicator?.key || defaultSelection.key];
               const color = value
                 ? bins
                   .filter(({ percentile }) => value <= percentile)
@@ -151,7 +163,7 @@ const IndicatorMap = ({ config, geoJSON, project }) => {
             </Tooltip>
           </GeoJSON>
           <Legend
-            indicator={selectedIndicator || indicators?.[0]}
+            indicator={selectedIndicator || defaultSelection}
             bins={bins}
             strokeColor={config.strokeColor || 'black'}
           />
@@ -168,7 +180,8 @@ const IndicatorMap = ({ config, geoJSON, project }) => {
 IndicatorMap.propTypes = {
   config: PropTypes.object,
   geoJSON: PropTypes.object,
-  project: PropTypes.string
+  project: PropTypes.string,
+  getter: PropTypes.object
 };
 
 export default IndicatorMap;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import FlexLayoutElement from '../FlexLayoutElement';
@@ -21,10 +21,17 @@ const FlexLayout = ({
   setInfoIconConfig,
   tabStyle
 }) => {
-  const [getter, setter] = useState(initialState || {});
+  const [nonMemoGetter, setter] = useState(initialState || {});
   const [elementArray, setElementArray] = useState(null);
   const [view, setView] = useState(viewOptions?.[0]); // object
   const [isColumns, setIsColumns] = useState(null);
+  const [viewLoaded, setViewLoaded] = useState(false);
+
+  const getter = useMemo(() => {
+    // Perform any transformation or computation with `getter` if necessary
+    // For instance, you might want to derive some values from it
+    return nonMemoGetter; // Return the getter or a transformed version of it
+  }, [nonMemoGetter]);
 
   const handleElementArray = () => {
     if (!views) {
@@ -45,6 +52,7 @@ const FlexLayout = ({
   };
 
   const handleSetter = (setterKey, value) => {
+    console.log('HANDLE SETTER', setterKey);
     const multipleSetters = Array.isArray(setterKey);
     if (multipleSetters) {
       const setterObj = { ...getter };
@@ -64,6 +72,7 @@ const FlexLayout = ({
 
   useEffect(() => (handleElementArray()), [layout, views, view]);
 
+  
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {view && views?.[view.key] && (
@@ -95,6 +104,9 @@ const FlexLayout = ({
             viewType={viewType}
             infoIconConfig={infoIconConfig}
             setInfoIconConfig={setInfoIconConfig}
+            lastElement={elementArray.length - 1 === i }
+            setViewLoaded={setViewLoaded}
+            viewLoaded={viewLoaded}
           />
         ))}
       </div>

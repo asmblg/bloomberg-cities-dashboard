@@ -49,6 +49,7 @@
   .flex-layout {
     height: fit-content !important;
     padding: 0 10px 20px 10px;
+    justify-content: flex-start;
   }
   .selector-map-wrapper {
     height: 350px !important;
@@ -79,4 +80,5 @@
   .detail-card-header {
     padding-bottom: 0 !important;
   }
+
 }

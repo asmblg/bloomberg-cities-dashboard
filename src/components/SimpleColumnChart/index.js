@@ -34,10 +34,11 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
     width,
     getterKey
   } = config;
+
+  const selectedIndicator = getter?.[getterKey?.selectedIndicator] || null;
+
   
   useEffect(() => {
-    const selectedIndicator = getter?.[getterKey?.selectedIndicator] || null;
-
     if (selectedIndicator) {
       if (selectedIndicator.key) {
         setDataPath(selectedIndicator.key);
@@ -47,10 +48,14 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
         setChartConfig(selectedIndicator.chartConfig);
       }
     }
-  }, [getter]);
+  }, [
+    getter?.[getterKey?.selectedIndicator],
+    selectedIndicator
+  ]);
 
   useEffect(() => {
     if (data) {
+      console.log(dataPath);
       const array = handleSimpleChartDataArray(config, data, dataPath);
 
       if (array) {

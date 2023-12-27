@@ -1,4 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { 
+  useState, 
+  useEffect, 
+  useRef 
+} from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
@@ -11,6 +15,7 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
   const [selectOptions, setSelectOptions] = useState(null);
   const [search, setSearch] = useState('');
   const compareDropdownRef = useRef();
+  const inputRef = useRef();
 
   const enableSearch = config?.searchable;
 
@@ -27,11 +32,7 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
     legendStyle
   } = config;
 
-  const selectedOption =
-    getterKey?.selectedOption && getter?.[getterKey.selectedOption]
-      ? getter[getterKey.selectedOption]
-      : defaultSelected || null;
-  
+  const selectedOption = getter?.[getterKey?.selectedOption] || defaultSelected || null;
   // console.log(selectedOption);
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
     } else if (optionsDataPath && data) {
       const dataObj = getNestedValue(data, optionsDataPath);
       const optionsArr = dataObj
-        ? Object.keys(dataObj).map(key => ({
+        ? Object.keys(dataObj).sort().map(key => ({
           text: key,
           key
         }))
@@ -57,7 +58,10 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
         }
       }
     }
-  }, [getter, data]);
+  }, [
+    getter,
+    data
+  ]);
 
   return (
     <div
@@ -92,12 +96,13 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
                   <h5>{selectedOption.text}</h5>
                 ) : (
                   <input
+                    ref={inputRef}
                     className='compare-dropdown-search'
                     placeholder={selectedOption.text}
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                     onFocus={() => {
-                      setSearch('');
+                      setSearch(' ');
                       if (!dropdownOpen) {
                         setDropdownOpen(true);
                       }
@@ -120,10 +125,10 @@ const CompareDropdownSelection = ({ config, getter, setter, data }) => {
               <ul className='compare-options-container'>
                 {selectOptions && selectOptions[0]
                   ? selectOptions
-                    .filter(({ text }) => handleSearch(text, search))
+                    .filter(({ text }) => handleSearch(text, `${search}`.trim()))
                     .map((city, i) => (
                       <li
-                        key={`compare-option-${city.key}-${i}`}
+                        key={`compare-option-${city.key}-${i}-${title}`}
                         className={
                           selectedOption.key === city.key
                             ? 'compare-selected-option'
