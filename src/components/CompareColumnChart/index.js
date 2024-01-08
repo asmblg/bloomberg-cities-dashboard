@@ -30,7 +30,8 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
     width, 
     height, 
     domain,
-    dataPath 
+    dataPath,
+    delayInitialSetter 
   } =
   config;
 
@@ -66,7 +67,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
         dataLength
       }).then(array => {
         if (array) {
-          console.log(array);
+          // console.log(array);
           setDataArray(array);
         }
       });
@@ -82,7 +83,13 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
     if (setterKey) {
       handleDefaultIndicator({ fixedIndicator, indicators }).then(indicator => {
         if (indicator) {
-          setter(setterKey, indicator);
+
+          const ms = delayInitialSetter || 0; 
+          //Math.floor(Math.random() * 51);
+          setTimeout(() => 
+            setter(setterKey, indicator),
+          ms
+          );        
         }
       });
     }
@@ -97,6 +104,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
           getter={getter}
           config={config}
           options={!fixedIndicator ? indicators : null}
+          selectedIndicator={selectedIndicator}
         />
       ) : null}
       {/* ---------- CHART ---------- */}

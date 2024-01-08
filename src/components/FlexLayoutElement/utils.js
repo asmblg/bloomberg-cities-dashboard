@@ -26,6 +26,25 @@ const handleElementStyle = (
   if (viewType === 'mobile' || viewType === 'tablet') {
     obj.height = 'fit-content';
   }
+  if (viewType === 'mobile') {
+    if (obj.borderRight) {
+      obj.borderBottom = obj.borderRight;
+      obj.marginBottom = '20px';      
+      // obj.paddingBottom = '20px';
+      obj.borderBottomColor = 'rgb(245, 243, 243)';
+
+
+      delete obj.borderRight;
+    }
+    if (obj.borderLeft) {
+      obj.borderTop = obj.borderLeft;
+      obj.marginTop = '20px';
+      // obj.paddingTop = '20px';
+      obj.borderTopColor = 'rgb(245, 243, 243)';
+
+      delete obj.borderLeft;
+    }
+  }
   return obj;
 };
 

@@ -1,9 +1,11 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { 
+  useEffect,
+  useState, 
+  useRef 
+} from 'react';
 import PropTypes from 'prop-types';
-
 import FlexLayoutElement from '../FlexLayoutElement';
 import ViewSwitcher from '../ViewSwitcher';
-
 import { handleStyle } from './utils';
 import './style.css';
 
@@ -21,19 +23,20 @@ const FlexLayout = ({
   setInfoIconConfig,
   tabStyle
 }) => {
-  const [nonMemoGetter, setter] = useState(initialState || {});
+  const layoutRef = useRef();
+  const [getter, setter] = useState(initialState || {});
   const [elementArray, setElementArray] = useState(null);
   const [view, setView] = useState(viewOptions?.[0]); // object
   const [isColumns, setIsColumns] = useState(null);
   const [viewLoaded, setViewLoaded] = useState(false);
 
-  const getter = useMemo(() => {
-    // Perform any transformation or computation with `getter` if necessary
-    // For instance, you might want to derive some values from it
-    return nonMemoGetter; // Return the getter or a transformed version of it
-  }, [nonMemoGetter]);
+  // const getter = useMemo(() => {
+  //   // Perform any transformation or computation with `getter` if necessary
+  //   // For instance, you might want to derive some values from it
+  //   return nonMemoGetter; // Return the getter or a transformed version of it
+  // }, [nonMemoGetter]);
 
-  const handleElementArray = () => {
+  const handleElementArray = async () => new Promise((resolve) => {
     if (!views) {
       const { columns, rows } = layout;
       if (columns) {
@@ -47,34 +50,43 @@ const FlexLayout = ({
         setIsColumns(true);
       }
       setElementArray(columns || rows);
-      // setter(initialState || {});
     }
-  };
+    resolve();
+  });
 
   const handleSetter = (setterKey, value) => {
-    console.log('HANDLE SETTER', setterKey);
+    // console.log('HANDLE SETTER', setterKey);
     const multipleSetters = Array.isArray(setterKey);
+    const setterObj = { ...getter };
+
     if (multipleSetters) {
-      const setterObj = { ...getter };
       setterKey.forEach((key, i) => {
         if (key) {
           setterObj[key] = value[i];
         }
       });
-      setter(setterObj);
     } else {
-      setter({
-        ...getter,
-        [setterKey]: value
-      });
+      setterObj[setterKey] = value;
     }
+    setter(setterObj);
+
   };
 
-  useEffect(() => (handleElementArray()), [layout, views, view]);
+  useEffect(() => {
+    setViewLoaded(false);
+    handleElementArray().then(() => {
+      setter(initialState || {});
+      setViewLoaded(true);
+    });    
+  }
+  , [layout, views, view]);
 
   
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div
+      ref={layoutRef}
+      key={`layout-${project}-${views?.[view?.key] || 'single-view'}`}
+      style={{ display: 'flex', flexDirection: 'column' }}>
       {view && views?.[view.key] && (
         <ViewSwitcher
           key={`view-switcher-${view.key}`}
@@ -93,7 +105,8 @@ const FlexLayout = ({
       <div className='flex-layout' style={handleStyle(isColumns, viewType)}>
         {elementArray?.map((element, i) => (
           <FlexLayoutElement
-            key={`flex-layout-el-${i}`}
+            key={`flex-layout-el-${i}-${view?.key}`}
+            view={view}
             data={data}
             project={project}
             layout={element}
@@ -105,7 +118,8 @@ const FlexLayout = ({
             infoIconConfig={infoIconConfig}
             setInfoIconConfig={setInfoIconConfig}
             lastElement={elementArray.length - 1 === i }
-            setViewLoaded={setViewLoaded}
+            scrollRef={element?.scrollRef}
+            // setViewLoaded={setViewLoaded}
             viewLoaded={viewLoaded}
           />
         ))}

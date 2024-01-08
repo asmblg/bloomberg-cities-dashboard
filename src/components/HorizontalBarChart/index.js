@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { TailSpin } from 'react-loader-spinner';
+import numeral from 'numeral';
 
 import { handleData } from './utils';
 import formatQuarterDate from '../../utils/formatQuarterDate';
@@ -8,24 +9,33 @@ import './style.css';
 
 const HorizontalBarChart = ({ config, data, setter, getter }) => {
   const [dataArray, setDataArray] = useState(null);
+  const valuesFormat = config.valuesFormat;
 
   const selectorPath = config?.getterKey?.selectorPath;
-
+  // console.log(selectorPath, getter);
 
   useEffect(() => {
-    console.log(getter?.[selectorPath]);
+    // console.log(getter?.[selectorPath]);
     if (data) {
+      // console.log(data);
       // if (selectorPath && getter?.[selectorPath]) {
       //   config.dataPath = `${config.dataPath}.${getter?.[selectorPath]?.key}`;
       // }
       // console.log(config.dataPath);
-      if ((selectorPath && getter?.[selectorPath]) || !selectorPath) {
-        const { dataArr, currentAsOf } = handleData(data, {
-          ...config,
-          dataPath: selectorPath && getter?.[selectorPath] 
-            ? `${config.dataPath}.${getter?.[selectorPath]?.key}`
-            : config.dataPath
-        });
+      if ((getter?.[selectorPath]) || !selectorPath) {
+        const dataConfig = {...config};
+        if (selectorPath && getter?.[selectorPath] ) {
+          if (getter?.[selectorPath]?.dataPath) {
+            dataConfig.dataPath = getter?.[selectorPath]?.dataPath;
+          } else {
+            dataConfig.dataPath = `${config.dataPath}.${getter?.[selectorPath]?.key}`;
+          }
+        } else {
+          dataConfig.dataPath = config.dataPath;
+        }
+        // console.log(dataConfig.dataPath);
+        const { dataArr, currentAsOf } = handleData(data, dataConfig);
+        // console.log(dataArr);
         if (dataArr) {
           if (config?.setterKey?.currentAsOf && currentAsOf){
             setTimeout(() => setter(config?.setterKey?.currentAsOf, formatQuarterDate(currentAsOf, 'QX YYYY')), 0);
@@ -35,10 +45,10 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
       }
 
     }
-    return;
   }, [
     data,
-    getter?.[selectorPath]
+    getter?.[selectorPath],
+    selectorPath
   ]);
 
   return dataArray ? (
@@ -76,7 +86,11 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
                   marginRight: config.chartWrapperStyle?.overflowY ? '10px' : '0'
                 }}
               >
-                {item.value}
+                { 
+                  valuesFormat 
+                    ? numeral(Number(item.value)).format(valuesFormat)
+                    : item.value
+                }
               </h5>
             </div>
           </div>

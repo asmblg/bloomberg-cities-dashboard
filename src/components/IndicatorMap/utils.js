@@ -38,13 +38,14 @@ const handleNoGeoJsonProp = async (project, geoType, indicators) => {
   try {
     if (project && geoType && indicators?.[0]) {
       const { data } = await getGeoJSON(project, geoType);
+      // console.log(data);
       const returnedGeoJSON = data[0];
       const updatedGeoJSON = await handleGeoJSON(returnedGeoJSON, indicators);
       return updatedGeoJSON;
     }
     return null;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return null;
   }
 };

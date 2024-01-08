@@ -46,7 +46,19 @@ const TrendPill = ({
             )} in ${dateToQuarter(compareDate, 'QX YYYY')}`}</h5>
           ) : null}
         </>
-      ) : null}
+      ) : (
+        <>
+          <div
+            className={'no-data-pill'
+            }
+            style={{ height: heightVal || '', width: widthVal || '' }}
+          >
+            {/* <h5 className='no-data-pill-text'> */}
+              Comparison Data Currently Unavailable
+            {/* </h5>           */}
+          </div>
+        </>
+      )}
     </div>
   );
 };

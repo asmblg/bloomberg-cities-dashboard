@@ -1,7 +1,7 @@
 .hbc-container {
   width: 100%;
   /* max-height: 100%; */
-  max-height: 60vh;
+  /* max-height: 60vh; */
   overflow: auto;
 
 }
@@ -45,4 +45,15 @@
   display: flex;
   align-items: center;
   color: #006aaf;
+}
+
+@media screen and (max-width: 760px), (orientation: portrait) {
+  .hbc-container {
+    /* max-height: 100%; */
+    overflow: auto !important;
+  
+  }
+  .hbc-row-label {
+    min-width: 150px;
+  }
 }

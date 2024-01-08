@@ -11,7 +11,7 @@ import dateToQuarter from '../../utils/dateToQuarter';
 import getNestedValue from '../../utils/getNestedValue';
 import './style.css';
 
-const IndicatorTrendBox = ({ data, config, getter }) => {
+const IndicatorTrendBox = ({ data, config, getter, viewLoaded }) => {
   const [indicatorTrendData, setIndicatorTrendData] = useState({
     currentDate: null,
     currentValue: null,
@@ -25,31 +25,38 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
     dataPath,
     getterKey,
     chart,
-    layoutVariation
+    layoutVariation,
+    label,
+    showIndicatorText,
+    // useAlternateIndicator
   } = config;
 
   const trendDataType = getter?.[getterKey?.trendValue] || 'QtQ';
 
-  const selectedCategory =
-    getter && getterKey?.selectedCategory ? getter[getterKey.selectedCategory] : null;
+  const selectedCategory = getter && getterKey?.selectedCategory 
+    ? getter[getterKey.selectedCategory] 
+    : null;
 
-  const selectedIndicator =
-    !indicator && getterKey?.selectedIndicator
-      ? getter[getterKey.selectedIndicator]
-      : indicator || null;
+  const selectedIndicator = getter?.[getterKey?.selectedIndicator]?.alternate || 
+    getter?.[getterKey?.selectedIndicator] || 
+    indicator;
+
+  // console.log(getterKey?.selectedIndicator, getter, selectedIndicator);
   
-  const baseDataPath = getter?.[getterKey?.dataPath] || dataPath;
+  const baseDataPath = selectedIndicator?.dataPath || getter?.[getterKey?.dataPath] || dataPath;
+
+  // console.log(selectedIndicator, data);
 
   useEffect(() => {
     if (data) {
-      const nestedDataObj =
-        baseDataPath && selectedCategory?.key
-          ? getNestedValue(data, `${baseDataPath}.${selectedCategory.key}`)
-          : baseDataPath && !selectedCategory
-            ? getNestedValue(data, baseDataPath)
-            : !baseDataPath && !selectedCategory
-              ? { ...data }
-              : null;
+      const nestedDataObj = baseDataPath && selectedCategory?.key
+        ? getNestedValue(data, `${baseDataPath}.${selectedCategory.key}`)
+        : baseDataPath && !selectedCategory
+          ? getNestedValue(data, baseDataPath)
+          : !baseDataPath && !selectedCategory
+            ? { ...data }
+            : null;
+      // console.log(nestedDataObj);
 
       if (nestedDataObj && selectedIndicator) {
         const dataObj = handleTrendDisplayData(nestedDataObj, selectedIndicator, trendDataType);
@@ -64,7 +71,15 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
         }
       }
     }
-  }, [selectedIndicator, data, selectedCategory, trendDataType, baseDataPath]);
+  }, [
+    selectedIndicator,
+    selectedIndicator?.alternate,
+    data, 
+    selectedCategory, 
+    trendDataType, 
+    baseDataPath,
+    viewLoaded
+  ]);
 
   return indicatorTrendData?.displayValue && selectedIndicator ? (
     <div className='indicator-trend-wrapper' style={layoutVariation === 'label-on-top' ? {padding: '0'} : {}}>
@@ -91,7 +106,12 @@ const IndicatorTrendBox = ({ data, config, getter }) => {
             </h1>
             {layoutVariation !== 'label-on-top' ? (
               <div>
-                <h4>{selectedIndicator.trendBoxLabel?.toUpperCase() || selectedIndicator.label?.toUpperCase() || ''}</h4>
+                {
+                  selectedIndicator?.text && showIndicatorText
+                    ? <h5>{selectedIndicator?.text }</h5>
+                    : null
+                }
+                <h4>{label?.toUpperCase() || selectedIndicator.trendBoxLabel?.toUpperCase() || selectedIndicator.label?.toUpperCase() || ''}</h4>
                 <h4>{dateToQuarter(indicatorTrendData.currentDate, 'QX YYYY')}</h4>
               </div>
             ) : (
@@ -130,7 +150,9 @@ IndicatorTrendBox.propTypes = {
   data: PropTypes.object,
   config: PropTypes.object,
   getter: PropTypes.object,
-  viewType: PropTypes.string
+  viewType: PropTypes.string,
+  viewLoaded: PropTypes.bool
+
 };
 
 export default IndicatorTrendBox;

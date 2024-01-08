@@ -1,14 +1,28 @@
 .data-toggle-container {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  max-width: 200px;
-  min-height: 60px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  /* max-width: 200px; */
+  /* min-height: 60px; */
   padding: 0 0 10px 20px;
 }
 
-.data-toggle-container > h5 {
+.data-toggle-container > p {
+  font-size: .9rem;
+}
+
+.data-toggle  {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+  max-width: 350px;
+  min-height: 40px;
+  padding: 0 0 10px 10px;
+}
+
+.data-toggle > h5 {
   padding: 0;
   margin: 0;
   width: 60px;

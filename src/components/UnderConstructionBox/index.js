@@ -21,8 +21,8 @@ const UnderConstructionBox = ({ notInConfig }) => {
         margin: notInConfig ? '0 20px' : '0'
       }}
     >
-      <h4 style={{ ...textStyle, marginBottom: '20px' }}>{'CURRENTLY UNDER DEVELOPMENT'}</h4>
-      <h4 style={textStyle}>{'AVAILABLE SOON'}</h4>
+      <h5 style={{ ...textStyle, marginBottom: '5px' }}>{'CURRENTLY UNDER DEVELOPMENT'}</h5>
+      <h5 style={textStyle}>{'AVAILABLE SOON'}</h5>
     </div>
   );
 };

@@ -20,7 +20,7 @@ const SelectedImage = ({ config, getter, project, viewType }) => {
 
   useEffect(() => {
     if (project && selectedImageKey) {
-      console.log({ selectedImageKey });
+      // console.log({ selectedImageKey });
       const category = config.getterKey.selectedImage;
       const img = getImage(project, category, selectedImageKey);
 

@@ -190,6 +190,15 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
     };
 
   }
+  if (postCalculator === 'decimalToPercent') {
+    // console.log('***************',dataObj);
+    if (dataObj.compareValue) {
+      dataObj.compareValue = 100 * dataObj.compareValue;
+    }
+    if (dataObj.currentValue) {
+      dataObj.currentValue = 100 * dataObj.currentValue;
+    }
+  }
   return dataObj;
 };
 

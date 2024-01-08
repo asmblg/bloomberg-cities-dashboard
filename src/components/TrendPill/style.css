@@ -6,7 +6,8 @@
 }
 
 .upward-trend,
-.downward-trend {
+.downward-trend,
+.no-data-pill {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,6 +16,16 @@
   min-width: 80px;
   padding: 0;
   margin-right: 5px;
+}
+
+.no-data-pill {
+  background-color: lightgray;
+  max-width: 100px;
+  padding: 10px;
+  font-size: .6rem;
+  opacity: .5;
+  text-align: center;
+  line-height: .7rem;
 }
 
 .upward-trend > img,

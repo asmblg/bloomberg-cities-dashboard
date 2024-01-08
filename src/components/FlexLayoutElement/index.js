@@ -32,10 +32,12 @@ const FlexLayoutElement = ({
   viewType,
   infoIconConfig,
   setInfoIconConfig,
-  setViewLoaded,
+  // setViewLoaded,
   viewLoaded,
-  lastElement,
-  lastRecursiveElement
+  // lastElement,
+  // lastRecursiveElement,
+  view,
+  scrollRef
 }) => {
   const {
     columns,
@@ -53,16 +55,38 @@ const FlexLayoutElement = ({
   const type = columns ? 'columns' : rows ? 'rows' : content ? 'content' : '';
   const elementArray = columns || rows;
 
+  // useEffect(() => {
+  //   if (viewLoaded && !lastElement) {
+  //     setViewLoaded(false);
+  //   }
+  //   if (lastElement) {
+  //     setViewLoaded(true);
+  //     // setViewLoaded(true);
+  //   }
+  // }, [layout]);
+
   useEffect(() => {
-    if (lastRecursiveElement) {
-      console.log(lastRecursiveElement);
-      setViewLoaded(true);
+    if (viewLoaded) {
+      const hash = window.location.hash;
+      if (hash) {
+        // Remove the '#' from the hash.
+        const id = hash.replace('#', '');
+
+        // Find the element with the corresponding ID.
+        const element = document.getElementById(id);
+        
+        // Scroll to the element if it exists.
+        if (element) {
+          element.scrollIntoView();
+        }
+      }    
     }
-  }, []);
+  }, [viewLoaded]);
 
   return (
     <div
       ref={elementRef}
+      id={scrollRef}
       className={`flex-layout-${mobile && type !== 'content' ? 'rows' : type}`}
       style={handleElementStyle(
         style,
@@ -76,7 +100,8 @@ const FlexLayoutElement = ({
       {!content && data ? (
         elementArray.map((element, i) => (
           <FlexLayoutElement
-            key={`recursive-flex-layout-el-${i}`}
+            key={`recursive-flex-layout-el-${i}-${view?.key}`}
+            scrollRef={element?.scrollRef}
             data={data}
             setter={setter}
             getter={getter}
@@ -87,17 +112,22 @@ const FlexLayoutElement = ({
             infoIconConfig={infoIconConfig}
             setInfoIconConfig={setInfoIconConfig}
             viewType={viewType}
-            lastElement={elementArray.length - 1 === i }
-            setViewLoaded={setViewLoaded}
+            lastElement={elementArray.length - 1 === i}
+            // setViewLoaded={setViewLoaded}
             viewLoaded={viewLoaded}
-            lastRecursiveElement={lastElement && elementArray.length - 1 === i }
+            // lastRecursiveElement={lastElement && elementArray.length - 1 === i}
           />
         ))
       ) : content?.type === 'selector-map' ? (
         <SelectorMap project={project} config={content.config} setter={setter} />
       ) : content?.type === 'trend-data-toggler' ? (
-        <TrendDataToggle config={content.config} getter={getter} setter={setter} />
-      ) : content?.type === 'title-with-trend-data-toggler' && content?.config ? (
+        <TrendDataToggle
+          config={content.config}
+          getter={getter}
+          setter={setter}
+        // viewLoaded
+        />
+      ) : (content?.type === 'title-with-trend-data-toggler' || content?.type === 'title') && content?.config ? (
         <SectionTitle
           config={content.config}
           setInfoIconConfig={setInfoIconConfig}
@@ -106,7 +136,7 @@ const FlexLayoutElement = ({
           project={project}
           getter={getter}
           setter={setter}
-          toggler
+          toggler={content?.type === 'title-with-trend-data-toggler'}
         />
       ) : content?.type === 'indicator-trend-box' ? (
         <IndicatorTrendBox
@@ -122,9 +152,20 @@ const FlexLayoutElement = ({
       ) : content?.type === 'compare-selector' ? (
         <CompareDropdownSelection
           data={data}
+          // title={content?.config?.title}
+          // titles={content?.configs?.titles}
+          enableSearch={content?.config?.searchable}
           config={content.config}
-          getter={getter}
+          options={content.config?.options}
+          indicatorWithDataPath={getter?.[content?.config?.getterKey?.indicatorWithDataPath]}
+          dataToggle={getter?.[content?.config?.getterKey?.optionsToggle] || content?.config?.defaultDataToggle}
+          selectedOption={getter?.[content?.config?.getterKey?.selectedOption] ||  content?.config?.defaultSelected}
+          optionsResetTrigger={getter?.[content?.config?.getterKey?.optionsResetTrigger]}
+          // getter={getter}
           setter={setter}
+          // onUpdate={({selection}) => 
+          //   setter(content?.config?.setterKey?.selectionKey, selection)
+          // }
         />
       ) : content?.type === 'multi-line-chart' ? (
         <MultiLineChart
@@ -159,7 +200,7 @@ const FlexLayoutElement = ({
           getter={getter}
           config={content}
           options={!content.fixedIndicator ? content.indicators : null}
-          selectedOption={getter?.[content?.getterKey?.selectedOption] || content?.config?.fixedSelection }
+          selectedOption={getter?.[content?.getterKey?.selectedOption] || content?.config?.fixedSelection}
           viewLoaded={viewLoaded}
         />
       ) : content?.type === 'combo-line-area-chart' ? (
@@ -180,11 +221,11 @@ const FlexLayoutElement = ({
           infoIconConfig={infoIconConfig}
         />
       ) : content?.type === 'horizontal-bar-chart' ? (
-        <HorizontalBarChart 
-          config={content.config} 
-          data={data} 
-          setter={setter} 
-          getter={getter} 
+        <HorizontalBarChart
+          config={content.config}
+          data={data}
+          setter={setter}
+          getter={getter}
         />
       ) : content?.type === 'selected-image' ? (
         <SelectedImage
@@ -194,15 +235,19 @@ const FlexLayoutElement = ({
           viewType={viewType}
         />
       ) : content?.type === 'indicator-map' ? (
-        <IndicatorMap 
-          config={content.config} 
-          project={project} 
+        <IndicatorMap
+          config={content.config}
+          project={project}
           getter={getter}
-          // getterKey={content.getterKey}
-        />                                 
-      ) : (
-        <UnderConstructionBox notInConfig />
-      )}
+          viewLoaded={viewLoaded}
+        // getterKey={content.getterKey}
+        />
+      ) : content?.type === 'filler' ? (
+        <div>{content?.text || null}</div>
+      )
+        : (
+          <UnderConstructionBox notInConfig />
+        )}
     </div>
   );
 };
@@ -221,7 +266,9 @@ FlexLayoutElement.propTypes = {
   setViewLoaded: PropTypes.func,
   viewLoaded: PropTypes.bool,
   lastElement: PropTypes.bool,
-  lastRecursiveElement: PropTypes.bool
+  // lastRecursiveElement: PropTypes.bool,
+  view: PropTypes.object,
+  scrollRef: PropTypes.string
 
 };
 

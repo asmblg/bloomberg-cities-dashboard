@@ -12,7 +12,6 @@ const handleStyle = (
   if (viewType === 'mobile') {
     obj.height =  'fit-content'; 
   }
-
   return obj;
 };
 

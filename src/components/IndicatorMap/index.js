@@ -12,7 +12,6 @@ import formatValue from '../../utils/formatValue';
 import './style.css';
 
 const IndicatorMap = ({ config, geoJSON, project, getter }) => {
-  console.log(getter);
   const [bins, setBins] = useState(null);
   const [mapGeoJSON, setMapGeoJSON] = useState(null);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
@@ -23,17 +22,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
   const numOfBins = colors.length;
   const indicators = config?.indicators || null;
   const title = config?.title || 'Select socioeconomic variable to map:';
-  // Fill in selected option - this is where we can bring in the getter
-  // const selectedOption = {
-  //   'var': 'living_wage',
-  //   'label': 'Living Wage',
-  //   'calculator': 'decimalToPercent',
-  //   'key': 'living_wage',
-  //   'units': 'percent',
-  //   'description': 'Living Wage'
-  // };
   const defaultSelection = getter?.[config?.getterKey?.selectedIndicator] || indicators?.[0]; 
-  console.log(defaultSelection);
 
   const handleSetSelectedIndicator = (key, value) => {
     setSelectedIndicator(value);
@@ -46,14 +35,12 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
       handleGeoJSON(geoJSON, indicators).then(updatedGeoJSON => {
         setMapGeoJSON(updatedGeoJSON);
         if (defaultSelection) {
-          console.log(defaultSelection);
+          // console.log(defaultSelection);
           setSelectedIndicator(defaultSelection);
         }
       });
 
     } else {
-
-      console.log(indicators, defaultSelection);
 
       // allows indicators present in config or an indicator obtained from a getter
 
@@ -90,7 +77,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
     getter?.[config?.getterKey?.selectedIndicator]
   ]);
 
-  console.log(selectedIndicator);
+  // console.log(selectedIndicator);
 
   return bins && mapGeoJSON ? (
     <div className='indicator-map-wrapper'>

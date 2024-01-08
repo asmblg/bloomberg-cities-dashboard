@@ -36,8 +36,8 @@
   .flex-layout-rows {
     width: 100% !important;
     height: fit-content !important;
-    padding: 5px !important;
-    border-color: transparent !important;
+    padding: 5px;
+    /* border-color: transparent !important; */
     gap: 5px;
   }
   .flex-layout-content {

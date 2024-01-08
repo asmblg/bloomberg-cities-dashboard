@@ -3,6 +3,9 @@ import getNestedValue from '../../utils/getNestedValue';
 // import abbreviateNumber from '../../utils/abbreviateNumber';
 
 const handleTrendDisplayData = (data, indicatorObj, trendDataType) => {
+  // if (indicatorObj.preCalculator) {
+  //   console.log('*******', indicatorObj.preCalculator, data);
+  // }
   if (indicatorObj.calculator) {
     if (typeof indicatorObj.var === 'string' && indicatorObj.var !== 'all-nested-keys') {
       const values = indicatorObj.var.search('.') !== 1 ?
@@ -25,6 +28,23 @@ const handleTrendDisplayData = (data, indicatorObj, trendDataType) => {
         }
       }
       return dataObj;
+    } else if (Array.isArray(indicatorObj.var)){
+      if (indicatorObj.calculator === 'percentageOf') {
+        const numeratorValues = data[indicatorObj.var?.[0]];
+        const denominatorValues = data[indicatorObj.var?.[1]];
+        const calcaluatedValues = {};
+
+        // console.log(numeratorValues);
+
+        Object.entries(numeratorValues).forEach(([key,value]) =>
+          calcaluatedValues[key] = 100 * (value / denominatorValues[key])
+        );
+
+        // console.log(calcaluatedValues);
+
+        return createCompareDataObject(indicatorObj.calculator, calcaluatedValues, trendDataType, indicatorObj.filter, indicatorObj.postCalculator);
+      }
+      return null;
     } else {
       // Handle multiple var calculations - no instances yet
       return null;

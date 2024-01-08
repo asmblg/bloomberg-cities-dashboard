@@ -55,7 +55,7 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
 
   useEffect(() => {
     if (data) {
-      console.log(dataPath);
+      // console.log(dataPath);
       const array = handleSimpleChartDataArray(config, data, dataPath);
 
       if (array) {
