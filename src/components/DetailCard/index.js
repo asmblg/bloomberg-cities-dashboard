@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
-// import { Icon } from 'semantic-ui-react';
-// import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
 import CommunityProfile from '../CommunityProfile';
 import FlexLayout from '../FlexLayout';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
-// import InfoIcon from '../InfoIcon';
 import SectionTitle from '../SectionTitle';
-
 import { handleDetailData, addWidthToSourcesArray } from './utils';
 import './style.css';
 

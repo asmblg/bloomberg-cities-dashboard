@@ -5,14 +5,12 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
-
 import getNestedValue from '../../utils/getNestedValue';
 import { handleSearch } from './utils';
 import './style.css';
 
 const CompareDropdownSelection = ({
   config,
-  // getter, 
   setter,
   data,
   options,
@@ -26,13 +24,9 @@ const CompareDropdownSelection = ({
   const [selectOptions, setSelectOptions] = useState(null);
   const [search, setSearch] = useState('');
   const compareDropdownRef = useRef();
-  // const inputRef = useRef();
   const prevDataToggleRef = useRef();
   const prevOptionsResetTriggerRef = useRef();
 
-  // const [loaded, setLoaded] = useState(false);
-
-  // const enableSearch = config?.searchable;
 
   const {
     title,
@@ -40,51 +34,41 @@ const CompareDropdownSelection = ({
     comparand,
     manifest,
     manifests,
-    // defaultSelected,
-    // options,
     optionsDataPath,
     optionsDataPaths,
-    // getterKey,
     setterKey,
     style,
     svgStyle,
     legendStyle,
-    // defaultDataToggle,
-    // key,
-    // delayInitialSetter
+    delaySetter,
+    key
   } = config;
 
-  // const dataToggle = getter?.[config?.getterKey?.optionsToggle] || defaultDataToggle;
-  // const selectedOption = getter?.[getterKey?.selectedOption] || defaultSelected;
-  // const indicatorWithDataPath = getter?.[config?.getterKey?.indicatorWithDataPath];
-  // const optionsResetTrigger = getter?.[getterKey?.optionsResetTrigger];
-
+  console.log(key);
 
   useEffect(() => {
     const prevDataToggle = prevDataToggleRef.current;
     const prevOptionsResetTrigger = prevOptionsResetTriggerRef.current;
 
     if (
-      // selectedOption !== getter?.[getterKey?.selectedOption] ||
       (selectOptions && !selectedOption) ||
-      (prevDataToggle && prevDataToggle !== dataToggle) ||
-      (prevOptionsResetTrigger && prevOptionsResetTrigger !== optionsResetTrigger) ||
+      (prevDataToggle !== dataToggle) ||
+      (prevOptionsResetTrigger !== optionsResetTrigger) ||
       !dataToggle ||
       !prevDataToggle ||
       indicatorWithDataPath
     ) {
-      // console.log(
-      //   '*******',
-      //   setterKey?.selectedOption,
-      //   dataToggle,
-      //   // selectedOption !== getter?.[getterKey?.selectedOption],
-      //   (selectOptions && !selectedOption),
-      //   (prevDataToggle && prevDataToggle !== dataToggle),
-      //   (prevOptionsResetTrigger && prevOptionsResetTrigger !== optionsResetTrigger),
-      //   !dataToggle,
-      //   !prevDataToggle,
-      //   indicatorWithDataPath
-      // );
+      console.log(
+        '*******',
+        setterKey?.selectedOption,
+        dataToggle,
+        (selectOptions && !selectedOption),
+        ( prevDataToggle !== dataToggle),
+        (prevOptionsResetTrigger !== optionsResetTrigger),
+        !dataToggle,
+        !prevDataToggle,
+        indicatorWithDataPath || false
+      );
 
       if ((options?.[0] || options?.[dataToggle]?.[0]) && !optionsDataPath && !optionsDataPaths) {
         const optionsArr = options?.[0]
@@ -110,8 +94,8 @@ const CompareDropdownSelection = ({
         }
       } else if ((optionsDataPath || optionsDataPaths || indicatorWithDataPath) && data) {
 
-        const dataObj = getNestedValue(data, indicatorWithDataPath?.dataPath || optionsDataPath || optionsDataPaths?.[dataToggle]);
-        const baseDataPath = indicatorWithDataPath?.dataPath || optionsDataPath || optionsDataPaths?.[dataToggle];
+        const dataObj = getNestedValue(data, indicatorWithDataPath?.dataPath ||  optionsDataPaths?.[dataToggle] || optionsDataPath );
+        const baseDataPath = indicatorWithDataPath?.dataPath || optionsDataPaths?.[dataToggle] || optionsDataPath ;
         const optionsArr = dataObj
           ? Object.keys(dataObj)
             .sort()
@@ -124,7 +108,7 @@ const CompareDropdownSelection = ({
 
 
         if (optionsArr) {
-          // console.log('SECOND CONDITION', setterKey?.selectedOption, optionsArr[0]);
+          console.log('SECOND CONDITION', setterKey?.selectedOption, optionsArr[0]);
 
           setSearch('');
           setSelectOptions(optionsArr);
@@ -137,9 +121,16 @@ const CompareDropdownSelection = ({
               prevOptionsResetTrigger !== optionsResetTrigger
             )
           ) {
-            // console.log(setterKey.selectedOption, optionsArr[0]);
 
-            setter(setterKey.selectedOption, optionsArr[0]);
+            if (delaySetter) {
+              setTimeout(() => {
+                console.log('Delayed', setterKey.selectedOption, optionsArr[0]);
+                setter(setterKey.selectedOption, optionsArr[0]);
+              }, delaySetter);
+            } else {
+              console.log(setterKey.selectedOption, optionsArr[0]);
+              setter(setterKey.selectedOption, optionsArr[0]);
+            }
           }
         }
       }
@@ -154,14 +145,14 @@ const CompareDropdownSelection = ({
     data,
     setter,
     options
-    // selectedOption,
-    // config,
-    // getter?.[config?.getterKey?.optionsToggle]  
   ]);
+  const randomNumber = Math.floor(Math.random() * 100);
+  const keyString = `${randomNumber}-${`${selectOptions?.[0]?.key}`.replace(/[ ,]/g, '-')}`;
+  console.log(keyString);
 
   return (
     <div
-      // key={key || title}
+      key={key}
       ref={compareDropdownRef}
       className='compare-dropdown-container'
       style={style || {}}
@@ -192,9 +183,7 @@ const CompareDropdownSelection = ({
                   <h5>{selectedOption?.text || 'Unknown'}</h5>
                 ) : (
                   <input
-                    // ref={inputRef}
                     className='compare-dropdown-search'
-                    // placeholder={selectedOption?.text}
                     value={search || selectedOption?.text}
                     onChange={e => setSearch(e.target.value)}
                     onFocus={() => {
@@ -224,7 +213,7 @@ const CompareDropdownSelection = ({
                     .filter(({ text }) => handleSearch(text, `${search}`.trim()))
                     .map((option, i) => (
                       <li
-                        key={`compare-option-${option.key}-${i}-${title}`}
+                        key={`compare-option-${option.key}-${i}-${key}`}
                         className={
                           selectedOption.key === option.key
                             ? 'compare-selected-option'
@@ -238,12 +227,6 @@ const CompareDropdownSelection = ({
                         }}
                         onClick={() => {
                           if (setterKey?.selectedOption) {
-                            // if (onUpdate) {
-                            //   onUpdate({
-                            //     setterKey: setterKey.selectedOption,
-                            //     selection: option
-                            //   });
-                            // }
                             setter(setterKey.selectedOption, option);
                           }
                           setSearch('');

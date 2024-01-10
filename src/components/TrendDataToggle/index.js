@@ -10,6 +10,7 @@ import { Checkbox } from 'semantic-ui-react';
 import './style.css';
 
 const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
+  // const [checked, setChecked] = useState(false);
   // const ref = useRef();
   const options = config?.options || 
   [
@@ -33,7 +34,7 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
 
 
   useEffect(() => {
-    setter(config?.setterKey?.toggleValue, options[0].value);
+    setter(config?.setterKey?.toggleValue, toggleValue);
   }, [
     config?.options,
     viewLoaded

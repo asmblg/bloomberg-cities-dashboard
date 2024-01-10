@@ -33,6 +33,7 @@ const IndicatorDropdown = ({
     const value = selectedOption || optionArray?.[0];
     setSelection(value);
     setSubHeading(getter?.[config?.getterKey?.subHeading] || config?.subHeading);
+
   }, [
     getter?.[config?.getterKey?.selectedOption],
     getter?.[config?.getterKey?.subHeading],

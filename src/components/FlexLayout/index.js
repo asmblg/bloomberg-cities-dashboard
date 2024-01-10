@@ -21,7 +21,8 @@ const FlexLayout = ({
   setSelectedLink,
   infoIconConfig,
   setInfoIconConfig,
-  tabStyle
+  tabStyle,
+  // refreshOnLoad
 }) => {
   const layoutRef = useRef();
   const [getter, setter] = useState(initialState || {});
@@ -55,11 +56,12 @@ const FlexLayout = ({
   });
 
   const handleSetter = (setterKey, value) => {
-    // console.log('HANDLE SETTER', setterKey);
+    console.log('HANDLE SETTER', setterKey);
     const multipleSetters = Array.isArray(setterKey);
     const setterObj = { ...getter };
 
     if (multipleSetters) {
+
       setterKey.forEach((key, i) => {
         if (key) {
           setterObj[key] = value[i];
@@ -68,18 +70,18 @@ const FlexLayout = ({
     } else {
       setterObj[setterKey] = value;
     }
+    console.log(setterObj);
     setter(setterObj);
 
   };
 
   useEffect(() => {
     setViewLoaded(false);
+    setter(initialState || {});
     handleElementArray().then(() => {
-      setter(initialState || {});
       setViewLoaded(true);
-    });    
-  }
-  , [layout, views, view]);
+    });
+  }, [layout, views, view]);
 
   
   return (
@@ -140,7 +142,8 @@ FlexLayout.propTypes = {
   setInfoIconConfig: PropTypes.func,
   views: PropTypes.object,
   viewOptions: PropTypes.array,
-  tabStyle: PropTypes.object
+  tabStyle: PropTypes.object,
+  // refreshOnLoad: PropTypes.bool
 };
 
 export default FlexLayout;

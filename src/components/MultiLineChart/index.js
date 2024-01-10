@@ -87,11 +87,12 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
         }
       });
     }
-  }, [data, 
-    getter?.[getterKey?.primaryLine],
-    getter?.[getterKey?.secondaryLine],
-    getter?.[getterKey?.selectedOption],
-
+  }, [
+    data, 
+    getter
+    // getter?.[getterKey?.primaryLine],
+    // getter?.[getterKey?.secondaryLine],
+    // getter?.[getterKey?.selectedOption],
   ]);
 
   return dataArray ? (

@@ -14,10 +14,13 @@ const SectionTabs = ({
   setSelectedLink,
   viewType
 }) => {
+
   return (
     <div className='desktop-tabs'>
       {sectionKeys.map(key => {
         const section = sections[key];
+        const refreshOnLoad = sections[key].refreshOnLoad;
+        // console.log(refreshOnLoad, baseURL);
         return !section.noTab ? (
           <Link
             key={`${key}-tab-link`}
@@ -25,9 +28,14 @@ const SectionTabs = ({
             className={`${selectedLink === key ? 'selected-tab' : 'unselected-tab'}${
               key === 'home' ? ' home-tab' : ''
             }`}
-            to={`/${project.toLowerCase()}${key !== 'home' ? `/${key}` : ''}`}
+            to={refreshOnLoad ? '#' : `/${project.toLowerCase()}${key !== 'home' ? `/${key}` : ''}`}
             onClick={() => {
               trackTabClick(project, key).then(() => setSelectedLink(key));
+              if (refreshOnLoad ) {
+                const {protocol, hostname, port} = window.location;
+                const baseURL = `${protocol}//${hostname}${port ? `:${port}` : ''}`;
+                window.location.href = `${baseURL}/${project.toLowerCase()}${key !== 'home' ? `/${key}` : ''}`;
+              }
             }}
             style={
               selectedLink === key ? 

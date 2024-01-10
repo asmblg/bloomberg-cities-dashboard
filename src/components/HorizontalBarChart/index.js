@@ -5,19 +5,19 @@ import numeral from 'numeral';
 
 import { handleData } from './utils';
 import formatQuarterDate from '../../utils/formatQuarterDate';
+import formatIndicatorLabel from '../../utils/formatIndicatorLabel';
 import './style.css';
 
 const HorizontalBarChart = ({ config, data, setter, getter }) => {
   const [dataArray, setDataArray] = useState(null);
   const valuesFormat = config.valuesFormat;
-
   const selectorPath = config?.getterKey?.selectorPath;
   // console.log(selectorPath, getter);
 
   useEffect(() => {
-    // console.log(getter?.[selectorPath]);
+    console.log(getter?.[selectorPath]);
     if (data) {
-      // console.log(data);
+      console.log(data);
       // if (selectorPath && getter?.[selectorPath]) {
       //   config.dataPath = `${config.dataPath}.${getter?.[selectorPath]?.key}`;
       // }
@@ -33,14 +33,14 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
         } else {
           dataConfig.dataPath = config.dataPath;
         }
-        // console.log(dataConfig.dataPath);
+        console.log(dataConfig);
         const { dataArr, currentAsOf } = handleData(data, dataConfig);
-        // console.log(dataArr);
+        console.log(dataArr);
         if (dataArr) {
+          setDataArray(dataArr);
           if (config?.setterKey?.currentAsOf && currentAsOf){
             setTimeout(() => setter(config?.setterKey?.currentAsOf, formatQuarterDate(currentAsOf, 'QX YYYY')), 0);
           }
-          setDataArray(dataArr);
         }      
       }
 
@@ -67,7 +67,10 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
               ? { justifyContent: 'flex-start', margin: '0 10px 0 0', padding: '5px 5px 5px 10px', backgroundColor: 'var(--primary-gray-color)' }
               : { justifyContent: 'flex-end', margin: '0 10px 0 5px' }
             }>
-              {item.name}
+              {formatIndicatorLabel({
+                formatter: config?.labelFormatter, 
+                value: item.name.replace('.', '')
+              })}
             </h5>
             <div className='hbc-bar-container'>
               <div

@@ -77,7 +77,7 @@ const FlexLayoutElement = ({
         
         // Scroll to the element if it exists.
         if (element) {
-          element.scrollIntoView();
+          element.scrollIntoView({behavior: 'smooth'});
         }
       }    
     }
