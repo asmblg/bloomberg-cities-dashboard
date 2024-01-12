@@ -1,16 +1,24 @@
 .compare-dropdown-container {
   display: flex;
   flex-direction: column;
+  min-width: 100%;
   /* padding: 5px 5px 5px 20px; */
+}
+
+.compare-dropdown-container > h4 {
+  min-width: 70px;
+  padding-right: 5px;
+  align-items: flex-end;
+  /* text-wrap: wrap; */
 }
 
 .compare-dropdown-legend {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
+  max-width: calc(100% - 20px);
   /* margin: 10px 20px 0 0; */
-  padding: 10px 20px 0 0;
+  padding: 10px 10px 0 0;
 }
 
 .main-value-container,
@@ -19,11 +27,15 @@
   margin-bottom: 10px;
 }
 
-/* .main-value-container,
-.option-selection-container,
-.compare-dropdown-container > h5 {
-  margin-top: 10px;
-} */
+.main-value-container > h5 {
+  min-width: 70px;
+  font-size: .8rem;
+}
+
+.option-selector > div > h5 {
+  min-width: 100px;
+  font-size: var(--smallest-font);
+}
 
 .main-value-container {
   margin-right: 10px;
@@ -32,7 +44,7 @@
   align-items: center;
   position: relative;
   flex-grow: 1;
-  width: 50%;
+  min-width: 50%;
 }
 
 .option-selection-container {
@@ -51,6 +63,12 @@
   justify-content: space-between;
   padding: 5px 10px;
   background-color: var(--primary-gray-color);
+  max-width: fit-content;
+  margin-right: 20px;
+}
+
+.option-selector > div {
+  max-width: calc(100% - 20px);
 }
 
 .option-selector:hover {
@@ -63,9 +81,9 @@
   flex-grow: 1;
 }
 
-.option-selector > div > * {
+/* .option-selector > div > * {
   margin-right: 10px;
-}
+} */
 
 .compare-dropdown-search {
   display: flex;
@@ -74,7 +92,9 @@
   border: none;
   outline: none;
   background-color: transparent;
-  font-size: 12px;
+  font-size: var(--smallest-font);
+  font-weight: 700;
+  max-width: calc(100% - 30px);
 }
 
 .compare-dropdown-search::placeholder {
@@ -120,6 +140,13 @@
 .compare-unselected-option:hover {
   opacity: 0.5;
 }
+
+@media screen and (min-width: 1200) {
+  .compare-dropdown-legend {
+    width: calc(100% - 40px);
+  }
+}
+
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Mobile Breakpoint */

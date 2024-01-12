@@ -65,7 +65,7 @@
 } */
 
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1024px) {
   .home-wrapper {
     flex-direction: column;
     height: fit-content;
@@ -93,12 +93,16 @@
   .home-wrapper {
     height: fit-content;
     margin: 0;
+    width: 100vw;
   }
 
   .overview-wrapper,
   .summary-wrapper {
-    padding-left: var(--mobile-outer-margin);
-    padding-right: var(--mobile-outer-margin);
+    width: 98vw;
+    padding-right: 10px;
+    padding-right: 10px;
+    /* padding-left: var(--mobile-outer-margin);
+    padding-right: var(--mobile-outer-margin); */
   }
 
   .overview-wrapper {
@@ -108,6 +112,7 @@
     color: var(--white-color);
     margin: 0;
     padding-bottom: 0;
+    padding-left: 10px;
   }
 
   .summary-wrapper {

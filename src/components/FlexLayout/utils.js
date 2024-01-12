@@ -10,7 +10,7 @@ const handleStyle = (
     viewType !== 'tablet' ? 
     'row' : 'column';
   if (viewType === 'mobile') {
-    obj.height =  'fit-content'; 
+    obj.height =  'fit-content';
   }
   return obj;
 };

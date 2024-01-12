@@ -47,6 +47,13 @@
   color: #006aaf;
 }
 
+@media screen and (max-width: 1280px) {
+  .hbc-row-label {
+    min-width: 100px;
+    font-size: var(--smallest-font);
+  }
+}
+
 @media screen and (max-width: 760px), (orientation: portrait) {
   .hbc-container {
     /* max-height: 100%; */
@@ -54,6 +61,6 @@
   
   }
   .hbc-row-label {
-    min-width: 150px;
+    min-width: 100px;
   }
 }

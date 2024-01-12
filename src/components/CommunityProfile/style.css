@@ -138,7 +138,7 @@
 }
 
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 920px), (orientation: portrait) {
+@media screen and (max-width: 1024px), (orientation: portrait) {
   .cp-body {
     flex-direction: column;
     padding: 20px;

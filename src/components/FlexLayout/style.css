@@ -21,13 +21,16 @@
 }
 
 .flex-layout-content > .recharts-responsive-container {
-  min-height: fit-content;
+  min-height: 200px !important;
   max-height: 250px;
+  max-width: 400px;
 }
 
-@media screen and (max-width: 760px), (orientation: portrait) {
+
+@media screen and (max-width: 1024px), (orientation: portrait) {
   .chart-container {
-    height: 250px !important;
+    min-height: 200px !important;
+    max-height: 250px !important;
     padding: 0 !important;
   }
   .selector-w-legend {
@@ -35,20 +38,30 @@
   }
   .flex-layout-rows {
     width: 100% !important;
-    height: fit-content !important;
+    min-height: fit-content !important;
     padding: 5px;
+    justify-content: flex-start;
     /* border-color: transparent !important; */
-    gap: 5px;
+    gap: 10px;
   }
+
+
+  .flex-layout-rows > div {
+    /* min-height: fit-content !important; */
+  }
+
   .flex-layout-content {
-    height: fit-content !important;
-    width: 100% !important;
-    margin: 10px 0 10px 0 !important;
+    /* min-height: fit-content !important; */
+    /* min-width: 100% !important; */
+    /* display: flex;
+    justify-content: space-between; */
+    /* margin: 10px 0 10px 0 !important; */
     padding-bottom: 0 !important;
   }
+
   .flex-layout {
-    height: fit-content !important;
-    padding: 0 10px 20px 10px;
+    min-height: fit-content !important;
+    padding: 0 20px 20px 10px;
     justify-content: flex-start;
   }
   .selector-map-wrapper {
@@ -56,7 +69,7 @@
   }
 
   .flex-layout-content > .recharts-responsive-container {
-    height: 250px !important;
+    min-height: 200px !important;
   }
 
   .indicator-trend-wrapper {
@@ -65,7 +78,7 @@
   }
 
   .data-toggle-container {
-    min-height: 60px;
+    min-height: fit-content !important;
   }
 
   .title-with-trend-data-toggler {
@@ -78,6 +91,19 @@
   }
 
   .detail-card-header {
+    padding-bottom: 0 !important;
+  }
+
+}
+
+@media screen and (max-width: 760){
+  .flex-layout-content {
+    /* min-height: fit-content !important; */
+    min-width: 80vw !important;
+    /* min-width: 100% !important; */
+    /* display: flex;
+    justify-content: space-between; */
+    /* margin: 10px 0 10px 0 !important; */
     padding-bottom: 0 !important;
   }
 

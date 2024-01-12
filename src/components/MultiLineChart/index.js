@@ -95,6 +95,8 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     // getter?.[getterKey?.selectedOption],
   ]);
 
+  console.log(config,height);
+
   return dataArray ? (
     <div className='chart-container'>
       {!config.disableDropdown ? (

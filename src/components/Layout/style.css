@@ -59,7 +59,7 @@
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1024px) {
   #header-container {
     height: var(--tablet-header-height);
   }
@@ -83,11 +83,13 @@
   }
 
   #scrollable-body {
-    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100vw;
     height: calc(100vh - var(--mobile-header-height));
   }
 
   #section-container {
+    width: 100vw;
     padding: 0;
     margin: 0;
   }

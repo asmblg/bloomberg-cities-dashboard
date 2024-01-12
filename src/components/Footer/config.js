@@ -5,6 +5,7 @@ import deweyLogo from './logos/dewey.png';
 import jllLogo from './logos/jll.png';
 import dealroomLogo from './logos/dealroom.png';
 import SafeGraphLogo from './logos/SafeGraph.png';
+import lightcastLogo from './logos/lightcast.png';
 
 const footerConfig = {
   mainLogo: bloombergLogo,
@@ -45,6 +46,12 @@ const footerConfig = {
       name: 'Block',
       url: 'https://block.xyz/',
       logo: blockLogo
+    },
+    {
+      key: 'lightcast',
+      name: 'Lightcast',
+      url: 'https://lightcast.io/',
+      logo: lightcastLogo
     }
   ]
 };

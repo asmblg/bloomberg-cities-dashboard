@@ -1,11 +1,11 @@
 import axios from 'axios';
-import config from '../dev/configs-baltimore.json';
+import config from '../dev/dev-configs.json';
 
 const dev = true;
 const prodURL = 'https://bloomberg-cities-api.herokuapp.com';
 const devURL =  'http://192.168.0.111:3001'; // 'http://localhost:3001'; // ;
 const baseURL = !dev ? prodURL : devURL;
-const localConfig = true;
+const localConfig = false;
 
 const getConfig = async projectCity => {
   if (!localConfig) {

@@ -4,7 +4,7 @@ h3,
 h4,
 h5 {
   font-family: 'RobotoRegular', sans-serif;
-  font-weight: normal;
+  /* font-weight: normal; */
   margin: 0;
   padding: 0;
   line-height: 1;
@@ -101,7 +101,7 @@ a:hover {
 }
 
 .chart-container {
-  padding: 20px;
+  /* padding: 20px; */
   height: 100%;
   max-height: fit-content;
   width: 100%;
@@ -187,9 +187,13 @@ path:focus {
   color: var(--white-color);
 }
 
+ g.recharts-layer.recharts-cartesian-axis.recharts-yAxis.yAxis > text > tspan {
+  font-size: .8rem;
+ }
+
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1024px) {
   .consent-button {
     width: 100%;
   }
@@ -198,6 +202,7 @@ path:focus {
     margin-right: 0;
     margin-bottom: 20px;
   }
+  
 }
 
 /* Initial Mobile Breakpoint */

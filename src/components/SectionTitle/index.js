@@ -18,6 +18,7 @@ const SectionTitle = ({
   toggler
 }) => {
   const navigate = useNavigate();
+  // console.log(config);
 
   return toggler ? (
     <div className='section-title-with-trend-data-toggler'>

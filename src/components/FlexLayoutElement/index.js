@@ -34,10 +34,13 @@ const FlexLayoutElement = ({
   setInfoIconConfig,
   // setViewLoaded,
   viewLoaded,
+  keepColumnsOnTablet,
   // lastElement,
   // lastRecursiveElement,
   view,
-  scrollRef
+  scrollRef,
+  recursive,
+  firstRecursive
 }) => {
   const {
     columns,
@@ -50,7 +53,10 @@ const FlexLayoutElement = ({
     // tabletStyle
   } = layout;
 
+  
+
   const mobile = viewType === 'mobile';
+  const tablet = viewType === 'tablet';
   const elementRef = useRef();
   const type = columns ? 'columns' : rows ? 'rows' : content ? 'content' : '';
   const elementArray = columns || rows;
@@ -87,13 +93,16 @@ const FlexLayoutElement = ({
     <div
       ref={elementRef}
       id={scrollRef}
-      className={`flex-layout-${mobile && type !== 'content' ? 'rows' : type}`}
+      className={`flex-layout-${(mobile || (tablet && !keepColumnsOnTablet)) && type !== 'content' ? 'rows' : type}`}
       style={handleElementStyle(
         style,
         // mobileStyle,
         height,
         width,
-        viewType
+        viewType,
+        !recursive,
+        firstRecursive,
+        columns ? true : false // First Round Style
         // tabletStyle
       )}
     >
@@ -101,6 +110,8 @@ const FlexLayoutElement = ({
         elementArray.map((element, i) => (
           <FlexLayoutElement
             key={`recursive-flex-layout-el-${i}-${view?.key}`}
+            recursive
+            firstRecursive={!recursive}
             scrollRef={element?.scrollRef}
             data={data}
             setter={setter}
@@ -113,6 +124,8 @@ const FlexLayoutElement = ({
             setInfoIconConfig={setInfoIconConfig}
             viewType={viewType}
             lastElement={elementArray.length - 1 === i}
+            keepColumnsOnTablet={element?.keepColumnsOnTablet}
+
             // setViewLoaded={setViewLoaded}
             viewLoaded={viewLoaded}
             // lastRecursiveElement={lastElement && elementArray.length - 1 === i}
@@ -268,7 +281,10 @@ FlexLayoutElement.propTypes = {
   lastElement: PropTypes.bool,
   // lastRecursiveElement: PropTypes.bool,
   view: PropTypes.object,
-  scrollRef: PropTypes.string
+  scrollRef: PropTypes.string,
+  recursive: PropTypes.bool,
+  firstRecursive: PropTypes.bool,
+  keepColumnsOnTablet: PropTypes.bool
 
 };
 

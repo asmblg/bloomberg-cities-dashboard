@@ -56,7 +56,7 @@ const FlexLayout = ({
   });
 
   const handleSetter = (setterKey, value) => {
-    console.log('HANDLE SETTER', setterKey);
+    // console.log('HANDLE SETTER', setterKey);
     const multipleSetters = Array.isArray(setterKey);
     const setterObj = { ...getter };
 
@@ -70,7 +70,7 @@ const FlexLayout = ({
     } else {
       setterObj[setterKey] = value;
     }
-    console.log(setterObj);
+    // console.log(setterObj);
     setter(setterObj);
 
   };
@@ -121,6 +121,7 @@ const FlexLayout = ({
             setInfoIconConfig={setInfoIconConfig}
             lastElement={elementArray.length - 1 === i }
             scrollRef={element?.scrollRef}
+            keepColumnsOnTablet={element?.keepColumnsOnTablet}
             // setViewLoaded={setViewLoaded}
             viewLoaded={viewLoaded}
           />

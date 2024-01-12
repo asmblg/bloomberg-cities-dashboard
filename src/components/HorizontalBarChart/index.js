@@ -15,9 +15,9 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
   // console.log(selectorPath, getter);
 
   useEffect(() => {
-    console.log(getter?.[selectorPath]);
+    // console.log(getter?.[selectorPath]);
     if (data) {
-      console.log(data);
+      // console.log(data);
       // if (selectorPath && getter?.[selectorPath]) {
       //   config.dataPath = `${config.dataPath}.${getter?.[selectorPath]?.key}`;
       // }
@@ -33,9 +33,9 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
         } else {
           dataConfig.dataPath = config.dataPath;
         }
-        console.log(dataConfig);
+        // console.log(dataConfig);
         const { dataArr, currentAsOf } = handleData(data, dataConfig);
-        console.log(dataArr);
+        // console.log(dataArr);
         if (dataArr) {
           setDataArray(dataArr);
           if (config?.setterKey?.currentAsOf && currentAsOf){

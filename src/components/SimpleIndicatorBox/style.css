@@ -11,7 +11,7 @@
 
 /* ---------- Media Queries ---------- */
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1024px) {
   .sib-container {
     margin: 0 20px;
   }

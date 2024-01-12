@@ -12,9 +12,9 @@
   --secondary-gray-color: #cccccc;
   --success-accent-color: #8dc63f;
   --warning-accent-color: #e46062;
-  --desktop-outer-margin: 8%;
-  --tablet-outer-margin: 4%;
-  --mobile-outer-margin: 2%;
+  --desktop-outer-margin: 4%;
+  --tablet-outer-margin: 1%;
+  --mobile-outer-margin: 0%;
   --desktop-header-height: 100px;
   --tablet-header-height: 100px;
   --mobile-header-height: 75px;
@@ -26,6 +26,8 @@
   --regular-font: 1rem;
   --bigger-font: 1.25rem;
   --biggest-font: 1.5rem;
+  --mobile-breakpoint-width: 760px;
+  --tablet-breakpoint-width: 1024px;
 
 }
 /* ------------------------------ FONTS ------------------------------ */

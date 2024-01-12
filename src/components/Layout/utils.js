@@ -13,9 +13,11 @@ const handleViewType = () => {
     
   return width <= viewBreakpoints.mobile 
     ? 'mobile' 
-    : height > width 
-      ? 'tablet' 
-      : 'desktop'; 
+    : width <= viewBreakpoints.tablet
+      ? 'tablet'
+      : height > width 
+        ? 'tablet' 
+        : 'desktop'; 
 };
 
 const getCurrentRoute = (project, sectionKeys, pathname) => {

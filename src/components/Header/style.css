@@ -96,14 +96,14 @@
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 920px)  {
+@media screen and (max-width: 1024px)  {
   .title-container {
-    width: calc(var(--tablet-outer-margin) + 350px);
+    width: calc(48% - (var(--tablet-outer-margin)));
     /* padding-left: var(--tablet-outer-margin); */
   }
 
   .about-container {
-    width: 50%;
+    width: calc(48% - (var(--tablet-outer-margin)));
     padding-right: var(--tablet-outer-margin);
   }
 }
@@ -121,7 +121,9 @@
   }
 
   .about-container {
-    padding-right: var(--mobile-outer-margin);
+    width: calc(50% - (var(--mobile-outer-margin)));
+
+    padding-right: 20px;
   }
 
   /* #header-logo {

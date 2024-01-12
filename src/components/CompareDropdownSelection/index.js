@@ -44,7 +44,7 @@ const CompareDropdownSelection = ({
     key
   } = config;
 
-  console.log(key);
+  // console.log(key);
 
   useEffect(() => {
     const prevDataToggle = prevDataToggleRef.current;
@@ -58,17 +58,17 @@ const CompareDropdownSelection = ({
       !prevDataToggle ||
       indicatorWithDataPath
     ) {
-      console.log(
-        '*******',
-        setterKey?.selectedOption,
-        dataToggle,
-        (selectOptions && !selectedOption),
-        ( prevDataToggle !== dataToggle),
-        (prevOptionsResetTrigger !== optionsResetTrigger),
-        !dataToggle,
-        !prevDataToggle,
-        indicatorWithDataPath || false
-      );
+      // console.log(
+      //   '*******',
+      //   setterKey?.selectedOption,
+      //   dataToggle,
+      //   (selectOptions && !selectedOption),
+      //   ( prevDataToggle !== dataToggle),
+      //   (prevOptionsResetTrigger !== optionsResetTrigger),
+      //   !dataToggle,
+      //   !prevDataToggle,
+      //   indicatorWithDataPath || false
+      // );
 
       if ((options?.[0] || options?.[dataToggle]?.[0]) && !optionsDataPath && !optionsDataPaths) {
         const optionsArr = options?.[0]
@@ -78,7 +78,11 @@ const CompareDropdownSelection = ({
         // console.log('FIRST CONDITION', setterKey?.selectedOption, optionsArr[0]);
 
         setSearch('');
-        setSelectOptions(optionsArr);
+        setSelectOptions(
+          optionsArr?.sort((a,b) => 
+            a.text.localeCompare(b.text)
+          )
+        );
 
         if (
           setterKey?.selectedOption &&
@@ -98,21 +102,26 @@ const CompareDropdownSelection = ({
         const baseDataPath = indicatorWithDataPath?.dataPath || optionsDataPaths?.[dataToggle] || optionsDataPath ;
         const optionsArr = dataObj
           ? Object.keys(dataObj)
-            .sort()
+            .filter(key => key !== '00' && key !== '99')
             .map(key => ({
               text: manifest?.[key] || manifests?.[dataToggle]?.[key] || key,
               key,
               dataPath: `${baseDataPath}.${key}`
             }))
+            .sort((a,b) => a.text.localeCompare(b.text))
+
           : null;
 
 
         if (optionsArr) {
-          console.log('SECOND CONDITION', setterKey?.selectedOption, optionsArr[0]);
+          // console.log('SECOND CONDITION', setterKey?.selectedOption, optionsArr[0]);
 
           setSearch('');
-          setSelectOptions(optionsArr);
-
+          setSelectOptions(
+            optionsArr?.sort((a,b) => 
+              a.text.localeCompare(b.text)
+            )
+          );
           if (
             setterKey?.selectedOption &&
             (
@@ -124,11 +133,11 @@ const CompareDropdownSelection = ({
 
             if (delaySetter) {
               setTimeout(() => {
-                console.log('Delayed', setterKey.selectedOption, optionsArr[0]);
+                // console.log('Delayed', setterKey.selectedOption, optionsArr[0]);
                 setter(setterKey.selectedOption, optionsArr[0]);
               }, delaySetter);
             } else {
-              console.log(setterKey.selectedOption, optionsArr[0]);
+              // console.log(setterKey.selectedOption, optionsArr[0]);
               setter(setterKey.selectedOption, optionsArr[0]);
             }
           }
@@ -146,9 +155,9 @@ const CompareDropdownSelection = ({
     setter,
     options
   ]);
-  const randomNumber = Math.floor(Math.random() * 100);
-  const keyString = `${randomNumber}-${`${selectOptions?.[0]?.key}`.replace(/[ ,]/g, '-')}`;
-  console.log(keyString);
+  // const randomNumber = Math.floor(Math.random() * 100);
+  // const keyString = `${randomNumber}-${`${selectOptions?.[0]?.key}`.replace(/[ ,]/g, '-')}`;
+  console.log(selectOptions);
 
   return (
     <div
@@ -156,6 +165,7 @@ const CompareDropdownSelection = ({
       ref={compareDropdownRef}
       className='compare-dropdown-container'
       style={style || {}}
+      onMouseLeave={() => setDropdownOpen(false)}
     >
       <h4 className='bold-font'>{title || titles?.[dataToggle] || ''}</h4>
       <div className='compare-dropdown-legend' style={legendStyle || {}}>

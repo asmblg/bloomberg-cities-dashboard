@@ -17,12 +17,16 @@
   align-items: center;
   margin-bottom: 10px;
   width: 100%;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 
+.indicator-value-container > div {
+  transform: scale(.8);
+}
 
 .indicator-value-container > h1 {
-  margin-right: 20px;
+  margin-right: 0px;
+  min-width: fit-content;
 }
 
 

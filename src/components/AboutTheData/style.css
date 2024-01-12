@@ -85,7 +85,7 @@
 
 /* ---------- MEDIA QUERIES ---------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1024px) {
   .about-table-vars-container {
     max-height: calc(100vh - 560px);
   }
