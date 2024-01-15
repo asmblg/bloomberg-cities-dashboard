@@ -157,7 +157,7 @@ const CompareDropdownSelection = ({
   ]);
   // const randomNumber = Math.floor(Math.random() * 100);
   // const keyString = `${randomNumber}-${`${selectOptions?.[0]?.key}`.replace(/[ ,]/g, '-')}`;
-  console.log(selectOptions);
+  // console.log(selectOptions);
 
   return (
     <div
@@ -165,7 +165,7 @@ const CompareDropdownSelection = ({
       ref={compareDropdownRef}
       className='compare-dropdown-container'
       style={style || {}}
-      onMouseLeave={() => setDropdownOpen(false)}
+      // onMouseLeave={() => setDropdownOpen(false)}
     >
       <h4 className='bold-font'>{title || titles?.[dataToggle] || ''}</h4>
       <div className='compare-dropdown-legend' style={legendStyle || {}}>

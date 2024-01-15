@@ -9,6 +9,7 @@
   min-width: 70px;
   padding-right: 5px;
   align-items: flex-end;
+  font-size: .8rem;
   /* text-wrap: wrap; */
 }
 
@@ -130,6 +131,11 @@
 .compare-selected-option,
 .compare-unselected-option {
   padding: 10px 0;
+}
+
+.compare-unselected-option > h5{
+  font-weight: 100;
+  font-size: var(--smallest-font);
 }
 
 .compare-selected-option:hover,

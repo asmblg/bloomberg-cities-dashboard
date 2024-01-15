@@ -104,7 +104,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
           getter={getter}
           config={config}
           options={!fixedIndicator ? indicators : null}
-          selectedIndicator={selectedIndicator}
+          selectedOption={selectedIndicator}
         />
       ) : null}
       {/* ---------- CHART ---------- */}

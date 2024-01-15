@@ -95,8 +95,6 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     // getter?.[getterKey?.selectedOption],
   ]);
 
-  console.log(config,height);
-
   return dataArray ? (
     <div className='chart-container'>
       {!config.disableDropdown ? (
@@ -104,7 +102,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
           selectedOption={
             !selectedIndicator && fixedIndicator && config.label
               ? { key: config.label, label: config.label }
-              : null
+              : selectedIndicator
           }
           setter={setter}
           getter={getter}

@@ -66,7 +66,8 @@ const IndicatorDropdown = ({
 
   return (
     <div
-      key={key || dropdownRef.key} 
+      key={key}
+      ref={dropdownRef} 
       className='dropdown-container'>
       <div className='dropdown-header' onClick={() => setDropdownOpen(!dropdownOpen)}>
         {optionArray?.[1] ? (
