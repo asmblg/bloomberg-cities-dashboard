@@ -9,7 +9,8 @@
 }
 
 .data-toggle-container > p {
-  font-size: .9rem;
+  font-size: .8rem;
+  padding: .5rem;
 }
 
 .data-toggle  {

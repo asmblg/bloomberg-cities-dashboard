@@ -49,8 +49,6 @@ const FlexLayoutElement = ({
     height,
     width,
     style
-    // mobileStyle,
-    // tabletStyle
   } = layout;
 
   
@@ -60,16 +58,6 @@ const FlexLayoutElement = ({
   const elementRef = useRef();
   const type = columns ? 'columns' : rows ? 'rows' : content ? 'content' : '';
   const elementArray = columns || rows;
-
-  // useEffect(() => {
-  //   if (viewLoaded && !lastElement) {
-  //     setViewLoaded(false);
-  //   }
-  //   if (lastElement) {
-  //     setViewLoaded(true);
-  //     // setViewLoaded(true);
-  //   }
-  // }, [layout]);
 
   useEffect(() => {
     if (viewLoaded) {
@@ -96,14 +84,12 @@ const FlexLayoutElement = ({
       className={`flex-layout-${(mobile || (tablet && !keepColumnsOnTablet)) && type !== 'content' ? 'rows' : type}`}
       style={handleElementStyle(
         style,
-        // mobileStyle,
         height,
         width,
         viewType,
         !recursive,
         firstRecursive,
         columns ? true : false // First Round Style
-        // tabletStyle
       )}
     >
       {!content && data ? (
@@ -125,10 +111,7 @@ const FlexLayoutElement = ({
             viewType={viewType}
             lastElement={elementArray.length - 1 === i}
             keepColumnsOnTablet={element?.keepColumnsOnTablet}
-
-            // setViewLoaded={setViewLoaded}
             viewLoaded={viewLoaded}
-            // lastRecursiveElement={lastElement && elementArray.length - 1 === i}
           />
         ))
       ) : content?.type === 'selector-map' ? (
@@ -138,7 +121,6 @@ const FlexLayoutElement = ({
           config={content.config}
           getter={getter}
           setter={setter}
-        // viewLoaded
         />
       ) : (content?.type === 'title-with-trend-data-toggler' || content?.type === 'title') && content?.config ? (
         <SectionTitle
@@ -165,8 +147,6 @@ const FlexLayoutElement = ({
       ) : content?.type === 'compare-selector' ? (
         <CompareDropdownSelection
           data={data}
-          // title={content?.config?.title}
-          // titles={content?.configs?.titles}
           enableSearch={content?.config?.searchable}
           config={content.config}
           options={content.config?.options}
@@ -174,11 +154,7 @@ const FlexLayoutElement = ({
           dataToggle={getter?.[content?.config?.getterKey?.optionsToggle] || content?.config?.defaultDataToggle}
           selectedOption={getter?.[content?.config?.getterKey?.selectedOption] ||  content?.config?.defaultSelected}
           optionsResetTrigger={getter?.[content?.config?.getterKey?.optionsResetTrigger]}
-          // getter={getter}
           setter={setter}
-          // onUpdate={({selection}) => 
-          //   setter(content?.config?.setterKey?.selectionKey, selection)
-          // }
         />
       ) : content?.type === 'multi-line-chart' ? (
         <MultiLineChart
@@ -199,11 +175,8 @@ const FlexLayoutElement = ({
         <SimpleColumnChart config={content.config} data={data} getter={getter} />
       ) : content?.type === 'selector-with-legend' ? (
         <SelectorWithLegend
-          // options={content.options}
-          // colors={content.colors}
           setter={setter}
           getter={getter}
-          // setterKey={content.setterKey}
           config={content}
           data={data}
         />
