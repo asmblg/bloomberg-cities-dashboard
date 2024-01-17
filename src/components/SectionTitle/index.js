@@ -33,7 +33,7 @@ const SectionTitle = ({
               setInfoIconConfig({
                 title: config.title.toUpperCase(),
                 aboutDataTitleColor: config.titleStyle?.color || 'var(--black-color)',
-                tab: selectedLink || 'home'
+                tab: config?.aboutKey || selectedLink || 'home'
               });
               setSelectedLink('about');
               navigate(`/${project}/about`);
@@ -57,7 +57,7 @@ const SectionTitle = ({
         onClick={() => {
           setInfoIconConfig({
             title: config.title?.toUpperCase(),
-            tab: selectedLink,
+            tab: config?.aboutKey || selectedLink,
             aboutDataTitleColor: config.tabStyle.selectedColor || 'var(--black-color)'
           });
           setSelectedLink('about');

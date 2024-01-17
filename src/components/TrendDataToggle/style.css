@@ -20,7 +20,7 @@
   justify-content: space-around;
   max-width: 350px;
   min-height: fit-content;
-  padding-left: 10px;
+  padding: 10px;
 }
 
 .data-toggle > h5 {

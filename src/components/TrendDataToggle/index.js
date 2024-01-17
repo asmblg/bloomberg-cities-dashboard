@@ -45,9 +45,7 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
       // ref={ref} 
       className='data-toggle-container'
     >
-      <p>
-        {text}
-      </p>
+      { text ? <p>{text}</p> : null} 
       <div className='data-toggle'>
         <h5>{options[0].label}</h5>
         <Checkbox
