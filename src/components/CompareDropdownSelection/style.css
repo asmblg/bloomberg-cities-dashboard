@@ -65,7 +65,7 @@
   padding: 5px 10px;
   background-color: var(--primary-gray-color);
   max-width: fit-content;
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 
 .option-selector > div {
@@ -101,6 +101,8 @@
 .compare-dropdown-search::placeholder {
   color: inherit;
   width: 100%;
+  font-weight: 100;
+  font-style: italic;
 }
 
 .selected-option-svg,

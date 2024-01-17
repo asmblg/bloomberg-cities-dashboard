@@ -22,6 +22,7 @@ const CompareDropdownSelection = ({
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectOptions, setSelectOptions] = useState(null);
+  const [inputInFocus, setInputInFocus] = useState(false);
   const [search, setSearch] = useState('');
   const compareDropdownRef = useRef();
   const prevDataToggleRef = useRef();
@@ -165,7 +166,11 @@ const CompareDropdownSelection = ({
       ref={compareDropdownRef}
       className='compare-dropdown-container'
       style={style || {}}
-      onMouseLeave={() => setDropdownOpen(false)}
+      onMouseLeave={() => {
+        setSearch('');
+        setInputInFocus(false);
+        setDropdownOpen(false);
+      }}
     >
       <h4 className='bold-font'>{title || titles?.[dataToggle] || ''}</h4>
       <div className='compare-dropdown-legend' style={legendStyle || {}}>
@@ -194,9 +199,18 @@ const CompareDropdownSelection = ({
                 ) : (
                   <input
                     className='compare-dropdown-search'
-                    value={search || selectedOption?.text}
-                    onChange={e => setSearch(e.target.value)}
+                    value={(search === ' ' || search === '') && inputInFocus
+                      ? '' 
+                      : search?.length > 0 
+                        ? search 
+                        : selectedOption?.text
+                    }
+                    placeholder={'Search...'}
+                    onChange={e => {
+                      setSearch(e.target.value);
+                    }}
                     onFocus={() => {
+                      setInputInFocus(true);
                       setSearch(' ');
                       if (!dropdownOpen) {
                         setDropdownOpen(true);
@@ -240,6 +254,7 @@ const CompareDropdownSelection = ({
                             setter(setterKey.selectedOption, option);
                           }
                           setSearch('');
+                          setInputInFocus(false);
                           setDropdownOpen(false);
                         }}
                       >

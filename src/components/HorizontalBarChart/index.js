@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { TailSpin } from 'react-loader-spinner';
 import numeral from 'numeral';
@@ -12,6 +12,8 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
   const [dataArray, setDataArray] = useState(null);
   const valuesFormat = config.valuesFormat;
   const selectorPath = config?.getterKey?.selectorPath;
+  const firstRowRef = useRef(null); 
+  const hbcContainerRef = useRef(null);
   // console.log(selectorPath, getter);
 
   useEffect(() => {
@@ -41,6 +43,13 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
           if (config?.setterKey?.currentAsOf && currentAsOf){
             setTimeout(() => setter(config?.setterKey?.currentAsOf, formatQuarterDate(currentAsOf, 'QX YYYY')), 0);
           }
+          if (hbcContainerRef.current && firstRowRef.current) {
+            const containerTop = hbcContainerRef.current.offsetTop;
+            const firstRowTop = firstRowRef.current.offsetTop;
+            const scrollPosition = firstRowTop - containerTop;
+    
+            hbcContainerRef.current.scrollTop = scrollPosition;
+          }
         }      
       }
 
@@ -60,9 +69,17 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
         : null
       }
 
-      <div className='hbc-container' style={config?.chartWrapperStyle || {}}>
+      <div 
+        className='hbc-container' 
+        style={config?.chartWrapperStyle || {}}
+        ref={hbcContainerRef}
+      >
         {dataArray.map((item, index) => (
-          <div key={index} className='hbc-row-container'>
+          <div 
+            key={index} 
+            className='hbc-row-container'
+            ref={index === 0 ? firstRowRef : null}
+          >
             <h5 className='hbc-row-label' style={config.layoutType === 'sorted-list'
               ? { justifyContent: 'flex-start', margin: '0 10px 0 0', padding: '5px 5px 5px 10px', backgroundColor: 'var(--primary-gray-color)' }
               : { justifyContent: 'flex-end', margin: '0 10px 0 5px' }
