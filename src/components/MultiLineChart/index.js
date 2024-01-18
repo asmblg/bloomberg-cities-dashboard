@@ -56,6 +56,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
   const dataObj = data
     ? handleDataObject({ data, dataPath, config, selectedIndicator, getter })
     : null;
+  console.log(dataObj);
   const allLinesArray = dataObj ? Object.keys(dataObj) : [];
 
   useEffect(() => {
