@@ -34,12 +34,14 @@
   position: absolute;
   z-index: 9999999;
   height: fit-content;
-  max-height: 200px;
+  max-height: 150px;
   width: 100%;
+  max-width: 200px;
   list-style: none;
   padding: 0%;
   line-height: 24px;
   overflow: auto;
+  margin-top: 5px;
 }
 
 .selected-option,

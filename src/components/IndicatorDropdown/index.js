@@ -22,7 +22,7 @@ const IndicatorDropdown = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selection, setSelection] = useState(null);
   const [subHeading, setSubHeading] = useState(null);
-  
+
   const setterKey = config?.setterKey?.selectedOption || null;
   // const key = `indicator-selector-${selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || 'no-selection'}-${subHeading || 'no-subheading'}-${superHeading || 'no-superheading'}`;
   const optionArray = options?.[optionsToggle] || options;

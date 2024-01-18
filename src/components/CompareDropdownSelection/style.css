@@ -50,6 +50,7 @@
 
 .option-selection-container {
   width: 100%;
+  max-width: 200px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -122,11 +123,11 @@
   background-color: var(--primary-gray-color);
   position: absolute;
   width: 100%;
-  top: 15px;
+  top: 20px;
   padding: 0 20px;
   z-index: 999;
   list-style: none;
-  max-height: 300px;
+  max-height: 150px;
   overflow: auto;
 }
 
