@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const dev = false;
 const prodURL = 'https://bloomberg-cities-api.herokuapp.com';
-const devURL =  'http://192.168.0.111:3001'; // 'http://localhost:3001'; // ;
+const devURL =  'http://localhost:3001'; // ; 'http://192.168.0.111:3001'; // 
 const baseURL = !dev ? prodURL : devURL;
 const localConfig = false;
 

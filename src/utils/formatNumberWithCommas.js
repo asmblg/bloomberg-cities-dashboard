@@ -20,7 +20,11 @@ const formatNumberWithCommas = num => {
         chars[i] += ',';
       }
       const numberWithCommas = `${chars.reverse().join('')}`;
+      // console.log(numberWithCommas);
+
       return decimalStr ? `${numberWithCommas}.${decimalStr}` : numberWithCommas;
+    } else {
+      return decimalStr && decimalStr !== '0' ? `${integerStr}.${decimalStr}` : integerStr;
     }
   }
   return numeral(num).format('0,0');
