@@ -47,6 +47,7 @@
 
 .trend-pill-text {
   line-height: 1;
+  /* font-size: var(--smaller-font); */
 }
 
 /* ---------- Media Queries ---------- */

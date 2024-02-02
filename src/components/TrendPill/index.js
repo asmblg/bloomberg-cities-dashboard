@@ -41,7 +41,7 @@ const TrendPill = ({
             style={{ height: heightVal || '', width: widthVal || '' }}
           >
             <img src={trendDirection === 'up' ? upwardTrendIcon : downwardTrendIcon} />
-            <h5 className='trend-pill-text'>{trendValue}</h5>
+            <h5 className=''>{trendValue}</h5>
           </div>
           {displayCompareText ? (
             <h5 className='trend-pill-text' style={{ opacity: '0.8' }}>{`vs ${formatValue(
