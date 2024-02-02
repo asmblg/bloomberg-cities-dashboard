@@ -27,7 +27,11 @@ const IndicatorTrendBox = ({ data, config, getter, viewLoaded }) => {
     chart,
     layoutVariation,
     label,
+    subLabel,
+    dateOverride,
     showIndicatorText,
+    compareValueUnderPill,
+    hideIndicatorLabel
     // useAlternateIndicator
   } = config;
 
@@ -94,9 +98,13 @@ const IndicatorTrendBox = ({ data, config, getter, viewLoaded }) => {
         </div>
       ) : null}
       <div style={{ width: chart ? '75%' : '100%' }}>
-        {layoutVariation === 'label-on-top' ? (
-          <div style={{ maxWidth: '90%', height: '50px' }}>
-            <h4 className='bold-font'>{selectedIndicator.label || ''}</h4>
+        {layoutVariation === 'label-on-top' && !hideIndicatorLabel && (label || selectedIndicator?.label) ? (
+          <div className='indicator-trend-top-label'>
+            <h4>{`${label || selectedIndicator.label}`.toUpperCase()}</h4>
+            {subLabel || selectedIndicator?.subLabel && (
+              <h4>{`${subLabel || selectedIndicator.subLabel}`.toUpperCase()}</h4>
+            )}
+            <h4>{dateOverride || dateToQuarter(indicatorTrendData.currentDate, 'QX YYYY')}</h4>
           </div>
         ) : null}
         <div className='indicator-data-body'>
@@ -104,27 +112,30 @@ const IndicatorTrendBox = ({ data, config, getter, viewLoaded }) => {
             <h1 className='bold-font' >
               {formatValue(indicatorTrendData.displayValue, selectedIndicator.units)}
             </h1>
-            {layoutVariation !== 'label-on-top' ? (
-              <div>
-                {
-                  selectedIndicator?.text && showIndicatorText
-                    ? <h5>{selectedIndicator?.text }</h5>
-                    : null
-                }
-                <h4>{label?.toUpperCase() || selectedIndicator.trendBoxLabel?.toUpperCase() || selectedIndicator.label?.toUpperCase() || ''}</h4>
-                <h4>{dateToQuarter(indicatorTrendData.currentDate, 'QX YYYY')}</h4>
-              </div>
-            ) : (
-              <TrendPill
-                currentValue={indicatorTrendData.currentValue}
-                compareValue={indicatorTrendData.compareValue}
-                compareDate={indicatorTrendData.compareDate}
-                units={selectedIndicator.units}
-                positiveTrendDirection={selectedIndicator.positiveTrendDirection}
-                data={data[selectedIndicator.key]}
-                displayCompareText={displayCompareText}
-              />
-            )}
+            {layoutVariation !== 'label-on-top' ?
+              !hideIndicatorLabel && (
+                <div>
+                  {
+                    selectedIndicator?.text && showIndicatorText
+                      ? <h5>{selectedIndicator?.text }</h5>
+                      : null
+                  }
+                  <h4>{label?.toUpperCase() || selectedIndicator.trendBoxLabel?.toUpperCase() || selectedIndicator.label?.toUpperCase() || ''}</h4>
+                  <h4>{dateOverride || dateToQuarter(indicatorTrendData.currentDate, 'QX YYYY')}</h4>
+                </div>
+              )
+              : (
+                <TrendPill
+                  currentValue={indicatorTrendData.currentValue}
+                  compareValue={indicatorTrendData.compareValue}
+                  compareDate={indicatorTrendData.compareDate}
+                  units={selectedIndicator.units}
+                  positiveTrendDirection={selectedIndicator.positiveTrendDirection}
+                  data={data[selectedIndicator.key]}
+                  displayCompareText={displayCompareText}
+                  compareValueUnderPill={compareValueUnderPill}
+                />
+              )}
             
           </div>
           {/* <InfoIcon config={selectedIndicator} /> */}
@@ -138,6 +149,7 @@ const IndicatorTrendBox = ({ data, config, getter, viewLoaded }) => {
             positiveTrendDirection={selectedIndicator.positiveTrendDirection}
             data={data[selectedIndicator.key]}
             displayCompareText={displayCompareText}
+            compareValueUnderPill={compareValueUnderPill}
           />
         ) : null}
         
@@ -152,7 +164,6 @@ IndicatorTrendBox.propTypes = {
   getter: PropTypes.object,
   viewType: PropTypes.string,
   viewLoaded: PropTypes.bool
-
 };
 
 export default IndicatorTrendBox;

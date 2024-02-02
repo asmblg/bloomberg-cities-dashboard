@@ -16,7 +16,8 @@ const TrendPill = ({
   compareDate,
   units,
   positiveTrendDirection,
-  displayCompareText
+  displayCompareText,
+  compareValueUnderPill
 }) => {
   const { trendValue, trendDirection } = calculateTrend(currentValue, compareValue, units);
 
@@ -24,7 +25,10 @@ const TrendPill = ({
   const widthVal = width ? (typeof width === 'number' ? `${width}px` : width) : null;
 
   return (
-    <div className='trend-display-wrapper'>
+    <div
+      className='trend-display-wrapper'
+      style={{ flexDirection: compareValueUnderPill ? 'column' : 'row' }}
+    >
       {currentValue && compareValue && compareDate ? (
         <>
           <div
@@ -71,7 +75,8 @@ TrendPill.propTypes = {
   compareValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   units: PropTypes.string,
   positiveTrendDirection: PropTypes.string,
-  displayCompareText: PropTypes.bool
+  displayCompareText: PropTypes.bool,
+  compareValueUnderPill: PropTypes.bool
 };
 
 export default TrendPill;

@@ -91,8 +91,8 @@ const IndicatorDropdown = ({
             }
           </h4>
           {
-            subHeading ?
-              <h4>{`${subHeading}`.toUpperCase()}</h4>
+            subHeading || selection?.subHeading ?
+              <h4>{`${subHeading || selection.subHeading}`.toUpperCase()}</h4>
               : null
           }
         </div>
