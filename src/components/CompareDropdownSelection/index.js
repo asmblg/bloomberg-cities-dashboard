@@ -50,6 +50,9 @@ const CompareDropdownSelection = ({
   useEffect(() => {
     const prevDataToggle = prevDataToggleRef.current;
     const prevOptionsResetTrigger = prevOptionsResetTriggerRef.current;
+    if (key === 'vacancies-industry-occupation-selector' ) {
+      console.log(dataToggle, prevDataToggle);
+    }
 
     if (
       (selectOptions && !selectedOption) ||
@@ -57,6 +60,7 @@ const CompareDropdownSelection = ({
       (prevOptionsResetTrigger !== optionsResetTrigger) ||
       !dataToggle ||
       !prevDataToggle ||
+      !prevDataToggle === undefined ||
       indicatorWithDataPath
     ) {
       // console.log(
