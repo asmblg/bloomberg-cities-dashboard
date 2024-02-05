@@ -10,9 +10,9 @@ const formatQuarterDate = (date, format) => {
   // When quarter needs to be inferred from standard date like 2023-9-1
   if (textArray.length >= 3) {
     const month = parseInt(textArray[1]);
-    const quarter = (month) <= 2 ? 'Q1'
-      : month <= 5 ? 'Q2'
-        : month <= 8 ? 'Q3'
+    const quarter = (month) <= 3 ? 'Q1'
+      : month <= 6 ? 'Q2'
+        : month <= 9 ? 'Q3'
           : 'Q4';
     textArray = [textArray[0], quarter];
 
