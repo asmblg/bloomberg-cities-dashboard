@@ -2,6 +2,10 @@
   "name": "bloomberg-cities-dashboard",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "20.0.1",
+    "npm": "10.2.3"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
