@@ -96,7 +96,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
     // getter?.[getterKey?.selectedOption],
   ]);
 
-  console.log(selectedIndicator);
+  // console.log(selectedIndicator);
 
   return dataArray ? (
     <div className='chart-container'>

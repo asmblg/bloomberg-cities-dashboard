@@ -9,6 +9,7 @@ import InfoIcon from '../InfoIcon';
 
 import getNestedValue from '../../utils/getNestedValue';
 import formatValue from '../../utils/formatValue';
+import formatQuarterDate from '../../utils/formatQuarterDate';
 import createCompareDataObject from '../../utils/createCompareDataObject';
 import './style.css';
 
@@ -103,6 +104,9 @@ const SummaryCard = ({
                   : '-'}
               </h1>
               {units ? <h5 className='summary-units'>{units}</h5> : null}
+              {summaryData?.currentDate ? <h5 className='summary-indicator-date'>{formatQuarterDate(summaryData.currentDate, 'QX YYYY', true)}</h5> : null }
+              {/* {summaryData?.currentDate ? <h5 className='summary-indicator-date'>{summaryData.currentDate}</h5> : null } */}
+
             </div>
 
             <div className='summary-chart'>

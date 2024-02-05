@@ -63,6 +63,12 @@
   height: 80px;
 }
 
+.summary-units,
+.summary-indicator-date {
+  font-size: .8rem;
+  line-height: .9rem;
+}
+
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Desktop Breakpoint */
 @media screen and (max-width: 1410px) {

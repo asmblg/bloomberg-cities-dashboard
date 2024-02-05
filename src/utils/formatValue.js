@@ -8,7 +8,7 @@ import formatNumberWithCommas from './formatNumberWithCommas';
 const formatValue = (value, units, onAxis) => {
   const fixedPointNum = onAxis ? 0 : 1;
 
-  console.log(value, units, onAxis);
+  // console.log(value, units, onAxis);
   if (value) {
     switch (units) {
       case 'percent': {
