@@ -6,7 +6,8 @@ import React, {
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 import getNestedValue from '../../utils/getNestedValue';
-import { handleSearch } from './utils';
+
+import { handleSearch, sortOptions } from './utils';
 import './style.css';
 
 const CompareDropdownSelection = ({
@@ -42,7 +43,8 @@ const CompareDropdownSelection = ({
     svgStyle,
     legendStyle,
     delaySetter,
-    key
+    key,
+    firstOption
   } = config;
 
   // console.log(key);
@@ -81,13 +83,10 @@ const CompareDropdownSelection = ({
           : options?.[dataToggle];
 
         // console.log('FIRST CONDITION', setterKey?.selectedOption, optionsArr[0]);
+        const sortedOptions = sortOptions(optionsArr, firstOption);
 
         setSearch('');
-        setSelectOptions(
-          optionsArr?.sort((a,b) => 
-            a.text.localeCompare(b.text)
-          )
-        );
+        setSelectOptions(sortedOptions);
 
         if (
           setterKey?.selectedOption &&
@@ -98,7 +97,7 @@ const CompareDropdownSelection = ({
           )
         ) {
 
-          setter(setterKey.selectedOption, optionsArr[0]);
+          setter(setterKey.selectedOption, sortedOptions[0]);
 
         }
       } else if ((optionsDataPath || optionsDataPaths || indicatorWithDataPath) && data) {
@@ -120,13 +119,10 @@ const CompareDropdownSelection = ({
 
         if (optionsArr) {
           // console.log('SECOND CONDITION', setterKey?.selectedOption, optionsArr[0]);
+          const sortedOptions = sortOptions(optionsArr, firstOption);
 
           setSearch('');
-          setSelectOptions(
-            optionsArr?.sort((a,b) => 
-              a.text.localeCompare(b.text)
-            )
-          );
+          setSelectOptions(sortedOptions);
           if (
             setterKey?.selectedOption &&
             (
@@ -139,11 +135,11 @@ const CompareDropdownSelection = ({
             if (delaySetter) {
               setTimeout(() => {
                 // console.log('Delayed', setterKey.selectedOption, optionsArr[0]);
-                setter(setterKey.selectedOption, optionsArr[0]);
+                setter(setterKey.selectedOption, sortedOptions[0]);
               }, delaySetter);
             } else {
               // console.log(setterKey.selectedOption, optionsArr[0]);
-              setter(setterKey.selectedOption, optionsArr[0]);
+              setter(setterKey.selectedOption, sortedOptions[0]);
             }
           }
         }

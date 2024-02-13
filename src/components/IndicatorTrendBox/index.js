@@ -31,7 +31,8 @@ const IndicatorTrendBox = ({ data, config, getter, viewLoaded }) => {
     dateOverride,
     showIndicatorText,
     compareValueUnderPill,
-    hideIndicatorLabel
+    hideIndicatorLabel,
+    noPill
     // useAlternateIndicator
   } = config;
 
@@ -124,7 +125,7 @@ const IndicatorTrendBox = ({ data, config, getter, viewLoaded }) => {
                   <h4>{dateOverride || dateToQuarter(indicatorTrendData.currentDate, 'QX YYYY')}</h4>
                 </div>
               )
-              : (
+              : !noPill && (
                 <TrendPill
                   currentValue={indicatorTrendData.currentValue}
                   compareValue={indicatorTrendData.compareValue}
@@ -140,7 +141,7 @@ const IndicatorTrendBox = ({ data, config, getter, viewLoaded }) => {
           </div>
           {/* <InfoIcon config={selectedIndicator} /> */}
         </div>
-        {layoutVariation !== 'label-on-top' ? (
+        {layoutVariation !== 'label-on-top' && !noPill ? (
           <TrendPill
             currentValue={indicatorTrendData.currentValue}
             compareValue={indicatorTrendData.compareValue}
