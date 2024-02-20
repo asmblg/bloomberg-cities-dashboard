@@ -83,7 +83,7 @@ const CompareDropdownSelection = ({
           : options?.[dataToggle];
 
         // console.log('FIRST CONDITION', setterKey?.selectedOption, optionsArr[0]);
-        const sortedOptions = sortOptions(optionsArr, firstOption);
+        const sortedOptions = sortOptions(optionsArr, firstOption?.[dataToggle] || firstOption);
 
         setSearch('');
         setSelectOptions(sortedOptions);
@@ -119,7 +119,7 @@ const CompareDropdownSelection = ({
 
         if (optionsArr) {
           // console.log('SECOND CONDITION', setterKey?.selectedOption, optionsArr[0]);
-          const sortedOptions = sortOptions(optionsArr, firstOption);
+          const sortedOptions = sortOptions(optionsArr, firstOption?.[dataToggle] || firstOption);
 
           setSearch('');
           setSelectOptions(sortedOptions);
