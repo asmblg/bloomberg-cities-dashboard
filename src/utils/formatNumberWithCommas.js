@@ -24,7 +24,7 @@ const formatNumberWithCommas = num => {
 
       return decimalStr ? `${numberWithCommas}.${decimalStr}` : numberWithCommas;
     } else {
-      return decimalStr && decimalStr !== '0' ? `${integerStr}.${decimalStr}` : integerStr;
+      return decimalStr && decimalStr !== '0' ? `${numeral(integerStr).format('0,0')}.${decimalStr}` : numeral(integerStr).format('0,0');
     }
   }
   return numeral(num).format('0,0');
