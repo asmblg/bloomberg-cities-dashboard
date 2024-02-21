@@ -50,6 +50,8 @@
   color: var(--black-color);
   margin: 2%;
   font-size: var(--smallest-font);
+  line-height: var(--smallest-font);
+  padding: 1em;
   line-break: auto;
 }
 
