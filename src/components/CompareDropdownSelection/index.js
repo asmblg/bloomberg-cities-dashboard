@@ -172,7 +172,7 @@ const CompareDropdownSelection = ({
         setDropdownOpen(false);
       }}
     >
-      <h4 className='bold-font'>{title || titles?.[dataToggle] || ''}</h4>
+      <h4 className={`bold-font ${legendStyle?.flexDirection === 'column' ? 'align-left' : ''}`}>{title || titles?.[dataToggle] || ''}</h4>
       <div className='compare-dropdown-legend' style={legendStyle || {}}>
         {comparand ? (
           <div className='main-value-container'>

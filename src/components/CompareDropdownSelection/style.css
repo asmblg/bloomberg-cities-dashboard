@@ -17,6 +17,10 @@
   /* text-wrap: wrap; */
 }
 
+.align-left {
+  text-align: left !important;
+}
+
 .compare-dropdown-legend {
   display: flex;
   flex-direction: row;
