@@ -40,8 +40,9 @@ const App = () => {
           handleRootVariables(c).then(() => setConfig(c));
         }
 
-        if (!c && controller && redirect === '404') {
-          navigate('404');
+        if (!c && controller && redirect) {
+          // console.log('redirect');
+          navigate(redirect);
         }
       });
     }

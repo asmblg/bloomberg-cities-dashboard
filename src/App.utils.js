@@ -12,12 +12,17 @@ const handleConfig = async pathname => {
         config: initialConfig,
         redirect: false
       };
+    } else {
+      return {
+        config: null,
+        redirect: '/'
+      };
     }
   } catch (err) {
     console.log(err);
     return {
       config: null,
-      redirect: '404'
+      redirect: '/'
     };
   }
 };
