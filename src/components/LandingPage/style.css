@@ -106,7 +106,7 @@
   }
 
   .landing-container {
-    height: 100%;
+    height: fit-content;
   }
 
   .landing-city-links {
