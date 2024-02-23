@@ -17,8 +17,14 @@
 
 .summary-card-title {
   display: flex;
-  align-items: center;
+  align-items:center;
   justify-content: flex-start;
+  flex-direction: row;
+  height: 30px;
+}
+
+.summary-card-title > div {
+  height: 20px;
 }
 
 .summary-card-header-text {
@@ -30,6 +36,7 @@
 .summary-card-sub-header {
   opacity: 0.8;
   font-size: 12px;
+  line-height: 16px;
 }
 
 .summary-data-wrapper {
@@ -86,7 +93,7 @@
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1024px) {
   .summary-card {
-    height: 200px;
+    height: 240px;
   }
   .summary-card-title {
     font-size: 18px;
@@ -105,7 +112,7 @@
 
   .summary-card-header-text {
     font-size: 14px;
-    min-width: 140px;
+    min-width: fit-content;
     justify-content: flex-start;
   }
 
