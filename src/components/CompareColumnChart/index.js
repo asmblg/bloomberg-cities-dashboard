@@ -135,7 +135,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
           <YAxis
             domain={domain}
             type={'number'}
-            tickFormatter={text => formatValue(text, selectedIndicator?.units)}
+            tickFormatter={text => formatValue(text, selectedIndicator?.units, true)}
             label={{ value: config.yaxis.label, angle: '-90', position: 'insideLeft', dy: 50 }}
           />
           <Tooltip 

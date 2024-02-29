@@ -122,7 +122,7 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
               valueArray.push(
                 obj[moment(dateString).utc().subtract(2, 'month').format('YYYY-M-D')] || 0
               );
-              const calcArray = valueArray.map(value => parseInt(value)).filter(value => value > 0);
+              const calcArray = valueArray.map(value => Number(value)).filter(value => value > 0);
               dataObj.currentValue = calcArray[0]
                 ? calcArray.reduce((a, b) => a + b, 0) / calcArray.length
                 : null;
@@ -144,7 +144,7 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
               valueArray.push(
                 obj[moment(dateString).utc().subtract(2, 'month').format('YYYY-M-D')] || 0
               );
-              const calcArray = valueArray.map(value => parseInt(value)).filter(value => value > 0);
+              const calcArray = valueArray.map(value => Number(value)).filter(value => value > 0);
               dataObj.compareValue = calcArray[0]
                 ? calcArray.reduce((a, b) => a + b, 0) / calcArray.length
                 : null;

@@ -55,7 +55,7 @@ const SelectorWithLegend = ({
         if (topItems) {        
           Object.entries(topItems).forEach(([key, value]) =>{
             if (value) {
-              const minValue = Math.min(...Object.values(value).filter(v => !isNaN(parseInt(v))));
+              const minValue = Math.min(...Object.values(value).filter(v => !isNaN(Number(v))));
               if (minValue > topFilterMinValue ){
                 filterObj.topFilter.push(key);
               }
@@ -66,7 +66,7 @@ const SelectorWithLegend = ({
           Object.entries(subItems).forEach(([key, value]) =>{
             // console.log('SUBFILTER', value);
             if (value) {
-              const minValue = Math.min(...Object.values(value).filter(v => !isNaN(parseInt(v))));
+              const minValue = Math.min(...Object.values(value).filter(v => !isNaN(Number(v))));
               // console.log(minValue);
               if (minValue > subFilterMinValue ){
                 filterObj.subFilter.push(key);

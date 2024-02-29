@@ -15,17 +15,17 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
         Object.entries(values).forEach(([key, nestedValue]) => {
           const dateKey = getQuarterDateKey(key);
 
-          if (!isNaN(parseInt(nestedValue))) {
+          if (!isNaN(Number(nestedValue))) {
             if (config?.values.average) {
               if (!dataObj[dateKey]) {
-                dataObj[dateKey] = [parseInt(nestedValue)];
+                dataObj[dateKey] = [Number(nestedValue)];
               } else {
-                dataObj[dateKey].push(parseInt(nestedValue));
+                dataObj[dateKey].push(Number(nestedValue));
               }
             } else if (!dataObj[dateKey]) {
-              dataObj[dateKey] = parseInt(nestedValue);
+              dataObj[dateKey] = Number(nestedValue);
             } else {
-              dataObj[dateKey] += parseInt(nestedValue);
+              dataObj[dateKey] += Number(nestedValue);
             }
           }
         });
@@ -48,7 +48,7 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
 
     // Sort by Name 
     return dataArray.sort((a, b) =>
-      parseInt(a.name.replace('-Q', '')) - parseInt(b.name.replace('-Q', ''))
+      Number(a.name.replace('-Q', '')) - Number(b.name.replace('-Q', ''))
     );
 
   }
@@ -69,7 +69,7 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
             const compareKey = i !== 0 ? sortedDates[i - 1] : null;
 
             if (compareKey) {
-              const value = parseInt(dataObj[key]) - parseInt(dataObj[compareKey]);
+              const value = Number(dataObj[key]) - Number(dataObj[compareKey]);
               obj.value = value;
             }
             break;

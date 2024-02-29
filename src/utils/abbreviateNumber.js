@@ -6,7 +6,7 @@
 
 const abbreviateNumber = (num) => {
   if (num) {
-    const number = typeof num === 'string' ? parseInt(num) : num;
+    const number = typeof num === 'string' ? Number(num) : num;
 
     if (number >= 1000000000 || number <= -1000000000) {
       return (number / 1000000000).toFixed(1) + 'B';

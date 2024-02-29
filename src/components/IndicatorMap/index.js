@@ -120,7 +120,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
             data={mapGeoJSON}
             filter={feature => {
               const value = feature?.properties?.[selectedIndicator?.key || defaultSelection.key];
-              if (!isNaN(parseInt(value)) && parseInt(value) > 0) {
+              if (!isNaN(Number(value)) && Number(value) > 0) {
                 return true;
               } else {
                 return false;

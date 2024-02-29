@@ -10,7 +10,7 @@ const incrementDecimalNumber = num => {
   // Get the decimal portion of the number
   const last = parts[parts.length - 1];
   // If last digit is 9, set it to 0, otherwise add 1
-  const newLast = parseInt(last) === 9 ? '0' : (parseInt(last) + 1).toString();
+  const newLast = Number(last) === 9 ? '0' : (Number(last) + 1).toString();
   // If the length of the new last digit is the same as the length of the old last digit,
   // set the new decimal part to be the new last digit.
   // If they are different lengths, pad the new last digit with leading zeroes so that it has the same length as the old last digit.

@@ -69,17 +69,17 @@ const handleData = ({
 
             const dateKey = getQuarterDateKey(key);
 
-            if (!isNaN(parseInt(nestedValue))) {
+            if (!isNaN(Number(nestedValue))) {
               if (average){
                 if (!dataObj[dateKey]) {
-                  dataObj[dateKey] = [parseInt(nestedValue)];
+                  dataObj[dateKey] = [Number(nestedValue)];
                 } else {
-                  dataObj[dateKey].push(parseInt(nestedValue));
+                  dataObj[dateKey].push(Number(nestedValue));
                 }
               } else if (!dataObj[dateKey]) {
-                dataObj[dateKey] = parseInt(nestedValue);
+                dataObj[dateKey] = Number(nestedValue);
               } else {
-                dataObj[dateKey] += parseInt(nestedValue);
+                dataObj[dateKey] += Number(nestedValue);
               }
             }
           });
@@ -105,25 +105,25 @@ const handleData = ({
 
           const dateKey = getQuarterDateKey(key);
 
-          // if (!isNaN(parseInt(nestedValue))) {
+          // if (!isNaN(Number(nestedValue))) {
           //   if (!dataObj[dateKey]) {
-          //     dataObj[dateKey] = parseInt(nestedValue);
+          //     dataObj[dateKey] = Number(nestedValue);
           //   } else {
-          //     dataObj[dateKey] += parseInt(nestedValue);
+          //     dataObj[dateKey] += Number(nestedValue);
           //   }
           // }
 
-          if (!isNaN(parseInt(nestedValue))) {
+          if (!isNaN(Number(nestedValue))) {
             if (average){
               if (!dataObj[dateKey]) {
-                dataObj[dateKey] = [parseInt(nestedValue)];
+                dataObj[dateKey] = [Number(nestedValue)];
               } else {
-                dataObj[dateKey].push(parseInt(nestedValue));
+                dataObj[dateKey].push(Number(nestedValue));
               }
             } else if (!dataObj[dateKey]) {
-              dataObj[dateKey] = parseInt(nestedValue);
+              dataObj[dateKey] = Number(nestedValue);
             } else {
-              dataObj[dateKey] += parseInt(nestedValue);
+              dataObj[dateKey] += Number(nestedValue);
             }
           }
         });
@@ -151,20 +151,20 @@ const handleData = ({
 
             const dateKey = getQuarterDateKey(key);
 
-            if (!isNaN(parseInt(nestedValue))) {
+            if (!isNaN(Number(nestedValue))) {
               if (!dataObj[dateKey]) {
                 dataObj[dateKey] = {};
               }
               if (average){
                 if (!dataObj[dateKey][selectionKey]) {
-                  dataObj[dateKey][selectionKey] = [parseInt(nestedValue)];
+                  dataObj[dateKey][selectionKey] = [Number(nestedValue)];
                 } else {
-                  dataObj[dateKey][selectionKey].push(parseInt(nestedValue));
+                  dataObj[dateKey][selectionKey].push(Number(nestedValue));
                 }
               } else if (!dataObj[dateKey][selectionKey]) {
-                dataObj[dateKey][selectionKey] = parseInt(nestedValue);
+                dataObj[dateKey][selectionKey] = Number(nestedValue);
               } else {
-                dataObj[dateKey][selectionKey] += parseInt(nestedValue);
+                dataObj[dateKey][selectionKey] += Number(nestedValue);
               }
             }
           });
@@ -210,11 +210,11 @@ const handleData = ({
       Object.entries(obj).forEach(([valueKey, value]) => {
         // if (trendValue === 'QtQ') {
         const comparisonQuarter = trendValue === 'QtQ' 
-          ? parseInt(dataQuarter) === 1 ? 4 : parseInt(dataQuarter) - 1
-          : parseInt(dataQuarter);
+          ? Number(dataQuarter) === 1 ? 4 : Number(dataQuarter) - 1
+          : Number(dataQuarter);
         const comparisonYear = trendValue === 'QtQ' 
-          ? parseInt(dataQuarter) === 1 ? parseInt(dataYear) - 1 : dataYear
-          : parseInt(dataYear) - 1;
+          ? Number(dataQuarter) === 1 ? Number(dataYear) - 1 : dataYear
+          : Number(dataYear) - 1;
         const comparisonDateKey = `${comparisonYear}-Q${comparisonQuarter}`;
         const comparisonValue = dataObj?.[comparisonDateKey]?.[valueKey];
         if (comparisonValue) {

@@ -27,6 +27,9 @@ const formatChartTick = (text, formatter, units) => {
       case 'formatValue': {
         return formatValue(text, units, true);
       }
+      case 'thousands': {
+        return formatValue(text, 'thousands', true);
+      }
       default: {
         return text;
       }
