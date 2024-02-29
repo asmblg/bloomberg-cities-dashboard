@@ -5,6 +5,7 @@
   padding: 10px;
   border-radius: 5px;
   outline: solid 1px rgb(202, 202, 202);
+  z-index: 999999;
 
 }
 
