@@ -57,7 +57,7 @@ const formatValue = (value, units, onAxis) => {
         return thousands ? `${text}${unit}` : value;
       }
       case 'thousands': {
-        return `${parseFloat(value).toFixed(fixedPointNum)}K`;
+        return `${(value).toFixed(value < 1000 ? 1 : fixedPointNum)}K`;
       }
 
       default: {
