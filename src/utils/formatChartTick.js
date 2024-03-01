@@ -1,4 +1,4 @@
-import abbreviateNumber from './abbreviateNumber';
+// import abbreviateNumber from './abbreviateNumber';
 import dateToQuarter from './dateToQuarter';
 import formatValue from './formatValue';
 
@@ -13,7 +13,7 @@ const formatChartTick = (text, formatter, units) => {
   if (text) {
     switch (formatter) {
       case 'abbreviateNumber': {
-        return abbreviateNumber(text);
+        return formatValue(text, 'bigNumbers', true);
       }
       case 'longQuarter': {
         return dateToQuarter(text, 'QX YYYY');
