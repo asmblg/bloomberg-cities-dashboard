@@ -16,11 +16,11 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
   [
     {
       value: 'QtQ',
-      label: 'Quarter-to-Quarter'
+      label: 'Compare with previous quarter'
     },
     {
       value: 'YtY',
-      label: 'Year-to-Year'
+      label: 'Compare with same quarter of previous year'
     }
   ];
 
@@ -45,7 +45,12 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
       // ref={ref} 
       className='data-toggle-container'
     >
-      { text ? <p>{text}</p> : null} 
+      { text 
+        ? <p>{text}</p> 
+        // : !config?.options
+        //   ? <p className='default-data-toggle-text'>Compare with:</p>
+        : null
+      } 
       <div className='data-toggle'>
         <h5>{options[0].label}</h5>
         <Checkbox

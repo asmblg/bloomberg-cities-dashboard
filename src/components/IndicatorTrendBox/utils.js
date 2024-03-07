@@ -30,8 +30,12 @@ const handleTrendDisplayData = (data, indicatorObj, trendDataType) => {
       return dataObj;
     } else if (Array.isArray(indicatorObj.var)){
       if (indicatorObj.calculator === 'percentageOf') {
+
         const numeratorValues = data[indicatorObj.var?.[0]];
+        
+        // data[indicatorObj.var?.[0]];
         const denominatorValues = data[indicatorObj.var?.[1]];
+
         const calcaluatedValues = {};
 
         // console.log(numeratorValues);

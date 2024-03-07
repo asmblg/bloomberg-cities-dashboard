@@ -19,6 +19,7 @@ const IndicatorTrendBox = ({ data, config, getter, viewLoaded }) => {
     compareValue: null,
     displayValue: null
   });
+
   const {
     indicator,
     displayCompareText,
@@ -32,9 +33,12 @@ const IndicatorTrendBox = ({ data, config, getter, viewLoaded }) => {
     showIndicatorText,
     compareValueUnderPill,
     hideIndicatorLabel,
-    noPill
+    // noPill
     // useAlternateIndicator
   } = config;
+
+  // console.log(indicator);
+
 
   const trendDataType = getter?.[getterKey?.trendValue] || 'QtQ';
 
@@ -46,11 +50,22 @@ const IndicatorTrendBox = ({ data, config, getter, viewLoaded }) => {
     getter?.[getterKey?.selectedIndicator] || 
     indicator;
 
+
+  if (selectedIndicator?.noPill) {
+    config.noPill = true;
+  } else {
+    config.noPill = false;
+  }
+
+  const noPill = config.noPill;
+
   // console.log(getterKey?.selectedIndicator, getter, selectedIndicator);
   
   const baseDataPath = selectedIndicator?.dataPath || getter?.[getterKey?.dataPath] || dataPath;
 
   // console.log(selectedIndicator, data);
+  // console.log(selectedIndicator, indicatorTrendData);
+
 
   useEffect(() => {
     if (data) {

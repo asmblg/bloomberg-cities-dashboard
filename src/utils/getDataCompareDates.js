@@ -12,6 +12,8 @@ import padDate from './padDate';
 const getDataCompareDates = (dateKeys, compareType) => {
   const obj = { currentDate: null, compareDate: null };
 
+  // console.log(dateKeys);
+
   if (compareType === 'QtQ') {
     const [currentDate, compareDate] = getRecentQuarterEndDates(dateKeys, 2);
     obj.currentDate = currentDate;
