@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  min-width: fit-content;
   /* max-width: 200px; */
   min-height: fit-content !important;
   padding: 0 0 5px 5px;

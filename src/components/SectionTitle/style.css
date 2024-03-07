@@ -9,8 +9,11 @@
   padding: 20px 10px 20px 20px;
   display: flex;
   flex-direction: row;
+  align-content: flex-start;
+  justify-content: flex-start;
+  /* max-width: 50%; */
   /* justify-content: space-between; */
-  align-items: center;
+  /* align-items: center; */
 }
 
 .section-title-text {
