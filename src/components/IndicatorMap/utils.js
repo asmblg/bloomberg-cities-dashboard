@@ -10,17 +10,30 @@ import { getGeoJSON } from '../../utils/API';
  * @param {array} indicators array of indicators from config
  * @returns {object} updated geoJSON with calculated indicators in every features properties object
  */
-const handleGeoJSON = async (geoJSON, indicators) => {
+const handleGeoJSON = async (geoJSON, indicators, filter) => {
   const tempGeoJSON = { ...geoJSON };
-  const featuresArr = tempGeoJSON.features.map(feature => {
-    if (indicators && indicators[0]) {
-      indicators.forEach(indicator => {
-        const propertiesObj = addCalculatedIndicatorToDataObj(indicator, feature.properties);
-        feature.properties = propertiesObj;
-      });
-    }
-    return feature;
-  });
+  const featuresArr = tempGeoJSON.features
+    .filter(feature => {
+      if (filter) {
+        if (filter.exclude) {
+          const filterKey = filter.exclude.key;
+          const excludeArray = filter.exclude.array;
+          if (excludeArray?.includes(feature?.properties?.[filterKey])) {
+            return false;
+          }
+        }
+      }
+      return true;
+    })
+    .map(feature => {
+      if (indicators && indicators[0]) {
+        indicators.forEach(indicator => {
+          const propertiesObj = addCalculatedIndicatorToDataObj(indicator, feature.properties);
+          feature.properties = propertiesObj;
+        });
+      }
+      return feature;
+    });
 
   tempGeoJSON.features = featuresArr;
   return tempGeoJSON;
@@ -34,13 +47,13 @@ const handleGeoJSON = async (geoJSON, indicators) => {
  * @returns updated GeoJSON to be set into state
  */
 
-const handleNoGeoJsonProp = async (project, geoType, indicators) => {
+const handleNoGeoJsonProp = async (project, geoType, indicators, filter) => {
   try {
     if (project && geoType && indicators?.[0]) {
       const { data } = await getGeoJSON(project, geoType);
       // console.log(data);
       const returnedGeoJSON = data[0];
-      const updatedGeoJSON = await handleGeoJSON(returnedGeoJSON, indicators);
+      const updatedGeoJSON = await handleGeoJSON(returnedGeoJSON, indicators, filter);
       return updatedGeoJSON;
     }
     return null;

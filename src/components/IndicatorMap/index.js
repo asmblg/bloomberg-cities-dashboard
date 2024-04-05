@@ -32,7 +32,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
 
     // Handles CP instance
     if (geoJSON) {
-      handleGeoJSON(geoJSON, indicators).then(updatedGeoJSON => {
+      handleGeoJSON(geoJSON, indicators, config?.filter).then(updatedGeoJSON => {
         setMapGeoJSON(updatedGeoJSON);
         if (defaultSelection) {
           // console.log(defaultSelection);
@@ -45,7 +45,12 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
       // allows indicators present in config or an indicator obtained from a getter
 
       if (defaultSelection) {
-        handleNoGeoJsonProp(project, config?.geoType, indicators || [defaultSelection]).then(updatedGeoJSON => {
+        handleNoGeoJsonProp(
+          project, 
+          config?.geoType, 
+          indicators || [defaultSelection],
+          config?.filter
+        ).then(updatedGeoJSON => {
           if (updatedGeoJSON) {
             setMapGeoJSON(updatedGeoJSON);
 
