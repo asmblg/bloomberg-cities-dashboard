@@ -115,7 +115,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
           barCategoryGap={'15%'}
           barGap={'10%'}
         >
-          <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
+          <CartesianGrid vertical={false} horizontal={true} opacity={0.2} />
           <XAxis
             type={'category'}
             dataKey='name'
@@ -146,7 +146,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
               />
             } 
           />
-          <ReferenceLine y={0} stroke='#000000' />
+          <ReferenceLine y={0} stroke='#666' />
           {!fixedIndicator && allColumnsArray
             ? allColumnsArray.map(({ key }, i) => (
               <Bar

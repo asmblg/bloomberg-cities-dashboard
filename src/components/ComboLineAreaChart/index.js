@@ -104,8 +104,8 @@ const ComboLineAreaChart = ({
           data={areas[0] ? areas : lines}
           margin={{ top: 20, right: 20, left: 0, bottom: 10 }}
         >
-          <CartesianGrid vertical={false} horizontal={true} opacity={0.5} />
-          <ReferenceLine y={0} stroke='#000000' />
+          <CartesianGrid vertical={false} horizontal={true} opacity={0.2} />
+          <ReferenceLine y={0} stroke='#666'/>
           <YAxis
             domain={domain}
             tickFormatter={text => formatValue(
