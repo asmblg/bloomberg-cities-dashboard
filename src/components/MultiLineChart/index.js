@@ -122,7 +122,7 @@ const MultiLineChart = ({ config, data, getter, setter }) => {
             data={dataArray}
             margin={{ top: 20, right: 20, left: 0, bottom: 20 }}
           >
-            <ReferenceLine y={0} stroke='#666'/>
+            <ReferenceLine y={0} stroke={'#666'} strokeWidth={1.2} strokeOpacity={.7} />
 
             <CartesianGrid vertical={false} horizontal={true} opacity={0.2} />
             <XAxis

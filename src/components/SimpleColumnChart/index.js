@@ -75,7 +75,7 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
             opacity={0.2}
           />
         ) : null}
-        <ReferenceLine y={0} stroke='#666'/>
+        <ReferenceLine y={0} stroke={'#666'} strokeWidth={1.2} strokeOpacity={.7}/>
 
         <XAxis
           dataKey={'name'}

@@ -146,7 +146,7 @@ const CompareColumnChart = ({ config, data, getter, setter }) => {
               />
             } 
           />
-          <ReferenceLine y={0} stroke='#666' />
+          <ReferenceLine y={0} stroke={'#666'} strokeWidth={1.2} strokeOpacity={.7} />
           {!fixedIndicator && allColumnsArray
             ? allColumnsArray.map(({ key }, i) => (
               <Bar
