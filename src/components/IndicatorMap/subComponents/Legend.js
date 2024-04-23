@@ -7,7 +7,7 @@ import { formatLegendLabel } from '../utils';
 
 const Legend = ({ indicator, bins, strokeColor }) => {
   const [legendOpen, setLegendOpen] = useState(true);
-  const sortedBins = [...bins].sort((a, b) => parseFloat(b.percentile) - parseFloat(a.percentile));
+  const sortedBins = [...bins].sort((a, b) => parseFloat(a.percentile) - parseFloat(b.percentile));
 
   return (
     <div className='map-legend'>

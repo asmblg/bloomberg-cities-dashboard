@@ -71,7 +71,8 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
           geoJSON: mapGeoJSON,
           colors,
           indicator: selectedIndicator?.key,
-          numOfBins
+          numOfBins,
+          manualBreaks: defaultSelection?.manualBreaks || selectedIndicator?.manualBreaks
         })
       );
     }

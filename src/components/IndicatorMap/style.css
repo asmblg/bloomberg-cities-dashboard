@@ -17,6 +17,7 @@
 .map-legend > h4 {
   text-overflow: ellipsis;
   font-size: 1rem;
+  text-align: center;
 }
 
 .map-legend {
@@ -24,7 +25,7 @@
   border: 2px solid var(--primary-gray-color);
   height: fit-content;
   width: fit-content;
-  max-width: 50%;
+  max-width: 150px;
   margin: 0 10px 20px 0;
   padding: 10px;
   z-index: 999999;

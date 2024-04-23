@@ -71,7 +71,7 @@ const handleNoGeoJsonProp = async (project, geoType, indicators, filter) => {
  * @param {number} numOfBins number of bins to create
  * @returns {array} bins array
  */
-const handleBinning = ({ geoJSON, colors, indicator, numOfBins }) => {
+const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks }) => {
   const binArray = [];
   const pRange = Math.floor(100 / numOfBins);
 
@@ -80,11 +80,13 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins }) => {
     .sort((a, b) => a - b);
 
   for (let i = 0; i < numOfBins; i++) {
-    let p = null;
+    let p = manualBreaks?.[i] || null;
     const m = i + 1;
-    if (i !== numOfBins - 1) {
-      p = percentile(pRange * m, valueArray);
-    } else p = percentile(100, valueArray);
+    if (!manualBreaks?.[i]) {
+      if (i !== numOfBins - 1) {
+        p = percentile(pRange * m, valueArray);
+      } else p = percentile(100, valueArray);
+    }
 
     binArray.push({
       label: '',
@@ -92,6 +94,8 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins }) => {
       color: colors[i]
     });
   }
+
+  console.log(binArray);
   const arrayWithLabels = [...binArray].map((obj, i) => {
     const prevValue = i !== 0 ? binArray[i - 1].percentile : 0;
     const currentValue = obj.percentile;
