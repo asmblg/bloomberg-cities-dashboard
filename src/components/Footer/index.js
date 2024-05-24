@@ -6,16 +6,19 @@ import GoogleTranslate from '../GoogleTranslate';
 import config from './config';
 import './style.css';
 
-const Footer = ({ setShowModal }) => {
+const Footer = ({ setShowModal, noLogo }) => {
   const { partners, copyright, mainLogo } = config;
 
   return (
     <div className='footer-container'>
       <div>
         <div className='logo-translator-container'>
-          <a href='https://associates.bloomberg.org/' target='_blank' rel='noreferrer'>
-            <img src={mainLogo} id='bloomberg-logo' />
-          </a>
+          { !noLogo  
+            ? <a href='https://associates.bloomberg.org/' target='_blank' rel='noreferrer'>
+              <img src={mainLogo} id='bloomberg-logo' />
+            </a>
+            : null
+          }
         </div>
         <p>
           <span>&#169;</span> {copyright}
@@ -53,7 +56,8 @@ const Footer = ({ setShowModal }) => {
 };
 
 Footer.propTypes = {
-  setShowModal: PropTypes.func
+  setShowModal: PropTypes.func,
+  noLogo: PropTypes.bool
 };
 
 export default Footer;

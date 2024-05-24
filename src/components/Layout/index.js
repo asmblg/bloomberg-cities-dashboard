@@ -92,7 +92,7 @@ const Layout = ({ config, setShowModal }) => {
             />
           </div>
           <footer id='footer'>
-            <Footer setShowModal={setShowModal} />
+            <Footer setShowModal={setShowModal} noLogo={config?.footer?.noLogo} />
           </footer>
         </div>
       </div>
