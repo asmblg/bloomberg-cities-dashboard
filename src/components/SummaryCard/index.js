@@ -23,7 +23,7 @@ const SummaryCard = ({
   setSelectedLink,
   trendDataType
 }) => {
-  const { chart, dataPath, key, label, units, summary, indicator } = config;
+  const { chart, dataPath, key, label, units, summary, indicator, disablePill } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
     displayValue: null,
@@ -67,7 +67,7 @@ const SummaryCard = ({
           </div>
         </div>
 
-        {viewType === 'mobile' && !cardFullSize ? (
+        {viewType === 'mobile' && !cardFullSize && !disablePill ? (
           <TrendPill
             positiveTrendDirection={summary?.positiveTrendDirection}
             currentValue={summaryData.currentValue}
@@ -123,7 +123,7 @@ const SummaryCard = ({
               ) : null}
             </div>
           </div>
-          {viewType !== 'mobile' || cardFullSize ? (
+          {!disablePill && (viewType !== 'mobile' || cardFullSize) ? (
             <TrendPill
               positiveTrendDirection={summary?.positiveTrendDirection}
               currentValue={summaryData.currentValue}

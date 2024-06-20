@@ -45,7 +45,7 @@ const Layout = ({ config, setShowModal }) => {
   return (
     <div id='layout'>
       <div id='content'>
-        {config && pathname !== '/' ? (
+        {config && pathname !== '/' ?
           <nav id='header-container'>
             <Header
               headerConfig={config.header}
@@ -58,7 +58,7 @@ const Layout = ({ config, setShowModal }) => {
               setSelectedLink={setSelectedLink}
             />
           </nav>
-        ) : null}
+          : null}
 
         <div
           id='scrollable-body'
