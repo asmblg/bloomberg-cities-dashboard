@@ -1,6 +1,6 @@
 import bloombergLogo from '../../assets/logos/bloomberg_associates.png';
 import alignableLogo from './logos/alignable.png';
-import blockLogo from './logos/block.png';
+// import blockLogo from './logos/block.png';
 import deweyLogo from './logos/dewey.png';
 import jllLogo from './logos/jll.png';
 import dealroomLogo from './logos/dealroom.png';
@@ -41,12 +41,12 @@ const footerConfig = {
       url: 'https://www.safegraph.com/',
       logo: SafeGraphLogo
     },
-    {
-      key: 'block',
-      name: 'Block',
-      url: 'https://block.xyz/',
-      logo: blockLogo
-    },
+    // {
+    //   key: 'block',
+    //   name: 'Block',
+    //   url: 'https://block.xyz/',
+    //   logo: blockLogo
+    // },
     {
       key: 'lightcast',
       name: 'Lightcast',
