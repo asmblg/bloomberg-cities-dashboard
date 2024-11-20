@@ -6,7 +6,10 @@ import SummaryCard from '../SummaryCard';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
 import DataToggle from '../TrendDataToggle';
 
-import { handleHomeData, formatUpdatedOnDate } from './utils';
+import { 
+  handleHomeData, 
+  // formatUpdatedOnDate 
+} from './utils';
 // import dateToQuarter from '../../utils/dateToQuarter';
 import './style.css';
 
@@ -43,7 +46,7 @@ const Home = ({
               >
                 {'KEY INDICATORS'}
               </h1>
-              {data?.updatedOn ? (
+              {/* {data?.updatedOn ? (
                 <>
                   <h1
                     className='large-summary-title'
@@ -55,9 +58,10 @@ const Home = ({
                   </h1>
                   <h5 style={{ opacity: 0.8 }}>{`LATEST UPDATE: ${formatUpdatedOnDate(
                     data.updatedOn
-                  )}`}</h5>
+                  )}`}
+                  </h5>
                 </>
-              ) : null}
+              ) : null} */}
             </div>
 
             <DataToggle getter={trendDataType} setter={setTrendDataType} />
