@@ -17,6 +17,7 @@ import AboutProject from '../AboutTheData';
 import SectionTitle from '../SectionTitle';
 import HorizontalBarChart from '../HorizontalBarChart';
 import IndicatorMap from '../IndicatorMap';
+import SimpleLineChart from '../SimpleLineChart.js';
 
 import { handleElementStyle } from './utils';
 import SelectedImage from '../SelectedImage';
@@ -115,16 +116,16 @@ const FlexLayoutElement = ({
           />
         ))
       ) : content?.type === 'selector-map' ? (
-        <SelectorMap project={project} config={content.config} setter={setter} />
+        <SelectorMap project={project} config={content?.config || content} setter={setter} />
       ) : content?.type === 'trend-data-toggler' ? (
         <TrendDataToggle
-          config={content.config}
+          config={content?.config || content}
           getter={getter}
           setter={setter}
         />
       ) : (content?.type === 'title-with-trend-data-toggler' || content?.type === 'title') && content?.config ? (
         <SectionTitle
-          config={content.config}
+          config={content?.config || content}
           setInfoIconConfig={setInfoIconConfig}
           selectedLink={selectedLink}
           setSelectedLink={setSelectedLink}
@@ -136,19 +137,19 @@ const FlexLayoutElement = ({
       ) : content?.type === 'indicator-trend-box' ? (
         <IndicatorTrendBox
           data={data}
-          config={content.config}
+          config={content?.config || content}
           getter={getter}
           setter={setter}
           viewType={viewType}
           viewLoaded={viewLoaded}
         />
       ) : content?.type === 'simple-indicator-box' ? (
-        <SimpleIndicatorBox data={data} config={content.config} getter={getter} />
+        <SimpleIndicatorBox data={data} config={content?.config || content} getter={getter} />
       ) : content?.type === 'compare-selector' ? (
         <CompareDropdownSelection
           data={data}
           enableSearch={content?.config?.searchable}
-          config={content.config}
+          config={content?.config || content}
           options={content.config?.options}
           indicatorWithDataPath={getter?.[content?.config?.getterKey?.indicatorWithDataPath]}
           dataToggle={getter?.[content?.config?.getterKey?.optionsToggle] || content?.config?.defaultDataToggle}
@@ -159,7 +160,7 @@ const FlexLayoutElement = ({
       ) : content?.type === 'multi-line-chart' ? (
         <MultiLineChart
           data={data || null}
-          config={content.config}
+          config={content?.config || content}
           getter={getter}
           setter={setter}
           viewType={viewType}
@@ -167,12 +168,12 @@ const FlexLayoutElement = ({
       ) : content?.type === 'compare-column-chart' ? (
         <CompareColumnChart
           data={data || null}
-          config={content.config}
+          config={content?.config || content}
           getter={getter}
           setter={setter}
         />
       ) : content?.type === 'simple-column-chart' ? (
-        <SimpleColumnChart config={content.config} data={data} getter={getter} />
+        <SimpleColumnChart config={content?.config || content} data={data} getter={getter} />
       ) : content?.type === 'selector-with-legend' ? (
         <SelectorWithLegend
           setter={setter}
@@ -197,32 +198,41 @@ const FlexLayoutElement = ({
           data={data}
           viewType={viewType}
         />
+      ) : content?.type === 'simple-line-chart' ? (
+        <SimpleLineChart
+          config={content?.config || content}
+          data={data}
+          getter={getter}
+          // height={height}
+          // width={width}
+          // margin={content.config?.margin}
+        />
       ) : content?.type === 'under-construction' ? (
         <UnderConstructionBox />
       ) : content?.type === 'about-the-data' ? (
         <AboutProject
-          config={content.config}
+          config={content?.config || content}
           project={project}
           viewType={viewType}
           infoIconConfig={infoIconConfig}
         />
       ) : content?.type === 'horizontal-bar-chart' ? (
         <HorizontalBarChart
-          config={content.config}
+          config={content?.config || content}
           data={data}
           setter={setter}
           getter={getter}
         />
       ) : content?.type === 'selected-image' ? (
         <SelectedImage
-          config={content.config}
+          config={content?.config || content}
           getter={getter}
           project={project}
           viewType={viewType}
         />
       ) : content?.type === 'indicator-map' ? (
         <IndicatorMap
-          config={content.config}
+          config={content?.config || content}
           project={project}
           getter={getter}
           viewLoaded={viewLoaded}

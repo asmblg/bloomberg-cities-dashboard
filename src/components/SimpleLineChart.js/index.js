@@ -7,20 +7,27 @@ import CustomTooltip from '../CustomTooltip';
 import formatChartTick from '../../utils/formatChartTick';
 import handleSimpleChartDataArray from '../../utils/handleSimpleChartDataArray';
 
-const SimpleLineChart = ({ config, data, height, width, margin }) => {
+const SimpleLineChart = (props) => {
+  const { config, data, height, width, margin, getter } = props;
   const [dataArray, setDataArray] = useState(null);
+  const [selectedIndicator, setSelectedIndicator] = useState(null);
+  const indicator = selectedIndicator || config?.indicator;
+  const yLabel = indicator?.yLabel || indicator?.label ||config?.yaxis?.label || '';
 
   useEffect(() => {
-    const dataArr = handleSimpleChartDataArray(config, data);
-
+    console.log('getter', {config, getter});
+    setSelectedIndicator(getter?.[config.getterKey?.selectedIndicator] || null);
+  }, [getter?.[config.getterKey?.selectedIndicator]]);
+  useEffect(() => {
+    const dataPath = indicator?.dataPath || config?.dataPath;
+    const dataArr = handleSimpleChartDataArray(config, data, dataPath);
     if (dataArr?.[0]) {
       setDataArray(dataArr);
     }
-  }, []);
-
+  }, [selectedIndicator]);
   return dataArray ? (
     <ResponsiveContainer height={height || '100%'} width={width || '100%'}>
-      <LChart data={dataArray} margin={margin}>
+      <LChart data={dataArray} margin={margin || { top: 10, right: 10, bottom: 10, left: 10 }}>
         <XAxis
           dataKey={'name'}
           interval={'preserveStartEnd'}
@@ -28,8 +35,16 @@ const SimpleLineChart = ({ config, data, height, width, margin }) => {
         />
         <YAxis
           axisLine={false}
-          tickCount={config.yaxis?.tickCount || 1}
+          tickCount={config.yaxis?.tickCount || 4}
           tickFormatter={text => formatChartTick(text, config?.yaxis?.labelFormatter)}
+          label={{
+            value: yLabel,
+            angle: '-90',
+            position: 'insideLeft',
+            fontSize: 18,
+            dy: 10
+          }}
+          
         />
 
         {config.tooltip ? (
@@ -38,7 +53,9 @@ const SimpleLineChart = ({ config, data, height, width, margin }) => {
               <CustomTooltip
                 units={config.tooltip.units}
                 quarterDateFormat={config.tooltip.quarterDateFormat}
-                manifest={config.tooltip.manifest}
+                manifest={config?.tooltip?.manifest || {
+                  value : indicator?.label || config?.yaxis?.label || 'Value'
+                }}
               />
             }
           />
@@ -48,7 +65,7 @@ const SimpleLineChart = ({ config, data, height, width, margin }) => {
           type={'monotone'}
           dataKey={'value'}
           dot={false}
-          stroke={config.color}
+          stroke={indicator?.strokeColor || config.color || '#8884d8'}
           strokeWidth={3}
         />
       </LChart>
@@ -65,7 +82,8 @@ SimpleLineChart.propTypes = {
   margin: PropTypes.object,
   data: PropTypes.object,
   range: PropTypes.number,
-  domain: PropTypes.array
+  domain: PropTypes.array,
+  getter: PropTypes.object
 };
 
 export default SimpleLineChart;

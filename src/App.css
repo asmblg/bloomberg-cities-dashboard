@@ -188,7 +188,9 @@ path:focus {
 }
 
  g.recharts-layer.recharts-cartesian-axis.recharts-yAxis.yAxis > text > tspan {
-  font-size: .8rem;
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
  }
 
 /* -------------------- MEDIA QUERIES -------------------- */

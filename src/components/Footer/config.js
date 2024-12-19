@@ -6,6 +6,7 @@ import jllLogo from './logos/jll.png';
 import dealroomLogo from './logos/dealroom.png';
 import SafeGraphLogo from './logos/SafeGraph.png';
 import lightcastLogo from './logos/lightcast.png';
+import gustoLogo from './logos/gusto.png';
 
 const footerConfig = {
   mainLogo: bloombergLogo,
@@ -40,6 +41,12 @@ const footerConfig = {
       name: 'SafeGraph',
       url: 'https://www.safegraph.com/',
       logo: SafeGraphLogo
+    },
+    {
+      key: 'gusto',
+      name: 'Gusto',
+      url: 'https://gusto.com/',
+      logo: gustoLogo
     },
     // {
     //   key: 'block',

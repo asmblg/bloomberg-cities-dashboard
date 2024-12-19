@@ -51,9 +51,8 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
       Number(a.name.replace('-Q', '')) - Number(b.name.replace('-Q', ''))
     );
 
-  }
-  else {
-    const dataObj = dataPath ? getNestedValue(data, dataPath) : data;
+  } else {
+    const dataObj = dataPath  ? getNestedValue(data, dataPath) : data;
     const quarterDateKeys = dataObj ? getRecentQuarterEndDates(Object.keys(dataObj), config.dataLength) : null;
     
     if (quarterDateKeys && quarterDateKeys[0]) {
@@ -62,7 +61,9 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
         const obj = {};
         obj.name = key;
 
-        const calculator = config.values?.calculator || config.indicator?.calculator;
+        const calculator = config?.values?.calculator || 
+          config?.indicator?.calculator || 
+          config?.indicator?.postCalculator;
 
         switch (calculator) {
           case 'differenceFromPrevious': {
@@ -74,6 +75,11 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
             }
             break;
           }
+          case 'decimalToPercent': {
+            const value = Number(dataObj[key]) * 100;
+            obj.value = value;
+            break;
+          } 
           default: {
             if (typeof dataObj[key] !== 'object') {
               obj.value = dataObj[key];
