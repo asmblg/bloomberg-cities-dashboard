@@ -24,7 +24,7 @@ const SimpleLineChart = (props) => {
     if (dataArr?.[0]) {
       setDataArray(dataArr);
     }
-  }, [selectedIndicator]);
+  }, [selectedIndicator, data]);
   return dataArray ? (
     <ResponsiveContainer height={height || '100%'} width={width || '100%'}>
       <LChart data={dataArray} margin={margin || { top: 10, right: 10, bottom: 10, left: 10 }}>
