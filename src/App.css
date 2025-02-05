@@ -68,7 +68,7 @@ a:hover {
 }
 
 #layout {
-  background-image: url('/public/images/background_300x300.png');
+  background-image: url('/images/background_300x300.png');
   width: 100vw;
   height: 100vh;
 }

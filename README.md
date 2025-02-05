@@ -1,75 +1,62 @@
-# Getting Started with Create React App
+# Running Vite + React + Express Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This guide provides instructions on how to set up and run a Vite + React + Express application.
 
-## Set API endpoint in .env
-```env
-REACT_APP_API_URL=http://localhost:3001
-```
+## Prerequisites
 
-## Available Scripts
+Before you begin, ensure you have the following installed on your machine:
+- Node.js (version 22 or higher)
+- npm (Node Package Manager)
 
-In the project directory, you can run:
+## Steps
 
-### `npm start`
+1. **Clone the repository:**
+  ```sh
+  git clone <repository-url>
+  cd <repository-directory>
+  ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. **Install dependencies:**
+  ```sh
+  npm install
+  ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. **Start the development server:**
+  - To start the Vite development server for the React frontend:
+    ```sh
+    npm run dev
+    ```
+  - To start the Express server for the backend:
+    ```sh
+    npm run server
+    ```
 
-### `npm test`
+4. **Access the application:**
+  - Open your browser and navigate to `http://localhost:5173` for the React frontend.
+  - The Express backend will be running on `http://localhost:3001`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Scripts
 
-### `npm run build`
+- `npm run dev`: Starts the Vite development server for the React frontend.
+- `npm run server`: Starts the Express server for the backend.
+- `npm run build`: Builds the React application for production.
+- `npm start`: Serves the built React application using the Express server.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `src/`: Contains the React application source code.
+- `server/`: Contains the Express server code.
+- `public/`: Contains static assets.
+- `dist/`: Contains the production build of the React application.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Additional Notes
 
-### `npm run eject`
+- Ensure that the ports used by Vite and Express do not conflict with other services running on your machine.
+- You can customize the configuration files (`vite.config.js` and `server.js`) to suit your needs.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Troubleshooting
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- If you encounter issues with dependencies, try deleting the `node_modules` directory and running `npm install` again.
+- Check the console output for any error messages and follow the suggested solutions.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+By following these steps, you should be able to successfully set up and run a Vite + React + Express application.

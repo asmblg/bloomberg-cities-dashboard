@@ -5,7 +5,9 @@ const handleConfig = async pathname => {
     const pathnameArr = pathname.split('/').filter(val => val);
     const pathnameCity = pathnameArr[0];
     const projectName = pathnameCity?.toLowerCase();
+
     const initialConfig = await getConfig(projectName);
+    // const initialConfig = require(`./dev/${projectName}.json`);
 
     if (initialConfig) {
       return {

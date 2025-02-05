@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "20.10.0",
-    "npm": "10.2.3"
+    "node": "22.10.0",
+    "npm": "10.9.0"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -28,12 +28,20 @@
     "recharts": "^2.2.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "mongoose": "^7.3.4",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
+
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
+    "server": "nodemon server.js",
+    "dev": "vite",
+    "build": "vite build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -54,5 +62,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.1.0"
   }
 }

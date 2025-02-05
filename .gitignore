@@ -130,4 +130,4 @@ yarn-error.log*
 .prettierignore
 
 # dev
-/src/dev
+/dev

@@ -6,13 +6,13 @@ import axios from 'axios';
 // const devURL = 'https://bloomberg-cities-api-eu-4357e11f365b.herokuapp.com'; //'http://localhost:3001'; // ; 'http://192.168.0.111:3001'; // 
 // const baseURL = !dev ? prodURL : devURL;
 const localConfig = false;
-const baseURL = process.env.REACT_APP_API_URL;
-console.log(baseURL);
+// const baseURL = import.meta.env.VITE_API_URL;
 
 
 const getConfig = async projectCity => {
+
   if (!localConfig) {
-    const res = await axios.get(`${baseURL}/config`, {
+    const res = await axios.get(`/config`, {
       params: {
         project: projectCity
       }
@@ -38,7 +38,7 @@ const getConfig = async projectCity => {
 };
 
 const getData = (project, select) =>
-  axios.get(`${baseURL}/data`, {
+  axios.get(`/data`, {
     params: {
       project,
       select: `updatedOn ${select}`
@@ -46,7 +46,7 @@ const getData = (project, select) =>
   });
 
 const getTractGeoJSON = project =>
-  axios.get(`${baseURL}/geo`, {
+  axios.get(`/geo`, {
     params: {
       project,
       geoType: 'Census Tracts'
@@ -54,7 +54,7 @@ const getTractGeoJSON = project =>
   });
 
 const getGeoJSON = (project, geoType) =>
-  axios.get(`${baseURL}/geo`, {
+  axios.get(`/geo`, {
     params: {
       project,
       geoType
