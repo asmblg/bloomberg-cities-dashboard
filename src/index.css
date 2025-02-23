@@ -1,5 +1,28 @@
 /* -------------------------- Root Variables -------------------------- */
 :root {
+  --font-family-san-serif: 'RobotoRegular', sans-serif;
+  
+  --font-family-regular: 'RobotoRegular', sans-serif;
+  --font-family-bold: 'RobotoBold', sans-serif;
+  --font-family-italic: 'RobotoItalic';
+  --font-family-thin: 'RobotoThin';
+  --font-family-thin-italic: 'RobotoThinItalic';
+  --font-family-medium: 'RobotoMedium';
+  --font-family-medium-italic: 'RobotoMediumItalic';
+  --font-family-black: 'RobotoBlack';
+  --font-family-black-italic: 'RobotoBlackItalic';
+
+  /* --font-family-san-serif: 'Open Sans';
+  --font-family-regular: 'Open Sans';
+  --font-family-bold: 'Open Sans';
+  --font-family-italic: 'Open Sans';
+  --font-family-thin: 'Open Sans', ;
+  --font-family-thin-italic: 'Open Sans';
+  --font-family-medium: 'Open Sans';
+  --font-family-medium-italic: 'Open Sans';
+  --font-family-black: 'Open Sans';
+  --font-family-black-italic: 'Open Sans'; */
+
   --primary-color: #002944;
   --secondary-color: #006aaf;
   --tertiary-color: #72acd2;
@@ -88,7 +111,7 @@
 
 @font-face {
   font-family: 'RobotoThinItalic';
-  src: local('Roboto-ThinkItalic'), url('./fonts/Roboto-ThinItalic.ttf') format('truetype');
+  src: local('Roboto-ThinItalic'), url('./fonts/Roboto-ThinItalic.ttf') format('truetype');
 }
 
 .leaflet-container {

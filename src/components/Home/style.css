@@ -41,7 +41,7 @@
 }
 
 .large-summary-title {
-  font-family: 'RobotoBlack';
+  font-family: var(--font-family-black);
   margin-right: 5px;
 }
 

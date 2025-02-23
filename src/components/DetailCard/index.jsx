@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import CommunityProfile from '../CommunityProfile';
 import FlexLayout from '../FlexLayout';
@@ -17,9 +17,16 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
 
   const sourcesArray = addWidthToSourcesArray(config.sources, config.layout);
 
+  const isInitialRender = useRef(true);
+
   useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
     handleDetailData(config, project).then(dataObj => {
       if (dataObj) {
+        console.log('DATA OBJ', dataObj);
         setDetailData(dataObj);
       }
     });
@@ -29,7 +36,10 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
     <div key={`${sectionKey}-detail-card`} className='full-card-wrapper'>
       <div
         className='full-card-container detail-card-container'
-        style={config.layout?.noTabs ? { height: 'calc(100vh - 250px' } : {}}
+        style={config.layout?.noTabs 
+          ? { height: 'calc(100vh - 250px' } 
+          : { ...config.style || {}}
+        }
       >
         {sectionKey !== 'about' && viewType !== 'mobile' ? (
           <div

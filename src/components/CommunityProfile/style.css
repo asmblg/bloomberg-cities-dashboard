@@ -12,6 +12,10 @@
   height: fit-content;
 }
 
+.cp-body h2 {
+  color: var(--black-color);
+}
+
 .cp-section {
   display: flex;
   flex-direction: column;
@@ -32,6 +36,7 @@
 }
 
 .large-indicator-values-container {
+  font-family: var(--font-family-san-serif);
   /* display: grid;
   grid-template-columns: repeat(2, 1fr); */
   display: flex;
@@ -44,6 +49,8 @@
 }
 
 .large-indicator-value > h2.bold-font {
+  font-family: var(--font-family-bold);
+
   text-align: center;
   /* font-size:2rem; */
   padding-top: 5px;

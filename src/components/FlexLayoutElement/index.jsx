@@ -18,6 +18,7 @@ import SectionTitle from '../SectionTitle';
 import HorizontalBarChart from '../HorizontalBarChart';
 import IndicatorMap from '../IndicatorMap';
 import SimpleLineChart from '../SimpleLineChart.js';
+import SimpleCard from '../SimpleCard/index.jsx';
 
 import { handleElementStyle } from './utils';
 import SelectedImage from '../SelectedImage';
@@ -52,7 +53,6 @@ const FlexLayoutElement = ({
     style
   } = layout;
 
-  
 
   const mobile = viewType === 'mobile';
   const tablet = viewType === 'tablet';
@@ -93,7 +93,7 @@ const FlexLayoutElement = ({
         columns ? true : false // First Round Style
       )}
     >
-      {!content && data ? (
+      {!content ? (
         elementArray.map((element, i) => (
           <FlexLayoutElement
             key={`recursive-flex-layout-el-${i}-${view?.key}`}
@@ -115,6 +115,18 @@ const FlexLayoutElement = ({
             viewLoaded={viewLoaded}
           />
         ))
+      ) : content?.type === 'simple-card' ? (
+        <SimpleCard
+          config={content?.config || content}
+          data={data}
+          // project={project}
+          // dashboardType={null}
+          // cardKey={card.key}
+          // viewType={viewType}
+          // setSelectedLink={setSelectedLink}
+          // trendDataType={trendDataType}
+        /> 
+       
       ) : content?.type === 'selector-map' ? (
         <SelectorMap project={project} config={content?.config || content} setter={setter} />
       ) : content?.type === 'trend-data-toggler' ? (
@@ -208,7 +220,7 @@ const FlexLayoutElement = ({
           // margin={content.config?.margin}
         />
       ) : content?.type === 'under-construction' ? (
-        <UnderConstructionBox />
+        <UnderConstructionBox description={content?.description}/>
       ) : content?.type === 'about-the-data' ? (
         <AboutProject
           config={content?.config || content}

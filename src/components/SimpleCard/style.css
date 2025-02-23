@@ -1,0 +1,150 @@
+.simple-card {
+  border-top: 1px solid var(--primary-gray-color);
+  background-color: var(--white-color);
+  /* height: 100%; */
+  width: 280px;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--primary-gray-color);
+}
+
+.simple-card-header {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-between;
+  align-items: center;
+}
+
+.simple-card-title {
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
+  flex-direction: row;
+  /* height: 20px; */
+  font-weight: 700;
+  flex-grow: 1;
+
+}
+
+.simple-card-title > div {
+  height: 20px;
+}
+
+.simple-card-header-text {
+  /* min-width: fit-content; */
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.simple-card-sub-header {
+  opacity: 0.8;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.simple-data-wrapper {
+  display: flex;
+  width: 280;
+  gap: 5%;
+  /* align-items: center; */
+  margin-top: 10px;
+  flex-grow: 1;
+}
+
+.simple-data-wrapper:hover {
+  cursor: pointer;
+}
+
+.simple-chart,
+.simple-data {
+  /* min-height: 80px; */
+  align-self: center;
+  margin: 5px 0;
+}
+
+.simple-data {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+}
+
+.simple-chart {
+  width: 50%;
+  height: 80px;
+}
+
+.simple-units,
+.simple-indicator-date {
+  font-size: .8rem;
+  line-height: .9rem;
+}
+
+/* -------------------- MEDIA QUERIES -------------------- */
+/* Initial Desktop Breakpoint */
+@media screen and (max-width: 1410px) {
+  .simple-card-header-text {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 1140px) {
+  .simple-card-header-text {
+    margin-right: 5px;
+  }
+}
+
+/* Initial Tablet Breakpoint */
+@media screen and (max-width: 1024px) {
+  .simple-card {
+    height: 240px;
+  }
+  .simple-card-title {
+    font-size: 18px;
+  }
+}
+
+/* Initial Mobile Breakpoint */
+@media screen and (max-width: 760px) {
+  .simple-card {
+    height: fit-content;
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid var(--primary-gray-color);
+  }
+
+  .simple-card-header-text {
+    font-size: 14px;
+    width: fit-content;
+    justify-content: flex-start;
+  }
+
+  .simple-data {
+    min-width: 30%;
+    padding-left: 20px;
+  }
+
+  .simple-data > .bold-font {
+    font-size: 2.5rem;
+  }
+
+  .simple-chart {
+    width: 70%;
+    padding-left: 20px;
+    height: 120px;
+  }
+
+  .simple-data-wrapper {
+    margin: 15px 0 5px 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .simple-card-title > h4 {
+    max-width: 120px;
+    text-overflow: ellipsis;
+  }
+}

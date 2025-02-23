@@ -34,6 +34,7 @@
 }
 
 .summary-card-sub-header {
+  font-weight: 100;
   opacity: 0.8;
   font-size: 12px;
   line-height: 16px;
@@ -72,6 +73,7 @@
 
 .summary-units,
 .summary-indicator-date {
+  font-weight: 100;
   font-size: .8rem;
   line-height: .9rem;
 }
@@ -112,7 +114,7 @@
 
   .summary-card-header-text {
     font-size: 14px;
-    min-width: fit-content;
+    width: fit-content;
     justify-content: flex-start;
   }
 

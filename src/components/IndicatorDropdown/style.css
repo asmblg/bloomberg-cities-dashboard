@@ -53,10 +53,12 @@
   line-height: var(--smallest-font);
   padding: 1em;
   line-break: auto;
-  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: var(--font-family-regular), sans-serif;
+  /* font-family: var(--font-family-), sans-serif; */
 }
 .selected-option {
   font-weight: 700;
+  font-family: var(--font-family-bold);
 }
 
 

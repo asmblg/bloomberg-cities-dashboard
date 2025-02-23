@@ -20,7 +20,9 @@ const Layout = ({ config, setShowModal }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const sectionKeys = config ? Object.keys(config.sections) : null;
+  const sectionKeys = config ? Object.keys(config?.sections || {}) : null;
+  const disableHeader = config?.disableHeader;
+  // const disableFooter = config.disableFooter;
 
   useEffect(() => {
     const updateViewType = () => setViewType(handleViewType());
@@ -45,7 +47,7 @@ const Layout = ({ config, setShowModal }) => {
   return (
     <div id='layout'>
       <div id='content'>
-        {config && pathname !== '/' ?
+        {config && pathname !== '/' && !disableHeader?
           <nav id='header-container'>
             <Header
               headerConfig={config.header}
@@ -63,7 +65,7 @@ const Layout = ({ config, setShowModal }) => {
         <div
           id='scrollable-body'
           style={{
-            height: pathname !== '/' ? `calc(100vh - var(--${viewType}-header-height))` : '100%'
+            height: pathname !== '/' && !disableHeader ? `calc(100vh - var(--${viewType}-header-height))` : '100%'
           }}
         >
           <div id='section-container'>

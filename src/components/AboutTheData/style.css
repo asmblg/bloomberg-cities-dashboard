@@ -11,7 +11,7 @@
 }
 
 .about-data-title {
-  font-family: 'RobotoBlack';
+  font-family: var(--font-family-black);
 }
 
 .about-back-link {

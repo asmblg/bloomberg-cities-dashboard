@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { LineChart as LChart, XAxis, YAxis, Line, ResponsiveContainer, Tooltip } from 'recharts';
+import { LineChart as LChart, XAxis, YAxis, Line, ResponsiveContainer, Tooltip, Dot } from 'recharts';
 
 import CustomTooltip from '../CustomTooltip';
 
@@ -12,10 +12,10 @@ const SimpleLineChart = (props) => {
   const [dataArray, setDataArray] = useState(null);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
   const indicator = selectedIndicator || config?.indicator;
-  const yLabel = indicator?.yLabel || indicator?.label ||config?.yaxis?.label || '';
+  const yLabel = indicator?.yLabel || indicator?.label || config?.yaxis?.label || '';
 
   useEffect(() => {
-    console.log('getter', {config, getter});
+    console.log('getter', { config, getter });
     setSelectedIndicator(getter?.[config.getterKey?.selectedIndicator] || null);
   }, [getter?.[config.getterKey?.selectedIndicator]]);
   useEffect(() => {
@@ -25,6 +25,20 @@ const SimpleLineChart = (props) => {
       setDataArray(dataArr);
     }
   }, [selectedIndicator, data]);
+
+  const renderDot = (dotProps) => {
+    console.log('dotProps', dotProps);
+    if (dotProps.index === dataArray.length - 1) {
+      return (
+        <Dot
+          {...dotProps}
+          fill={indicator?.strokeColor || config.color || '#8884d8'}
+          r={5}
+          strokeWidth={0}
+        />
+      );
+    }
+  }  
   return dataArray ? (
     <ResponsiveContainer height={height || '100%'} width={width || '100%'}>
       <LChart data={dataArray} margin={margin || { top: 10, right: 10, bottom: 10, left: 10 }}>
@@ -33,19 +47,24 @@ const SimpleLineChart = (props) => {
           interval={'preserveStartEnd'}
           tickFormatter={text => formatChartTick(text, config?.xaxis?.labelFormatter)}
         />
-        <YAxis
-          axisLine={false}
-          tickCount={config.yaxis?.tickCount || 4}
-          tickFormatter={text => formatChartTick(text, config?.yaxis?.labelFormatter)}
-          label={{
-            value: yLabel,
-            angle: '-90',
-            position: 'insideLeft',
-            fontSize: 18,
-            dy: 10
-          }}
-          
-        />
+        {
+          !config?.yaxis?.disabled 
+          ? <YAxis
+              axisLine={false}
+              tickCount={config.yaxis?.tickCount || 4}
+              tickFormatter={text => formatChartTick(text, config?.yaxis?.labelFormatter)}
+              label={{
+                value: yLabel,
+                angle: '-90',
+                position: 'insideLeft',
+                fontSize: 18,
+                dy: 10
+              }}
+            />
+          : <YAxis hide domain={[50, 70]}/>
+ 
+        }
+
 
         {config.tooltip ? (
           <Tooltip
@@ -54,7 +73,7 @@ const SimpleLineChart = (props) => {
                 units={config.tooltip.units}
                 quarterDateFormat={config.tooltip.quarterDateFormat}
                 manifest={config?.tooltip?.manifest || {
-                  value : indicator?.label || config?.yaxis?.label || 'Value'
+                  value: indicator?.label || config?.yaxis?.label || 'Value'
                 }}
               />
             }
@@ -64,9 +83,9 @@ const SimpleLineChart = (props) => {
         <Line
           type={'monotone'}
           dataKey={'value'}
-          dot={false}
+          dot={config.dot ? renderDot : false}
           stroke={indicator?.strokeColor || config.color || '#8884d8'}
-          strokeWidth={3}
+          strokeWidth={indicator?.strokeWidth || 3}
         />
       </LChart>
     </ResponsiveContainer>

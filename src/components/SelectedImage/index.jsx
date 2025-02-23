@@ -44,7 +44,7 @@ const SelectedImage = ({ config, getter, project, viewType }) => {
           {showImage ? 'Hide Image' : 'Show Image'}
         </h5>
       )}
-      {image && typeof image === 'object' && image.default && (
+      {image && typeof image === 'object' && image.default && showImage && (
         <img className='selected-img' src={image.default} alt="Selected" />
       )}
     </div>

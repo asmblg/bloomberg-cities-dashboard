@@ -13,7 +13,7 @@
 }
 
 .info-icon-text-container > * {
-  font-family: 'RobotoRegular';
+  font-family: var(--font-family-regular);
 }
 
 .info-icon-text-container > *,

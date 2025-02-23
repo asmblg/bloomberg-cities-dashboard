@@ -15,7 +15,7 @@ const Footer = ({ setShowModal, noLogo }) => {
         <div className='logo-translator-container'>
           { !noLogo  
             ? <a href='https://associates.bloomberg.org/' target='_blank' rel='noreferrer'>
-              <img src={mainLogo} id='bloomberg-logo' />
+              <img src={mainLogo} id='bloomberg-logo' alt='Bloomberg Associates Logo' />
             </a>
             : null
           }

@@ -1,9 +1,12 @@
+
+
+
 h1,
 h2,
 h3,
 h4,
 h5 {
-  font-family: 'RobotoRegular', sans-serif;
+  font-family: var(--font-family-regular);
   /* font-weight: normal; */
   margin: 0;
   padding: 0;
@@ -49,6 +52,7 @@ h4 {
 
 h5 {
   font-size: var(--smallest-font);
+  font-weight: 100;
 }
 
 a {
@@ -64,7 +68,7 @@ a:hover {
   height: 100vh;
   position: fixed;
   top: 0;
-  font-family: 'RobotoRegular', sans-serif;
+  font-family: var(--font-family-san-serif);
 }
 
 #layout {
@@ -108,40 +112,40 @@ a:hover {
 }
 
 .primary-font {
-  font-family: 'RobotoRegular', sans-serif;
+  font-family: var(--font-family-san-serif);
 }
 
 .bold-font {
-  font-family: 'RobotoBold';
+  font-family: var(--font-family-bold);
 }
 
 .italic-font {
-  font-family: 'RobotoItalic';
+  font-family: var(--font-family-italic);
 }
 
 .thin-font {
-  font-family: 'RobotoThin';
+  font-family: var(--font-family-thin);
 }
 
 .thin-italic-font {
-  font-family: 'RobotoThinItalic';
+  font-family: var(--font-family-thin-italic);
 }
 
 .medium-font {
-  font-family: 'RobotoMedium';
+  font-family: var(--font-family-medium);
 }
 
 .medium-italic-font {
-  font-family: 'RobotoMediumItalic';
+  font-family: var(--font-family-medium-italic);
 }
 
 .black-font {
-  font-family: 'RobotoBlack';
+  font-family: var(--font-family-black);
   color: var(--black-color);
 }
 
 .black-italic-font {
-  font-family: 'RobotoBlackItalic';
+  font-family: var(--font-family-black-italic);
 }
 
 .half-opacity {

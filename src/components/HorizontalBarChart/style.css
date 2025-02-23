@@ -10,7 +10,7 @@
 .hbc-title {
   width: 70%;
   margin: 20px 0;
-  font-family: 'RobotoBold';
+  font-family: var(--font-family-bold);
 }
 
 .hbc-row-container {

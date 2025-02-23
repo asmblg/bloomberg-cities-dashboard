@@ -39,7 +39,7 @@ const FlexLayout = ({
 
   const handleElementArray = async () => new Promise((resolve) => {
     if (!views) {
-      const { columns, rows } = layout;
+      const { columns, rows } = layout || {};
       if (columns) {
         setIsColumns(true);
       }
