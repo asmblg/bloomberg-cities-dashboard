@@ -20,10 +20,10 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
   const isInitialRender = useRef(true);
 
   useEffect(() => {
-    if (isInitialRender.current) {
-      isInitialRender.current = false;
-      return;
-    }
+    // if (isInitialRender.current) {
+    //   isInitialRender.current = false;
+    //   return;
+    // }
     handleDetailData(config, project).then(dataObj => {
       if (dataObj) {
         console.log('DATA OBJ', dataObj);
