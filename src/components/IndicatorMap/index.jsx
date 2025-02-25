@@ -44,7 +44,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
 
       // allows indicators present in config or an indicator obtained from a getter
 
-      if (defaultSelection) {
+      // if (defaultSelection) {
         handleNoGeoJsonProp(
           project, 
           config?.geoType, 
@@ -60,7 +60,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
             }
           }
         });
-      }
+      // }
     }
   }, [getter?.[config?.getterKey?.selectedIndicator]]);
 
@@ -83,9 +83,9 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
     getter?.[config?.getterKey?.selectedIndicator]
   ]);
 
-  // console.log(selectedIndicator);
+  // console.log(mapGeoJSON);
 
-  return bins && mapGeoJSON ? (
+  return mapGeoJSON ? (
     <div className='indicator-map-wrapper'>
       {!config.externalDropdown && (
         <>
@@ -100,7 +100,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
 
       <div className='indicator-map'>
         <MapContainer
-          key={`indicator-map-${selectedIndicator.key}`}
+          key={`indicator-map-${selectedIndicator?.key || 'no-data'}`}
           center={config.center}
           zoom={config.zoom}
           zoomControl={true}
@@ -115,17 +115,21 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
           <GeoJSON
             eventHandlers={{
               mouseover: e => {
-                const value = e.propagatedFrom?.feature?.properties?.[selectedIndicator?.key || defaultSelection.key];
-                const indicator = selectedIndicator?.label || defaultSelection.label;
-                const geo = e.propagatedFrom?.feature?.properties?.[config.nameProperty?.key ? config.nameProperty.key : 'Name'] || '';
-                const units = selectedIndicator?.units || defaultSelection.units;
+                const value = e.propagatedFrom?.feature?.properties?.[selectedIndicator?.key || defaultSelection?.key];
+                const indicator = selectedIndicator?.label || defaultSelection?.label;
+                const geo = e.propagatedFrom?.feature?.properties?.[config.nameProperty?.key ? config.nameProperty?.key : 'Name'] || '';
+                const units = selectedIndicator?.units || defaultSelection?.units;
                 setHoveredFeature({value, indicator, geo, units});
               }            
             }}
-            key={`data-layer-${selectedIndicator?.key || defaultSelection.key }`}
+            key={`data-layer-${selectedIndicator?.key || defaultSelection?.key || 'no-data' }`}
             data={mapGeoJSON}
             filter={feature => {
-              const value = feature?.properties?.[selectedIndicator?.key || defaultSelection.key];
+              const noIndicator = !selectedIndicator && !defaultSelection;
+              if (noIndicator) {
+                return true;
+              }
+              const value = feature?.properties?.[selectedIndicator?.key || defaultSelection?.key];
               if (!isNaN(Number(value)) && Number(value) > 0) {
                 return true;
               } else {
@@ -133,34 +137,34 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
               }
             }}
             style={feature => {
-              const value = feature.properties[selectedIndicator?.key || defaultSelection.key];
-              const color = value
-                ? bins
-                  .filter(({ percentile }) => value <= percentile)
-                  .map(({ color }) => color)[0]
-                : 'transparent';
+              const value = feature.properties[selectedIndicator?.key || defaultSelection?.key];
+              const color = bins?.filter(({ percentile }) => 
+                  value <= percentile
+                ).map(({ color }) => color)[0] || 'transparent';
               return {
                 fillColor: color,
-                color: config.strokeColor || 'black',
+                color: config?.strokeColor || 'black',
                 weight: 1,
                 opacity: 0.8,
                 fillOpacity: 0.9
               };
             }}
           >
-            <Tooltip>
+          {config?.nameProperty?.prefix &&       
+            (<Tooltip>
               <div className='indicator-map-tooltip'>
                 <p>{config?.nameProperty?.prefix || ''} {hoveredFeature?.geo}</p>
                 <strong>{formatValue(hoveredFeature?.value, hoveredFeature?.units)}</strong>
               </div>
-            </Tooltip>
+            </Tooltip>)}
           </GeoJSON>
-          <Legend
-            indicator={selectedIndicator || defaultSelection}
-            bins={bins}
-            strokeColor={config.strokeColor || 'black'}
-          />
-
+          {bins && (
+            <Legend
+              indicator={selectedIndicator || defaultSelection}
+              bins={bins}
+              strokeColor={config.strokeColor || 'black'}
+            />
+          )}
 
         </MapContainer>
       </div>

@@ -49,12 +49,15 @@ const handleGeoJSON = async (geoJSON, indicators, filter) => {
 
 const handleNoGeoJsonProp = async (project, geoType, indicators, filter) => {
   try {
-    if (project && geoType && indicators?.[0]) {
+    if (project && geoType ) {
       const { data } = await getGeoJSON(project, geoType);
       // console.log(data);
       const returnedGeoJSON = data[0];
-      const updatedGeoJSON = await handleGeoJSON(returnedGeoJSON, indicators, filter);
-      return updatedGeoJSON;
+      if (indicators?.[0]) {
+        const updatedGeoJSON = await handleGeoJSON(returnedGeoJSON, indicators, filter);
+        return updatedGeoJSON;      
+      }
+      return returnedGeoJSON;
     }
     return null;
   } catch (err) {
