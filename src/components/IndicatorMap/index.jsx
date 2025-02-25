@@ -28,6 +28,11 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
     setSelectedIndicator(value);
   };
 
+  let varKey = selectedIndicator?.var 
+  if ( typeof varKey !== 'string') {
+    varKey = selectedIndicator?.key || defaultSelection?.key;
+  }
+
   useEffect(() => {
 
     // Handles CP instance
@@ -71,7 +76,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
         handleBinning({
           geoJSON: mapGeoJSON,
           colors,
-          indicator: selectedIndicator?.var ||selectedIndicator?.key,
+          indicator: varKey,
           dataPath: selectedIndicator?.dataPath,
           aggregator: selectedIndicator?.aggregator,
           range: config?.range,
@@ -89,7 +94,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
   ]);
 
   // console.log(mapGeoJSON);
-
+  
   return mapGeoJSON ? (
     <div className='indicator-map-wrapper'>
       {!config.externalDropdown && (
@@ -105,7 +110,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
 
       <div className='indicator-map'>
         <MapContainer
-          key={`indicator-map-${selectedIndicator?.key || 'no-data'}`}
+          key={`indicator-map-${varKey || 'no-data'}`}
           center={config.center}
           zoom={config.zoom}
           zoomControl={true}
@@ -120,21 +125,21 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
           <GeoJSON
             eventHandlers={{
               mouseover: e => {
-                const value = e.propagatedFrom?.feature?.properties?.[selectedIndicator?.key || defaultSelection?.key];
+                const value = e.propagatedFrom?.feature?.properties?.[varKey];
                 const indicator = selectedIndicator?.label || defaultSelection?.label;
                 const geo = e.propagatedFrom?.feature?.properties?.[config.nameProperty?.key ? config.nameProperty?.key : 'Name'] || '';
                 const units = selectedIndicator?.units || defaultSelection?.units;
                 setHoveredFeature({value, indicator, geo, units});
               }            
             }}
-            key={`data-layer-${selectedIndicator?.key || defaultSelection?.key || 'no-data' }`}
+            key={`data-layer-${varKey || 'no-data' }`}
             data={mapGeoJSON}
             filter={feature => {
-              const noIndicator = !selectedIndicator && !defaultSelection;
+              const noIndicator = !selectedIndicator && !defaultSelection ;
               if (noIndicator) {
                 return true;
               }
-              let value = feature.properties[selectedIndicator?.var || selectedIndicator?.key || defaultSelection?.key];
+              let value = feature.properties[varKey];
               if (selectedIndicator?.aggregator === 'current') {
                 const aggregatorKey = Object.keys(value).sort(dateKey => {
                   const year = dateKey.split('-')[0];
@@ -156,7 +161,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
               }
             }}
             style={feature => {
-              let value = feature.properties[selectedIndicator?.var || selectedIndicator?.key || defaultSelection?.key];
+              let value = feature.properties[varKey];
               if (selectedIndicator?.aggregator === 'current') {
                 const aggregatorKey = Object.keys(value).sort(dateKey => {
                   const year = dateKey.split('-')[0];
@@ -179,7 +184,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
               return {
                 fillColor: color,
                 color: config?.strokeColor || color,
-                weight: 0,//config?.weight || 1,
+                weight: config?.weight || 1,
                 // opacity: config?.opacity || 1,
                 fillOpacity: config?.opacity || 1
               };

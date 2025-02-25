@@ -1,16 +1,16 @@
 /* -------------------------- Root Variables -------------------------- */
 :root {
-  --font-family-san-serif: 'PoppinsRegular', sans-serif;
+  --font-family-san-serif: 'RobotoRegular', sans-serif;
   
-  --font-family-regular: 'PoppinsRegular', sans-serif;
-  --font-family-bold: 'PoppinsBold', sans-serif;
-  --font-family-italic: 'PoppinsItalic';
-  --font-family-thin: 'PoppinsThin';
-  --font-family-thin-italic: 'PoppinsThinItalic';
-  --font-family-medium: 'PoppinsMedium';
-  --font-family-medium-italic: 'PoppinsMediumItalic';
-  --font-family-black: 'PoppinsBlack';
-  --font-family-black-italic: 'PoppinsBlackItalic';
+  --font-family-regular: 'RobotoRegular', sans-serif;
+  --font-family-bold: 'RobotoBold', sans-serif;
+  --font-family-italic: 'RobotoItalic';
+  --font-family-thin: 'RobotoThin';
+  --font-family-thin-italic: 'RobotoThinItalic';
+  --font-family-medium: 'RobotoMedium';
+  --font-family-medium-italic: 'RobotoMediumItalic';
+  --font-family-black: 'RobotoBlack';
+  --font-family-black-italic: 'RobotoBlackItalic';
 
 
   --primary-color: #002944;

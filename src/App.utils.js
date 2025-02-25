@@ -7,6 +7,13 @@ const handleConfig = async pathname => {
     const projectName = pathnameCity?.toLowerCase();
 
     const initialConfig = await getConfig(projectName);
+
+    // Set CSS Variables based on initialConfig
+    if (initialConfig?.fonts) {
+      handleRootVariables(initialConfig.fonts);
+    }
+
+
     // const initialConfig = require(`./dev/${projectName}.json`);
 
     if (initialConfig) {
@@ -38,6 +45,12 @@ const handleRootVariables = async config => {
       root.style.setProperty(`--${name}`, value);
     });
   }
+
+  if (config?.fonts) {
+    const root = document.documentElement;
+    Object.entries(config.fonts).forEach(([name, value]) => {
+      root.style.setProperty(`--${name}`, value);
+    });  }
   return;
 };
 
