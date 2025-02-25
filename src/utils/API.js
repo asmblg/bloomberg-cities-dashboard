@@ -1,13 +1,7 @@
 import axios from 'axios';
 // import config from '../../dev/dev-configs.json';
 
-// const dev = true;
-// const prodURL = 'https://bloomberg-cities-api.herokuapp.com';
-// const devURL = 'https://bloomberg-cities-api-eu-4357e11f365b.herokuapp.com'; //'http://localhost:3001'; // ; 'http://192.168.0.111:3001'; // 
-// const baseURL = !dev ? prodURL : devURL;
 const localConfig = false;
-// const baseURL = import.meta.env.VITE_API_URL;
-
 
 const getConfig = async projectCity => {
 

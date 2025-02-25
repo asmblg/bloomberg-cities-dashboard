@@ -66,15 +66,20 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
 
   useEffect(() => {
     if (colors && selectedIndicator && mapGeoJSON) {
+      console.log(mapGeoJSON)
       setBins(
         handleBinning({
           geoJSON: mapGeoJSON,
           colors,
-          indicator: selectedIndicator?.key,
+          indicator: selectedIndicator?.var ||selectedIndicator?.key,
+          dataPath: selectedIndicator?.dataPath,
+          aggregator: selectedIndicator?.aggregator,
+          range: config?.range,
           numOfBins,
           manualBreaks: defaultSelection?.manualBreaks || selectedIndicator?.manualBreaks
         })
       );
+      // console.log(bins);
     }
   }, [
     selectedIndicator, 
@@ -129,7 +134,21 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
               if (noIndicator) {
                 return true;
               }
-              const value = feature?.properties?.[selectedIndicator?.key || defaultSelection?.key];
+              let value = feature.properties[selectedIndicator?.var || selectedIndicator?.key || defaultSelection?.key];
+              if (selectedIndicator?.aggregator === 'current') {
+                const aggregatorKey = Object.keys(value).sort(dateKey => {
+                  const year = dateKey.split('-')[0];
+                  const quater = dateKey.split('-')[1]?.replace('Q', '');
+                  return Number(year) + Number(quater);
+                })?.[0]
+                value = value[aggregatorKey];
+              }
+        
+              if (selectedIndicator?.dataPath) {
+                selectedIndicator?.dataPath.split('.').forEach(path => {
+                  value = value?.[path] || null;
+                });
+              }
               if (!isNaN(Number(value)) && Number(value) > 0) {
                 return true;
               } else {
@@ -137,16 +156,32 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
               }
             }}
             style={feature => {
-              const value = feature.properties[selectedIndicator?.key || defaultSelection?.key];
+              let value = feature.properties[selectedIndicator?.var || selectedIndicator?.key || defaultSelection?.key];
+              if (selectedIndicator?.aggregator === 'current') {
+                const aggregatorKey = Object.keys(value).sort(dateKey => {
+                  const year = dateKey.split('-')[0];
+                  const quater = dateKey.split('-')[1]?.replace('Q', '');
+                  return Number(year) + Number(quater);
+                })?.[0]
+                value = value[aggregatorKey];
+              }
+        
+              if (selectedIndicator?.dataPath) {
+                selectedIndicator?.dataPath.split('.').forEach(path => {
+                  value = value?.[path] || null;
+                });
+              }
+
               const color = bins?.filter(({ percentile }) => 
                   value <= percentile
                 ).map(({ color }) => color)[0] || 'transparent';
+              // console.log(color);
               return {
                 fillColor: color,
-                color: config?.strokeColor || 'black',
-                weight: 1,
-                opacity: 0.8,
-                fillOpacity: 0.9
+                color: config?.strokeColor || color,
+                weight: 0,//config?.weight || 1,
+                // opacity: config?.opacity || 1,
+                fillOpacity: config?.opacity || 1
               };
             }}
           >
@@ -158,7 +193,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
               </div>
             </Tooltip>)}
           </GeoJSON>
-          {bins && (
+          {bins && !config.noLegend && (
             <Legend
               indicator={selectedIndicator || defaultSelection}
               bins={bins}

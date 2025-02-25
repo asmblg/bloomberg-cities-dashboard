@@ -74,13 +74,38 @@ const handleNoGeoJsonProp = async (project, geoType, indicators, filter) => {
  * @param {number} numOfBins number of bins to create
  * @returns {array} bins array
  */
-const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks }) => {
+const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, dataPath, aggregator, range }) => {
   const binArray = [];
   const pRange = Math.floor(100 / numOfBins);
+  console.log(indicator)
 
   const valueArray = geoJSON.features
-    .map(feature => parseFloat(feature.properties[indicator]))
+    .map(feature => {
+      // console.log(feature.properties)
+      let val = feature.properties[indicator];
+      if (aggregator === 'current') {
+        const aggregatorKey = Object.keys(val).sort(dateKey => {
+          const year = dateKey.split('-')[0];
+          const quater = dateKey.split('-')[1]?.replace('Q', '');
+          return Number(year) + Number(quater);
+        })?.[0]
+        val = val[aggregatorKey];
+      }
+
+      if (dataPath) {
+        dataPath.split('.').forEach(path => {
+          val = val?.[path] || null;
+        });
+      }
+
+      return parseFloat(val)
+    })
     .sort((a, b) => a - b);
+  
+  if (range) {
+    valueArray.push(range[1]);
+    valueArray.unshift(range[0]);
+  }
 
   for (let i = 0; i < numOfBins; i++) {
     let p = manualBreaks?.[i] || null;
@@ -98,7 +123,6 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks }) 
     });
   }
 
-  console.log(binArray);
   const arrayWithLabels = [...binArray].map((obj, i) => {
     const prevValue = i !== 0 ? binArray[i - 1].percentile : 0;
     const currentValue = obj.percentile;
