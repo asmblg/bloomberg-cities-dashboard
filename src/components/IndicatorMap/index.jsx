@@ -13,7 +13,6 @@ import { handleBinning, handleGeoJSON, handleNoGeoJsonProp } from './utils';
 import formatValue from '../../utils/formatValue';
 
 import './style.css';
-import { map } from 'leaflet';
 
 const IndicatorMap = ({ config, geoJSON, project, getter }) => {
   const [bins, setBins] = useState(null);
@@ -21,6 +20,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
   const [refGeoJSON, setRefGeoJSON] = useState([]);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
   const [hoveredFeature, setHoveredFeature] = useState();
+  const [date, setDate] = useState(null);
 
   // Default colors are a random palette not related to any city project
   const colors = config?.colors || ['#fff3e2', '#ffe5ca', '#fa9884', '#e74646'];
@@ -97,18 +97,21 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
   useEffect(() => {
     if (colors && selectedIndicator && mapGeoJSON) {
       console.log(mapGeoJSON)
+      const {arrayWithLabels, extractedDate} = handleBinning({
+        geoJSON: mapGeoJSON,
+        colors,
+        indicator: varKey,
+        dataPath: selectedIndicator?.dataPath,
+        aggregator: selectedIndicator?.aggregator,
+        range: config?.range,
+        numOfBins,
+        manualBreaks: config?.manualBreaks || defaultSelection?.manualBreaks || selectedIndicator?.manualBreaks
+      })
       setBins(
-        handleBinning({
-          geoJSON: mapGeoJSON,
-          colors,
-          indicator: varKey,
-          dataPath: selectedIndicator?.dataPath,
-          aggregator: selectedIndicator?.aggregator,
-          range: config?.range,
-          numOfBins,
-          manualBreaks: config?.manualBreaks || defaultSelection?.manualBreaks || selectedIndicator?.manualBreaks
-        })
+        arrayWithLabels
       );
+
+      setDate(extractedDate);
       // console.log(bins);
     }
   },
@@ -125,7 +128,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
     <div className='indicator-map-wrapper'>
       {!config.externalDropdown && (
         <>
-          <p>{title}</p>
+          <p>{title} {date}</p>
           <IndicatorDropdown
             selectedOption={selectedIndicator || defaultSelection}
             setter={handleSetSelectedIndicator}

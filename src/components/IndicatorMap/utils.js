@@ -3,6 +3,7 @@ import percentile from 'percentile';
 import incrementDecimalNumber from '../../utils/incrementDecimalNumber';
 import formatValue from '../../utils/formatValue';
 import { getGeoJSON } from '../../utils/API';
+import e from 'cors';
 
 /**
  * 
@@ -77,7 +78,7 @@ const handleNoGeoJsonProp = async (project, geoType, indicators, filter) => {
 const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, dataPath, aggregator, range }) => {
   const binArray = [];
   const pRange = Math.floor(100 / numOfBins);
-  console.log(indicator)
+  let extractedDate = null;
 
   const valueArray = geoJSON.features
     .map(feature => {
@@ -90,6 +91,17 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
           return Number(year) + Number(quater);
         })?.[0]
         val = val[aggregatorKey];
+        extractedDate = aggregatorKey;
+      }
+
+      if (aggregator === 'oldest') {
+        const aggregatorKey = Object.keys(val).sort(dateKey => {
+          const year = dateKey.split('-')[0];
+          const quater = dateKey.split('-')[1]?.replace('Q', '');
+          return (Number(year) + Number(quater)) * -1;
+        })?.[0]
+        val = val[aggregatorKey];
+        extractedDate = aggregatorKey;
       }
 
       if (dataPath) {
@@ -119,7 +131,8 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
     binArray.push({
       label: '',
       percentile: p,
-      color: colors[i]
+      color: colors[i],
+      // date: extractedDate,
     });
   }
 
@@ -137,7 +150,8 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
     }
     return obj;
   });
-  return arrayWithLabels;
+  console.log(arrayWithLabels);
+  return {arrayWithLabels, extractedDate};
 };
 
 const formatLegendLabel = (label, formatter) => {
