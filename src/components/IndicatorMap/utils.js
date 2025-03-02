@@ -84,21 +84,21 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
     .map(feature => {
       // console.log(feature.properties)
       let val = feature.properties[indicator];
-      if (aggregator === 'current') {
+      if (aggregator === 'oldest') {
         const aggregatorKey = Object.keys(val).sort(dateKey => {
           const year = dateKey.split('-')[0];
           const quater = dateKey.split('-')[1]?.replace('Q', '');
-          return Number(year) + Number(quater);
+          return (Number(year) * 4 )+ Number(quater);
         })?.[0]
         val = val[aggregatorKey];
         extractedDate = aggregatorKey;
       }
 
-      if (aggregator === 'oldest') {
+      if (aggregator === 'current') {
         const aggregatorKey = Object.keys(val).sort(dateKey => {
           const year = dateKey.split('-')[0];
           const quater = dateKey.split('-')[1]?.replace('Q', '');
-          return (Number(year) + Number(quater)) * -1;
+          return (Number(year) * 4 + Number(quater)) * -1;
         })?.[0]
         val = val[aggregatorKey];
         extractedDate = aggregatorKey;

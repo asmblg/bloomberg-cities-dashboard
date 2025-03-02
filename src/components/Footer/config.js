@@ -1,52 +1,61 @@
-import bloombergLogo from '../../assets/logos/bloomberg_associates.png';
-import alignableLogo from './logos/alignable.png';
-// import blockLogo from './logos/block.png';
-import deweyLogo from './logos/dewey.png';
-import jllLogo from './logos/jll.png';
-import dealroomLogo from './logos/dealroom.png';
-import SafeGraphLogo from './logos/SafeGraph.png';
-import lightcastLogo from './logos/lightcast.png';
-import gustoLogo from './logos/gusto.png';
+// import bloombergLogo from '../../assets/logos/bloomberg_associates.png';
+// import alignableLogo from './logos/alignable.png';
+// // import blockLogo from './logos/block.png';
+// import deweyLogo from './logos/dewey.png';
+// import jllLogo from './logos/jll.png';
+// import dealroomLogo from './logos/dealroom.png';
+// import safeGraphLogo from './logos/SafeGraph.png';
+// import lightcastLogo from './logos/lightcast.png';
+// import gustoLogo from './logos/gusto.png';
+
+
+
 
 const footerConfig = {
-  mainLogo: bloombergLogo,
+  mainLogoKey: 'bloombergLogo',
   copyright: '2023 Bloomberg Associates. All Rights Reserved.',
   partners: [
     {
       key: 'dealroom',
       name: 'Dealroom.co',
       url: ' https://dealroom.co/',
-      logo: dealroomLogo
+      // logo: dealroomLogo,
+      logoKey: 'dealroomLogo'
     },
     {
       key: 'alignable',
       name: 'Alignable',
       url: 'https://www.alignable.com/',
-      logo: alignableLogo
+      // logo: alignableLogo,
+      logoKey: 'alignableLogo'
     },
     {
       key: 'jll',
       name: 'JLL',
       url: 'https://www.us.jll.com/',
-      logo: jllLogo
+      // logo: jllLogo,
+      logoKey: 'jllLogo'
     },
     {
       key: 'dewey',
       name: 'Dewey',
       url: 'https://www.deweydata.io/',
-      logo: deweyLogo
+      // logo: deweyLogo,
+      logoKey: 'deweyLogo'
     },
     {
       key: 'safeGraph',
       name: 'SafeGraph',
       url: 'https://www.safegraph.com/',
-      logo: SafeGraphLogo
+      // logo: safeGraphLogo,
+      logoKey: 'safeGraphLogo'
     },
     {
       key: 'gusto',
       name: 'Gusto',
       url: 'https://gusto.com/',
-      logo: gustoLogo
+      // logo: gustoLogo,
+      logoKey: 'gustoLogo'
     },
     // {
     //   key: 'block',
@@ -58,7 +67,8 @@ const footerConfig = {
       key: 'lightcast',
       name: 'Lightcast',
       url: 'https://lightcast.io/',
-      logo: lightcastLogo
+      // logo: lightcastLogo,
+      logoKey: 'lightcastLogo'
     }
   ]
 };

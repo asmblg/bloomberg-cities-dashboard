@@ -62,4 +62,11 @@ const handleElementStyle = (
   return obj;
 };
 
-export { handleElementStyle };
+const sanitizeHTML = html => {
+  const temp = document.createElement('div');
+  temp.innerHTML = html;
+  return temp.textContent || temp.innerText || '';
+};
+
+
+export { handleElementStyle,  sanitizeHTML };

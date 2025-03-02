@@ -35,12 +35,11 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  width: 100%;
   justify-content: flex-start;
   gap: 20px;
 }
 .partner-logos-container > a {
-  max-width: calc(100%/4);
+  max-width: calc((100%/4)- 5px);
 }
 
 .partner-logo,

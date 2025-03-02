@@ -1,21 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import bloombergLogo from '../../assets/logos/bloomberg_associates.png';
+import alignableLogo from './logos/alignable.png';
+// import blockLogo from './logos/block.png';
+import deweyLogo from './logos/dewey.png';
+import jllLogo from './logos/jll.png';
+import dealroomLogo from './logos/dealroom.png';
+import safeGraphLogo from './logos/SafeGraph.png';
+import lightcastLogo from './logos/lightcast.png';
+import gustoLogo from './logos/gusto.png';
+import sibsLogo from './logos/SIBS Analytics Logo.png';
+import informaLogo from './logos/Informa Logo.png';
+import lisboaAbertaLogo from './logos/Lisboa Aberta Logo.png';
+
 
 // import bloombergLogo from './images/bloomberg_associates.png';
 import GoogleTranslate from '../GoogleTranslate';
 import config from './config';
 import './style.css';
 
-const Footer = ({ setShowModal, noLogo }) => {
-  const { partners, copyright, mainLogo } = config;
+const logos = {
+  bloombergLogo,
+  alignableLogo,
+  deweyLogo,
+  jllLogo,
+  dealroomLogo,
+  safeGraphLogo,
+  lightcastLogo,
+  gustoLogo,
+  sibsLogo,
+  informaLogo,
+  lisboaAbertaLogo
+};
+
+const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartners, invertLogos }) => {
+  const { partners, copyright, mainLogoKey } = config;
 
   return (
-    <div className='footer-container'>
+    <div className='footer-container' style={{ ...style }}>
       <div>
         <div className='logo-translator-container'>
           { !noLogo  
             ? <a href='https://associates.bloomberg.org/' target='_blank' rel='noreferrer'>
-              <img src={mainLogo} id='bloomberg-logo' alt='Bloomberg Associates Logo' />
+              <img src={logos[mainLogoKey]} id='bloomberg-logo' alt='Bloomberg Associates Logo' />
             </a>
             : null
           }
@@ -28,13 +55,16 @@ const Footer = ({ setShowModal, noLogo }) => {
         </p>
       </div>
       <div>
-        <GoogleTranslate />
+        {
+          !disableGoogleTranslate &&
+            <GoogleTranslate />
+        } 
       </div>
 
       <div>
         <p>Data partners</p>
         <div className='partner-logos-container'>
-          {partners.map(({ name, key, url, logo }) => (
+          {[...dataPartners || partners].map(({ name, key, url, logoKey, style }) => (
             <a
               key={`footer-partner-link-${key}`}
               href={url || '/'}
@@ -43,7 +73,10 @@ const Footer = ({ setShowModal, noLogo }) => {
             >
               <img
                 className='partner-logo'
-                src={logo}
+                style={invertLogos 
+                  ? { filter: 'invert(1)', ...style || {}} 
+                  : {...style || {}}}
+                src={logos[logoKey]}
                 alt={`${name} Logo and link to website`}
                 id={`${key}-footer-logo`}
               />

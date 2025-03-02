@@ -19,8 +19,9 @@ import HorizontalBarChart from '../HorizontalBarChart';
 import IndicatorMap from '../IndicatorMap';
 import SimpleLineChart from '../SimpleLineChart.js';
 import SimpleCard from '../SimpleCard/index.jsx';
+import HTML from '../HTML/index.jsx';
 
-import { handleElementStyle } from './utils';
+import { handleElementStyle, sanitizeHTML } from './utils';
 import SelectedImage from '../SelectedImage';
 
 const FlexLayoutElement = ({
@@ -250,8 +251,19 @@ const FlexLayoutElement = ({
           viewLoaded={viewLoaded}
         // getterKey={content.getterKey}
         />
-      ) : content?.type === 'filler' ? (
-        <div>{content?.text || null}</div>
+      ) : (content?.type === 'filler' || content.type === 'html') ? (
+        <div 
+          style={{
+            ...content?.style ||{}
+          }}>
+            {content?.text || null}            
+            {
+              content?.html
+                // ? sanitizeHTML(content.htmlString)
+                ? <HTML data={content.html} />
+                : null
+            }
+          </div>
       )
         : (
           <UnderConstructionBox notInConfig />

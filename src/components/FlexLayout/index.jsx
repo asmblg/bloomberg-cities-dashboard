@@ -30,7 +30,7 @@ const FlexLayout = ({
   const [view, setView] = useState(viewOptions?.[0]); // object
   const [isColumns, setIsColumns] = useState(null);
   const [viewLoaded, setViewLoaded] = useState(false);
-
+  const { style } = layout || {};
   // const getter = useMemo(() => {
   //   // Perform any transformation or computation with `getter` if necessary
   //   // For instance, you might want to derive some values from it
@@ -88,7 +88,7 @@ const FlexLayout = ({
     <div
       ref={layoutRef}
       key={`layout-${project}-${views?.[view?.key] || 'single-view'}`}
-      style={{ display: 'flex', flexDirection: 'column' }}>
+      style={{ display: 'flex', flexDirection: 'column' , ...style}}>
       {view && views?.[view.key] && (
         <ViewSwitcher
           key={`view-switcher-${view.key}`}

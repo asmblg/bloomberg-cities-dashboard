@@ -93,8 +93,15 @@ const Layout = ({ config, setShowModal }) => {
               setSelectedLink={setSelectedLink}
             />
           </div>
-          <footer id='footer'>
-            <Footer setShowModal={setShowModal} noLogo={config?.footer?.noLogo} />
+          <footer id='footer' style={{...config?.footer?.style}} >
+            <Footer 
+              setShowModal={setShowModal} 
+              noLogo={config?.footer?.noLogo} 
+              invertLogos={config?.footer?.invertLogos}
+              dataPartners={config?.footer?.dataPartners}
+              // style={config?.footer?.style} 
+              disableGoogleTranslate={config?.footer?.disableGoogleTranslate}
+              />
           </footer>
         </div>
       </div>

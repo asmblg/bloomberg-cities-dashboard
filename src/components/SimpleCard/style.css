@@ -45,7 +45,7 @@
 
 .simple-data-wrapper {
   display: flex;
-  width: 280;
+  width: 260;
   gap: 5%;
   /* align-items: center; */
   margin-top: 10px;
@@ -80,6 +80,12 @@
 .simple-indicator-date {
   font-size: .8rem;
   line-height: .9rem;
+}
+
+.simple-units {
+  font-size: .9rem;
+  padding-right: .5rem;
+  padding-bottom: .2rem;
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
