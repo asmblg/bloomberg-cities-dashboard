@@ -7,7 +7,7 @@ import SectionTitle from '../SectionTitle';
 import { handleDetailData, addWidthToSourcesArray } from './utils';
 import './style.css';
 
-const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, selectedLink }) => {
+const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, selectedLink, noTabs }) => {
   const [detailData, setDetailData] = useState(null);
   const [infoIconConfig, setInfoIconConfig] = useState({
     title: '',
@@ -17,7 +17,7 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
 
   const sourcesArray = addWidthToSourcesArray(config.sources, config.layout);
 
-  const isInitialRender = useRef(true);
+  // const isInitialRender = useRef(true);
 
   useEffect(() => {
     // if (isInitialRender.current) {
@@ -41,7 +41,7 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
           : { ...config.style || {}}
         }
       >
-        {sectionKey !== 'about' && viewType !== 'mobile' ? (
+        {sectionKey !== 'about' && viewType !== 'mobile' && !noTabs ? (
           <div
             style={{
               width: '100%',

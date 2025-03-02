@@ -14,14 +14,16 @@ import { handleViewType, getCurrentRoute } from './utils';
 import './style.css';
 
 const Layout = ({ config, setShowModal }) => {
+  const dev = true;
+
   const [viewType, setViewType] = useState('');
   const [selectedLink, setSelectedLink] = useState('');
   const [trendDataType, setTrendDataType] = useState('QtQ'); // Can be toggled between YtY and QtQ
   const { pathname } = useLocation();
   const navigate = useNavigate();
-
   const sectionKeys = config ? Object.keys(config?.sections || {}) : null;
   const disableHeader = config?.disableHeader;
+  const noTabs = dev ? false : config?.noTabs;
   // const disableFooter = config.disableFooter;
 
   useEffect(() => {
@@ -69,7 +71,7 @@ const Layout = ({ config, setShowModal }) => {
           }}
         >
           <div id='section-container'>
-            {viewType !== 'mobile' && selectedLink !== 'about' && config && pathname !== '/' ? (
+            {viewType !== 'mobile' && selectedLink !== 'about' && config && pathname !== '/' && !noTabs ? (
               <SectionTabs
                 sectionKeys={sectionKeys}
                 sections={config.sections}
@@ -82,6 +84,8 @@ const Layout = ({ config, setShowModal }) => {
             ) : null}
 
             <SectionsRouter
+              noTabs={noTabs}
+              disableHeader={disableHeader}
               project={config?.project.toLowerCase()}
               dashboardType={config?.dashboardType}
               sectionKeys={sectionKeys}

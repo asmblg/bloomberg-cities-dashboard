@@ -51,7 +51,8 @@ const FlexLayoutElement = ({
     content,
     height,
     width,
-    style
+    style,
+  
   } = layout;
 
 
@@ -91,7 +92,8 @@ const FlexLayoutElement = ({
         viewType,
         !recursive,
         firstRecursive,
-        columns ? true : false // First Round Style
+        columns ? true : false,
+         // First Round Style
       )}
     >
       {!content ? (

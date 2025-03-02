@@ -11,6 +11,7 @@ const SectionRouter = ({
   sections,
   sectionKeys,
   viewType,
+  noTabs,
   // dashboardType,
   trendDataType,
   setTrendDataType,
@@ -44,6 +45,7 @@ const SectionRouter = ({
             path={`/${project.toLowerCase()}/${key}`}
             element={
               <DetailCard
+                noTabs={noTabs}
                 config={sections[key]}
                 sectionKey={key}
                 project={project}

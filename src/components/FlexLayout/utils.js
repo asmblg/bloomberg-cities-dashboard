@@ -1,6 +1,7 @@
 const handleStyle = (
   isColumn, 
   viewType, 
+  flip
   // mobileStyle, 
   // tabletStyle
 ) => {

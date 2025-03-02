@@ -6,6 +6,7 @@ const handleElementStyle = (
   viewType,
   mainLayout,
   firstRecursive,
+  
   // isColumns
   // tabletStyle
 ) => {
@@ -59,6 +60,7 @@ const handleElementStyle = (
       delete obj.borderLeft;
     }
   }
+
   return obj;
 };
 
