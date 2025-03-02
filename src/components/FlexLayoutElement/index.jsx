@@ -20,6 +20,7 @@ import IndicatorMap from '../IndicatorMap';
 import SimpleLineChart from '../SimpleLineChart.js';
 import SimpleCard from '../SimpleCard/index.jsx';
 import HTML from '../HTML/index.jsx';
+import FilterDropdown from '../FilterDropdown/index.jsx';
 
 import { handleElementStyle, sanitizeHTML } from './utils';
 import SelectedImage from '../SelectedImage';
@@ -61,6 +62,8 @@ const FlexLayoutElement = ({
   const elementRef = useRef();
   const type = columns ? 'columns' : rows ? 'rows' : content ? 'content' : '';
   const elementArray = columns || rows;
+
+  console.log(elementArray)
 
   useEffect(() => {
     if (viewLoaded) {
@@ -205,6 +208,14 @@ const FlexLayoutElement = ({
           selectedOption={getter?.[content?.getterKey?.selectedOption] || content?.config?.fixedSelection}
           viewLoaded={viewLoaded}
         />
+      ) : content?.type === 'filter-dropdown' ? (
+        <FilterDropdown
+          setter={setter}
+          getter={getter}
+          config={content}
+          options={content.options}
+          viewLoaded={viewLoaded}
+        /> 
       ) : content?.type === 'combo-line-area-chart' ? (
         <ComboLineAreaChart
           setter={setter}
@@ -223,7 +234,9 @@ const FlexLayoutElement = ({
           // margin={content.config?.margin}
         />
       ) : content?.type === 'under-construction' ? (
-        <UnderConstructionBox description={content?.description}/>
+        <UnderConstructionBox 
+          style={style}
+          description={content?.description}/>
       ) : content?.type === 'about-the-data' ? (
         <AboutProject
           config={content?.config || content}

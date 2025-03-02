@@ -45,8 +45,8 @@
 
 .simple-data-wrapper {
   display: flex;
-  width: 260;
-  gap: 5%;
+  width: 240;
+  gap: 20px;
   /* align-items: center; */
   margin-top: 10px;
   flex-grow: 1;
@@ -59,13 +59,15 @@
 .simple-chart,
 .simple-data {
   /* min-height: 80px; */
+  width: calc(50% - 10px);
+
   align-self: center;
   margin: 5px 0;
 }
 
 .simple-data {
   display: flex;
-  width: 50%;
+  padding-right: 10px;
   flex-direction: column;
   justify-content: center;
   line-height: 1;

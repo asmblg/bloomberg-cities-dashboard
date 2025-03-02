@@ -64,13 +64,13 @@ const SelectorMap = ({ project, config, setter }) => {
 
   useEffect(() => {
     if (selection) {
-      setter(config.setterKey.geoSelection, selection.dataPath);
+      setter(config?.setterKey?.geoSelection, selection?.dataPath);
     }
   }, [selection]);
 
   return (
     <div className='selector-map-wrapper' key='selector-map'>
-      <p>{config?.label}</p>
+      {config?.label && <p>{config?.label}</p>}
       <IndicatorDropdown
         selectedOption={selection || config?.totalOption || config?.indicators[0]}
         setter={handleSetSelection}

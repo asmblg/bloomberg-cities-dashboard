@@ -128,7 +128,10 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
     <div className='indicator-map-wrapper'>
       {!config.externalDropdown && (
         <>
-          <p>{title} {date}</p>
+          { !config?.noTitle 
+          ? <p>{title} {date}</p>
+          : null
+        }
           <IndicatorDropdown
             selectedOption={selectedIndicator || defaultSelection}
             setter={handleSetSelectedIndicator}
@@ -291,6 +294,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
             )}
 
           </MapContainer>
+          
         </div>
         // : null
         // <TailSpin

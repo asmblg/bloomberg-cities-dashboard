@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const UnderConstructionBox = ({ notInConfig, style, description }) => {
   const textStyle = {
-    fontFamily: 'RobotoBlack',
+    fontFamily: 'var(--font-family-regular)',
     opacity: '0.7',
     textAlign: 'center'
   };
@@ -19,12 +19,14 @@ const UnderConstructionBox = ({ notInConfig, style, description }) => {
         backgroundColor: '#F5F7F8',
         padding: '20px',
         margin: notInConfig ? '0 20px' : '0',
+        gap: '10px',
         ...style
       }}
     >
-      <h3 style={{ ...textStyle, marginBottom: '5px' }}>{description}</h3>
-      <h5 style={{ ...textStyle, marginBottom: '5px' }}>{'CURRENTLY UNDER DEVELOPMENT'}</h5>
-      <h5 style={textStyle}>{'AVAILABLE SOON'}</h5>
+      <h1 style={{ ...textStyle, marginBottom: '5px' }}>{'UNDER CONSTRUCTION'}</h1>
+      {/* <h2 style={textStyle}>{'AVAILABLE SOON'}</h2> */}
+
+      <h4 style={{ ...textStyle, marginBottom: '5px' }}>{description}</h4>
 
     </div>
   );

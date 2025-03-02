@@ -9,9 +9,14 @@ import dealroomLogo from './logos/dealroom.png';
 import safeGraphLogo from './logos/SafeGraph.png';
 import lightcastLogo from './logos/lightcast.png';
 import gustoLogo from './logos/gusto.png';
-import sibsLogo from './logos/SIBS Analytics Logo.png';
-import informaLogo from './logos/Informa Logo.png';
-import lisboaAbertaLogo from './logos/Lisboa Aberta Logo.png';
+
+import jllLogoBlack from './logos/jll_black.png';
+import informaLogo from './logos/informa_black.png';
+import lightcastLogoBlack from './logos/lightcast_black.png';
+import sibsLogo from './logos/sibs_black.png';
+import lisboaAbertaLogo from './logos/lisboa_aberta_black.png';
+
+
 
 
 // import bloombergLogo from './images/bloomberg_associates.png';
@@ -30,7 +35,9 @@ const logos = {
   gustoLogo,
   sibsLogo,
   informaLogo,
-  lisboaAbertaLogo
+  lisboaAbertaLogo,
+  jllLogoBlack,
+  lightcastLogoBlack
 };
 
 const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartners, invertLogos }) => {
