@@ -36,7 +36,7 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

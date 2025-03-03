@@ -57,8 +57,14 @@
     /* display: flex;
     justify-content: space-between; */
     /* margin: 10px 0 10px 0 !important; */
-    padding-bottom: 0 !important;
+    height: fit-content !important;
+    padding-bottom: 20px;
   }
+
+  .flex-layout-content > .chart-container {
+    height: 200px !important;
+  }
+
 
   .flex-layout {
     min-height: fit-content !important;
@@ -66,7 +72,11 @@
     justify-content: flex-start;
   }
   .selector-map-wrapper {
-    height: 350px !important;
+    max-height: 350px !important;
+  }
+
+  .selector-map {
+    max-height: 330px !important;
   }
 
   .flex-layout-content > .recharts-responsive-container {
@@ -100,12 +110,13 @@
 @media screen and (max-width: 760){
   .flex-layout-content {
     /* min-height: fit-content !important; */
-    min-width: 80vw !important;
+    width: 80vw !important;
     /* min-width: 100% !important; */
     /* display: flex;
     justify-content: space-between; */
     /* margin: 10px 0 10px 0 !important; */
     padding-bottom: 0 !important;
   }
+
 
 }
