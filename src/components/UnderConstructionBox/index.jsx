@@ -16,10 +16,11 @@ const UnderConstructionBox = ({ notInConfig, style, description }) => {
         justifyContent: 'center',
         alignItems: 'center',
         height: notInConfig ? '200px' : '100%',
-        backgroundColor: '#F5F7F8',
+        backgroundColor: '#FFFFFF',
         padding: '20px',
         margin: notInConfig ? '0 20px' : '0',
         gap: '10px',
+        border: '1px solid #E0E0E0',
         ...style
       }}
     >

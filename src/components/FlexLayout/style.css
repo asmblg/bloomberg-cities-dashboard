@@ -46,11 +46,6 @@
     gap: 10px;
   }
 
-
-  .flex-layout-rows > div {
-    /* min-height: fit-content !important; */
-  }
-
   .flex-layout-content {
     /* min-height: fit-content !important; */
     /* min-width: 100% !important; */

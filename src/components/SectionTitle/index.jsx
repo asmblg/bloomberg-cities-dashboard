@@ -25,20 +25,26 @@ const SectionTitle = ({
       {config?.title ? (
         <div className='section-title-container'>
           <h1 className='section-title-text' style={config.titleStyle || {}}>
-            {config?.title?.toUpperCase() || ''}
+            {
+            config.disableAutoUppercase
+              ? config?.title || ''
+              : config?.title?.toUpperCase() || ''
+          }
           </h1>
-          <InfoIcon
-            onClick={() => {
-              // console.log(config);
-              setInfoIconConfig({
-                title: config.title.toUpperCase(),
-                aboutDataTitleColor: config.titleStyle?.color || 'var(--black-color)',
-                tab: config?.aboutKey || selectedLink || 'home'
-              });
-              setSelectedLink('about');
-              navigate(`/${project}/about`);
-            }}
-          />
+          { !config?.disableInfoIcon ? (
+            <InfoIcon
+              onClick={() => {
+                // console.log(config);
+                setInfoIconConfig({
+                  title: config.title.toUpperCase(),
+                  aboutDataTitleColor: config.titleStyle?.color || 'var(--black-color)',
+                  tab: config?.aboutKey || selectedLink || 'home'
+                });
+                setSelectedLink('about');
+                navigate(`/${project}/about`);
+              }}
+            />
+          ) : null}
         </div>
       ) : null}
       <TrendDataToggle config={config} getter={getter} setter={setter} />
@@ -51,8 +57,13 @@ const SectionTitle = ({
           color: config.tabStyle?.selectedColor || '#333333'
         }}
       >
-        {config.title?.toUpperCase()}
+        {
+        config.disableAutoUppercase
+          ? config?.title || ''
+          : config?.title?.toUpperCase() || ''
+      }
       </h1>
+ { !config.disableInfoIcon ? ( 
       <InfoIcon
         onClick={() => {
           setInfoIconConfig({
@@ -64,6 +75,7 @@ const SectionTitle = ({
           navigate(`/${project}/about`);
         }}
       />
+    ) : null}
     </div>
   );
 };

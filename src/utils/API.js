@@ -1,20 +1,24 @@
 import axios from 'axios';
 // import config from '../../dev/dev-configs.json';
 
-const localConfig = false;
+// const localConfig = import.meta.env.VITE_MODE === 'local';
+// console.log('localConfig', localConfig);
 
 const getConfig = async projectCity => {
 
-  if (!localConfig) {
+  // if (!localConfig) {
     const res = await axios.get(`/config`, {
       params: {
         project: projectCity
       }
     });
 
+    console.log('res in getConfig', res);
     return res?.data?.[0];
-  } else {
+  // } else {
     // LOCAL CONFIG FOR DEV
+    // const config = require(`../../dev-configs.json`);
+    // console.log('config in getConfig', config);
     // return await new Promise((resolve, reject) => {
     //   const res = config;
   
@@ -28,7 +32,7 @@ const getConfig = async projectCity => {
     //   }
   
     // });
-  }
+  // }
 };
 
 const getData = (project, select) =>
