@@ -41,6 +41,7 @@ const getDataCompareDates = (dateKeys, compareType) => {
       obj.compareDate = dateString;
     }
   }
+  console.log(obj);
   return obj;
 };
 

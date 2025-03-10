@@ -125,12 +125,12 @@ const FlexLayoutElement = ({
         <SimpleCard
           config={content?.config || content}
           data={data}
+          getter={getter}
           // project={project}
           // dashboardType={null}
           // cardKey={card.key}
           // viewType={viewType}
           // setSelectedLink={setSelectedLink}
-          // trendDataType={trendDataType}
         /> 
        
       ) : content?.type === 'selector-map' ? (

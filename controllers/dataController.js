@@ -5,6 +5,10 @@ module.exports = {
     console.log('\nGetting Data for', project )
     console.log('Selecting', select);
     const regexProject = new RegExp(project, 'i')
+    if (!project) {
+      return res.status(400).json({message: 'Project name is required'})
+    }
+    
     data.find({project: regexProject})
       .select(`project ${select || 'data'}`)
       .then(dbModel => res.json(dbModel))

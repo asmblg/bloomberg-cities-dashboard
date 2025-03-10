@@ -10,13 +10,18 @@ import sortDatesArray from './sortDatesArray';
 
 const getRecentQuarterEndDates = (dates, numOfDates) => {
   const sortedDates = sortDatesArray(dates).filter(date => {
+    // console.log(sortedDates);
     // Remove months that do not represent the end of a quarter
     const regex = /([Qq])/;
     const isQuarter = regex.test(date);
     const isOnlyYear = date.length === 4;
-    const month = !isQuarter ? moment(date, 'YYYY-MM-DD').utc().month() + 1 : null;
+    const month = !isQuarter 
+      ? moment(date, 'YYYY-MM-DD').utc().month() + 1 
+      : null;
     return isOnlyYear || isQuarter || month === 3 || month === 6 || month === 9 || month === 12;
   });
+
+  // console.log(sortedDates);
 
 
   return sortedDates.slice(0, numOfDates);

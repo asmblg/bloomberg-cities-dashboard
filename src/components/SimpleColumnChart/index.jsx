@@ -82,6 +82,8 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
           axisLine={false}
           tickFormatter={text => formatChartTick(text, chartConfig?.xaxis?.labelFormatter)}
         />
+        {
+          !chartConfig?.yaxis?.disabled && (
         <YAxis
           axisLine={false}
           tickFormatter={text => formatChartTick(text, chartConfig?.yaxis?.labelFormatter, chartConfig?.yaxis?.units)}
@@ -98,6 +100,8 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
               : null
           }
         />
+          )
+        }
         {chartConfig?.tooltip ? (
           <Tooltip 
             content={

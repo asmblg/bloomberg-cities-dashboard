@@ -21,7 +21,8 @@ const SimpleCard = ({
   // dashboardType,
   cardKey,
   setSelectedLink,
-  trendDataType
+  // getter
+  trendDataType,
 }) => {
   const { chart, dataPath, key, label, units, summary, indicator, disablePill } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
@@ -38,6 +39,9 @@ const SimpleCard = ({
   // Handles issue with there being newbusiness data but the actual section on the dashboard is smallbusiness
   const sectionKey = cardKey === 'newbusiness' ? 'smallbusiness' : cardKey;
   const route = config?.route || `/${project}/${sectionKey}`;
+
+  // const getterKey = config?.getterKey || {};
+  // const trendDataType = getter?.[getterKey?.trendDataType] || null;
 
   useEffect(() => {
     if (data && allSummaryData) {
