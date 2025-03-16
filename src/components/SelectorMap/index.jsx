@@ -71,12 +71,16 @@ const SelectorMap = ({ project, config, setter, data }) => {
       }
       );
 
-      const valueArray = Object.values(dataObject).map(value => value);
+      console.log({ aggregatorKey, dataObject });
+      const valueArray = Object.entries(dataObject)
+        .filter(([key, value]) => config?.totalOption?.dataPath !== key)
+        .map(([key, value]) => value);
       const min = Math.min(...valueArray);
       const max = Math.max(...valueArray);
       const range = max - min;
-      const pRange = Math.floor(range / 5);
       const colors = config?.colors || ['#f7f7f7', '#d9d9d9', '#bdbdbd', '#969696', '#636363', '#252525'];
+
+      const pRange = Math.floor(range / colors.length || 5) ;
       const colorObject = {}; 
 
       console.log({ min, max, range, pRange });
