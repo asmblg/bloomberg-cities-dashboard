@@ -9,23 +9,25 @@ import './style.css';
 
 // import {handleGeoJSON } from './utils';
 
-const SelectorMap = ({ project, config, setter }) => {
+const SelectorMap = ({ project, config, setter, data }) => {
   const [geoJSON, setGeoJSON] = useState();
+  const [featureData, setFeatureData] = useState();
+  const [bins, setBins] = useState();
   const [selection, setSelection] = useState();
   const [options, setOptions] = useState();
-  const [hoveredFeature, setHoveredFeature] = useState();  
-  
+  const [hoveredFeature, setHoveredFeature] = useState();
+
   const fillColor = config.color || '#fff3e2';
 
   const handleSetSelection = (key, option) => {
     setSelection(option);
   };
-  
+
   // console.log(project, config);
 
-  useEffect( () => {
+  useEffect(() => {
     if (config.geoType && project) {
-      getGeoJSON(project, config.geoType).then(({data}) =>{
+      getGeoJSON(project, config.geoType).then(({ data }) => {
         // console.log(data);
         if (data[0]) {
           setGeoJSON(data[0]);
@@ -33,24 +35,81 @@ const SelectorMap = ({ project, config, setter }) => {
       });
     }
 
-    if ( config?.totalOption || config?.indicators) {
+    if (config?.totalOption || config?.indicators) {
       setSelection(config?.totalOption || config?.indicators[0]);
     }
 
-  }, []);
+
+    if (config?.indicator?.basePath) {
+      // Get data object containing geo keys and nested data values
+
+      const dataObject = {};
+      let aggregatorKey = null;
+
+      Object.entries(data?.[config.indicator.basePath] || {}).forEach(([key, value]) => {
+        dataObject[key] = { ...value[config.indicator.key] };
+      });
+
+      Object.values(dataObject).forEach((value, i) => {
+        if (i === 0 && config?.indicator?.aggregator === 'current') {
+          aggregatorKey = Object.keys(value).map(dateKey => {
+            const year = dateKey.split('-')[0];
+            const quarter = dateKey.split('-')[1]?.replace('Q', '');
+            return {
+              key: dateKey,
+              value : Number(year) + Number(quarter)
+            };
+          })?.sort((a, b) => 
+            b.value - a.value
+          )?.[0]?.key;
+        }
+      })
+
+
+      Object.entries(dataObject).forEach(([key, value]) => {
+        dataObject[key] = value[aggregatorKey];
+      }
+      );
+
+      const valueArray = Object.values(dataObject).map(value => value);
+      const min = Math.min(...valueArray);
+      const max = Math.max(...valueArray);
+      const range = max - min;
+      const pRange = Math.floor(range / 5);
+      const colors = config?.colors || ['#f7f7f7', '#d9d9d9', '#bdbdbd', '#969696', '#636363', '#252525'];
+      const colorObject = {}; 
+
+      console.log({ min, max, range, pRange });
+      
+      Object.entries(dataObject).forEach(([key, value]) => {
+        const bin = Math.floor((value - min) / pRange);
+        console.log({ key, value, bin });
+        const color = value === max ? colors[colors.length - 1] :  colors[bin] ;
+        colorObject[key] = color;
+      });
+
+      console.log(dataObject);
+      console.log(colorObject);
+
+      setBins(colorObject);;
+
+      setFeatureData(dataObject);
+    }
+
+  }, [data]);
 
   useEffect(() => {
     if (!config?.indicators && geoJSON) {
       const optionsFromGeoJSON = config.totalOption
         ? [config.totalOption]
         : [];
-      
-      geoJSON.features.forEach(({properties}) => 
+
+      geoJSON.features.forEach(({ properties }) =>
         optionsFromGeoJSON.push(
           {
             label: properties[config.selectorField].toUpperCase(),
             key: properties[config.selectorField],
-            dataPath: `${config.selectionDataPath ? `${config.selectionDataPath}.` : ''}${properties[config.selectorField]}`
+            dataPath: `${config.selectionDataPath ? `${config.selectionDataPath}.` : ''}${config?.selectorValueFormat === 'toUpperCase' ? properties[config.selectorField].toUpperCase() : properties[config.selectorField]}`
           }
         ));
 
@@ -86,9 +145,9 @@ const SelectorMap = ({ project, config, setter }) => {
           // dragging={false}
           // doubleClickZoom={false}
           zoomSnap={.25}
-          zoomDelta={.25}          
+          zoomDelta={.25}
         >
-          <MapEvents 
+          <MapEvents
             setter={handleSetSelection}
             options={options}
             active={!hoveredFeature}
@@ -98,33 +157,39 @@ const SelectorMap = ({ project, config, setter }) => {
             attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
             url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
           />
-          {geoJSON ? 
+          {geoJSON ?
             <GeoJSON
-              key={`data-layer-${selection?.key}`}
+              key={`data-layer-${selection?.key}-${bins ? 'binned' : 'not-binned'}`}
               data={geoJSON || null}
               eventHandlers={{
                 click: e => {
                   const value = e.propagatedFrom?.feature?.properties?.[config.selectorField];
                   const option = value ?
-                    options.find(({key}) => key.toUpperCase() === value.toUpperCase())
+                    options.find(({ key }) => key.toUpperCase() === value.toUpperCase())
                     : options[0];
                   // console.log(value);
                   handleSetSelection(null, option);
                 },
                 mouseover: e => {
                   const value = e.propagatedFrom?.feature?.properties?.[config.selectorField];
-                  setHoveredFeature(value);
+                  // if (bins) {
+                  //   setHoveredFeature(`${value}: ${featureData?.[config.selectorValueFormat === 'toUpperCase' ? value.toUpperCase() : value]}`);
+                  // } else {
+                    setHoveredFeature(value);
+                  // }
                 },
                 mouseout: () => setHoveredFeature()
               }}
               style={feature => {
-                const selected = feature.properties[config.selectorField] === selection.key;
+                const featureID = feature.properties[config.selectorField];
+                const selected = featureID === selection.key;
+                const binnedColor = bins?.[config.selectorValueFormat === 'toUpperCase' ? featureID.toUpperCase() : featureID];
                 return {
-                  fillColor: fillColor,
+                  fillColor: binnedColor || fillColor,
                   color: config.strokeColor || 'black',
                   weight: selected ? 2 : 1,
                   opacity: selected ? 1 : 0.5,
-                  fillOpacity:  selected ? 1 :0.5
+                  fillOpacity: selected ? 1 : binnedColor ? 0.8 : 0.5
                 };
               }}
             >
@@ -137,7 +202,7 @@ const SelectorMap = ({ project, config, setter }) => {
         </MapContainer>
       </div>
     </div>
-  ); 
+  );
 };
 
 SelectorMap.propTypes = {

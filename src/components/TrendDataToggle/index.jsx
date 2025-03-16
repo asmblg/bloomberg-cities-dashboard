@@ -3,6 +3,7 @@ import React,
   useEffect, 
   // useRef 
 } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Checkbox } from 'semantic-ui-react';
 
@@ -12,6 +13,9 @@ import './style.css';
 const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
   // const [checked, setChecked] = useState(false);
   // const ref = useRef();
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  // const { toggleValue } = getter;
   const options = config?.options || 
   [
     {
@@ -26,7 +30,9 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
 
   const text = config?.text;
 
-  const toggleValue = getter?.[config?.getterKey?.toggleValue]
+  const toggleValue = config?.getterKey?.global  
+  ? query.get('trendValue') || 'QtQ'
+  : getter?.[config?.getterKey?.toggleValue]
     ? getter?.[config.getterKey.toggleValue]
     : getter === options[1].value || getter === options[0].value
       ? getter
@@ -34,7 +40,13 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
 
 
   useEffect(() => {
-    setter(config?.setterKey?.toggleValue, toggleValue);
+    if (config?.setterKey?.global) {
+      window.location.search = {
+        trendValue: toggleValue
+      }
+    } else {
+      setter(config?.setterKey?.toggleValue, toggleValue);
+    }
   }, [
     config?.options,
     viewLoaded

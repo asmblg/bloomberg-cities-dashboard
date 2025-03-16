@@ -63,7 +63,7 @@ const FlexLayoutElement = ({
   const type = columns ? 'columns' : rows ? 'rows' : content ? 'content' : '';
   const elementArray = columns || rows;
 
-  console.log(elementArray)
+  // console.log(elementArray)
 
   useEffect(() => {
     if (viewLoaded) {
@@ -134,7 +134,12 @@ const FlexLayoutElement = ({
         /> 
        
       ) : content?.type === 'selector-map' ? (
-        <SelectorMap project={project} config={content?.config || content} setter={setter} />
+        <SelectorMap 
+          project={project} 
+          config={content?.config || content} 
+          setter={setter} 
+          data={data}
+          />
       ) : content?.type === 'trend-data-toggler' ? (
         <TrendDataToggle
           config={content?.config || content}

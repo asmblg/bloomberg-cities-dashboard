@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, use } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
@@ -21,10 +21,10 @@ const SimpleCard = ({
   // dashboardType,
   cardKey,
   setSelectedLink,
-  // getter
+  getter,
   trendDataType,
 }) => {
-  const { chart, dataPath, key, label, units, summary, indicator, disablePill } = config;
+  const { chart, key, label, units, summary, indicator, disablePill, getterKey } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
     displayValue: null,
@@ -35,7 +35,52 @@ const SimpleCard = ({
   });
   const scrollToRef = useRef();
   const navigate = useNavigate();
-  const allSummaryData = getNestedValue(data, summary?.dataPath || dataPath, key);
+  const [allSummaryData, setAllSummaryData] = useState();
+  const [dataPath, setDataPath] = useState(config?.dataPath);
+  
+  useEffect(() => {
+
+    if (data) {
+      setAllSummaryData(getNestedValue(data, dataPath, key));
+    }
+  }, [
+    data, 
+    dataPath
+  ]);
+
+
+  useEffect(() => {
+    console.log({
+      data,
+      dataPath,
+      getter,
+      getterKey,
+    });
+    if (getter?.[getterKey?.selectorPath]) {
+      let newDataPathArray = [];
+      const currentPath = summary?.dataPath || config?.dataPath;
+      const currentPathArray = currentPath.split('.');
+      // const currentPathArrayLength = currentPathArray.length;
+      const selectorPath = getter?.[getterKey?.selectorPath];
+      const spliceIndex = currentPathArray.length - 2;
+      console.log({ currentPathArray, spliceIndex, selectorPath });
+      currentPathArray.forEach((path, index) => {
+        if (index === spliceIndex) {
+          newDataPathArray.push(selectorPath);
+        } else {
+          newDataPathArray.push(path);
+        }
+
+      }
+      );
+      if (newDataPathArray.length) {
+        
+        setDataPath(newDataPathArray.join('.'));
+      }
+     }
+  }, [getter?.[getterKey?.selectorPath]]);
+
+  getNestedValue(data, summary?.dataPath || dataPath, key);
   // Handles issue with there being newbusiness data but the actual section on the dashboard is smallbusiness
   const sectionKey = cardKey === 'newbusiness' ? 'smallbusiness' : cardKey;
   const route = config?.route || `/${project}/${sectionKey}`;
@@ -108,6 +153,7 @@ const SimpleCard = ({
             <div className='simple-chart'>
               {chart?.type && allSummaryData ? (
                 <SimpleChart
+                  key={`${dataPath}-${cardKey}-simple-chart`}
                   config={chart}
                   viewType={viewType}
                   data={
@@ -145,6 +191,9 @@ const SimpleCard = ({
           ) : null}
         </>
       ) : null}
+      <br />
+      <h5>{dataPath}</h5>
+
     </div>
   );
 };

@@ -27,7 +27,7 @@ const SimpleLineChart = (props) => {
   }, [selectedIndicator, data]);
 
   const renderDot = (dotProps) => {
-    console.log('dotProps', dotProps);
+    // console.log('dotProps', dotProps);
     if (dotProps.index === dataArray.length - 1) {
       return (
         <Dot
