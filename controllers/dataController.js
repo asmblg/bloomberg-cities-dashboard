@@ -11,6 +11,7 @@ module.exports = {
     
     data.find({project: regexProject})
       .select(`project ${select || 'data'}`)
+      .limit(1)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   }

@@ -17,11 +17,18 @@ module.exports = {
       // const obj = config.find(({ project }) => project.match(regexProject));
       // res.json(obj);
     } else {
-    const regexProject = new RegExp(project, 'i')
-    config
-      .find({ project: regexProject})
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      const regexProject = new RegExp(project, 'i')
+      if (!project) {
+        return res.status(400).json({
+          error: 'Please provide a project'
+        });
+      } else {
+        config
+          .find({ project: regexProject })
+          .limit(1)
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err));
+      }
     }
   }
 };
