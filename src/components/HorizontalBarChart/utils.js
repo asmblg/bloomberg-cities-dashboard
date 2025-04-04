@@ -35,8 +35,11 @@ const handleData = (data, config) => {
           if (typeof value === 'string' || typeof value === 'number') {
             return {value, name}
           } else if (typeof value === 'object') {
-            const mostRecentDateKey = getMostRecentDateKeys(Object.keys(value), 1);
-            console.log({ mostRecentDateKey });
+            const mostRecentDateKey = Object.keys(value).sort((a, b) => {
+              const dateA = a.split('-Q').join('');
+              const dateB = b.split('-Q').join('');
+              return Number(dateB) - Number(dateA);
+            });
             return {
               name,
               value: value[mostRecentDateKey[0]]
