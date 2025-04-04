@@ -9,6 +9,8 @@ const handleData = (data, config) => {
       nestedData && config.dataPathInfo !== 'no-dates'
         ? getMostRecentDateKeys(Object.keys(nestedData), 1)
         : null;
+     
+    // console.log({nestedData, dataKeys, config});
 
     const dataObj = dataKeys
       ? nestedData[dataKeys[0]]
@@ -27,13 +29,30 @@ const handleData = (data, config) => {
           value: dataObj[key]
         }));
 
-      const filteredDataArray = dataArray.filter(({ value }) => value);
+      const filteredDataArray = dataArray
+        .filter(({ value }) => value)
+        .map(({value, name}) => {
+          if (typeof value === 'string' || typeof value === 'number') {
+            return {value, name}
+          } else if (typeof value === 'object') {
+            const mostRecentDateKey = getMostRecentDateKeys(Object.keys(value), 1);
+            console.log({ mostRecentDateKey });
+            return {
+              name,
+              value: value[mostRecentDateKey[0]]
+            }
+          }
+        });
+
+        // console.log({ filteredDataArray });
 
       if (config.sortValues) {
-        filteredDataArray.sort((a, b) =>
+        filteredDataArray
+        .sort((a, b) =>
           config.sortValues === 'descending' ? b.value - a.value : a.value - b.value
         );
-      }
+      };
+            
 
       const valueCalculation = config?.valueCalculation;
 

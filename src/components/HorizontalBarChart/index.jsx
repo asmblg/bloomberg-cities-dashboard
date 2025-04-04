@@ -14,7 +14,7 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
   const selectorPath = config?.getterKey?.selectorPath;
   const firstRowRef = useRef(null); 
   const hbcContainerRef = useRef(null);
-  // console.log(selectorPath, getter);
+  console.log(selectorPath, getter, data);
 
   useEffect(() => {
     // console.log(getter?.[selectorPath]);
@@ -34,6 +34,10 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
           }
         } else {
           dataConfig.dataPath = config.dataPath;
+        }
+
+        if (getter?.[selectorPath]?.labels){
+          dataConfig.labels = getter?.[selectorPath]?.labels;
         }
         // console.log(dataConfig);
         const { dataArr, currentAsOf } = handleData(data, dataConfig);
@@ -86,7 +90,7 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
             }>
               {formatIndicatorLabel({
                 formatter: config?.labelFormatter, 
-                value: item.name.replace('.', '')
+                value: `${item?.name || ''}`.replace('.', '')
               })}
             </h5>
             <div className='hbc-bar-container'>
