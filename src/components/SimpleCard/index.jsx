@@ -37,6 +37,7 @@ const SimpleCard = ({
   const navigate = useNavigate();
   const [allSummaryData, setAllSummaryData] = useState();
   const [dataPath, setDataPath] = useState(config?.dataPath);
+  console.log({ config});
   
   useEffect(() => {
 
@@ -66,7 +67,7 @@ const SimpleCard = ({
       console.log({ currentPathArray, spliceIndex, selectorPath });
       currentPathArray.forEach((path, index) => {
         if (index === spliceIndex) {
-          newDataPathArray.push(selectorPath);
+          newDataPathArray.push(selectorPath?.value || selectorPath);
         } else {
           newDataPathArray.push(path);
         }
@@ -74,6 +75,7 @@ const SimpleCard = ({
       }
       );
       if (newDataPathArray.length) {
+        console.log({ newDataPathArray });
         
         setDataPath(newDataPathArray.join('.'));
       }

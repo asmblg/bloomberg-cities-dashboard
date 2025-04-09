@@ -8,7 +8,7 @@ const formatQuarterDate = (date, format) => {
       date.split('-')
       : null;
   // When quarter needs to be inferred from standard date like 2023-9-1
-  if (textArray.length >= 3) {
+  if (textArray?.length >= 3) {
     const month = Number(textArray[1]);
     const quarter = (month) <= 3 ? 'Q1'
       : month <= 6 ? 'Q2'

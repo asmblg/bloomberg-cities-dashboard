@@ -4,16 +4,16 @@ import getMostRecentDateKeys from '../../utils/getMostRecentDateKeys';
 const handleData = (data, config) => {
   if (data) {
     const nestedData = config?.dataPath ? getNestedValue(data, config.dataPath) : data;
-
-    const dataKeys =
+    // console.log({nestedData, config});
+    const dateKeys =
       nestedData && config.dataPathInfo !== 'no-dates'
         ? getMostRecentDateKeys(Object.keys(nestedData), 1)
         : null;
      
-    // console.log({nestedData, dataKeys, config});
+    // console.log({nestedData, dateKeys, config});
 
-    const dataObj = dataKeys
-      ? nestedData[dataKeys[0]]
+    const dataObj = dateKeys
+      ? nestedData[dateKeys[0]]
       : config.dataPathInfo === 'no-dates'
         ? nestedData
         : null;
@@ -61,12 +61,12 @@ const handleData = (data, config) => {
 
       switch (valueCalculation) {
         case 'valuesToPercentages': {
-          return { dataArr: arrayValuesToPercentage(filteredDataArray), currentAsOf: dataKeys?.[0] };
+          return { dataArr: arrayValuesToPercentage(filteredDataArray), currentAsOf: dateKeys?.[0] };
         }
         default: {
           return {
             dataArr: calculateBarPercentages(filteredDataArray),
-            currentAsOf: dataKeys?.[0]
+            currentAsOf: dateKeys?.[0]
           };
         }
       }

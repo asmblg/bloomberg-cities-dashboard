@@ -45,19 +45,29 @@
   margin-left: 10px;
   display: flex;
   align-items: center;
+  justify-self: flex-start;
+  /* text-align: left; */
   color: #006aaf;
+  width: 40px;
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1020px) {
   .hbc-row-label {
     min-width: 100px;
     font-size: var(--smallest-font);
   }
+  .hbc-container {
+    width: calc(100vw - 110px) !important;
+    overflow: auto !important;
+  
+  }
+
 }
 
 @media screen and (max-width: 760px), (orientation: portrait) {
+
   .hbc-container {
-    /* max-height: 100%; */
+    width: calc(100vw - 80px) !important;
     overflow: auto !important;
   
   }

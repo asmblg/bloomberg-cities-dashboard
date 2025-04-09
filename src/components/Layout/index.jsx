@@ -1,5 +1,5 @@
 // Packages
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -14,12 +14,14 @@ import { handleViewType, getCurrentRoute } from './utils';
 import './style.css';
 
 const Layout = ({ config, setShowModal }) => {
-  const dev = true;
 
   const [viewType, setViewType] = useState('');
   const [selectedLink, setSelectedLink] = useState('');
   const [trendDataType, setTrendDataType] = useState('QtQ'); // Can be toggled between YtY and QtQ
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  const dev = queryParams.get('dev') === 'true' || false;
+
   const navigate = useNavigate();
   const sectionKeys = config ? Object.keys(config?.sections || {}) : null;
   const disableHeader = config?.disableHeader;

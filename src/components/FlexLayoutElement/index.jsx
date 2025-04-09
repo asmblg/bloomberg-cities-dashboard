@@ -44,7 +44,8 @@ const FlexLayoutElement = ({
   view,
   scrollRef,
   recursive,
-  firstRecursive
+  firstRecursive,
+  manifest
 }) => {
   const {
     columns,
@@ -119,6 +120,7 @@ const FlexLayoutElement = ({
             lastElement={elementArray.length - 1 === i}
             keepColumnsOnTablet={element?.keepColumnsOnTablet}
             viewLoaded={viewLoaded}
+            manifest={manifest}
           />
         ))
       ) : content?.type === 'simple-card' ? (
@@ -255,6 +257,7 @@ const FlexLayoutElement = ({
           data={data}
           setter={setter}
           getter={getter}
+          manifest={manifest}
         />
       ) : content?.type === 'selected-image' ? (
         <SelectedImage

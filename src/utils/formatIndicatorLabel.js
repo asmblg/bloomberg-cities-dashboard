@@ -5,7 +5,7 @@
  * @returns Formatted value
  */
 
-const formatIndicatorLabel = ({ formatter, value }) => {
+const formatIndicatorLabel = ({ formatter, value, manifest }) => {
   switch (formatter) {
     case 'numToDollars': {
       value = `$${value}.00`;
@@ -25,7 +25,7 @@ const formatIndicatorLabel = ({ formatter, value }) => {
       break;
     }
   }
-  return value;
+  return manifest?.[value] || value;
 };
 
 export default formatIndicatorLabel;

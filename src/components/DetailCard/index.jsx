@@ -76,6 +76,7 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
             data={detailData.data}
             layout={config.layout}
             project={project}
+            manifest={config?.manifest || {}}
             viewType={viewType}
             selectedLink={selectedLink}
             setSelectedLink={setSelectedLink}

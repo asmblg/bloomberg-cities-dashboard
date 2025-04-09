@@ -22,6 +22,7 @@ const FlexLayout = ({
   infoIconConfig,
   setInfoIconConfig,
   tabStyle,
+  manifest
   // refreshOnLoad
 }) => {
   const layoutRef = useRef();
@@ -122,6 +123,7 @@ const FlexLayout = ({
             lastElement={elementArray.length - 1 === i }
             scrollRef={element?.scrollRef}
             keepColumnsOnTablet={element?.keepColumnsOnTablet}
+            manifest={manifest}
             // setViewLoaded={setViewLoaded}
             viewLoaded={viewLoaded}
           />

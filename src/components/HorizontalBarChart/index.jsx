@@ -8,40 +8,76 @@ import formatQuarterDate from '../../utils/formatQuarterDate';
 import formatIndicatorLabel from '../../utils/formatIndicatorLabel';
 import './style.css';
 
-const HorizontalBarChart = ({ config, data, setter, getter }) => {
-  const [dataArray, setDataArray] = useState(null);
+const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
+  const [dataArray, setDataArray] = useState([]);
+  const [dataConfig, setDataConfig] = useState({});
   const valuesFormat = config.valuesFormat;
   const selectorPath = config?.getterKey?.selectorPath;
+  const selectedIndicator = config?.getterKey?.selectedIndicator;
   const firstRowRef = useRef(null); 
   const hbcContainerRef = useRef(null);
-  console.log(selectorPath, getter, data);
+
+  // console.log(manifest)
+  // console.log(selectorPath, getter, data);
 
   useEffect(() => {
     // console.log(getter?.[selectorPath]);
-    if (data) {
-      // console.log(data);
-      // if (selectorPath && getter?.[selectorPath]) {
-      //   config.dataPath = `${config.dataPath}.${getter?.[selectorPath]?.key}`;
-      // }
-      // console.log(config.dataPath);
-      if ((getter?.[selectorPath]) || !selectorPath) {
-        const dataConfig = {...config};
-        if (selectorPath && getter?.[selectorPath] ) {
-          if (getter?.[selectorPath]?.dataPath) {
-            dataConfig.dataPath = getter?.[selectorPath]?.dataPath;
-          } else {
-            dataConfig.dataPath = `${config.dataPath}.${getter?.[selectorPath]?.key}`;
+    if (data && (getter?.[selectorPath] || getter?.[selectedIndicator])) {
+
+        const obj = {...config};
+        const pathItem1 = getter?.[selectorPath]?.dataPath || 
+        getter?.[selectorPath]?.value ||  
+        getter?.[selectorPath]?.key ||
+        getter?.[selectorPath];
+
+        const pathItem2 = getter?.[selectedIndicator]?.dataPath ||
+        getter?.[selectedIndicator]?.value ||
+        getter?.[selectedIndicator]?.key ||
+        getter?.[selectedIndicator];
+
+        const manifestKey = getter?.[selectedIndicator]?.manifestKey;
+
+         
+        const basePath = config?.dataPath ? `${config.dataPath}.` : '';
+
+        // console.log({pathItem1, pathItem2, basePath})
+
+        if (pathItem1) {
+          obj.dataPath = `${pathItem1 || ''}`?.includes(basePath) ? pathItem1 : `${basePath}${pathItem1}`;
+          if (pathItem2) {
+            obj.dataPath = `${`${pathItem1 || ''}`?.includes(basePath) ? pathItem1 : `${basePath}${pathItem1}`}.${pathItem2}`;
           }
+        } else if (pathItem2) {
+          obj.dataPath = `${basePath}all.${pathItem2}`;
         } else {
-          dataConfig.dataPath = config.dataPath;
+          obj.dataPath = config?.defaultDataPath || config?.dataPath;
         }
 
-        if (getter?.[selectorPath]?.labels){
-          dataConfig.labels = getter?.[selectorPath]?.labels;
+        if (manifest) {
+          obj.manifest = manifest?.[manifestKey] || {};
         }
-        // console.log(dataConfig);
+
+        if (getter?.[selectorPath]) {
+          obj.subHeader = getter?.[selectorPath]?.label
+        }
+
+        console.log(config.dataPath, {config, obj});
+        setDataConfig(obj);
+
+    } else {
+      setDataConfig(config);
+    }
+  }, [
+    // data,
+    getter?.[selectorPath],
+    getter?.[selectedIndicator]
+    // selectorPath
+  ]);
+
+  useEffect(() => {
+    // console.log(getter?.[selectorPath]);
+    if (data && dataConfig) {
         const { dataArr, currentAsOf } = handleData(data, dataConfig);
-        // console.log(dataArr);
         if (dataArr) {
           setDataArray(dataArr);
           if (config?.setterKey?.currentAsOf && currentAsOf){
@@ -50,35 +86,39 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
           if (hbcContainerRef.current && firstRowRef.current) {
             const containerTop = hbcContainerRef.current.offsetTop;
             const firstRowTop = firstRowRef.current.offsetTop;
-            const scrollPosition = firstRowTop - containerTop;
-    
+            const marginOffset = 10; // Add a small margin above the scrolled-to item
+            const scrollPosition = firstRowTop - containerTop - marginOffset;
+        
             hbcContainerRef.current.scrollTop = scrollPosition;
           }
-        }      
-      }
-
-    }
+        } else {
+          setDataArray([]);
+        }    
+    } else {
+      setDataArray([]);
+    }  
   }, [
-    data,
-    getter?.[selectorPath],
-    selectorPath
+    dataConfig
   ]);
 
-  return dataArray ? (
+  return dataArray?.[0] ? (
     <>
       {config?.title
         ? config.titleSize === 'small'
-          ? <h5 style={{margin: '0 0 10px 0'}}>{config.title}</h5>
-          : <h4 className='hbc-title'>{config.title}</h4>
+          ? <h5 style={{margin: '0 0 10px 0'}}>{config?.title}</h5>
+          : <h4 className='hbc-title'>{config?.title}</h4>
         : null
       }
-
+      <h5 style={{marginBottom: '10px'}}>{dataConfig?.subHeader || config?.defaultSubheading}</h5>
       <div 
         className='hbc-container' 
         style={config?.chartWrapperStyle || {}}
         ref={hbcContainerRef}
       >
-        {dataArray.map((item, index) => (
+
+        {dataArray?.filter(
+          item => Number(`${item?.value}`?.replace('%', '')) > 0
+        )?.map((item, index) => (
           <div 
             key={index} 
             className='hbc-row-container'
@@ -89,6 +129,7 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
               : { justifyContent: 'flex-end', margin: '0 10px 0 5px' }
             }>
               {formatIndicatorLabel({
+                manifest: dataConfig?.manifest || {},
                 formatter: config?.labelFormatter, 
                 value: `${item?.name || ''}`.replace('.', '')
               })}
@@ -111,9 +152,9 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
                 }}
               >
                 { 
-                  valuesFormat 
-                    ? numeral(Number(item.value)).format(valuesFormat)
-                    : item.value
+                  valuesFormat && item?.value
+                    ? numeral(Number(item?.value)).format(valuesFormat)
+                    : item?.value
                 }
               </h5>
             </div>
