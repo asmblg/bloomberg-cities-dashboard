@@ -40,6 +40,7 @@ const Layout = ({ config, setShowModal }) => {
   useEffect(() => {
     if (config?.project && sectionKeys) {
       const { section, redirect } = getCurrentRoute(config.project, sectionKeys, pathname);
+      
       setSelectedLink(section);
 
       if (redirect) {
@@ -48,8 +49,16 @@ const Layout = ({ config, setShowModal }) => {
     }
   }, []);
 
+  console.log(config);
+
   return (
-    <div id='layout'>
+    <div id='layout' style={
+      config?.transparentBackground 
+      ? { 
+          background: 'transparent',
+          backgroundImage: 'none', 
+        } 
+      : { }}>
       <div id='content'>
         {config && pathname !== '/' && !disableHeader?
           <nav id='header-container'>
