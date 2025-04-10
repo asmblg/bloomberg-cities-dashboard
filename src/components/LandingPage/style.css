@@ -81,11 +81,11 @@
 /* Short Desktop Breakpoint */
 /* @media (max-width > 1024px) and (max-height: 1000px) {} */
 
-@media screen and (max-height: 750px) {
+/* @media screen and (max-height: 760px) {
   .landing-wrapper {
     height: 90%;
   }
-}
+} */
 
 @media screen and (max-width: 1200px) {
   .landing-info-content {
@@ -117,6 +117,7 @@
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 760px) {
   .landing-wrapper {
+    height: 90%;
     border: 1px solid var(--primary-gray-color);
     background-color: var(--white-color);
     display: flex;

@@ -132,7 +132,7 @@
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
-@media screen and (max-height: 1000px) {
+@media screen and (max-height: 1024px) {
   .horizontal-percentage-indicator {
     margin: 10px 0;
   }

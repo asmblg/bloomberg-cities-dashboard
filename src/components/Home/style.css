@@ -61,9 +61,6 @@
   }
 }
 
-/* @media screen and (max-height: 1000px) {
-} */
-
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 1024px) {
   .home-wrapper {

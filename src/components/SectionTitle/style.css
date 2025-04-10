@@ -29,12 +29,6 @@
   }
 }
 
-/* Initial Tablet Breakpoint */
-@media screen and (max-width: 910px) {
-  .section-title-text {
-    /* font-size: 1.9rem; */
-  }
-}
 
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 760px) {

@@ -25,18 +25,18 @@
   }
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1024px) {
   .selected-img {
     width: 78%;
     margin-bottom: 20px;
   }
 }
 
-@media screen and (max-width: 1000px) {
+/* @media screen and (max-width: 1000px) {
   .selected-img {
     width: 70%;
   }
-}
+} */
 /* ----- Tablet handled in JSX ----- */
 /* ----- Mobile ----- */
 @media screen and (max-width: 760px) {
