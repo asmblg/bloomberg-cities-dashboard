@@ -17,7 +17,8 @@ const TrendPill = ({
   units,
   positiveTrendDirection,
   displayCompareText,
-  compareValueUnderPill
+  compareValueUnderPill,
+  onlyYears
 }) => {
   const { trendValue, trendDirection } = calculateTrend(currentValue, compareValue, units);
 
@@ -47,7 +48,7 @@ const TrendPill = ({
             <h5 className='trend-pill-text' style={{ opacity: '0.8' }}>{`vs ${formatValue(
               compareValue,
               units
-            )} in ${dateToQuarter(compareDate, 'QX YYYY')}`}</h5>
+            )} in ${onlyYears ? compareDate : dateToQuarter(compareDate, 'QX YYYY')}`}</h5>
           ) : null}
         </>
       ) : (

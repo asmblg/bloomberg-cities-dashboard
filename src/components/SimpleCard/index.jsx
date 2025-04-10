@@ -12,6 +12,7 @@ import formatValue from '../../utils/formatValue';
 import formatQuarterDate from '../../utils/formatQuarterDate';
 import createCompareDataObject from '../../utils/createCompareDataObject';
 import './style.css';
+import e from 'cors';
 
 const SimpleCard = ({
   config,
@@ -22,7 +23,7 @@ const SimpleCard = ({
   cardKey,
   setSelectedLink,
   getter,
-  trendDataType,
+  // trendDataType,
 }) => {
   const { chart, key, label, units, summary, indicator, disablePill, getterKey } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
@@ -37,15 +38,15 @@ const SimpleCard = ({
   const navigate = useNavigate();
   const [allSummaryData, setAllSummaryData] = useState();
   const [dataPath, setDataPath] = useState(config?.dataPath);
-  console.log({ config});
-  
+  console.log({ config });
+
   useEffect(() => {
 
     if (data) {
       setAllSummaryData(getNestedValue(data, dataPath, key));
     }
   }, [
-    data, 
+    data,
     dataPath
   ]);
 
@@ -63,8 +64,8 @@ const SimpleCard = ({
       const currentPathArray = currentPath.split('.');
       // const currentPathArrayLength = currentPathArray.length;
       const selectorPath = getter?.[getterKey?.selectorPath];
-      const spliceIndex = currentPathArray.length - 2;
-      console.log({ currentPathArray, spliceIndex, selectorPath });
+      
+      const spliceIndex = currentPathArray.length - (config?.splicePosition || 2);
       currentPathArray.forEach((path, index) => {
         if (index === spliceIndex) {
           newDataPathArray.push(selectorPath?.value || selectorPath);
@@ -75,11 +76,10 @@ const SimpleCard = ({
       }
       );
       if (newDataPathArray.length) {
-        console.log({ newDataPathArray });
-        
+
         setDataPath(newDataPathArray.join('.'));
       }
-     }
+    }
   }, [getter?.[getterKey?.selectorPath]]);
 
   getNestedValue(data, summary?.dataPath || dataPath, key);
@@ -88,20 +88,35 @@ const SimpleCard = ({
   const route = config?.route || `/${project}/${sectionKey}`;
 
   // const getterKey = config?.getterKey || {};
-  // const trendDataType = getter?.[getterKey?.trendDataType] || null;
+  let trendDataType = getter?.[getterKey?.trendDataType] || null;
+  if (config?.dateType === 'year') {
+    if (trendDataType === 'QtQ') {
+      trendDataType = 'YtY';
+    } else if (trendDataType === 'YtY') {
+      trendDataType = 'QtQ';
+    } else {
+      trendDataType = 'YtY';
+    }
+  }
+  // console.log({ trendDataType });
 
   useEffect(() => {
     if (data && allSummaryData) {
       setSummaryData(
-        createCompareDataObject(summary?.calculator, allSummaryData, trendDataType, summary?.filter)
+        createCompareDataObject(
+          summary?.calculator, 
+          allSummaryData, 
+          trendDataType, 
+          summary?.filter
+        )
       );
     }
   }, [allSummaryData, trendDataType]);
 
   return (
-    <div 
-      id={`${dataPath?.replace(/./g, '-')}-simple-card`} 
-      ref={scrollToRef} 
+    <div
+      id={`${dataPath?.replace(/./g, '-')}-simple-card`}
+      ref={scrollToRef}
       className='simple-card'
     >
       <div className='simple-card-header' role='heading'>
@@ -132,6 +147,8 @@ const SimpleCard = ({
             data={allSummaryData}
             trendDataType={trendDataType}
             displayCompareText={viewType !== 'mobile'}
+            onlyYears={config?.dateType === 'year'}
+
           />
         ) : null}
       </div>
@@ -151,7 +168,7 @@ const SimpleCard = ({
               // }
             }}
           >
-            
+
             <div className='simple-chart'>
               {chart?.type && allSummaryData ? (
                 <SimpleChart
@@ -173,7 +190,7 @@ const SimpleCard = ({
                   : '-'}
               </h1>
               {units ? <h5 className='simple-units'>{units}</h5> : null}
-              {summaryData?.currentDate ? <h5 className='simple-indicator-date'>{formatQuarterDate(summaryData.currentDate, 'QX YYYY', true)}</h5> : null }
+              {summaryData?.currentDate ? <h5 className='simple-indicator-date'>{formatQuarterDate(summaryData.currentDate, 'QX YYYY', true)}</h5> : null}
               {/* {summaryData?.currentDate ? <h5 className='simple-indicator-date'>{summaryData.currentDate}</h5> : null } */}
 
             </div>
@@ -189,6 +206,7 @@ const SimpleCard = ({
               data={allSummaryData}
               trendDataType={trendDataType}
               displayCompareText
+              onlyYears={config?.dateType === 'year'}
             />
           ) : null}
         </>

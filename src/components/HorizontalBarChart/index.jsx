@@ -61,7 +61,12 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
           obj.subHeader = getter?.[selectorPath]?.label
         }
 
-        console.log(config.dataPath, {config, obj});
+        if (getter?.[selectedIndicator]) {
+          obj.exclude = getter?.[selectedIndicator]?.exclude || [];
+        }
+
+        
+        // console.log(config.dataPath, {config, obj});
         setDataConfig(obj);
 
     } else {
@@ -118,6 +123,7 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
 
         {dataArray?.filter(
           item => Number(`${item?.value}`?.replace('%', '')) > 0
+        )?.filter(item => !dataConfig?.exclude?.includes(item?.name)
         )?.map((item, index) => (
           <div 
             key={index} 

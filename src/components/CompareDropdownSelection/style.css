@@ -76,7 +76,7 @@
   justify-content: space-between;
   padding: 5px 10px;
   background-color: var(--primary-gray-color);
-  min-width: fit-content;
+  width: fit-content;
   /* margin-right: 20px; */
 }
 
