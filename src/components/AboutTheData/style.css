@@ -85,14 +85,14 @@
 
 /* ---------- MEDIA QUERIES ---------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: var(--tablet-breakpoint-width)) {
   .about-table-vars-container {
     max-height: calc(100vh - 560px);
   }
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: var(--mobile-breakpoint-width)) {
   .about-data-container {
     min-height: 350px;
   }

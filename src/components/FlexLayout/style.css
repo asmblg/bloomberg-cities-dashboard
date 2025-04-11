@@ -28,7 +28,7 @@
 }
 
 
-@media screen and (max-width: 1024px), (orientation: portrait) {
+@media screen and (max-width: var(--tablet-breakpoint-width)), (orientation: portrait) {
   .chart-container {
     min-height: 200px !important;
     max-height: 250px !important;
@@ -102,7 +102,7 @@
 
 }
 
-@media screen and (max-width: 760){
+@media screen and (max-width: var(--mobile-breakpoint-width)) {
 
   .flex-layout-content {
     /* min-height: fit-content !important; */

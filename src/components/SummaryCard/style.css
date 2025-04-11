@@ -93,7 +93,7 @@
 }
 
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: var(--tablet-breakpoint-width)) {
   .summary-card {
     height: 240px;
   }
@@ -103,7 +103,7 @@
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 760px) {
+@media screen and (max-width: var(--mobile-breakpoint-width)) {
   .summary-card {
     height: fit-content;
     padding: 20px;

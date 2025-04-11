@@ -29,7 +29,7 @@ const Layout = ({ config, setShowModal }) => {
   // const disableFooter = config.disableFooter;
 
   useEffect(() => {
-    const updateViewType = () => setViewType(handleViewType());
+    const updateViewType = () => setViewType(handleViewType(config?.breakpoints));
 
     updateViewType();
     window.addEventListener('resize', updateViewType);
@@ -47,9 +47,20 @@ const Layout = ({ config, setShowModal }) => {
         navigate(`${config.project.toLowerCase()}`);
       }
     }
-  }, []);
 
-  console.log(config);
+    if (config?.breakpoints) {
+      // Set css root:variablea
+
+      const root = document.documentElement;
+      const { mobile, tablet } = config?.breakpoints;
+      if (mobile) {
+        root.style.setProperty('--mobile-breakpoint-width', `${mobile}px`);
+      }
+      if (tablet) {
+        root.style.setProperty('--tablet-breakpoint-width', `${tablet}px`);
+      }
+    }
+  }, []);
 
   return (
     <div id='layout' style={

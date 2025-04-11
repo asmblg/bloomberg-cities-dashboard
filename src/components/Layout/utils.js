@@ -1,6 +1,6 @@
 import { viewBreakpoints } from './config';
 
-const handleViewType = () => {
+const handleViewType = (customBreakpoints) => {
   // Note: window.innerWidth lowest value will be 320.
   const width = window.innerWidth;
   const height = window.innerHeight;
@@ -10,10 +10,12 @@ const handleViewType = () => {
   //   : width <= viewBreakpoints.tablet && width >= viewBreakpoints.mobile
   //     ? 'tablet'
   //     : 'mobile';
+  const mobileBreakpoint = customBreakpoints?.mobile || viewBreakpoints.mobile;
+  const tabletBreakpoint = customBreakpoints?.tablet || viewBreakpoints.tablet;
     
-  return width <= viewBreakpoints.mobile 
+  return width <= mobileBreakpoint 
     ? 'mobile' 
-    : width <= viewBreakpoints.tablet
+    : width <= tabletBreakpoint
       ? 'tablet'
       : height > width 
         ? 'tablet' 

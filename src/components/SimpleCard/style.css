@@ -1,8 +1,13 @@
+:root {
+  --simple-card-width: 220px;
+
+}
+
 .simple-card {
   border-top: 1px solid var(--primary-gray-color);
   background-color: var(--white-color);
   /* height: 100%; */
-  width: 280px;
+  width: var(--simple-card-width);
   padding: 10px 20px;
   display: flex;
   flex-direction: column;
@@ -46,7 +51,7 @@
 
 .simple-data-wrapper {
   display: flex;
-  width: 240;
+  width: calc(var(--simple-card-width) - 30px);
   gap: 20px;
   /* align-items: center; */
   margin-top: 10px;
@@ -106,7 +111,7 @@
 }
 
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: var(--tablet-breakpoint-width)) {
   .simple-card {
     height: 240px;
   }
@@ -116,7 +121,7 @@
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 760px) {
+@media screen and (max-width: var(--mobile-breakpoint-width)) {
   .simple-card {
     height: fit-content;
     padding: 20px;

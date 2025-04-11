@@ -132,7 +132,7 @@
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
-@media screen and (max-height: 1024px) {
+@media screen and (max-height: var(--tablet-breakpoint-width)) {
   .horizontal-percentage-indicator {
     margin: 10px 0;
   }
@@ -145,7 +145,7 @@
 }
 
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: 1024px), (orientation: portrait) {
+@media screen and (max-width: var(--tablet-breakpoint-width)), (orientation: portrait) {
   .cp-body {
     flex-direction: column;
     padding: 20px;
@@ -196,7 +196,7 @@
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: 760px) {
+@media screen and (max-width: var(--mobile-breakpoint-width)) {
   .cp-header-title > h2 {
     font-size: 22px;
   }
