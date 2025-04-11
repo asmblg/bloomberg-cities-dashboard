@@ -60,6 +60,13 @@ const Layout = ({ config, setShowModal }) => {
         root.style.setProperty('--tablet-breakpoint-width', `${tablet}px`);
       }
     }
+
+    if (config?.transparentBackground) {
+      const documentBody = document.querySelector('body');
+      documentBody.style.background = 'transparent';
+      documentBody.style.backgroundImage = 'none';
+      documentBody.style.backgroundColor = 'transparent'; 
+    }
   }, []);
 
   return (
