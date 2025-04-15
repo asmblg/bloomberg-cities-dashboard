@@ -15,7 +15,7 @@ const SimpleLineChart = (props) => {
   const yLabel = indicator?.yLabel || indicator?.label || config?.yaxis?.label || '';
 
   useEffect(() => {
-    console.log('getter', { config, getter });
+    // console.log('getter', { config, getter });
     setSelectedIndicator(getter?.[config.getterKey?.selectedIndicator] || null);
   }, [getter?.[config.getterKey?.selectedIndicator]]);
   useEffect(() => {
@@ -41,10 +41,12 @@ const SimpleLineChart = (props) => {
   }  
   return dataArray ? (
     <ResponsiveContainer height={height || '100%'} width={width || '100%'}>
-      <LChart data={dataArray} margin={margin || { top: 10, right: 10, bottom: 10, left: 10 }}>
+      <LChart data={dataArray} margin={margin || { top: 10, right: 20, bottom: 10, left: 10 }}>
         <XAxis
           dataKey={'name'}
           interval={'preserveStartEnd'}
+          tick={{fontSize: 12}}
+
           tickFormatter={text => formatChartTick(text, config?.xaxis?.labelFormatter)}
         />
         {
@@ -61,7 +63,9 @@ const SimpleLineChart = (props) => {
                 dy: 10
               }}
             />
-          : <YAxis hide domain={[50, 70]}/>
+          : <YAxis 
+              hide 
+            />
  
         }
 

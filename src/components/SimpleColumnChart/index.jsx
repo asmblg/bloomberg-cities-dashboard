@@ -80,12 +80,14 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
         <XAxis
           dataKey={'name'}
           axisLine={false}
+          tick={{fontSize: 12}}
           tickFormatter={text => formatChartTick(text, chartConfig?.xaxis?.labelFormatter)}
         />
         {
           !chartConfig?.yaxis?.disabled && (
         <YAxis
           axisLine={false}
+          tick={{fontSize: 12}}
           tickFormatter={text => formatChartTick(text, chartConfig?.yaxis?.labelFormatter, chartConfig?.yaxis?.units)}
           tickCount={chartConfig?.yaxis?.tickCount || 4}
           domain={chartConfig?.yaxis?.domain}

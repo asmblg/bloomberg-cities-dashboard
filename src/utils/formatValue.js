@@ -11,8 +11,11 @@ const formatValue = (value, units, onAxis) => {
   // console.log(value, units, onAxis);
   if (value) {
     switch (units) {
-      case 'percent': {
-        return `${formatNumberWithCommas(parseFloat(value).toFixed(fixedPointNum))}%`;
+      case 'percent':
+      case 'percentage': 
+      case 'percentX100': {
+        const multiplier = units === 'percentX100' ? 100 : 1;
+        return `${formatNumberWithCommas(parseFloat(value * multiplier).toFixed(fixedPointNum))}%`;
       }
       case 'dollars': {
         return `$${formatNumberWithCommas(parseFloat(`${value}`.replace('$', '')).toFixed(0))}`;
@@ -58,6 +61,12 @@ const formatValue = (value, units, onAxis) => {
       }
       case 'thousands': {
         return `${(value).toFixed(Math.abs(value) < 1 ? 1 : fixedPointNum)}K`;
+      }
+      case '€' :
+      case 'euro': 
+      case 'euros':
+      case 'M €':  {
+        return `${formatNumberWithCommas(value)}${units === 'M €' ? `${units}` : ' €'}`;
       }
 
       default: {

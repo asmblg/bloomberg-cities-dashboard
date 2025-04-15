@@ -6,6 +6,7 @@ import getNestedValue from './getNestedValue';
 import padDate from './padDate';
 
 const handleSimpleChartDataArray = (config, data, dataPath) => {
+  const multiplier = config?.values?.multiplier || 1;
   if (config?.values?.calculator === 'total') {
     const dataArray = [];
     const dataObj = {};
@@ -15,17 +16,17 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
         Object.entries(values).forEach(([key, nestedValue]) => {
           const dateKey = getQuarterDateKey(key);
 
-          if (!isNaN(Number(nestedValue))) {
+          if (!isNaN(Number(nestedValue * multiplier))) {
             if (config?.values.average) {
               if (!dataObj[dateKey]) {
-                dataObj[dateKey] = [Number(nestedValue)];
+                dataObj[dateKey] = [Number(nestedValue * multiplier)];
               } else {
-                dataObj[dateKey].push(Number(nestedValue));
+                dataObj[dateKey].push(Number(nestedValue * multiplier));
               }
             } else if (!dataObj[dateKey]) {
-              dataObj[dateKey] = Number(nestedValue);
+              dataObj[dateKey] = Number(nestedValue * multiplier);
             } else {
-              dataObj[dateKey] += Number(nestedValue);
+              dataObj[dateKey] += Number(nestedValue * multiplier);
             }
           }
         });
@@ -84,7 +85,7 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
             if (typeof dataObj[key] !== 'object') {
               obj.value = dataObj[key];
             } else {
-              Object.entries(dataObj[key]).forEach(([k, v]) => {
+              Object.entries(dataObj?.[key] || {}).forEach(([k, v]) => {
                 if (v && v !== 0) {
                   obj[k] = v;
                 }

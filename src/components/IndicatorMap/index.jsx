@@ -48,7 +48,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
               const refGeoJSON = data[0];
               refGeoJSONArray.push(refGeoJSON);
               if (refGeoJSONArray.length === config.refLayers.length) {
-                console.log(refGeoJSONArray);
+                // console.log(refGeoJSONArray);
                 setRefGeoJSON(refGeoJSONArray);
                 resolve(refGeoJSONArray);
               }
@@ -96,7 +96,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
 
   useEffect(() => {
     if (colors && selectedIndicator && mapGeoJSON) {
-      console.log(mapGeoJSON)
+      // console.log(mapGeoJSON)
       const {arrayWithLabels, extractedDate} = handleBinning({
         geoJSON: mapGeoJSON,
         colors,

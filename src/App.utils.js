@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { getConfig } from './utils/API';
 
 const handleConfig = async pathname => {
@@ -54,4 +55,38 @@ const handleRootVariables = async config => {
   return;
 };
 
-export { handleConfig, handleRootVariables };
+const useAutoIframeHeight = (deps = []) => {
+  useEffect(() => {
+    const sendHeight = () => {
+      const height = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight,
+        document.body.clientHeight,
+        document.documentElement.clientHeight
+      );
+      console.log('Sending height', height);
+      window.parent.postMessage({ type: 'setHeight', height }, window.origin);
+    };
+
+    const observer = new ResizeObserver(sendHeight);
+    observer.observe(document.body);
+
+    // Initial call on load or when deps change
+    sendHeight();
+
+    window.addEventListener('load', sendHeight);
+    window.addEventListener('resize', sendHeight);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('load', sendHeight);
+      window.removeEventListener('resize', sendHeight);
+    };
+  }, deps); // will re-run if any dependency changes
+};
+
+
+
+export { handleConfig, handleRootVariables, useAutoIframeHeight };

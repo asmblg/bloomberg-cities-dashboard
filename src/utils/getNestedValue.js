@@ -20,7 +20,7 @@ const getNestedValue = (object, string, mainKey) => {
         return null; // key does not exist in object
       }
     }
-    return value;
+    return value; // return value for last key
   }
   return null;
 };

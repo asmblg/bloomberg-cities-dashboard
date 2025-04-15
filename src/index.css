@@ -166,6 +166,15 @@
   src: local('Poppins-ThinItalic'), url('./fonts/Poppins-ThinItalic.ttf') format('truetype');
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: auto;        /* 👈 Don't use 100% or 100vh here */
+  min-height: 100%;    /* allows body to grow */
+  overflow-x: hidden;
+}
+
+
 
 
 .leaflet-container {

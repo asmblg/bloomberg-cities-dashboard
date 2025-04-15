@@ -33,16 +33,17 @@ const TrendPill = ({
       {currentValue && compareValue && compareDate ? (
         <>
           <div
-            className={
-              (positiveTrendDirection === 'down' && trendDirection === 'down') ||
-              (positiveTrendDirection === 'up' && trendDirection === 'up')
-                ? 'upward-trend'
-                : 'downward-trend'
+            className={ positiveTrendDirection === 'neutral' 
+              ? 'neutral-trend'
+              : (positiveTrendDirection === 'down' && trendDirection === 'down') ||
+                (positiveTrendDirection === 'up' && trendDirection === 'up')
+                  ? 'upward-trend'
+                  : 'downward-trend'
             }
             style={{ height: heightVal || '', width: widthVal || '' }}
           >
             <img src={trendDirection === 'up' ? upwardTrendIcon : downwardTrendIcon} />
-            <h5 className=''>{trendValue}</h5>
+            <h5>{trendValue}</h5>
           </div>
           {displayCompareText ? (
             <h5 className='trend-pill-text' style={{ opacity: '0.8' }}>{`vs ${formatValue(

@@ -38,7 +38,7 @@ const SimpleCard = ({
   const navigate = useNavigate();
   const [allSummaryData, setAllSummaryData] = useState();
   const [dataPath, setDataPath] = useState(config?.dataPath);
-  console.log({ config });
+  // console.log({ config });
 
   useEffect(() => {
 
@@ -52,12 +52,12 @@ const SimpleCard = ({
 
 
   useEffect(() => {
-    console.log({
-      data,
-      dataPath,
-      getter,
-      getterKey,
-    });
+    // console.log({
+    //   data,
+    //   dataPath,
+    //   getter,
+    //   getterKey,
+    // });
     if (getter?.[getterKey?.selectorPath]) {
       let newDataPathArray = [];
       const currentPath = summary?.dataPath || config?.dataPath;
@@ -184,11 +184,11 @@ const SimpleCard = ({
               ) : null}
             </div>
             <div className='simple-data bold-font'>
-              <h1 className='bold-font'>
+              <h2 className='bold-font'>
                 {summaryData.displayValue
                   ? formatValue(summaryData.displayValue, config?.summary?.trendUnits)
                   : '-'}
-              </h1>
+              </h2>
               {units ? <h5 className='simple-units'>{units}</h5> : null}
               {summaryData?.currentDate ? <h5 className='simple-indicator-date'>{formatQuarterDate(summaryData.currentDate, 'QX YYYY', true)}</h5> : null}
               {/* {summaryData?.currentDate ? <h5 className='simple-indicator-date'>{summaryData.currentDate}</h5> : null } */}
@@ -212,7 +212,7 @@ const SimpleCard = ({
         </>
       ) : null}
       <br />
-      <h5>{dataPath}</h5>
+      {/* <h5>{dataPath}</h5> */}
 
     </div>
   );

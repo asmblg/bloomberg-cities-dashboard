@@ -11,6 +11,7 @@ import Footer from '../Footer';
 
 // Styling/Configuration/Utilities
 import { handleViewType, getCurrentRoute } from './utils';
+import { useAutoIframeHeight } from '../../App.utils';
 import './style.css';
 
 const Layout = ({ config, setShowModal }) => {
@@ -27,9 +28,11 @@ const Layout = ({ config, setShowModal }) => {
   const disableHeader = config?.disableHeader;
   const noTabs = dev ? false : config?.noTabs;
   // const disableFooter = config.disableFooter;
+  useAutoIframeHeight([pathname]); // 👈 Re-trigger on route change
 
   useEffect(() => {
     const updateViewType = () => setViewType(handleViewType(config?.breakpoints));
+
 
     updateViewType();
     window.addEventListener('resize', updateViewType);

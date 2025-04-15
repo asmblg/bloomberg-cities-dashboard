@@ -5,7 +5,7 @@ export async function getImage(project, category, key) {
       .map(str => str.trim().toLowerCase().replace(/\//g, '_')) // replaces '/' with '_' because file names will not contain '/'
       .join('-');
 
-      console.log({project, category, fileName});
+      // console.log({project, category, fileName});
 
     // files must be a png and match current submarket key from config or nothing will be rendered
     const images = import.meta.glob('./submarketMaps/**/*.png');

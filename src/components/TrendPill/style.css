@@ -7,15 +7,17 @@
 
 .upward-trend,
 .downward-trend,
-.no-data-pill {
+.no-data-pill,
+.neutral-trend {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   border-radius: 16px;
   min-height: 30px;
   max-height: 30px;
-  min-width: 80px;
-  padding: 0;
+  width: fit-content;
+  padding: 0 10px;
+  gap: 2px;
 }
 
 .no-data-pill {
@@ -29,8 +31,13 @@
 }
 
 .upward-trend > img,
-.downward-trend > img {
+.downward-trend > img,
+.neutral-trend > img {
   margin-right: 10%;
+}
+
+.neutral-trend {
+  background-color: var(--primary-gray-color);
 }
 
 .upward-trend {
@@ -41,8 +48,24 @@
   background-color: var(--warning-accent-color);
 }
 
-.upward-trend > h5, .downward-trend > h5 {
+.upward-trend > h5, 
+.downward-trend > h5 {
   color: var(--white-color);
+  flex-grow: 1;
+  white-space: nowrap;
+  padding-right: 5px;
+  /* overflow: hidden; */
+  text-overflow: visible;
+}
+
+.neutral-trend > h5 {
+  color: var(--black-color);
+  flex-grow: 1;
+  white-space: nowrap;
+  padding-right: 5px;
+  /* overflow: hidden; */
+  text-overflow: visible;
+
 }
 
 .trend-pill-text {
@@ -60,7 +83,8 @@
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: var(--mobile-breakpoint-width)) {
   .upward-trend,
-  .downward-trend {
+  .downward-trend,
+  .neutral-trend {
     min-width: 100px;
   }
 }

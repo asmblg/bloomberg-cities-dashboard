@@ -13,7 +13,7 @@ const getConfig = async projectCity => {
       }
     });
 
-    console.log('res in getConfig', res);
+    // console.log('res in getConfig', res);
     return res?.data?.[0];
   // } else {
     // LOCAL CONFIG FOR DEV

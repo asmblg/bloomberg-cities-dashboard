@@ -36,7 +36,7 @@ const SelectorMap = ({ project, config, setter, data }) => {
     }
 
     if (config?.totalOption || config?.indicators) {
-      setSelection(config?.totalOption || config?.indicators[0]);
+      setSelection(config?.totalOption || config?.indicators?.[0]);
     }
 
 
@@ -71,7 +71,7 @@ const SelectorMap = ({ project, config, setter, data }) => {
       }
       );
 
-      console.log({ aggregatorKey, dataObject });
+      // console.log({ aggregatorKey, dataObject });
       const valueArray = Object.entries(dataObject)
         .filter(([key, value]) => config?.totalOption?.dataPath !== key)
         .map(([key, value]) => value);
@@ -83,17 +83,17 @@ const SelectorMap = ({ project, config, setter, data }) => {
       const pRange = Math.floor(range / colors.length || 5) ;
       const colorObject = {}; 
 
-      console.log({ min, max, range, pRange });
+      // console.log({ min, max, range, pRange });
       
       Object.entries(dataObject).forEach(([key, value]) => {
         const bin = Math.floor((value - min) / pRange);
-        console.log({ key, value, bin });
+        // console.log({ key, value, bin });
         const color = value === max ? colors[colors.length - 1] :  colors[bin] ;
         colorObject[key] = color;
       });
 
-      console.log(dataObject);
-      console.log(colorObject);
+      // console.log(dataObject);
+      // console.log(colorObject);
 
       setBins(colorObject);;
 
@@ -135,7 +135,7 @@ const SelectorMap = ({ project, config, setter, data }) => {
     <div className='selector-map-wrapper' key='selector-map'>
       {config?.label && <p>{config?.label}</p>}
       <IndicatorDropdown
-        selectedOption={selection || config?.totalOption || config?.indicators[0]}
+        selectedOption={selection || config?.totalOption || config?.indicators?.[0]}
         setter={handleSetSelection}
         options={options}
       />
@@ -186,7 +186,7 @@ const SelectorMap = ({ project, config, setter, data }) => {
               }}
               style={feature => {
                 const featureID = feature.properties[config.selectorField];
-                const selected = featureID === selection.key;
+                const selected = featureID === selection?.key;
                 const binnedColor = bins?.[config.selectorValueFormat === 'toUpperCase' ? featureID.toUpperCase() : featureID];
                 return {
                   fillColor: binnedColor || fillColor,

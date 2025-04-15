@@ -17,8 +17,8 @@ const handleViewType = (customBreakpoints) => {
     ? 'mobile' 
     : width <= tabletBreakpoint
       ? 'tablet'
-      : height > width 
-        ? 'tablet' 
+      // : height > width 
+      //   ? 'tablet' 
         : 'desktop'; 
 };
 

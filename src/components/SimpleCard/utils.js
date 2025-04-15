@@ -1,4 +1,5 @@
 export function handleChartCalculator(data, calculator) {
+  
   switch (calculator) {
     case 'total': {
       const obj = {};

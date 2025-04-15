@@ -10,6 +10,8 @@ import { handleChartCalculator } from '../utils';
 const SimpleChart = ({ config, data, viewType  }) => {
   const { type } = config;
 
+  // console.log({config, data});
+
   switch (type) {
     case 'column': {
       const chartData = config.calculator
@@ -44,8 +46,6 @@ const SimpleChart = ({ config, data, viewType  }) => {
         <SimpleLineChart
           config={config}
           data={data}
-          // height={150}
-          // width={'100%'}
           margin={{ top: 10, right: 5, bottom: 0, left: 0 }}
         />
       );

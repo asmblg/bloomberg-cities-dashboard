@@ -7,8 +7,13 @@ import Layout from './components/Layout';
 import UserConsentBanner from './components/UserConsentBanner';
 import UserConsentModal from './components/UserConsentModal';
 
-import { handleConfig, handleRootVariables } from './App.utils';
+import { 
+  handleConfig, 
+  handleRootVariables, 
+  useAutoIframeHeight 
+} from './App.utils';
 import { handleGoogleAnalyticsScript } from './utils/googleAnalytics';
+// import useAutoIframeHeight from './hooks/useAutoIframeHeight'; // 👈 import the hook
 
 const App = () => {
   const userConsent = localStorage.getItem('cookieConsent');
@@ -20,6 +25,9 @@ const App = () => {
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  // 🔄 Auto-resize iframe height
+  useAutoIframeHeight([pathname]); // 👈 Re-trigger on route change
 
   const handleUserConsent = action => {
     localStorage.setItem('cookieConsent', action === 'accept' ? 'true' : 'false');
@@ -41,12 +49,10 @@ const App = () => {
         }
 
         if (!c && controller && redirect) {
-          // console.log('redirect');
           navigate(redirect);
         }
       });
     }
-    // Cleanup
     return () => {
       controller = false;
     };

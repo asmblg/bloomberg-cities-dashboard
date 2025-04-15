@@ -7,16 +7,18 @@ import CustomTooltip from '../CustomTooltip';
 import './style.css';
 
 const SinglePercentDonutChart = ({ config, height, width, value, label, mobile }) => {
+  const multiplier = config?.values?.multiplier || 1;
+  
   const dataArray = value
     ? [
       {
         name: label,
-        value: parseFloat(value),
+        value: parseFloat(value * multiplier),
         fillColor: config?.color || '#333333'
       },
       {
         name: label,
-        value: 100 - parseFloat(value),
+        value: 100 - parseFloat(value * multiplier),
         fillColor: config?.accentColor || '#dfe5e9'
       }
     ]
