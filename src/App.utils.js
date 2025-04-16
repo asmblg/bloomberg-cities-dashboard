@@ -67,7 +67,7 @@ const useAutoIframeHeight = (deps = []) => {
         document.documentElement.clientHeight
       );
       console.log('Sending height', height);
-      window.parent.postMessage({ type: 'setHeight', height }, window.origin);
+      window.parent.postMessage({ type: 'setHeight', height }, '*');
     };
 
     const observer = new ResizeObserver(sendHeight);
