@@ -12,7 +12,6 @@ import formatValue from '../../utils/formatValue';
 import formatQuarterDate from '../../utils/formatQuarterDate';
 import createCompareDataObject from '../../utils/createCompareDataObject';
 import './style.css';
-import e from 'cors';
 
 const SimpleCard = ({
   config,
@@ -138,7 +137,7 @@ const SimpleCard = ({
 
   return (
     <div
-      id={`${dataPath?.replace(/./g, '-')}-simple-card`}
+      key={`${dataPath?.replace(/\./g, '-')}-simple-card`}
       ref={scrollToRef}
       className='simple-card'
     >
