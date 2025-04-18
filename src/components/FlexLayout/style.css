@@ -53,7 +53,7 @@
     justify-content: space-between; */
     /* margin: 10px 0 10px 0 !important; */
     height: fit-content !important;
-    padding-bottom: 20px;
+    /* padding-bottom: 20px; */
   }
 
   .flex-layout-content > .chart-container {
