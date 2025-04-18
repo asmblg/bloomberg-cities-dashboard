@@ -64,6 +64,11 @@ const Layout = ({ config, setShowModal }) => {
       }
     }
 
+    if (config?.disableOuterMargin) {
+      root.style.setProperty('--desktop-outer-margin', '2%');
+
+    }
+
     if (config?.transparentBackground) {
       const documentBody = document.querySelector('body');
       documentBody.style.background = 'transparent';

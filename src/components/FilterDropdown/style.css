@@ -73,13 +73,13 @@
   border-bottom: none;
 }
 
-.dropdown-header-label > h4 {
+/* .dropdown-header-label > h4 { */
   /* padding-top: 10px;
   padding-bottom: 10px; */
   /* max-width: 240px; */
   /* max-width: calc(100% - 20px); */
   /* padding-bottom: 10px; */
-}
+/* } */
 
 /* ---------- Media Queries ---------- */
 /* Initial Mobile Breakpoint */
