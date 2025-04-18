@@ -141,6 +141,7 @@ const FlexLayoutElement = ({
           config={content?.config || content} 
           setter={setter} 
           data={data}
+          getter={getter}
           />
       ) : content?.type === 'trend-data-toggler' ? (
         <TrendDataToggle

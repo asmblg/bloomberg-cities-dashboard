@@ -45,23 +45,13 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
       : calculator === 'differenceFromPrevious'
         ? Object.keys(data)
           .filter(key => (filterArray ? filterArray.includes(key) : true))
-          // .map(key => 
-          //   key.match(/-/) ?
-          //     padDate(key)
-          //     : key
-          // )
         : Object.keys(data);
-      // .map(key => 
-      //   key.match(/-/) ?
-      //     padDate(key)
-      //     : key
-      // );
+
 
     // Uses trend type to return two dates (keys) to compare in data object
     const { currentDate, compareDate } = getDataCompareDates(dateKeys, trendDataType);
     dataObj.currentDate = currentDate;
     dataObj.compareDate = compareDate;
-
     // Handles calculations needed on values before comparing two values
     switch (calculator) {
       case 'differenceFrom100': {
@@ -199,7 +189,16 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
       dataObj.currentValue = 100 * dataObj.currentValue;
     }
   }
-  return dataObj;
+
+  
+
+  return isNaN(parseInt(dataObj?.currentValue))
+    ? {
+        ...dataObj,
+        currentValue: null,
+        compareValue: null
+      } 
+    : dataObj;
 };
 
 function calcDifferenceOfTotalFromPrevQtr(data, date) {

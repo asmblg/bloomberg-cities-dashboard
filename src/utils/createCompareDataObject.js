@@ -28,7 +28,7 @@ const createCompareDataObject = (calculator, data, trendDataType, filterArray, p
     compareValue
   };
 
-  obj.displayValue = obj.currentValue;
+  obj.displayValue = obj?.currentValue || null;
   return obj;
 };
 

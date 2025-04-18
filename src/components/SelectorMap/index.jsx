@@ -9,7 +9,7 @@ import './style.css';
 
 // import {handleGeoJSON } from './utils';
 
-const SelectorMap = ({ project, config, setter, data }) => {
+const SelectorMap = ({ project, config, setter, data, getter }) => {
   const [geoJSON, setGeoJSON] = useState();
   const [featureData, setFeatureData] = useState();
   const [bins, setBins] = useState();
@@ -40,14 +40,34 @@ const SelectorMap = ({ project, config, setter, data }) => {
     }
 
 
-    if (config?.indicator?.basePath) {
+
+    if (
+      config?.indicator?.basePath ||
+      getter?.[config?.getterKey?.selectedIndicator] ||
+      getter?.[config?.getterKey?.selectorPath]
+    ) {
       // Get data object containing geo keys and nested data values
 
       const dataObject = {};
       let aggregatorKey = null;
 
+      const indicatorKey = getter?.[config?.getterKey?.selectedIndicator]?.value ||
+        getter?.[config?.getterKey?.selectedIndicator] ||
+        config?.indicator?.key;
+      const indicatorKey2 = getter?.[config?.getterKey?.selectorPath]?.value ||
+        getter?.[config?.getterKey?.selectorPath] ||
+        config?.indicator?.key2;
+
+
       Object.entries(data?.[config.indicator.basePath] || {}).forEach(([key, value]) => {
-        dataObject[key] = { ...value[config.indicator.key] };
+        const obj = indicatorKey && indicatorKey2
+          ? value?.[indicatorKey]?.[indicatorKey2]
+          : indicatorKey
+            ? value?.[indicatorKey]
+            : indicatorKey2
+              ? value?.[indicatorKey2]
+              : value;
+        dataObject[key] = { ...obj };
       });
 
       Object.values(dataObject).forEach((value, i) => {
@@ -57,9 +77,9 @@ const SelectorMap = ({ project, config, setter, data }) => {
             const quarter = dateKey.split('-')[1]?.replace('Q', '');
             return {
               key: dateKey,
-              value : Number(year) + Number(quarter)
+              value: Number(year) + Number(quarter)
             };
-          })?.sort((a, b) => 
+          })?.sort((a, b) =>
             b.value - a.value
           )?.[0]?.key;
         }
@@ -73,34 +93,48 @@ const SelectorMap = ({ project, config, setter, data }) => {
 
       // console.log({ aggregatorKey, dataObject });
       const valueArray = Object.entries(dataObject)
-        .filter(([key, value]) => config?.totalOption?.dataPath !== key)
-        .map(([key, value]) => value);
+        .filter(([key, value]) => 
+          config?.totalOption?.dataPath !== key && 
+          value && !isNaN(parseInt(value))
+        ).map(([key, value]) => value);
       const min = Math.min(...valueArray);
       const max = Math.max(...valueArray);
       const range = max - min;
       const colors = config?.colors || ['#f7f7f7', '#d9d9d9', '#bdbdbd', '#969696', '#636363', '#252525'];
 
-      const pRange = Math.floor(range / colors.length || 5) ;
-      const colorObject = {}; 
+      const pRange = Math.floor(range / colors.length || 5);
+      const colorObject = {};
 
       // console.log({ min, max, range, pRange });
-      
+
       Object.entries(dataObject).forEach(([key, value]) => {
-        const bin = Math.floor((value - min) / pRange);
-        // console.log({ key, value, bin });
-        const color = value === max ? colors[colors.length - 1] :  colors[bin] ;
-        colorObject[key] = color;
+        if (value && !isNaN(parseInt(value))) {
+          const bin = Math.floor((value - min) / pRange);
+          // console.log({ key, value, bin });
+          const color = value === max ? colors[colors.length - 1] : colors[bin];
+          colorObject[key] = color;
+        } else {
+          colorObject[key] = 'transparent';
+        }
       });
 
       // console.log(dataObject);
       // console.log(colorObject);
+      console.log({ dataObject });
+      console.log({ basePath: config.indicator.basePath, indicatorKey, indicatorKey2 });
+      console.log({ min, max, range, pRange });
 
       setBins(colorObject);;
 
-      setFeatureData(dataObject);
+      // setFeatureData(dataObject);
     }
 
-  }, [data]);
+  }, [
+    data,
+    getter?.[config?.getterKey?.selectedIndicator],
+    getter?.[config?.getterKey?.selectorPath]
+
+  ]);
 
   useEffect(() => {
     if (!config?.indicators && geoJSON) {
@@ -179,7 +213,7 @@ const SelectorMap = ({ project, config, setter, data }) => {
                   // if (bins) {
                   //   setHoveredFeature(`${value}: ${featureData?.[config.selectorValueFormat === 'toUpperCase' ? value.toUpperCase() : value]}`);
                   // } else {
-                    setHoveredFeature(value);
+                  setHoveredFeature(value);
                   // }
                 },
                 mouseout: () => setHoveredFeature()
