@@ -46,18 +46,18 @@
     gap: 10px;
   }
 
-  .flex-layout-content {
+  /* .flex-layout-content { */
     /* min-height: fit-content !important; */
     /* min-width: 100% !important; */
     /* display: flex;
     justify-content: space-between; */
     /* margin: 10px 0 10px 0 !important; */
-    height: fit-content !important;
+    /* height: fit-content !important; */
     /* padding-bottom: 20px; */
-  }
+  /* } */
 
   .flex-layout-content > .chart-container {
-    height: 200px !important;
+    min-height: 200px !important;
   }
 
 
