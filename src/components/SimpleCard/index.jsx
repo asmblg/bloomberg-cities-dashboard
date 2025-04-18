@@ -25,7 +25,16 @@ const SimpleCard = ({
   getter,
   // trendDataType,
 }) => {
-  const { chart, key, label, units, summary, indicator, disablePill, getterKey } = config;
+  const { 
+    chart, 
+    key,
+    label,
+    units,
+    summary,
+    // indicator,
+    disablePill,
+    getterKey 
+  } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
     displayValue: null,
@@ -52,35 +61,49 @@ const SimpleCard = ({
 
 
   useEffect(() => {
-    // console.log({
-    //   data,
-    //   dataPath,
-    //   getter,
-    //   getterKey,
-    // });
-    if (getter?.[getterKey?.selectorPath]) {
+
+    if (
+      getter?.[getterKey?.selectorPath] ||
+      getter?.[getterKey?.selectedIndicator]
+      ) {
       let newDataPathArray = [];
       const currentPath = summary?.dataPath || config?.dataPath;
       const currentPathArray = currentPath.split('.');
       // const currentPathArrayLength = currentPathArray.length;
       const selectorPath = getter?.[getterKey?.selectorPath];
+      const selectedIndicator = getter?.[getterKey?.selectedIndicator];
       
       const spliceIndex = currentPathArray.length - (config?.splicePosition || 2);
+
       currentPathArray.forEach((path, index) => {
-        if (index === spliceIndex) {
+        if (
+          selectorPath && 
+          index === spliceIndex
+        ) {
           newDataPathArray.push(selectorPath?.value || selectorPath);
+        } else if (
+          selectedIndicator &&
+          index === currentPathArray.length - 1
+        ) {
+          newDataPathArray.push(selectedIndicator?.value || selectedIndicator); 
         } else {
           newDataPathArray.push(path);
         }
 
       }
       );
+
+
+
       if (newDataPathArray.length) {
 
         setDataPath(newDataPathArray.join('.'));
       }
     }
-  }, [getter?.[getterKey?.selectorPath]]);
+  }, [
+    getter?.[getterKey?.selectorPath],
+    getter?.[getterKey?.selectedIndicator]
+  ]);
 
   getNestedValue(data, summary?.dataPath || dataPath, key);
   // Handles issue with there being newbusiness data but the actual section on the dashboard is smallbusiness
@@ -211,7 +234,7 @@ const SimpleCard = ({
           ) : null}
         </>
       ) : null}
-      <br />
+      {/* <br /> */}
       {/* <h5>{dataPath}</h5> */}
 
     </div>
