@@ -32,3 +32,15 @@
 .info-card-big-number:hover {
   color: #0b5696;
 }
+
+@media screen and (max-width: 768px) {
+  .info-card-container {
+    width: 360px;
+    padding: 0px;
+  }
+
+  .info-card-text-container {
+    max-width: calc(100% - 40px);
+  }
+  
+}

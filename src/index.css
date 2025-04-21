@@ -1,7 +1,6 @@
 /* -------------------------- Root Variables -------------------------- */
 :root {
   --font-family-san-serif: 'RobotoRegular', sans-serif;
-  
   --font-family-regular: 'RobotoRegular', sans-serif;
   --font-family-bold: 'RobotoBold', sans-serif;
   --font-family-italic: 'RobotoItalic';
@@ -35,8 +34,8 @@
   --tablet-footer-height: 200px;
   --mobile-footer-height: 200px;
   --smallest-font: .7rem;
-  --smaller-font: .9rem;
-  --regular-font: 1rem;
+  --smaller-font: .8rem;
+  --regular-font: .9rem;
   --bigger-font: 1.25rem;
   --biggest-font: 1.5rem;
   --mobile-breakpoint-width: 760px;

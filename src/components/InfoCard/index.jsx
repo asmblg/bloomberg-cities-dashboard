@@ -1,6 +1,7 @@
 // import { useRef} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import icons from './icons'
 import './style.css';
 
 
@@ -9,7 +10,7 @@ const InfoCard = ({
   data
 }) => {
   const { filter } = config;
-  console.log({filter, data})
+  console.log({ filter, data })
   const infoItems = data.filter(item => {
     if (filter) {
       const booleanArray = [];
@@ -24,7 +25,7 @@ const InfoCard = ({
     } else {
       return true;
     }
-    
+
   });
 
   return (
@@ -33,50 +34,124 @@ const InfoCard = ({
       className='info-card-container'
       style={{
         gap: config.gap || '10px',
+        flexDirection: config.direction || 'column',
+        minWidth: config.cardStyle?.width || '100%',
       }}
     >
       {
-    infoItems.map((item, index) => (
-      item.layout === 4 ? (
-      <div
-        key={`info-card-${index}`}
-        className='info-card'
-        style={{...config.cardStyle}}
-      >
-        <div className='info-card-text-container'>
-        <h3 className='info-card-headline'>
-          {item[config.headline]}
-        </h3>
-        <h5 className='info-card-annotation'>
-          {item[config.annotation]}
-        </h5>
-        <h5 className='info-card-annotation'>
-          {item[config.source]}
-        </h5>
-        </div>
-        <Link 
-          to={item[config.bigNumberURL]}
-          target="_blank" 
-          rel="noopener noreferrer"  
-          className='info-card-link'
-          style={{
-            textDecoration: config.bigNumberURL ? 'underline' : 'none',
-            textUnderlineOffset: '0.2em',
-          }}
-        >
-        <h2 className='info-card-big-number'>
-          <span style={{
-            fontSize: 'smaller',
-          }}>{config.bigNumberPreUnit}</span>{item[config.bigNumber]}{config.bigNumberPostUnit}
-        </h2>
-        </Link>
+        infoItems.map((item, index) => (
+          <div
+            key={`info-card-${index}`}
+            className='info-card'
+            style={{ ...config.cardStyle }}
+          >
+            {
+              item.layout === 2 ? (
+                <>
+                  <div className='info-card-icon-container'>
+                    <img
+                      src={icons[item.icon]}
+                      alt={item.icon}
+                      className='info-card-icon'
+                      style={{
 
-      </div>
-    ): (
-    <h1>Layout not yet supported</h1>
-  )
-  ))
-    }
+                        width: config.iconSize || '50px',
+                        height: config.iconSize || '50px',
+                      }}
+                    />
+                  </div>
+                  <div className='info-card-text-container'>
+                    <h3 className='info-card-headline'>
+                      {item[config.headline]}
+                    </h3>
+                    <h5 className='info-card-annotation'>
+                      {item[config.annotation]}
+                    </h5>
+                    <h5 className='info-card-annotation'>
+                      {item[config.source]}
+                    </h5>
+                  </div>
+                </>
+              ) : item.layout === 3 ? (
+                <>
+                  <div className='info-card-icon-container'
+                    style={{
+                      gap: config.gap || '10px',
+                    }}
+                  >
+                    <img
+                      src={icons[item.icon]}
+                      alt={item.icon}
+                      className='info-card-icon'
+                      style={{
+
+                        width: config.iconSize || '50px',
+                        height: config.iconSize || '50px',
+                      }}
+                    />
+                  </div>
+                  <div className='info-card-text-container'
+                    style={{
+                      maxWidth: `calc(${config.cardStyle.width || '100%'} - 10px)`,
+                      padding: '0 5px'
+                    }}
+                  >
+                    <h5 className='info-card-annotation'
+                      style={{
+                        width: '100%',
+                        textAlign: 'center',
+                      }}
+                    >
+                      {item[config.source]}
+                    </h5>
+                    <h3 className='info-card-headline'
+                      style={{
+                        maxWidth: `calc(${config.cardStyle.width || '100%'} - 20px)`,
+                        textAlign: 'center',
+                      }}
+                    >
+                      {item[config.headline]}
+                    </h3>
+                  </div>
+                </>
+              ) : item.layout === 4 ? (
+                <>
+                  <div className='info-card-text-container'                  >
+                    <h3 className='info-card-headline'>
+                      {item[config.headline]}
+                    </h3>
+                    <h5 className='info-card-annotation'>
+                      {item[config.annotation]}
+                    </h5>
+                    <h5 className='info-card-annotation'>
+                      {item[config.source]}
+                    </h5>
+                  </div>
+                  <Link
+                    to={item[config.bigNumberURL]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className='info-card-link'
+                    style={{
+                      textDecoration: config.bigNumberURL ? 'underline' : 'none',
+                      textUnderlineOffset: '0.2em',
+                    }}
+                  >
+                    <h2 className='info-card-big-number'>
+                      <span style={{
+                        fontSize: 'smaller',
+                      }}>{config.bigNumberPreUnit}</span>{item[config.bigNumber]}{config.bigNumberPostUnit}
+                    </h2>
+                  </Link>
+                </>
+              ) : <h1>Layout not yet supported</h1>
+            }
+
+
+          </div>
+        )
+        )
+      }
     </div>
   );
 }
