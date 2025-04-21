@@ -26,7 +26,7 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
     // }
     handleDetailData(config, project).then(dataObj => {
       if (dataObj) {
-        // console.log('DATA OBJ', dataObj);
+        console.log('DATA OBJ', dataObj);
         setDetailData(dataObj);
       }
     });

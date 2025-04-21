@@ -101,7 +101,7 @@ const FlexLayoutElement = ({
       )}
     >
       {!content ? (
-        elementArray.map((element, i) => (
+        elementArray?.map((element, i) => (
           <FlexLayoutElement
             key={`recursive-flex-layout-el-${i}-${view?.key}`}
             recursive
@@ -122,7 +122,11 @@ const FlexLayoutElement = ({
             viewLoaded={viewLoaded}
             manifest={manifest}
           />
-        ))
+        )) || <div 
+          style={{
+            // backgroundColor: 'red',
+            ...style || {}}}
+          />
       ) : content?.type === 'simple-card' ? (
         <SimpleCard
           config={content?.config || content}
