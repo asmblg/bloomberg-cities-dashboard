@@ -19,11 +19,13 @@ import HorizontalBarChart from '../HorizontalBarChart';
 import IndicatorMap from '../IndicatorMap';
 import SimpleLineChart from '../SimpleLineChart.js';
 import SimpleCard from '../SimpleCard/index.jsx';
+import InfoCard from '../InfoCard/index.jsx';
 import HTML from '../HTML/index.jsx';
 import FilterDropdown from '../FilterDropdown/index.jsx';
 
 import { handleElementStyle, sanitizeHTML } from './utils';
 import SelectedImage from '../SelectedImage';
+import getNestedValue from '../../utils/getNestedValue.js';
 
 const FlexLayoutElement = ({
   data,
@@ -122,11 +124,7 @@ const FlexLayoutElement = ({
             viewLoaded={viewLoaded}
             manifest={manifest}
           />
-        )) || <div 
-          style={{
-            // backgroundColor: 'red',
-            ...style || {}}}
-          />
+        )) || <div/>
       ) : content?.type === 'simple-card' ? (
         <SimpleCard
           config={content?.config || content}
@@ -279,6 +277,11 @@ const FlexLayoutElement = ({
           viewLoaded={viewLoaded}
         // getterKey={content.getterKey}
         />
+      ) : content?.type === 'info-card' ? (
+        <InfoCard
+          data={getNestedValue(data, content?.dataPath)}
+          config={content?.config || content}
+          />
       ) : (content?.type === 'filler' || content.type === 'html') ? (
         <div 
           style={{

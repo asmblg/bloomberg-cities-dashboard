@@ -79,7 +79,8 @@ a:hover {
 }
 
 #layout {
-  background-image: url('/images/background_300x300.png');
+  /* background-image: url('/images/background_300x300.png'); */
+  background-color: #FAFAF2;
   width: 100vw;
 }
 

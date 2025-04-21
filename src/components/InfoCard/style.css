@@ -1,0 +1,34 @@
+.info-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px;
+}
+
+.info-card-text-container {
+  max-width: calc(100% - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+
+}
+
+.info-card-headline {
+  font-family: var(--font-family-bold);
+}
+
+.info-card-big-number {
+  font-family: var(--font-family-bold);
+  font-weight: 100;
+}
+
+.info-card-big-number:hover {
+  color: #0b5696;
+}
