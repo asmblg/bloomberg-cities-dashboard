@@ -35,8 +35,8 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
       });
     }
 
-    if (config?.totalOption || config?.indicators) {
-      setSelection(config?.totalOption || config?.indicators?.[0]);
+    if (config?.totalOption || config?.indicators || config?.initialSelection) {
+      setSelection(config?.totalOption || config?.indicators?.[0] || config?.initialSelection);
     }
 
 
@@ -120,9 +120,9 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
 
       // console.log(dataObject);
       // console.log(colorObject);
-      console.log({ dataObject });
-      console.log({ basePath: config.indicator.basePath, indicatorKey, indicatorKey2 });
-      console.log({ min, max, range, pRange });
+      // console.log({ dataObject });
+      // console.log({ basePath: config.indicator.basePath, indicatorKey, indicatorKey2 });
+      // console.log({ min, max, range, pRange });
 
       setBins(colorObject);;
 
