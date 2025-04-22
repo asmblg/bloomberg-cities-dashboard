@@ -81,7 +81,7 @@ const FilterDropdown = ({
       >
         <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
         <div className='dropdown-header-label'>
-          <h4>
+          <h4 className='simple-card-indicator-text'>
             {
               `${selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || ''}`.toUpperCase()
             }
