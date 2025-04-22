@@ -8,7 +8,7 @@
   background-color: var(--white-color);
   /* height: 100%; */
   width: var(--simple-card-width);
-  padding: 10px 20px;
+  padding: 10px 10px 10px 20px;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--primary-gray-color);
