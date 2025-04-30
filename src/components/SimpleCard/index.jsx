@@ -249,7 +249,7 @@ const SimpleCard = ({
           ) : null}
         </>
       ) : null}
-      <h5>{dataPath}</h5>
+      {/* <h5>{dataPath}</h5> */}
 
     </div>
   );
