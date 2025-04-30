@@ -9,7 +9,7 @@
   flex-direction: row;
   align-items: center;
   /* height: 40px; */
-  border-bottom: 3px solid var(--primary-gray-color);
+  /* border-bottom: 3px solid var(--primary-gray-color); */
 }
 /* .dropdown-header > i {
   height: 100%;

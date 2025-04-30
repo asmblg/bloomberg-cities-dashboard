@@ -67,7 +67,17 @@ const formatValue = (value, units, onAxis) => {
       case 'euro': 
       case 'euros':
       case 'M €':  {
-        return `${formatNumberWithCommas(value)}${units === 'M €' ? `${units}` : ' €'}`;
+        if (units === 'M €' && Math.abs(value) >= 1000) {
+          const billionsValue = value / 1000;
+          const floatValue = parseFloat(billionsValue).toFixed(fixedPointNum);
+
+          return `${formatNumberWithCommas(floatValue)}B €`;
+
+        } else {
+          const floatValue = parseFloat(value).toFixed(fixedPointNum);
+
+        return `${formatNumberWithCommas(floatValue)}${units === 'M €' ? `${units}` : ' €'}`;
+        }
       }
 
       default: {

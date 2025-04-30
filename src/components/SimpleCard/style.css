@@ -45,8 +45,10 @@
 
 .simple-card-sub-header {
   opacity: 0.8;
-  font-size: 12px;
-  line-height: 16px;
+  margin-top: 2px;
+  font-size: 10px;
+  line-height: 10px;
+
 }
 
 .simple-data-wrapper {

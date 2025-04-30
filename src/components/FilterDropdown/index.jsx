@@ -21,6 +21,7 @@ const FilterDropdown = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selection, setSelection] = useState(null);
   const [subHeading, setSubHeading] = useState(null);
+  const [deactivateSetter, setDeactivateSetter] = useState(false);
   const setterKey =  config?.setterKey?.filter || 
     config?.setterKey?.filter1 ||
     config?.setterKey?.filter2 ||
@@ -37,6 +38,24 @@ const FilterDropdown = ({
   //   setDropdownOpen(!dropdownOpen);
   //   setter(setterKey, selection);
   // }
+
+
+    useEffect(() => {
+      if (config?.getterKey?.activeFilter) {
+        const activeFilter = getter?.[config?.getterKey?.activeFilter];
+        const selectedOption = options?.filter(({ value, key }) => (
+          key === activeFilter ||
+          value === activeFilter ||
+          key === activeFilter?.key ||
+          value === activeFilter?.value
+        ))?.[0];
+        if (!selectedOption) {
+          setSelection(options?.[0]);
+
+        }
+      }
+    }, [getter?.[config?.getterKey?.activeFilter]]);
+  
   useEffect(() => {
     if (
       selection &&

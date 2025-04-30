@@ -16,6 +16,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
   const [selection, setSelection] = useState();
   const [options, setOptions] = useState();
   const [hoveredFeature, setHoveredFeature] = useState();
+  const [deactivateSetter, setDeactivateSetter] = useState(false);
 
   const fillColor = config.color || '#fff3e2';
 
@@ -164,6 +165,21 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
       setter(config?.setterKey?.geoSelection, selection?.dataPath);
     }
   }, [selection]);
+
+  useEffect(() => {
+    if (config?.getterKey?.activeFilter) {
+      const activeFilter = getter?.[config?.getterKey?.activeFilter];
+      const matchingOption = options?.filter(({ value, key }) => (
+        key === activeFilter ||
+        value === activeFilter ||
+        key === activeFilter?.key ||
+        value === activeFilter?.value
+      ))?.[0];
+      if (!matchingOption) {
+        setSelection(options?.[0]);
+      }
+    }
+  }, [getter?.[config?.getterKey?.activeFilter]]);
 
   return (
     <div className='selector-map-wrapper' key='selector-map'>

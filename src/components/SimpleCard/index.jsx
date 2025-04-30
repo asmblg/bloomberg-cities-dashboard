@@ -46,6 +46,9 @@ const SimpleCard = ({
   const navigate = useNavigate();
   const [allSummaryData, setAllSummaryData] = useState();
   const [dataPath, setDataPath] = useState(config?.dataPath);
+  const selectorPath = getter?.[getterKey?.selectorPath];
+  const selectedIndicator = getter?.[getterKey?.selectedIndicator];
+
   // console.log({ config });
 
   useEffect(() => {
@@ -69,11 +72,21 @@ const SimpleCard = ({
       const currentPath = summary?.dataPath || config?.dataPath;
       const currentPathArray = currentPath.split('.');
       // const currentPathArrayLength = currentPathArray.length;
-      const selectorPath = getter?.[getterKey?.selectorPath];
-      const selectedIndicator = getter?.[getterKey?.selectedIndicator];
+
+      const selectorDataPath = selectorPath?.dataPath
       
       const spliceIndex = currentPathArray.length - (config?.splicePosition || 2);
-
+      if (selectorDataPath) {
+        const selectorDataPathArray = selectorDataPath.split('.');
+        selectorDataPathArray.forEach((path, index) => {
+          newDataPathArray.push(path);
+        });
+        if (selectedIndicator) {
+          newDataPathArray.push(selectedIndicator?.value || selectedIndicator);
+        } else {
+          newDataPathArray.push(currentPathArray[currentPathArray.length - 1]);
+        }
+      } else {
       currentPathArray.forEach((path, index) => {
         if (
           selectorPath && 
@@ -91,6 +104,7 @@ const SimpleCard = ({
 
       }
       );
+    }
 
 
 
@@ -175,7 +189,9 @@ const SimpleCard = ({
         ) : null}
       </div>
 
-      <h5 className='simple-card-sub-header'>{config?.indicator?.Geography}</h5>
+      <h5 className='simple-card-sub-header'>
+        {selectorPath?.label || selectorPath || selectedIndicator?.label || selectedIndicator || config?.indicator?.Geography}
+      </h5>
       {viewType !== 'mobile' || cardFullSize ? (
         <>
           <div
@@ -233,8 +249,7 @@ const SimpleCard = ({
           ) : null}
         </>
       ) : null}
-      {/* <br /> */}
-      {/* <h5>{dataPath}</h5> */}
+      <h5>{dataPath}</h5>
 
     </div>
   );
