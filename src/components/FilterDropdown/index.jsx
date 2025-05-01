@@ -43,13 +43,13 @@ const FilterDropdown = ({
     useEffect(() => {
       if (config?.getterKey?.activeFilter) {
         const activeFilter = getter?.[config?.getterKey?.activeFilter];
-        const selectedOption = options?.filter(({ value, key }) => (
+        const matchingOption = options?.filter(({ value, key }) => (
           key === activeFilter ||
           value === activeFilter ||
           key === activeFilter?.key ||
           value === activeFilter?.value
         ))?.[0];
-        if (!selectedOption) {
+        if (!matchingOption) {
           setSelection(options?.[0]);
 
         }
