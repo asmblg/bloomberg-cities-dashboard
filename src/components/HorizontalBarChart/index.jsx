@@ -114,7 +114,9 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
           : <h4 className='hbc-title'>{config?.title}</h4>
         : null
       }
-      <h5 style={{marginBottom: '10px'}}>{dataConfig?.subHeader || config?.defaultSubheading}</h5>
+      {!config?.noSubheading &&
+        <h5 style={{marginBottom: '10px'}}>{dataConfig?.subHeader || config?.defaultSubheading}</h5>
+      }
       <div 
         className='hbc-container' 
         style={config?.chartWrapperStyle || {}}
