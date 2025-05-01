@@ -82,9 +82,11 @@ const Home = ({
             ))}
           </div>
         </>
+        { !config?.disableShareAndPrint && 
         <div>
           <ShareAndPrintIcons />
         </div>
+        }
       </div>
     </div>
   );

@@ -126,10 +126,12 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
             )}
           </div>
         ) : null}
+        {  !config?.disableShareIcon &&
+                  <div style={{ margin: '10px', position: 'relative' }}>
+                  <ShareAndPrintIcons />
+                </div>
+        }
 
-        <div style={{ margin: '10px', position: 'relative' }}>
-          <ShareAndPrintIcons />
-        </div>
       </div>
     </div>
   );

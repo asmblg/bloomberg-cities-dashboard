@@ -11,17 +11,19 @@ const AboutTheData = ({ config, project, viewType, infoIconConfig }) => {
   return (
     <div className='about-data-container'>
       <div className='about-data-header'>
-        <h1
-          className='about-data-title'
-          style={{ color: infoIconConfig?.aboutDataTitleColor || 'var(--black-color)' }}
-        >
-          {infoIconConfig?.title
-            ? infoIconConfig.title.toUpperCase()
-            : config?.title
-              ? config.title.toUpperCase()
-              : 'ABOUT THE DATA'}
-        </h1>
-        <a
+        {!config?.noTitle &&
+          <h1
+            className='about-data-title'
+            style={{ color: infoIconConfig?.aboutDataTitleColor || 'var(--black-color)' }}
+          >
+            {infoIconConfig?.title
+              ? infoIconConfig.title.toUpperCase()
+              : config?.title
+                ? config.title.toUpperCase()
+                : 'ABOUT THE DATA'}
+          </h1>
+        }
+        {!config?.noBackButton && <a
           className='about-back-link'
           href={infoIconConfig?.tab ? `/${project}/${infoIconConfig.tab}` : `/${project}`}
         >
@@ -29,7 +31,7 @@ const AboutTheData = ({ config, project, viewType, infoIconConfig }) => {
           <div>
             <Icon size={viewType !== 'mobile' ? 'large' : 'small'} name='close' />
           </div>
-        </a>
+        </a>}
       </div>
       {config?.variableTable?.headerRow?.[0] && config.variableTable.variables?.[0] ? (
         <div className='about-table-container'>
