@@ -29,6 +29,11 @@
   font-weight: 100;
 }
 
+.info-card-chart {
+  flex-grow: 1;
+  align-items: center;
+  display: flex;
+}
 .info-card-big-number:hover {
   color: #0b5696;
 }

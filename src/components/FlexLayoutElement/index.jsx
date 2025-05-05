@@ -281,6 +281,7 @@ const FlexLayoutElement = ({
         <InfoCard
           data={getNestedValue(data, content?.dataPath)}
           config={content?.config || content}
+          stats={getNestedValue(data, content?.statsPath)}
           />
       ) : (content?.type === 'filler' || content.type === 'html') ? (
         <div 

@@ -1,16 +1,18 @@
 // import { useRef} from 'react';
+
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import icons from './icons'
 import './style.css';
+import SimpleLineChart from '../SimpleLineChart.js';
 
 
 const InfoCard = ({
   config,
-  data
+  data,
+  stats
 }) => {
   const { filter } = config;
-  console.log({ filter, data })
   const infoItems = data.filter(item => {
     if (filter) {
       const booleanArray = [];
@@ -46,7 +48,34 @@ const InfoCard = ({
             style={{ ...config.cardStyle }}
           >
             {
-              item.layout === 2 ? (
+              
+              item.layout === 1 ? (
+                <>
+                  <div className='info-card-text-container' style={{maxWidth: '100%'}}>
+                    <h3 className='info-card-headline' 
+                      style={{
+                        width: '100%',
+                        paddingRight: '25px',
+                      }}
+                    >
+                      {item[config.headline]}
+                    </h3>
+                    <h5 className='info-card-annotation'>
+                      {item[config.annotation]}
+                    </h5>
+                    <div className='info-card-chart'>
+                    {/* { JSON.stringify(stats?.[item?.data] || {})} */}
+                    <SimpleLineChart
+                      config={config}
+                      data={stats?.[item?.data] || {}}
+                      margin={{ top: 15, right: 60, bottom: 0, left: 0 }}
+                      height={config?.chart?.height || 80}
+                      width={config?.chart?.width || 140}
+                    />                    
+                    </div>
+                  </div>
+                </>
+              ) : item.layout === 2 ? (
                 <>
                   <div className='info-card-icon-container'>
                     <img
