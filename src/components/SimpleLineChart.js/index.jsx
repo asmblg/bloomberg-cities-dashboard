@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import formatNumberWithCommas from '../../utils/formatNumberWithCommas';
 import { LineChart as LChart, XAxis, YAxis, Line, ResponsiveContainer, Tooltip, Dot, LabelList } from 'recharts';
 
 import CustomTooltip from '../CustomTooltip';
@@ -98,7 +99,7 @@ const SimpleLineChart = (props) => {
         style={{ fontFamily: 'var(--font-family-bold)' }}
         
       >
-        {props.value}
+        {formatNumberWithCommas(props.value)}
       </text>      
       </g>
 
