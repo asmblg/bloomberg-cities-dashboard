@@ -190,15 +190,19 @@ const SimpleCard = ({
       </div>
 
       <h5 className='simple-card-sub-header'>
-        {
+      {  `${
         selectorPath && selectedIndicator
           ? `${selectedIndicator?.label || selectedIndicator}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
-          : selectorPath && !selectedIndicator && config?.indicator?.Geography
+          : selectorPath && 
+            !selectedIndicator && 
+            config?.indicator?.Geography && 
+            config?.indicator?.Geography?.toUpperCase() !== selectorPath?.toUpperCase() &&
+            config?.indicator?.Geography?.toUpperCase() !== selectorPath?.label?.toUpperCase()
             ? `${selectorPath?.label || selectorPath}, ${config?.indicator?.Geography}` 
             : selectorPath && !selectedIndicator
               ? `${selectorPath?.label || selectorPath}`
               : config?.indicator?.Geography
-      }
+      }`.toLocaleUpperCase()}
 
       </h5>
       {viewType !== 'mobile' || cardFullSize ? (

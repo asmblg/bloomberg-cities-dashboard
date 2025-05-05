@@ -97,6 +97,15 @@ const FilterDropdown = ({
         style={{...config?.headerStyle || {}}}
         className='dropdown-header' 
         onClick={() => setDropdownOpen(!dropdownOpen)}
+        onMouseLeave={() => {
+          if (dropdownOpen) {
+            setTimeout(() => {
+              setDropdownOpen(false);
+            }, 200);
+            // setDropdownOpen(false);
+          }
+        }
+        }
       >
         <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
         <div className='dropdown-header-label'>
@@ -115,7 +124,25 @@ const FilterDropdown = ({
 
       </div>
       {dropdownOpen && (
-        <ul className='dropdown-options-container'>
+        <ul className='dropdown-options-container'
+        onMouseLeave={() => {
+          if (dropdownOpen) {
+            setTimeout(() => {
+              setDropdownOpen(false);
+            }, 500);
+            // setDropdownOpen(false);
+          }
+        }
+        }
+        onMouseEnter={() => {
+          if (dropdownOpen) {
+            setTimeout(() => {
+              setDropdownOpen(true);
+            }, 200);
+            // setDropdownOpen(false);
+          }
+        }}
+        >
           {optionsArray?.map(option =>
             option && option.label && option.key && (
               <li

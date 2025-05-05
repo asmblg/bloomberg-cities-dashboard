@@ -80,7 +80,7 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
         <XAxis
           dataKey={'name'}
           axisLine={false}
-          tick={{fontSize: 12}}
+          tick={{fontSize: 10}}
           tickFormatter={text => formatChartTick(text, chartConfig?.xaxis?.labelFormatter)}
         />
         {

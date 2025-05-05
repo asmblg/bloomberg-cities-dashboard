@@ -60,7 +60,10 @@ const TrendPill = ({
             style={{ height: heightVal || '', width: widthVal || '' }}
           >
             {/* <h5 className='no-data-pill-text'> */}
-              Comparison Data Currently Unavailable
+              { onlyYears
+                ? 'Comparison Data Not Available By Quarters'
+                :'Comparison Data Currently Unavailable'
+              }
             {/* </h5>           */}
           </div>
         </>

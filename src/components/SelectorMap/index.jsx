@@ -157,6 +157,13 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
       if (options?.[0]) {
         setSelection(options[0]);
       }
+    } else if (config?.indicators) {
+      const optionsFromIndicators = config?.indicators?.map(({ label, key, dataPath, value }) => ({
+        label,
+        key,
+        dataPath: dataPath || value
+      }));
+      setOptions(optionsFromIndicators);
     }
   }, [geoJSON]);
 
@@ -241,9 +248,10 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
                 return {
                   fillColor: binnedColor || fillColor,
                   color: config.strokeColor || 'black',
-                  weight: selected ? 2 : 1,
-                  opacity: selected ? 1 : 0.5,
-                  fillOpacity: selected ? 1 : binnedColor ? 0.8 : 0.5
+                  weight: selected ? 3 : 1,
+                  opacity: selected ? 1 : 0.8,
+                  fillOpacity: selected ? 1 : binnedColor ? 0.7 : 0.5,
+                  zindex: selected ? 1000 : 1
                 };
               }}
             >

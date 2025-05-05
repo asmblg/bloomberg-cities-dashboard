@@ -20,11 +20,11 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
   [
     {
       value: 'QtQ',
-      label: 'Compare with previous quarter'
+      label: 'Quarter-to-Quarter change'
     },
     {
       value: 'YtY',
-      label: 'Compare with same quarter of previous year'
+      label: 'Year-to-Year change'
     }
   ];
 

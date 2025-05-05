@@ -70,7 +70,7 @@ const InfoCard = ({
                       data={stats?.[item?.data] || {}}
                       margin={{ top: 15, right: 60, bottom: 0, left: 0 }}
                       height={config?.chart?.height || 80}
-                      width={config?.chart?.width || 140}
+                      width={config?.chart?.width || '100%'}
                     />                    
                     </div>
                   </div>

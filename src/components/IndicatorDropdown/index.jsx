@@ -100,7 +100,25 @@ const IndicatorDropdown = ({
 
       </div>
       {dropdownOpen && optionArray?.[1] ? (
-        <ul className='dropdown-options-container'>
+        <ul className='dropdown-options-container'
+        onMouseLeave={() => {
+          if (dropdownOpen) {
+            setTimeout(() => {
+              setDropdownOpen(false);
+            }, 500);
+            // setDropdownOpen(false);
+          }
+        }
+        }
+        onMouseEnter={() => {
+          if (dropdownOpen) {
+            setTimeout(() => {
+              setDropdownOpen(true);
+            }, 200);
+            // setDropdownOpen(false);
+          }
+        }}
+        >
           {optionArray.map(option =>
             option && option.label && option.key ? (
               <li

@@ -28,7 +28,6 @@ const SimpleLineChart = (props) => {
       const dataPath2 = config?.secondaryKey;
       const dataArr1 = handleSimpleChartDataArray(config, data, dataPath1);
       const dataArr2 = handleSimpleChartDataArray(config, data, dataPath2);
-      console.log({dataArr1, dataArr2})
 
       if (dataArr1?.[0] && dataArr2?.[0]) {
         setDataArray(dataArr1.map((item, index) => {
@@ -111,7 +110,7 @@ const SimpleLineChart = (props) => {
         <XAxis
           dataKey={'name'}
           interval={'preserveStartEnd'}
-          tick={{fontSize: 12}}
+          tick={{fontSize: 10}}
           tickFormatter={text => formatChartTick(text, config?.xaxis?.labelFormatter)}
         />
         {
