@@ -39,7 +39,7 @@ const formatValue = (value, units, onAxis) => {
 
         const text = parseFloat(calcValue).toFixed(thousands || millions ? 1 : 0).replace('.0', '');
         const unit = billions ? 'B' : millions ? 'M' : thousands ? 'K' : ''; 
-        return units === 'bigEuros' ? `${text}${unit} €` :`$${text}${unit}`;
+        return units === 'bigEuros' ? `${formatNumberWithCommas(text)}${unit} €` :`$${formatNumberWithCommas(text)}${unit}`;
         
           
       }
@@ -58,10 +58,10 @@ const formatValue = (value, units, onAxis) => {
 
         const text = parseFloat(calcValue).toFixed(thousands || millions ? 1 : 0).replace('.0', '');
         const unit = billions ? 'B' : millions ? 'M' : thousands ? 'K' : ''; 
-        return thousands ? `${text}${unit}` : value;
+        return thousands ? `${formatNumberWithCommas(text)}${unit}` : formatNumberWithCommas(value);
       }
       case 'thousands': {
-        return `${(value).toFixed(Math.abs(value) < 1 ? 1 : fixedPointNum)}K`;
+        return `${formatNumberWithCommas((value).toFixed(Math.abs(value) < 1 ? 1 : fixedPointNum))}K`;
       }
       case '€' :
       case 'euro': 

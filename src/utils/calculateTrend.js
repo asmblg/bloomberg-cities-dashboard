@@ -1,4 +1,5 @@
 import numeral from 'numeral';
+import formatNumberWithCommas from './formatNumberWithCommas';
 /**
  *
  * @param {string or number} currentValue
@@ -22,7 +23,7 @@ const calculateTrend = (currentValue, oldValue, currentValueUnits) => {
   const trendValue = Math.abs(value);
   const directionText = trendDirection === 'up' ? '+' : trendDirection === 'down' ? '-' : null;
   const unitsString = currentValueUnits !== 'percent' ? '%' : 'pp';
-  const trendText = `${directionText} ${numeral(trendValue).format('0,0.0')}${unitsString}`;
+  const trendText = `${directionText} ${formatNumberWithCommas(numeral(trendValue).format('0,0.0'))}${unitsString}`;
 
   return {
     trendValue: trendText,
