@@ -70,18 +70,23 @@ const App = () => {
       {config || pathname === '/' ? (
         <>
           <Layout config={config} setShowModal={setShowModal} />
-          <UserConsentBanner
-            key={`user-consent-banner-display-${showBanner}`}
-            showBanner={showBanner}
-            handleUserConsent={handleUserConsent}
-            setShowModal={setShowModal}
-          />
-          <UserConsentModal
-            key={`user-consent-modal-display-${showModal}`}
-            showModal={showModal}
-            setShowModal={setShowModal}
-            handleUserConsent={handleUserConsent}
-          />
+          {
+            !config?.disableConsentModal && <UserConsentBanner
+              key={`user-consent-banner-display-${showBanner}`}
+              showBanner={showBanner}
+              handleUserConsent={handleUserConsent}
+              setShowModal={setShowModal}
+            />
+          }
+          {
+            !config?.disableConsentModal && <UserConsentModal
+              key={`user-consent-modal-display-${showModal}`}
+              showModal={showModal}
+              setShowModal={setShowModal}
+              handleUserConsent={handleUserConsent}
+            />
+          }
+
         </>
       ) : (
         <TailSpin

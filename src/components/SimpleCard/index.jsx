@@ -196,7 +196,7 @@ const SimpleCard = ({
           : selectorPath && 
             !selectedIndicator && 
             config?.indicator?.Geography && 
-            config?.indicator?.Geography?.toUpperCase() !== selectorPath?.toUpperCase() &&
+            config?.indicator?.Geography?.toUpperCase() !== `${selectorPath}`?.toUpperCase() &&
             config?.indicator?.Geography?.toUpperCase() !== selectorPath?.label?.toUpperCase()
             ? `${selectorPath?.label || selectorPath}, ${config?.indicator?.Geography}` 
             : selectorPath && !selectedIndicator

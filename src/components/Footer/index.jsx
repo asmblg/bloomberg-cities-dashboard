@@ -40,7 +40,7 @@ const logos = {
   lightcastLogoBlack
 };
 
-const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartners, invertLogos }) => {
+const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartners, invertLogos, disableUserConsent }) => {
   const { partners, copyright, mainLogoKey } = config;
 
   return (
@@ -57,9 +57,12 @@ const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartn
         <p>
           <span>&#169;</span> {copyright}
         </p>
-        <p className='in-text-link' onClick={() => setShowModal(true)}>
-          Cookies Preferences
-        </p>
+        {
+          !disableUserConsent &&
+          <p className='in-text-link' onClick={() => setShowModal(true)}>
+            Cookies Preferences
+          </p>
+      }
       </div>
       <div>
         {
