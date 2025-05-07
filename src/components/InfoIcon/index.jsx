@@ -12,7 +12,7 @@ const InfoIcon = ({ config, popup, onClick }) =>
       key={`${
         config.Variable.split(' ').join('-') || config.Description?.split(' ').join('-')
       }-popup`}
-      position='top center'
+      position='bottom center'
       trigger={<Icon name='info circle' className='info-icon' />}
       on='click'
       hideOnScroll
@@ -23,20 +23,20 @@ const InfoIcon = ({ config, popup, onClick }) =>
       <Popup.Content className='info-icon-popup-container'>
         {config.Description ? <h5 className='info-icon-popup-text'>{config.Description}</h5> : null}
 
-        {/* {config.Geography ? (
+        {config.Geography ? (
           <div className='info-icon-text-container'>
-            <h5 className='info-icon-popup-text'>{'Geography:'}</h5>
-            <h5 className='info-icon-popup-text'>{config.Geography}</h5>
+            <h5 className='info-icon-popup-text'>Geography: {config.Geography}</h5>
+            {/* <h5 className='info-icon-popup-text'></h5> */}
           </div>
-        ) : null} */}
+        ) : null}
         {config.Source ? (
           <div className='info-icon-text-container' style={{ marginBottom: '0' }}>
-            <h5 className='info-icon-popup-text'>Source:</h5>
-            <SourceLink
+            <h5 className='info-icon-popup-text'>Source: <SourceLink
               source={config.Source || null}
               link1={config.Source_link || null}
               link2={config.Source_link_2 || null}
-            />
+            /></h5>
+
           </div>
         ) : null}
       </Popup.Content>
