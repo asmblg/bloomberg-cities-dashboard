@@ -62,7 +62,7 @@
 }
 
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: var(--tablet-breakpoint-width)) {
+@media screen and (max-width: 760px) {
   .home-wrapper {
     flex-direction: column;
     height: fit-content;
@@ -86,7 +86,7 @@
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: var(--mobile-breakpoint-width)) {
+@media screen and (max-width: 450px) {
   .home-wrapper {
     height: fit-content;
     margin: 0;

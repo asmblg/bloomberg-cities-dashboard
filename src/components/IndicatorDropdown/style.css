@@ -77,7 +77,7 @@
 
 /* ---------- Media Queries ---------- */
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: var(--tablet-breakpoint-width)) {
+@media screen and (max-width: 760px) {
   .dropdown-header-label > h4 {
     font-size: 14px;
     /* padding-bottom: 10px; */

@@ -206,7 +206,7 @@ path:focus {
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: var(--tablet-breakpoint-width)) {
+@media screen and (max-width: 760px) {
   .consent-button {
     width: 100%;
   }
@@ -219,7 +219,7 @@ path:focus {
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: var(--mobile-breakpoint-width)) {
+@media screen and (max-width: 450px) {
   .full-card-wrapper {
     margin: 10px 0;
   }

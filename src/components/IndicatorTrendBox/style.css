@@ -49,13 +49,13 @@
     height: 50px;
   }
 }
-@media screen and (max-width: var(--tablet-breakpoint-width)) {
+@media screen and (max-width: 760px) {
   .indicator-trend-top-label {
     height: 100%;
   }
 }
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: var(--mobile-breakpoint-width)) {
+@media screen and (max-width: 450px) {
   .indicator-value-container > .bold-font {
     font-size: 2.5rem;
   }

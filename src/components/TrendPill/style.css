@@ -78,10 +78,10 @@
 /* @media screen and (max-width: 1300px) {} */
 
 /* Initial Tablet Breakpoint */
-/* @media screen and (max-width: var(--tablet-breakpoint-width)) {} */
+/* @media screen and (max-width: 760px) {} */
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: var(--mobile-breakpoint-width)) {
+@media screen and (max-width: 450px) {
   .upward-trend,
   .downward-trend,
   .neutral-trend {

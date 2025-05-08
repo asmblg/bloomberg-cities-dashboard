@@ -40,13 +40,13 @@
 }
 
 /* -------------------- MEDIA QUERIES -------------------- */
-@media screen and (max-width > var(--tablet-breakpoint-width)), (max-height: 1000px) {
+@media screen and (max-width > 760px), (max-height: 1000px) {
   .detail-card-container {
     height: 'fit-content' !important;
   }
 }
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: var(--tablet-breakpoint-width)) {
+@media screen and (max-width: 760px) {
   .detail-card-container {
     height: 'fit-content';
   }

@@ -96,7 +96,7 @@
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: var(--tablet-breakpoint-width))  {
+@media screen and (max-width: 760px)  {
   .title-container {
     width: calc(48% - (var(--tablet-outer-margin)));
     /* padding-left: var(--tablet-outer-margin); */
@@ -109,7 +109,7 @@
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: var(--mobile-breakpoint-width)) {
+@media screen and (max-width: 450px) {
   .title-container {
     /* padding-left: var(--mobile-outer-margin); */
     /* width: 40%; */

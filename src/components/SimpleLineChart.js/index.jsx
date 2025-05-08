@@ -80,7 +80,7 @@ const SimpleLineChart = (props) => {
 
   const  ValueLabel = (props) => {
     const {index, order, viewBox } = props;
-    console.log('ValueLabel', props);
+    // console.log('ValueLabel', props);
     const y = order === 'top' ? 10 : 35;
     const x = props.x + 10;
     

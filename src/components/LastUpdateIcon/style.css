@@ -15,7 +15,7 @@
 } */
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: var(--mobile-breakpoint-width)) {
+@media screen and (max-width: 450px) {
   .updated-date-title {
     font-size: 12px;
     line-height: 1;

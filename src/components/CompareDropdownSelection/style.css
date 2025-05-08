@@ -170,7 +170,7 @@
 
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: var(--mobile-breakpoint-width)) {
+@media screen and (max-width: 450px) {
   .compare-dropdown-container {
     display: flex;
     flex-direction: column;

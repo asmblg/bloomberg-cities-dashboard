@@ -74,7 +74,7 @@
   margin: 40px 0 20px 0;
 }
 
-@media screen and (max-width: var(--tablet-breakpoint-width)) {
+@media screen and (max-width: 760px) {
   .ucm-container {
     max-height: 98%;
     max-width: 98%;
@@ -86,4 +86,4 @@
 }
 
 /* Initial Mobile Breakpoint */
-/* @media screen and (max-width: var(--mobile-breakpoint-width)) {} */
+/* @media screen and (max-width: 450px) {} */

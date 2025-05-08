@@ -23,7 +23,7 @@
 }
 
 /* Initial Tablet Breakpoint */
-@media screen and (max-width: var(--tablet-breakpoint-width)) {
+@media screen and (max-width: 760px) {
   .ucb-container {
     height: 20%;
     flex-direction: column;
@@ -42,7 +42,7 @@
 }
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: var(--mobile-breakpoint-width)) {
+@media screen and (max-width: 450px) {
   .ucb-container {
     height: 35%;
     padding: 0 var(--mobile-outer-margin);

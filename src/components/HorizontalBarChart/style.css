@@ -51,7 +51,7 @@
   width: 40px;
 }
 
-@media screen and (max-width: var(--tablet-breakpoint-width)) {
+@media screen and (max-width: 760px) {
   .hbc-row-label {
     min-width: 100px;
     font-size: var(--smallest-font);
@@ -64,7 +64,7 @@
 
 }
 
-@media screen and (max-width: var(--mobile-breakpoint-width)), (orientation: portrait) {
+@media screen and (max-width: 450px), (orientation: portrait) {
 
   .hbc-container {
     width: calc(100vw - 140px) !important;

@@ -31,7 +31,7 @@
 
 
 /* Initial Mobile Breakpoint */
-@media screen and (max-width: var(--mobile-breakpoint-width)) {
+@media screen and (max-width: 450px) {
   .section-title-with-trend-data-toggler {
     flex-direction: column;
     justify-content: flex-start;

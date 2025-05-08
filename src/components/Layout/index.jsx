@@ -41,6 +41,7 @@ const Layout = ({ config, setShowModal }) => {
   }, []);
 
   useEffect(() => {
+    
     if (config?.project && sectionKeys) {
       const { section, redirect } = getCurrentRoute(config.project, sectionKeys, pathname);
       
@@ -54,8 +55,8 @@ const Layout = ({ config, setShowModal }) => {
     if (config?.breakpoints) {
       // Set css root:variablea
 
-      const root = document.documentElement;
       const { mobile, tablet } = config?.breakpoints;
+      console.log({mobile, tablet, root});
       if (mobile) {
         root.style.setProperty('--mobile-breakpoint-width', `${mobile}px`);
       }
