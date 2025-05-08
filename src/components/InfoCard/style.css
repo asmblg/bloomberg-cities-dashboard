@@ -33,6 +33,7 @@
   flex-grow: 1;
   align-items: center;
   display: flex;
+  margin-top: 10px;
 }
 .info-card-big-number:hover {
   color: #0b5696;
