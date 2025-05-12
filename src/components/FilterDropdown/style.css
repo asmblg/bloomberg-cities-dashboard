@@ -28,13 +28,13 @@
 }
 
 .dropdown-options-container {
-  background-color: var(--primary-gray-color);
+  /* background-color: var(--primary-gray-color); */
   position: absolute;
   z-index: 9999999;
   height: fit-content;
-  max-height: 150px;
+  max-height: 200px;
   width: 100%;
-  max-width: 200px;
+  max-width: 300px;
   list-style: none;
   padding: 0%;
   line-height: 24px;
@@ -47,8 +47,8 @@
   border-bottom: 2px solid var(--secondary-gray-color);
   color: var(--black-color);
   margin: 2%;
-  font-size: var(--smallest-font);
-  line-height: var(--smallest-font);
+  font-size: 12px;
+  line-height: 12px;
   padding: 1em;
   line-break: auto;
   font-family: var(--font-family-regular), sans-serif;

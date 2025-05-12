@@ -150,6 +150,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
             zoomControl={true}
             zoomSnap={.2}
             zoomDelta={.2}
+            attributionControl={false}
           >
             <TileLayer
               // attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
@@ -294,6 +295,57 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
             )}
 
           </MapContainer>
+          {
+            config.horizontalLegend && bins && (
+              <div 
+                className='horizontal-legend' 
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginTop: '1rem',
+                  marginBottom: '1rem',
+                  padding: '1rem .5rem',
+                  flexDirection: 'row',
+                  gap: '.1rem',
+                  backgroundColor: 'white',
+                  position: 'relative',
+                  top: '-3rem',
+                  zIndex: 10000,
+                }}>
+                <h5 
+                  className='horizontal-legend-labels'
+                  style={{
+                    padding: '0 .5rem'
+                  }}
+                >
+                  {config?.horizontalLegend?.bottomLabel || ''}
+                </h5>
+              
+                {bins.map(({ color }, i) => (
+                  <div
+                    key={`horizontal-legend-${i}`}
+                    className='horizontal-legend-item'
+                    style={{
+                      backgroundColor: color,
+                      borderColor: config.strokeColor || 'black',
+                      flexGrow: 1,
+                      height: '.7rem',
+                    }}
+                  >
+                  </div>
+                ))}
+                <h5 
+                  className='horizontal-legend-labels'
+                  style={{
+                    padding: '0 .5rem'
+                  }}
+                >
+                  {config?.horizontalLegend?.topLabel || ''}
+                </h5>
+              </div>
+            )
+          }
           
         </div>
         // : null

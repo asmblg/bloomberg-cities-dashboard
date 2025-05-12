@@ -15,6 +15,7 @@ import informaLogo from './logos/informa_black.png';
 import lightcastLogoBlack from './logos/lightcast_black.png';
 import sibsLogo from './logos/sibs_black.png';
 import lisboaAbertaLogo from './logos/lisboa_aberta_black.png';
+import lisboaInnovationLogo from './logos/lisboa_innovation_black.png';
 
 
 
@@ -37,7 +38,8 @@ const logos = {
   informaLogo,
   lisboaAbertaLogo,
   jllLogoBlack,
-  lightcastLogoBlack
+  lightcastLogoBlack,
+  lisboaInnovationLogo,
 };
 
 const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartners, invertLogos, disableUserConsent }) => {
@@ -54,7 +56,7 @@ const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartn
             : null
           }
         </div>
-        <p>
+        <p className='copyright'>
           <span>&#169;</span> {copyright}
         </p>
         {
@@ -72,7 +74,7 @@ const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartn
       </div>
 
       <div>
-        <p>Data partners</p>
+        <p style={{fontFamily: 'var(--font-family-light)'}}>Data partners:</p>
         <div className='partner-logos-container'>
           {[...dataPartners || partners].map(({ name, key, url, logoKey, style }) => (
             <a

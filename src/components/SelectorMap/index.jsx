@@ -202,6 +202,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
           center={config.center}
           zoom={config.zoom}
           zoomControl={true}
+          attributionControl={false}
           // zoomControl={false}
           // dragging={false}
           // doubleClickZoom={false}
@@ -243,15 +244,63 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
               }}
               style={feature => {
                 const featureID = feature.properties[config.selectorField];
-                const selected = featureID === selection?.key;
+                // const selected = featureID === selection?.key;
                 const binnedColor = bins?.[config.selectorValueFormat === 'toUpperCase' ? featureID.toUpperCase() : featureID];
                 return {
                   fillColor: binnedColor || fillColor,
                   color: config.strokeColor || 'black',
-                  weight: selected ? 3 : 1,
-                  opacity: selected ? 1 : 0.8,
-                  fillOpacity: selected ? 1 : binnedColor ? 0.7 : 0.5,
-                  zindex: selected ? 1000 : 1
+                  weight:  1,
+                  opacity:  0.8,
+                  fillOpacity: binnedColor ? 0.7 : 0.5,
+                  zindex: 1
+                };
+              }}
+            >
+              <Tooltip>
+                {hoveredFeature}
+              </Tooltip>
+            </GeoJSON>
+            : null
+          }
+          {geoJSON ?
+            <GeoJSON
+              key={`data-layer-${selection?.key}-${bins ? 'binned' : 'not-binned'}`}
+              data={geoJSON || null}
+              filter={feature => {
+                const featureID = feature.properties[config.selectorField];
+                const selected = featureID === selection?.key;
+                return selected;
+              }
+              }
+              eventHandlers={{
+                click: e => {
+                  const value = e.propagatedFrom?.feature?.properties?.[config.selectorField];
+                  const option = value ?
+                    options.find(({ key }) => key.toUpperCase() === value.toUpperCase())
+                    : options[0];
+                  // console.log(value);
+                  handleSetSelection(null, option);
+                },
+                mouseover: e => {
+                  const value = e.propagatedFrom?.feature?.properties?.[config.selectorField];
+                  // if (bins) {
+                  //   setHoveredFeature(`${value}: ${featureData?.[config.selectorValueFormat === 'toUpperCase' ? value.toUpperCase() : value]}`);
+                  // } else {
+                  setHoveredFeature(value);
+                  // }
+                },
+                mouseout: () => setHoveredFeature()
+              }}
+              style={feature => {
+                const featureID = feature.properties[config.selectorField];
+                const binnedColor = bins?.[config.selectorValueFormat === 'toUpperCase' ? featureID.toUpperCase() : featureID];
+                return {
+                  fillColor: binnedColor || fillColor,
+                  color: 'black',
+                  weight: 3,
+                  opacity: 1,
+                  fillOpacity: 1,
+                  zindex: 1000 
                 };
               }}
             >

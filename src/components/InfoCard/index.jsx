@@ -52,14 +52,14 @@ const InfoCard = ({
               item.layout === 1 ? (
                 <>
                   <div className='info-card-text-container' style={{maxWidth: '100%'}}>
-                    <h3 className='info-card-headline' 
+                    <h4 className='info-card-headline' 
                       style={{
                         width: '100%',
-                        paddingRight: '25px',
+                        paddingRight: '10px',
                       }}
                     >
                       {item[config.headline]}
-                    </h3>
+                    </h4>
                     <h5 className='info-card-annotation'>
                       {item[config.annotation]}
                     </h5>
@@ -90,9 +90,9 @@ const InfoCard = ({
                     />
                   </div>
                   <div className='info-card-text-container'>
-                    <h3 className='info-card-headline'>
+                    <h4 className='info-card-headline'>
                       {item[config.headline]}
-                    </h3>
+                    </h4>
                     <h5 className='info-card-annotation'>
                       {item[config.annotation]}
                     </h5>
@@ -133,22 +133,22 @@ const InfoCard = ({
                     >
                       {item[config.source]}
                     </h5>
-                    <h3 className='info-card-headline'
+                    <h4 className='info-card-headline'
                       style={{
                         maxWidth: `calc(${config.cardStyle.width || '100%'} - 20px)`,
                         textAlign: 'center',
                       }}
                     >
                       {item[config.headline]}
-                    </h3>
+                    </h4>
                   </div>
                 </>
               ) : item.layout === 4 ? (
                 <>
                   <div className='info-card-text-container'                  >
-                    <h3 className='info-card-headline'>
+                    <h4 className='info-card-headline'>
                       {item[config.headline]}
-                    </h3>
+                    </h4>
                     <h5 className='info-card-annotation'>
                       {item[config.annotation]}
                     </h5>

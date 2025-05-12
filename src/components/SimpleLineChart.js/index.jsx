@@ -139,6 +139,10 @@ const SimpleLineChart = (props) => {
 
         {config.tooltip ? (
           <Tooltip
+            position={{
+              x: 110,
+              y: 0
+            }}
             content={
               <CustomTooltip
                 units={config.tooltip.units}

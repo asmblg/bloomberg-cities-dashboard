@@ -67,8 +67,9 @@
 @media screen and (max-width: 450px), (orientation: portrait) {
 
   .hbc-container {
-    width: calc(100vw - 140px) !important;
+    /* width: calc(100vw - 140px) !important; */
     overflow: auto !important;
+    margin-bottom: 20px;
   
   }
   .hbc-row-label {

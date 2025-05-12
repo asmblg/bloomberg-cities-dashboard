@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  height: 40px;
+  height: 32px;
 }
 
 .upward-trend,
@@ -13,8 +13,8 @@
   justify-content: flex-start;
   align-items: center;
   border-radius: 16px;
-  min-height: 30px;
-  max-height: 30px;
+  min-height: 26px;
+  max-height: 26px;
   width: fit-content;
   padding: 0 10px;
   gap: 2px;
@@ -27,7 +27,7 @@
   font-size: .5rem;
   opacity: .5;
   text-align: center;
-  line-height: .7rem;
+  line-height: .6rem;
 }
 
 .upward-trend > img,

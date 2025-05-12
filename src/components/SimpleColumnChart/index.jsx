@@ -58,16 +58,23 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
       // console.log(dataPath);
       const array = handleSimpleChartDataArray(config, data, dataPath);
 
-      if (array) {
-        const filteredData = !config.stacked ? array.filter(({ value }) => value || value === 0) : array;
-        setDataArray(filteredData);
+      if (array?.[0]) {
+        // const filteredData = !config.stacked 
+        //   ? array.filter(({ value }) => value || value === 0) 
+        //   : array;
+        setDataArray(array);
       }
     }
   }, [data, dataPath]);
 
   return dataArray ? (
     <ResponsiveContainer height={height || '100%'} width={width || '100%'}>
-      <BarChart data={dataArray} barSize={30} barCategoryGap={0} margin={margin}>
+      <BarChart 
+        data={dataArray} 
+        barSize={30} 
+        barCategoryGap={0} 
+        margin={margin}
+      >
         {cartesianGrid ? (
           <CartesianGrid
             vertical={cartesianGrid !== 'horizontal' || cartesianGrid === 'all'}
@@ -106,6 +113,10 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
         }
         {chartConfig?.tooltip ? (
           <Tooltip 
+            position={{
+              x: 110,
+              y: 0
+            }}
             content={
               <CustomTooltip 
                 units={chartConfig?.tooltip.units}

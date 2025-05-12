@@ -34,8 +34,8 @@
   --tablet-footer-height: 200px;
   --mobile-footer-height: 200px;
   --smallest-font: .7rem;
-  --smaller-font: .8rem;
-  --regular-font: .9rem;
+  --smaller-font: 14px;
+  --regular-font: 14px;
   --bigger-font: 1.25rem;
   --biggest-font: 1.5rem;
   --mobile-breakpoint-width: 760px;

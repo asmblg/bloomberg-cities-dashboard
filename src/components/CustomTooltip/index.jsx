@@ -19,25 +19,31 @@ const CustomTooltip = ({
   if (active && payload?.[0]) {
     return (
       <div className='custom-tooltip'>
-        <h4 className='custom-tooltip-header'>
-          {quarterDateFormat ? formatQuarterDate(label || payload?.[0]?.name, quarterDateFormat): label}
-        </h4> 
+
         {
           payload
             // .filter(({name}) => filter?.length > 0 ? filter.includes(name) : true)
             .sort((a,b) => Number(b.value) - Number(a.value))
             .map(({name, value, color, dataKey, payload: innerPayload}, i) =>
-              <p
+              <div
                 style={{
-                  color: color || innerPayload?.fillColor,
+                  // color: color || innerPayload?.fillColor,
                   fontSize:  filter && !filter?.includes(name) ? '.6rem' : null,
                   lineHeight: filter && !filter?.includes(name) ? '.6rem' : '.9rem'
                 }} 
                 key={`custom-tooltip-${label?.replace(/ /g, '-') || 'label'}-${name}-${i}`}>
-                {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}: {formatValue(value, units)}
-              </p>
+              <h2 className='bold-font'>
+              {formatValue(value, units)}
+              </h2>
+              <h5 className='simple-units'>                
+                {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}
+              </h5>
+              </div>
             )
         }
+        <h5 className='simple-indicator-date'>
+            {formatQuarterDate(label || payload?.[0]?.name, 'QX YYYY')}
+        </h5> 
       </div>
     );
   }

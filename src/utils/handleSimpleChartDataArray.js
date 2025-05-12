@@ -54,7 +54,10 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
 
   } else {
     const dataObj = dataPath  ? getNestedValue(data, dataPath) : data;
-    const quarterDateKeys = dataObj ? getRecentQuarterEndDates(Object.keys(dataObj), config.dataLength) : null;
+    const quarterDateKeys = dataObj 
+      ? getRecentQuarterEndDates(
+        Object.keys(dataObj), config.dataLength) 
+      : null;
     
     if (quarterDateKeys && quarterDateKeys[0]) {
       const sortedDates = sortDatesArray(quarterDateKeys, 'ascending');
@@ -95,6 +98,16 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
         }
         return obj;
       });
+
+      if (dataArray.length < config.dataLength) {
+        const emptyArray = new Array(config.dataLength - dataArray.length).fill({ name: '', value: null });
+        dataArray.unshift(...emptyArray);
+        dataArray.forEach((item, i) => {
+          if (item.name === '') {
+            item.name = sortedDates[i];
+          }
+        });
+      }
       return dataArray;
     }
   }
