@@ -63,6 +63,7 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
 
         if (getter?.[selectedIndicator]) {
           obj.exclude = getter?.[selectedIndicator]?.exclude || [];
+          obj.lowerLimit = getter?.[selectedIndicator]?.lowerLimit || null;
         }
 
         
@@ -126,15 +127,21 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
         {dataArray?.filter(
           item => Number(`${item?.value}`?.replace('%', '')) > 0
         )?.filter(item => !dataConfig?.exclude?.includes(item?.name)
+        )?.filter(item => dataConfig?.lowerLimit
+          ? item?.value > dataConfig?.lowerLimit 
+          : true
         )?.map((item, index) => (
           <div 
             key={index} 
             className='hbc-row-container'
             ref={index === 0 ? firstRowRef : null}
           >
-            <h5 className='hbc-row-label' style={config.layoutType === 'sorted-list'
-              ? { justifyContent: 'flex-start', margin: '0 10px 0 0', padding: '5px 5px 5px 10px', backgroundColor: 'var(--primary-gray-color)' }
-              : { justifyContent: 'flex-end', margin: '0 10px 0 5px' }
+            <h5 className='hbc-row-label' style={{ 
+                justifyContent: config.layoutType === 'sorted-list' ? 'flex-start' : 'flex-end', 
+                margin: config.layoutType === 'sorted-list' ? '0 10px 0 0' : '0 10px 0 5px' ,
+                padding: config.layoutType === 'sorted-list' ? '5px 5px 5px 10px' : null, 
+                backgroundColor: config?.labelBackgroundColor || 'var(--primary-gray-color)'
+              }
             }>
               {formatIndicatorLabel({
                 manifest: dataConfig?.manifest || {},
