@@ -60,7 +60,7 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
       : null;
     
     if (quarterDateKeys && quarterDateKeys[0]) {
-      const sortedDates = sortDatesArray(quarterDateKeys, 'ascending');
+      const sortedDates = sortDatesArray(quarterDateKeys, 'ascending', null, config?.dataLength || 8);
       const dataArray = sortedDates.map((key, i) => {
         const obj = {};
         obj.name = key;
@@ -99,10 +99,12 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
         return obj;
       });
 
+      console.log({ dataArray, sortedDates });
+
       if (dataArray.length < config.dataLength) {
         const emptyArray = new Array(config.dataLength - dataArray.length).fill({ name: '', value: null });
-        dataArray.unshift(...emptyArray);
-        dataArray.forEach((item, i) => {
+        // dataArray.unshift(...emptyArray);
+        [...emptyArray, ...dataArray].forEach((item, i) => {
           if (item.name === '') {
             item.name = sortedDates[i];
           }

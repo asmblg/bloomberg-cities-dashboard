@@ -19,6 +19,7 @@ const InfoIcon = ({ config, popup, onClick }) =>
       closeOnDocumentClick
       closeOnEscape
       closeOnPortalMouseLeave
+      style={{ zIndex: '9999999' }}
     >
       <Popup.Content className='info-icon-popup-container'>
         {config.Description ? <h5 className='info-icon-popup-text'>{config.Description}</h5> : null}
