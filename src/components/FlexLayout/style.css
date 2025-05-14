@@ -35,7 +35,7 @@
     min-width: 300px !important;
     height: fit-content !important;
     margin: 0 !important;
-    border-top: initial !important;
+    /* border-top: initial !important; */
 
     /* min-width: 100% !important; */
     /* display: flex;

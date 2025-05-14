@@ -94,7 +94,7 @@
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 450px) {
   .about-data-container {
-    min-height: 350px;
+    min-height: 600px;
   }
 
   .about-data-header {

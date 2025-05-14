@@ -21,6 +21,7 @@
 }
 
 #section-container {
+  /* height: fit-content; */
   padding: 0 var(--desktop-outer-margin);
   /* margin: 20px 0; */
   /* height: fit-content; */

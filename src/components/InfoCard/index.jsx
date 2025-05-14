@@ -146,32 +146,35 @@ const InfoCard = ({
               ) : item.layout === 4 ? (
                 <>
                   <div className='info-card-text-container'                  >
+                    
                     <h4 className='info-card-headline'>
                       {item[config.headline]}
                     </h4>
                     <h5 className='info-card-annotation'>
                       {item[config.annotation]}
                     </h5>
-                    <h5 className='info-card-annotation'>
-                      {item[config.source]}
-                    </h5>
-                  </div>
-                  <Link
+                    <Link
                     to={item[config.bigNumberURL]}
                     target="_blank"
                     rel="noopener noreferrer"
                     className='info-card-link'
                     style={{
-                      textDecoration: config.bigNumberURL ? 'underline' : 'none',
-                      textUnderlineOffset: '0.2em',
+                      // textDecoration: config.bigNumberURL ? 'underline' : 'none',
+                      // textUnderlineOffset: '0.2em',
                     }}
                   >
+                    <h5 className='info-card-annotation'>
+                      {item[config.source]}
+                    </h5>
+                    </Link>
+
+                  </div>
+
                     <h2 className='info-card-big-number'>
                       <span style={{
                         fontSize: 'smaller',
                       }}>{config.bigNumberPreUnit}</span>{item[config.bigNumber]}{config.bigNumberPostUnit}
                     </h2>
-                  </Link>
                 </>
               ) : <h1>Layout not yet supported</h1>
             }

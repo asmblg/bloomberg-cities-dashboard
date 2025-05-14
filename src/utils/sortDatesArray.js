@@ -62,7 +62,7 @@ const sortDatesArray = (array, order, dateKey, length) => {
       const startDate = moment(sortedDates[0], 'YYYY-MM-DD').utc();
       for (let i = 1; i <= length - sortedDates.length; i++) {
         const newDate = moment(startDate).subtract(i, 'months');
-        missingDates.push(newDate.format('YYYY-MM-DD'));
+        missingDates.push(newDate.format('YYYY-MM'));
       }
     }
     return order === 'ascending' ? [...missingDates.reverse(), ...sortedDates] : [...sortedDates, ...missingDates];

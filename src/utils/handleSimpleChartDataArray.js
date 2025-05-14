@@ -99,7 +99,7 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
         return obj;
       });
 
-      console.log({ dataArray, sortedDates });
+      // console.log({ dataArray, sortedDates });
 
       if (dataArray.length < config.dataLength) {
         const emptyArray = new Array(config.dataLength - dataArray.length).fill({ name: '', value: null });
