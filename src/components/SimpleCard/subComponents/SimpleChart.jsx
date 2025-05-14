@@ -35,7 +35,7 @@ const SimpleChart = ({ config, data, viewType  }) => {
           config={config}
           value={data?.value}
           label={data?.key}
-          height={100}
+          height={80}
           width={'100%'}
           mobile={viewType === 'mobile'}
         />
