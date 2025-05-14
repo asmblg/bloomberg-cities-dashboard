@@ -15,9 +15,9 @@ const formatNumberEU = num => {
         chars[i] += '.'; // use dot as thousands separator
       }
       const formattedInt = chars.reverse().join('');
-      return decimalStr ? `${formattedInt},${decimalStr}` : formattedInt;
+      return decimalStr && decimalStr !== '0' ? `${formattedInt},${decimalStr}` : formattedInt;
     } else {
-      return decimalStr
+      return decimalStr && decimalStr !== '0'
         ? `${integerStr},${decimalStr}`
         : integerStr;
     }

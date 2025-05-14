@@ -19,7 +19,7 @@ const SinglePercentDonutChart = ({ config, height, width, value, label, mobile }
       {
         name: label,
         value: 100 - parseFloat(value * multiplier),
-        fillColor: config?.accentColor || '#dfe5e9'
+        fillColor: config?.accentColor || '#E0E0E0'
       }
     ]
     : [];
@@ -27,6 +27,17 @@ const SinglePercentDonutChart = ({ config, height, width, value, label, mobile }
   return dataArray ? (
     <ResponsiveContainer height={height} width={width}>
       <PieChart>
+        {/* <Pie
+            data={[{value: 100}]}
+            dataKey={'value'}
+            cx={mobile ? '65%' : '50%'}
+            cy={'50%'}
+            outerRadius={mobile ? '100%' : '80%'}
+            innerRadius={mobile ? '50%' : '40%'}
+            startAngle={-345}
+            stroke='black'
+            strokeWidth={0.1}
+          /> */}
         <Pie
           data={dataArray}
           dataKey={'value'}
@@ -34,15 +45,34 @@ const SinglePercentDonutChart = ({ config, height, width, value, label, mobile }
           cy={'50%'}
           outerRadius={mobile ? '100%' : '80%'}
           innerRadius={mobile ? '50%' : '40%'}
-          startAngle={-270}
-          endAngle={90}
+          startAngle={-345}
+          // endAngle={90}
         > 
 
           {dataArray.map(({ fillColor, value }, i) => (
-            <Cell key={`donut-chart-cell-${value}-${i}`} fill={fillColor} />
+            <Cell 
+              key={`donut-chart-cell-${value}-${i}`} 
+              fill={fillColor} 
+              // stroke='black'
+              // strokeWidth={0.5}
+    
+            />
           ))}
         </Pie>
-        {config?.tooltip && label ? (
+        {/* <Pie
+          data={[{value: 100}]}
+          dataKey={'value'}
+          cx={mobile ? '65%' : '50%'}
+          cy={'50%'}
+          outerRadius={mobile ? '100%' : '80%'}
+          innerRadius={mobile ? '50%' : '40%'}
+          startAngle={-345}
+          stroke='black'
+          strokeWidth={0.5}
+          fill='transparent'
+        /> */}
+
+                {config?.tooltip && label ? (
           <Tooltip 
             content={
               <CustomTooltip 

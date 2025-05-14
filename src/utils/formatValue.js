@@ -76,7 +76,7 @@ const formatValue = (value, units, onAxis) => {
         } else {
           const floatValue = parseFloat(value).toFixed(fixedPointNum);
 
-        return `${formatNumberWithCommas(floatValue)}${units === 'M€' ? `${units}` : '€'}`;
+        return `${formatNumberWithCommas(floatValue)}${units === 'M €' ? 'M€' : '€'}`;
         }
       }
 
