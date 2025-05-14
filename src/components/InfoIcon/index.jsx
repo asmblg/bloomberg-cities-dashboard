@@ -26,13 +26,19 @@ const InfoIcon = ({ config, popup, onClick }) =>
 
         {config.Geography ? (
           <div className='info-icon-text-container'>
-            <h5 className='info-icon-popup-text'>Geography: {config.Geography}</h5>
+            <h5 className='info-icon-popup-text'>
+              <span style={{
+              fontFamily: 'var(--font-family-bold)'
+            }}>Geography:</span> {config.Geography}</h5>
             {/* <h5 className='info-icon-popup-text'></h5> */}
           </div>
         ) : null}
         {config.Source ? (
           <div className='info-icon-text-container' style={{ marginBottom: '0' }}>
-            <h5 className='info-icon-popup-text'>Source: <SourceLink
+            <h5 className='info-icon-popup-text'>
+            <span style={{
+              fontFamily: 'var(--font-family-bold)'
+            }}>Source:</span> <SourceLink
               source={config.Source || null}
               link1={config.Source_link || null}
               link2={config.Source_link_2 || null}
