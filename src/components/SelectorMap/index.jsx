@@ -11,16 +11,31 @@ import './style.css';
 
 const SelectorMap = ({ project, config, setter, data, getter }) => {
   const [geoJSON, setGeoJSON] = useState();
-  const [featureData, setFeatureData] = useState();
+  // const [featureData, setFeatureData] = useState();
   const [bins, setBins] = useState();
   const [selection, setSelection] = useState();
+  const [localSelection, setLocalSelection] = useState();
   const [options, setOptions] = useState();
   const [hoveredFeature, setHoveredFeature] = useState();
-  const [deactivateSetter, setDeactivateSetter] = useState(false);
+  // const [deactivateSetter, setDeactivateSetter] = useState(false);
 
   const fillColor = config.color || '#fff3e2';
 
   const handleSetSelection = (key, option) => {
+    if (config?.getterKey?.activeFilter) {
+      const activeFilter = getter?.[config?.getterKey?.activeFilter];
+      const matchingOption = options?.filter(({ value, key }) => (
+        key === activeFilter ||
+        value === activeFilter ||
+        key === activeFilter?.key ||
+        value === activeFilter?.value
+      ))?.[0];
+      if (!matchingOption) {
+        setLocalSelection(options?.[0]);
+      } else {
+        setLocalSelection(null);
+      }
+    }
     setSelection(option);
   };
 
@@ -169,6 +184,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
 
   useEffect(() => {
     if (selection) {
+      
       setter(config?.setterKey?.geoSelection, selection?.dataPath);
     }
   }, [selection]);
@@ -183,7 +199,9 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
         value === activeFilter?.value
       ))?.[0];
       if (!matchingOption) {
-        setSelection(options?.[0]);
+        setLocalSelection(options?.[0]);
+      } else {
+        setLocalSelection(null);
       }
     }
   }, [getter?.[config?.getterKey?.activeFilter]]);
@@ -192,7 +210,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
     <div className='selector-map-wrapper' key='selector-map'>
       {config?.label && <p>{config?.label}</p>}
       <IndicatorDropdown
-        selectedOption={selection || config?.totalOption || config?.indicators?.[0]}
+        selectedOption={localSelection || selection || config?.totalOption || config?.indicators?.[0]}
         setter={handleSetSelection}
         options={options}
       />
@@ -221,7 +239,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
           />
           {geoJSON ?
             <GeoJSON
-              key={`data-layer-${selection?.key}-${bins ? 'binned' : 'not-binned'}`}
+              key={`data-layer-${localSelection?.key || selection?.key}-${bins ? 'binned' : 'not-binned'}`}
               data={geoJSON || null}
               eventHandlers={{
                 click: e => {
@@ -264,11 +282,13 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
           }
           {geoJSON ?
             <GeoJSON
-              key={`data-layer-${selection?.key}-${bins ? 'binned' : 'not-binned'}`}
+              key={`data-layer-${localSelection?.key || selection?.key}-${bins ? 'binned' : 'not-binned'}`}
               data={geoJSON || null}
               filter={feature => {
                 const featureID = feature.properties[config.selectorField];
-                const selected = featureID === selection?.key;
+                const selected = localSelection 
+                  ? featureID === localSelection?.key 
+                  : featureID === selection?.key;
                 return selected;
               }
               }

@@ -21,7 +21,8 @@ const FilterDropdown = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selection, setSelection] = useState(null);
   const [subHeading, setSubHeading] = useState(null);
-  const [deactivateSetter, setDeactivateSetter] = useState(false);
+  const [localSelection, setLocalSelection] = useState(null);
+  // const [deactivateSetter, setDeactivateSetter] = useState(false);
   const setterKey =  config?.setterKey?.filter || 
     config?.setterKey?.filter1 ||
     config?.setterKey?.filter2 ||
@@ -50,8 +51,10 @@ const FilterDropdown = ({
           value === activeFilter?.value
         ))?.[0];
         if (!matchingOption) {
-          setSelection(options?.[0]);
-
+          setLocalSelection(options?.[0]);
+        } else {
+          setLocalSelection(null);
+          setSelection(matchingOption);
         }
       }
     }, [getter?.[config?.getterKey?.activeFilter]]);
@@ -87,8 +90,7 @@ const FilterDropdown = ({
   useEffect(() => { 
     const value = getter?.[getterKey] || optionsArray?.[0];
     setSelection(value);
-  }
-    , [getter?.[getterKey], optionsArray, viewLoaded, optionsToggle]);  
+  }, [getter?.[getterKey], optionsArray, viewLoaded, optionsToggle]);  
 
   return (
     <div className="dropdown-container" ref={dropdownRef}>
@@ -111,12 +113,12 @@ const FilterDropdown = ({
         <div className='dropdown-header-label'>
           <h4 className='simple-card-indicator-text'>
             {
-              `${selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || ''}`.toUpperCase()
+              `${localSelection?.label || selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || ''}`.toUpperCase()
             }
           </h4>
           {
-            subHeading || selection?.subHeading ?
-              <h4>{`${subHeading || selection.subHeading}`.toUpperCase()}</h4>
+            subHeading || localSelection?.subHeading || selection?.subHeading ?
+              <h4>{`${subHeading || localSelection?.subHeading || selection.subHeading}`.toUpperCase()}</h4>
               : null
           }
         </div>
@@ -147,7 +149,9 @@ const FilterDropdown = ({
             option && option.label && option.key && (
               <li
                 key={`indicator-dropdown-option-${option.key}`}
-                className={selection?.key === option.key ? 'selected-option bold-font' : 'unselected-option'}
+                className={ localSelection
+                  ? localSelection?.key === option.key ? 'selected-option bold-font' : 'unselected-option'
+                  : selection?.key === option.key ? 'selected-option bold-font' : 'unselected-option'}
                 onClick={() => {
                   if (selection?.key !== option.key && setter) {
                     // console.log(option);
