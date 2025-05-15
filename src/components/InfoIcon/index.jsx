@@ -10,7 +10,7 @@ const InfoIcon = ({ config, popup, onClick }) =>
   popup && (config?.Description || config?.Source) ? (
     <Popup
       key={`${
-        config.Variable.split(' ').join('-') || config.Description?.split(' ').join('-')
+        config?.Variable?.split(' ')?.join('-') || config?.Description?.split(' ')?.join('-')
       }-popup`}
       position='bottom center'
       trigger={<Icon name='info circle' className='info-icon' />}
@@ -22,18 +22,18 @@ const InfoIcon = ({ config, popup, onClick }) =>
       style={{ zIndex: '9999999' }}
     >
       <Popup.Content className='info-icon-popup-container'>
-        {config.Description ? <h5 className='info-icon-popup-text'>{config.Description}</h5> : null}
+        {config?.Description ? <h5 className='info-icon-popup-text'>{config.Description}</h5> : null}
 
-        {config.Geography ? (
+        {config?.Geography ? (
           <div className='info-icon-text-container'>
             <h5 className='info-icon-popup-text'>
               <span style={{
               fontFamily: 'var(--font-family-bold)'
-            }}>Geography:</span> {config.Geography}</h5>
+            }}>Geography:</span> {config?.Geography}</h5>
             {/* <h5 className='info-icon-popup-text'></h5> */}
           </div>
         ) : null}
-        {config.Source ? (
+        {config?.Source ? (
           <div className='info-icon-text-container' style={{ marginBottom: '0' }}>
             <h5 className='info-icon-popup-text'>
             <span style={{

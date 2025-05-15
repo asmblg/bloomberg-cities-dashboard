@@ -1,7 +1,7 @@
 .info-card-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .info-card {

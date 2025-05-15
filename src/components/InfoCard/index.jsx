@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import icons from './icons'
 import './style.css';
 import SimpleLineChart from '../SimpleLineChart.js';
+import InfoIcon from '../InfoIcon';
 
 
 const InfoCard = ({
@@ -30,6 +31,8 @@ const InfoCard = ({
 
   });
 
+  console.log('infoItems', infoItems);
+
   return (
     // JSON.stringify(infoItems, null, 2)
     <div
@@ -38,6 +41,7 @@ const InfoCard = ({
         gap: config.gap || '10px',
         flexDirection: config.direction || 'column',
         minWidth: config.cardStyle?.width || '100%',
+        
       }}
     >
       {
@@ -51,14 +55,29 @@ const InfoCard = ({
               
               item.layout === 1 ? (
                 <>
-                  <div className='info-card-text-container' style={{maxWidth: '100%'}}>
+                  <div 
+                    className='info-card-text-container' 
+                    style={{
+                      maxWidth: '100%',
+                    }}
+                  >
                     <h4 className='info-card-headline' 
                       style={{
                         width: '100%',
-                        paddingRight: '10px',
+                        paddingRight: '0px',
+                        display: 'flex',
+                        justifyContent: 'space-between',
                       }}
                     >
                       {item[config.headline]}
+                      <InfoIcon 
+                        config={{
+                          Description: item?.description,
+                          Source: item?.source,
+                          Source_link: item?.['source link'],
+                        }}
+                        popup 
+                      /> 
                     </h4>
                     <h5 className='info-card-annotation'>
                       {item[config.annotation]}
@@ -90,8 +109,23 @@ const InfoCard = ({
                     />
                   </div>
                   <div className='info-card-text-container'>
-                    <h4 className='info-card-headline'>
+                    <h4 
+                      className='info-card-headline'
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        marginRight: '-10px',
+                      }}
+                    >
                       {item[config.headline]}
+                      <InfoIcon 
+                        config={{
+                          Description: item?.description,
+                          Source: item?.source,
+                          Source_link: item?.['source link'],
+                        }}
+                        popup 
+                      /> 
                     </h4>
                     <h5 className='info-card-annotation'>
                       {item[config.annotation]}
@@ -106,6 +140,9 @@ const InfoCard = ({
                   <div className='info-card-icon-container'
                     style={{
                       gap: config.gap || '10px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      marginRight: '-30px',
                     }}
                   >
                     <img
@@ -118,6 +155,14 @@ const InfoCard = ({
                         height: config.iconSize || '50px',
                       }}
                     />
+                    <InfoIcon 
+                        config={{
+                          Description: item?.description,
+                          Source: item?.source,
+                          Source_link: item?.['source link'],
+                        }}
+                        popup 
+                      /> 
                   </div>
                   <div className='info-card-text-container'
                     style={{
