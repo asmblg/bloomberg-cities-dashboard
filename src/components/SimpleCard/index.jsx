@@ -191,14 +191,17 @@ const SimpleCard = ({
 
       <h5 className='simple-card-sub-header'>
       {  `${
-        selectorPath && selectedIndicator
+        (selectorPath && selectedIndicator) || selectedIndicator
           ? `${selectedIndicator?.label || selectedIndicator}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
           : selectorPath && 
             !selectedIndicator && 
             config?.indicator?.Geography && 
-            config?.indicator?.Geography?.toUpperCase() !== `${selectorPath}`?.toUpperCase() &&
-            config?.indicator?.Geography?.toUpperCase() !== selectorPath?.label?.toUpperCase()
-            ? `${selectorPath?.label || selectorPath}, ${config?.indicator?.Geography}` 
+            `${config?.indicator?.Geography}`?.toLowerCase() !== `${selectorPath}`?.toLowerCase() &&
+            `${config?.indicator?.Geography}`?.toLowerCase() !== selectorPath?.label?.toLowerCase()
+            ? selectorPath?.label?.toLowerCase() !== 'total' && 
+              `${selectorPath}`?.toLowerCase() !== 'total'
+              ? `${selectorPath?.label || selectorPath}` 
+              : config?.indicator?.Geography
             : selectorPath && !selectedIndicator
               ? `${selectorPath?.label || selectorPath}`
               : config?.indicator?.Geography

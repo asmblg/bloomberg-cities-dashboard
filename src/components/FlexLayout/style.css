@@ -52,9 +52,12 @@
     /* border-color: transparent !important; */
   }
 
+  /* .info-card */
+
   .info-card-container {
-    max-width: 80vw !important;
-    width: 300px !important;
+    max-width: 90vw !important;
+    width: fit-content !important;
+    border: initial !important;
   }
 
   .info-card-chart {
