@@ -3,7 +3,7 @@ const { config } = require('../models');
 
 
 module.exports = {
-  findByProject: ({ query: { project } }, res) => {
+  findByProject: ({ query: { project, lng } }, res) => {
     const localMode = process.env.CONFIG_MODE === 'local';
     if (localMode) {
       const localConfig = require(`../dev/dev-configs.json`);
@@ -24,7 +24,10 @@ module.exports = {
         });
       } else {
         config
-          .find({ project: regexProject })
+          .find({ 
+            project: regexProject,
+            lng: lng ? lng : { $exists: false}
+          })
           .limit(1)
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err));

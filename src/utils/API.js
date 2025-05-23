@@ -4,13 +4,18 @@ import axios from 'axios';
 // const localConfig = import.meta.env.VITE_MODE === 'local';
 // console.log('localConfig', localConfig);
 
-const getConfig = async projectCity => {
+const getConfig = async (projectCity, lng) => {
 
   // if (!localConfig) {
     const res = await axios.get(`/config`, {
-      params: {
-        project: projectCity
-      }
+      params: lng 
+      ? {
+          project: projectCity,
+          lng
+        }
+      : {
+         project: projectCity,
+        }
     });
 
     // console.log('res in getConfig', res);

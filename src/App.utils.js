@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { getConfig } from './utils/API';
 
-const handleConfig = async pathname => {
+const handleConfig = async (pathname, lng) => {
   try {
     const pathnameArr = pathname.split('/').filter(val => val);
     const pathnameCity = pathnameArr[0];
     const projectName = pathnameCity?.toLowerCase();
 
-    const initialConfig = await getConfig(projectName);
+    const initialConfig = await getConfig(projectName, lng);
 
     // Set CSS Variables based on initialConfig
     if (initialConfig?.fonts) {

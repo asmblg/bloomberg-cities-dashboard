@@ -23,7 +23,11 @@ const App = () => {
   const [showBanner, setShowBanner] = useState(userConsent !== 'true' && userConsent !== 'false');
   const [showModal, setShowModal] = useState(false);
 
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
+  const queryParams = new URLSearchParams(search);
+  // const dev = queryParams.get('dev') === 'true' || false;
+  const lng = queryParams.get('lng') || null;
+
   const navigate = useNavigate();
 
   // 🔄 Auto-resize iframe height
@@ -43,7 +47,7 @@ const App = () => {
     let controller = true;
 
     if (pathname !== '/') {
-      handleConfig(pathname).then(({ config: c, redirect }) => {
+      handleConfig(pathname, lng).then(({ config: c, redirect }) => {
         if (c && controller) {
           handleRootVariables(c).then(() => setConfig(c));
         }
