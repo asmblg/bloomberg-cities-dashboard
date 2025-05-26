@@ -1,3 +1,7 @@
+.source-link {
+  color: rgb(51, 153, 204)
+}
+
 .source-link:hover {
   opacity: 0.8;
 }

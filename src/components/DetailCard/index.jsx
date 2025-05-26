@@ -37,7 +37,7 @@ const DetailCard = ({ project, config, sectionKey, viewType, setSelectedLink, se
       <div
         className='full-card-container detail-card-container'
         style={config.layout?.noTabs 
-          ? { height: 'calc(100vh - 250px' } 
+          ? { height: 'fit-content' } 
           : { ...config.style || {}}
         }
       >

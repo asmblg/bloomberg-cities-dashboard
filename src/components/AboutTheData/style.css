@@ -46,9 +46,9 @@
 }
 
 .about-table-vars-container {
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   position: relative;
-  max-height: calc(100vh - 455px);
+  /* max-height: calc(100vh - 455px); */
 }
 
 .about-table {
@@ -94,7 +94,7 @@
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 450px) {
   .about-data-container {
-    min-height: 600px;
+    min-height: 100%;
   }
 
   .about-data-header {

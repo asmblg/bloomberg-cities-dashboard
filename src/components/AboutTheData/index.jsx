@@ -37,7 +37,12 @@ const AboutTheData = ({ config, project, viewType, infoIconConfig }) => {
         <div className='about-table-container'>
           <div className='about-table-header-container'>
             {config.variableTable.headerRow.map((row, i) => (
-              <div role='table' key={`table-header-${row.key}-${i}`}>
+              <div 
+                role='table' key={`table-header-${row.key}-${i}`}
+                style={{
+                  width: row.wide ? '50%': null,
+                }}
+              >
                 {row.text}
               </div>
             ))}
@@ -47,11 +52,20 @@ const AboutTheData = ({ config, project, viewType, infoIconConfig }) => {
               {config.variableTable.variables
                 .filter(({ Tab }) => (infoIconConfig?.tab ? infoIconConfig.tab === Tab : true))
                 .map((variable, i) => (
-                  <div key={`variable-row-${i}`} className='about-table-row'>
+                  <div 
+                  
+                  key={`variable-row-${i}`} className='about-table-row'>
                     {config.variableTable.headerRow.map((obj, ii) => (
                       <div
                         key={`variable-${i}-data-${ii}`}
-                        style={obj.key === 'Variable' ? { fontFamily: 'RobotoBold' } : {}}
+                        style={obj.key === 'Variable' || obj.key === 'Tab'
+                          ? { 
+                              fontFamily: 'RobotoBold',
+                              width: obj.wide ? '50%' : null, 
+                            } 
+                          : {
+                              width: obj.wide ? '50%' : null,
+                          }}
                       >
                         {obj.key === 'Source' ? (
                           <SourceLink
