@@ -9,7 +9,6 @@ import formatChartTick from '../../utils/formatChartTick';
 import handleSimpleChartDataArray from '../../utils/handleSimpleChartDataArray';
 
 const SimpleLineChart = (props) => {
-  console.log({props})
   const { config, data, height, width, margin, getter } = props;
   const [dataArray, setDataArray] = useState(null);
   // const [dataArray2, setDataArray2] = useState(null);

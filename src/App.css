@@ -58,6 +58,7 @@ h4 {
 
 h5 {
   font-size: var(--smallest-font);
+  line-height: var(--smallest-font);
   font-weight: 100;
 }
 
