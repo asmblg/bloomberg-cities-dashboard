@@ -67,7 +67,7 @@
   }
 
   #section-container {
-    height: auto;
+    /* height: auto; */
     padding: 0 var(--tablet-outer-margin);
   }
 }

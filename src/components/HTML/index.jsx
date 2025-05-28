@@ -7,11 +7,14 @@ const renderElement = (json, index) => {
 
   const Element = tag;
 
-  return (
-    <Element key={`html-element-${index || 'first'}`} {...attributes}>
-      {content}
-      {children && children.map((child, childIndex) => renderElement(child, childIndex))}
-    </Element>
+  return ( tag !== 'img'
+      ? <Element key={`html-element-${index || 'first'}`} {...attributes}>
+          {content}
+          {children && children.map((child, childIndex) => renderElement(child, childIndex))}
+        </Element>
+      : <Element key={`html-element-${index || 'first'}`} {...attributes} />
+
+
   );
 };
 
