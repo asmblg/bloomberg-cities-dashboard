@@ -15,16 +15,17 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
   // const ref = useRef();
   const location = useLocation();
   const query = new URLSearchParams(location.search);
+  const lang = query.get('lng') || null;
   // const { toggleValue } = getter;
   const options = config?.options || 
   [
     {
       value: 'QtQ',
-      label: 'Quarter-to-Quarter change'
+      label: lang == 'pt' ? 'Variação de trimestre para trimestre' : 'Quarter-to-Quarter change'
     },
     {
       value: 'YtY',
-      label: 'Year-to-Year change'
+      label: lang == 'pt' ? 'Variação de ano para ano' : 'Year-to-Year change'
     }
   ];
 
