@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Popup, Icon } from 'semantic-ui-react';
+import {useLocation} from 'react-router-dom';
 
 import SourceLink from '../SourceLink';
 
 import './style.css';
 
-const InfoIcon = ({ config, popup, onClick }) =>
-  popup && (config?.Description || config?.Source) ? (
+const InfoIcon = ({ config, popup, onClick }) => {
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const lang = query.get('lng') || null;
+
+ return popup && (config?.Description || config?.Source) ? (
     <Popup
       key={`${
         config?.Variable?.split(' ')?.join('-') || config?.Description?.split(' ')?.join('-')
@@ -29,7 +34,7 @@ const InfoIcon = ({ config, popup, onClick }) =>
             <h5 className='info-icon-popup-text'>
               <span style={{
               fontFamily: 'var(--font-family-bold)'
-            }}>Geography:</span> {config?.Geography}</h5>
+            }}>{lang === 'pt' ? 'Geografia:': 'Geography:'}</span> {config?.Geography}</h5>
             {/* <h5 className='info-icon-popup-text'></h5> */}
           </div>
         ) : null}
@@ -38,7 +43,7 @@ const InfoIcon = ({ config, popup, onClick }) =>
             <h5 className='info-icon-popup-text'>
             <span style={{
               fontFamily: 'var(--font-family-bold)'
-            }}>Source:</span> <SourceLink
+            }}>{lang === 'pt' ? 'Fonte:' :'Source:'}</span> <SourceLink
               source={config.Source || null}
               link1={config.Source_link || null}
               link2={config.Source_link_2 || null}
@@ -53,7 +58,7 @@ const InfoIcon = ({ config, popup, onClick }) =>
       <Icon name='info circle' className='info-icon' />
     </div>
   );
-
+}
 InfoIcon.propTypes = {
   config: PropTypes.object,
   popup: PropTypes.bool,

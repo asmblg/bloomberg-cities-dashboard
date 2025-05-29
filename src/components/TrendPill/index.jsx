@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 
 import formatValue from '../../utils/formatValue';
 import dateToQuarter from '../../utils/dateToQuarter';
@@ -22,6 +23,9 @@ const TrendPill = ({
 }) => {
   const { trendValue, trendDirection } = calculateTrend(currentValue, compareValue, units);
 
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const lang = query.get('lng') || null;
   const heightVal = height ? (typeof height === 'number' ? `${height}px` : height) : null;
   const widthVal = width ? (typeof width === 'number' ? `${width}px` : width) : null;
 
@@ -49,7 +53,7 @@ const TrendPill = ({
             <h5 className='trend-pill-text' style={{ opacity: '0.8' }}>{`vs ${formatValue(
               compareValue,
               units
-            )} in ${onlyYears ? compareDate : dateToQuarter(compareDate, 'QX YYYY')}`}</h5>
+            )} ${lang === 'pt' ? 'em' : 'in'} ${onlyYears ? compareDate : dateToQuarter(compareDate, 'QX YYYY')}`}</h5>
           ) : null}
         </>
       ) : (
@@ -61,8 +65,8 @@ const TrendPill = ({
           >
             {/* <h5 className='no-data-pill-text'> */}
               { onlyYears
-                ? 'Comparison Data Not Available By Quarters'
-                :'Comparison Data Currently Unavailable'
+                ? lang === 'pt'? 'Dados comparativos não disponíveis por trimestre' : 'Comparison Data Not Available By Quarters'
+                : lang === 'pt'? 'Dados comparativos atualmente indisponíveis' : 'Comparison Data Currently Unavailable'
               }
             {/* </h5>           */}
           </div>
