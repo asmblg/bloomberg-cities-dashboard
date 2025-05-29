@@ -29,6 +29,7 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
               dataObj[dateKey] += Number(nestedValue * multiplier);
             }
           }
+          
         });
       });
 

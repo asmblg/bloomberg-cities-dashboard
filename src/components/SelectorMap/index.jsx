@@ -13,6 +13,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
   const [geoJSON, setGeoJSON] = useState();
   // const [featureData, setFeatureData] = useState();
   const [bins, setBins] = useState();
+  const [binCount, setBinCount] = useState(0);
   const [selection, setSelection] = useState();
   const [localSelection, setLocalSelection] = useState();
   const [options, setOptions] = useState();
@@ -140,7 +141,8 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
       // console.log({ basePath: config.indicator.basePath, indicatorKey, indicatorKey2 });
       // console.log({ min, max, range, pRange });
 
-      setBins(colorObject);;
+      setBins(colorObject);
+      setBinCount(binCount + 1);
 
       // setFeatureData(dataObject);
     }
@@ -239,8 +241,20 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
           />
           {geoJSON ?
             <GeoJSON
-              key={`data-layer-${localSelection?.key || selection?.key}-${bins ? 'binned' : 'not-binned'}`}
+              key={`data-layer-${binCount}-${localSelection?.key || selection?.key}-${bins ? 'binned' : 'not-binned'}`}
               data={geoJSON || null}
+              filter={feature => {
+                
+                const featureID = feature.properties[config.selectorField];
+                const bin = bins?.[config.selectorValueFormat === 'toUpperCase' ? featureID.toUpperCase() : featureID];
+                // console.log
+                const selected = localSelection 
+                  ? featureID === localSelection?.key 
+                  : featureID === selection?.key;
+                
+                return !selected && bin !== 'transparent';
+                
+              }}
               eventHandlers={{
                 click: e => {
                   const value = e.propagatedFrom?.feature?.properties?.[config.selectorField];
@@ -266,7 +280,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
                 const binnedColor = bins?.[config.selectorValueFormat === 'toUpperCase' ? featureID.toUpperCase() : featureID];
                 return {
                   fillColor: binnedColor || fillColor,
-                  color: config.strokeColor || 'black',
+                  color: binnedColor ? config.strokeColor || 'black' : 'transparent',
                   weight:  1,
                   opacity:  0.8,
                   fillOpacity: binnedColor ? 0.7 : 0.5,
@@ -282,7 +296,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
           }
           {geoJSON ?
             <GeoJSON
-              key={`data-layer-${localSelection?.key || selection?.key}-${bins ? 'binned' : 'not-binned'}`}
+              key={`selected-layer-${localSelection?.key || selection?.key}-${bins ? 'binned' : 'not-binned'}`}
               data={geoJSON || null}
               filter={feature => {
                 const featureID = feature.properties[config.selectorField];
