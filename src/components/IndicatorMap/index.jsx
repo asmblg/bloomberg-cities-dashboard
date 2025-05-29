@@ -310,7 +310,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
                   gap: '.1rem',
                   backgroundColor: 'white',
                   position: 'relative',
-                  top: '-3rem',
+                  top: '-60px',
                   zIndex: 10000,
                 }}>
                 <h5 
