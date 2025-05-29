@@ -316,7 +316,10 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
                 <h5 
                   className='horizontal-legend-labels'
                   style={{
-                    padding: '0 .5rem'
+                    padding: '0 .5rem',
+                    maxWidth: '100px',
+                    textAlign: 'center',
+
                   }}
                 >
                   {config?.horizontalLegend?.bottomLabel || ''}
@@ -338,7 +341,9 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
                 <h5 
                   className='horizontal-legend-labels'
                   style={{
-                    padding: '0 .5rem'
+                    padding: '0 .5rem',
+                    maxWidth: '100px',
+                    textAlign: 'center',
                   }}
                 >
                   {config?.horizontalLegend?.topLabel || ''}
