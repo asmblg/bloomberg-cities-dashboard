@@ -201,10 +201,10 @@ const SimpleCard = ({
             ? selectorPath?.label?.toLowerCase() !== 'total' && 
               `${selectorPath}`?.toLowerCase() !== 'total'
               ? `${selectorPath?.label || selectorPath}` 
-              : config?.indicator?.Geography
+              : config?.defaultSubheading || config?.indicator?.Geography
             : selectorPath && !selectedIndicator
               ? `${selectorPath?.label || selectorPath}`
-              : config?.indicator?.Geography
+              : config?.defaultSubheading || config?.indicator?.Geography
       }`.toLocaleUpperCase()}
 
       </h5>

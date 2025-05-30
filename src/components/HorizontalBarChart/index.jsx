@@ -7,6 +7,7 @@ import { handleData } from './utils';
 import formatQuarterDate from '../../utils/formatQuarterDate';
 import formatIndicatorLabel from '../../utils/formatIndicatorLabel';
 import './style.css';
+import { get } from 'mongoose';
 
 const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
   const [dataArray, setDataArray] = useState([]);
@@ -35,7 +36,7 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
         getter?.[selectedIndicator]?.key ||
         getter?.[selectedIndicator];
 
-        const manifestKey = getter?.[selectedIndicator]?.manifestKey;
+        const manifestKey = getter?.[selectedIndicator]?.manifestKey || getter?.[selectorPath]?.manifestKey;
 
          
         const basePath = config?.dataPath ? `${config.dataPath}.` : '';
@@ -107,6 +108,8 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
     dataConfig
   ]);
 
+
+  console.log('Manifest:', dataConfig?.manifest);
   return dataArray?.[0] ? (
     <>
       {config?.title
