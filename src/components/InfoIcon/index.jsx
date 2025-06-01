@@ -17,14 +17,18 @@ const InfoIcon = ({ config, popup, onClick }) => {
       key={`${
         config?.Variable?.split(' ')?.join('-') || config?.Description?.split(' ')?.join('-')
       }-popup`}
-      position='bottom center'
+      position='auto'
       trigger={<Icon name='info circle' className='info-icon' />}
       on='click'
       hideOnScroll
       closeOnDocumentClick
       closeOnEscape
       closeOnPortalMouseLeave
-      style={{ zIndex: '9999999' }}
+      style={{ 
+        zIndex: '9999999', 
+        // position: 'relative', 
+        // left: '12px'
+      }}
     >
       <Popup.Content className='info-icon-popup-container'>
         {config?.Description ? <h5 className='info-icon-popup-text'>{config.Description}</h5> : null}

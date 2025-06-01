@@ -24,7 +24,7 @@
 
 .simple-card-title {
   display: flex;
-  align-items:center;
+  align-items: flex-start;
   justify-content: space-between;
   flex-direction: row;
   /* height: 20px; */
@@ -34,7 +34,12 @@
 }
 
 .simple-card-title > div {
-  height: 20px;
+  /* height: 20px; */
+  width: 'fit-content';
+  display: flex;
+  justify-content: flex-start;
+  height: 100%;
+  flex-direction: column;
 }
 
 .simple-card-header-text {
@@ -116,9 +121,26 @@
 @media screen and (max-width: 760px) {
   .simple-card {
     height: 240px;
+    max-width: 300px;
+    width: 90vw;
+    /* margin: 20px 0; */
   }
   .simple-card-title {
     font-size: 18px;
+  }
+
+  .simple-card-title > h4 {
+    line-height: 20px;
+    padding-right: 5px;
+  }
+
+  .simple-card-header-text {
+    font-size: 18px;
+  }
+
+  .simple-card-sub-header {
+    margin-top: 10px;
+    font-size: 14px;
   }
 }
 

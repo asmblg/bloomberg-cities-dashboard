@@ -1,5 +1,7 @@
 .info-icon {
   color: var(--secondary-gray-color) !important;
+  /* width: 16px;
+  height: 16px; */
 }
 
 .info-icon:hover {
@@ -7,8 +9,14 @@
   opacity: 0.8;
 }
 
+.info-icon-popup-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .info-icon-popup-container > * {
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   line-height: 1;
 }
 

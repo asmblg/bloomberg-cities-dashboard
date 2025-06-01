@@ -46,8 +46,9 @@
 }
 
 .about-table-vars-container {
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
   position: relative;
+  max-height: 100vh;
   /* max-height: calc(100vh - 455px); */
 }
 
@@ -87,14 +88,14 @@
 /* Initial Tablet Breakpoint */
 @media screen and (max-width: 760px) {
   .about-table-vars-container {
-    max-height: calc(100vh - 560px);
+    /* max-height: calc(100vh - 560px); */
   }
 }
 
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 450px) {
   .about-data-container {
-    min-height: 100%;
+    min-height: 100vh;
   }
 
   .about-data-header {
@@ -110,7 +111,7 @@
   }
 
   .about-table-vars-container {
-    max-height: calc(100vh - 400px);
+    /* max-height: calc(100vh - 400px); */
   }
 
   .about-table-header-container {
