@@ -41,7 +41,10 @@ const InfoCard = ({
         gap: config.gap || '10px',
         flexDirection: config.direction || 'column',
         minWidth: config.cardStyle?.width || '100%',
-        
+        flexWrap: config.wrap || 'wrap',
+        display: 'flex',
+        // justifyContent: 'flex-start',
+        // alignItems: 'flex-start',
       }}
     >
       {
@@ -114,7 +117,7 @@ const InfoCard = ({
                       style={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        marginRight: '-10px',
+                        marginRight: '0px',
                       }}
                     >
                       {item[config.headline]}

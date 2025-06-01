@@ -57,7 +57,7 @@
   .info-card-container {
     max-width: 90vw !important;
     width: fit-content !important;
-    border: initial !important;
+    /* border: initial !important; */
   }
 
   .info-card-chart {
