@@ -31,7 +31,8 @@ const InfoCard = ({
 
   });
 
-  console.log('infoItems', infoItems);
+  // console.log('infoItems', infoItems);
+  // console.log('config', config);
 
   return (
     // JSON.stringify(infoItems, null, 2)
@@ -42,7 +43,7 @@ const InfoCard = ({
         flexDirection: config.direction || 'column',
         minWidth: config.cardStyle?.width || '100%',
         flexWrap: config.wrap || 'wrap',
-        display: 'flex',
+        display: 'flex'
         // justifyContent: 'flex-start',
         // alignItems: 'flex-start',
       }}
@@ -57,7 +58,6 @@ const InfoCard = ({
             {
               
               item.layout === 1 ? (
-                <>
                   <div 
                     className='info-card-text-container' 
                     style={{
@@ -96,7 +96,6 @@ const InfoCard = ({
                     />                    
                     </div>
                   </div>
-                </>
               ) : item.layout === 2 ? (
                 <>
                   <div className='info-card-icon-container'>
@@ -111,13 +110,19 @@ const InfoCard = ({
                       }}
                     />
                   </div>
-                  <div className='info-card-text-container'>
+                  <div className='info-card-text-container'
+                    style={{
+                      maxWidth: `calc(${config.cardStyle.width || '100%'} - 20px)`,
+                      paddingLeft: '10px'
+                    }}
+                  >
                     <h4 
                       className='info-card-headline'
                       style={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        marginRight: '0px',
+                        // marginRight: '10px',
+                        // marginLeft: '10px',
                       }}
                     >
                       {item[config.headline]}

@@ -12,7 +12,7 @@
 }
 
 .info-card-text-container {
-  max-width: calc(100% - 60px);
+  max-width: calc(100% - 80px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,7 +42,7 @@
 @media screen and (max-width: 768px) {
   .info-card-container {
     width: 360px;
-    padding: 0px;
+    /* padding: 0px; */
   }
 
   .info-card-text-container {
