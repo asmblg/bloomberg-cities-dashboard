@@ -142,6 +142,22 @@
     margin-top: 10px;
     font-size: 14px;
   }
+
+  .simple-data-wrapper {
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .simple-chart {
+    width: 60%;
+    /* height: 120px; */
+  }
+  .simple-data {
+    width: 40%;
+    /* padding-right: 0;
+    padding-left: 10px; */
+  }
 }
 
 /* Initial Mobile Breakpoint */

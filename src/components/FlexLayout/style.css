@@ -102,6 +102,10 @@
     min-height: 200px !important;
   }
 
+  .flex-layout-content {
+    max-width: 90vw !important;
+  }
+
 
   .flex-layout {
     min-height: fit-content !important;
@@ -112,8 +116,15 @@
     max-height: 350px !important;
   }
 
+  .selector-map-wrapper,
+  .indicator-map-wrapper {
+    max-width: calc(90vw - 20px) !important;
+    /* height: fit-content; */
+  }
+
   .selector-map {
     max-height: 330px !important;
+    
   }
 
   .flex-layout-content > .recharts-responsive-container {
