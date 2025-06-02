@@ -94,7 +94,7 @@ a:hover {
 .full-card-container {
   /* border: 1px solid var(--primary-gray-color); */
   width: 100%;
-  background-color: var(--white-color);
+  /* background-color: var(--white-color); */
   display: flex;
   justify-content: flex-start;
 }
