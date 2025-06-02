@@ -216,7 +216,10 @@ const InfoCard = ({
                       // textUnderlineOffset: '0.2em',
                     }}
                   >
-                    <h5 className='info-card-annotation'>
+                    <h5 className='info-card-annotation' 
+                    style={{                      
+                      color: 'rgb(51, 153, 204)'
+            }}>
                       {item[config.source]}
                     </h5>
                     </Link>

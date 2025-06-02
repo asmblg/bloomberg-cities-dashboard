@@ -25,7 +25,7 @@ const SourceLink = ({ source, link1, link2 }) => {
       </div>
     );
   } else {
-    return null;
+    return source;
   }
 };
 
