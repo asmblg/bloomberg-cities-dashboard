@@ -76,7 +76,7 @@ const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartn
       <div>
         <p style={{fontFamily: 'var(--font-family-light)'}}>Data partners:</p>
         <div className='partner-logos-container'>
-          {[...dataPartners || partners].map(({ name, key, url, logoKey, style }) => (
+          {[...dataPartners || partners].map(({ name, key, url, logoKey, style, invert }) => (
             <a
               key={`footer-partner-link-${key}`}
               href={url || '/'}
@@ -85,7 +85,7 @@ const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartn
             >
               <img
                 className='partner-logo'
-                style={invertLogos 
+                style={invertLogos || invert
                   ? { filter: 'invert(1)', ...style || {}} 
                   : {...style || {}}}
                 src={logos[logoKey]}
