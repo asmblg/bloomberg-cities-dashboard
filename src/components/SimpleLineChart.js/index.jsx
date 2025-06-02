@@ -108,8 +108,9 @@ const SimpleLineChart = (props) => {
       <LChart data={dataArray} margin={margin || { top: 10, right: 20, bottom: 10, left: 10 }}>
         <XAxis
           dataKey={'name'}
-          interval={'preserveStartEnd'}
+          interval={'preserveEnd'}
           tick={{fontSize: 10}}
+          ticks={config?.xaxis?.ticks || [dataArray?.[3]?.name, dataArray?.[dataArray.length - 1]?.name]}
           tickFormatter={text => formatChartTick(text, config?.xaxis?.labelFormatter)}
         />
         {
