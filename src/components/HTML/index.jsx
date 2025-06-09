@@ -6,6 +6,16 @@ const renderElement = (json, index) => {
 
   const { tag, attributes, content, children, infoIconContent } = json;
 
+  if (infoIconContent) {
+    attributes.style = {
+      ...attributes?.style || {},
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      height: '100%',
+    };
+  }
   const Element = tag;
 
   return ( tag !== 'img'
