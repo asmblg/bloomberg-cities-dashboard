@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
+import InfoIcon from '../InfoIcon';
 
 import './style.css';
 
@@ -96,9 +97,11 @@ const FilterDropdown = ({
     <div className="dropdown-container" ref={dropdownRef}>
 
       <div 
-        style={{...config?.headerStyle || {}}}
+        style={{
+          ...config?.headerStyle || {}
+        }}
         className='dropdown-header' 
-        onClick={() => setDropdownOpen(!dropdownOpen)}
+        // onClick={() => setDropdownOpen(!dropdownOpen)}
         onMouseLeave={() => {
           if (dropdownOpen) {
             setTimeout(() => {
@@ -109,8 +112,23 @@ const FilterDropdown = ({
         }
         }
       >
-        <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
-        <div className='dropdown-header-label'>
+        <Icon 
+          name={!dropdownOpen ? 'angle down' : 'angle up'} 
+          size='big' 
+          onClick={() => setDropdownOpen(!dropdownOpen)}
+
+        />
+        <div 
+          className='dropdown-header-label'
+          onClick={() => setDropdownOpen(!dropdownOpen)}  
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}      
+        >
           <h4 className='simple-card-indicator-text'>
             {
               `${localSelection?.label || selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || ''}`.toUpperCase()
@@ -121,8 +139,14 @@ const FilterDropdown = ({
               <h4>{`${subHeading || localSelection?.subHeading || selection.subHeading}`.toUpperCase()}</h4>
               : null
           }
-        </div>
 
+        </div>
+        {(localSelection?.infoIconContent || selection?.infoIconContent || getter?.[config?.getterKey?.selectedOption]?.infoIconContent )&&
+           <InfoIcon
+              config={localSelection?.infoIconContent || selection?.infoIconContent || getter?.[config?.getterKey?.selectedOption]?.infoIconContent || {}}
+              popup
+            />
+          }
 
       </div>
       {dropdownOpen && (
