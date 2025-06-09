@@ -9,15 +9,18 @@ import './style.css';
 
 const InfoIcon = ({ config, popup, onClick }) => {
   const location = useLocation();
+  const smallScreen = window.innerWidth < 768;
   const query = new URLSearchParams(location.search);
   const lang = query.get('lng') || null;
+
+
 
  return popup && (config?.Description || config?.Source) ? (
     <Popup
       key={`${
         config?.Variable?.split(' ')?.join('-') || config?.Description?.split(' ')?.join('-')
       }-popup`}
-      position='auto'
+      position={'bottom right'}
       trigger={<Icon name='info circle' className='info-icon' />}
       on='click'
       hideOnScroll
@@ -26,8 +29,8 @@ const InfoIcon = ({ config, popup, onClick }) => {
       closeOnPortalMouseLeave
       style={{ 
         zIndex: '9999999', 
-        // position: 'relative', 
-        // left: '12px'
+        position: 'relative', 
+        left: '8px'
       }}
     >
       <Popup.Content className='info-icon-popup-container'>
