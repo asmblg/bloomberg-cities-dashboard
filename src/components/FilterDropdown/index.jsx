@@ -103,8 +103,8 @@ const FilterDropdown = ({
           ...config?.headerStyle || {},
           display: infoIconContent ? 'flex' : null,
           gap: infoIconContent ? '10px' : null,
-          paddingTop: '10px',
-          paddingBottom: '10px',
+          // paddingTop: '10px',
+          // paddingBottom: '10px',
           // alignItems: 'flex-start'
         }}
         className='dropdown-header' 
