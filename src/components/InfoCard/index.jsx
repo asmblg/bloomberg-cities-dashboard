@@ -129,6 +129,7 @@ const InfoCard = ({
                       style={{
                         display: 'flex',
                         justifyContent: 'space-between',
+                        gap: '10px'
                         // marginRight: '10px',
                         // marginLeft: '10px',
                       }}
