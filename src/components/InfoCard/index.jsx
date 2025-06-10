@@ -124,17 +124,21 @@ const InfoCard = ({
                       paddingLeft: '10px'
                     }}
                   >
-                    <h4 
-                      className='info-card-headline'
+                    <div
+                      // className='info-card-headline'
                       style={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        gap: '10px'
+                        gap: '10px',
+                        flexDirection: 'row',
+                        alignItems: 'flex-start'
                         // marginRight: '10px',
                         // marginLeft: '10px',
                       }}
                     >
-                      {item[config.headline]}
+                    <h4 className='info-card-headline'>
+                        {item[config.headline]}
+                        </h4>  
                       <InfoIcon 
                         config={{
                           Description: item?.description,
@@ -143,7 +147,7 @@ const InfoCard = ({
                         }}
                         popup 
                       /> 
-                    </h4>
+                    </div>
                     <h5 className='info-card-annotation'>
                       {item[config.annotation]}
                     </h5>
