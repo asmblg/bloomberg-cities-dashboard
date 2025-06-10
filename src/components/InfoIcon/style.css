@@ -1,19 +1,21 @@
 .info-icon {
   color: var(--secondary-gray-color) !important;
-  font-size: 18px !important;
-  width: 16px;
-  height: 16px;
+  font-size: 14px !important;
+  /* width: 12px;
+  height: 12px; */
 }
 
 .info-icon:hover {
   cursor: pointer;
   opacity: 0.8;
+  color: var(--primary-blue-color) !important;
 }
 
 .info-icon-popup-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-width: 180px;
 }
 
 .info-icon-popup-container > * {

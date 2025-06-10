@@ -33,6 +33,7 @@ const InfoCard = ({
 
   // console.log('infoItems', infoItems);
   // console.log('config', config);
+  const smallScreen = window.innerWidth < 786
 
   return (
     // JSON.stringify(infoItems, null, 2)
@@ -41,7 +42,9 @@ const InfoCard = ({
       style={{
         gap: config.gap || '10px',
         flexDirection: config.direction || 'column',
-        minWidth: config.cardStyle?.width || '100%',
+        minWidth: !smallScreen 
+          ? config.cardStyle?.width || '100%'
+          : '300px',
         flexWrap: config.wrap || 'wrap',
         display: 'flex'
         // justifyContent: 'flex-start',
@@ -53,7 +56,12 @@ const InfoCard = ({
           <div
             key={`info-card-${index}`}
             className='info-card'
-            style={{ ...config.cardStyle }}
+            style={{ 
+              ...config.cardStyle,
+              minWidth: !smallScreen 
+              ? config.cardStyle?.width || '100%'
+              : '300px',
+            }}
           >
             {
               
@@ -151,6 +159,7 @@ const InfoCard = ({
                       display: 'flex',
                       justifyContent: 'space-between',
                       marginRight: '-30px',
+                      paddingTop: '5px'
                     }}
                   >
                     <img
@@ -190,6 +199,7 @@ const InfoCard = ({
                       style={{
                         maxWidth: `calc(${config.cardStyle.width || '100%'} - 20px)`,
                         textAlign: 'center',
+                        paddingBottom: '5px'
                       }}
                     >
                       {item[config.headline]}
@@ -225,11 +235,38 @@ const InfoCard = ({
                     </Link>
 
                   </div>
+                  
 
-                    <h2 className='info-card-big-number'>
+                    <h2 
+                      className='info-card-big-number'
+                      style={{
+                        display: 'flex', 
+                        flexDirection: 'row',
+                        gap: '5px',
+                        alignItems: 'flex-start',
+                        justifyContent: 'flex-start'
+                      }}
+                    >
+                      <div>
                       <span style={{
                         fontSize: 'smaller',
                       }}>{config.bigNumberPreUnit}</span>{item[config.bigNumber]}{config.bigNumberPostUnit}
+                      </div>
+                      <div style={{
+                        position: 'relative',
+                        bottom: '5px',
+                        marginLeft: '0px' 
+                      }}>
+                        <InfoIcon 
+                          config={{
+                            Description: item?.description,
+                            Source: item?.source,
+                            Source_link: item?.['source link'],
+                          }}
+                          popup 
+                        /> 
+                      </div>
+
                     </h2>
                 </>
               ) : <h1>Layout not yet supported</h1>

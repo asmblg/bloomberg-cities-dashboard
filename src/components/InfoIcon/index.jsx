@@ -23,7 +23,12 @@ const InfoIcon = ({ config, popup, onClick }) => {
       position={'bottom right'}
       trigger={<Icon name='info circle' className='info-icon' />}
       on='click'
+      hoverable={ !smallScreen }
+      // inverted
+      pinned
+      openOnTriggerClick
       hideOnScroll
+      size='tiny'
       closeOnDocumentClick
       closeOnEscape
       closeOnPortalMouseLeave
