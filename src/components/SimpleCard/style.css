@@ -141,8 +141,10 @@
 
   .simple-card-sub-header {
     margin-top: 10px;
-    font-size: 14px;
-  }
+    font-size: 12px;
+    line-height: 12px;
+    padding-right: 10px;
+]  }
 
   .simple-data-wrapper {
     flex-direction: row;
