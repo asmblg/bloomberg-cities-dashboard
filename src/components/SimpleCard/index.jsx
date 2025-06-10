@@ -155,8 +155,16 @@ const SimpleCard = ({
       ref={scrollToRef}
       className='simple-card'
     >
-      <div className='simple-card-header' role='heading'>
-        <div className='simple-card-title'>
+      <div className='simple-card-header' role='heading'
+
+      >
+        <div className='simple-card-title'
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: '5px'
+                  }}
+        >
           {viewType === 'mobile' ? (
             <Icon
               name={`angle ${cardFullSize ? 'down' : 'up'}`}

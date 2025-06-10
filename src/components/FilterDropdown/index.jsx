@@ -34,6 +34,8 @@ const FilterDropdown = ({
 
 
   const optionsArray = options?.[optionsToggle] || options;
+
+  const infoIconContent = localSelection?.infoIconContent || selection?.infoIconContent || getter?.[config?.getterKey?.selectedOption]?.infoIconContent;
   // const key = `indicator-selector-${selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || 'no-selection'}-${subHeading || 'no-subheading'}-${superHeading || 'no-superheading}`; const optionArray = options?.[optionsToggle] || options;    
 
   // const handleDropdownClick = () => {
@@ -98,7 +100,11 @@ const FilterDropdown = ({
 
       <div 
         style={{
-          ...config?.headerStyle || {}
+          ...config?.headerStyle || {},
+          display: infoIconContent ? 'flex' : null,
+          gap: infoIconContent ? '10px' : null,
+          paddingTop: '10px',
+          // alignItems: 'flex-start'
         }}
         className='dropdown-header' 
         // onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -141,9 +147,9 @@ const FilterDropdown = ({
           }
 
         </div>
-        {(localSelection?.infoIconContent || selection?.infoIconContent || getter?.[config?.getterKey?.selectedOption]?.infoIconContent )&&
+        {infoIconContent &&
            <InfoIcon
-              config={localSelection?.infoIconContent || selection?.infoIconContent || getter?.[config?.getterKey?.selectedOption]?.infoIconContent || {}}
+              config={infoIconContent}
               popup
             />
           }
