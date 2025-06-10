@@ -42,9 +42,9 @@ const InfoCard = ({
       style={{
         gap: config.gap || '10px',
         flexDirection: config.direction || 'column',
-        minWidth: !smallScreen 
+        minWidth: !smallScreen
           ? config.cardStyle?.width || '100%'
-          : '300px',
+          : 'fit-content',
         flexWrap: config.wrap || 'wrap',
         display: 'flex'
         // justifyContent: 'flex-start',
@@ -56,44 +56,44 @@ const InfoCard = ({
           <div
             key={`info-card-${index}`}
             className='info-card'
-            style={{ 
+            style={{
               ...config.cardStyle,
-              minWidth: !smallScreen 
-              ? config.cardStyle?.width || '100%'
-              : '300px',
+              minWidth: !smallScreen
+                ? config.cardStyle?.width || '100%'
+                : '80vw',
             }}
           >
             {
-              
+
               item.layout === 1 ? (
-                  <div 
-                    className='info-card-text-container' 
+                <div
+                  className='info-card-text-container'
+                  style={{
+                    maxWidth: '100%',
+                  }}
+                >
+                  <h4 className='info-card-headline'
                     style={{
-                      maxWidth: '100%',
+                      width: '100%',
+                      paddingRight: '0px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
                     }}
                   >
-                    <h4 className='info-card-headline' 
-                      style={{
-                        width: '100%',
-                        paddingRight: '0px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
+                    {item[config.headline]}
+                    <InfoIcon
+                      config={{
+                        Description: item?.description,
+                        Source: item?.source,
+                        Source_link: item?.['source link'],
                       }}
-                    >
-                      {item[config.headline]}
-                      <InfoIcon 
-                        config={{
-                          Description: item?.description,
-                          Source: item?.source,
-                          Source_link: item?.['source link'],
-                        }}
-                        popup 
-                      /> 
-                    </h4>
-                    <h5 className='info-card-annotation'>
-                      {item[config.annotation]}
-                    </h5>
-                    <div className='info-card-chart'>
+                      popup
+                    />
+                  </h4>
+                  <h5 className='info-card-annotation'>
+                    {item[config.annotation]}
+                  </h5>
+                  <div className='info-card-chart'>
                     {/* { JSON.stringify(stats?.[item?.data] || {})} */}
                     <SimpleLineChart
                       config={config}
@@ -101,9 +101,9 @@ const InfoCard = ({
                       margin={{ top: 15, right: 60, bottom: 0, left: 0 }}
                       height={config?.chart?.height || 80}
                       width={config?.chart?.width || '100%'}
-                    />                    
-                    </div>
+                    />
                   </div>
+                </div>
               ) : item.layout === 2 ? (
                 <>
                   <div className='info-card-icon-container'>
@@ -136,17 +136,17 @@ const InfoCard = ({
                         // marginLeft: '10px',
                       }}
                     >
-                    <h4 className='info-card-headline'>
+                      <h4 className='info-card-headline'>
                         {item[config.headline]}
-                        </h4>  
-                      <InfoIcon 
+                      </h4>
+                      <InfoIcon
                         config={{
                           Description: item?.description,
                           Source: item?.source,
                           Source_link: item?.['source link'],
                         }}
-                        popup 
-                      /> 
+                        popup
+                      />
                     </div>
                     <h5 className='info-card-annotation'>
                       {item[config.annotation]}
@@ -177,14 +177,14 @@ const InfoCard = ({
                         height: config.iconSize || '50px',
                       }}
                     />
-                    <InfoIcon 
-                        config={{
-                          Description: item?.description,
-                          Source: item?.source,
-                          Source_link: item?.['source link'],
-                        }}
-                        popup 
-                      /> 
+                    <InfoIcon
+                      config={{
+                        Description: item?.description,
+                        Source: item?.source,
+                        Source_link: item?.['source link'],
+                      }}
+                      popup
+                    />
                   </div>
                   <div className='info-card-text-container'
                     style={{
@@ -213,8 +213,11 @@ const InfoCard = ({
                 </>
               ) : item.layout === 4 ? (
                 <>
-                  <div className='info-card-text-container'                  >
-                    
+                  <div className='info-card-text-container'         
+                    style={{
+                      marginRight: '15px'}}
+                    >
+
                     <h4 className='info-card-headline'>
                       {item[config.headline]}
                     </h4>
@@ -222,57 +225,55 @@ const InfoCard = ({
                       {item[config.annotation]}
                     </h5>
                     <Link
-                    to={item[config.bigNumberURL]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className='info-card-link'
-                    style={{
-                      // textDecoration: config.bigNumberURL ? 'underline' : 'none',
-                      // textUnderlineOffset: '0.2em',
-                    }}
-                  >
-                    <h5 className='info-card-annotation' 
-                    style={{                      
-                      color: 'rgb(51, 153, 204)'
-            }}>
-                      {item[config.source]}
-                    </h5>
+                      to={item[config.bigNumberURL]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className='info-card-link'
+                      style={{
+                        // textDecoration: config.bigNumberURL ? 'underline' : 'none',
+                        // textUnderlineOffset: '0.2em',
+                      }}
+                    >
+                      <h5 className='info-card-annotation'
+                        style={{
+                          color: 'rgb(51, 153, 204)'
+                        }}>
+                        {item[config.source]}
+                      </h5>
                     </Link>
 
                   </div>
-                  
-
-                    <h2 
-                      className='info-card-big-number'
-                      style={{
-                        display: 'flex', 
-                        flexDirection: 'row',
-                        gap: '5px',
-                        alignItems: 'flex-start',
-                        justifyContent: 'flex-start'
-                      }}
-                    >
-                      <div>
+                  <h2
+                    className='info-card-big-number'
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      gap: '5px',
+                      alignItems: 'flex-start',
+                      justifyContent: 'flex-start'
+                    }}
+                  >
+                    <div>
                       <span style={{
                         fontSize: 'smaller',
                       }}>{config.bigNumberPreUnit}</span>{item[config.bigNumber]}{config.bigNumberPostUnit}
-                      </div>
-                      <div style={{
-                        position: 'relative',
-                        bottom: '5px',
-                        marginLeft: '0px' 
-                      }}>
-                        <InfoIcon 
-                          config={{
-                            Description: item?.description,
-                            Source: item?.source,
-                            Source_link: item?.['source link'],
-                          }}
-                          popup 
-                        /> 
-                      </div>
+                    </div>
+                    <div style={{
+                      position: 'relative',
+                      bottom: '5px',
+                      marginLeft: '0px'
+                    }}>
+                      <InfoIcon
+                        config={{
+                          Description: item?.description,
+                          Source: item?.source,
+                          Source_link: item?.['source link'],
+                        }}
+                        popup
+                      />
+                    </div>
 
-                    </h2>
+                  </h2>
                 </>
               ) : <h1>Layout not yet supported</h1>
             }
