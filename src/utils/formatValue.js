@@ -29,16 +29,16 @@ const formatValue = (value, units, onAxis) => {
         const millions = Math.abs(value) >= 1000000;
         const billions = Math.abs(value) >= 1000000000;
 
-        const calcValue = billions
+        const calcValue = billions && units !== 'bigEuros'
           ? parseFloat(value / 1000000000).toFixed(fixedPointNum)
           : millions
-            ? parseFloat(value / 1000000).toFixed(fixedPointNum)
+            ? parseFloat(value / 1000000).toFixed(billions ? 0 : fixedPointNum)
             : thousands
               ? parseFloat(value / 1000).toFixed(fixedPointNum)
               : 0;
 
         const text = parseFloat(calcValue).toFixed(thousands || millions ? 1 : 0).replace('.0', '');
-        const unit = billions ? 'B' : millions ? 'M' : thousands ? 'K' : ''; 
+        const unit = billions && units !== 'bigEuros' ? 'B' : millions ? 'M' : thousands ? 'K' : ''; 
         return units === 'bigEuros' ? `${formatNumberWithCommas(text)}${unit}€` :`$${formatNumberWithCommas(text)}${unit}`;
         
           
@@ -68,10 +68,10 @@ const formatValue = (value, units, onAxis) => {
       case 'euros':
       case 'M €':  {
         if (units === 'M €' && Math.abs(value) >= 1000) {
-          const billionsValue = value / 1000;
-          const floatValue = parseFloat(billionsValue).toFixed(fixedPointNum);
+          // const billionsValue = value / 1000;
+          const floatValue = parseFloat(value).toFixed(0);
 
-          return `${formatNumberWithCommas(floatValue)}B€`;
+          return `${formatNumberWithCommas(floatValue)}M€`;
 
         } else {
           const floatValue = parseFloat(value).toFixed(fixedPointNum);
