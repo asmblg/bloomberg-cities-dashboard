@@ -1,7 +1,8 @@
 import moment from 'moment';
 
 
-const formatQuarterDate = (date, format) => {
+const formatQuarterDate = (date, format, lng) => {
+  const pt = lng === 'pt';
   let textArray = date.search(' ') !== -1 ?
     date.split(' ')
     : date.search('-') !== -1 ?
@@ -23,10 +24,10 @@ const formatQuarterDate = (date, format) => {
   if (textArray && format) {
     if (format === 'QX YYYY') {
       if (textArray?.[1]?.match(/q/i)) {
-        return textArray.reverse().join(' ');
+        return pt ?  textArray.reverse().join(' ').replace('Q', 'T') : textArray.reverse().join(' ');
       }
       if (textArray?.[0]?.match(/q/i)) {     
-        return textArray.join(' ');
+        return pt ? textArray.join(' ').replace('Q', 'T') : textArray.join(' ');
       }    
     } else if (format === 'QX-YY') {
       const isQtrYr = /^(Q\d) \d{4}$/.test(date);
@@ -40,19 +41,19 @@ const formatQuarterDate = (date, format) => {
       const dateObj = moment(date, format).utc();
 
       if (dateObj.isValid()) {
-        return dateObj.format('[Q]Q-YY');
+        return pt ? dateObj.format('[Q]Q-YY').replace('Q', 'T') : dateObj.format('[Q]Q-YY');
       } else {
         const quarterDateToUpper = date.replace('q', 'Q');
         const newDateObj = moment(quarterDateToUpper, 'YYYY-[Q]Q').utc();
 
         if (newDateObj.isValid()) {
-          return newDateObj.format('[Q]Q-YY');
+          return pt ? newDateObj.format('[Q]Q-YY').replace('Q', 'T')  : newDateObj.format('[Q]Q-YY');
         }
         return '';
       }
     }
   } else {
-    return date;
+    return pt ? date.replace('Q', 'T') : date.replace('T', 'Q');
   }
 
 };

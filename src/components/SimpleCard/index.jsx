@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, use } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
 import SimpleChart from './subComponents/SimpleChart';
@@ -44,6 +44,10 @@ const SimpleCard = ({
   });
   const scrollToRef = useRef();
   const navigate = useNavigate();
+  const {search} = useLocation();
+  const queryParams = new URLSearchParams(search);
+  const lng = queryParams.get('lng') || null;
+  
   const [allSummaryData, setAllSummaryData] = useState();
   const [dataPath, setDataPath] = useState(config?.dataPath);
   const selectorPath = getter?.[getterKey?.selectorPath];
@@ -234,6 +238,7 @@ const SimpleCard = ({
             <div className='simple-chart'>
               {chart?.type && allSummaryData ? (
                 <SimpleChart
+                  lng={lng}
                   key={`${dataPath}-${cardKey}-simple-chart`}
                   config={chart}
                   viewType={viewType}
@@ -252,7 +257,7 @@ const SimpleCard = ({
                   : '-'}
               </h2>
               {units ? <h5 className='simple-units'>{units}</h5> : null}
-              {summaryData?.currentDate ? <h5 className='simple-indicator-date'>{formatQuarterDate(summaryData.currentDate, 'QX YYYY', true)}</h5> : null}
+              {summaryData?.currentDate ? <h5 className='simple-indicator-date'>{formatQuarterDate(summaryData.currentDate, 'QX YYYY', lng)}</h5> : null}
               {/* {summaryData?.currentDate ? <h5 className='simple-indicator-date'>{summaryData.currentDate}</h5> : null } */}
 
             </div>
@@ -260,6 +265,7 @@ const SimpleCard = ({
           </div>
           {!disablePill && (viewType !== 'mobile' || cardFullSize) ? (
             <TrendPill
+              lng={lng}
               positiveTrendDirection={summary?.positiveTrendDirection}
               currentValue={summaryData.currentValue}
               compareValue={summaryData.compareValue}

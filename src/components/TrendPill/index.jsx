@@ -10,6 +10,7 @@ import downwardTrendIcon from './images/downward_trend_icon.png';
 import './style.css';
 
 const TrendPill = ({
+  lng,
   height,
   width,
   currentValue,
@@ -53,7 +54,7 @@ const TrendPill = ({
             <h5 className='trend-pill-text' style={{ opacity: '0.8' }}>{`vs ${formatValue(
               compareValue,
               units
-            )} ${lang === 'pt' ? 'em' : 'in'} ${onlyYears ? compareDate : dateToQuarter(compareDate, 'QX YYYY')}`}</h5>
+            )} ${lang === 'pt' ? 'em' : 'in'} ${onlyYears ? compareDate : dateToQuarter(compareDate, 'QX YYYY', lng)}`}</h5>
           ) : null}
         </>
       ) : (

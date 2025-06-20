@@ -9,7 +9,15 @@ import formatChartTick from '../../utils/formatChartTick';
 import handleSimpleChartDataArray from '../../utils/handleSimpleChartDataArray';
 
 const SimpleLineChart = (props) => {
-  const { config, data, height, width, margin, getter } = props;
+  const { 
+    config,
+    data,
+    height,
+    width,
+    margin,
+    getter,
+    lng 
+  } = props;
   const [dataArray, setDataArray] = useState(null);
   // const [dataArray2, setDataArray2] = useState(null);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
@@ -111,14 +119,14 @@ const SimpleLineChart = (props) => {
           interval={'preserveEnd'}
           tick={{fontSize: 10}}
           ticks={config?.xaxis?.ticks || [dataArray?.[3]?.name, dataArray?.[dataArray.length - 1]?.name]}
-          tickFormatter={text => formatChartTick(text, config?.xaxis?.labelFormatter)}
+          tickFormatter={text => formatChartTick(text, config?.xaxis?.labelFormatter, null, lng)}
         />
         {
           !config?.yaxis?.disabled 
           ? <YAxis
               axisLine={false}
               tickCount={config.yaxis?.tickCount || 4}
-              tickFormatter={text => formatChartTick(text, config?.yaxis?.labelFormatter)}
+              tickFormatter={text => formatChartTick(text, config?.yaxis?.labelFormatter, null, lng)}
               label={{
                 value: yLabel,
                 angle: '-90',
@@ -145,6 +153,7 @@ const SimpleLineChart = (props) => {
             }}
             content={
               <CustomTooltip
+                lng={lng}
                 units={config.tooltip.units}
                 quarterDateFormat={config.tooltip.quarterDateFormat}
                 manifest={config?.tooltip?.manifest || {

@@ -17,7 +17,7 @@ import handleSimpleChartDataArray from '../../utils/handleSimpleChartDataArray';
 import formatChartTick from '../../utils/formatChartTick';
 import { getStackedKeys } from './utils';
 
-const SimpleColumnChart = ({ config, data, margin, getter }) => {
+const SimpleColumnChart = ({ config, data, margin, getter, lng }) => {
   const [dataPath, setDataPath] = useState(config?.dataPath || null);
   const [dataArray, setDataArray] = useState(null);
   const [chartConfig, setChartConfig] = useState({
@@ -95,14 +95,14 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
           interval='preserveEnd'
           ticks={config?.xaxis?.ticks || [dataArray?.[3]?.name, dataArray?.[dataArray.length - 1]?.name]}
 
-          tickFormatter={text => formatChartTick(text, chartConfig?.xaxis?.labelFormatter)}
+          tickFormatter={text => formatChartTick(text, chartConfig?.xaxis?.labelFormatter, null, lng)}
         />
         {
           !chartConfig?.yaxis?.disabled && (
         <YAxis
           axisLine={false}
           tick={{fontSize: 12}}
-          tickFormatter={text => formatChartTick(text, chartConfig?.yaxis?.labelFormatter, chartConfig?.yaxis?.units)}
+          tickFormatter={text => formatChartTick(text, chartConfig?.yaxis?.labelFormatter, chartConfig?.yaxis?.units, lng)}
           tickCount={chartConfig?.yaxis?.tickCount || 4}
           domain={chartConfig?.yaxis?.domain}
           label={
@@ -126,6 +126,7 @@ const SimpleColumnChart = ({ config, data, margin, getter }) => {
             }}
             content={
               <CustomTooltip 
+                lng={lng}
                 units={chartConfig?.tooltip.units}
                 quarterDateFormat={chartConfig?.tooltip.quarterDateFormat}
                 manifest={chartConfig?.tooltip.manifest}

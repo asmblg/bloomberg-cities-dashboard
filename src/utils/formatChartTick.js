@@ -9,17 +9,17 @@ import formatValue from './formatValue';
  * @returns formatted tick
  */
 
-const formatChartTick = (text, formatter, units) => {
+const formatChartTick = (text, formatter, units, lng) => {
   if (text) {
     switch (formatter) {
       case 'abbreviateNumber': {
         return formatValue(text, 'bigNumbers', true);
       }
       case 'longQuarter': {
-        return dateToQuarter(text, 'QX YYYY');
+        return dateToQuarter(text, 'QX YYYY', lng);
       }
       case 'shortQuarter': {
-        return dateToQuarter(text, 'QX-YY');
+        return dateToQuarter(text, 'QX-YY', lng);
       }
       case 'percent': {
         return `${text}%`;

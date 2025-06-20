@@ -21,11 +21,11 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
   [
     {
       value: 'QtQ',
-      label: lang == 'pt' ? 'Variação de trimestre para trimestre' : 'Quarter-to-Quarter change'
+      label: lang == 'pt' ? 'Variação trimestral' : 'Quarter-to-Quarter change'
     },
     {
       value: 'YtY',
-      label: lang == 'pt' ? 'Variação de ano para ano' : 'Year-to-Year change'
+      label: lang == 'pt' ? 'Variação homóloga' : 'Year-to-Year change'
     }
   ];
 

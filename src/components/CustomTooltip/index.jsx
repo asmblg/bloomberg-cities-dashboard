@@ -14,7 +14,8 @@ const CustomTooltip = ({
   filter,
   manifest,
   units,
-  quarterDateFormat
+  lng
+  // quarterDateFormat
 }) => {
   if (active && payload?.[0]) {
     return (
@@ -42,7 +43,7 @@ const CustomTooltip = ({
             )
         }
         <h5 className='simple-indicator-date'>
-            {formatQuarterDate(label || payload?.[0]?.name, 'QX YYYY')}
+            {formatQuarterDate(label || payload?.[0]?.name, 'QX YYYY', lng)}
         </h5> 
       </div>
     );

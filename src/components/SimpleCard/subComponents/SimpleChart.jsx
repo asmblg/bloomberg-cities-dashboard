@@ -7,7 +7,7 @@ import SimpleLineChart from '../../SimpleLineChart.js';
 
 import { handleChartCalculator } from '../utils';
 
-const SimpleChart = ({ config, data, viewType  }) => {
+const SimpleChart = ({ config, data, viewType, lng  }) => {
   const { type } = config;
 
   // console.log({config, data});
@@ -20,6 +20,7 @@ const SimpleChart = ({ config, data, viewType  }) => {
 
       return (
         <SimpleColumnChart
+          lng={lng}
           config={config}
           data={chartData}
           height={150}
@@ -44,6 +45,7 @@ const SimpleChart = ({ config, data, viewType  }) => {
     case 'line': {
       return (
         <SimpleLineChart
+          lng={lng}
           config={config}
           data={data}
           margin={{ top: 10, right: 5, bottom: 0, left: 0 }}
