@@ -176,7 +176,12 @@ const FilterDropdown = ({
           }
         }}
         >
-          {optionsArray?.map(option =>
+          {optionsArray?.sort(
+            (a, b) => {
+              if (a === optionsArray[0]) return -1;
+              if (b === optionsArray[0]) return 1;
+              return a.label.localeCompare(b.label);
+            })?.map(option =>
             option && option.label && option.key && (
               <li
                 key={`indicator-dropdown-option-${option.key}`}

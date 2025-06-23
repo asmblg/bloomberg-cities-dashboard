@@ -56,7 +56,7 @@ const Layout = ({ config, setShowModal }) => {
       // Set css root:variablea
 
       const { mobile, tablet } = config?.breakpoints;
-      console.log({mobile, tablet, root});
+      // console.log({mobile, tablet, root});
       if (mobile) {
         root.style.setProperty('--mobile-breakpoint-width', `${mobile}px`);
       }

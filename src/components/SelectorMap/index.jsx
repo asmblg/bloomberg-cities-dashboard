@@ -289,7 +289,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
               }}
             >
               <Tooltip>
-                {hoveredFeature}
+                {config?.labelManifest?.[hoveredFeature] || hoveredFeature}
               </Tooltip>
             </GeoJSON>
             : null
@@ -339,7 +339,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
               }}
             >
               <Tooltip>
-                {hoveredFeature}
+              {config?.labelManifest?.[hoveredFeature] || hoveredFeature}
               </Tooltip>
             </GeoJSON>
             : null

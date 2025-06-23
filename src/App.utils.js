@@ -66,7 +66,7 @@ const useAutoIframeHeight = (deps = []) => {
         document.body.clientHeight,
         document.documentElement.clientHeight
       );
-      console.log('Sending height', height);
+      // console.log('Sending height', height);
       window.parent.postMessage({ type: 'setHeight', height }, '*');
     };
 

@@ -45,7 +45,7 @@ const sortDatesArray = (array, order, dateKey, length) => {
 
       const startDate = moment(sortedDates[0], isRegexQuarterYear ? 'Q YYYY' : 'YYYY-QX').utc();
       
-      console.log('startDate', startDate);
+      // console.log('startDate', startDate);
       for (let i = 1; i <= length - sortedDates.length; i++) {
         const newDate = moment(startDate).subtract(i, 'Q');
         const newQuarter = newDate.quarter();

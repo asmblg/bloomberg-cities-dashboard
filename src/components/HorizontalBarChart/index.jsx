@@ -109,7 +109,7 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
   ]);
 
 
-  console.log('Manifest:', dataConfig?.manifest);
+  // console.log('Manifest:', dataConfig?.manifest);
   return dataArray?.[0] ? (
     <>
       {config?.title

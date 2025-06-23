@@ -136,6 +136,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
             selectedOption={selectedIndicator || defaultSelection}
             setter={handleSetSelectedIndicator}
             options={indicators || []}
+            disableSort={config?.disableSort || false}
           />
         </>
       )}

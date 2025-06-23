@@ -11,6 +11,7 @@ const IndicatorDropdown = ({
   options, 
   selectedOption,
   viewLoaded, 
+  disableSort
 }) => {
   // console.log(config);
   // console.log(options);
@@ -119,7 +120,17 @@ const IndicatorDropdown = ({
           }
         }}
         >
-          {optionArray.map(option =>
+          {optionArray?.sort(
+            (a, b) => {
+              if (!disableSort) {
+              
+                if (a === optionArray[0]) return -1;
+                if (b === optionArray[0]) return 1;
+                return a.label.localeCompare(b.label);
+              }
+              return 0;
+            }
+          )?.map(option =>
             option && option.label && option.key ? (
               <li
                 key={`indicator-dropdown-option-${option.key}`}

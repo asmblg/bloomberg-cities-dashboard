@@ -32,7 +32,8 @@ const SimpleCard = ({
     summary,
     // indicator,
     disablePill,
-    getterKey 
+    getterKey,
+    subHeadingManifest 
   } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
@@ -138,6 +139,24 @@ const SimpleCard = ({
       trendDataType = 'YtY';
     }
   }
+
+
+  const subHeadingText =  `${
+    (selectorPath && selectedIndicator) || selectedIndicator
+      ? `${selectedIndicator?.label || selectedIndicator}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
+      : selectorPath && 
+        !selectedIndicator && 
+        config?.indicator?.Geography && 
+        `${config?.indicator?.Geography}`?.toLowerCase() !== `${selectorPath}`?.toLowerCase() &&
+        `${config?.indicator?.Geography}`?.toLowerCase() !== selectorPath?.label?.toLowerCase()
+        ? selectorPath?.label?.toLowerCase() !== 'total' && 
+          `${selectorPath}`?.toLowerCase() !== 'total'
+          ? `${selectorPath?.label || selectorPath}` 
+          : config?.defaultSubheading || config?.indicator?.Geography
+        : selectorPath && !selectedIndicator
+          ? `${selectorPath?.label || selectorPath}`
+          : config?.defaultSubheading || config?.indicator?.Geography
+  }`
   // console.log({ trendDataType });
 
   useEffect(() => {
@@ -202,22 +221,7 @@ const SimpleCard = ({
       </div>
 
       <h5 className='simple-card-sub-header'>
-      {  `${
-        (selectorPath && selectedIndicator) || selectedIndicator
-          ? `${selectedIndicator?.label || selectedIndicator}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
-          : selectorPath && 
-            !selectedIndicator && 
-            config?.indicator?.Geography && 
-            `${config?.indicator?.Geography}`?.toLowerCase() !== `${selectorPath}`?.toLowerCase() &&
-            `${config?.indicator?.Geography}`?.toLowerCase() !== selectorPath?.label?.toLowerCase()
-            ? selectorPath?.label?.toLowerCase() !== 'total' && 
-              `${selectorPath}`?.toLowerCase() !== 'total'
-              ? `${selectorPath?.label || selectorPath}` 
-              : config?.defaultSubheading || config?.indicator?.Geography
-            : selectorPath && !selectedIndicator
-              ? `${selectorPath?.label || selectorPath}`
-              : config?.defaultSubheading || config?.indicator?.Geography
-      }`.toLocaleUpperCase()}
+      { `${subHeadingManifest?.[subHeadingText] || subHeadingText}`?.toLocaleUpperCase()}
 
       </h5>
       {viewType !== 'mobile' || cardFullSize ? (

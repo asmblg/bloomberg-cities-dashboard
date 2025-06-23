@@ -59,7 +59,7 @@ const SimpleColumnChart = ({ config, data, margin, getter, lng }) => {
       const array = handleSimpleChartDataArray(config, data, dataPath);
 
       if (array?.[0]) {
-        console.log(array);
+        // console.log(array);
         // const filteredData = !config.stacked 
         //   ? array.filter(({ value }) => value || value === 0) 
         //   : array;
