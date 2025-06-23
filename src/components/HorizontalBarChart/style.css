@@ -13,6 +13,13 @@
   font-family: var(--font-family-bold);
 }
 
+.hbc-no-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2em;
+}
+
 .hbc-row-container {
   display: flex;
   margin-bottom: 10px;

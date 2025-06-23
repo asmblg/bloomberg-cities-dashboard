@@ -7,9 +7,8 @@ import { handleData } from './utils';
 import formatQuarterDate from '../../utils/formatQuarterDate';
 import formatIndicatorLabel from '../../utils/formatIndicatorLabel';
 import './style.css';
-import { get } from 'mongoose';
 
-const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
+const HorizontalBarChart = ({ config, data, setter, getter, manifest, lng }) => {
   const [dataArray, setDataArray] = useState([]);
   const [dataConfig, setDataConfig] = useState({});
   const valuesFormat = config.valuesFormat;
@@ -86,7 +85,14 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
     if (data && dataConfig) {
         const { dataArr, currentAsOf } = handleData(data, dataConfig);
         if (dataArr) {
-          setDataArray(dataArr);
+          const filteredData = dataArr?.filter(
+            item => Number(`${item?.value}`?.replace('%', '')) > 0
+          )?.filter(item => !dataConfig?.exclude?.includes(item?.name)
+          )?.filter(item => dataConfig?.lowerLimit
+            ? item?.value > dataConfig?.lowerLimit 
+            : true
+          );
+          setDataArray(filteredData);
           if (config?.setterKey?.currentAsOf && currentAsOf){
             setTimeout(() => setter(config?.setterKey?.currentAsOf, formatQuarterDate(currentAsOf, 'QX YYYY')), 0);
           }
@@ -127,13 +133,15 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
         ref={hbcContainerRef}
       >
 
-        {dataArray?.filter(
-          item => Number(`${item?.value}`?.replace('%', '')) > 0
-        )?.filter(item => !dataConfig?.exclude?.includes(item?.name)
-        )?.filter(item => dataConfig?.lowerLimit
-          ? item?.value > dataConfig?.lowerLimit 
-          : true
-        )?.map((item, index) => (
+        {dataArray
+        // ?.filter(
+        //   item => Number(`${item?.value}`?.replace('%', '')) > 0
+        // )?.filter(item => !dataConfig?.exclude?.includes(item?.name)
+        // )?.filter(item => dataConfig?.lowerLimit
+        //   ? item?.value > dataConfig?.lowerLimit 
+        //   : true
+        // )
+        ?.map((item, index) => (
           <div 
             key={index} 
             className='hbc-row-container'
@@ -180,18 +188,25 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest }) => {
         ))}
       </div>
     </>
-  ) : (
-    <TailSpin
-      color={'#006aaf'}
-      width={100}
-      height={100}
-      wrapperStyle={{
-        // width: '100vw',
-        justifyContent: 'center',
-        paddingTop: '20px'
-      }}
-    />
-  );
+) : (
+  <div className='hbc-no-data' ref={hbcContainerRef}>
+  <h3>
+    {config?.noDataMessage || 'Data unavailable based on selection(s)'}
+  </h3>
+</div>
+)
+  // ) : (
+  //   <TailSpin
+  //     color={'#006aaf'}
+  //     width={100}
+  //     height={100}
+  //     wrapperStyle={{
+  //       // width: '100vw',
+  //       justifyContent: 'center',
+  //       paddingTop: '20px'
+  //     }}
+  //   />
+  // );
 };
 
 HorizontalBarChart.propTypes = {
