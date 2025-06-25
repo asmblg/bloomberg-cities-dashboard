@@ -12,12 +12,14 @@ const SimpleLineChart = (props) => {
   const { 
     config,
     data,
+    projectedData,
     height,
     width,
     margin,
     getter,
     lng 
   } = props;
+  console.log('SimpleLineChart', { config, data, getter });
   const [dataArray, setDataArray] = useState(null);
   // const [dataArray2, setDataArray2] = useState(null);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
@@ -29,20 +31,47 @@ const SimpleLineChart = (props) => {
     setSelectedIndicator(getter?.[config.getterKey?.selectedIndicator] || null);
   }, [getter?.[config.getterKey?.selectedIndicator]]);
   useEffect(() => {
-    if (config?.primaryKey && config?.secondaryKey) {
+    if (config?.primaryKey && config?.secondaryKey || projectedData) {
       
       const dataPath1 = config?.primaryKey;
       const dataPath2 = config?.secondaryKey;
       const dataArr1 = handleSimpleChartDataArray(config, data, dataPath1);
-      const dataArr2 = handleSimpleChartDataArray(config, data, dataPath2);
+      const dataArr2 = projectedData 
+      ? handleSimpleChartDataArray(config, projectedData)
+      : handleSimpleChartDataArray(config, data, dataPath2);
+
+      console.log('dataArr1', dataArr1);
+      console.log('dataArr2', projectedData, dataArr2);
 
       if (dataArr1?.[0] && dataArr2?.[0]) {
+        if (projectedData) { 
+          setDataArray([
+              ...dataArr1.map((item, index) => {
+              if (index === dataArr1.length - 1) {
+                return {
+                  ...item,
+                  value2: item.value
+                };
+              } 
+                return {
+                ...item,
+              };
+            }),
+            ...dataArr2.filter((item) => item.value).map((item, index) => {
+              return {
+                name: item.name,
+                value2: item.value
+              };
+            })
+        ]);
+        } else {
         setDataArray(dataArr1.map((item, index) => {
           return {
             ...item,
             value2: dataArr2[index].value
           };
         }));
+        }
       }
       // if (dataArr2?.[0]) {
       //   setDataArray2(dataArr2);
@@ -77,7 +106,8 @@ const SimpleLineChart = (props) => {
       return (
         <Dot
           {...dotProps}
-          fill={indicator?.strokeColor || config.secondaryColor || '#8884d8'}
+          fill={indicator?.strokeColor || 
+            projectedData ? config.color : config.secondaryColor || '#8884d8'}
           r={3}
           strokeWidth={0}
         />
@@ -111,6 +141,7 @@ const SimpleLineChart = (props) => {
 
     );
   };
+
   return dataArray ? (
     <ResponsiveContainer height={height || '100%'} width={width || '100%'}>
       <LChart data={dataArray} margin={margin || { top: 10, right: 20, bottom: 10, left: 10 }}>
@@ -157,8 +188,9 @@ const SimpleLineChart = (props) => {
                 units={config.tooltip.units}
                 quarterDateFormat={config.tooltip.quarterDateFormat}
                 manifest={config?.tooltip?.manifest || {
-                  value: indicator?.label || config?.yaxis?.label || 'Value'
+                  value: indicator?.label || config?.yaxis?.label || 'Value',
                 }}
+                projectedData={projectedData ? true : false}
               />
             }
           />
@@ -168,13 +200,20 @@ const SimpleLineChart = (props) => {
           type={'monotone'}
           dataKey={'value2'}
           dot={config.dot ? renderDot2 : false}
-          stroke={indicator?.strokeColor || config.secondaryColor || '#8884d8'}
-          strokeWidth={indicator?.strokeWidth || 1}
+          stroke={indicator?.strokeColor || 
+            projectedData ? config.color : config.secondaryColor || '#8884d8'}
+          strokeWidth={indicator?.strokeWidth || projectedData ? 2 : 1}
+          strokeDasharray={projectedData ? '3 3' : null}
         >
          {config?.labelDot && 
           <LabelList 
             dataKey={'value2'} 
             position='right' 
+            // content={props => {
+            // console.log('ValueLabel2', props);
+            //   // return <ValueLabel/>
+            //   }
+            // }
             content={<ValueLabel/>}
             name={config?.secondaryKey}
             order='bottom'
@@ -199,10 +238,6 @@ const SimpleLineChart = (props) => {
             order='top'
           />}
         </Line>
-
-
-        
-        
       </LChart>
     </ResponsiveContainer>
   ) : null;

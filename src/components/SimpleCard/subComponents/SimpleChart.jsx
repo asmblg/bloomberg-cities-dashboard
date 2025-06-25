@@ -7,8 +7,10 @@ import SimpleLineChart from '../../SimpleLineChart.js';
 
 import { handleChartCalculator } from '../utils';
 
-const SimpleChart = ({ config, data, viewType, lng  }) => {
+const SimpleChart = ({ config, data, projectedData, viewType, lng  }) => {
   const { type } = config;
+
+  console.log('SimpleChart', {data, projectedData });
 
   // console.log({config, data});
 
@@ -48,6 +50,7 @@ const SimpleChart = ({ config, data, viewType, lng  }) => {
           lng={lng}
           config={config}
           data={data}
+          projectedData={projectedData}
           margin={{ top: 10, right: 5, bottom: 0, left: 0 }}
         />
       );

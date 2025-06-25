@@ -50,20 +50,28 @@ const SimpleCard = ({
   const lng = queryParams.get('lng') || null;
   
   const [allSummaryData, setAllSummaryData] = useState();
+  const [projectedData, setProjectedData] = useState();
   const [dataPath, setDataPath] = useState(config?.dataPath);
+  const [projectedDataPath, setProjectedDataPath] = useState(config?.projectedDataPath);
   const selectorPath = getter?.[getterKey?.selectorPath];
   const selectedIndicator = getter?.[getterKey?.selectedIndicator];
 
   // console.log({ config });
 
   useEffect(() => {
+    console.log('Data', {data, dataPath, projectedDataPath, key});
 
     if (data) {
       setAllSummaryData(getNestedValue(data, dataPath, key));
+      if (projectedDataPath) {
+        setProjectedData(getNestedValue(data, projectedDataPath, key));
+      }
     }
+
   }, [
     data,
-    dataPath
+    dataPath,
+    projectedDataPath
   ]);
 
 
@@ -118,7 +126,60 @@ const SimpleCard = ({
         setDataPath(newDataPathArray.join('.'));
       }
     }
-  }, [
+
+    if (
+      getter?.[getterKey?.selectorPath] ||
+      getter?.[getterKey?.selectedIndicator] ||
+      config?.projectedDataPath
+      ) {
+      let newDataPathArray = [];
+      const currentPath = config?.projectedDataPath // summary?.dataPath || config?.dataPath;
+      const currentPathArray = currentPath?.split('.') || [];
+      // const currentPathArrayLength = currentPathArray.length;
+
+      const selectorDataPath = selectorPath?.dataPath
+      
+      const spliceIndex = currentPathArray.length - (config?.splicePosition || 2);
+      if (selectorDataPath) {
+        const selectorDataPathArray = selectorDataPath.split('.');
+        selectorDataPathArray.forEach((path, index) => {
+          newDataPathArray.push(path);
+        });
+        if (selectedIndicator) {
+          newDataPathArray.push(selectedIndicator?.value || selectedIndicator);
+        } else {
+          newDataPathArray.push(currentPathArray[currentPathArray.length - 1]);
+        }
+      } else {
+      currentPathArray.forEach((path, index) => {
+        if (
+          selectorPath && 
+          index === spliceIndex
+        ) {
+          newDataPathArray.push(selectorPath?.value || selectorPath);
+        } else if (
+          selectedIndicator &&
+          index === currentPathArray.length - 1
+        ) {
+          newDataPathArray.push(selectedIndicator?.value || selectedIndicator); 
+        } else {
+          newDataPathArray.push(path);
+        }
+
+      }
+      );
+    }
+
+
+
+      if (newDataPathArray.length) {
+
+        setProjectedDataPath(newDataPathArray.join('.'));
+      }
+    }
+    
+  }, 
+  [
     getter?.[getterKey?.selectorPath],
     getter?.[getterKey?.selectedIndicator]
   ]);
@@ -161,6 +222,7 @@ const SimpleCard = ({
 
   useEffect(() => {
     if (data && allSummaryData) {
+      console.log('allSummaryData', allSummaryData);
       setSummaryData(
         createCompareDataObject(
           summary?.calculator, 
@@ -246,6 +308,7 @@ const SimpleCard = ({
                   key={`${dataPath}-${cardKey}-simple-chart`}
                   config={chart}
                   viewType={viewType}
+                  projectedData={projectedData}
                   data={
                     chart.type !== 'donut'
                       ? allSummaryData

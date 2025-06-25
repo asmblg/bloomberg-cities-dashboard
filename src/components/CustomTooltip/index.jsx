@@ -14,7 +14,8 @@ const CustomTooltip = ({
   filter,
   manifest,
   units,
-  lng
+  lng,
+  projectedData,
   // quarterDateFormat
 }) => {
   if (active && payload?.[0]) {
@@ -23,7 +24,8 @@ const CustomTooltip = ({
 
         {
           payload
-            // .filter(({name}) => filter?.length > 0 ? filter.includes(name) : true)
+            // .reverse()
+            .filter(({}, i) => projectedData && payload[1] ? i === 1 : true)
             .sort((a,b) => Number(b.value) - Number(a.value))
             .map(({name, value, color, dataKey, payload: innerPayload}, i) =>
               <div
