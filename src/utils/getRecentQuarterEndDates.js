@@ -20,7 +20,7 @@ const getRecentQuarterEndDates = (dates, numOfDates) => {
       : null;
     return isOnlyYear || isQuarter || month === 3 || month === 6 || month === 9 || month === 12;
   });
-
+  console.log(sortedDates);
   return sortedDates.slice(0, numOfDates);
 };
 

@@ -5,7 +5,7 @@ import moment from 'moment';
  * @param {string} date a date string in any format
  * @returns date converted into QX YYYY format
  */
-const dateToQuarter = (date, format, lng) => {
+const dateToQuarter = (date, format, lng, QtQ) => {
   const pt = lng === 'pt';
   const qtrYrRegex = /^(Q\d) \d{4}$/;
   const yrQtrRegex = /^\d{4}-(Q\d)$/;
@@ -16,7 +16,7 @@ const dateToQuarter = (date, format, lng) => {
       ? moment(date, 'Q[x] YYYY').utc()
       : moment(date, 'YYYY-M-D').utc();
 
-  const quarterNum = dateObj.quarter();
+  const quarterNum = dateObj.add('day', 1).quarter(); // Adjust quarter number if QtQ is true
   const year = format === 'QX-YY' ? dateObj.format('YY') : dateObj.year();
 
   return format === 'QX-YY' 
