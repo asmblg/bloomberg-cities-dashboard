@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import PropTypes from 'prop-types';
 import bloombergLogo from '../../assets/logos/bloomberg_associates.png';
 import alignableLogo from './logos/alignable.png';
