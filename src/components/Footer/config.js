@@ -13,7 +13,7 @@
 
 const footerConfig = {
   mainLogoKey: 'bloombergLogo',
-  copyright: '2025 Bloomberg Associates. All Rights Reserved.',
+  copyright: '2025 Bloomberg Associates.',
   partners: [
     {
       key: 'dealroom',
