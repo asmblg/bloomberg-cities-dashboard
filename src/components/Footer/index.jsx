@@ -16,7 +16,7 @@ import lightcastLogoBlack from './logos/lightcast_black.png';
 import sibsLogo from './logos/sibs_black.png';
 import lisboaAbertaLogo from './logos/lisboa_aberta_black.png';
 import lisboaInnovationLogo from './logos/lisboa_innovation_black.png';
-
+import iefpLogo from './logos/IEFP.png';
 
 
 
@@ -40,6 +40,7 @@ const logos = {
   jllLogoBlack,
   lightcastLogoBlack,
   lisboaInnovationLogo,
+  iefpLogo
 };
 
 const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartners, invertLogos, disableUserConsent }) => {

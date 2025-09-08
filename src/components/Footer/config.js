@@ -15,6 +15,14 @@ const footerConfig = {
   mainLogoKey: 'bloombergLogo',
   copyright: '2025 Bloomberg Associates.',
   partners: [
+        {
+      key: 'iefp',
+      name: 'IEFP',
+      url: 'https://www.iefp.pt/',
+      invert: true,
+      // logo: lightcastLogo,
+      logoKey: 'iefpLogo'
+    },
     {
       key: 'dealroom',
       name: 'Dealroom.co',
@@ -69,7 +77,8 @@ const footerConfig = {
       url: 'https://lightcast.io/',
       // logo: lightcastLogo,
       logoKey: 'lightcastLogo'
-    }
+    },
+
   ]
 };
 
