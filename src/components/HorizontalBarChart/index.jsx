@@ -14,7 +14,7 @@ const HorizontalBarChart = ({ config, data, setter, getter }) => {
   const selectorPath = config?.getterKey?.selectorPath;
   const firstRowRef = useRef(null); 
   const hbcContainerRef = useRef(null);
-  console.log(selectorPath, getter, data);
+  // console.log(selectorPath, getter, data);
 
   useEffect(() => {
     // console.log(getter?.[selectorPath]);

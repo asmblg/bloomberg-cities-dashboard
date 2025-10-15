@@ -150,7 +150,7 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
     }
     return obj;
   });
-  console.log(arrayWithLabels);
+  // console.log(arrayWithLabels);
   return {arrayWithLabels, extractedDate};
 };
 

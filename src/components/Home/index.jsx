@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import OverviewCard from '../OverviewCard';
 import SummaryCard from '../SummaryCard';
 import ShareAndPrintIcons from '../ShareAndPrintIcons';
-import DataToggle from '../TrendDataToggle';
+import TrendDataToggle from '../TrendDataToggle';
 
 import { 
   handleHomeData, 
@@ -64,7 +64,7 @@ const Home = ({
               ) : null} */}
             </div>
 
-            <DataToggle getter={trendDataType} setter={setTrendDataType} />
+            <TrendDataToggle getter={trendDataType} setter={setTrendDataType} />
           </div>
           <div className='summary-cards-container'>
             {summaryCards.map((card, i) => (

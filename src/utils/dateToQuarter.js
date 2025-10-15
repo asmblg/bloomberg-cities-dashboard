@@ -15,7 +15,7 @@ const dateToQuarter = (date, format) => {
       ? moment(date, 'Q[x] YYYY').utc()
       : moment(date, 'YYYY-M-D').utc();
 
-  const quarterNum = dateObj.add('day', 1).quarter();
+  const quarterNum = dateObj.add(1, 'day').quarter();
   const year = format === 'QX-YY' ? dateObj.format('YY') : dateObj.year();
 
   return format === 'QX-YY' ? `Q${quarterNum}-${year}` : `Q${quarterNum} ${year}`;

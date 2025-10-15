@@ -15,8 +15,8 @@ const getRecentQuarterEndDates = (dates, numOfDates) => {
     const regex = /([Qq])/;
     const isQuarter = regex.test(date);
     const isOnlyYear = date.length === 4;
-    const month = !isQuarter 
-      ? moment(date, 'YYYY-MM-DD').utc().month() + 1 
+    const month = !isQuarter && !isOnlyYear
+      ? parseInt(date.split('-')[1]) // moment(date, 'YYYY-MM-DD').locale('us').month()
       : null;
     return isOnlyYear || isQuarter || month === 3 || month === 6 || month === 9 || month === 12;
   });
