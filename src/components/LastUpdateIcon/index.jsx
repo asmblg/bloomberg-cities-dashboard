@@ -15,7 +15,7 @@ const LastUpdateIcon = ({ date, width }) =>
     >
       <img src={greenDotIcon} />
       {/* New date in moment removes not recognized ISO format deprecation warning */}
-      <div>Last Updated: {moment(new Date(date)).utc().format('MM/DD/YYYY')}</div>
+      <div>Last Updated: {moment(new Date(date)).locale('pt').format('MM/DD/YYYY')}</div>
     </div>
   ) : null;
 

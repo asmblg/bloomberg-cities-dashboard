@@ -66,15 +66,15 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
           Object.entries(data)
             .filter(([key]) => (filterArray ? filterArray.includes(key) : true))
             .forEach(([, obj]) => {
-              dataObj.currentValue += obj[moment(dateString).utc().format('YYYY-M-D')] || 0;
+              dataObj.currentValue += obj[moment(dateString).locale('pt').format('YYYY-M-D')] || 0;
               if (aggQuarterly) {
                 dataObj.currentValue +=
-                  obj[moment(dateString).utc().subtract(1, 'month').format('YYYY-M-D')] || 0;
+                  obj[moment(dateString).locale('pt').subtract(1, 'month').format('YYYY-M-D')] || 0;
                 dataObj.currentValue +=
-                  obj[moment(dateString).utc().subtract(2, 'month').format('YYYY-M-D')] || 0;
-                dataObj.currentDate = `${moment(dateString).utc().year()}-Q${moment(
+                  obj[moment(dateString).locale('pt').subtract(2, 'month').format('YYYY-M-D')] || 0;
+                dataObj.currentDate = `${moment(dateString).locale('pt').year()}-Q${moment(
                   dateString
-                ).utc().quarter()}`;
+                ).locale('pt').quarter()}`;
               }
             });
         }
@@ -84,15 +84,15 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
           Object.entries(data)
             .filter(([key]) => (filterArray ? filterArray.includes(key) : true))
             .forEach(([, obj]) => {
-              dataObj.compareValue += obj[moment(dateString).utc().format('YYYY-M-D')] || 0;
+              dataObj.compareValue += obj[moment(dateString).locale('pt').format('YYYY-M-D')] || 0;
               if (aggQuarterly) {
                 dataObj.compareValue +=
-                  obj[moment(dateString).utc().subtract(1, 'month').format('YYYY-M-D')] || 0;
+                  obj[moment(dateString).locale('pt').subtract(1, 'month').format('YYYY-M-D')] || 0;
                 dataObj.compareValue +=
-                  obj[moment(dateString).utc().subtract(2, 'month').format('YYYY-M-D')] || 0;
-                dataObj.compareDate = `${moment(dateString).utc().year()}-Q${moment(
+                  obj[moment(dateString).locale('pt').subtract(2, 'month').format('YYYY-M-D')] || 0;
+                dataObj.compareDate = `${moment(dateString).locale('pt').year()}-Q${moment(
                   dateString
-                ).utc().quarter()}`;
+                ).locale('pt').quarter()}`;
               }
             });
         }
@@ -107,18 +107,18 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
             .forEach(([, obj]) => {
               valueArray.push(obj[currentDate] || 0);
               valueArray.push(
-                obj[moment(dateString).utc().subtract(1, 'month').format('YYYY-M-D')] || 0
+                obj[moment(dateString).locale('pt').subtract(1, 'month').format('YYYY-M-D')] || 0
               );
               valueArray.push(
-                obj[moment(dateString).utc().subtract(2, 'month').format('YYYY-M-D')] || 0
+                obj[moment(dateString).locale('pt').subtract(2, 'month').format('YYYY-M-D')] || 0
               );
               const calcArray = valueArray.map(value => Number(value)).filter(value => value > 0);
               dataObj.currentValue = calcArray[0]
                 ? calcArray.reduce((a, b) => a + b, 0) / calcArray.length
                 : null;
-              dataObj.currentDate = `${moment(dateString).utc().year()}-Q${moment(
+              dataObj.currentDate = `${moment(dateString).locale('pt').year()}-Q${moment(
                 dateString
-              ).utc().quarter()}`;
+              ).locale('pt').quarter()}`;
             });
         }
         if (compareDate) {
@@ -129,18 +129,18 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
             .forEach(([, obj]) => {
               valueArray.push(obj[compareDate] || 0);
               valueArray.push(
-                obj[moment(dateString).utc().subtract(1, 'month').format('YYYY-M-D')] || 0
+                obj[moment(dateString).locale('pt').subtract(1, 'month').format('YYYY-M-D')] || 0
               );
               valueArray.push(
-                obj[moment(dateString).utc().subtract(2, 'month').format('YYYY-M-D')] || 0
+                obj[moment(dateString).locale('pt').subtract(2, 'month').format('YYYY-M-D')] || 0
               );
               const calcArray = valueArray.map(value => Number(value)).filter(value => value > 0);
               dataObj.compareValue = calcArray[0]
                 ? calcArray.reduce((a, b) => a + b, 0) / calcArray.length
                 : null;
-              dataObj.compareDate = `${moment(dateString).utc().year()}-Q${moment(
+              dataObj.compareDate = `${moment(dateString).locale('pt').year()}-Q${moment(
                 dateString
-              ).utc().quarter()}`;
+              ).locale('pt').quarter()}`;
             });
         }
         break;
@@ -203,7 +203,7 @@ const getCurrentAndCompareData = (calculator, data, trendDataType, filterArray, 
 
 function calcDifferenceOfTotalFromPrevQtr(data, date) {
   const prevQtrKeyFromDate = date
-    ? moment(date, 'YYYY-MM-D').utc().subtract(3, 'month').format('YYYY-MM-D')
+    ? moment(date, 'YYYY-MM-D').locale('pt').subtract(3, 'month').format('YYYY-MM-D')
     : null;
 
   const value = prevQtrKeyFromDate

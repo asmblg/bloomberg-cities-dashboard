@@ -29,15 +29,15 @@ const getDataCompareDates = (dateKeys, compareType) => {
     const yrQtrRegex = /^\d{4}-(Q\d)$/;
 
     if (qtrYrRegex.test(mostRecentDate)) {
-      const quarterNum = moment(padDate(mostRecentDate), 'Q[x] YYYY').utc().quarter();
-      const year = moment(padDate(mostRecentDate), 'Q[x] YYYY').utc().subtract(1, 'year').year();
+      const quarterNum = moment(padDate(mostRecentDate), 'Q[x] YYYY').locale('pt').quarter();
+      const year = moment(padDate(mostRecentDate), 'Q[x] YYYY').locale('pt').subtract(1, 'year').year();
       obj.compareDate = `Q${quarterNum} ${year}`;
     } else if (yrQtrRegex.test(mostRecentDate)) {
-      const quarterNum = moment(padDate(mostRecentDate), 'YYYY-QX').utc().quarter();
-      const year = moment(padDate(mostRecentDate), 'YYYY-QX').utc().subtract(1, 'year').year();
+      const quarterNum = moment(padDate(mostRecentDate), 'YYYY-QX').locale('pt').quarter();
+      const year = moment(padDate(mostRecentDate), 'YYYY-QX').locale('pt').subtract(1, 'year').year();
       obj.compareDate = `${year}-Q${quarterNum}`;
     } else {
-      const dateString = moment(padDate(mostRecentDate)).utc().subtract(1, 'year').format('YYYY-MM-D');
+      const dateString = moment(padDate(mostRecentDate)).locale('pt').subtract(1, 'year').format('YYYY-MM-D');
       obj.compareDate = dateString;
     }
   }

@@ -20,8 +20,8 @@ const getQuarterDateKey = key => {
   }
   // const year = date.getFullYear();
   // const month = date.getMonth();
-  const year = moment(date.getTime()).utc().year();
-  const quarter = moment(date.getTime()).utc().quarter();
+  const year = moment(date.getTime()).locale('pt').year();
+  const quarter = moment(date.getTime()).locale('pt').quarter();
   // const quarter = month >= 0 && month <= 2 ?
   //   1
   //   : month >= 3 && month <= 5 ?

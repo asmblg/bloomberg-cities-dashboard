@@ -123,8 +123,8 @@ function getQuarterDateKey(key) {
       date = new Date(padDate(key));
     }
   }
-  const year = moment(date.getTime()).utc().year();
-  const quarter = moment(date.getTime()).utc().quarter();
+  const year = moment(date.getTime()).locale('pt').year();
+  const quarter = moment(date.getTime()).locale('pt').quarter();
   return `${year}-Q${quarter}`;
 }
 

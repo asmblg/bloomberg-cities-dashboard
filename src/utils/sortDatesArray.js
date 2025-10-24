@@ -20,13 +20,13 @@ const sortDatesArray = (array, order, dateKey, length) => {
     const isRegexYearQuarter = regexYearQuarter.test(aDate) && regexQuarter.test(bDate);
 
     if (isRegexQuarterYear || isRegexYearQuarter) {
-      const aMoment = moment(aDate, isRegexQuarterYear ? 'Q YYYY' : 'YYYY-QX').utc();
-      const bMoment = moment(bDate, isRegexQuarterYear ? 'Q YYYY' : 'YYYY-QX').utc();
+      const aMoment = moment(aDate, isRegexQuarterYear ? 'Q YYYY' : 'YYYY-QX').locale('pt');
+      const bMoment = moment(bDate, isRegexQuarterYear ? 'Q YYYY' : 'YYYY-QX').locale('pt');
       
       return order === 'ascending' ? aMoment - bMoment : bMoment - aMoment;
     } else {
-      const aNormalDate = moment(aDate, 'YYYY-MM-DD').utc();
-      const bNormalDate = moment(bDate, 'YYYY-MM-DD').utc();
+      const aNormalDate = moment(aDate, 'YYYY-MM-DD').locale('pt');
+      const bNormalDate = moment(bDate, 'YYYY-MM-DD').locale('pt');
       
       return order === 'ascending' ? aNormalDate - bNormalDate : bNormalDate - aNormalDate;
     }
@@ -43,7 +43,7 @@ const sortDatesArray = (array, order, dateKey, length) => {
 
     if (isRegexQuarterYear || isRegexYearQuarter) {
 
-      const startDate = moment(sortedDates[0], isRegexQuarterYear ? 'Q YYYY' : 'YYYY-QX').utc();
+      const startDate = moment(sortedDates[0], isRegexQuarterYear ? 'Q YYYY' : 'YYYY-QX').locale('pt');
       
       // console.log('startDate', startDate);
       for (let i = 1; i <= length - sortedDates.length; i++) {
@@ -53,13 +53,13 @@ const sortDatesArray = (array, order, dateKey, length) => {
         missingDates.push(isRegexQuarterYear ? `Q${newQuarter} ${newYear}` : `${newYear}-Q${newQuarter}`);
       }
     } else if (isRegexJustYear) {
-      const startDate = moment(sortedDates[0], 'YYYY').utc();
+      const startDate = moment(sortedDates[0], 'YYYY').locale('pt');
       for (let i = 1; i <= length - sortedDates.length; i++) {
         const newDate = moment(startDate).subtract(i, 'years');
         missingDates.push(newDate.format('YYYY'));
       }
     } else {
-      const startDate = moment(sortedDates[0], 'YYYY-MM-DD').utc();
+      const startDate = moment(sortedDates[0], 'YYYY-MM-DD').locale('pt');
       for (let i = 1; i <= length - sortedDates.length; i++) {
         const newDate = moment(startDate).subtract(i, 'months');
         missingDates.push(newDate.format('YYYY-MM'));

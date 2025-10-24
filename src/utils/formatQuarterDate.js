@@ -38,13 +38,13 @@ const formatQuarterDate = (date, format, lng) => {
           ? 'Q[Q] YYYY'
           : 'YYYY-[Q]Q';
 
-      const dateObj = moment(date, format).utc();
+      const dateObj = moment(date, format).locale('pt');
 
       if (dateObj.isValid()) {
         return pt ? dateObj.format('[Q]Q-YY').replace('Q', 'T') : dateObj.format('[Q]Q-YY');
       } else {
         const quarterDateToUpper = date.replace('q', 'Q');
-        const newDateObj = moment(quarterDateToUpper, 'YYYY-[Q]Q').utc();
+        const newDateObj = moment(quarterDateToUpper, 'YYYY-[Q]Q').locale('pt');
 
         if (newDateObj.isValid()) {
           return pt ? newDateObj.format('[Q]Q-YY').replace('Q', 'T')  : newDateObj.format('[Q]Q-YY');
