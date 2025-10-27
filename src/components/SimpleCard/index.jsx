@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, use } from 'react';
+import { useState, useRef, useEffect, use } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';

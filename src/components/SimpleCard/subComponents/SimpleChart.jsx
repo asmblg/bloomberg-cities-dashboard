@@ -10,7 +10,7 @@ import { handleChartCalculator } from '../utils';
 const SimpleChart = ({ config, data, projectedData, viewType, lng  }) => {
   const { type } = config;
 
-  console.log('SimpleChart', {data, projectedData });
+  // console.log('SimpleChart', {data, projectedData });
 
   // console.log({config, data});
 
@@ -27,7 +27,7 @@ const SimpleChart = ({ config, data, projectedData, viewType, lng  }) => {
           data={chartData}
           height={150}
           width={'100%'}
-          margin={{ top: 10, right: 5, bottom: 0, left: 0 }}
+          margin={{ top: 10, right: 10, bottom: 0, left: 0 }}
           hasTooltip
         />
       );
@@ -51,7 +51,7 @@ const SimpleChart = ({ config, data, projectedData, viewType, lng  }) => {
           config={config}
           data={data}
           projectedData={projectedData}
-          margin={{ top: 10, right: 5, bottom: 0, left: 0 }}
+          margin={{ top: 10, right: 10, bottom: 0, left: 0 }}
         />
       );
     }

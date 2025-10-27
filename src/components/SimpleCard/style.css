@@ -104,6 +104,9 @@
   padding-bottom: .2rem;
 }
 
+svg.recharts-surface {
+  overflow: visible;
+}
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Desktop Breakpoint */
 @media screen and (max-width: 1410px) {
