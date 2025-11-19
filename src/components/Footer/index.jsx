@@ -17,6 +17,7 @@ import sibsLogo from './logos/sibs_black.png';
 import lisboaAbertaLogo from './logos/lisboa_aberta_black.png';
 import lisboaInnovationLogo from './logos/lisboa_innovation_black.png';
 import iefpLogo from './logos/IEFP.png';
+import dealroomLogoBlack from './logos/dealroom-grey.png';
 
 
 
@@ -40,7 +41,8 @@ const logos = {
   jllLogoBlack,
   lightcastLogoBlack,
   lisboaInnovationLogo,
-  iefpLogo
+  iefpLogo,
+  dealroomLogoBlack
 };
 
 const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartners, invertLogos, disableUserConsent }) => {
@@ -77,7 +79,7 @@ const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartn
       <div>
         <p style={{fontFamily: 'var(--font-family-light)'}}>Data partners:</p>
         <div className='partner-logos-container'>
-          {[...dataPartners || partners].map(({ name, key, url, logoKey, style, invert }) => (
+          {[...dataPartners || []].map(({ name, key, url, logoKey, style, invert }) => (
             <a
               key={`footer-partner-link-${key}`}
               href={url || '/'}

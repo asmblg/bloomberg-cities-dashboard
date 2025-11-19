@@ -2,6 +2,7 @@
   display: flex;
   /* flex-wrap: wrap; */
   justify-content: space-between;
+  gap: 10px;
   align-items: center;
   margin: 5px var(--desktop-outer-margin);
 }
@@ -43,9 +44,6 @@
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
-}
-.partner-logos-container > a {
-  /* max-width: calc((100%/6)- 5px); */
 }
 
 .partner-logo,

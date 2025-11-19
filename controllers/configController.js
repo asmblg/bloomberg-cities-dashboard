@@ -4,12 +4,13 @@ const { config } = require('../models');
 
 module.exports = {
   findByProject: ({ query: { project, lng } }, res) => {
-    const localMode = process.env.CONFIG_MODE === 'local';
-    if (localMode) {
-      const localConfig = require(`../dev/dev-configs-en.json`);
+    // const localMode = process.env.CONFIG_MODE === 'local';
+    const localConfigPath = process.env.LOCAL_CONFIG_PATH;
+    if (localConfigPath) {
+      const localConfig = require(localConfigPath);
       // console.log('localConfig', localConfig);
       const obj = localConfig.find(
-        ({ project }) => project.toLowerCase() === project.toLowerCase()
+        ({ project: p, lng: l }) => p.toLowerCase() === project.toLowerCase() && (!lng || l === lng)
       );
       // console.log('obj', obj);
       res.json([obj]);
