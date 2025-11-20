@@ -19,6 +19,11 @@ import lisboaInnovationLogo from './logos/lisboa_innovation_black.png';
 import iefpLogo from './logos/IEFP.png';
 import dealroomLogoBlack from './logos/dealroom-grey.png';
 
+import finstatLogoGrey from './logos/FinStat Gray.png';
+import cuskwakeLogoGrey from './logos/CushWake Gray.png';
+import dealroomLogoGrey from './logos/Dealroom Gray.png';
+import lightcastLogoGrey from './logos/Lightcast Gray.png';
+
 
 
 // import bloombergLogo from './images/bloomberg_associates.png';
@@ -42,7 +47,11 @@ const logos = {
   lightcastLogoBlack,
   lisboaInnovationLogo,
   iefpLogo,
-  dealroomLogoBlack
+  dealroomLogoBlack,
+  finstatLogoGrey,
+  cuskwakeLogoGrey,
+  dealroomLogoGrey,
+  lightcastLogoGrey
 };
 
 const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartners, invertLogos, disableUserConsent }) => {
@@ -76,7 +85,7 @@ const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartn
         } 
       </div>
 
-      <div>
+      {dataPartners && <div>
         <p style={{fontFamily: 'var(--font-family-light)'}}>Data partners:</p>
         <div className='partner-logos-container'>
           {[...dataPartners || []].map(({ name, key, url, logoKey, style, invert }) => (
@@ -98,7 +107,7 @@ const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartn
             </a>
           ))}
         </div>
-      </div>
+      </div>}
     </div>
   );
 };

@@ -30,6 +30,7 @@ const SimpleCard = ({
     label,
     units,
     summary,
+    cardStyle,
     // indicator,
     disablePill,
     getterKey,
@@ -239,6 +240,7 @@ const SimpleCard = ({
       key={`${dataPath?.replace(/\./g, '-')}-simple-card`}
       ref={scrollToRef}
       className='simple-card'
+      style={cardStyle || {}}
     >
       <div className='simple-card-header' role='heading'
 

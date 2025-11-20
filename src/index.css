@@ -165,6 +165,68 @@
   src: local('Poppins-ThinItalic'), url('./fonts/Poppins-ThinItalic.ttf') format('truetype');
 }
 
+/* --------------------------- Inter Font --------------------------- */
+
+@font-face {
+  font-family: 'Inter_18ptRegular';
+  src: local('Inter_18pt-Regular'), url('./fonts/Inter_18pt-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter_18ptBold';
+  src: local('Inter_18pt-Bold'), url('./fonts/Inter_18pt-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter_18ptItalic';
+  src: local('Inter_18pt-Italic'), url('./fonts/Inter_18pt-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter_18ptBoldItalic';
+  src: local('Inter_18pt-BoldItalic'), url('./fonts/Inter_18pt-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter_18ptLight';
+  src: local('Inter_18pt-Light'), url('./fonts/Inter_18pt-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter_18ptLightItalic';
+  src: local('Inter_18pt-LightItalic'), url('./fonts/Inter_18pt-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter_18ptMedium';
+  src: local('Inter_18pt-Medium'), url('./fonts/Inter_18pt-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter_18ptMediumItalic';
+  src: local('Inter_18pt-MediumItalic'), url('./fonts/Inter_18pt-MediumItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter_18ptBlack';
+  src: local('Inter_18pt-Black'), url('./fonts/Inter_18pt-Black.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter_18ptBlackItalic';
+  src: local('Inter_18pt-BlackItalic'), url('./fonts/Inter_18pt-BlackItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter_18ptThin';
+  src: local('Inter_18pt-Thin'), url('./fonts/Inter_18pt-Thin.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter_18ptThinItalic';
+  src: local('Inter_18pt-ThinItalic'), url('./fonts/Inter_18pt-ThinItalic.ttf') format('truetype');
+}
+
 
 .leaflet-container {
   height: 100%;
