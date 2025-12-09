@@ -7,12 +7,19 @@
     "npm": "10.9.0"
   },
   "dependencies": {
+    "@iframe-resizer/child": "^5.5.7",
     "axios": "^1.2.1",
+    "body-parser": "^1.20.3",
     "colormap": "^2.3.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "leaflet": "^1.9.3",
     "moment": "^2.29.4",
+    "mongoose": "^7.3.4",
+    "morgan": "^1.10.0",
     "numeral": "^2.0.6",
+    "path": "^0.12.7",
     "percentile": "^1.6.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -24,14 +31,7 @@
     "recharts": "^2.2.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5",
-    "web-vitals": "^2.1.4",
-    "body-parser": "^1.20.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "mongoose": "^7.3.4",
-    "morgan": "^1.10.0",
-    "path": "^0.12.7"
-
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "node server.js",

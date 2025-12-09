@@ -1,5 +1,6 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 import { TailSpin } from 'react-loader-spinner';
 
@@ -13,6 +14,9 @@ import {
   useAutoIframeHeight 
 } from './App.utils';
 import { handleGoogleAnalyticsScript } from './utils/googleAnalytics';
+import '@iframe-resizer/child'
+
+
 // import useAutoIframeHeight from './hooks/useAutoIframeHeight'; // 👈 import the hook
 
 const App = () => {
