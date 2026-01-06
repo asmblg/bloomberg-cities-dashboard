@@ -58,11 +58,6 @@ const handleRootVariables = async config => {
 const useAutoIframeHeight = (deps = []) => {
   useEffect(() => {
 
-    if (window.iFrameResizer) {
-      console.log('iFrameResizer detected, skipping auto height setup');
-      // return; // let iframe-resizer handle everything
-    }
-
     const sendHeight = () => {
       const height = Math.max(
         document.body.scrollHeight,

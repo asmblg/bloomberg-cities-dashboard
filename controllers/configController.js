@@ -12,7 +12,7 @@ module.exports = {
       const obj = localConfig.find(
         ({ project: p, lng: l }) => p.toLowerCase() === project.toLowerCase() && (!lng || l === lng)
       );
-      // console.log('obj', obj);
+      console.log('Local config obj:', obj);
       res.json([obj]);
       // const regexProject = new RegExp(project, 'i')
       // const obj = config.find(({ project }) => project.match(regexProject));
