@@ -31,6 +31,7 @@ const SimpleCard = ({
     units,
     summary,
     cardStyle,
+    headerStyle,
     // indicator,
     disablePill,
     getterKey,
@@ -262,7 +263,7 @@ const SimpleCard = ({
               }}
             />
           ) : null}
-          <h4 className='simple-card-header-text'>{label?.toUpperCase() || 'UNDEFINED'}</h4>
+          <h4 className='simple-card-header-text' style={{...headerStyle || {}}}>{label?.toUpperCase() || 'UNDEFINED'}</h4>
           <div>
             <InfoIcon config={config?.indicator} popup />
           </div>

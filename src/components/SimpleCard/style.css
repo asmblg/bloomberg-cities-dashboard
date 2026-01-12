@@ -111,7 +111,7 @@ svg.recharts-surface {
 /* Initial Desktop Breakpoint */
 @media screen and (max-width: 1410px) {
   .simple-card-header-text {
-    font-size: 14px;
+    font-size: var(--smaller-font);
   }
 }
 

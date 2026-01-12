@@ -17,12 +17,12 @@ const calculateTrend = (currentValue, oldValue, currentValueUnits) => {
   }
 
   const difference = currentNum - oldNum;
-  const change = currentValueUnits !== 'percent' ? (difference / oldNum) * 100 : difference;
+  const change = currentValueUnits !== 'percent' && currentValueUnits !== 'percentX100' ? (difference / oldNum) * 100 : currentValueUnits !== 'percentX100' ? difference : difference * 100;
   const trendDirection = difference >= 0 ? 'up' : 'down';
   const value = `${change}`.includes('.') ? change.toFixed(2) : change;
   const trendValue = Math.abs(value);
   const directionText = trendDirection === 'up' ? '+' : trendDirection === 'down' ? '-' : null;
-  const unitsString = currentValueUnits !== 'percent' ? '%' : 'pp';
+  const unitsString = currentValueUnits !== 'percent' && currentValueUnits !== 'percentX100' ? '%' : ' pp';
   const trendText = `${directionText} ${formatNumberWithCommas(numeral(trendValue).format('0,0.0'))}${unitsString}`;
 
   return {

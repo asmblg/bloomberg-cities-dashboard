@@ -30,8 +30,8 @@ const FilterDropdown = ({
     config?.setterKey?.filter3;
 
   const getterKey = config?.getterKey?.selectedOption || null;
-  const optionsToggle = getter?.[config?.getterKey?.optionsToggle] || config?.defaultDataToggle;
-
+  const optionsToggle = getter?.[config?.getterKey?.optionsToggle]?.value || getter?.[config?.getterKey?.optionsToggle] || config?.defaultDataToggle;
+  console.log('optionsToggle', optionsToggle);
 
   const optionsArray = options?.[optionsToggle] || options;
 
@@ -136,7 +136,8 @@ const FilterDropdown = ({
             width: '100%',
           }}      
         >
-          <h4 className='simple-card-indicator-text'>
+          <h4 className='simple-card-indicator-text' style={{            fontFamily: config?.headerStyle?.fontFamily || null
+}}>
             {
               `${localSelection?.label || selection?.label || getter?.[config?.getterKey?.selectedOption]?.label || ''}`.toUpperCase()
             }
