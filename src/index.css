@@ -40,6 +40,9 @@
   --biggest-font: 1.5rem;
   --mobile-breakpoint-width: 760px;
   --tablet-breakpoint-width: 1024px;
+  --data-value-scaler: 1;
+  --data-unit-scaler: 1;
+  --data-year-scaler: 1;
 
 }
 

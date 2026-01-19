@@ -29,7 +29,9 @@ const CustomTooltip = ({
             .sort((a,b) => Number(b.value) - Number(a.value))
             .map(({name, value, color, dataKey, payload: innerPayload}, i) =>
               <div
+                className='simple-data'
                 style={{
+                  width: '100%',
                   // color: color || innerPayload?.fillColor,
                   fontSize:  filter && !filter?.includes(name) ? '.6rem' : null,
                   lineHeight: filter && !filter?.includes(name) ? '.6rem' : '.9rem'
@@ -41,12 +43,13 @@ const CustomTooltip = ({
               <h5 className='simple-units'>                
                 {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}
               </h5>
+              <h5 className='simple-indicator-date'>
+                  {formatQuarterDate(label || payload?.[0]?.name, 'QX YYYY', lng)}
+              </h5> 
               </div>
             )
         }
-        <h5 className='simple-indicator-date'>
-            {formatQuarterDate(label || payload?.[0]?.name, 'QX YYYY', lng)}
-        </h5> 
+
       </div>
     );
   }

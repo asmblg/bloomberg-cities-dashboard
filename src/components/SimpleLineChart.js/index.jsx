@@ -19,7 +19,7 @@ const SimpleLineChart = (props) => {
     getter,
     lng 
   } = props;
-  console.log('SimpleLineChart', { config, data, getter });
+  // console.log('SimpleLineChart', { config, data, getter });
   const [dataArray, setDataArray] = useState(null);
   // const [dataArray2, setDataArray2] = useState(null);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
@@ -40,8 +40,8 @@ const SimpleLineChart = (props) => {
       ? handleSimpleChartDataArray(config, projectedData)
       : handleSimpleChartDataArray(config, data, dataPath2);
 
-      console.log('dataArr1', dataArr1);
-      console.log('dataArr2', projectedData, dataArr2);
+      // console.log('dataArr1', dataArr1);
+      // console.log('dataArr2', projectedData, dataArr2);
 
       if (dataArr1?.[0] && dataArr2?.[0]) {
         if (projectedData) { 
@@ -92,6 +92,7 @@ const SimpleLineChart = (props) => {
       return (
         <Dot
           {...dotProps}
+          key={dotProps.key}
           fill={indicator?.strokeColor || config.color || '#8884d8'}
           r={3}
           strokeWidth={0}
@@ -106,6 +107,7 @@ const SimpleLineChart = (props) => {
       return (
         <Dot
           {...dotProps}
+          key={dotProps.key}
           fill={indicator?.strokeColor || 
             projectedData ? config.color : config.secondaryColor || '#8884d8'}
           r={3}
@@ -179,8 +181,8 @@ const SimpleLineChart = (props) => {
         {config.tooltip ? (
           <Tooltip
             position={{
-              x: 110,
-              y: 0
+              x: 110 + (config.tooltip.xOffset || 0),
+              y: 0 + (config.tooltip.yOffset || 0)
             }}
             content={
               <CustomTooltip

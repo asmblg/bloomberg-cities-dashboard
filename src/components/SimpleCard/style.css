@@ -59,7 +59,7 @@
 
 .simple-data-wrapper {
   display: flex;
-  width: calc(var(--simple-card-width) - 30px);
+  /* width: calc(var(--simple-card-width) - 30px); */
   gap: 20px;
   /* align-items: center; */
   margin-top: 10px;
@@ -85,6 +85,23 @@
   flex-direction: column;
   justify-content: center;
   line-height: 1;
+  gap: .2em;
+}
+
+.simple-data > h2 {
+  font-size: calc(var(--data-value-scaler) * var(--bigger-font));
+  /* font-size: 2.5rem;
+  line-height: 2.5rem; */
+}
+
+.simple-data > h5 {
+  font-size: calc(var(--data-unit-scaler) * var(--smallest-font));
+  line-height: calc(var(--data-unit-scaler) * var(--smallest-font));
+}
+
+.simple-data > .simple-indicator-date {
+  font-size: calc(var(--data-year-scaler) * var(--smallest-font));
+  line-height: calc(var(--data-year-scaler) * var(--smallest-font));
 }
 
 .simple-chart {
@@ -126,7 +143,7 @@ svg.recharts-surface {
   .simple-card {
     height: 240px;
     max-width: 300px;
-    width: 90vw;
+    max-width: 90vw;
     /* margin: 20px 0; */
   }
   .simple-card-title {

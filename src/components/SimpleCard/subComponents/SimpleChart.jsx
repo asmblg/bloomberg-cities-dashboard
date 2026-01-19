@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import SimpleColumnChart from '../../SimpleColumnChart';
@@ -13,6 +12,7 @@ const SimpleChart = ({ config, data, projectedData, viewType, lng  }) => {
   // console.log('SimpleChart', {data, projectedData });
 
   // console.log({config, data});
+
 
   switch (type) {
     case 'column': {
@@ -53,6 +53,31 @@ const SimpleChart = ({ config, data, projectedData, viewType, lng  }) => {
           projectedData={projectedData}
           margin={{ top: 10, right: 10, bottom: 0, left: 0 }}
         />
+      );
+    }
+    case 'donut + line': {
+      return (
+        <>
+          {/* <div style={{ width: '100%', height: 80 }}> */}
+              <SinglePercentDonutChart
+                config={config}
+                value={data?.value}
+                label={data?.key}
+                height={80}
+                width={'100%'}
+                mobile={viewType === 'mobile'}
+              />
+          {/* </div> */}
+          {/* <div style={{ width: '100%', height: 150 }}> */}
+            <SimpleLineChart
+              lng={lng}
+              config={config}
+              data={data}
+              projectedData={projectedData}
+              margin={{ top: 10, right: 10, bottom: 0, left: 0 }}
+            />
+          {/* </div> */}
+        </>
       );
     }
     default: {

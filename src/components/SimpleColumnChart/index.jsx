@@ -121,8 +121,8 @@ const SimpleColumnChart = ({ config, data, margin, getter, lng }) => {
         {chartConfig?.tooltip ? (
           <Tooltip 
             position={{
-              x: 110,
-              y: 0
+              x: 110 + (chartConfig?.tooltip.xOffset || 0),
+              y: 0 + (chartConfig?.tooltip.yOffset || 0)
             }}
             content={
               <CustomTooltip 

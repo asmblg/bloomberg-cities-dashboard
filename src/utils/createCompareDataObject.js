@@ -21,6 +21,8 @@ const createCompareDataObject = (calculator, data, trendDataType, filterArray, p
     postCalculator
   );
 
+  // console.log('createCompareDataObject', {calculator, data, trendDataType, filterArray, postCalculator})
+
   const obj = {
     currentValue,
     currentDate,

@@ -1,6 +1,6 @@
 
 
-const padDate = (dateString, seperator) => dateString.split(seperator || '-').map(string => 
+const padDate = (dateString, seperator) => dateString?.split(seperator || '-').map(string => 
   string.length === 1
     ? `0${string}`
     : string

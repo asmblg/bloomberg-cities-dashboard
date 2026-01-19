@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
 import SimpleChart from './subComponents/SimpleChart';
+import HorizontalBarChart from '../HorizontalBarChart';
 import TrendPill from '../TrendPill';
 import InfoIcon from '../InfoIcon';
 
@@ -57,17 +58,52 @@ const SimpleCard = ({
   const [projectedDataPath, setProjectedDataPath] = useState(config?.projectedDataPath);
   const selectorPath = getter?.[getterKey?.selectorPath];
   const selectedIndicator = getter?.[getterKey?.selectedIndicator];
+  const [derivedDate, setDerivedDate] = useState(null);
+  const [derivedMaxValue, setDerivedMaxValue] = useState(null);
 
   // console.log({ config });
 
   useEffect(() => {
-    console.log('Data', {data, dataPath, projectedDataPath, key});
+    // console.log('Data', {data, dataPath, projectedDataPath, key});
 
     if (data) {
-      setAllSummaryData(getNestedValue(data, dataPath, key));
-      if (projectedDataPath) {
-        setProjectedData(getNestedValue(data, projectedDataPath, key));
+      const nestedData = getNestedValue(data, dataPath, key);
+
+      if (chart?.valueType === 'mostCurrent') {
+        let mostCurrentKey = null;
+        Object.values(nestedData || {}).forEach((item) => {
+          Object.keys(item).forEach((dateKey) => {
+            dateKey > mostCurrentKey ? mostCurrentKey = dateKey : null;
+          })
+        })
+        // console.log('Most Current Key', mostCurrentKey);
+        setDerivedDate(mostCurrentKey);
+        const mostCurrentData = {};
+        let maxValue = 0;
+        Object.entries(nestedData || {}).forEach(([dataKey, dataValue]) => {
+          if (chart?.exclude && chart?.exclude.includes(dataKey)) {
+            return;
+          }
+          mostCurrentData[dataKey] = dataValue[mostCurrentKey];
+          if (dataValue[mostCurrentKey] > maxValue) {
+            maxValue = dataValue[mostCurrentKey];
+          }
+        });
+        // console.log('Max Value', maxValue);
+        setDerivedMaxValue(maxValue);
+        // console.log('Most Current Data', mostCurrentData);
+        setAllSummaryData(mostCurrentData);
+
+      } else {
+        // console.log('Nested Data', nestedData);
+        setAllSummaryData(nestedData);
+        //
+        setAllSummaryData(getNestedValue(data, dataPath, key));
+        if (projectedDataPath) {
+          setProjectedData(getNestedValue(data, projectedDataPath, key));
+        }
       }
+
     }
 
   }, [
@@ -91,7 +127,14 @@ const SimpleCard = ({
       const selectorDataPath = selectorPath?.dataPath
       
       const spliceIndex = currentPathArray.length - (config?.splicePosition || 2);
+      
       if (selectorDataPath) {
+        if (config?.dataPathBase) {
+          const dataPathBaseArray = config?.dataPathBase.split('.');
+          dataPathBaseArray.forEach((path) => {
+            newDataPathArray.push(path);
+          });
+        }
         const selectorDataPathArray = selectorDataPath.split('.');
         selectorDataPathArray.forEach((path, index) => {
           newDataPathArray.push(path);
@@ -102,24 +145,24 @@ const SimpleCard = ({
           newDataPathArray.push(currentPathArray[currentPathArray.length - 1]);
         }
       } else {
-      currentPathArray.forEach((path, index) => {
-        if (
-          selectorPath && 
-          index === spliceIndex
-        ) {
-          newDataPathArray.push(selectorPath?.value || selectorPath);
-        } else if (
-          selectedIndicator &&
-          index === currentPathArray.length - 1
-        ) {
-          newDataPathArray.push(selectedIndicator?.value || selectedIndicator); 
-        } else {
-          newDataPathArray.push(path);
-        }
+        currentPathArray.forEach((path, index) => {
+            if (
+              selectorPath && 
+              index === spliceIndex
+            ) {
+              newDataPathArray.push(selectorPath?.value || selectorPath);
+            } else if (
+              selectedIndicator &&
+              index === currentPathArray.length - 1
+            ) {
+              newDataPathArray.push(selectedIndicator?.value || selectedIndicator); 
+            } else {
+              newDataPathArray.push(path);
+            }
 
+        }
+        );
       }
-      );
-    }
 
 
 
@@ -219,12 +262,12 @@ const SimpleCard = ({
         : selectorPath && !selectedIndicator
           ? `${selectorPath?.label || selectorPath}`
           : config?.defaultSubheading || config?.indicator?.Geography
-  }`
+  }${derivedDate ? `, ${derivedDate}` : ''}`;
   // console.log({ trendDataType });
 
   useEffect(() => {
     if (data && allSummaryData) {
-      console.log('allSummaryData', allSummaryData);
+      // console.log('allSummaryData', allSummaryData);
       setSummaryData(
         createCompareDataObject(
           summary?.calculator, 
@@ -243,15 +286,14 @@ const SimpleCard = ({
       className='simple-card'
       style={cardStyle || {}}
     >
-      <div className='simple-card-header' role='heading'
-
-      >
-        <div className='simple-card-title'
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    gap: '5px'
-                  }}
+      <div className='simple-card-header' role='heading'>
+        <div 
+          className='simple-card-title'
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: '5px'
+          }}
         >
           {viewType === 'mobile' ? (
             <Icon
@@ -289,7 +331,7 @@ const SimpleCard = ({
       { `${subHeadingManifest?.[subHeadingText] || subHeadingText}`?.toLocaleUpperCase()}
 
       </h5>
-      {viewType !== 'mobile' || cardFullSize ? (
+      {(viewType !== 'mobile' || cardFullSize) && chart.type !== 'horizontal-bar' ? (
         <>
           <div
             className='simple-data-wrapper'
@@ -305,7 +347,7 @@ const SimpleCard = ({
           >
 
             <div className='simple-chart'>
-              {chart?.type && allSummaryData ? (
+              { chart?.type && allSummaryData ? (
                 <SimpleChart
                   lng={lng}
                   key={`${dataPath}-${cardKey}-simple-chart`}
@@ -349,6 +391,81 @@ const SimpleCard = ({
           ) : null}
         </>
       ) : null}
+      {
+        chart.type === 'horizontal-bar' ? (
+          // <p>{JSON.stringify(allSummaryData)}</p>
+          // <HorizontalBarChart
+          //   lng={lng}
+          //   config={chart}
+          //   data={allSummaryData}
+          //   height={150}
+          //   width={'100%'}
+          //   margin={{ top: 10, right: 10, bottom: 20, left: 40 }}
+          //   hasTooltip
+          // />
+          <div style={{
+              height: '100%', 
+              maxHeight: '280px',
+              marginTop: '20px', 
+              width: '100%',
+              overflowY: 'auto',
+            }}>
+            {Object.entries(allSummaryData || {})
+            .filter(([barKey, barValue]) => {
+              if (chart?.exclude && chart?.exclude.includes(barKey)) {
+                return false;
+              }
+              if (barValue === null || barValue === undefined) {
+                return false;
+              }
+              return true;
+            })
+            .sort((a, b) => parseInt(b[1]) - parseInt(a[1]))
+            .map(([barKey, barValue]) => (
+              <div 
+                key={`${dataPath}-horizontal-bar-${barKey}`}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '8px',
+                }}
+              >
+                <div style={{width: '40%', height: '20px', lineHeight: '20px'}}>
+                  <h5 style={{height: '20px', lineHeight: '20px',  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: '10px'}} className='horizontal-bar-label'>{barKey}</h5>
+                </div>
+                <div style={{
+                  width: 'calc(60% - 60px)',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'nowrap'
+                  }}>
+                  {/* <div style={{width: '80%', backgroundColor: '#e0e0e0', height: '10px', borderRadius: '5px'}}> */}
+                    <div 
+                      style={{
+                        width: `${barValue / derivedMaxValue * 100}%`, 
+                        minWidth: `${barValue / derivedMaxValue * 100}%`,
+                        backgroundColor: chart.color || 'var(--primary-color)', 
+                        height: '20px', 
+                        textAlign: 'right',
+                        // borderRadius: '5px'
+                      }}
+                    >
+
+                    </div>
+                    <div 
+                      className='horizontal-bar-value'
+                      style={{marginLeft: '5px'}}
+                    >{formatValue(barValue, chart.values?.formatter || null)}</div>
+
+                  {/* </div> */}
+                </div>
+              </div>
+            ))} 
+          </div>
+
+        ) : null  
+      }
+      <br />
       {/* <h5>{dataPath}</h5> */}
 
     </div>

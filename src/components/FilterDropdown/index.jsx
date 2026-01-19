@@ -31,7 +31,7 @@ const FilterDropdown = ({
 
   const getterKey = config?.getterKey?.selectedOption || null;
   const optionsToggle = getter?.[config?.getterKey?.optionsToggle]?.value || getter?.[config?.getterKey?.optionsToggle] || config?.defaultDataToggle;
-  console.log('optionsToggle', optionsToggle);
+  // console.log('optionsToggle', optionsToggle);
 
   const optionsArray = options?.[optionsToggle] || options;
 
@@ -211,7 +211,7 @@ FilterDropdown.propTypes = {
   setter: PropTypes.func,
   getter: PropTypes.object,
   config: PropTypes.object.isRequired,
-  options: PropTypes.array,
+  // options: PropTypes.array,
   // selectedOption: PropTypes.object,
   viewLoaded: PropTypes.bool,
 };
