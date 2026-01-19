@@ -47,7 +47,7 @@ const FlexLayoutElement = ({
   scrollRef,
   recursive,
   firstRecursive,
-  manifest
+  manifest,
 }) => {
   const {
     columns,
@@ -87,6 +87,7 @@ const FlexLayoutElement = ({
   }, [viewLoaded]);
 
   return (
+    !content?.deactivated && 
     <div
       ref={elementRef}
       id={scrollRef}

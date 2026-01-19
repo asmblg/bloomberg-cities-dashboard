@@ -84,6 +84,8 @@ const FlexLayout = ({
     });
   }, [layout, views, view]);
 
+  console.log('Elemnent Array', elementArray);
+
   
   return (
     <div
@@ -106,11 +108,13 @@ const FlexLayout = ({
         />
       )}
       <div className='flex-layout' style={handleStyle(isColumns, viewType)}>
-        {elementArray?.map((element, i) => (
+        {elementArray
+        ?.map((element, i) => (
           <FlexLayoutElement
             key={`flex-layout-el-${i}-${view?.key}`}
             view={view}
             data={data}
+            deactivated={element.deactivated}
             project={project}
             layout={element}
             setter={handleSetter}
