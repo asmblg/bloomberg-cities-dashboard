@@ -10,7 +10,9 @@ module.exports = {
       const localConfig = require(localConfigPath);
       // console.log('localConfig', localConfig);
       const obj = localConfig.find(
-        ({ project: p, lng: l }) => p.toLowerCase() === project.toLowerCase() && (!lng || l === lng)
+        ({ project: p, lng: l }) => 
+          p.toLowerCase() === project.toLowerCase() && 
+        (!lng ? !l : l === lng)
       );
       console.log('Local config obj:', obj);
       res.json([obj]);

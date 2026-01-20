@@ -19,14 +19,15 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
   // const { toggleValue } = getter;
   const options = config?.options || 
   [
+        {
+      value: 'YtY',
+      label: lang == 'pt' ? 'Variação homóloga' : 'Year-to-Year change'
+    },
     {
       value: 'QtQ',
       label: lang == 'pt' ? 'Variação trimestral' : 'Quarter-to-Quarter change'
     },
-    {
-      value: 'YtY',
-      label: lang == 'pt' ? 'Variação homóloga' : 'Year-to-Year change'
-    }
+
   ];
 
   const text = config?.text;
@@ -37,7 +38,7 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
     ? getter?.[config.getterKey.toggleValue]
     : getter === options[1].value || getter === options[0].value
       ? getter
-      : null;
+      : 'YtY';
 
 
   useEffect(() => {
