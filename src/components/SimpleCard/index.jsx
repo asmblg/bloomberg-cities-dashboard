@@ -69,6 +69,7 @@ const SimpleCard = ({
     if (data) {
       const nestedData = getNestedValue(data, dataPath, key);
 
+
       if (chart?.valueType === 'mostCurrent') {
         let mostCurrentKey = null;
         Object.values(nestedData || {}).forEach((item) => {
@@ -95,10 +96,18 @@ const SimpleCard = ({
         setAllSummaryData(mostCurrentData);
 
       } else {
-        // console.log('Nested Data', nestedData);
-        setAllSummaryData(nestedData);
+        if (summary?.postCalculator === 'QuarterToDailyAverage') {
+          const adjustedData = {};
+          Object.entries(nestedData || {}).forEach(([dataKey, dataValue]) => {
+           adjustedData[dataKey] = dataValue / 90;
+          });
+          // console.log('Adjusted Data', adjustedData);
+          setAllSummaryData(adjustedData);
+        } else {
+          setAllSummaryData(nestedData);
+        }
         //
-        setAllSummaryData(getNestedValue(data, dataPath, key));
+        // setAllSummaryData(getNestedValue(data, dataPath, key));
         if (projectedDataPath) {
           setProjectedData(getNestedValue(data, projectedDataPath, key));
         }
