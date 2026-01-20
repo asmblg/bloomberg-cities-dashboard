@@ -45,10 +45,11 @@
   }
 
   .flex-layout-rows {
-    max-width: 95vw !important;
+    width: 95vw !important;
     /* min-height: fit-content !important; */
     padding: 5px !important;
     justify-content: flex-start;
+    align-items: center;
     /* border-color: transparent !important; */
   }
 
@@ -84,6 +85,9 @@
     min-height: fit-content !important;
     padding: 5px;
     justify-content: flex-start;
+    align-items: center; 
+    width: 90vw !important;
+    max-width: 90vw !important;
     /* border-color: transparent !important; */
     gap: 10px;
   }
@@ -103,7 +107,8 @@
   }
 
   .flex-layout-content {
-    max-width: 90vw !important;
+    width: 90vw !important;
+    min-width: 90vw !important;
   }
 
 

@@ -143,7 +143,8 @@ svg.recharts-surface {
   .simple-card {
     height: 240px;
     max-width: 300px;
-    max-width: 90vw;
+    margin: auto;
+    /* max-width: 90vw; */
     /* margin: 20px 0; */
   }
   .simple-card-title {
