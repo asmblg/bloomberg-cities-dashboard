@@ -39,6 +39,8 @@ const AboutTheData = ({ config, project, viewType, infoIconConfig }) => {
             {config.variableTable.headerRow.map((row, i) => (
               <div 
                 role='table' key={`table-header-${row.key}-${i}`}
+                className={row.wide ? 'about-table-variable-wide' : 'about-table-variable'}
+
                 style={{
                   width: row.wide ? '50%': null,
                 }}
@@ -58,6 +60,7 @@ const AboutTheData = ({ config, project, viewType, infoIconConfig }) => {
                     {config.variableTable.headerRow.map((obj, ii) => (
                       <div
                         key={`variable-${i}-data-${ii}`}
+                        className={obj.wide ? 'about-table-variable-wide' : 'about-table-variable'}
                         style={obj.key === 'Variable' || obj.key === 'Tab'
                           ? { 
                               fontFamily: 'RobotoBold',

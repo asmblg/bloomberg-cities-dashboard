@@ -43,6 +43,8 @@
   --data-value-scaler: 1;
   --data-unit-scaler: 1;
   --data-year-scaler: 1;
+  --simple-card-width: 240px;
+  --mobile-card-width: 300px;
 
 }
 

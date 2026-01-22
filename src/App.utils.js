@@ -10,8 +10,8 @@ const handleConfig = async (pathname, lng) => {
     const initialConfig = await getConfig(projectName, lng);
 
     // Set CSS Variables based on initialConfig
-    if (initialConfig?.fonts) {
-      handleRootVariables(initialConfig.fonts);
+    if (initialConfig?.fonts || initialConfig?.root) {
+      handleRootVariables(initialConfig?.fonts || initialConfig?.root);
     }
 
 

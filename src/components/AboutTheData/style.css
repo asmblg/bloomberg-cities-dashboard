@@ -95,9 +95,23 @@
 
 /* Initial Mobile Breakpoint */
 @media screen and (max-width: 450px) {
+
   .about-data-container {
-    min-height: 100vh;
+    min-height: 80vh;
+    max-width: 85vw !important;
+    width: 85vw !important;
+    overflow: auto;
   }
+
+  .about-table-variable-wide {
+    font-size: .7rem !important;
+    line-height: 1.1em !important;
+  }
+
+  .about-table-variable {
+    font-size: .7rem !important;
+  }
+  
 
   .about-data-header {
     padding: 10px 0;

@@ -52,18 +52,18 @@ const Layout = ({ config, setShowModal }) => {
       }
     }
 
-    if (config?.breakpoints) {
-      // Set css root:variablea
+    // if (config?.breakpoints) {
+    //   // Set css root:variablea
 
-      const { mobile, tablet } = config?.breakpoints;
-      // console.log({mobile, tablet, root});
-      if (mobile) {
-        root.style.setProperty('--mobile-breakpoint-width', `${mobile}px`);
-      }
-      if (tablet) {
-        root.style.setProperty('--tablet-breakpoint-width', `${tablet}px`);
-      }
-    }
+    //   const { mobile, tablet } = config?.breakpoints;
+    //   // console.log({mobile, tablet, root});
+    //   if (mobile) {
+    //     root.style.setProperty('--mobile-breakpoint-width', `${mobile}px`);
+    //   }
+    //   if (tablet) {
+    //     root.style.setProperty('--tablet-breakpoint-width', `${tablet}px`);
+    //   }
+    // }
 
     if (config?.disableOuterMargin) {
       root.style.setProperty('--desktop-outer-margin', typeof config?.disableOuterMargin === 'string' ? config.disableOuterMargin : '2%');

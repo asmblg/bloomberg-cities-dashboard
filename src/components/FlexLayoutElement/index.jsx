@@ -59,7 +59,7 @@ const FlexLayoutElement = ({
   
   } = layout;
 
-
+  console.log({viewType})
   const mobile = viewType === 'mobile';
   const tablet = viewType === 'tablet';
   const elementRef = useRef();
@@ -91,7 +91,7 @@ const FlexLayoutElement = ({
     <div
       ref={elementRef}
       id={scrollRef}
-      className={`flex-layout-${(mobile || (tablet && !keepColumnsOnTablet)) && type !== 'content' ? 'rows' : type}`}
+      className={`flex-layout-${mobile && type !== 'content' ? 'rows' : type}`}
       style={handleElementStyle(
         style,
         height,
@@ -285,10 +285,11 @@ const FlexLayoutElement = ({
           stats={getNestedValue(data, content?.statsPath)}
           />
       ) : (content?.type === 'filler' || content.type === 'html') ? (
-        <div 
-          style={{
-            ...content?.style ||{}
-          }}>
+        // <div 
+        //   style={{
+        //     ...content?.style ||{}
+        //   }}>
+        <>
             {content?.text || null}            
             {
               content?.html
@@ -296,7 +297,8 @@ const FlexLayoutElement = ({
                 ? <HTML data={content.html} />
                 : null
             }
-          </div>
+            </>
+          // </div>
       )
         : (
           <UnderConstructionBox notInConfig />

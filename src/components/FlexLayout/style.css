@@ -7,10 +7,12 @@
 
 .flex-layout-columns {
   width: 100%;
+  max-width: 95vw;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   padding-left: 20px;
+  flex-wrap: wrap;
 }
 
 .flex-layout-rows {
@@ -35,6 +37,7 @@
     min-width: 300px !important;
     height: fit-content !important;
     margin: 0 !important;
+    flex-wrap: wrap;
     /* border-top: initial !important; */
 
     /* min-width: 100% !important; */
@@ -45,11 +48,12 @@
   }
 
   .flex-layout-rows {
-    width: 95vw !important;
+    /* width: 95vw !important; */
     /* min-height: fit-content !important; */
     padding: 5px !important;
     justify-content: flex-start;
     align-items: center;
+    margin: auto;
     /* border-color: transparent !important; */
   }
 
@@ -83,13 +87,14 @@
   .flex-layout-rows {
     /* width: 100% ; */
     min-height: fit-content !important;
-    padding: 5px;
+    padding: 10px 0px !important;
     justify-content: flex-start;
     align-items: center; 
-    width: 90vw !important;
     max-width: 90vw !important;
+    min-width: 90vw !important;
+    /* max-width: 90vw !important; */
     /* border-color: transparent !important; */
-    gap: 10px;
+    gap: 20px !important;
   }
 
   /* .flex-layout-content { */
@@ -107,14 +112,15 @@
   }
 
   .flex-layout-content {
-    width: 90vw !important;
-    min-width: 90vw !important;
+    width: var(--mobile-card-width) !important;
+    max-width: 95vw !important;
+    /* overflow: auto; */
   }
 
 
   .flex-layout {
     min-height: fit-content !important;
-    padding: 0 20px 20px 10px;
+    padding: 10px 0px 10px 0px !important;
     justify-content: flex-start;
   }
   .selector-map-wrapper {

@@ -30,7 +30,7 @@
   display: flex;
   align-items: center;
   width: 25%;
-  min-width: 120px;
+  min-width: 100px;
   height: fit-content;
   overflow: hidden;
   word-break: normal;

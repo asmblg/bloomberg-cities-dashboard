@@ -7,8 +7,7 @@ const handleStyle = (
 ) => {
   let obj = {};
   obj.flexDirection = isColumn && 
-    viewType !== 'mobile' &&
-    viewType !== 'tablet' ? 
+    viewType !== 'mobile' ? 
     'row' : 'column';
   if (viewType === 'mobile') {
     obj.height =  'fit-content';
