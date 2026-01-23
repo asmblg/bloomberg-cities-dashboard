@@ -24,7 +24,7 @@
 }
 
 .flex-layout-content > .recharts-responsive-container {
-  min-height: 200px !important;
+  min-height: fit-content !important;
   max-height: 250px;
   max-width: 400px;
 }
@@ -139,7 +139,7 @@
   }
 
   .flex-layout-content > .recharts-responsive-container {
-    min-height: 200px !important;
+    min-height: fit-content !important;
   }
 
   .indicator-trend-wrapper {
