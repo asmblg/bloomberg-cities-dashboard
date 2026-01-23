@@ -25,8 +25,8 @@ const SimpleCard = ({
   getter,
   // trendDataType,
 }) => {
-  const { 
-    chart, 
+  const {
+    chart,
     key,
     label,
     units,
@@ -36,7 +36,7 @@ const SimpleCard = ({
     // indicator,
     disablePill,
     getterKey,
-    subHeadingManifest 
+    subHeadingManifest
   } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
@@ -48,10 +48,10 @@ const SimpleCard = ({
   });
   const scrollToRef = useRef();
   const navigate = useNavigate();
-  const {search} = useLocation();
+  const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const lng = queryParams.get('lng') || null;
-  
+
   const [allSummaryData, setAllSummaryData] = useState();
   const [projectedData, setProjectedData] = useState();
   const [dataPath, setDataPath] = useState(config?.dataPath);
@@ -99,7 +99,7 @@ const SimpleCard = ({
         if (summary?.postCalculator === 'QuarterToDailyAverage') {
           const adjustedData = {};
           Object.entries(nestedData || {}).forEach(([dataKey, dataValue]) => {
-           adjustedData[dataKey] = dataValue / 90;
+            adjustedData[dataKey] = dataValue / 90;
           });
           // console.log('Adjusted Data', adjustedData);
           setAllSummaryData(adjustedData);
@@ -111,7 +111,24 @@ const SimpleCard = ({
         if (projectedDataPath) {
           setProjectedData(getNestedValue(data, projectedDataPath, key));
         }
+
+
+        if (chart?.type === 'horizontal-bar') {
+          let maxValue = 0;
+          Object.entries(nestedData || {}).forEach(([dataKey, dataValue]) => {
+            if (chart?.exclude && chart?.exclude?.includes(dataKey)) {
+              return;
+            }
+            if (dataValue > maxValue) {
+              maxValue = dataValue;
+            }
+          });
+
+          setDerivedMaxValue(maxValue);
+        }
       }
+
+
 
     }
 
@@ -127,16 +144,16 @@ const SimpleCard = ({
     if (
       getter?.[getterKey?.selectorPath] ||
       getter?.[getterKey?.selectedIndicator]
-      ) {
+    ) {
       let newDataPathArray = [];
       const currentPath = summary?.dataPath || config?.dataPath;
       const currentPathArray = currentPath.split('.');
       // const currentPathArrayLength = currentPathArray.length;
 
       const selectorDataPath = selectorPath?.dataPath
-      
+
       const spliceIndex = currentPathArray.length - (config?.splicePosition || 2);
-      
+
       if (selectorDataPath) {
         if (config?.dataPathBase) {
           const dataPathBaseArray = config?.dataPathBase.split('.');
@@ -155,19 +172,19 @@ const SimpleCard = ({
         }
       } else {
         currentPathArray.forEach((path, index) => {
-            if (
-              selectorPath && 
-              index === spliceIndex
-            ) {
-              newDataPathArray.push(selectorPath?.value || selectorPath);
-            } else if (
-              selectedIndicator &&
-              index === currentPathArray.length - 1
-            ) {
-              newDataPathArray.push(selectedIndicator?.value || selectedIndicator); 
-            } else {
-              newDataPathArray.push(path);
-            }
+          if (
+            selectorPath &&
+            index === spliceIndex
+          ) {
+            newDataPathArray.push(selectorPath?.value || selectorPath);
+          } else if (
+            selectedIndicator &&
+            index === currentPathArray.length - 1
+          ) {
+            newDataPathArray.push(selectedIndicator?.value || selectedIndicator);
+          } else {
+            newDataPathArray.push(path);
+          }
 
         }
         );
@@ -185,14 +202,14 @@ const SimpleCard = ({
       getter?.[getterKey?.selectorPath] ||
       getter?.[getterKey?.selectedIndicator] ||
       config?.projectedDataPath
-      ) {
+    ) {
       let newDataPathArray = [];
       const currentPath = config?.projectedDataPath // summary?.dataPath || config?.dataPath;
       const currentPathArray = currentPath?.split('.') || [];
       // const currentPathArrayLength = currentPathArray.length;
 
       const selectorDataPath = selectorPath?.dataPath
-      
+
       const spliceIndex = currentPathArray.length - (config?.splicePosition || 2);
       if (selectorDataPath) {
         const selectorDataPathArray = selectorDataPath.split('.');
@@ -205,24 +222,24 @@ const SimpleCard = ({
           newDataPathArray.push(currentPathArray[currentPathArray.length - 1]);
         }
       } else {
-      currentPathArray.forEach((path, index) => {
-        if (
-          selectorPath && 
-          index === spliceIndex
-        ) {
-          newDataPathArray.push(selectorPath?.value || selectorPath);
-        } else if (
-          selectedIndicator &&
-          index === currentPathArray.length - 1
-        ) {
-          newDataPathArray.push(selectedIndicator?.value || selectedIndicator); 
-        } else {
-          newDataPathArray.push(path);
-        }
+        currentPathArray.forEach((path, index) => {
+          if (
+            selectorPath &&
+            index === spliceIndex
+          ) {
+            newDataPathArray.push(selectorPath?.value || selectorPath);
+          } else if (
+            selectedIndicator &&
+            index === currentPathArray.length - 1
+          ) {
+            newDataPathArray.push(selectedIndicator?.value || selectedIndicator);
+          } else {
+            newDataPathArray.push(path);
+          }
 
+        }
+        );
       }
-      );
-    }
 
 
 
@@ -231,12 +248,12 @@ const SimpleCard = ({
         setProjectedDataPath(newDataPathArray.join('.'));
       }
     }
-    
-  }, 
-  [
-    getter?.[getterKey?.selectorPath],
-    getter?.[getterKey?.selectedIndicator]
-  ]);
+
+  },
+    [
+      getter?.[getterKey?.selectorPath],
+      getter?.[getterKey?.selectedIndicator]
+    ]);
 
   getNestedValue(data, summary?.dataPath || dataPath, key);
   // Handles issue with there being newbusiness data but the actual section on the dashboard is smallbusiness
@@ -256,22 +273,21 @@ const SimpleCard = ({
   }
 
 
-  const subHeadingText =  `${
-    (selectorPath && selectedIndicator) || selectedIndicator
+  const subHeadingText = `${(selectorPath && selectedIndicator) || selectedIndicator
       ? `${selectedIndicator?.label || selectedIndicator}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
-      : selectorPath && 
-        !selectedIndicator && 
-        config?.indicator?.Geography && 
+      : selectorPath &&
+        !selectedIndicator &&
+        config?.indicator?.Geography &&
         `${config?.indicator?.Geography}`?.toLowerCase() !== `${selectorPath}`?.toLowerCase() &&
         `${config?.indicator?.Geography}`?.toLowerCase() !== selectorPath?.label?.toLowerCase()
-        ? selectorPath?.label?.toLowerCase() !== 'total' && 
+        ? selectorPath?.label?.toLowerCase() !== 'total' &&
           `${selectorPath}`?.toLowerCase() !== 'total'
-          ? `${selectorPath?.label || selectorPath}` 
+          ? `${selectorPath?.label || selectorPath}`
           : config?.defaultSubheading || config?.indicator?.Geography
         : selectorPath && !selectedIndicator
           ? `${selectorPath?.label || selectorPath}`
           : config?.defaultSubheading || config?.indicator?.Geography
-  }${derivedDate ? `, ${derivedDate}` : ''}`;
+    }${derivedDate ? `, ${derivedDate}` : ''}`;
   // console.log({ trendDataType });
 
   useEffect(() => {
@@ -279,9 +295,9 @@ const SimpleCard = ({
       // console.log('allSummaryData', allSummaryData);
       setSummaryData(
         createCompareDataObject(
-          summary?.calculator, 
-          allSummaryData, 
-          trendDataType, 
+          summary?.calculator,
+          allSummaryData,
+          trendDataType,
           summary?.filter
         )
       );
@@ -296,7 +312,7 @@ const SimpleCard = ({
       style={cardStyle || {}}
     >
       <div className='simple-card-header' role='heading'>
-        <div 
+        <div
           className='simple-card-title'
           style={{
             display: 'flex',
@@ -314,7 +330,7 @@ const SimpleCard = ({
               }}
             />
           ) : null}
-          <h4 className='simple-card-header-text' style={{...headerStyle || {}}}>{label?.toUpperCase() || 'UNDEFINED'}</h4>
+          <h4 className='simple-card-header-text' style={{ ...headerStyle || {} }}>{label?.toUpperCase() || 'UNDEFINED'}</h4>
           <div>
             <InfoIcon config={config?.indicator} popup />
           </div>
@@ -337,7 +353,7 @@ const SimpleCard = ({
       </div>
 
       <h5 className='simple-card-sub-header'>
-      { `${subHeadingManifest?.[subHeadingText] || subHeadingText}`?.toLocaleUpperCase()}
+        {`${subHeadingManifest?.[subHeadingText] || subHeadingText}`?.toLocaleUpperCase()}
 
       </h5>
       {(viewType !== 'mobile' || cardFullSize) && chart.type !== 'horizontal-bar' ? (
@@ -356,7 +372,7 @@ const SimpleCard = ({
           >
 
             <div className='simple-chart'>
-              { chart?.type && allSummaryData ? (
+              {chart?.type && allSummaryData ? (
                 <SimpleChart
                   lng={lng}
                   key={`${dataPath}-${cardKey}-simple-chart`}
@@ -413,66 +429,66 @@ const SimpleCard = ({
           //   hasTooltip
           // />
           <div style={{
-              height: '100%', 
-              maxHeight: '280px',
-              marginTop: '20px', 
-              width: '100%',
-              overflowY: 'auto',
-            }}>
+            height: '100%',
+            maxHeight: '280px',
+            marginTop: '20px',
+            width: '100%',
+            overflowY: 'auto',
+          }}>
             {Object.entries(allSummaryData || {})
-            .filter(([barKey, barValue]) => {
-              if (chart?.exclude && chart?.exclude.includes(barKey)) {
-                return false;
-              }
-              if (barValue === null || barValue === undefined) {
-                return false;
-              }
-              return true;
-            })
-            .sort((a, b) => parseInt(b[1]) - parseInt(a[1]))
-            .map(([barKey, barValue]) => (
-              <div 
-                key={`${dataPath}-horizontal-bar-${barKey}`}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  marginBottom: '8px',
-                }}
-              >
-                <div style={{width: '40%', height: '20px', lineHeight: '20px'}}>
-                  <h5 style={{height: '20px', lineHeight: '20px',  overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: '10px'}} className='horizontal-bar-label'>{barKey}</h5>
-                </div>
-                <div style={{
-                  width: 'calc(60% - 60px)',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  flexWrap: 'nowrap'
+              .filter(([barKey, barValue]) => {
+                if (chart?.exclude && chart?.exclude.includes(barKey)) {
+                  return false;
+                }
+                if (barValue === null || barValue === undefined) {
+                  return false;
+                }
+                return true;
+              })
+              .sort((a, b) => parseInt(b[1]) - parseInt(a[1]))
+              .map(([barKey, barValue]) => (
+                <div
+                  key={`${dataPath}-horizontal-bar-${barKey}`}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '8px',
+                  }}
+                >
+                  <div style={{ width: '40%', height: '20px', lineHeight: '20px' }}>
+                    <h5 style={{ height: '20px', lineHeight: '20px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: '10px' }} className='horizontal-bar-label'>{barKey}</h5>
+                  </div>
+                  <div style={{
+                    width: 'calc(60% - 60px)',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'nowrap'
                   }}>
-                  {/* <div style={{width: '80%', backgroundColor: '#e0e0e0', height: '10px', borderRadius: '5px'}}> */}
-                    <div 
+                    {/* <div style={{width: '80%', backgroundColor: '#e0e0e0', height: '10px', borderRadius: '5px'}}> */}
+                    <div
                       style={{
-                        width: `${barValue / derivedMaxValue * 100}%`, 
+                        width: `${barValue / derivedMaxValue * 100}%`,
                         minWidth: `${barValue / derivedMaxValue * 100}%`,
-                        backgroundColor: chart.color || 'var(--primary-color)', 
-                        height: '20px', 
+                        backgroundColor: chart.color || 'var(--primary-color)',
+                        height: '20px',
                         textAlign: 'right',
                         // borderRadius: '5px'
                       }}
                     >
 
                     </div>
-                    <div 
+                    <div
                       className='horizontal-bar-value'
-                      style={{marginLeft: '5px'}}
+                      style={{ marginLeft: '5px' }}
                     >{formatValue(barValue, chart.values?.formatter || null)}</div>
 
-                  {/* </div> */}
+                    {/* </div> */}
+                  </div>
                 </div>
-              </div>
-            ))} 
+              ))}
           </div>
 
-        ) : null  
+        ) : null
       }
       <br />
       {/* <h5>{dataPath}</h5> */}
