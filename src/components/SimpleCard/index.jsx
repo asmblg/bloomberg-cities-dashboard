@@ -55,6 +55,7 @@ const SimpleCard = ({
   const [allSummaryData, setAllSummaryData] = useState();
   const [projectedData, setProjectedData] = useState();
   const [dataPath, setDataPath] = useState(config?.dataPath);
+  const [denominatorData, setDenominatorData] = useState(config?.denominatorPath ? getNestedValue(data, config?.denominatorPath, key) : null);
   const [projectedDataPath, setProjectedDataPath] = useState(config?.projectedDataPath);
   const selectorPath = getter?.[getterKey?.selectorPath];
   const selectedIndicator = getter?.[getterKey?.selectedIndicator];
@@ -110,6 +111,18 @@ const SimpleCard = ({
         // setAllSummaryData(getNestedValue(data, dataPath, key));
         if (projectedDataPath) {
           setProjectedData(getNestedValue(data, projectedDataPath, key));
+        }
+
+        if (denominatorData) {
+          const adjustedData = {};
+          Object.entries(nestedData || {}).forEach(([dataKey, dataValue]) => {
+            if (denominatorData[dataKey]) {
+              adjustedData[dataKey] = 100 * (dataValue * (summary?.calculator === 'x1000' ? 1000 : 1)) / denominatorData[dataKey];
+            } else {
+              adjustedData[dataKey] = null;
+            }
+          });
+          setAllSummaryData(adjustedData);
         }
 
 

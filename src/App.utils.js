@@ -47,9 +47,9 @@ const handleRootVariables = async config => {
     });
   }
 
-  if (config?.fonts) {
+  if (config?.root) {
     const root = document.documentElement;
-    Object.entries(config.fonts).forEach(([name, value]) => {
+    Object.entries(config?.root).forEach(([name, value]) => {
       root.style.setProperty(`--${name}`, value);
     });  }
   return;
