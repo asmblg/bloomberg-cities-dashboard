@@ -6,7 +6,18 @@ import CustomTooltip from '../CustomTooltip';
 
 import './style.css';
 
-const SinglePercentDonutChart = ({ config, height, width, value, label, mobile }) => {
+const SinglePercentDonutChart = ({ 
+  config, 
+  height,
+  innerRadius, 
+  outerRadius,
+  startAngle,
+  outline,
+  width, 
+  value, 
+  label, 
+  mobile 
+}) => {
   const multiplier = config?.values?.multiplier || 1;
   
   const dataArray = value
@@ -27,26 +38,15 @@ const SinglePercentDonutChart = ({ config, height, width, value, label, mobile }
   return dataArray ? (
     <ResponsiveContainer height={height} width={width}>
       <PieChart>
-        {/* <Pie
-            data={[{value: 100}]}
-            dataKey={'value'}
-            cx={mobile ? '65%' : '50%'}
-            cy={'50%'}
-            outerRadius={mobile ? '100%' : '80%'}
-            innerRadius={mobile ? '50%' : '40%'}
-            startAngle={-345}
-            stroke='black'
-            strokeWidth={0.1}
-          /> */}
         <Pie
           data={dataArray}
           dataKey={'value'}
           cx={mobile ? '65%' : '50%'}
           cy={'50%'}
-          outerRadius={mobile ? '100%' : '80%'}
-          innerRadius={mobile ? '50%' : '40%'}
-          startAngle={-345}
-          // endAngle={90}
+          outerRadius={mobile ? '100%' : outerRadius || '80%'}
+          innerRadius={mobile ? '50%' : innerRadius || '40%'}
+          startAngle={450}
+          endAngle={90}
         > 
 
           {dataArray.map(({ fillColor, value }, i) => (
@@ -55,24 +55,13 @@ const SinglePercentDonutChart = ({ config, height, width, value, label, mobile }
               fill={fillColor} 
               // stroke='black'
               // strokeWidth={0.5}
-    
+              stroke={outline || '#FFFFFF'}
+              strokeWidth={1}
             />
           ))}
         </Pie>
-        {/* <Pie
-          data={[{value: 100}]}
-          dataKey={'value'}
-          cx={mobile ? '65%' : '50%'}
-          cy={'50%'}
-          outerRadius={mobile ? '100%' : '80%'}
-          innerRadius={mobile ? '50%' : '40%'}
-          startAngle={-345}
-          stroke='black'
-          strokeWidth={0.5}
-          fill='transparent'
-        /> */}
 
-                {config?.tooltip && label ? (
+          {config?.tooltip && label ? (
           <Tooltip 
             content={
               <CustomTooltip 

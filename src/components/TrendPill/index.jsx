@@ -33,7 +33,10 @@ const TrendPill = ({
   return (
     <div
       className='trend-display-wrapper'
-      style={{ flexDirection: compareValueUnderPill ? 'column' : 'row' }}
+      style={{ 
+        flexDirection: compareValueUnderPill ? 'column' : 'row',
+        alignItems: compareValueUnderPill ? 'flex-start' : 'center' 
+      }}
     >
       {currentValue && compareValue && compareDate ? (
         <>

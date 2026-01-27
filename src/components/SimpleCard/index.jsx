@@ -27,6 +27,7 @@ const SimpleCard = ({
 }) => {
   const {
     chart,
+    chart2,
     key,
     label,
     units,
@@ -413,6 +414,34 @@ const SimpleCard = ({
             </div>
 
           </div>
+          <div style={chart2 
+              ? { 
+                  display: 'flex', 
+                  flexDirection: 'row', 
+                  gap: '10px',
+                  alignItems: 'flex-start',
+                  marginTop: '20px' 
+                } 
+              : {}
+          }>
+                          {chart2?.type && allSummaryData ? (
+
+            <div className='simple-chart'>
+                <SimpleChart
+                  lng={lng}
+                  key={`${dataPath}-${cardKey}-simple-chart`}
+                  config={chart2}
+                  viewType={viewType}
+                  projectedData={projectedData}
+                  data={
+                    chart2.type !== 'donut'
+                      ? allSummaryData
+                      : { key: summaryData.currentDate, value: summaryData.displayValue }
+                  }
+                />
+              
+            </div>
+            ) : null}
           {!disablePill && (viewType !== 'mobile' || cardFullSize) ? (
             <TrendPill
               lng={lng}
@@ -422,11 +451,14 @@ const SimpleCard = ({
               compareDate={summaryData.compareDate}
               units={config?.summary?.trendUnits}
               data={allSummaryData}
+              compareValueUnderPill={chart2 ? true : false}
               trendDataType={trendDataType}
               displayCompareText
               onlyYears={config?.dateType === 'year'}
             />
           ) : null}
+          </div>
+
         </>
       ) : null}
       {

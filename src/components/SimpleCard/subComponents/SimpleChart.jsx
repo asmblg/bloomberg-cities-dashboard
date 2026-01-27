@@ -38,7 +38,11 @@ const SimpleChart = ({ config, data, projectedData, viewType, lng  }) => {
           config={config}
           value={data?.value}
           label={data?.key}
-          height={80}
+          height={config?.height || 80}
+          innerRadius={config?.innerRadius}
+          outerRadius={config?.outerRadius}
+          startAngle={config?.startAngle}
+          outline={config?.outline}
           width={'100%'}
           mobile={viewType === 'mobile'}
         />
