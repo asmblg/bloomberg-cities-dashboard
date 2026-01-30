@@ -32,41 +32,82 @@ const sortDatesArray = (array, order, dateKey, length) => {
     }
   });
 
-  if (length && length - sortedDates?.length > 0) {
-    // Prepend the missing dates
+  const maxDate = sortedDates[sortedDates.length - 1];
+  // console.log('MAX DATE', maxDate);
+
+  if (length ) {
+    // Create consesecutive array of set length ending in max date 
     const missingDates = [];
 
-    const isRegexQuarterYear = regexQuarter.test(sortedDates[0]);
-    const isRegexYearQuarter = regexYearQuarter.test(sortedDates[0]);
-    const isRegexJustYear = regexJustYear.test(sortedDates[0]);
+    const isRegexQuarterYear = regexQuarter.test(maxDate);
+    const isRegexYearQuarter = regexYearQuarter.test(maxDate);
+    const isRegexJustYear = regexJustYear.test(maxDate);
 
 
     if (isRegexQuarterYear || isRegexYearQuarter) {
 
-      const startDate = moment(sortedDates[0], isRegexQuarterYear ? 'Q YYYY' : 'YYYY-QX').locale('pt');
+      const startDate = moment(maxDate, isRegexQuarterYear ? 'Q YYYY' : 'YYYY-QX').locale('pt');
       
       // console.log('startDate', startDate);
-      for (let i = 1; i <= length - sortedDates.length; i++) {
+      for (let i = 0; i < length; i++) {
         const newDate = moment(startDate).subtract(i, 'Q');
         const newQuarter = newDate.quarter();
         const newYear = newDate.year();
         missingDates.push(isRegexQuarterYear ? `Q${newQuarter} ${newYear}` : `${newYear}-Q${newQuarter}`);
       }
     } else if (isRegexJustYear) {
-      const startDate = moment(sortedDates[0], 'YYYY').locale('pt');
-      for (let i = 1; i <= length - sortedDates.length; i++) {
+      const startDate = moment(maxDate, 'YYYY').locale('pt');
+      for (let i = 0 ; i < length; i++) {
         const newDate = moment(startDate).subtract(i, 'years');
         missingDates.push(newDate.format('YYYY'));
       }
     } else {
-      const startDate = moment(sortedDates[0], 'YYYY-MM-DD').locale('pt');
-      for (let i = 1; i <= length - sortedDates.length; i++) {
+      const startDate = moment(maxDate, 'YYYY-MM-DD').locale('pt');
+      for (let i = 0; i < length; i++) {
         const newDate = moment(startDate).subtract(i, 'months');
         missingDates.push(newDate.format('YYYY-MM'));
       }
     }
-    return order === 'ascending' ? [...missingDates.reverse(), ...sortedDates] : [...sortedDates, ...missingDates];
+
+    // console.log('MISSING DATES', missingDates);
+    return order === 'ascending' ? [...missingDates.reverse()] : [...missingDates];
   }
+
+  // if (length && length - sortedDates?.length > 0) {
+  //   // Prepend the missing dates
+  //   const missingDates = [];
+
+  //   const isRegexQuarterYear = regexQuarter.test(sortedDates[0]);
+  //   const isRegexYearQuarter = regexYearQuarter.test(sortedDates[0]);
+  //   const isRegexJustYear = regexJustYear.test(sortedDates[0]);
+
+
+  //   if (isRegexQuarterYear || isRegexYearQuarter) {
+
+  //     const startDate = moment(sortedDates[0], isRegexQuarterYear ? 'Q YYYY' : 'YYYY-QX').locale('pt');
+      
+  //     // console.log('startDate', startDate);
+  //     for (let i = 1; i <= length - sortedDates.length; i++) {
+  //       const newDate = moment(startDate).subtract(i, 'Q');
+  //       const newQuarter = newDate.quarter();
+  //       const newYear = newDate.year();
+  //       missingDates.push(isRegexQuarterYear ? `Q${newQuarter} ${newYear}` : `${newYear}-Q${newQuarter}`);
+  //     }
+  //   } else if (isRegexJustYear) {
+  //     const startDate = moment(sortedDates[0], 'YYYY').locale('pt');
+  //     for (let i = 1; i <= length - sortedDates.length; i++) {
+  //       const newDate = moment(startDate).subtract(i, 'years');
+  //       missingDates.push(newDate.format('YYYY'));
+  //     }
+  //   } else {
+  //     const startDate = moment(sortedDates[0], 'YYYY-MM-DD').locale('pt');
+  //     for (let i = 1; i <= length - sortedDates.length; i++) {
+  //       const newDate = moment(startDate).subtract(i, 'months');
+  //       missingDates.push(newDate.format('YYYY-MM'));
+  //     }
+  //   }
+  //   return order === 'ascending' ? [...missingDates.reverse(), ...sortedDates] : [...sortedDates, ...missingDates];
+  // }
 
   return sortedDates;
 };

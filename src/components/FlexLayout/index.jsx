@@ -84,7 +84,7 @@ const FlexLayout = ({
     });
   }, [layout, views, view]);
 
-  console.log('Elemnent Array', elementArray);
+  // console.log('Elemnent Array', elementArray);
 
   
   return (

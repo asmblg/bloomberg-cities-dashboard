@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
 import SimpleChart from './subComponents/SimpleChart';
-import HorizontalBarChart from '../HorizontalBarChart';
+// import HorizontalBarChart from '../HorizontalBarChart';
 import TrendPill from '../TrendPill';
 import InfoIcon from '../InfoIcon';
 
@@ -34,6 +34,7 @@ const SimpleCard = ({
     summary,
     cardStyle,
     headerStyle,
+    manifest,
     // indicator,
     disablePill,
     getterKey,
@@ -69,6 +70,9 @@ const SimpleCard = ({
     // console.log('Data', {data, dataPath, projectedDataPath, key});
 
     if (data) {
+      setDerivedMaxValue(null);
+      setDerivedDate(null);
+
       const nestedData = getNestedValue(data, dataPath, key);
 
 
@@ -101,7 +105,7 @@ const SimpleCard = ({
         if (summary?.postCalculator === 'QuarterToDailyAverage') {
           const adjustedData = {};
           Object.entries(nestedData || {}).forEach(([dataKey, dataValue]) => {
-            adjustedData[dataKey] = dataValue / 90;
+            adjustedData[dataKey] = dataValue ? dataValue / 90 : 0;
           });
           // console.log('Adjusted Data', adjustedData);
           setAllSummaryData(adjustedData);
@@ -315,6 +319,14 @@ const SimpleCard = ({
           summary?.filter
         )
       );
+    } else {
+      setSummaryData({
+        displayValue: null,
+        currentValue: null,
+        currentDate: null,
+        compareValue: null,
+        compareDate: null
+      });
     }
   }, [allSummaryData, trendDataType]);
 
@@ -374,14 +386,9 @@ const SimpleCard = ({
         <>
           <div
             className='simple-data-wrapper'
-            // style={{
-            //   flexDirection: 'row-reverse'
-            // }}
             onClick={() => {
-              // if (label !== 'Venture Capital Investment') {
               setSelectedLink(sectionKey);
               navigate(route);
-              // }
             }}
           >
 
@@ -409,12 +416,11 @@ const SimpleCard = ({
               </h2>
               {units ? <h5 className='simple-units'>{units}</h5> : null}
               {summaryData?.currentDate ? <h5 className='simple-indicator-date'>{formatQuarterDate(summaryData.currentDate, 'QX YYYY', lng)}</h5> : null}
-              {/* {summaryData?.currentDate ? <h5 className='simple-indicator-date'>{summaryData.currentDate}</h5> : null } */}
-
             </div>
 
           </div>
-          <div style={chart2 
+          <div 
+            style={chart2 
               ? { 
                   display: 'flex', 
                   flexDirection: 'row', 
@@ -423,8 +429,9 @@ const SimpleCard = ({
                   marginTop: '20px' 
                 } 
               : {}
-          }>
-                          {chart2?.type && allSummaryData ? (
+            }
+          >
+              {chart2?.type && allSummaryData ? (
 
             <div className='simple-chart'>
                 <SimpleChart
@@ -463,16 +470,6 @@ const SimpleCard = ({
       ) : null}
       {
         chart.type === 'horizontal-bar' ? (
-          // <p>{JSON.stringify(allSummaryData)}</p>
-          // <HorizontalBarChart
-          //   lng={lng}
-          //   config={chart}
-          //   data={allSummaryData}
-          //   height={150}
-          //   width={'100%'}
-          //   margin={{ top: 10, right: 10, bottom: 20, left: 40 }}
-          //   hasTooltip
-          // />
           <div style={{
             height: '100%',
             maxHeight: '280px',
@@ -501,7 +498,9 @@ const SimpleCard = ({
                   }}
                 >
                   <div style={{ width: '40%', height: '20px', lineHeight: '20px' }}>
-                    <h5 style={{ height: '20px', lineHeight: '20px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: '10px' }} className='horizontal-bar-label'>{barKey}</h5>
+                    <h5 style={{ height: '20px', lineHeight: '20px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: '10px' }} className='horizontal-bar-label'>
+                      {manifest?.[barKey] || barKey}
+                    </h5>
                   </div>
                   <div style={{
                     width: 'calc(60% - 60px)',
@@ -509,7 +508,6 @@ const SimpleCard = ({
                     flexDirection: 'row',
                     flexWrap: 'nowrap'
                   }}>
-                    {/* <div style={{width: '80%', backgroundColor: '#e0e0e0', height: '10px', borderRadius: '5px'}}> */}
                     <div
                       style={{
                         width: `${barValue / derivedMaxValue * 100}%`,
@@ -517,17 +515,13 @@ const SimpleCard = ({
                         backgroundColor: chart.color || 'var(--primary-color)',
                         height: '20px',
                         textAlign: 'right',
-                        // borderRadius: '5px'
                       }}
                     >
-
                     </div>
                     <div
                       className='horizontal-bar-value'
                       style={{ marginLeft: '5px' }}
                     >{formatValue(barValue, chart.values?.formatter || null)}</div>
-
-                    {/* </div> */}
                   </div>
                 </div>
               ))}
@@ -536,7 +530,7 @@ const SimpleCard = ({
         ) : null
       }
       <br />
-      {/* <h5>{dataPath}</h5> */}
+      {/* <h5>{dataPath}{config?.denominatorPath ? ` / ${config?.denominatorPath}` : null}</h5> */}
 
     </div>
   );

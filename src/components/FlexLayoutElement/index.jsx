@@ -59,7 +59,7 @@ const FlexLayoutElement = ({
   
   } = layout;
 
-  console.log({viewType})
+  // console.log({viewType})
   const mobile = viewType === 'mobile';
   const tablet = viewType === 'tablet';
   const elementRef = useRef();
