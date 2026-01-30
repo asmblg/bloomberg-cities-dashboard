@@ -5,12 +5,17 @@ import React,
 } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Checkbox } from 'semantic-ui-react';
+// import { Checkbox } from 'semantic-ui-react';
 
 // import { handleSetter } from './utils';
 import './style.css';
 
-const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
+const TrendDataToggle = ({ 
+  config, 
+  getter, 
+  setter, 
+  viewLoaded 
+}) => {
   // const [checked, setChecked] = useState(false);
   // const ref = useRef();
   const location = useLocation();
@@ -19,13 +24,15 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
   // const { toggleValue } = getter;
   const options = config?.options || 
   [
-        {
+    {
       value: 'YtY',
-      label: lang == 'pt' ? 'Variação homóloga' : 'Year-to-Year change'
+      label: lang == 'pt' ? 'Variação homóloga' : 'Year-to-Year change',
+      key: 'YtY'
     },
     {
       value: 'QtQ',
-      label: lang == 'pt' ? 'Variação trimestral' : 'Quarter-to-Quarter change'
+      label: lang == 'pt' ? 'Variação trimestral' : 'Quarter-to-Quarter change',
+      key: 'QtQ'
     },
 
   ];
@@ -67,19 +74,22 @@ const TrendDataToggle = ({ config, getter, setter, viewLoaded }) => {
       } 
       <div className='data-toggle'>
         <h5>{options[0].label}</h5>
-        <Checkbox
-          className='toggle-el'
-          toggle
-          checked={(toggleValue && toggleValue === options[1].value) || false}
-          onChange={(e, { checked }) => {
-            if (config?.setterKey?.toggleValue) {
-              setter(config.setterKey.toggleValue, checked ? options[1].value : options[0].value);
-            } else {
-              setter(checked ? options[1].value : options[0].value);
-            }
-          }}
-        />
-        <h5>{options[1].label}</h5>      
+        <label className='toggle-el'>
+          <input
+            type="checkbox"
+            checked={(toggleValue && toggleValue === options[1].value) || false}
+            onChange={(e) => {
+              const checked = e.target.checked;
+              if (config?.setterKey?.toggleValue) {
+                setter(config.setterKey.toggleValue, checked ? options[1].value : options[0].value);
+              } else {
+                setter(checked ? options[1].value : options[0].value);
+              }
+            }}
+          />
+          <span className="toggle-slider"></span>
+        </label>
+        <h5>{options[1]?.label}</h5>      
       </div>
     </div>
   );

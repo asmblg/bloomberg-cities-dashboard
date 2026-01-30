@@ -40,6 +40,13 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
     setSelection(option);
   };
 
+  const indicatorKey = getter?.[config?.getterKey?.selectedIndicator]?.value ||
+        getter?.[config?.getterKey?.selectedIndicator] ||
+        config?.indicator?.key;
+  const indicatorKey2 = getter?.[config?.getterKey?.selectorPath]?.value ||
+        getter?.[config?.getterKey?.selectorPath] ||
+        config?.indicator?.key2;
+
   // console.log(project, config);
 
   useEffect(() => {
@@ -57,7 +64,6 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
     }
 
 
-
     if (
       config?.indicator?.basePath ||
       getter?.[config?.getterKey?.selectedIndicator] ||
@@ -67,13 +73,6 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
 
       const dataObject = {};
       let aggregatorKey = null;
-
-      const indicatorKey = getter?.[config?.getterKey?.selectedIndicator]?.value ||
-        getter?.[config?.getterKey?.selectedIndicator] ||
-        config?.indicator?.key;
-      const indicatorKey2 = getter?.[config?.getterKey?.selectorPath]?.value ||
-        getter?.[config?.getterKey?.selectorPath] ||
-        config?.indicator?.key2;
 
 
       Object.entries(data?.[config.indicator.basePath] || {}).forEach(([key, value]) => {
@@ -182,6 +181,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
       }));
       setOptions(optionsFromIndicators);
     }
+
   }, [geoJSON]);
 
   useEffect(() => {
@@ -280,7 +280,9 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
                 const binnedColor = bins?.[config.selectorValueFormat === 'toUpperCase' ? featureID.toUpperCase() : featureID];
                 return {
                   fillColor: binnedColor || fillColor,
-                  color: binnedColor ? config.strokeColor || 'black' : 'transparent',
+                  color: binnedColor 
+                    ? config.strokeColor || 'black' 
+                    : 'black',
                   weight:  1,
                   opacity:  0.8,
                   fillOpacity: binnedColor ? 0.7 : 0.5,
@@ -346,6 +348,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
           }
         </MapContainer>
       </div>
+      <h5>{config?.indicator?.basePath || 'No Data Path Set'}.{indicatorKey}.{indicatorKey2}</h5>
     </div>
   );
 };

@@ -95,7 +95,7 @@
   line-height: 2.5rem; */
 }
 
-.simple-data > h5 {
+.simple-data > div > h5 {
   font-size: calc(var(--data-unit-scaler) * var(--smallest-font));
   line-height: calc(var(--data-unit-scaler) * var(--smallest-font));
 }

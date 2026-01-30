@@ -382,7 +382,7 @@ const SimpleCard = ({
         {`${subHeadingManifest?.[subHeadingText] || subHeadingText}`?.toLocaleUpperCase()}
 
       </h5>
-      {(viewType !== 'mobile' || cardFullSize) && chart.type !== 'horizontal-bar' ? (
+      {(viewType !== 'mobile' || cardFullSize) && chart?.type !== 'horizontal-bar' ? (
         <>
           <div
             className='simple-data-wrapper'
@@ -392,7 +392,7 @@ const SimpleCard = ({
             }}
           >
 
-            <div className='simple-chart'>
+            {chart && <div className='simple-chart'>
               {chart?.type && allSummaryData ? (
                 <SimpleChart
                   lng={lng}
@@ -407,15 +407,28 @@ const SimpleCard = ({
                   }
                 />
               ) : null}
-            </div>
-            <div className='simple-data bold-font'>
+            </div>}
+            <div 
+              className='simple-data bold-font'
+              style={!chart ? { 
+                width: '100%',
+                gap: '20px',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                alignItems: 'center' 
+              } : {}}
+            >
               <h2 className='bold-font'>
                 {summaryData.displayValue
                   ? formatValue(summaryData.displayValue, config?.summary?.trendUnits)
                   : '-'}
               </h2>
+              <div>
               {units ? <h5 className='simple-units'>{units}</h5> : null}
               {summaryData?.currentDate ? <h5 className='simple-indicator-date'>{formatQuarterDate(summaryData.currentDate, 'QX YYYY', lng)}</h5> : null}
+
+              </div>
             </div>
 
           </div>
@@ -469,7 +482,7 @@ const SimpleCard = ({
         </>
       ) : null}
       {
-        chart.type === 'horizontal-bar' ? (
+        chart?.type === 'horizontal-bar' ? (
           <div style={{
             height: '100%',
             maxHeight: '280px',
