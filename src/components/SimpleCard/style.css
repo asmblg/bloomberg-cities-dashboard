@@ -63,7 +63,8 @@
   /* width: calc(var(--simple-card-width) - 30px); */
   gap: 20px;
   /* align-items: center; */
-  margin-top: 10px;
+  margin-top:10px;
+  margin-bottom: 10px;
   flex-grow: 1;
 }
 

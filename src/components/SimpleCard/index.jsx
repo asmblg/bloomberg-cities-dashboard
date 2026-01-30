@@ -386,10 +386,12 @@ const SimpleCard = ({
         <>
           <div
             className='simple-data-wrapper'
-            onClick={() => {
-              setSelectedLink(sectionKey);
-              navigate(route);
-            }}
+            // onClick={() => 
+            //   route
+            //   // setSelectedLink(sectionKey);
+            //    ? navigate(route)
+            //    : null
+            // }
           >
 
             {chart && <div className='simple-chart'>
@@ -542,7 +544,7 @@ const SimpleCard = ({
 
         ) : null
       }
-      <br />
+      {/* <br /> */}
       {/* <h5>{dataPath}{config?.denominatorPath ? ` / ${config?.denominatorPath}` : null}</h5> */}
 
     </div>
