@@ -21,7 +21,7 @@ const SimpleCard = ({
   project,
   // dashboardType,
   cardKey,
-  setSelectedLink,
+  // setSelectedLink,
   getter,
   // trendDataType,
 }) => {
@@ -49,7 +49,7 @@ const SimpleCard = ({
     compareDate: null
   });
   const scrollToRef = useRef();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const lng = queryParams.get('lng') || null;
@@ -58,6 +58,7 @@ const SimpleCard = ({
   const [projectedData, setProjectedData] = useState();
   const [dataPath, setDataPath] = useState(config?.dataPath);
   const [denominatorData, setDenominatorData] = useState(config?.denominatorPath ? getNestedValue(data, config?.denominatorPath, key) : null);
+  const [comparisonData, setComparisonData] = useState(null);
   const [projectedDataPath, setProjectedDataPath] = useState(config?.projectedDataPath);
   const selectorPath = getter?.[getterKey?.selectorPath];
   const selectedIndicator = getter?.[getterKey?.selectedIndicator];
@@ -128,6 +129,15 @@ const SimpleCard = ({
             }
           });
           setAllSummaryData(adjustedData);
+        }
+
+        if (config?.comparisonPaths && Array.isArray(config?.comparisonPaths)) {
+          const comparisonData = {};
+          config.comparisonPaths.forEach(({path, label}) => {
+            comparisonData[label] = getNestedValue(data, path, key);
+          });
+          console.log({path: config?.comparisonPaths, comparisonData});
+          setComparisonData(comparisonData);
         }
 
 
@@ -407,6 +417,7 @@ const SimpleCard = ({
                       ? allSummaryData
                       : { key: summaryData.currentDate, value: summaryData.displayValue }
                   }
+                  comparisonData={comparisonData}
                 />
               ) : null}
             </div>}

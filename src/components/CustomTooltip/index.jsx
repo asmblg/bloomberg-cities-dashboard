@@ -16,6 +16,7 @@ const CustomTooltip = ({
   units,
   lng,
   projectedData,
+  comparisonData
   // quarterDateFormat
 }) => {
   if (active && payload?.[0]) {
@@ -28,7 +29,33 @@ const CustomTooltip = ({
             .filter(({}, i) => projectedData && payload[1] ? i === 1 : true)
             .sort((a,b) => Number(b.value) - Number(a.value))
             .map(({name, value, color, dataKey, payload: innerPayload}, i) =>
-              <div
+              comparisonData 
+              ? <div
+                  className='simple-data'
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                    gap: '10px',
+                    // color: color || innerPayload?.fillColor,
+                    // fontSize:  filter && !filter?.includes(name) ? '.5rem' : null,
+                    // lineHeight: filter && !filter?.includes(name) ? '.5rem' : '.7rem'
+                  }} 
+                  key={`custom-tooltip-${label?.replace(/ /g, '-') || 'label'}-${name}-${i}`}>
+                                <h5 className='simple-units'>                
+                  {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}
+                </h5>
+                <h3 className='bold-font'>
+                {formatValue(value, units)}
+                </h3>
+
+                {/* <h5 className='simple-indicator-date'>
+                    {formatQuarterDate(label || payload?.[0]?.name, 'QX YYYY', lng)}
+                </h5>  */}
+                </div>
+             : <div
                 className='simple-data'
                 style={{
                   width: '100%',

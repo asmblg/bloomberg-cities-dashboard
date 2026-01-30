@@ -13,6 +13,7 @@ const SimpleLineChart = (props) => {
     config,
     data,
     projectedData,
+    comparisonData,
     height,
     width,
     margin,
@@ -21,17 +22,17 @@ const SimpleLineChart = (props) => {
   } = props;
   // console.log('SimpleLineChart', { config, data, getter });
   const [dataArray, setDataArray] = useState(null);
-  // const [dataArray2, setDataArray2] = useState(null);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
   const indicator = selectedIndicator || config?.indicator;
   const yLabel = indicator?.yLabel || indicator?.label || config?.yaxis?.label || '';
 
   useEffect(() => {
+    // console.log({comparisonData})
     // console.log('getter', { config, getter });
     setSelectedIndicator(getter?.[config.getterKey?.selectedIndicator] || null);
   }, [getter?.[config.getterKey?.selectedIndicator]]);
   useEffect(() => {
-    if (config?.primaryKey && config?.secondaryKey || projectedData) {
+    if (config?.primaryKey && config?.secondaryKey || projectedData || comparisonData) {
       
       const dataPath1 = config?.primaryKey;
       const dataPath2 = config?.secondaryKey;
@@ -40,7 +41,37 @@ const SimpleLineChart = (props) => {
       ? handleSimpleChartDataArray(config, projectedData)
       : handleSimpleChartDataArray(config, data, dataPath2);
 
-      // console.log('dataArr1', dataArr1);
+
+      const comparisonDataArrs = comparisonData && Object.keys(comparisonData).length > 0
+        ? Object.entries(comparisonData).map(([compareKey,compData]) => 
+            handleSimpleChartDataArray(config, compData, dataPath2, compareKey)
+          )
+        : null;
+
+      // console.log('comparisonDataArrs', comparisonDataArrs);
+      
+      if (comparisonDataArrs && comparisonDataArrs.length > 0) {
+        const dataPath = indicator?.dataPath || config?.dataPath;
+
+        const dataArr = handleSimpleChartDataArray(config, data, dataPath, config?.indicator?.Geography);
+        setDataArray(dataArr);
+        comparisonDataArrs.forEach((compDataArr, index) => {
+          console.log('compDataArr', compDataArr);
+          if (dataArr1?.[0] && compDataArr?.[0]) {
+            setDataArray(prevDataArray => {
+              const newDataArray = [...(prevDataArray || [])];
+              compDataArr.forEach((item, i) => {
+                if (!newDataArray[i]) {
+                  newDataArray[i] = { name: item.name };
+                }
+                newDataArray[i][item?.label || `value${index + 2}`] = item.value;
+              });
+              return newDataArray;
+            });
+          }
+        });
+        return;
+      }
       // console.log('dataArr2', projectedData, dataArr2);
 
       if (dataArr1?.[0] && dataArr2?.[0]) {
@@ -84,7 +115,7 @@ const SimpleLineChart = (props) => {
         setDataArray(dataArr);
       }
     }
-  }, [selectedIndicator, data]);
+  }, [selectedIndicator, data, projectedData, comparisonData]);
 
   const renderDot = (dotProps) => {
     // console.log('dotProps', dotProps);
@@ -193,12 +224,30 @@ const SimpleLineChart = (props) => {
                   value: indicator?.label || config?.yaxis?.label || 'Value',
                 }}
                 projectedData={projectedData ? true : false}
+                comparisonData={comparisonData ? true : false}
               />
             }
           />
         ) : null}
 
-        <Line
+        {
+          comparisonData && Object.keys(comparisonData).length > 0 &&
+          Object.keys(comparisonData).map((key, index) => (
+            <Line
+              key={`comparison-line-${index}`}
+              type={'monotone'}
+              dataKey={key ||`value${index + 2}`}
+              dot={config.dot ? renderDot2 : false}
+              stroke={config.comparisonColors && config.comparisonColors[index] 
+                ? config.comparisonColors[index] 
+                : '#cccccc'}
+              strokeWidth={1}
+              // strokeDasharray={'5 5'}
+            />
+          ))  
+        }
+
+        {projectedData && <Line
           type={'monotone'}
           dataKey={'value2'}
           dot={config.dot ? renderDot2 : false}
@@ -222,7 +271,7 @@ const SimpleLineChart = (props) => {
 
 
           />}
-         </Line>
+         </Line>}
 
         <Line
           type={'monotone'}

@@ -5,7 +5,7 @@ import sortDatesArray from './sortDatesArray';
 import getNestedValue from './getNestedValue';
 import padDate from './padDate';
 
-const handleSimpleChartDataArray = (config, data, dataPath) => {
+const handleSimpleChartDataArray = (config, data, dataPath, label) => {
   const multiplier = config?.values?.multiplier || 1;
   if (config?.values?.calculator === 'total') {
     const dataArray = [];
@@ -96,6 +96,9 @@ const handleSimpleChartDataArray = (config, data, dataPath) => {
               });
             }
           }
+        }
+        if (label) {
+          obj.label = label;
         }
         return obj;
       });
