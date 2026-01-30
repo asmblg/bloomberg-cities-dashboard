@@ -348,7 +348,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
           }
         </MapContainer>
       </div>
-      <h5>{config?.indicator?.basePath || 'No Data Path Set'}.{indicatorKey}.{indicatorKey2}</h5>
+      {/* <h5>{config?.indicator?.basePath || 'No Data Path Set'}.{indicatorKey}.{indicatorKey2}</h5> */}
     </div>
   );
 };
