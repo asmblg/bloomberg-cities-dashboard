@@ -17,3 +17,10 @@
 .custom-tooltip > p {
   line-height: 1rem;
 }
+
+.custom-tooltip-label {
+  font-family: var(--font-family-bold);
+  /* font-size: var(--f); */
+  margin: 0 0 8px 0;
+  text-align: center;
+}

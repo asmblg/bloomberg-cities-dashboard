@@ -22,7 +22,13 @@ const CustomTooltip = ({
   if (active && payload?.[0]) {
     return (
       <div className='custom-tooltip'>
-
+        {
+          comparisonData
+          ? <h4 className='custom-tooltip-label'>
+              {formatQuarterDate(label || payload?.[0]?.name, 'QX YYYY', lng)}
+            </h4>
+          : null
+        }
         {
           payload
             // .reverse()
