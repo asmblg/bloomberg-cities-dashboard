@@ -71,11 +71,11 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
     ) {
       // Get data object containing geo keys and nested data values
 
-      const dataObject = {};
+      let dataObject = {};
       let aggregatorKey = null;
 
 
-      Object.entries(data?.[config.indicator.basePath] || {}).forEach(([key, value]) => {
+      Object.entries(data?.[config?.indicator?.basePath] || {}).forEach(([key, value]) => {
         const obj = indicatorKey && indicatorKey2
           ? value?.[indicatorKey]?.[indicatorKey2]
           : indicatorKey
@@ -85,6 +85,17 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
               : value;
         dataObject[key] = { ...obj };
       });
+
+      if (!data?.[config?.indicator?.basePath]) {
+        const obj = indicatorKey && indicatorKey2
+          ? data?.[indicatorKey]?.[indicatorKey2]
+          : indicatorKey
+            ? data?.[indicatorKey]
+            : indicatorKey2
+              ? data?.[indicatorKey2]
+              : data;
+        dataObject = { ...obj };
+      }
 
       Object.values(dataObject).forEach((value, i) => {
         if (i === 0 && config?.indicator?.aggregator === 'current') {
@@ -103,6 +114,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
 
 
       Object.entries(dataObject).forEach(([key, value]) => {
+        console.log({ key, value, aggregatorKey });
         dataObject[key] = value[aggregatorKey];
       }
       );
@@ -261,7 +273,6 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
                   const option = value ?
                     options.find(({ key }) => key.toUpperCase() === value.toUpperCase())
                     : options[0];
-                  // console.log(value);
                   handleSetSelection(null, option);
                 },
                 mouseover: e => {
@@ -285,7 +296,9 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
                     : 'black',
                   weight:  1,
                   opacity:  0.8,
-                  fillOpacity: binnedColor ? 0.7 : 0.5,
+                  fillOpacity: binnedColor 
+                    ? 0.8
+                    : 0.5,
                   zindex: 1
                 };
               }}
