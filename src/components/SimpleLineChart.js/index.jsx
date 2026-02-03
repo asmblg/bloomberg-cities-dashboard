@@ -56,7 +56,7 @@ const SimpleLineChart = (props) => {
         const dataArr = handleSimpleChartDataArray(config, data, dataPath, config?.indicator?.Geography);
         setDataArray(dataArr);
         comparisonDataArrs.forEach((compDataArr, index) => {
-          console.log('compDataArr', compDataArr);
+          // console.log('compDataArr', compDataArr);
           if (dataArr1?.[0] && compDataArr?.[0]) {
             setDataArray(prevDataArray => {
               const newDataArray = [...(prevDataArray || [])];

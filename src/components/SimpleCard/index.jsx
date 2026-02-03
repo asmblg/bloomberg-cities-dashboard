@@ -13,6 +13,7 @@ import formatValue from '../../utils/formatValue';
 import formatQuarterDate from '../../utils/formatQuarterDate';
 import createCompareDataObject from '../../utils/createCompareDataObject';
 import './style.css';
+import { all } from 'axios';
 
 const SimpleCard = ({
   config,
@@ -81,10 +82,14 @@ const SimpleCard = ({
         let mostCurrentKey = null;
         Object.values(nestedData || {}).forEach((item) => {
           Object.keys(item).forEach((dateKey) => {
-            dateKey > mostCurrentKey ? mostCurrentKey = dateKey : null;
+            dateKey > mostCurrentKey 
+              ? mostCurrentKey = dateKey 
+              : !mostCurrentKey 
+                ? mostCurrentKey = dateKey 
+                : null;
           })
         })
-        // console.log('Most Current Key', mostCurrentKey);
+        // console.log('Most Current Key', {mostCurrentKey, nestedData});
         setDerivedDate(mostCurrentKey);
         const mostCurrentData = {};
         let maxValue = 0;
@@ -136,7 +141,7 @@ const SimpleCard = ({
           config.comparisonPaths.forEach(({path, label}) => {
             comparisonData[label] = getNestedValue(data, path, key);
           });
-          console.log({path: config?.comparisonPaths, comparisonData});
+          // console.log({path: config?.comparisonPaths, comparisonData});
           setComparisonData(comparisonData);
         }
 
@@ -315,7 +320,7 @@ const SimpleCard = ({
         : selectorPath && !selectedIndicator
           ? `${selectorPath?.label || selectorPath}`
           : config?.defaultSubheading || config?.indicator?.Geography
-    }${derivedDate ? `, ${derivedDate}` : ''}`;
+    }${derivedDate ? `, ${formatQuarterDate(derivedDate, 'QX YYYY', lng)}` : ''}`;
   // console.log({ trendDataType });
 
   useEffect(() => {
@@ -339,6 +344,8 @@ const SimpleCard = ({
       });
     }
   }, [allSummaryData, trendDataType]);
+
+  // console.log({allSummaryData});
 
   return (
     <div

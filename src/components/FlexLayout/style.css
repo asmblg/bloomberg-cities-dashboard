@@ -35,7 +35,7 @@
     /* min-height: fit-content !important; */
     max-width: 95vw !important;
     min-width: 300px !important;
-    height: fit-content !important;
+    /* height: fit-content !important; */
     margin: 0 !important;
     flex-wrap: wrap;
     /* border-top: initial !important; */

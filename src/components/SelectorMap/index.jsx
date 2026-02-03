@@ -114,7 +114,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
 
 
       Object.entries(dataObject).forEach(([key, value]) => {
-        console.log({ key, value, aggregatorKey });
+        // console.log({ key, value, aggregatorKey });
         dataObject[key] = value[aggregatorKey];
       }
       );
