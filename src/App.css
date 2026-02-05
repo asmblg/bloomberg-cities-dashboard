@@ -64,6 +64,7 @@ h5 {
 
 a {
   color: var(--black-color);
+  text-underline-offset: 0.15em;
 }
 
 a:hover {

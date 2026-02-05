@@ -7,6 +7,11 @@ const MapEvents = ({
   active
 }) => {
   useMapEvents({
+    // moveend: ({target}) => {
+    //   const center = target.getCenter();
+    //   console.log('center', center);
+    //     // setter(null, options[0]);
+    // },
 
     click: () =>{
       if (active)  {

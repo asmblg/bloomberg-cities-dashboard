@@ -32,6 +32,37 @@ const FlexLayout = ({
   const [isColumns, setIsColumns] = useState(null);
   const [viewLoaded, setViewLoaded] = useState(false);
   const { style } = layout || {};
+
+  let hashValue = window.location.hash 
+    ? window.location.hash.substring(1) 
+    : null;
+
+  const invalidHash = [
+    'style',
+    "dataPath",
+    "diableShareIcon",
+    "disableInfoIcon",
+    "disableViewSelector",
+    "disableTrendDataToggle",
+    "disableSourceLink",
+    "disableHeader",
+    "noTabs",
+    "breakpoints",
+    "tabStyle",
+    "views",
+    "layout",
+    "sources",
+    "title",
+    "description",
+    "infoIconConfig",
+    "trendDataToggleConfig",
+    "shareAndPrintIconsConfig"
+  ];
+
+  if (invalidHash.includes(hashValue)) {
+    hashValue = null;
+  }
+  // console.log('HASH VALUE', hashValue);
   // const getter = useMemo(() => {
   //   // Perform any transformation or computation with `getter` if necessary
   //   // For instance, you might want to derive some values from it
@@ -40,7 +71,7 @@ const FlexLayout = ({
 
   const handleElementArray = async () => new Promise((resolve) => {
     if (!views) {
-      const { columns, rows } = layout || {};
+      const { columns, rows } = layout?.[hashValue] || layout || {};
       if (columns) {
         setIsColumns(true);
       }
@@ -82,7 +113,7 @@ const FlexLayout = ({
     handleElementArray().then(() => {
       setViewLoaded(true);
     });
-  }, [layout, views, view]);
+  }, [hashValue, layout, views, view]);
 
   // console.log('Elemnent Array', elementArray);
 
