@@ -58,7 +58,7 @@ const SimpleCard = ({
   const [allSummaryData, setAllSummaryData] = useState();
   const [projectedData, setProjectedData] = useState();
   const [dataPath, setDataPath] = useState(config?.dataPath);
-  const [denominatorData, setDenominatorData] = useState(config?.denominatorPath ? getNestedValue(data, config?.denominatorPath, key) : null);
+  const [denominatorData, setDenominatorData] = useState(config?.denominatorPath ? getNestedValue(data, config.denominatorPath, key) : null);
   const [comparisonData, setComparisonData] = useState(null);
   const [projectedDataPath, setProjectedDataPath] = useState(config?.projectedDataPath);
   const selectorPath = getter?.[getterKey?.selectorPath];
@@ -168,15 +168,25 @@ const SimpleCard = ({
   }, [
     data,
     dataPath,
+    denominatorData,
     projectedDataPath
   ]);
+
+  useEffect(() => {
+    if (config?.denominatorPath) {
+      setDenominatorData(getNestedValue(data, config.denominatorPath, key));
+    } else {
+      setDenominatorData(null);
+    }
+  }, [data, config?.denominatorPath, key]);
 
 
   useEffect(() => {
 
     if (
       getter?.[getterKey?.selectorPath] ||
-      getter?.[getterKey?.selectedIndicator]
+      getter?.[getterKey?.selectedIndicator] ||
+      config?.dataPath
     ) {
       let newDataPathArray = [];
       const currentPath = summary?.dataPath || config?.dataPath;
@@ -222,13 +232,11 @@ const SimpleCard = ({
         }
         );
       }
-
-
-
+      // console.log('New Data Path Array', newDataPathArray);
       if (newDataPathArray.length) {
 
         setDataPath(newDataPathArray.join('.'));
-      }
+      } 
     }
 
     if (
@@ -285,7 +293,12 @@ const SimpleCard = ({
   },
     [
       getter?.[getterKey?.selectorPath],
-      getter?.[getterKey?.selectedIndicator]
+      getter?.[getterKey?.selectedIndicator],
+      config?.dataPath,
+      config?.projectedDataPath,
+      config?.denominatorPath,
+      summary?.dataPath
+
     ]);
 
   getNestedValue(data, summary?.dataPath || dataPath, key);

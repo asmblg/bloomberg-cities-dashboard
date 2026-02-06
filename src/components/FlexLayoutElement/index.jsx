@@ -40,7 +40,7 @@ const FlexLayoutElement = ({
   setInfoIconConfig,
   // setViewLoaded,
   viewLoaded,
-  keepColumnsOnTablet,
+  // keepColumnsOnTablet,
   // lastElement,
   // lastRecursiveElement,
   view,
@@ -125,7 +125,7 @@ const FlexLayoutElement = ({
             viewLoaded={viewLoaded}
             manifest={manifest}
           />
-        )) || <div/>
+        )) || null
       ) : content?.type === 'simple-card' ? (
         <SimpleCard
           config={content?.config || content}

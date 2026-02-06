@@ -43,8 +43,9 @@ const SimpleChart = ({
       return (
         <SinglePercentDonutChart
           config={config}
-          value={data?.value}
-          label={data?.key}
+          value={config?.values?.formatter === 'percentX100' 
+                  ? data?.value * 100
+                  : data?.value}          label={data?.key}
           height={config?.height || 80}
           innerRadius={config?.innerRadius}
           outerRadius={config?.outerRadius}
@@ -73,7 +74,9 @@ const SimpleChart = ({
           {/* <div style={{ width: '100%', height: 80 }}> */}
               <SinglePercentDonutChart
                 config={config}
-                value={data?.value}
+                value={config?.formatter === 'percentX100' 
+                  ? data?.value * 100
+                  : data?.value}
                 label={data?.key}
                 height={80}
                 width={'100%'}

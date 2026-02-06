@@ -1,7 +1,8 @@
 import React, { 
   useEffect,
   useState, 
-  useRef 
+  useRef, 
+  use
 } from 'react';
 import PropTypes from 'prop-types';
 import FlexLayoutElement from '../FlexLayoutElement';
@@ -31,7 +32,6 @@ const FlexLayout = ({
   const [view, setView] = useState(viewOptions?.[0]); // object
   const [isColumns, setIsColumns] = useState(null);
   const [viewLoaded, setViewLoaded] = useState(false);
-  const { style } = layout || {};
 
   let hashValue = window.location.hash 
     ? window.location.hash.substring(1) 
@@ -62,6 +62,9 @@ const FlexLayout = ({
   if (invalidHash.includes(hashValue)) {
     hashValue = null;
   }
+
+    const { style } = layout?.[hashValue] || layout || {};
+
   // console.log('HASH VALUE', hashValue);
   // const getter = useMemo(() => {
   //   // Perform any transformation or computation with `getter` if necessary
@@ -75,16 +78,16 @@ const FlexLayout = ({
       if (columns) {
         setIsColumns(true);
       }
-      setElementArray(columns || rows);
+      resolve(columns || rows);
     } else if (views[view?.key]) {
       // console.log(views[view]);
       const { columns, rows } = views[view.key].layout;
       if (columns) {
         setIsColumns(true);
       }
-      setElementArray(columns || rows);
+      resolve(columns || rows);
     }
-    resolve();
+    // resolve();
   });
 
   const handleSetter = (setterKey, value) => {
@@ -109,19 +112,24 @@ const FlexLayout = ({
 
   useEffect(() => {
     setViewLoaded(false);
+    setElementArray([])
     setter(initialState || {});
-    handleElementArray().then(() => {
+    handleElementArray().then((array) => {
+      // console.log('ELEMENT ARRAY', array);
+      setElementArray(array);
+
       setViewLoaded(true);
     });
   }, [hashValue, layout, views, view]);
 
   // console.log('Elemnent Array', elementArray);
 
+
   
   return (
     <div
       ref={layoutRef}
-      key={`layout-${project}-${views?.[view?.key] || 'single-view'}`}
+      key={`layout-${project}-${views?.[view?.key] || 'single-view'}-${hashValue || 'default'}`}
       style={{ display: 'flex', flexDirection: 'column' , ...style}}>
       {view && views?.[view.key] && (
         <ViewSwitcher
