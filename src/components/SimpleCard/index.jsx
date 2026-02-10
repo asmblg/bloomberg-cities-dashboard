@@ -576,7 +576,7 @@ const SimpleCard = ({
         ) : null
       }
       {/* <br /> */}
-      {/* <h5>{dataPath}{config?.denominatorPath ? ` / ${config?.denominatorPath}` : null}</h5> */}
+      {/* <h5 style={{color: chart?.color || 'black'}}>{dataPath}{config?.denominatorPath ? ` / ${config?.denominatorPath}` : null}{` >>> `}{chart?.type}{` chart`}</h5> */}
 
     </div>
   );

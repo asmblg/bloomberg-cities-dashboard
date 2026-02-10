@@ -13,8 +13,15 @@ import { handleBinning, handleGeoJSON, handleNoGeoJsonProp } from './utils';
 import formatValue from '../../utils/formatValue';
 
 import './style.css';
+import formatQuarterDate from '../../utils/formatQuarterDate';
 
-const IndicatorMap = ({ config, geoJSON, project, getter }) => {
+const IndicatorMap = ({ 
+  config, 
+  geoJSON, 
+  project, 
+  getter,
+  // lang 
+}) => {
   const [bins, setBins] = useState(null);
   const [mapGeoJSON, setMapGeoJSON] = useState(null);
   const [refGeoJSON, setRefGeoJSON] = useState([]);
@@ -201,9 +208,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
               {
                 mapGeoJSON
                 ? <GeoJSON
-
                     pane='overlayPane'
-                    
                     eventHandlers={{
                       mouseover: e => {
                         if (!config?.refLayers?.[0]) {
@@ -218,7 +223,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
                         setHoveredFeature(null);
                       }
                     }}
-                    key={`data-layer-${varKey || 'no-data'}`}
+                    key={`data-layer-${varKey || 'no-data'}${date ? `-${date}` : ''}`}
                     data={mapGeoJSON}
                     filter={feature => {
                       const noIndicator = !selectedIndicator && !defaultSelection;
@@ -226,13 +231,13 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
                         return true;
                       }
                       let value = feature.properties[varKey];
-                      if (selectedIndicator?.aggregator === 'current') {
-                        const aggregatorKey = Object.keys(value).sort(dateKey => {
-                          const year = dateKey.split('-')[0];
-                          const quater = dateKey.split('-')[1]?.replace('Q', '');
-                          return Number(year) + Number(quater);
-                        })?.[0]
-                        value = value[aggregatorKey];
+                      if (selectedIndicator?.aggregator === 'current' && date) {
+                        // const aggregatorKey = Object.keys(value).sort(dateKey => {
+                        //   const year = dateKey.split('-')[0];
+                        //   const quater = dateKey.split('-')[1]?.replace('Q', '');
+                        //   return Number(year) + Number(quater);
+                        // })?.[0]
+                        value = value[date];
                       }
 
                       if (selectedIndicator?.dataPath) {
@@ -249,12 +254,13 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
                     style={feature => {
                       let value = feature.properties[varKey];
                       if (selectedIndicator?.aggregator === 'current') {
-                        const aggregatorKey = Object.keys(value).sort(dateKey => {
-                          const year = dateKey.split('-')[0];
-                          const quater = dateKey.split('-')[1]?.replace('Q', '');
-                          return Number(year) + Number(quater);
-                        })?.[0]
-                        value = value[aggregatorKey];
+                        // const aggregatorKey = Object.keys(value).sort(dateKey => {
+                        //   const year = dateKey.split('-')[0];
+                        //   const quater = dateKey.split('-')[1]?.replace('Q', '');
+                        //   return Number(year) + Number(quater);
+                        // })?.[0]
+                        // console.log('AGGREGATOR KEY', date);
+                        value = value[date];
                       }
 
                       if (selectedIndicator?.dataPath) {
@@ -296,6 +302,40 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
             )}
 
           </MapContainer>
+
+          
+        </div>
+        
+        // : null
+        // <TailSpin
+        //   color={'#006aaf'}
+        //   width={200}
+        //   height={200}
+        // />    // <div className='indicator-map-wrapper'>Loading...</div>
+      }
+                {/* {
+            config?.horizontalLegend && bins && date && (
+              <div                 
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  margin: '0 auto',
+                  padding: '.5em',
+                  flexDirection: 'row',
+                  // gap: '.1rem',
+                  backgroundColor: 'white',
+                  // position: 'relative',
+                  // top: '-60px',
+                  height: '30px',
+                  textAlign: 'center',
+                  // width: 'fit-content',
+                  zIndex: 10001,
+                }}>
+                {formatQuarterDate(date, 'QX YYYY', lang)}
+              </div>
+            )
+          } */}
           {
             config.horizontalLegend && bins && (
               <div 
@@ -304,15 +344,15 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  marginTop: '1rem',
-                  marginBottom: '1rem',
-                  padding: '1rem .5rem',
+                  // marginTop: '1rem',
+                  // marginBottom: '1rem',
+                  padding: '.5em .5em 0 .5em',
                   flexDirection: 'row',
                   gap: '.1rem',
                   backgroundColor: 'white',
-                  position: 'relative',
-                  top: '-60px',
-                  height: '50px',
+                  // position: 'relative',
+                  // top: '-90px',
+                  height: '40px',
                   zIndex: 10000,
                 }}>
                 <h5 
@@ -353,15 +393,7 @@ const IndicatorMap = ({ config, geoJSON, project, getter }) => {
               </div>
             )
           }
-          
-        </div>
-        // : null
-        // <TailSpin
-        //   color={'#006aaf'}
-        //   width={200}
-        //   height={200}
-        // />    // <div className='indicator-map-wrapper'>Loading...</div>
-      }
+
     </div>
     // ) : (
     //       <TailSpin
