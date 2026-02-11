@@ -20,6 +20,7 @@ const IndicatorMap = ({
   geoJSON, 
   project, 
   getter,
+  data
   // lang 
 }) => {
   const [bins, setBins] = useState(null);
@@ -32,15 +33,15 @@ const IndicatorMap = ({
   // Default colors are a random palette not related to any city project
   const colors = config?.colors || ['#fff3e2', '#ffe5ca', '#fa9884', '#e74646'];
   const numOfBins = colors.length;
-  const indicators = config?.indicators || null;
   const title = config?.title || 'Select socioeconomic variable to map:';
+  const indicators = config?.indicators || null;
   const defaultSelection = getter?.[config?.getterKey?.selectedIndicator] || indicators?.[0];
 
   const handleSetSelectedIndicator = (key, value) => {
     setSelectedIndicator(value);
   };
 
-  let varKey = selectedIndicator?.var
+  let varKey = selectedIndicator?.var || defaultSelection?.key;
   if (typeof varKey !== 'string') {
     varKey = selectedIndicator?.key || defaultSelection?.key;
   }
@@ -99,7 +100,7 @@ const IndicatorMap = ({
       });
       // }
     }
-  }, [getter?.[config?.getterKey?.selectedIndicator]]);
+  }, [getter?.[config?.getterKey?.selectedIndicator], geoJSON]);
 
   useEffect(() => {
     if (colors && selectedIndicator && mapGeoJSON) {
@@ -187,10 +188,11 @@ const IndicatorMap = ({
                     }
                   }}
                   style={{
-                    fillColor: 'transparent',
+                    fillColor:  'transparent',
                     color: 'white',
                     weight: 1,
-                    fillOpacity: 0
+                    fillOpacity: 0,
+                    ...config?.refLayers?.[i]?.style || {}
                   }}
                 // style={config?.refStyles?.[i]}
                 >

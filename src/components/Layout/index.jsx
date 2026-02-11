@@ -26,7 +26,9 @@ const Layout = ({ config, setShowModal }) => {
   const navigate = useNavigate();
   const sectionKeys = config ? Object.keys(config?.sections || {}) : null;
   const disableHeader = config?.disableHeader;
-  const noTabs = dev ? false : config?.noTabs;
+  const noTabs = dev 
+    ? false 
+    : config?.noTabs;
   // const disableFooter = config.disableFooter;
   useAutoIframeHeight([pathname]); // 👈 Re-trigger on route change
 

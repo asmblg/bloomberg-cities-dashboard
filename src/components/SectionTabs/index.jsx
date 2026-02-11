@@ -15,6 +15,9 @@ const SectionTabs = ({
   viewType
 }) => {
 
+  const existingQueryParams = new URLSearchParams(window.location.search);
+  const existingQueryParamsString = existingQueryParams.toString() ? `?${existingQueryParams.toString()}` : '';
+
   return (
     <div className='desktop-tabs'>
       {sectionKeys.map(key => {
@@ -28,7 +31,7 @@ const SectionTabs = ({
             className={`${selectedLink === key ? 'selected-tab' : 'unselected-tab'}${
               key === 'home' ? ' home-tab' : ''
             }`}
-            to={refreshOnLoad ? '#' : `/${project.toLowerCase()}${key !== 'home' ? `/${key}` : ''}`}
+            to={refreshOnLoad ? '#' : `/${project.toLowerCase()}${key !== 'home' ? `/${key}` : ''}${existingQueryParamsString}`}
             onClick={() => {
               trackTabClick(project, key).then(() => setSelectedLink(key));
               if (refreshOnLoad ) {

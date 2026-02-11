@@ -13,7 +13,6 @@ import formatValue from '../../utils/formatValue';
 import formatQuarterDate from '../../utils/formatQuarterDate';
 import createCompareDataObject from '../../utils/createCompareDataObject';
 import './style.css';
-import { all } from 'axios';
 
 const SimpleCard = ({
   config,
@@ -54,6 +53,7 @@ const SimpleCard = ({
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const lng = queryParams.get('lng') || null;
+  const devMode = queryParams.get('dev') === 'true';
 
   const [allSummaryData, setAllSummaryData] = useState();
   const [projectedData, setProjectedData] = useState();
@@ -82,10 +82,10 @@ const SimpleCard = ({
         let mostCurrentKey = null;
         Object.values(nestedData || {}).forEach((item) => {
           Object.keys(item).forEach((dateKey) => {
-            dateKey > mostCurrentKey 
-              ? mostCurrentKey = dateKey 
-              : !mostCurrentKey 
-                ? mostCurrentKey = dateKey 
+            dateKey > mostCurrentKey
+              ? mostCurrentKey = dateKey
+              : !mostCurrentKey
+                ? mostCurrentKey = dateKey
                 : null;
           })
         })
@@ -138,7 +138,7 @@ const SimpleCard = ({
 
         if (config?.comparisonPaths && Array.isArray(config?.comparisonPaths)) {
           const comparisonData = {};
-          config.comparisonPaths.forEach(({path, label}) => {
+          config.comparisonPaths.forEach(({ path, label }) => {
             comparisonData[label] = getNestedValue(data, path, key);
           });
           // console.log({path: config?.comparisonPaths, comparisonData});
@@ -236,7 +236,7 @@ const SimpleCard = ({
       if (newDataPathArray.length) {
 
         setDataPath(newDataPathArray.join('.'));
-      } 
+      }
     }
 
     if (
@@ -320,19 +320,19 @@ const SimpleCard = ({
 
 
   const subHeadingText = `${(selectorPath && selectedIndicator) || selectedIndicator
-      ? `${selectedIndicator?.label || selectedIndicator}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
-      : selectorPath &&
-        !selectedIndicator &&
-        config?.indicator?.Geography &&
-        `${config?.indicator?.Geography}`?.toLowerCase() !== `${selectorPath}`?.toLowerCase() &&
-        `${config?.indicator?.Geography}`?.toLowerCase() !== selectorPath?.label?.toLowerCase()
-        ? selectorPath?.label?.toLowerCase() !== 'total' &&
-          `${selectorPath}`?.toLowerCase() !== 'total'
-          ? `${selectorPath?.label || selectorPath}`
-          : config?.defaultSubheading || config?.indicator?.Geography
-        : selectorPath && !selectedIndicator
-          ? `${selectorPath?.label || selectorPath}`
-          : config?.defaultSubheading || config?.indicator?.Geography
+    ? `${selectedIndicator?.label || selectedIndicator}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
+    : selectorPath &&
+      !selectedIndicator &&
+      config?.indicator?.Geography &&
+      `${config?.indicator?.Geography}`?.toLowerCase() !== `${selectorPath}`?.toLowerCase() &&
+      `${config?.indicator?.Geography}`?.toLowerCase() !== selectorPath?.label?.toLowerCase()
+      ? selectorPath?.label?.toLowerCase() !== 'total' &&
+        `${selectorPath}`?.toLowerCase() !== 'total'
+        ? `${selectorPath?.label || selectorPath}`
+        : config?.defaultSubheading || config?.indicator?.Geography
+      : selectorPath && !selectedIndicator
+        ? `${selectorPath?.label || selectorPath}`
+        : config?.defaultSubheading || config?.indicator?.Geography
     }${derivedDate ? `, ${formatQuarterDate(derivedDate, 'QX YYYY', lng)}` : ''}`;
   // console.log({ trendDataType });
 
@@ -416,12 +416,12 @@ const SimpleCard = ({
         <>
           <div
             className='simple-data-wrapper'
-            // onClick={() => 
-            //   route
-            //   // setSelectedLink(sectionKey);
-            //    ? navigate(route)
-            //    : null
-            // }
+          // onClick={() => 
+          //   route
+          //   // setSelectedLink(sectionKey);
+          //    ? navigate(route)
+          //    : null
+          // }
           >
 
             {chart && <div className='simple-chart'>
@@ -441,15 +441,15 @@ const SimpleCard = ({
                 />
               ) : null}
             </div>}
-            <div 
+            <div
               className='simple-data bold-font'
-              style={!chart ? { 
+              style={!chart ? {
                 width: '100%',
                 gap: '20px',
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'flex-start',
-                alignItems: 'center' 
+                alignItems: 'center'
               } : {}}
             >
               <h2 className='bold-font'>
@@ -458,28 +458,29 @@ const SimpleCard = ({
                   : '-'}
               </h2>
               <div>
-              {units ? <h5 className='simple-units'>{units}</h5> : null}
-              {summaryData?.currentDate ? <h5 className='simple-indicator-date'>{formatQuarterDate(summaryData.currentDate, 'QX YYYY', lng)}</h5> : null}
-
+                {units ? <h5 className='simple-units'>{units}</h5> : null}
+                {summaryData?.currentDate
+                  ? <h5 className='simple-indicator-date'>{formatQuarterDate(summaryData.currentDate, 'QX YYYY', lng)}</h5>
+                  : null}
               </div>
             </div>
 
           </div>
-          <div 
-            style={chart2 
-              ? { 
-                  display: 'flex', 
-                  flexDirection: 'row', 
-                  gap: '10px',
-                  alignItems: 'flex-start',
-                  marginTop: '20px' 
-                } 
+          <div
+            style={chart2
+              ? {
+                display: 'flex',
+                flexDirection: 'row',
+                gap: '10px',
+                alignItems: 'flex-start',
+                marginTop: '20px'
+              }
               : {}
             }
           >
-              {chart2?.type && allSummaryData ? (
+            {chart2?.type && allSummaryData ? (
 
-            <div className='simple-chart'>
+              <div className='simple-chart'>
                 <SimpleChart
                   lng={lng}
                   key={`${dataPath}-${cardKey}-simple-chart`}
@@ -492,24 +493,24 @@ const SimpleCard = ({
                       : { key: summaryData.currentDate, value: summaryData.displayValue }
                   }
                 />
-              
-            </div>
+
+              </div>
             ) : null}
-          {!disablePill && (viewType !== 'mobile' || cardFullSize) ? (
-            <TrendPill
-              lng={lng}
-              positiveTrendDirection={summary?.positiveTrendDirection}
-              currentValue={summaryData.currentValue}
-              compareValue={summaryData.compareValue}
-              compareDate={summaryData.compareDate}
-              units={config?.summary?.trendUnits}
-              data={allSummaryData}
-              compareValueUnderPill={chart2 ? true : false}
-              trendDataType={trendDataType}
-              displayCompareText
-              onlyYears={config?.dateType === 'year'}
-            />
-          ) : null}
+            {!disablePill && (viewType !== 'mobile' || cardFullSize) ? (
+              <TrendPill
+                lng={lng}
+                positiveTrendDirection={summary?.positiveTrendDirection}
+                currentValue={summaryData.currentValue}
+                compareValue={summaryData.compareValue}
+                compareDate={summaryData.compareDate}
+                units={config?.summary?.trendUnits}
+                data={allSummaryData}
+                compareValueUnderPill={chart2 ? true : false}
+                trendDataType={trendDataType}
+                displayCompareText
+                onlyYears={config?.dateType === 'year'}
+              />
+            ) : null}
           </div>
 
         </>
@@ -575,8 +576,32 @@ const SimpleCard = ({
 
         ) : null
       }
-      {/* <br /> */}
-      {/* <h5 style={{color: chart?.color || 'black'}}>{dataPath}{config?.denominatorPath ? ` / ${config?.denominatorPath}` : null}{` >>> `}{chart?.type}{` chart`}</h5> */}
+      {
+        devMode && (
+          <div style={{ width: '100%' }}>
+            <br />
+            <div style={{ 
+                color: chart?.color || 'black',
+                fontSize: '8px', 
+                fontFamily: 'monospace'
+              }}>
+              {`Data Path: `}{dataPath}{config?.denominatorPath ? ` / ${config?.denominatorPath}` : null}
+              <br />{`Chart Type: `}{chart?.type}
+              <span style={{ color: chart2?.color || 'black' }}>
+                {chart2?.type ? ` + ${chart2.type}` : ''}
+              </span>
+              <br />
+              {`Trend Data Type: `}{trendDataType
+                ? config?.dateType === 'year'
+                  ? trendDataType === 'YtY'
+                    ? 'N/A'
+                    : 'YtY'
+                  : trendDataType
+                : null}
+            </div>
+          </div>
+        )
+      }
 
     </div>
   );
