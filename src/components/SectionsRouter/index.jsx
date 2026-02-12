@@ -19,7 +19,12 @@ const SectionRouter = ({
   setSelectedLink
 }) => (
   <Routes>
-    <Route path={'/'} element={<LandingPage viewType={viewType} />} />
+    <Route
+      path={'/'}
+      element={
+        <LandingPage viewType={viewType} />
+      }
+    />
 
     {sectionKeys?.[0]
       ? sectionKeys.map(key =>

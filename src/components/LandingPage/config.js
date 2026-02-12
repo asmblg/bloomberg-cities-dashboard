@@ -17,30 +17,30 @@ const landingConfig = {
   citiesSection: {
     title: 'SELECT A CITY TO EXPLORE THE DASHBOARD',
     cities: [
-      {
-        id: 'phoenix',
-        name: 'PHOENIX',
-        route: '/phoenix',
-        bgColor: '#b02365',
-        img: phoenixBW,
-        hoverImg: phoenixColor
-      },
+      // {
+      //   id: 'phoenix',
+      //   name: 'PHOENIX',
+      //   route: '/phoenix',
+      //   bgColor: '#b02365',
+      //   img: phoenixBW,
+      //   hoverImg: phoenixColor
+      // },
       {
         id: 'tampa',
         name: 'TAMPA',
-        route: '/tampa',
+        route: 'https://www.tampa.gov/economic-dashboard',
         bgColor: '#006aaf',
         img: tampaBW,
         hoverImg: tampaColor
       },
-      {
-        id: 'baltimore',
-        name: 'BALTIMORE',
-        route: '/baltimore',
-        bgColor: '#b02365',
-        img: baltimoreBW,
-        hoverImg: baltimoreColor
-      }
+      // {
+      //   id: 'baltimore',
+      //   name: 'BALTIMORE',
+      //   route: '/baltimore',
+      //   bgColor: '#b02365',
+      //   img: baltimoreBW,
+      //   hoverImg: baltimoreColor
+      // }
     ]
   }
 };

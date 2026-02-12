@@ -70,12 +70,12 @@ const App = () => {
             handleUserConsent={handleUserConsent}
             setShowModal={setShowModal}
           />
-          <UserConsentModal
+          {/* <UserConsentModal
             key={`user-consent-modal-display-${showModal}`}
             showModal={showModal}
             setShowModal={setShowModal}
             handleUserConsent={handleUserConsent}
-          />
+          /> */}
         </>
       ) : (
         <TailSpin
