@@ -163,11 +163,7 @@ const FilterDropdown = ({
         style={{
           backgroundColor: 'white',
           boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-          // borderRadius: '10px',
-          // zIndex: 1000,
-          // width: 'max-content',
           minWidth: '100%',
-          // maxWidth: '300px',
         }}
         onMouseLeave={() => {
           if (dropdownOpen) {

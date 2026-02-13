@@ -113,12 +113,12 @@
 
 .simple-units,
 .simple-indicator-date {
-  font-size: .8rem;
+  font-size: 1rem;
   line-height: .9rem;
 }
 
 .simple-units {
-  font-size: .8rem;
+  /* font-size: .8rem; */
   padding-right: .5rem;
   padding-bottom: .2rem;
 }
