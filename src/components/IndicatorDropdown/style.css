@@ -36,7 +36,7 @@
   height: fit-content;
   max-height: 150px;
   width: 100%;
-  max-width: 200px;
+  max-width: 300px;
   list-style: none;
   padding: 0%;
   line-height: 24px;
@@ -46,7 +46,7 @@
 
 .selected-option,
 .unselected-option {
-  border-bottom: 2px solid var(--secondary-gray-color);
+  border-bottom: 1px solid var(--secondary-gray-color);
   color: var(--black-color);
   margin: 2%;
   font-size: var(--smallest-font);

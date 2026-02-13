@@ -7,9 +7,9 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 
-const CustomTooltip = ({ 
-  active, 
-  payload, 
+const CustomTooltip = ({
+  active,
+  payload,
   label,
   filter,
   manifest,
@@ -24,19 +24,19 @@ const CustomTooltip = ({
       <div className='custom-tooltip'>
         {
           comparisonData
-          ? <h4 className='custom-tooltip-label'>
+            ? <h4 className='custom-tooltip-label'>
               {formatQuarterDate(label || payload?.[0]?.name, 'QX YYYY', lng)}
             </h4>
-          : null
+            : null
         }
         {
           payload
             // .reverse()
-            .filter(({}, i) => projectedData && payload[1] ? i === 1 : true)
-            .sort((a,b) => Number(b.value) - Number(a.value))
-            .map(({name, value, color, dataKey, payload: innerPayload}, i) =>
-              comparisonData 
-              ? <div
+            .filter(({ }, i) => projectedData && payload[1] ? i === 1 : true)
+            .sort((a, b) => Number(b.value) - Number(a.value))
+            .map(({ name, value, color, dataKey, payload: innerPayload }, i) =>
+              comparisonData
+                ? <div
                   className='simple-data'
                   style={{
                     width: '100%',
@@ -48,38 +48,38 @@ const CustomTooltip = ({
                     // color: color || innerPayload?.fillColor,
                     // fontSize:  filter && !filter?.includes(name) ? '.5rem' : null,
                     // lineHeight: filter && !filter?.includes(name) ? '.5rem' : '.7rem'
-                  }} 
+                  }}
                   key={`custom-tooltip-${label?.replace(/ /g, '-') || 'label'}-${name}-${i}`}>
-                                <h5 className='simple-units'>                
-                  {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}
-                </h5>
-                <h3 className='bold-font'>
-                {formatValue(value, units)}
-                </h3>
+                  <h5 className='simple-units' style={{fontSize: '.7rem'}}>
+                    {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}
+                  </h5>
+                  <h3 className='bold-font'>
+                    {formatValue(value, units)}
+                  </h3>
 
-                {/* <h5 className='simple-indicator-date'>
+                  {/* <h5 className='simple-indicator-date'>
                     {formatQuarterDate(label || payload?.[0]?.name, 'QX YYYY', lng)}
                 </h5>  */}
                 </div>
-             : <div
-                className='simple-data'
-                style={{
-                  width: '100%',
-                  // color: color || innerPayload?.fillColor,
-                  fontSize:  filter && !filter?.includes(name) ? '.6rem' : null,
-                  lineHeight: filter && !filter?.includes(name) ? '.6rem' : '.9rem'
-                }} 
-                key={`custom-tooltip-${label?.replace(/ /g, '-') || 'label'}-${name}-${i}`}>
-              <h2 className='bold-font'>
-              {formatValue(value, units)}
-              </h2>
-              <h5 className='simple-units'>                
-                {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}
-              </h5>
-              <h5 className='simple-indicator-date'>
-                  {formatQuarterDate(label || payload?.[0]?.name, 'QX YYYY', lng)}
-              </h5> 
-              </div>
+                : <div
+                  className='simple-data'
+                  style={{
+                    width: '100%',
+                    // color: color || innerPayload?.fillColor,
+                    fontSize: filter && !filter?.includes(name) ? '.6rem' : null,
+                    lineHeight: filter && !filter?.includes(name) ? '.6rem' : '.9rem'
+                  }}
+                  key={`custom-tooltip-${label?.replace(/ /g, '-') || 'label'}-${name}-${i}`}>
+                  <h2 className='bold-font'>
+                    {formatValue(value, units)}
+                  </h2>
+                  <h5 className='simple-units'>
+                    {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}
+                  </h5>
+                  <h5 className='simple-indicator-date'>
+                    {formatQuarterDate(label || payload?.[0]?.name, 'QX YYYY', lng)}
+                  </h5>
+                </div>
             )
         }
 

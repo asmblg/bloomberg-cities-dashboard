@@ -75,7 +75,8 @@ const IndicatorDropdown = ({
     <div
       key={key}
       ref={dropdownRef} 
-      className='dropdown-container'>
+      className='dropdown-container'
+    >
       <div className='dropdown-header' onClick={() => setDropdownOpen(!dropdownOpen)}>
         {optionArray?.[1] ? (
           <Icon name={!dropdownOpen ? 'angle down' : 'angle up'} size='big' />
@@ -101,7 +102,13 @@ const IndicatorDropdown = ({
 
       </div>
       {dropdownOpen && optionArray?.[1] ? (
-        <ul className='dropdown-options-container'
+        <ul 
+        className='dropdown-options-container'
+        style={{
+          backgroundColor: 'white',
+          boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+          minWidth: '100%',
+        }}
         onMouseLeave={() => {
           if (dropdownOpen) {
             setTimeout(() => {

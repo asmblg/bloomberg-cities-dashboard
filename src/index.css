@@ -237,6 +237,7 @@
   height: 100%;
   width: 100%;
   min-width: 200px;
-  min-height: 200px;
+  min-height: 250px !important;
   opacity: ease-in-out;
+  padding-bottom: 1em;
 }
