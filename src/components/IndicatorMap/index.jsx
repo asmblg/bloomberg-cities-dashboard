@@ -15,14 +15,15 @@ import formatValue from '../../utils/formatValue';
 import './style.css';
 import formatQuarterDate from '../../utils/formatQuarterDate';
 
-const IndicatorMap = ({ 
-  config, 
-  geoJSON, 
-  project, 
+const IndicatorMap = ({
+  config,
+  geoJSON,
+  project,
   getter,
   data
   // lang 
 }) => {
+
   const [bins, setBins] = useState(null);
   const [mapGeoJSON, setMapGeoJSON] = useState(null);
   const [refGeoJSON, setRefGeoJSON] = useState([]);
@@ -43,13 +44,13 @@ const IndicatorMap = ({
 
   let varKey = selectedIndicator?.var || defaultSelection?.key;
   if (typeof varKey !== 'string') {
-    varKey = selectedIndicator?.key || defaultSelection?.key;
+    varKey = selectedIndicator?.key || defaultSelection?.key || config?.indicator?.key;
   }
 
   useEffect(() => {
     new Promise((resolve, reject) => {
       const refGeoJSONArray = [];
-      if (config?.refLayers?.[0])  {
+      if (config?.refLayers?.[0]) {
         for (const { geoType } of config.refLayers) {
           getGeoJSON(project, geoType)
             .then(({ data }) => {
@@ -86,8 +87,10 @@ const IndicatorMap = ({
       handleNoGeoJsonProp(
         project,
         config?.geoType,
-        indicators || [defaultSelection],
-        config?.filter
+        indicators || [defaultSelection || config?.indicator],
+        config?.filter,
+        data,
+        config?.joinKey
       ).then(updatedGeoJSON => {
         if (updatedGeoJSON) {
           setMapGeoJSON(updatedGeoJSON);
@@ -103,18 +106,20 @@ const IndicatorMap = ({
   }, [getter?.[config?.getterKey?.selectedIndicator], geoJSON]);
 
   useEffect(() => {
-    if (colors && selectedIndicator && mapGeoJSON) {
-      // console.log(mapGeoJSON)
-      const {arrayWithLabels, extractedDate} = handleBinning({
+    if (colors && (selectedIndicator || config?.indicator) && mapGeoJSON) {
+      console.log(mapGeoJSON)
+      const { arrayWithLabels, extractedDate } = handleBinning({
         geoJSON: mapGeoJSON,
         colors,
-        indicator: varKey,
-        dataPath: selectedIndicator?.dataPath,
-        aggregator: selectedIndicator?.aggregator,
+        indicator: varKey || config?.indicator?.var,
+        dataPath: selectedIndicator?.dataPath || config?.indicator?.dataPath,
+        aggregator: selectedIndicator?.aggregator || config?.indicator?.aggregator,
         range: config?.range,
         numOfBins,
         manualBreaks: config?.manualBreaks || defaultSelection?.manualBreaks || selectedIndicator?.manualBreaks
       })
+
+      console.log('ARRAY WITH LABELS', extractedDate, arrayWithLabels);
       setBins(
         arrayWithLabels
       );
@@ -127,7 +132,8 @@ const IndicatorMap = ({
       selectedIndicator,
       mapGeoJSON,
       colors,
-      getter?.[config?.getterKey?.selectedIndicator]
+      getter?.[config?.getterKey?.selectedIndicator],
+      data
     ]);
 
   // console.log(mapGeoJSON);
@@ -136,16 +142,20 @@ const IndicatorMap = ({
     <div className='indicator-map-wrapper'>
       {!config.externalDropdown && (
         <>
-          { !config?.noTitle 
-          ? <p>{title} {date}</p>
-          : null
-        }
-          <IndicatorDropdown
-            selectedOption={selectedIndicator || defaultSelection}
-            setter={handleSetSelectedIndicator}
-            options={indicators || []}
-            disableSort={config?.disableSort || false}
-          />
+          {!config?.noTitle
+            ? <p>{title} {date}</p>
+            : config?.indicator?.label
+              ? <h4>{config.indicator.label?.toUpperCase()}</h4>
+              : null
+          }
+          {!config?.indicator?.label &&
+            <IndicatorDropdown
+              selectedOption={selectedIndicator || defaultSelection}
+              setter={handleSetSelectedIndicator}
+              options={indicators || []}
+              disableSort={config?.disableSort || false}
+            />
+          }
         </>
       )}
       {
@@ -169,131 +179,132 @@ const IndicatorMap = ({
 
             {refGeoJSON.map((refGeoJSON, i) => (
 
-                <GeoJSON
-                  key={`ref-layer-${i}`}
-                  pane={'markerPane'}
-                  // Always on top of the data layer
-                  data={refGeoJSON}
+              <GeoJSON
+                key={`ref-layer-${i}`}
+                pane={'markerPane'}
+                // Always on top of the data layer
+                data={refGeoJSON}
+                eventHandlers={{
+                  mouseover: e => {
+                    const labelField = config?.refLayers?.[i]?.labelField || 'Name';
+                    const value = e.propagatedFrom?.feature?.properties?.[labelField];
+                    // const indicator = selectedIndicator?.label || defaultSelection?.label;
+                    // const geo = e.propagatedFrom?.feature?.properties?.[config.nameProperty?.key ? config.nameProperty?.key : 'Name'] || '';
+                    // const units = selectedIndicator?.units || defaultSelection?.units;
+                    setHoveredFeature({ value });
+                  },
+                  mouseout: e => {
+                    setHoveredFeature(null);
+                  }
+                }}
+                style={{
+                  fillColor: 'transparent',
+                  color: 'white',
+                  weight: 1,
+                  fillOpacity: 0,
+                  ...config?.refLayers?.[i]?.style || {}
+                }}
+              // style={config?.refStyles?.[i]}
+              >
+                {config?.refLayers[0]?.labelField && hoveredFeature?.value &&
+                  (<Tooltip>
+                    <div>
+                      <h3>{hoveredFeature?.value}</h3>
+                    </div>
+                  </Tooltip>)}
+              </GeoJSON>
+            ))
+            }
+
+
+            {
+              mapGeoJSON
+                ? <GeoJSON
+                  pane='overlayPane'
                   eventHandlers={{
                     mouseover: e => {
-                      const labelField = config?.refLayers?.[i]?.labelField || 'Name';
-                      const value = e.propagatedFrom?.feature?.properties?.[labelField];
-                      // const indicator = selectedIndicator?.label || defaultSelection?.label;
-                      // const geo = e.propagatedFrom?.feature?.properties?.[config.nameProperty?.key ? config.nameProperty?.key : 'Name'] || '';
-                      // const units = selectedIndicator?.units || defaultSelection?.units;
-                      setHoveredFeature({ value });
+                      if (!config?.refLayers?.[0]) {
+                        const value = e.propagatedFrom?.feature?.properties?.[varKey];
+                        const indicator = selectedIndicator?.label || defaultSelection?.label || config?.indicator;
+                        const geo = e.propagatedFrom?.feature?.properties?.[config.nameProperty?.key ? config.nameProperty?.key : 'Name'] || '';
+                        const units = selectedIndicator?.units || defaultSelection?.units;
+                        setHoveredFeature({ value, indicator, geo, units });
+                      }
                     },
                     mouseout: e => {
                       setHoveredFeature(null);
                     }
                   }}
-                  style={{
-                    fillColor:  'transparent',
-                    color: 'white',
-                    weight: 1,
-                    fillOpacity: 0,
-                    ...config?.refLayers?.[i]?.style || {}
+                  key={`data-layer-${varKey}${'no-data'}${date ? `-${date}` : ''}`}
+                  data={mapGeoJSON}
+                  filter={feature => {
+                    const noIndicator = !selectedIndicator && !defaultSelection;
+                    if (noIndicator) {
+                      return true;
+                    }
+                    let value = feature.properties[varKey];
+                    if ((selectedIndicator?.aggregator || config?.indicator?.aggregator) === 'current' && date) {
+                      // const aggregatorKey = Object.keys(value).sort(dateKey => {
+                      //   const year = dateKey.split('-')[0];
+                      //   const quater = dateKey.split('-')[1]?.replace('Q', '');
+                      //   return Number(year) + Number(quater);
+                      // })?.[0]
+                      value = value[date];
+                    }
+
+                    if (selectedIndicator?.dataPath) {
+                      selectedIndicator?.dataPath.split('.').forEach(path => {
+                        value = value?.[path] || null;
+                      });
+                    }
+                    if (!isNaN(Number(value)) && Number(value) > 0) {
+                      return true;
+                    } else {
+                      return false;
+                    }
                   }}
-                // style={config?.refStyles?.[i]}
+                  style={feature => {
+                    let value = feature.properties[varKey];
+                    if (selectedIndicator?.aggregator === 'current' || config?.indicator?.aggregator === 'current' && date) {
+                      // const aggregatorKey = Object.keys(value).sort(dateKey => {
+                      //   const year = dateKey.split('-')[0];
+                      //   const quater = dateKey.split('-')[1]?.replace('Q', '');
+                      //   return Number(year) + Number(quater);
+                      // })?.[0]
+                      // console.log('AGGREGATOR KEY', date);
+                      value = value[date];
+                    }
+
+                    if (selectedIndicator?.dataPath) {
+                      selectedIndicator?.dataPath.split('.').forEach(path => {
+                        value = value?.[path] || null;
+                      });
+                    }
+
+                    const color = bins?.filter(({ percentile }) =>
+                      value <= percentile
+                    ).map(({ color }) => color)[0] || 'transparent';
+                    // console.log(color);
+                    return {
+                      fillColor: color,
+                      color: config?.strokeColor || color,
+                      weight: config?.weight || 1,
+                      // opacity: config?.opacity || 1,
+                      fillOpacity: config?.opacity || 1
+                    };
+                  }}
                 >
-                  {config?.refLayers[0]?.labelField && hoveredFeature?.value &&
+                  {!config?.refGeoJSON && hoveredFeature?.value &&
                     (<Tooltip>
-                      <div>
-                        <h3>{hoveredFeature?.value}</h3>
+                      <div className='indicator-map-tooltip'>
+                        <h4>{config?.nameProperty?.prefix || ''} {hoveredFeature?.geo}</h4>
+                        {/* {JSON.stringify(hoveredFeature)} */}
+                        <strong>{formatValue(hoveredFeature?.value?.[date] || hoveredFeature?.value, hoveredFeature?.units)}</strong>
                       </div>
                     </Tooltip>)}
                 </GeoJSON>
-            ))
+                : null
             }
-
-
-              {
-                mapGeoJSON
-                ? <GeoJSON
-                    pane='overlayPane'
-                    eventHandlers={{
-                      mouseover: e => {
-                        if (!config?.refLayers?.[0]) {
-                          const value = e.propagatedFrom?.feature?.properties?.[varKey];
-                          const indicator = selectedIndicator?.label || defaultSelection?.label;
-                          const geo = e.propagatedFrom?.feature?.properties?.[config.nameProperty?.key ? config.nameProperty?.key : 'Name'] || '';
-                          const units = selectedIndicator?.units || defaultSelection?.units;
-                          setHoveredFeature({ value, indicator, geo, units });
-                        }
-                      },
-                      mouseout: e => {
-                        setHoveredFeature(null);
-                      }
-                    }}
-                    key={`data-layer-${varKey || 'no-data'}${date ? `-${date}` : ''}`}
-                    data={mapGeoJSON}
-                    filter={feature => {
-                      const noIndicator = !selectedIndicator && !defaultSelection;
-                      if (noIndicator) {
-                        return true;
-                      }
-                      let value = feature.properties[varKey];
-                      if (selectedIndicator?.aggregator === 'current' && date) {
-                        // const aggregatorKey = Object.keys(value).sort(dateKey => {
-                        //   const year = dateKey.split('-')[0];
-                        //   const quater = dateKey.split('-')[1]?.replace('Q', '');
-                        //   return Number(year) + Number(quater);
-                        // })?.[0]
-                        value = value[date];
-                      }
-
-                      if (selectedIndicator?.dataPath) {
-                        selectedIndicator?.dataPath.split('.').forEach(path => {
-                          value = value?.[path] || null;
-                        });
-                      }
-                      if (!isNaN(Number(value)) && Number(value) > 0) {
-                        return true;
-                      } else {
-                        return false;
-                      }
-                    }}
-                    style={feature => {
-                      let value = feature.properties[varKey];
-                      if (selectedIndicator?.aggregator === 'current') {
-                        // const aggregatorKey = Object.keys(value).sort(dateKey => {
-                        //   const year = dateKey.split('-')[0];
-                        //   const quater = dateKey.split('-')[1]?.replace('Q', '');
-                        //   return Number(year) + Number(quater);
-                        // })?.[0]
-                        // console.log('AGGREGATOR KEY', date);
-                        value = value[date];
-                      }
-
-                      if (selectedIndicator?.dataPath) {
-                        selectedIndicator?.dataPath.split('.').forEach(path => {
-                          value = value?.[path] || null;
-                        });
-                      }
-
-                      const color = bins?.filter(({ percentile }) =>
-                        value <= percentile
-                      ).map(({ color }) => color)[0] || 'transparent';
-                      // console.log(color);
-                      return {
-                        fillColor: color,
-                        color: config?.strokeColor || color,
-                        weight: config?.weight || 1,
-                        // opacity: config?.opacity || 1,
-                        fillOpacity: config?.opacity || 1
-                      };
-                    }}
-                  >
-                    {!config?.refGeoJSON && hoveredFeature?.value &&
-                      (<Tooltip>
-                        <div className='indicator-map-tooltip'>
-                          <p>{config?.nameProperty?.prefix || ''} {hoveredFeature?.geo}</p>
-                          <strong>{formatValue(hoveredFeature?.value, hoveredFeature?.units)}</strong>
-                        </div>
-                      </Tooltip>)}
-                  </GeoJSON>
-                  : null
-              }
 
             {bins && !config.noLegend && (
               <Legend
@@ -305,9 +316,9 @@ const IndicatorMap = ({
 
           </MapContainer>
 
-          
+
         </div>
-        
+
         // : null
         // <TailSpin
         //   color={'#006aaf'}
@@ -315,7 +326,7 @@ const IndicatorMap = ({
         //   height={200}
         // />    // <div className='indicator-map-wrapper'>Loading...</div>
       }
-                {/* {
+      {/* {
             config?.horizontalLegend && bins && date && (
               <div                 
                 style={{
@@ -338,63 +349,63 @@ const IndicatorMap = ({
               </div>
             )
           } */}
-          {
-            config.horizontalLegend && bins && (
-              <div 
-                className='horizontal-legend' 
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  // marginTop: '1rem',
-                  // marginBottom: '1rem',
-                  padding: '.5em .5em 0 .5em',
-                  flexDirection: 'row',
-                  gap: '.1rem',
-                  backgroundColor: 'white',
-                  // position: 'relative',
-                  // top: '-90px',
-                  height: '40px',
-                  zIndex: 10000,
-                }}>
-                <h5 
-                  className='horizontal-legend-labels'
-                  style={{
-                    padding: '0 .5rem',
-                    maxWidth: '100px',
-                    textAlign: 'center',
+      {
+        config.horizontalLegend && bins && (
+          <div
+            className='horizontal-legend'
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              // marginTop: '1rem',
+              // marginBottom: '1rem',
+              padding: '.5em .5em 0 .5em',
+              flexDirection: 'row',
+              gap: '.1rem',
+              backgroundColor: 'white',
+              // position: 'relative',
+              // top: '-90px',
+              height: '40px',
+              zIndex: 10000,
+            }}>
+            <h5
+              className='horizontal-legend-labels'
+              style={{
+                padding: '0 .5rem',
+                maxWidth: '100px',
+                textAlign: 'center',
 
-                  }}
-                >
-                  {config?.horizontalLegend?.bottomLabel || ''}
-                </h5>
-              
-                {bins.map(({ color }, i) => (
-                  <div
-                    key={`horizontal-legend-${i}`}
-                    className='horizontal-legend-item'
-                    style={{
-                      backgroundColor: color,
-                      borderColor: config.strokeColor || 'black',
-                      flexGrow: 1,
-                      height: '.7rem',
-                    }}
-                  >
-                  </div>
-                ))}
-                <h5 
-                  className='horizontal-legend-labels'
-                  style={{
-                    padding: '0 .5rem',
-                    maxWidth: '100px',
-                    textAlign: 'center',
-                  }}
-                >
-                  {config?.horizontalLegend?.topLabel || ''}
-                </h5>
+              }}
+            >
+              {config?.horizontalLegend?.bottomLabel || ''}
+            </h5>
+
+            {bins.map(({ color }, i) => (
+              <div
+                key={`horizontal-legend-${i}`}
+                className='horizontal-legend-item'
+                style={{
+                  backgroundColor: color,
+                  borderColor: config.strokeColor || 'black',
+                  flexGrow: 1,
+                  height: '.7rem',
+                }}
+              >
               </div>
-            )
-          }
+            ))}
+            <h5
+              className='horizontal-legend-labels'
+              style={{
+                padding: '0 .5rem',
+                maxWidth: '100px',
+                textAlign: 'center',
+              }}
+            >
+              {config?.horizontalLegend?.topLabel || ''}
+            </h5>
+          </div>
+        )
+      }
 
     </div>
     // ) : (

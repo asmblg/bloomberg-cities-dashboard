@@ -3,7 +3,6 @@ import percentile from 'percentile';
 import incrementDecimalNumber from '../../utils/incrementDecimalNumber';
 import formatValue from '../../utils/formatValue';
 import { getGeoJSON } from '../../utils/API';
-import e from 'cors';
 
 /**
  * 
@@ -11,7 +10,7 @@ import e from 'cors';
  * @param {array} indicators array of indicators from config
  * @returns {object} updated geoJSON with calculated indicators in every features properties object
  */
-const handleGeoJSON = async (geoJSON, indicators, filter) => {
+const handleGeoJSON = (geoJSON, indicators, filter, data, joinKey) => {
   const tempGeoJSON = { ...geoJSON };
   const featuresArr = tempGeoJSON.features
     .filter(feature => {
@@ -28,11 +27,23 @@ const handleGeoJSON = async (geoJSON, indicators, filter) => {
     })
     .map(feature => {
       if (indicators && indicators[0]) {
-        indicators.forEach(indicator => {
-          const propertiesObj = addCalculatedIndicatorToDataObj(indicator, feature.properties);
-          feature.properties = propertiesObj;
-        });
+        console.log('Adding data', { indicators, feature, data, joinKey })
+        if (joinKey) {
+          indicators.forEach(indicator => {
+            const dataObj = data?.[indicator?.dataPath]?.[feature.properties[joinKey]];
+            const propertiesObj = addCalculatedIndicatorToDataObj(indicator, dataObj);
+            feature.properties = { ...feature.properties, [indicator?.dataPath]: { ...propertiesObj } };
+          });
+        }
+        else {
+          indicators.forEach(indicator => {
+            const propertiesObj = addCalculatedIndicatorToDataObj(indicator, feature.properties);
+            feature.properties = propertiesObj;
+          });
+        }
       }
+
+      console.log('Returning feature', { feature })
       return feature;
     });
 
@@ -45,18 +56,18 @@ const handleGeoJSON = async (geoJSON, indicators, filter) => {
  * @param {string} project - Project city name
  * @param {string} geoType - Geo type from config
  * @param {array} indicators - array of indicators to run calculations on and add to GeoJSON. If using a getter and only passing in one indicator to the component, wrap that getter indicator object in [ ] when passing in as a argument
- * @returns updated GeoJSON to be set into state
+ * @param {string} joinKey - key to join data with GeoJSON features
  */
 
-const handleNoGeoJsonProp = async (project, geoType, indicators, filter) => {
+const handleNoGeoJsonProp = async (project, geoType, indicators, filter, dataObject, joinKey) => {
   try {
-    if (project && geoType ) {
+    if (project && geoType) {
       const { data } = await getGeoJSON(project, geoType);
       // console.log(data);
       const returnedGeoJSON = data[0];
       if (indicators?.[0]) {
-        const updatedGeoJSON = await handleGeoJSON(returnedGeoJSON, indicators, filter);
-        return updatedGeoJSON;      
+        const updatedGeoJSON = handleGeoJSON(returnedGeoJSON, indicators, filter, dataObject, joinKey);
+        return updatedGeoJSON;
       }
       return returnedGeoJSON;
     }
@@ -88,7 +99,7 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
         const aggregatorKey = Object.keys(val).sort(dateKey => {
           const year = dateKey.split('-')[0];
           const quater = dateKey.split('-')[1]?.replace('Q', '');
-          return (Number(year) * 4 )+ Number(quater);
+          return (Number(year) * 4) + Number(quater);
         })?.[0]
         val = val[aggregatorKey];
         extractedDate = aggregatorKey;
@@ -97,8 +108,12 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
       if (aggregator === 'current') {
         const aggregatorKey = Object.keys(val).sort(dateKey => {
           const year = dateKey.split('-')[0];
-          const quater = dateKey.split('-')[1]?.replace('Q', '');
-          return (Number(year) * 4 + Number(quater)) * -1;
+          const quarter = dateKey.split('-')[1]?.replace('Q', '');
+          if (!quarter) {
+            return year * -1;
+          } else {
+            return (Number(year) * 4 + Number(quarter)) * -1;
+          }
         })?.[0]
         val = val[aggregatorKey];
         extractedDate = aggregatorKey;
@@ -113,7 +128,7 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
       return parseFloat(val)
     })
     .sort((a, b) => a - b);
-  
+
   if (range) {
     valueArray.push(range[1]);
     valueArray.unshift(range[0]);
@@ -151,7 +166,7 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
     return obj;
   });
   // console.log(arrayWithLabels);
-  return {arrayWithLabels, extractedDate};
+  return { arrayWithLabels, extractedDate };
 };
 
 const formatLegendLabel = (label, formatter) => {

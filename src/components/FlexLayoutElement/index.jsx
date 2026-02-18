@@ -276,6 +276,7 @@ const FlexLayoutElement = ({
           project={project}
           getter={getter}
           viewLoaded={viewLoaded}
+          data={data}
         // getterKey={content.getterKey}
         />
       ) : content?.type === 'info-card' ? (
