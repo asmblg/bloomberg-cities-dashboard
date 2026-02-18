@@ -15,7 +15,7 @@ const formatValue = (value, units, onAxis) => {
   if (value) {
     switch (units) {
       case 'percent':
-      case 'percentage': 
+      case 'percentage':
       case 'percentX100': {
         const multiplier = units === 'percentX100' ? 100 : 1;
         return `${formatNumberWithCommas(parseFloat(value * multiplier).toFixed(fixedPointNum))}%`;
@@ -27,8 +27,8 @@ const formatValue = (value, units, onAxis) => {
         return `$${formatNumberWithCommas(parseFloat(`${value}`.replace('$', '')).toFixed(2))}`;
       }
       case 'bigDollars':
-      case 'bigEuros': {  
-        const thousands =  Math.abs(value) >= 1000;
+      case 'bigEuros': {
+        const thousands = Math.abs(value) >= 1000;
         const millions = Math.abs(value) >= 1000000;
         const billions = Math.abs(value) >= 1000000000;
 
@@ -41,17 +41,17 @@ const formatValue = (value, units, onAxis) => {
               : 0;
 
         const text = parseFloat(calcValue).toFixed(thousands || millions ? 1 : 0).replace('.0', '');
-        const unit = billions && lng !== 'pt' 
-        ? 'B' 
-        : millions 
-          ? 'M' : thousands 
-          ? lng === 'pt' ? 'k' : 'K' : ''; 
-        return units === 'bigEuros' ? `${formatNumberWithCommas(text)}${unit}€` :`$${formatNumberWithCommas(text)}${unit}`;
-        
-          
+        const unit = billions && lng !== 'pt'
+          ? 'B'
+          : millions
+            ? 'M' : thousands
+              ? lng === 'pt' ? 'k' : 'K' : '';
+        return units === 'bigEuros' ? `${formatNumberWithCommas(text)}${unit}€` : `$${formatNumberWithCommas(text)}${unit}`;
+
+
       }
       case 'bigNumbers': {
-        const thousands =  Math.abs(value) >= 1000;
+        const thousands = Math.abs(value) >= 1000;
         const millions = Math.abs(value) >= 1000000;
         const billions = Math.abs(value) >= 1000000000;
 
@@ -64,16 +64,16 @@ const formatValue = (value, units, onAxis) => {
               : 0;
 
         const text = parseFloat(calcValue).toFixed(thousands || millions || billions ? 1 : 0).replace('.0', '');
-        const unit = billions ? 'B' : millions ? 'M' : thousands ? (lng === 'pt' ? 'k' : 'K') : ''; 
+        const unit = billions ? 'B' : millions ? 'M' : thousands ? (lng === 'pt' ? 'k' : 'K') : '';
         return thousands ? `${formatNumberWithCommas(text)}${unit}` : formatNumberWithCommas(value);
       }
       case 'thousands': {
         return `${formatNumberWithCommas((value).toFixed(Math.abs(value) < 1 ? 1 : fixedPointNum))}K`;
       }
-      case '€' :
-      case 'euro': 
+      case '€':
+      case 'euro':
       case 'euros':
-      case 'M €':  {
+      case 'M €': {
         if (units === 'M €' && Math.abs(value) >= 1000) {
           const floatValue = parseFloat(value).toFixed(0);
 
@@ -85,9 +85,14 @@ const formatValue = (value, units, onAxis) => {
           return `${formatNumberWithCommas(billionsValue)}B€`;
 
         } else {
-          const floatValue = parseFloat(value).toFixed(fixedPointNum);
 
-        return `${formatNumberWithCommas(floatValue)}${units === 'M €' ? 'M€' : '€'}`;
+          if (units === 'M €' && Math.abs(value) < 1) {
+            const floatValue = parseFloat(value * 1000).toFixed(1);
+            return `${formatNumberWithCommas(floatValue)}K€`;
+          }
+
+          const floatValue = parseFloat(value).toFixed(fixedPointNum);
+          return `${formatNumberWithCommas(floatValue)}${units === 'M €' ? 'M€' : '€'}`;
         }
       }
 
