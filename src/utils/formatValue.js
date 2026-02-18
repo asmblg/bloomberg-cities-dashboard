@@ -95,6 +95,9 @@ const formatValue = (value, units, onAxis) => {
           return `${formatNumberWithCommas(floatValue)}${units === 'M €' ? 'M€' : '€'}`;
         }
       }
+      case 'per100000': {
+        return `${formatNumberWithCommas(parseFloat(value * 100000).toFixed(0))}`;
+      }
 
       default: {
         return `${formatNumberWithCommas(value)}${units ? ` ${units}` : ''}`;
