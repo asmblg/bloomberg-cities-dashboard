@@ -145,7 +145,12 @@ const IndicatorMap = ({
           {!config?.noTitle
             ? <p>{title} {date}</p>
             : config?.indicator?.label
-              ? <h4>{config.indicator.label?.toUpperCase()}</h4>
+              ? <>
+              <h4>{config.indicator.label?.toUpperCase()}</h4>
+              <h5 className='simple-card-sub-header'>
+               {config.indicator?.geo?.toUpperCase() || ''}{date ? `, ${formatQuarterDate(date, 'QX YYYY', config?.lang)}` : null}
+              </h5>
+              </>
               : null
           }
           {!config?.indicator?.label &&
