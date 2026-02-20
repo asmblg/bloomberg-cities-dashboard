@@ -60,6 +60,7 @@ const SimpleCard = ({
   const [dataPath, setDataPath] = useState(config?.dataPath);
   const [denominatorData, setDenominatorData] = useState(config?.denominatorPath ? getNestedValue(data, config.denominatorPath, key) : null);
   const [comparisonData, setComparisonData] = useState(null);
+  const [comparisonDataTotal, setComparisonDataTotal] = useState(null);
   const [projectedDataPath, setProjectedDataPath] = useState(config?.projectedDataPath);
   const selectorPath = getter?.[getterKey?.selectorPath];
   const selectedIndicator = getter?.[getterKey?.selectedIndicator];
@@ -77,8 +78,7 @@ const SimpleCard = ({
 
       const nestedData = getNestedValue(data, dataPath, key);
 
-
-      if (chart?.valueType === 'mostCurrent') {
+      if (chart?.valueType === 'mostCurrent' && !config?.comparisonPaths) {
         let mostCurrentKey = null;
         Object.values(nestedData || {}).forEach((item) => {
           Object.keys(item).forEach((dateKey) => {
@@ -137,14 +137,63 @@ const SimpleCard = ({
         }
 
         if (config?.comparisonPaths && Array.isArray(config?.comparisonPaths)) {
-          const comparisonData = {};
-          config.comparisonPaths.forEach(({ path, label }) => {
-            comparisonData[label] = getNestedValue(data, path, key);
-          });
-          // console.log({path: config?.comparisonPaths, comparisonData});
-          setComparisonData(comparisonData);
-        }
+          if (denominatorData) {
+            const adjustedData = {};
+            config.comparisonPaths.forEach(({ path, label }) => {
+              const comparisonValue = getNestedValue(data, path, key);
+              if (denominatorData[label]) {
+                adjustedData[label] = 100 * (comparisonValue * (summary?.calculator === 'x1000' ? 1000 : 1)) / denominatorData[label];
+              } else {
+                adjustedData[label] = null;
+              }
+            });
+            setComparisonData(adjustedData);
 
+          } else if (chart?.valueType === 'mostCurrent') {
+            let mostCurrentKey = null;
+
+            // console.log('Most Current Key', {mostCurrentKey, nestedData});
+
+            config.comparisonPaths.forEach(({ path, label }) => {
+              const comparisonValue = getNestedValue(data, path, key);
+              console.log('Comparison Value', { comparisonValue, path });
+              // Object.values(comparisonValue || {}).forEach((item) => {
+              Object.keys(comparisonValue || {}).forEach((dateKey) => {
+                dateKey > mostCurrentKey
+                  ? mostCurrentKey = dateKey
+                  : !mostCurrentKey
+                    ? mostCurrentKey = dateKey
+                    : null;
+              })
+              // })
+              // comparisonData[label] = comparisonValue ? comparisonValue[derivedDate] : null;
+            });
+            setDerivedDate(mostCurrentKey);
+
+            const mostCurrentData = {};
+            config.comparisonPaths.forEach(({ path, label }) => {
+              const comparisonValue = getNestedValue(data, path, key);
+              console.log('Comparison Value for Most Current', { comparisonValue, path });
+              // Object.entries(comparisonValue || {}).forEach(([dataKey, dataValue]) => {
+              //   if (chart?.exclude && chart?.exclude.includes(dataKey)) {
+              //     return;
+              //   }
+              mostCurrentData[label] = comparisonValue?.[mostCurrentKey] || null;
+              // });
+            });
+            const total = Object.values(mostCurrentData).reduce((acc, value) => acc + (value || 0), 0);
+            setComparisonDataTotal(total);
+            setComparisonData(mostCurrentData);
+          }
+          else {
+            const comparisonData = {};
+            config.comparisonPaths.forEach(({ path, label }) => {
+              comparisonData[label] = getNestedValue(data, path, key);
+            });
+            // console.log({path: config?.comparisonPaths, comparisonData});
+            setComparisonData(comparisonData);
+          }
+        }
 
         if (chart?.type === 'horizontal-bar') {
           let maxValue = 0;
@@ -398,7 +447,7 @@ const SimpleCard = ({
             currentValue={summaryData.currentValue}
             compareValue={summaryData.compareValue}
             compareDate={summaryData.compareDate}
-            units={config.summary.trendUnits}
+            units={config?.summary?.trendUnits}
             data={allSummaryData}
             trendDataType={trendDataType}
             displayCompareText={viewType !== 'mobile'}
@@ -424,7 +473,14 @@ const SimpleCard = ({
           // }
           >
 
-            {chart && <div className='simple-chart'>
+            {chart && <div
+              className='simple-chart'
+              style={summary?.formatter === 'legend' ? {
+                width: 'calc(40% - 10px)',
+                height: 'fit-content',
+                // border: '1px solid orange',
+              } : {}}
+            >
               {chart?.type && allSummaryData ? (
                 <SimpleChart
                   lng={lng}
@@ -438,32 +494,93 @@ const SimpleCard = ({
                       : { key: summaryData.currentDate, value: summaryData.displayValue }
                   }
                   comparisonData={comparisonData}
+                  comparisonColors={{
+                    ...config?.comparisonPaths?.reduce((acc, { label, color }) => {
+                      acc[label] = color;
+                      return acc;
+                    }, {}),
+                    total: config?.comparisonTotalColor || '#333333'
+                  }}
+                  // comparisonDataTotal={comparisonDataTotal}
+                  // derivedMaxValue={derivedMaxValue}
                 />
               ) : null}
             </div>}
-            <div
-              className='simple-data bold-font'
-              style={!chart ? {
-                width: '100%',
-                gap: '20px',
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
-                alignItems: 'center'
-              } : {}}
-            >
-              <h2 className='bold-font'>
-                {summaryData.displayValue
-                  ? formatValue(summaryData.displayValue, config?.summary?.trendUnits)
-                  : '-'}
-              </h2>
-              <div>
-                {units ? <h5 className='simple-units'>{units}</h5> : null}
-                {summaryData?.currentDate
-                  ? <h5 className='simple-indicator-date'>{formatQuarterDate(summaryData.currentDate, 'QX YYYY', lng)}</h5>
-                  : null}
+            {
+              summary && <div
+                className='simple-data bold-font'
+                style={!chart ? {
+                  width: '100%',
+                  gap: '20px',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'flex-start',
+                  alignItems: 'center'
+                } 
+                : summary.formatter === 'legend'
+                ? {
+                  width: '60%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  // gap: '10px',
+                  justifyContent: 'flex-end',
+                  height: 'fit-content'
+                }
+                : {}}
+              >
+                {
+                  summary.formatter === 'legend' && comparisonData
+                    ? Object.entries(comparisonData).map(([key, value]) => (
+                      <>
+                        <h2 
+                          className='bold-font'
+                          style={{
+                            paddingLeft: '20px',
+                          }}
+                        >
+                          {value && summary?.calculator === 'percentFromCounts'
+                            ? formatValue((value / comparisonDataTotal) * 100, config?.summary?.trendUnits)
+                            : value
+                              ? formatValue(value, config?.summary?.trendUnits)
+                              : '-'}
+                        </h2>
+                        <div style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          gap: '5px',
+                          paddingBottom: '10px',
+                        }}>
+                          <div style={{
+                            // display: 'inline-block',
+                            width: '15px',
+                            height: '15px',
+                            borderRadius: '50%',
+                            border: chart?.outline 
+                             ? `1px solid ${chart.outline}`
+                             : null,
+                            backgroundColor: config?.comparisonPaths?.find(pathObj => pathObj.label === key)?.color || '#333333',
+                          }}>
+
+                          </div>
+                          <h5 className='simple-units'>{key}</h5>
+
+                        </div>
+                      </>
+                    ))
+                    : <h2 className='bold-font'>
+                      {summaryData.displayValue
+                        ? formatValue(summaryData.displayValue, config?.summary?.trendUnits)
+                        : '-'}
+                    </h2>
+                }
+                <div>
+                  {units ? <h5 className='simple-units'>{units}</h5> : null}
+                  {summaryData?.currentDate
+                    ? <h5 className='simple-indicator-date'>{formatQuarterDate(summaryData.currentDate, 'QX YYYY', lng)}</h5>
+                    : null}
+                </div>
               </div>
-            </div>
+            }
 
           </div>
           <div
@@ -580,11 +697,11 @@ const SimpleCard = ({
         devMode && (
           <div style={{ width: '100%' }}>
             <br />
-            <div style={{ 
-                color: chart?.color || 'black',
-                fontSize: '8px', 
-                fontFamily: 'monospace'
-              }}>
+            <div style={{
+              color: chart?.color || 'black',
+              fontSize: '8px',
+              fontFamily: 'monospace'
+            }}>
               {`Data Path: `}{dataPath}{config?.denominatorPath ? ` / ${config?.denominatorPath}` : null}
               <br />{`Chart Type: `}{chart?.type}
               <span style={{ color: chart2?.color || 'black' }}>

@@ -10,6 +10,7 @@ const SimpleChart = ({
   config,
   data,
   comparisonData,
+  comparisonColors,
   projectedData,
   viewType,
   lng  
@@ -18,7 +19,7 @@ const SimpleChart = ({
 
   // console.log('SimpleChart', {data, projectedData });
 
-  // console.log({config, data});
+  console.log({config, data, comparisonData});
 
 
   switch (type) {
@@ -45,7 +46,10 @@ const SimpleChart = ({
           config={config}
           value={config?.values?.formatter === 'percentX100' 
                   ? data?.value * 100
-                  : data?.value}          label={data?.key}
+                  : data?.value}
+          values={comparisonData}
+          comparisonColors={comparisonColors}          
+          label={data?.key}
           height={config?.height || 80}
           innerRadius={config?.innerRadius}
           outerRadius={config?.outerRadius}

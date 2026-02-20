@@ -15,12 +15,25 @@ const SinglePercentDonutChart = ({
   outline,
   width, 
   value, 
+  values,
   label, 
-  mobile 
+  mobile,
+  comparisonColors 
 }) => {
+  console.log('comparisonColors', comparisonColors);
   const multiplier = config?.values?.multiplier || 1;
+
+  const denominator = config?.values?.calculator === 'percentFromCounts' && values
+    ? Object.values(values).reduce((acc, val) => acc + parseFloat(val), 0)
+    : 100;
   
-  const dataArray = value
+  const dataArray = values 
+  ? Object.entries(values).map(([key, val], i) => ({
+      name: key,
+      value: parseFloat((val / denominator) * 100 * multiplier),
+      fillColor: comparisonColors?.[key] || '#333333'
+    }))
+  : value
     ? [
       {
         name: label,
