@@ -643,6 +643,11 @@ const SimpleCard = ({
           }}>
             {Object.entries(allSummaryData || {})
               .filter(([barKey, barValue]) => {
+                if (chart?.values?.min) {
+                  if (barValue === null || barValue === undefined || barValue < chart.values.min) {
+                    return false;
+                  }
+                }
                 if (chart?.exclude && chart?.exclude.includes(barKey)) {
                   return false;
                 }
@@ -652,6 +657,12 @@ const SimpleCard = ({
                 return true;
               })
               .sort((a, b) => parseInt(b[1]) - parseInt(a[1]))
+              .filter((_, index) => {
+                if (chart?.values?.countMax) {
+                  return index < chart.values.countMax;
+                }
+                return true;
+              })
               .map(([barKey, barValue]) => (
                 <div
                   key={`${dataPath}-horizontal-bar-${barKey}`}
