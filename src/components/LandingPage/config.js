@@ -1,9 +1,11 @@
 import tampaBW from './images/tampa-bg-bw.jpg';
 import tampaColor from './images/tampa-bg-color.jpg';
-import phoenixBW from './images/phoenix-bg-bw.jpg';
-import phoenixColor from './images/phoenix-bg-color.jpg';
-import baltimoreBW from './images/baltimore-bg-bw.png';
-import baltimoreColor from './images/baltimore-bg-color.png';
+import lisboaBW from './images/lisboa-bg-bw.jpg';
+import lisboaColor from './images/lisboa-bg-color.jpg';
+// import phoenixBW from './images/phoenix-bg-bw.jpg';
+// import phoenixColor from './images/phoenix-bg-color.jpg';
+// import baltimoreBW from './images/baltimore-bg-bw.png';
+// import baltimoreColor from './images/baltimore-bg-color.png';
 
 const landingConfig = {
   themeColor: '#e16724',
@@ -40,7 +42,15 @@ const landingConfig = {
       //   bgColor: '#b02365',
       //   img: baltimoreBW,
       //   hoverImg: baltimoreColor
-      // }
+      // },
+      {
+        id: 'lisboa',
+        name: 'LISBOA',
+        route: 'https://www.lisboa.pt/temas/economia/dados-economicos/indicadores-principais',
+        // bgColor: '#006aaf',
+        img: lisboaBW,
+        hoverImg: lisboaColor
+      }
     ]
   }
 };
