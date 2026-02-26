@@ -96,7 +96,7 @@ const formatValue = (value, units, onAxis) => {
         }
       }
       case 'per100000': {
-        return `${formatNumberWithCommas(parseFloat(value * 100000).toFixed(0))}`;
+        return `${formatNumberWithCommas(parseFloat(value * 1000).toFixed(0))}`;
       }
 
       default: {
