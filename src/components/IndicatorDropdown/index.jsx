@@ -71,6 +71,7 @@ const IndicatorDropdown = ({
     viewLoaded
   ]);
 
+
   return (
     <div
       key={key}

@@ -23,6 +23,7 @@ const SimpleCard = ({
   cardKey,
   // setSelectedLink,
   getter,
+  manifest
   // trendDataType,
 }) => {
   const {
@@ -34,11 +35,13 @@ const SimpleCard = ({
     summary,
     cardStyle,
     headerStyle,
-    manifest,
+    // manifest,
     // indicator,
     disablePill,
     getterKey,
-    subHeadingManifest
+    subHeadingManifest,
+    selectedIndicatorManifestKey
+
   } = config;
   const [cardFullSize, setCardFullSize] = useState(false);
   const [summaryData, setSummaryData] = useState({
@@ -66,6 +69,9 @@ const SimpleCard = ({
   const selectedIndicator = getter?.[getterKey?.selectedIndicator];
   const [derivedDate, setDerivedDate] = useState(null);
   const [derivedMaxValue, setDerivedMaxValue] = useState(null);
+
+  console.log({manifest})
+  const selectedIndicatorManifest = manifest?.[selectedIndicatorManifestKey] || {};
 
   // console.log({ config });
 
@@ -367,9 +373,10 @@ const SimpleCard = ({
     }
   }
 
+  const selectedIndicatorLabel = selectedIndicatorManifest?.[selectedIndicator?.label || selectedIndicator] || selectedIndicator?.label || selectedIndicator;
 
   const subHeadingText = `${(selectorPath && selectedIndicator) || selectedIndicator
-    ? `${selectedIndicator?.label || selectedIndicator}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
+    ? `${selectedIndicatorLabel}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
     : selectorPath &&
       !selectedIndicator &&
       config?.indicator?.Geography &&
@@ -380,7 +387,7 @@ const SimpleCard = ({
         ? `${selectorPath?.label || selectorPath}`
         : config?.defaultSubheading || config?.indicator?.Geography
       : selectorPath && !selectedIndicator
-        ? `${selectorPath?.label || selectorPath}`
+        ? `${selectedIndicatorLabel}`
         : config?.defaultSubheading || config?.indicator?.Geography
     }${derivedDate ? `, ${formatQuarterDate(derivedDate, 'QX YYYY', lng)}` : ''}`;
   // console.log({ trendDataType });
@@ -674,7 +681,7 @@ const SimpleCard = ({
                 >
                   <div style={{ width: '40%', height: '20px', lineHeight: '20px' }}>
                     <h5 style={{ height: '20px', lineHeight: '20px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: '10px' }} className='horizontal-bar-label'>
-                      {manifest?.[barKey] || barKey}
+                      {config?.manifest?.[barKey] || barKey}
                     </h5>
                   </div>
                   <div style={{

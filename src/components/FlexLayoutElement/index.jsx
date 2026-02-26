@@ -131,6 +131,7 @@ const FlexLayoutElement = ({
           config={content?.config || content}
           data={data}
           getter={getter}
+          manifest={manifest}
           // project={project}
           // dashboardType={null}
           // cardKey={card.key}
@@ -145,6 +146,7 @@ const FlexLayoutElement = ({
           setter={setter} 
           data={data}
           getter={getter}
+          manifest={manifest}
           />
       ) : content?.type === 'trend-data-toggler' ? (
         <TrendDataToggle

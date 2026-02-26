@@ -9,7 +9,7 @@ import './style.css';
 
 // import {handleGeoJSON } from './utils';
 
-const SelectorMap = ({ project, config, setter, data, getter }) => {
+const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
   const [geoJSON, setGeoJSON] = useState();
   // const [featureData, setFeatureData] = useState();
   const [bins, setBins] = useState();
@@ -40,12 +40,20 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
     setSelection(option);
   };
 
+  const {
+    manifestKey
+  } = config;
+  const labelManifest = {
+    ...config?.labelManifest || {},
+    ...manifest?.[manifestKey] || {}
+  };
+
   const indicatorKey = getter?.[config?.getterKey?.selectedIndicator]?.value ||
-        getter?.[config?.getterKey?.selectedIndicator] ||
-        config?.indicator?.key;
+    getter?.[config?.getterKey?.selectedIndicator] ||
+    config?.indicator?.key;
   const indicatorKey2 = getter?.[config?.getterKey?.selectorPath]?.value ||
-        getter?.[config?.getterKey?.selectorPath] ||
-        config?.indicator?.key2;
+    getter?.[config?.getterKey?.selectorPath] ||
+    config?.indicator?.key2;
 
   // console.log(project, config);
 
@@ -121,8 +129,8 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
 
       // console.log({ aggregatorKey, dataObject });
       const valueArray = Object.entries(dataObject)
-        .filter(([key, value]) => 
-          config?.totalOption?.dataPath !== key && 
+        .filter(([key, value]) =>
+          config?.totalOption?.dataPath !== key &&
           value && !isNaN(parseInt(value))
         ).map(([key, value]) => value);
       const min = Math.min(...valueArray);
@@ -171,14 +179,16 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
         ? [config.totalOption]
         : [];
 
-      geoJSON.features.forEach(({ properties }) =>
+      geoJSON.features.forEach(({ properties }) => {
+        const label = properties[config.selectorField]
         optionsFromGeoJSON.push(
           {
-            label: properties[config.selectorField].toUpperCase(),
+            label: `${labelManifest?.[label] || label || ''}`.toUpperCase(),
             key: properties[config.selectorField],
             dataPath: `${config.selectionDataPath ? `${config.selectionDataPath}.` : ''}${config?.selectorValueFormat === 'toUpperCase' ? properties[config.selectorField].toUpperCase() : properties[config.selectorField]}`
           }
-        ));
+        )
+      });
 
       setOptions(optionsFromGeoJSON);
 
@@ -187,7 +197,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
       }
     } else if (config?.indicators) {
       const optionsFromIndicators = config?.indicators?.map(({ label, key, dataPath, value }) => ({
-        label,
+        label: `${labelManifest?.[label] || label || ''}`.toUpperCase(),
         key,
         dataPath: dataPath || value
       }));
@@ -198,7 +208,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
 
   useEffect(() => {
     if (selection) {
-      
+
       setter(config?.setterKey?.geoSelection, selection?.dataPath);
     }
   }, [selection]);
@@ -256,16 +266,16 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
               key={`data-layer-${binCount}-${localSelection?.key || selection?.key}-${bins ? 'binned' : 'not-binned'}`}
               data={geoJSON || null}
               filter={feature => {
-                
+
                 const featureID = feature.properties[config.selectorField];
                 const bin = bins?.[config.selectorValueFormat === 'toUpperCase' ? featureID.toUpperCase() : featureID];
                 // console.log
-                const selected = localSelection 
-                  ? featureID === localSelection?.key 
+                const selected = localSelection
+                  ? featureID === localSelection?.key
                   : featureID === selection?.key;
-                
+
                 return !selected && bin !== 'transparent';
-                
+
               }}
               eventHandlers={{
                 click: e => {
@@ -291,12 +301,12 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
                 const binnedColor = bins?.[config.selectorValueFormat === 'toUpperCase' ? featureID.toUpperCase() : featureID];
                 return {
                   fillColor: binnedColor || fillColor,
-                  color: binnedColor 
-                    ? config.strokeColor || 'black' 
+                  color: binnedColor
+                    ? config.strokeColor || 'black'
                     : 'black',
-                  weight:  1,
-                  opacity:  0.8,
-                  fillOpacity: binnedColor 
+                  weight: 1,
+                  opacity: 0.8,
+                  fillOpacity: binnedColor
                     ? 0.8
                     : 0.5,
                   zindex: 1
@@ -304,7 +314,7 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
               }}
             >
               <Tooltip>
-                {config?.labelManifest?.[hoveredFeature] || hoveredFeature}
+                {labelManifest?.[hoveredFeature] || hoveredFeature}
               </Tooltip>
             </GeoJSON>
             : null
@@ -315,8 +325,8 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
               data={geoJSON || null}
               filter={feature => {
                 const featureID = feature.properties[config.selectorField];
-                const selected = localSelection 
-                  ? featureID === localSelection?.key 
+                const selected = localSelection
+                  ? featureID === localSelection?.key
                   : featureID === selection?.key;
                 return selected;
               }
@@ -349,12 +359,12 @@ const SelectorMap = ({ project, config, setter, data, getter }) => {
                   weight: 3,
                   opacity: 1,
                   fillOpacity: 1,
-                  zindex: 1000 
+                  zindex: 1000
                 };
               }}
             >
               <Tooltip>
-              {config?.labelManifest?.[hoveredFeature] || hoveredFeature}
+                {labelManifest?.[hoveredFeature] || hoveredFeature}
               </Tooltip>
             </GeoJSON>
             : null
