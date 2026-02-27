@@ -71,6 +71,7 @@ const formatValue = (value, units, onAxis) => {
         return `${formatNumberWithCommas((value).toFixed(Math.abs(value) < 1 ? 1 : fixedPointNum))}K`;
       }
       case '€':
+      case '€ per sqm/month':
       case 'euro':
       case 'euros':
       case 'M €': {
@@ -92,15 +93,19 @@ const formatValue = (value, units, onAxis) => {
           }
 
           const floatValue = parseFloat(value).toFixed(fixedPointNum);
-          return `${formatNumberWithCommas(floatValue)}${units === 'M €' ? 'M€' : '€'}`;
+          return `${formatNumberWithCommas(floatValue)}${units === 'M €' ? 'M€' : units === '€ per sqm/month' ? '€ per sqm/month' : '€'}`;
         }
       }
       case 'per100000': {
         return `${formatNumberWithCommas(parseFloat(value * 1000).toFixed(0))}`;
       }
+      case 'wholeNumbers': {
+        return `${value?.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-US', { maximumFractionDigits: 0 })}`;
+        // return `${formatNumberWithCommas(parseFloat(value).toFixed(0))}`;
+      }
 
       default: {
-        return `${formatNumberWithCommas(value)}${units ? ` ${units}` : ''}`;
+        return `${value?.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-US')}${units ? ` ${units}` : ''}`;
       }
     }
   }

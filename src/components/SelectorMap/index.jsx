@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, GeoJSON, Tooltip } from 'react-leaflet';
 import MapEvents from './MapEvents';
 import { getGeoJSON } from '../../utils/API';
+import formatValue from '../../utils/formatValue';
 
 import IndicatorDropdown from '../IndicatorDropdown';
 import './style.css';
@@ -18,6 +19,7 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
   const [localSelection, setLocalSelection] = useState();
   const [options, setOptions] = useState();
   const [hoveredFeature, setHoveredFeature] = useState();
+  const [tooltipData, setTooltipData] = useState();
   // const [deactivateSetter, setDeactivateSetter] = useState(false);
 
   const fillColor = config.color || '#fff3e2';
@@ -41,18 +43,22 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
   };
 
   const {
-    manifestKey
+    manifestKey,
+    dataInTooltip
   } = config;
   const labelManifest = {
     ...config?.labelManifest || {},
     ...manifest?.[manifestKey] || {}
   };
 
-  const indicatorKey = getter?.[config?.getterKey?.selectedIndicator]?.value ||
-    getter?.[config?.getterKey?.selectedIndicator] ||
+  const indicator = getter?.[config?.getterKey?.selectedIndicator]
+  const selector = getter?.[config?.getterKey?.selectorPath]
+
+  const indicatorKey = indicator?.value ||
+    indicator ||
     config?.indicator?.key;
-  const indicatorKey2 = getter?.[config?.getterKey?.selectorPath]?.value ||
-    getter?.[config?.getterKey?.selectorPath] ||
+  const indicatorKey2 = selector?.value ||
+    selector ||
     config?.indicator?.key2;
 
   // console.log(project, config);
@@ -127,6 +133,8 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
       }
       );
 
+
+
       // console.log({ aggregatorKey, dataObject });
       const valueArray = Object.entries(dataObject)
         .filter(([key, value]) =>
@@ -160,6 +168,10 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
       // console.log({ basePath: config.indicator.basePath, indicatorKey, indicatorKey2 });
       // console.log({ min, max, range, pRange });
 
+      setTooltipData({
+        values: dataObject,
+        units: indicator?.units || selector?.units || config?.indicator?.units
+      });
       setBins(colorObject);
       setBinCount(binCount + 1);
 
@@ -229,6 +241,8 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
       }
     }
   }, [getter?.[config?.getterKey?.activeFilter]]);
+
+  // console.log({ tooltipData })
 
   return (
     <div className='selector-map-wrapper' key='selector-map'>
@@ -313,9 +327,24 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
                 };
               }}
             >
-              <Tooltip>
-                {labelManifest?.[hoveredFeature] || hoveredFeature}
-              </Tooltip>
+              {
+                dataInTooltip && tooltipData
+                  ? <Tooltip>
+                    <div className='indicator-map-tooltip'>
+                      <h4>{config.selectorValueFormat === 'toUpperCase' 
+                      ? `${labelManifest?.[hoveredFeature] || hoveredFeature}`.toUpperCase()
+                      : `${labelManifest?.[hoveredFeature] || hoveredFeature}`}</h4>
+                      {/* {JSON.stringify(hoveredFeature)} */}
+
+                      <strong>{formatValue(tooltipData?.values?.[config.selectorValueFormat === 'toUpperCase' 
+                      ? `${hoveredFeature}`.toUpperCase()
+                      : `${hoveredFeature}`], tooltipData?.units || '')}</strong>
+                    </div>
+                  </Tooltip>
+                  : <Tooltip>
+                    {`${labelManifest?.[hoveredFeature] || hoveredFeature}`}
+                  </Tooltip>
+              }
             </GeoJSON>
             : null
           }
@@ -363,9 +392,24 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
                 };
               }}
             >
-              <Tooltip>
-                {labelManifest?.[hoveredFeature] || hoveredFeature}
-              </Tooltip>
+              {
+                dataInTooltip && tooltipData
+                  ? <Tooltip>
+                    <div className='indicator-map-tooltip'>
+                      <h4>{config.selectorValueFormat === 'toUpperCase' 
+                      ? `${labelManifest?.[hoveredFeature] || hoveredFeature}`.toUpperCase()
+                      : `${labelManifest?.[hoveredFeature] || hoveredFeature}`}</h4>
+                      {/* {JSON.stringify(hoveredFeature)} */}
+
+                      <strong>{formatValue(tooltipData?.values?.[config.selectorValueFormat === 'toUpperCase' 
+                      ? `${hoveredFeature}`.toUpperCase()
+                      : `${hoveredFeature}`], tooltipData?.units || '')}</strong>
+                    </div>
+                  </Tooltip>
+                  : <Tooltip>
+                    {`${labelManifest?.[hoveredFeature] || hoveredFeature}`}
+                  </Tooltip>
+              }
             </GeoJSON>
             : null
           }

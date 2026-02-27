@@ -64,7 +64,7 @@
 }
 
 .indicator-map-tooltip {
-  width: 100px;
+  width: fit-content;
   padding: .5em .5em 0 .5em;
   text-align: center;
   align-items: center;
@@ -75,7 +75,7 @@
 }
 
 .indicator-map-tooltip > h4 {
-  max-width: 100px;
+  width: 120px;
   white-space: pre-wrap;
   word-wrap: normal;
   margin: 0;
