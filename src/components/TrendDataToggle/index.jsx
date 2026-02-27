@@ -49,6 +49,7 @@ const TrendDataToggle = ({
 
 
   useEffect(() => {
+    // console.log('TrendDataToggle - toggleValue:', toggleValue);
     if (config?.setterKey?.global) {
       window.location.search = {
         trendValue: toggleValue
@@ -58,7 +59,8 @@ const TrendDataToggle = ({
     }
   }, [
     config?.options,
-    viewLoaded
+    viewLoaded,
+    toggleValue
   ]);
 
   return (

@@ -19,7 +19,7 @@ const SimpleChart = ({
 
   // console.log('SimpleChart', {data, projectedData });
 
-  console.log({config, data, comparisonData});
+  // console.log({config, data, comparisonData});
 
 
   switch (type) {

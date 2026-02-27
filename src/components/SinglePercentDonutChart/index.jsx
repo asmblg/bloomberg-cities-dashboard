@@ -20,7 +20,7 @@ const SinglePercentDonutChart = ({
   mobile,
   comparisonColors 
 }) => {
-  console.log('comparisonColors', comparisonColors);
+  // console.log('comparisonColors', comparisonColors);
   const multiplier = config?.values?.multiplier || 1;
 
   const denominator = config?.values?.calculator === 'percentFromCounts' && values

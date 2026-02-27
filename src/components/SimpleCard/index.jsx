@@ -70,7 +70,7 @@ const SimpleCard = ({
   const [derivedDate, setDerivedDate] = useState(null);
   const [derivedMaxValue, setDerivedMaxValue] = useState(null);
 
-  console.log({manifest})
+  // console.log({manifest})
   const selectedIndicatorManifest = manifest?.[selectedIndicatorManifestKey] || {};
 
   // console.log({ config });
