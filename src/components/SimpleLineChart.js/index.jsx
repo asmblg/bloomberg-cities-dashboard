@@ -225,6 +225,7 @@ const SimpleLineChart = (props) => {
                 }}
                 projectedData={projectedData ? true : false}
                 comparisonData={comparisonData ? true : false}
+                labelFontSize={config?.tooltip?.labelFontSize}
               />
             }
           />

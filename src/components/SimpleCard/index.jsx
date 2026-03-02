@@ -681,7 +681,9 @@ const SimpleCard = ({
                 >
                   <div style={{ width: '40%', height: '20px', lineHeight: '20px' }}>
                     <h5 style={{ height: '20px', lineHeight: '20px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: '10px' }} className='horizontal-bar-label'>
-                      {config?.manifest?.[barKey] || barKey}
+                      {chart?.labelFormatter === 'capitalizeFirstLetter' 
+                        ? `${config?.manifest?.[barKey] || barKey}`.charAt(0).toUpperCase() + `${config?.manifest?.[barKey] || barKey}`.slice(1)
+                        : config?.manifest?.[barKey] || barKey}
                     </h5>
                   </div>
                   <div style={{
@@ -734,6 +736,23 @@ const SimpleCard = ({
                   : trendDataType
                 : null}
             </div>
+            <button
+              style={{
+                marginTop: '10px',
+                padding: '5px 10px',
+                fontSize: '10px',
+                fontFamily: 'monospace',
+                backgroundColor: '#f0f0f0',
+                border: '1px solid #ccc',
+                cursor: 'pointer'
+              }}
+              onClick={() => {
+                navigator.clipboard.writeText(JSON.stringify({content: config}, null, 2));
+                alert('Config copied to clipboard!');
+              }}
+            >
+              Copy Config to Clipboard
+            </button>
           </div>
         )
       }

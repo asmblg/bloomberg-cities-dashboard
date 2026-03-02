@@ -16,12 +16,17 @@ const CustomTooltip = ({
   units,
   lng,
   projectedData,
-  comparisonData
+  comparisonData,
+  labelFontSize,
   // quarterDateFormat
 }) => {
   if (active && payload?.[0]) {
     return (
-      <div className='custom-tooltip'>
+      <div className='custom-tooltip'
+        // style={comparisonData
+        //   ? {gap: '15px'} 
+        //   : null}
+      >
         {
           comparisonData
             ? <h4 className='custom-tooltip-label'>
@@ -40,20 +45,27 @@ const CustomTooltip = ({
                   className='simple-data'
                   style={{
                     width: '100%',
+                    height: 'fit-content',
                     display: 'flex',
                     flexDirection: 'row',
-                    alignItems: 'flex-start',
+                    alignItems: 'center',
                     justifyContent: 'space-between',
-                    gap: '10px',
+                    paddingTop: '5px'
+                    // paddingTop: '5px',
+                    // gap: '10px',
                     // color: color || innerPayload?.fillColor,
                     // fontSize:  filter && !filter?.includes(name) ? '.5rem' : null,
                     // lineHeight: filter && !filter?.includes(name) ? '.5rem' : '.7rem'
                   }}
                   key={`custom-tooltip-${label?.replace(/ /g, '-') || 'label'}-${name}-${i}`}>
-                  <h5 className='simple-units' style={{fontSize: '.7rem'}}>
+                  <h5 className='simple-units' style={{
+                    fontSize: labelFontSize || '.7rem',
+                    lineHeight: labelFontSize ? `calc(${labelFontSize} + 2px)` : '.8rem',
+                    padding: '0px',
+                  }}>
                     {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}
                   </h5>
-                  <h3 className='bold-font'>
+                  <h3 className='bold-font' >
                     {formatValue(value, units)}
                   </h3>
 
