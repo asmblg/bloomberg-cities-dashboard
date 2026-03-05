@@ -20,7 +20,8 @@ const TrendPill = ({
   positiveTrendDirection,
   displayCompareText,
   compareValueUnderPill,
-  onlyYears
+  onlyYears,
+  trendDataType
 }) => {
   const { trendValue, trendDirection } = calculateTrend(currentValue, compareValue, units);
 
@@ -29,7 +30,9 @@ const TrendPill = ({
   const lang = query.get('lng') || null;
   const heightVal = height ? (typeof height === 'number' ? `${height}px` : height) : null;
   const widthVal = width ? (typeof width === 'number' ? `${width}px` : width) : null;
+  const trendValueNotNumber = trendValue?.match(/NaN|undefined|infinity/i);
 
+  console.log({trendValue, currentValue, compareValue, compareDate})
   return (
     <div
       className='trend-display-wrapper'
@@ -38,10 +41,10 @@ const TrendPill = ({
         alignItems: compareValueUnderPill ? 'flex-start' : 'center' 
       }}
     >
-      {currentValue && compareValue && compareDate ? (
+      {currentValue && (compareValue || compareValue === 0) && compareDate && !trendValueNotNumber ? (
         <>
           <div
-            className={ positiveTrendDirection === 'neutral' 
+            className={ (positiveTrendDirection === 'neutral')
               ? 'neutral-trend'
               : (positiveTrendDirection === 'down' && trendDirection === 'down') ||
                 (positiveTrendDirection === 'up' && trendDirection === 'up')
@@ -67,12 +70,19 @@ const TrendPill = ({
             }
             style={{ height: heightVal || '', width: widthVal || '' }}
           >
-            {/* <h5 className='no-data-pill-text'> */}
-              { onlyYears
-                ? lang === 'pt'? 'Dados comparativos não disponíveis por trimestre' : 'Comparison Data Not Available By Quarters'
-                : lang === 'pt'? 'Dados comparativos atualmente indisponíveis' : 'Comparison Data Currently Unavailable'
+              { 
+                trendValueNotNumber 
+                ? lang === 'pt'
+                  ? 'Dados insuficientes para calcular tendência' 
+                  : 'Insufficient Data To Calculate Trend'
+                : onlyYears
+                ? lang === 'pt'
+                  ? 'Dados comparativos não disponíveis por trimestre' 
+                  : 'Comparison Data Unavailable By Quarter'
+                : lang === 'pt'
+                  ? 'Dados comparativos atualmente indisponíveis' 
+                  : 'Comparison Data Unavailable'
               }
-            {/* </h5>           */}
           </div>
         </>
       )}

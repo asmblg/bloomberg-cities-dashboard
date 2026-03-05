@@ -4,6 +4,14 @@
   flex-direction: column;
 }
 
+.map-dropdown {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  /* gap: 10px; */
+  /* padding-bottom: 10px; */
+}
 .selector-map {
   height: 100%;
   padding-top: 10px;

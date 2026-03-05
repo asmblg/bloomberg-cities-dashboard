@@ -94,6 +94,15 @@
   /* line-height: 10px; */
   font-size: 1.5rem;
 }
+
+.map-dropdown {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  /* gap: 10px; */
+  /* padding-bottom: 10px; */
+}
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Desktop Breakpoint */
 @media screen and (max-width: 1465px) {

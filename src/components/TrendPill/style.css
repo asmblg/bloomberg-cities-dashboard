@@ -21,13 +21,15 @@
 }
 
 .no-data-pill {
-  background-color: lightgray;
+  background-color: var(--light-gray-color);
+  color: var(--black-color);
+  font-family: var(--font-family-regular);
   max-width: 120px;
-  padding: 10px 5px 10px 5px;
-  font-size: .5rem;
-  opacity: .5;
+  padding: 0 1rem;
+  font-size: .6rem;
+  opacity: 1;
   text-align: center;
-  line-height: .6rem;
+  line-height: .65rem;
 }
 
 .upward-trend > img,

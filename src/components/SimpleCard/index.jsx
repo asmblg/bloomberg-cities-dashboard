@@ -35,6 +35,7 @@ const SimpleCard = ({
     summary,
     cardStyle,
     headerStyle,
+    orderArray,
     // manifest,
     // indicator,
     disablePill,
@@ -414,6 +415,19 @@ const SimpleCard = ({
     }
   }, [allSummaryData, trendDataType]);
 
+  const labelFormatter = (value, formatters) => {
+    let valueFormatted = value;
+    formatters?.forEach((formatter) => {
+      if (formatter === 'capitalizeFirstLetter') {
+        valueFormatted = `${valueFormatted}`.charAt(0).toUpperCase() + `${valueFormatted}`.slice(1);
+      }
+      if (formatter?.type === 'replace') {
+        valueFormatted = valueFormatted.replace(new RegExp(formatter.arguments?.[0], formatter.arguments?.[2] || 'g'), formatter.arguments?.[1]);
+      }
+    });
+    return valueFormatted;
+  }
+
   // console.log({allSummaryData});
 
   return (
@@ -508,8 +522,8 @@ const SimpleCard = ({
                     }, {}),
                     total: config?.comparisonTotalColor || '#333333'
                   }}
-                  // comparisonDataTotal={comparisonDataTotal}
-                  // derivedMaxValue={derivedMaxValue}
+                // comparisonDataTotal={comparisonDataTotal}
+                // derivedMaxValue={derivedMaxValue}
                 />
               ) : null}
             </div>}
@@ -523,23 +537,23 @@ const SimpleCard = ({
                   flexDirection: 'row',
                   justifyContent: 'flex-start',
                   alignItems: 'center'
-                } 
-                : summary.formatter === 'legend'
-                ? {
-                  width: '60%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  // gap: '10px',
-                  justifyContent: 'flex-end',
-                  height: 'fit-content'
                 }
-                : {}}
+                  : summary.formatter === 'legend'
+                    ? {
+                      width: '60%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      // gap: '10px',
+                      justifyContent: 'flex-end',
+                      height: 'fit-content'
+                    }
+                    : {}}
               >
                 {
                   summary.formatter === 'legend' && comparisonData
                     ? Object.entries(comparisonData).map(([key, value]) => (
                       <>
-                        <h2 
+                        <h2
                           className='bold-font'
                           style={{
                             paddingLeft: '20px',
@@ -562,9 +576,9 @@ const SimpleCard = ({
                             width: '15px',
                             height: '15px',
                             borderRadius: '50%',
-                            border: chart?.outline 
-                             ? `1px solid ${chart.outline}`
-                             : null,
+                            border: chart?.outline
+                              ? `1px solid ${chart.outline}`
+                              : null,
                             backgroundColor: config?.comparisonPaths?.find(pathObj => pathObj.label === key)?.color || '#333333',
                           }}>
 
@@ -647,8 +661,12 @@ const SimpleCard = ({
             marginTop: '20px',
             width: '100%',
             overflowY: 'auto',
+            gap: chart.wrapLabels ? '12px' : '12px',
+            display: 'flex',
+            flexDirection: 'column',
           }}>
             {Object.entries(allSummaryData || {})
+            
               .filter(([barKey, barValue]) => {
                 if (chart?.values?.min) {
                   if (barValue === null || barValue === undefined || barValue < chart.values.min) {
@@ -664,6 +682,23 @@ const SimpleCard = ({
                 return true;
               })
               .sort((a, b) => parseInt(b[1]) - parseInt(a[1]))
+              .sort((a, b) => {
+                const {orderArray} = chart;
+                if (orderArray && orderArray.length) {
+                  const aIndex = orderArray.indexOf(a[0]);
+                  const bIndex = orderArray.indexOf(b[0]);
+                  if (aIndex === -1 && bIndex === -1) {
+                    return 0;
+                  } else if (aIndex === -1) {
+                    return 1;
+                  } else if (bIndex === -1) {
+                    return -1;
+                  } else {
+                    return aIndex - bIndex;
+                  }
+                }
+                return 0;
+              })
               .filter((_, index) => {
                 if (chart?.values?.countMax) {
                   return index < chart.values.countMax;
@@ -676,18 +711,38 @@ const SimpleCard = ({
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    marginBottom: '8px',
+                    // marginBottom: chart.wrapLabels ? '0px' : '8px',
                   }}
                 >
-                  <div style={{ width: '40%', height: '20px', lineHeight: '20px' }}>
-                    <h5 style={{ height: '20px', lineHeight: '20px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: '10px' }} className='horizontal-bar-label'>
-                      {chart?.labelFormatter === 'capitalizeFirstLetter' 
+                  <div style={{
+                    width: '35%',
+                    height: chart.wrapLabels ? 'fit-content' : '20px',
+                    lineHeight: 'normal',
+                    textAlign: 'right',
+                  }}>
+                    <h5 style={{
+                      height: chart.wrapLabels ? 'fit-content' : '20px',
+                      lineHeight: chart.wrapLabels ? '.8rem' : '20px',
+                      overflow: chart.wrapLabels ? 'visible' : 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: chart.wrapLabels ? 'normal' : 'nowrap',
+                      paddingRight: chart.wrapLabels ? '10px' : '10px'
+                    }} className='horizontal-bar-label'>
+                      {
+                        labelFormatter(
+                          config?.manifest?.[barKey] || barKey,
+                          chart?.labelFormatters
+                            ? [...chart.labelFormatters]
+                            : chart?.labelFormatter 
+                              ? [chart?.labelFormatter] : [])
+                      }
+                      {/* {chart?.labelFormatter === 'capitalizeFirstLetter' 
                         ? `${config?.manifest?.[barKey] || barKey}`.charAt(0).toUpperCase() + `${config?.manifest?.[barKey] || barKey}`.slice(1)
-                        : config?.manifest?.[barKey] || barKey}
+                        : config?.manifest?.[barKey] || barKey} */}
                     </h5>
                   </div>
                   <div style={{
-                    width: 'calc(60% - 60px)',
+                    width: 'calc(65% - 60px)',
                     display: 'flex',
                     flexDirection: 'row',
                     flexWrap: 'nowrap'
@@ -747,7 +802,7 @@ const SimpleCard = ({
                 cursor: 'pointer'
               }}
               onClick={() => {
-                navigator.clipboard.writeText(JSON.stringify({content: config}, null, 2));
+                navigator.clipboard.writeText(JSON.stringify({ content: config }, null, 2));
                 alert('Config copied to clipboard!');
               }}
             >

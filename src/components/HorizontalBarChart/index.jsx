@@ -151,7 +151,8 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest, lng }) => 
                 justifyContent: config.layoutType === 'sorted-list' ? 'flex-start' : 'flex-end', 
                 margin: config.layoutType === 'sorted-list' ? '0 10px 0 0' : '0 10px 0 5px' ,
                 padding: config.layoutType === 'sorted-list' ? '5px 5px 5px 10px' : null, 
-                backgroundColor: config?.labelBackgroundColor || 'var(--primary-gray-color)'
+                backgroundColor: config?.labelBackgroundColor || 'var(--primary-gray-color)',
+                lineHeight: '1.2em',
               }
             }>
               {formatIndicatorLabel({

@@ -6,6 +6,7 @@ const renderElement = (json, index) => {
 
   const { tag, attributes, content, children, infoIconContent } = json;
 
+  console.log(attributes);
   if (infoIconContent) {
     attributes.style = {
       ...attributes?.style || {},

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MapContainer, TileLayer, GeoJSON, Tooltip, Pane } from 'react-leaflet';
+import InfoIcon from '../InfoIcon';
 // import CustomTooltip from '../CustomTooltip';
-import { TailSpin } from 'react-loader-spinner';
+// import { TailSpin } from 'react-loader-spinner';
 
 import IndicatorDropdown from '../IndicatorDropdown';
 import Legend from './subComponents/Legend';
@@ -141,16 +142,16 @@ const IndicatorMap = ({
   return (//mapGeoJSON ? (
     <div className='indicator-map-wrapper'>
       {!config.externalDropdown && (
-        <>
+        <div className='map-dropdown'>
           {!config?.noTitle
             ? <p>{title} {date}</p>
             : config?.indicator?.label
-              ? <>
+              ? <div>
               <h4>{config.indicator.label?.toUpperCase()}</h4>
               <h5 className='simple-card-sub-header'>
                {config.indicator?.geo?.toUpperCase() || ''}{date ? `, ${formatQuarterDate(date, 'QX YYYY', config?.lang)}` : null}
               </h5>
-              </>
+              </div>
               : null
           }
           {!config?.indicator?.label &&
@@ -161,7 +162,8 @@ const IndicatorMap = ({
               disableSort={config?.disableSort || false}
             />
           }
-        </>
+          { config?.mapInfo && <InfoIcon config={config?.mapInfo} popup /> }
+        </div>
       )}
       {
         // mapGeoJSON 

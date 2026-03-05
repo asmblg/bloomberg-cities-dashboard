@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, GeoJSON, Tooltip } from 'react-leaflet';
 import MapEvents from './MapEvents';
 import { getGeoJSON } from '../../utils/API';
 import formatValue from '../../utils/formatValue';
+import InfoIcon from '../InfoIcon';
 
 import IndicatorDropdown from '../IndicatorDropdown';
 import './style.css';
@@ -247,11 +248,17 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
   return (
     <div className='selector-map-wrapper' key='selector-map'>
       {config?.label && <p>{config?.label}</p>}
-      <IndicatorDropdown
-        selectedOption={localSelection || selection || config?.totalOption || config?.indicators?.[0]}
-        setter={handleSetSelection}
-        options={options}
-      />
+      <div className='map-dropdown'>
+        <IndicatorDropdown
+          selectedOption={localSelection || selection || config?.totalOption || config?.indicators?.[0]}
+          setter={handleSetSelection}
+          options={options}
+        />
+        {/* <div> */}
+          { config?.mapInfo && <InfoIcon config={config?.mapInfo} popup />}
+        {/* </div> */}
+      </div>
+
       <div className='selector-map'>
         <MapContainer
           key={'selector-map'}
@@ -331,14 +338,14 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
                 dataInTooltip && tooltipData
                   ? <Tooltip>
                     <div className='indicator-map-tooltip'>
-                      <h4>{config.selectorValueFormat === 'toUpperCase' 
-                      ? `${labelManifest?.[hoveredFeature] || hoveredFeature}`.toUpperCase()
-                      : `${labelManifest?.[hoveredFeature] || hoveredFeature}`}</h4>
+                      <h4>{config.selectorValueFormat === 'toUpperCase'
+                        ? `${labelManifest?.[hoveredFeature] || hoveredFeature}`.toUpperCase()
+                        : `${labelManifest?.[hoveredFeature] || hoveredFeature}`}</h4>
                       {/* {JSON.stringify(hoveredFeature)} */}
 
-                      <strong>{formatValue(tooltipData?.values?.[config.selectorValueFormat === 'toUpperCase' 
-                      ? `${hoveredFeature}`.toUpperCase()
-                      : `${hoveredFeature}`], tooltipData?.units || '')}</strong>
+                      <strong>{formatValue(tooltipData?.values?.[config.selectorValueFormat === 'toUpperCase'
+                        ? `${hoveredFeature}`.toUpperCase()
+                        : `${hoveredFeature}`], tooltipData?.units || '')}</strong>
                     </div>
                   </Tooltip>
                   : <Tooltip>
@@ -396,14 +403,14 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
                 dataInTooltip && tooltipData
                   ? <Tooltip>
                     <div className='indicator-map-tooltip'>
-                      <h4>{config.selectorValueFormat === 'toUpperCase' 
-                      ? `${labelManifest?.[hoveredFeature] || hoveredFeature}`.toUpperCase()
-                      : `${labelManifest?.[hoveredFeature] || hoveredFeature}`}</h4>
+                      <h4>{config.selectorValueFormat === 'toUpperCase'
+                        ? `${labelManifest?.[hoveredFeature] || hoveredFeature}`.toUpperCase()
+                        : `${labelManifest?.[hoveredFeature] || hoveredFeature}`}</h4>
                       {/* {JSON.stringify(hoveredFeature)} */}
 
-                      <strong>{formatValue(tooltipData?.values?.[config.selectorValueFormat === 'toUpperCase' 
-                      ? `${hoveredFeature}`.toUpperCase()
-                      : `${hoveredFeature}`], tooltipData?.units || '')}</strong>
+                      <strong>{formatValue(tooltipData?.values?.[config.selectorValueFormat === 'toUpperCase'
+                        ? `${hoveredFeature}`.toUpperCase()
+                        : `${hoveredFeature}`], tooltipData?.units || '')}</strong>
                     </div>
                   </Tooltip>
                   : <Tooltip>
