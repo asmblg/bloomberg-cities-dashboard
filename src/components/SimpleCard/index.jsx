@@ -496,14 +496,21 @@ const SimpleCard = ({
 
             {chart && <div
               className='simple-chart'
-              style={summary?.formatter === 'legend' ? {
-                width: 'calc(40% - 10px)',
-                height: 'fit-content',
-                // border: '1px solid orange',
-              } : {}}
+              style={summary?.formatter === 'legend'
+                ? {
+                  width: 'calc(40% - 10px)',
+                  height: 'fit-content',
+                  // border: '1px solid orange',
+                } : !summary
+                  ? {
+                    width: 'calc(90% - 10px)',
+                    height: '120px',
+                  }
+                  : {}}
             >
               {chart?.type && allSummaryData ? (
                 <SimpleChart
+                  wide={!summary}
                   lng={lng}
                   key={`${dataPath}-${cardKey}-simple-chart`}
                   config={chart}
@@ -666,7 +673,7 @@ const SimpleCard = ({
             flexDirection: 'column',
           }}>
             {Object.entries(allSummaryData || {})
-            
+
               .filter(([barKey, barValue]) => {
                 if (chart?.values?.min) {
                   if (barValue === null || barValue === undefined || barValue < chart.values.min) {
@@ -683,7 +690,7 @@ const SimpleCard = ({
               })
               .sort((a, b) => parseInt(b[1]) - parseInt(a[1]))
               .sort((a, b) => {
-                const {orderArray} = chart;
+                const { orderArray } = chart;
                 if (orderArray && orderArray.length) {
                   const aIndex = orderArray.indexOf(a[0]);
                   const bIndex = orderArray.indexOf(b[0]);
@@ -733,7 +740,7 @@ const SimpleCard = ({
                           config?.manifest?.[barKey] || barKey,
                           chart?.labelFormatters
                             ? [...chart.labelFormatters]
-                            : chart?.labelFormatter 
+                            : chart?.labelFormatter
                               ? [chart?.labelFormatter] : [])
                       }
                       {/* {chart?.labelFormatter === 'capitalizeFirstLetter' 

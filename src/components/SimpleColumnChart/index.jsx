@@ -93,7 +93,17 @@ const SimpleColumnChart = ({ config, data, margin, getter, lng }) => {
           axisLine={false}
           tick={{fontSize: 10}}
           interval='preserveEnd'
-          ticks={config?.xaxis?.ticks || [dataArray?.[3]?.name, dataArray?.[dataArray.length - 1]?.name]}
+          ticks={
+            config?.xaxis?.ticks || 
+            config?.xaxis?.tickCount >= 4
+            ? [
+                dataArray?.[Math.floor(dataArray.length * 0.25) - 1]?.name, 
+                dataArray?.[Math.floor(dataArray.length * 0.5) - 1]?.name, 
+                dataArray?.[Math.floor(dataArray.length * 0.75) - 1]?.name, 
+                dataArray?.[dataArray.length - 1]?.name
+              ]
+            : [dataArray?.[3]?.name, dataArray?.[dataArray.length - 1]?.name]
+          }
 
           tickFormatter={text => formatChartTick(text, chartConfig?.xaxis?.labelFormatter, null, lng)}
         />

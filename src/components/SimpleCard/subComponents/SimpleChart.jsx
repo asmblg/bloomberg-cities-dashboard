@@ -13,7 +13,8 @@ const SimpleChart = ({
   comparisonColors,
   projectedData,
   viewType,
-  lng  
+  lng,
+  wide  
 }) => {
   const { type } = config;
 
@@ -35,7 +36,9 @@ const SimpleChart = ({
           data={chartData}
           height={150}
           width={'100%'}
-          margin={{ top: 10, right: 10, bottom: 0, left: 0 }}
+          margin={wide 
+            ? { top: 0, right: 10, bottom: 0, left: 0 } 
+            : { top: 0, right: 10, bottom: 0, left: 0 }}
           hasTooltip
         />
       );
