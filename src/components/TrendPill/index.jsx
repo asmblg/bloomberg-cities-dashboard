@@ -75,7 +75,7 @@ const TrendPill = ({
                 ? lang === 'pt'
                   ? 'Dados insuficientes para calcular tendência' 
                   : 'Insufficient Data To Calculate Trend'
-                : onlyYears
+                : onlyYears && trendDataType === 'YtY'
                 ? lang === 'pt'
                   ? 'Dados comparativos não disponíveis por trimestre' 
                   : 'Comparison Data Unavailable By Quarter'
