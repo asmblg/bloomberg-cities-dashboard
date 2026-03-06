@@ -43,7 +43,7 @@ const IndicatorMap = ({
     setSelectedIndicator(value);
   };
 
-  let varKey = selectedIndicator?.var || defaultSelection?.key;
+  let varKey = getter?.[config?.getterKey?.selectedIndicator]?.indicator?.var || getter?.[config?.getterKey?.selectedIndicator]?.var || getter?.[config?.getterKey?.selectedIndicator]?.indicator?.key || getter?.[config?.getterKey?.selectedIndicator]?.key || selectedIndicator?.var || defaultSelection?.key;
   if (typeof varKey !== 'string') {
     varKey = selectedIndicator?.key || defaultSelection?.key || config?.indicator?.key;
   }
@@ -70,6 +70,9 @@ const IndicatorMap = ({
 
   useEffect(() => {
 
+    const getterIndicator = getter?.[config?.getterKey?.selectedIndicator]?.indicator || getter?.[config?.getterKey?.selectedIndicator];
+
+    // console.log('Selected indicator from getter', getterIndicator, getter?.[config?.getterKey?.selectedIndicator]);
     // Handles CP instance
     if (geoJSON) {
       handleGeoJSON(geoJSON, indicators, config?.filter).then(updatedGeoJSON => {
@@ -88,11 +91,13 @@ const IndicatorMap = ({
       handleNoGeoJsonProp(
         project,
         config?.geoType,
-        indicators || [defaultSelection || config?.indicator],
+        indicators || [getterIndicator || defaultSelection || config?.indicator],
         config?.filter,
         data,
-        config?.joinKey
+        config?.joinKey,
+        config?.joinValueFormat
       ).then(updatedGeoJSON => {
+        // console.log('Updated GeoJSON', updatedGeoJSON);
         if (updatedGeoJSON) {
           setMapGeoJSON(updatedGeoJSON);
 
@@ -100,27 +105,33 @@ const IndicatorMap = ({
 
             setSelectedIndicator(defaultSelection);
           }
+        } else {
+          setMapGeoJSON(null);
         }
       });
       // }
     }
-  }, [getter?.[config?.getterKey?.selectedIndicator], geoJSON]);
+  }, [
+    getter?.[config?.getterKey?.selectedIndicator],
+    geoJSON
+  ]);
 
   useEffect(() => {
-    if (colors && (selectedIndicator || config?.indicator) && mapGeoJSON) {
-      console.log(mapGeoJSON)
+    const getterIndicator = getter?.[config?.getterKey?.selectedIndicator]?.indicator || getter?.[config?.getterKey?.selectedIndicator];
+
+    if (colors && (getterIndicator || selectedIndicator || config?.indicator) && mapGeoJSON) {
+      // console.log(mapGeoJSON)
       const { arrayWithLabels, extractedDate } = handleBinning({
         geoJSON: mapGeoJSON,
         colors,
-        indicator: varKey || config?.indicator?.var,
-        dataPath: selectedIndicator?.dataPath || config?.indicator?.dataPath,
-        aggregator: selectedIndicator?.aggregator || config?.indicator?.aggregator,
+        indicator: getterIndicator?.var || varKey || config?.indicator?.var,
+        dataPath: getterIndicator?.dataPath || selectedIndicator?.dataPath || config?.indicator?.dataPath,
+        aggregator: getterIndicator?.aggregator || selectedIndicator?.aggregator || config?.indicator?.aggregator,
         range: config?.range,
         numOfBins,
         manualBreaks: config?.manualBreaks || defaultSelection?.manualBreaks || selectedIndicator?.manualBreaks
       })
 
-      console.log('ARRAY WITH LABELS', extractedDate, arrayWithLabels);
       setBins(
         arrayWithLabels
       );
@@ -128,16 +139,19 @@ const IndicatorMap = ({
       setDate(extractedDate);
       // console.log(bins);
     }
-  },
-    [
-      selectedIndicator,
-      mapGeoJSON,
-      colors,
-      getter?.[config?.getterKey?.selectedIndicator],
-      data
-    ]);
+  }, [
+    selectedIndicator,
+    mapGeoJSON,
+    colors,
+    getter?.[config?.getterKey?.selectedIndicator],
+    data
+  ]);
 
   // console.log(mapGeoJSON);
+  const sublabelArray = [
+    selectedIndicator?.label,
+    config.indicator?.geo
+  ].filter(item => item).join(', ');
 
   return (//mapGeoJSON ? (
     <div className='indicator-map-wrapper'>
@@ -147,10 +161,10 @@ const IndicatorMap = ({
             ? <p>{title} {date}</p>
             : config?.indicator?.label
               ? <div>
-              <h4>{config.indicator.label?.toUpperCase()}</h4>
-              <h5 className='simple-card-sub-header'>
-               {config.indicator?.geo?.toUpperCase() || ''}{date ? `, ${formatQuarterDate(date, 'QX YYYY', config?.lang)}` : null}
-              </h5>
+                <h4>{config.indicator.label?.toUpperCase()}</h4>
+                <h5 className='simple-card-sub-header'>
+                  {sublabelArray?.toUpperCase() || ''}{date ? `, ${formatQuarterDate(date, 'QX YYYY', config?.lang)}` : null}
+                </h5>
               </div>
               : null
           }
@@ -162,7 +176,7 @@ const IndicatorMap = ({
               disableSort={config?.disableSort || false}
             />
           }
-          { config?.mapInfo && <InfoIcon config={config?.mapInfo} popup /> }
+          {config?.mapInfo && <InfoIcon config={config?.mapInfo} popup />}
         </div>
       )}
       {
@@ -170,7 +184,7 @@ const IndicatorMap = ({
         // ? 
         <div className='indicator-map'>
           <MapContainer
-            key={`indicator-map-${varKey ? 'data' : 'no-data'}`}
+            key={`indicator-map-${varKey ? 'data' : 'no-data'}-${getter?.[config?.getterKey?.selectedIndicator]?.indicator?.dataPath?.replace(/\./g, '-') || ''}`}
             center={config.center}
             zoom={config.zoom}
             zoomControl={true}
@@ -242,7 +256,7 @@ const IndicatorMap = ({
                       setHoveredFeature(null);
                     }
                   }}
-                  key={`data-layer-${varKey}${'no-data'}${date ? `-${date}` : ''}`}
+                  key={`data-layer-${varKey}${'no-data'}${date ? `-${date}` : ''}-${bins?.map(bin => bin.percentile).join('-')}`}
                   data={mapGeoJSON}
                   filter={feature => {
                     const noIndicator = !selectedIndicator && !defaultSelection;
@@ -258,8 +272,9 @@ const IndicatorMap = ({
                       // })?.[0]
                       value = value[date];
                     }
+                  
 
-                    if (selectedIndicator?.dataPath) {
+                    if (selectedIndicator?.dataPath && typeof value === 'object') {
                       selectedIndicator?.dataPath.split('.').forEach(path => {
                         value = value?.[path] || null;
                       });
@@ -282,11 +297,13 @@ const IndicatorMap = ({
                       value = value[date];
                     }
 
-                    if (selectedIndicator?.dataPath) {
+                    if (selectedIndicator?.dataPath && typeof value === 'object') {
                       selectedIndicator?.dataPath.split('.').forEach(path => {
                         value = value?.[path] || null;
                       });
                     }
+
+                    // console.log('Feature value', value);
 
                     const color = bins?.filter(({ percentile }) =>
                       value <= percentile

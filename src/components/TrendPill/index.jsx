@@ -32,7 +32,7 @@ const TrendPill = ({
   const widthVal = width ? (typeof width === 'number' ? `${width}px` : width) : null;
   const trendValueNotNumber = trendValue?.match(/NaN|undefined|infinity/i);
 
-  console.log({trendValue, currentValue, compareValue, compareDate})
+  // console.log({trendValue, currentValue, compareValue, compareDate})
   return (
     <div
       className='trend-display-wrapper'

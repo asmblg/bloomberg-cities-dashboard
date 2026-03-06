@@ -5,7 +5,7 @@
  * @returns {object} updated dataObj with new calculated values
  */
 const addCalculatedIndicatorToDataObj = (indicatorObj, dataObj) => {
-  const data = { ...dataObj };
+  const data = Object.keys(dataObj).length ? { ...dataObj } : dataObj;
   if (indicatorObj.calculator && indicatorObj.var) {
     switch (indicatorObj.calculator) {
       case 'percentageOf': {

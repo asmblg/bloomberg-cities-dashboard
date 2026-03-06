@@ -3,6 +3,7 @@ import percentile from 'percentile';
 import incrementDecimalNumber from '../../utils/incrementDecimalNumber';
 import formatValue from '../../utils/formatValue';
 import { getGeoJSON } from '../../utils/API';
+import getNestedValue from '../../utils/getNestedValue';
 
 /**
  * 
@@ -10,7 +11,7 @@ import { getGeoJSON } from '../../utils/API';
  * @param {array} indicators array of indicators from config
  * @returns {object} updated geoJSON with calculated indicators in every features properties object
  */
-const handleGeoJSON = (geoJSON, indicators, filter, data, joinKey) => {
+const handleGeoJSON = (geoJSON, indicators, filter, data, joinKey, joinValueFormat) => {
   const tempGeoJSON = { ...geoJSON };
   const featuresArr = tempGeoJSON.features
     .filter(feature => {
@@ -27,12 +28,18 @@ const handleGeoJSON = (geoJSON, indicators, filter, data, joinKey) => {
     })
     .map(feature => {
       if (indicators && indicators[0]) {
-        console.log('Adding data', { indicators, feature, data, joinKey })
-        if (joinKey) {
+        // console.log('Adding data', { indicators, feature, data, joinKey, joinValueFormat })
+        const formattedJoinKey = joinValueFormat === 'toUpperCase'
+          ? joinKey?.toUpperCase()
+          : joinKey;
+        
+        if (formattedJoinKey) {
           indicators.forEach(indicator => {
-            const dataObj = data?.[indicator?.dataPath]?.[feature.properties[joinKey]];
+            const nestData = getNestedValue(data, indicator?.dataPath);
+                // console.log('Nested data', { nestData, data, dataPath: indicator?.dataPath.split('.'), indicator })
+            const dataObj = nestData?.[feature.properties[formattedJoinKey]];
             const propertiesObj = addCalculatedIndicatorToDataObj(indicator, dataObj);
-            feature.properties = { ...feature.properties, [indicator?.dataPath]: { ...propertiesObj } };
+            feature.properties = { ...feature.properties, [indicator?.key || indicator?.var]: Object.keys(propertiesObj).length ? { ...propertiesObj } : propertiesObj };
           });
         }
         else {
@@ -43,7 +50,7 @@ const handleGeoJSON = (geoJSON, indicators, filter, data, joinKey) => {
         }
       }
 
-      console.log('Returning feature', { feature })
+      // console.log('Returning feature', { feature })
       return feature;
     });
 
@@ -57,16 +64,17 @@ const handleGeoJSON = (geoJSON, indicators, filter, data, joinKey) => {
  * @param {string} geoType - Geo type from config
  * @param {array} indicators - array of indicators to run calculations on and add to GeoJSON. If using a getter and only passing in one indicator to the component, wrap that getter indicator object in [ ] when passing in as a argument
  * @param {string} joinKey - key to join data with GeoJSON features
+ * @param {string} joinValueFormat - format to apply to join key value (e.g., 'toUpperCase')
  */
 
-const handleNoGeoJsonProp = async (project, geoType, indicators, filter, dataObject, joinKey) => {
+const handleNoGeoJsonProp = async (project, geoType, indicators, filter, dataObject, joinKey, joinValueFormat) => {
   try {
     if (project && geoType) {
       const { data } = await getGeoJSON(project, geoType);
       // console.log(data);
       const returnedGeoJSON = data[0];
       if (indicators?.[0]) {
-        const updatedGeoJSON = handleGeoJSON(returnedGeoJSON, indicators, filter, dataObject, joinKey);
+        const updatedGeoJSON = handleGeoJSON(returnedGeoJSON, indicators, filter, dataObject, joinKey, joinValueFormat);
         return updatedGeoJSON;
       }
       return returnedGeoJSON;
@@ -90,6 +98,8 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
   const binArray = [];
   const pRange = Math.floor(100 / numOfBins);
   let extractedDate = null;
+
+  // console.log('handleBinning', { geoJSON, colors, indicator, numOfBins, manualBreaks, dataPath, aggregator, range });
 
   const valueArray = geoJSON.features
     .map(feature => {
@@ -119,12 +129,11 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
         extractedDate = aggregatorKey;
       }
 
-      if (dataPath) {
+      if (dataPath && typeof val === 'object') {
         dataPath.split('.').forEach(path => {
           val = val?.[path] || null;
         });
       }
-
       return parseFloat(val)
     })
     .sort((a, b) => a - b);

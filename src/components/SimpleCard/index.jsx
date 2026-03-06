@@ -13,6 +13,7 @@ import formatValue from '../../utils/formatValue';
 import formatQuarterDate from '../../utils/formatQuarterDate';
 import createCompareDataObject from '../../utils/createCompareDataObject';
 import './style.css';
+import { to } from 'react-spring';
 
 const SimpleCard = ({
   config,
@@ -163,7 +164,7 @@ const SimpleCard = ({
 
             config.comparisonPaths.forEach(({ path, label }) => {
               const comparisonValue = getNestedValue(data, path, key);
-              console.log('Comparison Value', { comparisonValue, path });
+              // console.log('Comparison Value', { comparisonValue, path });
               // Object.values(comparisonValue || {}).forEach((item) => {
               Object.keys(comparisonValue || {}).forEach((dateKey) => {
                 dateKey > mostCurrentKey
@@ -180,7 +181,7 @@ const SimpleCard = ({
             const mostCurrentData = {};
             config.comparisonPaths.forEach(({ path, label }) => {
               const comparisonValue = getNestedValue(data, path, key);
-              console.log('Comparison Value for Most Current', { comparisonValue, path });
+              // console.log('Comparison Value for Most Current', { comparisonValue, path });
               // Object.entries(comparisonValue || {}).forEach(([dataKey, dataValue]) => {
               //   if (chart?.exclude && chart?.exclude.includes(dataKey)) {
               //     return;
@@ -429,6 +430,7 @@ const SimpleCard = ({
   }
 
   // console.log({allSummaryData});
+  let totalValue = 0;
 
   return (
     <div
@@ -666,6 +668,7 @@ const SimpleCard = ({
             height: '100%',
             maxHeight: '280px',
             marginTop: '20px',
+            marginBottom: '10px',
             width: '100%',
             overflowY: 'auto',
             gap: chart.wrapLabels ? '12px' : '12px',
@@ -706,7 +709,8 @@ const SimpleCard = ({
                 }
                 return 0;
               })
-              .filter((_, index) => {
+              .filter(([_, barValue], index) => {
+                totalValue += barValue;
                 if (chart?.values?.countMax) {
                   return index < chart.values.countMax;
                 }
@@ -722,7 +726,7 @@ const SimpleCard = ({
                   }}
                 >
                   <div style={{
-                    width: '35%',
+                    width: '40%',
                     height: chart.wrapLabels ? 'fit-content' : '20px',
                     lineHeight: 'normal',
                     textAlign: 'right',
@@ -749,7 +753,7 @@ const SimpleCard = ({
                     </h5>
                   </div>
                   <div style={{
-                    width: 'calc(65% - 60px)',
+                    width: 'calc(60% - 60px)',
                     display: 'flex',
                     flexDirection: 'row',
                     flexWrap: 'nowrap'
@@ -767,7 +771,7 @@ const SimpleCard = ({
                     <div
                       className='horizontal-bar-value'
                       style={{ marginLeft: '5px' }}
-                    >{formatValue(barValue, chart.values?.formatter || null)}</div>
+                    >{formatValue(barValue, chart.values?.formatter || null, null, totalValue)}</div>
                   </div>
                 </div>
               ))}

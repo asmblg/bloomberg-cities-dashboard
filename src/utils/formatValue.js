@@ -5,7 +5,7 @@ import formatNumberWithCommas from './formatNumberWithCommas';
  * @param {*} units units that the value should be returned in
  * @returns {string} Formatted value - all returns will be formatted with commas
  */
-const formatValue = (value, units, onAxis) => {
+const formatValue = (value, units, onAxis, totalValue) => {
   const location = typeof window !== 'undefined' ? window.location : null;
   const queryParams = location ? new URLSearchParams(location.search) : null;
   const lng = queryParams ? queryParams.get('lng') : null;
@@ -102,6 +102,11 @@ const formatValue = (value, units, onAxis) => {
       case 'wholeNumbers': {
         return `${value?.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-US', { maximumFractionDigits: 0 })}`;
         // return `${formatNumberWithCommas(parseFloat(value).toFixed(0))}`;
+      }
+
+      case 'percentageOfTotal': {
+        const percentage = totalValue ? (value / totalValue) * 100 : 0;
+        return `${formatNumberWithCommas(percentage.toFixed(fixedPointNum))}%`;
       }
 
       default: {
