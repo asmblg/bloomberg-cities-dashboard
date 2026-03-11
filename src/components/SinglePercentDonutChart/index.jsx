@@ -48,7 +48,7 @@ const SinglePercentDonutChart = ({
     ]
     : [];
 
-  return dataArray ? (
+  return dataArray?.[0] ? (
     <ResponsiveContainer height={height} width={width}>
       <PieChart>
         <Pie
