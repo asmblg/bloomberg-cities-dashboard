@@ -11,6 +11,7 @@ const SectionRouter = ({
   sectionKeys,
   viewType,
   noTabs,
+  variables,
   // dashboardType,
   trendDataType,
   setTrendDataType,
@@ -46,6 +47,7 @@ const SectionRouter = ({
               <DetailCard
                 noTabs={noTabs}
                 config={sections[key]}
+                variables={variables}
                 sectionKey={key}
                 project={project}
                 viewType={viewType}

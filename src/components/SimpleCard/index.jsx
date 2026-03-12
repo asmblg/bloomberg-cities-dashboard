@@ -13,13 +13,13 @@ import formatValue from '../../utils/formatValue';
 import formatQuarterDate from '../../utils/formatQuarterDate';
 import createCompareDataObject from '../../utils/createCompareDataObject';
 import './style.css';
-import { to } from 'react-spring';
 
 const SimpleCard = ({
   config,
   data,
   viewType,
   project,
+  variables,
   // dashboardType,
   cardKey,
   // setSelectedLink,
@@ -36,7 +36,7 @@ const SimpleCard = ({
     summary,
     cardStyle,
     headerStyle,
-    orderArray,
+    // orderArray,
     // manifest,
     // indicator,
     disablePill,
@@ -429,6 +429,12 @@ const SimpleCard = ({
     return valueFormatted;
   }
 
+  console.log('Variables in Simple Card', variables);
+  const variableInfo = variables?.find(variable => 
+    variable.Variable?.toLowerCase() === label?.toLowerCase() ||
+    variable.ChartLabel?.toLowerCase() === label?.toLowerCase()
+  ) 
+  console.log('Variable Info', variableInfo);
   // console.log({allSummaryData});
   let totalValue = 0;
 
@@ -460,7 +466,7 @@ const SimpleCard = ({
           ) : null}
           <h4 className='simple-card-header-text' style={{ ...headerStyle || {} }}>{label?.toUpperCase() || 'UNDEFINED'}</h4>
           <div>
-            <InfoIcon config={config?.indicator} popup />
+            <InfoIcon config={variableInfo || config?.indicator} popup />
           </div>
         </div>
 

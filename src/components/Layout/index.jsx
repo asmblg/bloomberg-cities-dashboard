@@ -135,6 +135,7 @@ const Layout = ({ config, setShowModal }) => {
               setTrendDataType={setTrendDataType}
               selectedLink={selectedLink}
               setSelectedLink={setSelectedLink}
+              variables={config?.variables}
             />
           </div>
           <footer id='footer' style={{...config?.footer?.style}} >

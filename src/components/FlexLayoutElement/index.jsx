@@ -48,6 +48,7 @@ const FlexLayoutElement = ({
   recursive,
   firstRecursive,
   manifest,
+  variables
 }) => {
   const {
     columns,
@@ -59,7 +60,7 @@ const FlexLayoutElement = ({
   
   } = layout;
 
-  // console.log({viewType})
+
   const mobile = viewType === 'mobile';
   const tablet = viewType === 'tablet';
   const elementRef = useRef();
@@ -124,6 +125,7 @@ const FlexLayoutElement = ({
             keepColumnsOnTablet={element?.keepColumnsOnTablet}
             viewLoaded={viewLoaded}
             manifest={manifest}
+            variables={variables}
           />
         )) || null
       ) : content?.type === 'simple-card' ? (
@@ -132,6 +134,7 @@ const FlexLayoutElement = ({
           data={data}
           getter={getter}
           manifest={manifest}
+          variables={variables}
           // project={project}
           // dashboardType={null}
           // cardKey={card.key}
@@ -147,6 +150,7 @@ const FlexLayoutElement = ({
           data={data}
           getter={getter}
           manifest={manifest}
+          variables={variables}
           />
       ) : content?.type === 'trend-data-toggler' ? (
         <TrendDataToggle
@@ -256,6 +260,7 @@ const FlexLayoutElement = ({
           project={project}
           viewType={viewType}
           infoIconConfig={infoIconConfig}
+          variables={variables}
         />
       ) : content?.type === 'horizontal-bar-chart' ? (
         <HorizontalBarChart
@@ -279,6 +284,7 @@ const FlexLayoutElement = ({
           getter={getter}
           viewLoaded={viewLoaded}
           data={data}
+          variables
         // getterKey={content.getterKey}
         />
       ) : content?.type === 'info-card' ? (
@@ -297,7 +303,7 @@ const FlexLayoutElement = ({
             {
               content?.html
                 // ? sanitizeHTML(content.htmlString)
-                ? <HTML data={content.html} />
+                ? <HTML data={content.html} variables={variables} />
                 : null
             }
             </>

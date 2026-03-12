@@ -7,7 +7,9 @@ import SourceLink from '../SourceLink';
 import { handleScroll } from './utils';
 import './style.css';
 
-const AboutTheData = ({ config, project, viewType, infoIconConfig }) => {
+const AboutTheData = ({ config, project, viewType, infoIconConfig, variables }) => {
+  
+  console.log('ABOUT THE DATA VARIABLES', variables);
   return (
     <div className='about-data-container'>
       <div className='about-data-header'>
@@ -33,7 +35,7 @@ const AboutTheData = ({ config, project, viewType, infoIconConfig }) => {
           </div>
         </a>}
       </div>
-      {config?.variableTable?.headerRow?.[0] && config.variableTable.variables?.[0] ? (
+      {config?.variableTable?.headerRow?.[0] && (variables?.[0] || config?.variableTable?.variables?.[0]) ? (
         <div className='about-table-container'>
           <div className='about-table-header-container'>
             {config.variableTable.headerRow.map((row, i) => (
@@ -51,7 +53,7 @@ const AboutTheData = ({ config, project, viewType, infoIconConfig }) => {
           </div>
           <div role='table' className='about-table-vars-container' onScroll={() => handleScroll()}>
             <div className='about-table'>
-              {config.variableTable.variables
+              {[...variables || config?.variableTable?.variables || []]
                 .filter(({ Tab }) => (infoIconConfig?.tab ? infoIconConfig.tab === Tab : true))
                 .map((variable, i) => (
                   <div 
