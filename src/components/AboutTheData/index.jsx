@@ -9,7 +9,6 @@ import './style.css';
 
 const AboutTheData = ({ config, project, viewType, infoIconConfig, variables }) => {
   
-  console.log('ABOUT THE DATA VARIABLES', variables);
   return (
     <div className='about-data-container'>
       <div className='about-data-header'>

@@ -39,7 +39,7 @@ const TrendDataToggle = ({
 
   const text = config?.text;
 
-  console.log('TrendDataToggle - getter:', getter);
+  // console.log('TrendDataToggle - getter:', getter);
 
   const toggleValue = config?.getterKey?.global  
   ? query.get('trendValue') || 'QtQ'

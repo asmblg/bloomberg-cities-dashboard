@@ -218,6 +218,7 @@ const SimpleLineChart = (props) => {
             content={
               <CustomTooltip
                 lng={lng}
+                showZeroValues={config.tooltip.showZeroValues}
                 units={config.tooltip.units}
                 quarterDateFormat={config.tooltip.quarterDateFormat}
                 manifest={config?.tooltip?.manifest || {

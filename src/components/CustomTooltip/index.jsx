@@ -18,6 +18,7 @@ const CustomTooltip = ({
   projectedData,
   comparisonData,
   labelFontSize,
+  showZeroValues = true
   // quarterDateFormat
 }) => {
   if (active && payload?.[0]) {
@@ -66,7 +67,7 @@ const CustomTooltip = ({
                     {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}
                   </h5>
                   <h3 className='bold-font' >
-                    {formatValue(value, units)}
+                    {formatValue(value, units, null, null, showZeroValues)}
                   </h3>
 
                   {/* <h5 className='simple-indicator-date'>
@@ -83,7 +84,7 @@ const CustomTooltip = ({
                   }}
                   key={`custom-tooltip-${label?.replace(/ /g, '-') || 'label'}-${name}-${i}`}>
                   <h2 className='bold-font'>
-                    {formatValue(value, units)}
+                    {formatValue(value, units, null, null, showZeroValues)}
                   </h2>
                   <h5 className='simple-units'>
                     {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}

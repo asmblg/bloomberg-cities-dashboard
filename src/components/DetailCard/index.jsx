@@ -26,7 +26,6 @@ const DetailCard = ({
 
   const sourcesArray = addWidthToSourcesArray(config.sources, config.layout);
 
-    console.log('VARIABLES', variables);
   
   useEffect(() => {
     // if (isInitialRender.current) {

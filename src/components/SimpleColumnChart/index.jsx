@@ -65,7 +65,8 @@ const SimpleColumnChart = ({ config, data, margin, getter, lng }) => {
         //   : array;
         setDataArray(array.map(item => ({
           ...item,
-          value: typeof item.value === 'number' ? item.value : 0,
+          value: typeof item.value === 'number' 
+          ? item.value : null,
         })));
       }
     }
@@ -137,6 +138,7 @@ const SimpleColumnChart = ({ config, data, margin, getter, lng }) => {
             content={
               <CustomTooltip 
                 lng={lng}
+                showZeroValues={chartConfig?.tooltip.showZeroValues}
                 units={chartConfig?.tooltip.units}
                 quarterDateFormat={chartConfig?.tooltip.quarterDateFormat}
                 manifest={chartConfig?.tooltip.manifest}

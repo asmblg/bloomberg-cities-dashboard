@@ -5,14 +5,23 @@ import formatNumberWithCommas from './formatNumberWithCommas';
  * @param {*} units units that the value should be returned in
  * @returns {string} Formatted value - all returns will be formatted with commas
  */
-const formatValue = (value, units, onAxis, totalValue) => {
+const formatValue = (
+  value, 
+  units, 
+  onAxis, 
+  totalValue, 
+  showZeroValues = true
+) => {
   const location = typeof window !== 'undefined' ? window.location : null;
   const queryParams = location ? new URLSearchParams(location.search) : null;
   const lng = queryParams ? queryParams.get('lng') : null;
   const fixedPointNum = onAxis ? 0 : 1;
 
-  // console.log(value, units, onAxis);
-  if (value) {
+  // console.log('formatValue', value)
+  if (
+    value || 
+    ( showZeroValues && (value === 0 || value === '0') )
+  ) {
     switch (units) {
       case 'percent':
       case 'percentage':
@@ -75,6 +84,9 @@ const formatValue = (value, units, onAxis, totalValue) => {
       case 'euro':
       case 'euros':
       case 'M €': {
+        if (value === 0 && showZeroValues) {
+          return '0' + (units === '€ per sqm/month' ? '€ per sqm/month' : '€');
+        }
         if (units === 'M €' && Math.abs(value) >= 1000) {
           const floatValue = parseFloat(value).toFixed(0);
 

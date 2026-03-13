@@ -402,7 +402,9 @@ const SimpleCard = ({
           summary?.calculator,
           allSummaryData,
           trendDataType,
-          summary?.filter
+          summary?.filter,
+          null,
+          config?.summary?.showZeroValues
         )
       );
     } else {
@@ -429,14 +431,16 @@ const SimpleCard = ({
     return valueFormatted;
   }
 
-  console.log('Variables in Simple Card', variables);
+  // console.log('Variables in Simple Card', variables);
   const variableInfo = variables?.find(variable => 
     variable.Variable?.toLowerCase() === label?.toLowerCase() ||
     variable.ChartLabel?.toLowerCase() === label?.toLowerCase()
   ) 
-  console.log('Variable Info', variableInfo);
+  // console.log('Variable Info', variableInfo);
   // console.log({allSummaryData});
   let totalValue = 0;
+
+  // console.log('Rendering SimpleCard', config?.summary?.showZeroValues, summaryData?.displayValue);
 
   return (
     <div
@@ -574,10 +578,22 @@ const SimpleCard = ({
                             paddingLeft: '20px',
                           }}
                         >
-                          {value && summary?.calculator === 'percentFromCounts'
-                            ? formatValue((value / comparisonDataTotal) * 100, config?.summary?.trendUnits)
-                            : value
-                              ? formatValue(value, config?.summary?.trendUnits)
+                          {(value || value === 0) && summary?.calculator === 'percentFromCounts'
+                            ? formatValue(
+                                (value / comparisonDataTotal) * 100, 
+                                config?.summary?.trendUnits,
+                                null,
+                                null,
+                                config?.summary?.showZeroValues
+                              )
+                            : value || value === 0
+                              ? formatValue(
+                                  value, 
+                                  config?.summary?.trendUnits,
+                                  null,
+                                  null,
+                                  config?.summary?.showZeroValues
+                                )
                               : '-'}
                         </h2>
                         <div style={{
@@ -604,8 +620,13 @@ const SimpleCard = ({
                       </>
                     ))
                     : <h2 className='bold-font'>
-                      {summaryData.displayValue
-                        ? formatValue(summaryData.displayValue, config?.summary?.trendUnits)
+                      {summaryData.displayValue || (summaryData.displayValue === 0)
+                        ? formatValue(
+                            summaryData.displayValue, 
+                            config?.summary?.trendUnits, 
+                            null, 
+                            null, 
+                            config?.summary?.showZeroValues)
                         : '-'}
                     </h2>
                 }

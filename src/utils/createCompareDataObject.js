@@ -7,7 +7,14 @@ import getCurrentAndCompareData from './getCurrentAndCompareData';
  * @returns {object} { currentValue, currentDate, compareDate, compareValue }
  */
 
-const createCompareDataObject = (calculator, data, trendDataType, filterArray, postCalculator) => {
+const createCompareDataObject = (
+  calculator, 
+  data, 
+  trendDataType, 
+  filterArray, 
+  postCalculator, 
+  showZeroValues = true
+) => {
   const { 
     currentValue,
     compareValue,
@@ -30,7 +37,7 @@ const createCompareDataObject = (calculator, data, trendDataType, filterArray, p
     compareValue
   };
 
-  obj.displayValue = obj?.currentValue || null;
+  obj.displayValue = obj?.currentValue || (showZeroValues && obj?.currentValue === 0 ? 0 : null);
   return obj;
 };
 
