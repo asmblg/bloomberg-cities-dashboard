@@ -9,6 +9,7 @@ import TrendPill from '../TrendPill';
 import InfoIcon from '../InfoIcon';
 
 import getNestedValue from '../../utils/getNestedValue';
+import calculateDataSeries from '../../utils/calculateDataSeries';
 import formatValue from '../../utils/formatValue';
 import formatQuarterDate from '../../utils/formatQuarterDate';
 import createCompareDataObject from '../../utils/createCompareDataObject';
@@ -84,7 +85,9 @@ const SimpleCard = ({
       setDerivedMaxValue(null);
       setDerivedDate(null);
 
-      const nestedData = getNestedValue(data, dataPath, key);
+      const nestedData = config?.dataCalculation
+        ? calculateDataSeries({ data, calculation: config.dataCalculation, key })
+        : getNestedValue(data, dataPath, key);
 
       if (chart?.valueType === 'mostCurrent' && !config?.comparisonPaths) {
         let mostCurrentKey = null;

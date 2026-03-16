@@ -4,6 +4,7 @@ import getRecentQuarterEndDates from './getRecentQuarterEndDates';
 import sortDatesArray from './sortDatesArray';
 import getNestedValue from './getNestedValue';
 import padDate from './padDate';
+import calculateDataSeries from './calculateDataSeries';
 
 const handleSimpleChartDataArray = (config, data, dataPath, label) => {
   const multiplier = config?.values?.multiplier || 1;
@@ -54,7 +55,11 @@ const handleSimpleChartDataArray = (config, data, dataPath, label) => {
     );
 
   } else {
-    const dataObj = dataPath  ? getNestedValue(data, dataPath) : data;
+    const dataObj = config?.dataCalculation
+      ? calculateDataSeries({ data, calculation: config.dataCalculation })
+      : dataPath
+        ? getNestedValue(data, dataPath)
+        : data;
     const quarterDateKeys = dataObj 
       ? getRecentQuarterEndDates(
         Object.keys(dataObj), config.dataLength) 
