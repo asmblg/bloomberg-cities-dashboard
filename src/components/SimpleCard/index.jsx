@@ -380,21 +380,57 @@ const SimpleCard = ({
 
   const selectedIndicatorLabel = selectedIndicatorManifest?.[selectedIndicator?.label || selectedIndicator] || selectedIndicator?.label || selectedIndicator;
 
-  const subHeadingText = `${(selectorPath && selectedIndicator) || selectedIndicator
-    ? `${selectedIndicatorLabel}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
-    : selectorPath &&
-      !selectedIndicator &&
-      config?.indicator?.Geography &&
-      `${config?.indicator?.Geography}`?.toLowerCase() !== `${selectorPath}`?.toLowerCase() &&
-      `${config?.indicator?.Geography}`?.toLowerCase() !== selectorPath?.label?.toLowerCase()
-      ? selectorPath?.label?.toLowerCase() !== 'total' &&
-        `${selectorPath}`?.toLowerCase() !== 'total'
-        ? `${selectorPath?.label || selectorPath}`
-        : config?.defaultSubheading || config?.indicator?.Geography
-      : selectorPath && !selectedIndicator
-        ? `${selectedIndicatorLabel}`
-        : config?.defaultSubheading || config?.indicator?.Geography
-    }${derivedDate ? `, ${formatQuarterDate(derivedDate, 'QX YYYY', lng)}` : ''}`;
+  // Resolve a single token name to its display value.
+  const resolveSubHeadingToken = (token) => {
+    switch (token.trim()) {
+      case 'selectorPath': {
+        const val = selectorPath?.label || selectorPath;
+        return val && String(val).toLowerCase() !== 'total' ? String(val) : null;
+      }
+      case 'indicatorPath':
+      case 'indicator':
+        return selectedIndicatorLabel ? String(selectedIndicatorLabel) : null;
+      case 'geo':
+        return config?.indicator?.Geography || null;
+      case 'date':
+        return derivedDate
+          ? formatQuarterDate(derivedDate, 'QX YYYY', lng)
+          : summaryData?.currentDate
+            ? formatQuarterDate(summaryData.currentDate, 'QX YYYY', lng)
+            : null;
+      default:
+        return token.trim() || null; // treat as a literal string
+    }
+  };
+
+  // When config.subHeadingItems is an array each element may contain || for fallbacks.
+  // Elements are resolved and joined with ', '.
+  console.log(config?.subHeadingItems, 'config.subHeadingItems');
+  const subHeadingText = config?.subHeadingItems
+    ? config.subHeadingItems
+        .map(item =>
+          item
+            .split('||')
+            .map(t => resolveSubHeadingToken(t.trim()))
+            .find(v => v) || null
+        )
+        .filter(Boolean)
+        .join(', ')
+    : `${(selectorPath && selectedIndicator) || selectedIndicator
+        ? `${selectedIndicatorLabel}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
+        : selectorPath &&
+          !selectedIndicator &&
+          config?.indicator?.Geography &&
+          `${config?.indicator?.Geography}`?.toLowerCase() !== `${selectorPath}`?.toLowerCase() &&
+          `${config?.indicator?.Geography}`?.toLowerCase() !== selectorPath?.label?.toLowerCase()
+          ? selectorPath?.label?.toLowerCase() !== 'total' &&
+            `${selectorPath}`?.toLowerCase() !== 'total'
+            ? `${selectorPath?.label || selectorPath}`
+            : config?.defaultSubheading || config?.indicator?.Geography
+          : selectorPath && !selectedIndicator
+            ? `${selectedIndicatorLabel}`
+            : config?.defaultSubheading || config?.indicator?.Geography
+      }${derivedDate ? `, ${formatQuarterDate(derivedDate, 'QX YYYY', lng)}` : ''}`;
   // console.log({ trendDataType });
 
   useEffect(() => {
