@@ -12,6 +12,7 @@
   height: 100%;
   min-height: 200px;
   padding-top: 10px;
+  position: relative;
   /* padding-bottom: 30px !important; */
 }
 
@@ -102,6 +103,46 @@
   justify-content: space-between;
   /* gap: 10px; */
   /* padding-bottom: 10px; */
+}
+
+.indicator-map-ref-tooltip {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  align-items: center;
+  text-align: center;
+  width: fit-content;
+  min-width: 100px;
+  max-width: 200px;
+  overflow: hidden;
+}
+
+.indicator-map-ref-tooltip > h3 {
+  margin: 0;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.indicator-map-ref-tooltip-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  max-height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.ref-point-popup .leaflet-popup-content-wrapper {
+  padding: .5em;
+  border-radius: 8px;
+}
+
+.ref-point-popup .leaflet-popup-content {
+  margin: 0;
 }
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Desktop Breakpoint */

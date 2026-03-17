@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { MapContainer, TileLayer, GeoJSON, Tooltip, Pane } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, Tooltip, Pane, Popup } from 'react-leaflet';
+import L from 'leaflet';
 import InfoIcon from '../InfoIcon';
 // import CustomTooltip from '../CustomTooltip';
 // import { TailSpin } from 'react-loader-spinner';
@@ -30,7 +31,11 @@ const IndicatorMap = ({
   const [refGeoJSON, setRefGeoJSON] = useState([]);
   const [selectedIndicator, setSelectedIndicator] = useState(null);
   const [hoveredFeature, setHoveredFeature] = useState();
+  const [hoveredRefFeature, setHoveredRefFeature] = useState();
+  const [hoveredRefLayerFeature, setHoveredRefLayerFeature] = useState();
   const [date, setDate] = useState(null);
+  const [mapInstance, setMapInstance] = useState(null);
+  const refImageWidthCache = useRef({});
 
   // Default colors are a random palette not related to any city project
   const colors = config?.colors || ['#fff3e2', '#ffe5ca', '#fa9884', '#e74646'];
@@ -43,30 +48,58 @@ const IndicatorMap = ({
     setSelectedIndicator(value);
   };
 
+  const preloadImages = urls => {
+    if (!Array.isArray(urls) || typeof window === 'undefined') return;
+    urls.forEach(url => {
+      if (!url || typeof url !== 'string') return;
+      const img = new window.Image();
+      img.onload = () => {
+        const constrainedWidth = Math.min(200, Math.max(100, Number(img.naturalWidth) || 100));
+        refImageWidthCache.current[url] = constrainedWidth;
+      };
+      img.src = url;
+    });
+  };
+
+  const centerRefPointTowardBottom = latlng => {
+    if (!mapInstance || !latlng) return;
+    const zoom = mapInstance.getZoom();
+    const size = mapInstance.getSize();
+    const point = mapInstance.project(latlng, zoom);
+    const targetCenter = mapInstance.unproject(
+      point.subtract([0, size.y * 0.28]),
+      zoom
+    );
+    mapInstance.flyTo(targetCenter, zoom, { animate: true, duration: 0.35 });
+  };
+
   let varKey = getter?.[config?.getterKey?.selectedIndicator]?.indicator?.var || getter?.[config?.getterKey?.selectedIndicator]?.var || getter?.[config?.getterKey?.selectedIndicator]?.indicator?.key || getter?.[config?.getterKey?.selectedIndicator]?.key || selectedIndicator?.var || defaultSelection?.key;
   if (typeof varKey !== 'string') {
     varKey = selectedIndicator?.key || defaultSelection?.key || config?.indicator?.key;
   }
 
   useEffect(() => {
-    new Promise((resolve, reject) => {
-      const refGeoJSONArray = [];
-      if (config?.refLayers?.[0]) {
-        for (const { geoType } of config.refLayers) {
-          getGeoJSON(project, geoType)
-            .then(({ data }) => {
-              const refGeoJSON = data[0];
-              refGeoJSONArray.push(refGeoJSON);
-              if (refGeoJSONArray.length === config.refLayers.length) {
-                // console.log(refGeoJSONArray);
-                setRefGeoJSON(refGeoJSONArray);
-                resolve(refGeoJSONArray);
-              }
-            });
-        }
-      }
-    })
-  }, [config?.refLayers, mapGeoJSON]);
+    if (!config?.refLayers?.[0] || !project) {
+      setRefGeoJSON([]);
+      return;
+    }
+
+    Promise.all(config.refLayers.map(({ geoType }) => getGeoJSON(project, geoType)))
+      .then(results => {
+        const refLayersData = results.map(({ data }) => data?.[0]).filter(Boolean);
+        setRefGeoJSON(refLayersData);
+
+        const imageUrls = [];
+        refLayersData.forEach((layer, i) => {
+          const imageField = config?.refLayers?.[i]?.imageField || 'image';
+          layer?.features?.forEach(feature => {
+            const imageUrl = feature?.properties?.[imageField];
+            if (imageUrl) imageUrls.push(imageUrl);
+          });
+        });
+        preloadImages(imageUrls);
+      });
+  }, [config?.refLayers, project]);
 
   useEffect(() => {
 
@@ -191,51 +224,122 @@ const IndicatorMap = ({
             zoomSnap={.2}
             zoomDelta={.2}
             attributionControl={false}
+            whenReady={e => setMapInstance(e.target)}
           >
             <TileLayer
               // attribution='&copy; <a href="https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/">Esri: World Light Gray Base Map</a>'
               url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
             />
 
+            <Pane name='refTopPane' style={{ zIndex: 1000 }} />
+            <Pane name='dataTooltipTopPane' style={{ zIndex: 1200 }} />
+            <Pane name='refTooltipTopPane' style={{ zIndex: 1300 }} />
+
 
             {refGeoJSON.map((refGeoJSON, i) => (
 
               <GeoJSON
                 key={`ref-layer-${i}`}
-                pane={'markerPane'}
+                pane={'refTopPane'}
                 // Always on top of the data layer
                 data={refGeoJSON}
+                pointToLayer={(feature, latlng) => {
+                  const pointStyle = {
+                    pane: 'refTopPane',
+                    radius: 6,
+                    fillColor: '#0d3b66',
+                    color: '#ffffff',
+                    weight: 1.5,
+                    opacity: 1,
+                    fillOpacity: 1,
+                    ...(config?.refLayers?.[i]?.pointStyle || {})
+                  };
+                  return L.circleMarker(latlng, pointStyle);
+                }}
                 eventHandlers={{
-                  mouseover: e => {
-                    const labelField = config?.refLayers?.[i]?.labelField || 'Name';
+                  click: e => {
+                    const geometryType = e.propagatedFrom?.feature?.geometry?.type;
+                    if (geometryType !== 'Point' && geometryType !== 'MultiPoint') return;
+                    const labelField = config?.refLayers?.[i]?.labelField || 'name';
+                    const imageField = config?.refLayers?.[i]?.imageField || 'image';
                     const value = e.propagatedFrom?.feature?.properties?.[labelField];
-                    // const indicator = selectedIndicator?.label || defaultSelection?.label;
-                    // const geo = e.propagatedFrom?.feature?.properties?.[config.nameProperty?.key ? config.nameProperty?.key : 'Name'] || '';
-                    // const units = selectedIndicator?.units || defaultSelection?.units;
-                    setHoveredFeature({ value });
+                    const imageUrl = e.propagatedFrom?.feature?.properties?.[imageField];
+                    const latlng = e?.latlng || e?.sourceTarget?.getLatLng?.();
+                    const popupWidth = imageUrl
+                      ? refImageWidthCache.current[imageUrl] || 200
+                      : 200;
+                    setHoveredRefFeature({ value, imageUrl, layerIndex: i, latlng, popupWidth });
+                    centerRefPointTowardBottom(latlng);
+                  },
+                  mouseover: e => {
+                    const geometryType = e.propagatedFrom?.feature?.geometry?.type;
+                    if (geometryType === 'Point' || geometryType === 'MultiPoint') return;
+                    const labelField = config?.refLayers?.[i]?.labelField || 'name';
+                    const value = e.propagatedFrom?.feature?.properties?.[labelField];
+                    setHoveredRefLayerFeature({ value, layerIndex: i });
                   },
                   mouseout: e => {
-                    setHoveredFeature(null);
+                    const geometryType = e.propagatedFrom?.feature?.geometry?.type;
+                    if (geometryType === 'Point' || geometryType === 'MultiPoint') return;
+                    setHoveredRefLayerFeature(null);
                   }
                 }}
-                style={{
-                  fillColor: 'transparent',
-                  color: 'white',
-                  weight: 1,
-                  fillOpacity: 0,
-                  ...config?.refLayers?.[i]?.style || {}
+                style={feature => {
+                  if (feature?.geometry?.type === 'Point' || feature?.geometry?.type === 'MultiPoint') {
+                    return {
+                      radius: 6,
+                      fillColor: '#0d3b66',
+                      color: '#ffffff',
+                      weight: 1.5,
+                      opacity: 1,
+                      fillOpacity: 1,
+                      ...(config?.refLayers?.[i]?.pointStyle || {})
+                    };
+                  }
+                  return {
+                    fillColor: 'transparent',
+                    color: 'white',
+                    weight: 1,
+                    fillOpacity: 0,
+                    ...config?.refLayers?.[i]?.style || {}
+                  };
                 }}
               // style={config?.refStyles?.[i]}
               >
-                {config?.refLayers[0]?.labelField && hoveredFeature?.value &&
-                  (<Tooltip>
+                {hoveredRefLayerFeature?.layerIndex === i && hoveredRefLayerFeature?.value &&
+                  (<Tooltip pane='dataTooltipTopPane'>
                     <div>
-                      <h3>{hoveredFeature?.value}</h3>
+                      <h3>{hoveredRefLayerFeature?.value}</h3>
                     </div>
                   </Tooltip>)}
               </GeoJSON>
             ))
             }
+
+            {hoveredRefFeature?.latlng && (hoveredRefFeature?.value || hoveredRefFeature?.imageUrl) && (
+              <Popup
+                pane='refTooltipTopPane'
+                className='ref-point-popup'
+                position={hoveredRefFeature.latlng}
+                closeButton={false}
+                autoPan={false}
+                interactive={false}
+              >
+                <div
+                  className='indicator-map-ref-tooltip'
+                  style={{ width: `${hoveredRefFeature?.popupWidth || 200}px` }}
+                >
+                  {hoveredRefFeature?.value && <h3>{hoveredRefFeature?.value}</h3>}
+                  {hoveredRefFeature?.imageUrl && (
+                    <img
+                      className='indicator-map-ref-tooltip-image'
+                      src={hoveredRefFeature?.imageUrl}
+                      alt={hoveredRefFeature?.value || 'Reference image'}
+                    />
+                  )}
+                </div>
+              </Popup>
+            )}
 
 
             {
@@ -244,13 +348,11 @@ const IndicatorMap = ({
                   pane='overlayPane'
                   eventHandlers={{
                     mouseover: e => {
-                      if (!config?.refLayers?.[0]) {
-                        const value = e.propagatedFrom?.feature?.properties?.[varKey];
-                        const indicator = selectedIndicator?.label || defaultSelection?.label || config?.indicator;
-                        const geo = e.propagatedFrom?.feature?.properties?.[config.nameProperty?.key ? config.nameProperty?.key : 'Name'] || '';
-                        const units = selectedIndicator?.units || defaultSelection?.units;
-                        setHoveredFeature({ value, indicator, geo, units });
-                      }
+                      const value = e.propagatedFrom?.feature?.properties?.[varKey];
+                      const indicator = selectedIndicator?.label || defaultSelection?.label || config?.indicator;
+                      const geo = e.propagatedFrom?.feature?.properties?.[config.nameProperty?.key ? config.nameProperty?.key : 'Name'] || '';
+                      const units = selectedIndicator?.units || defaultSelection?.units;
+                      setHoveredFeature({ value, indicator, geo, units });
                     },
                     mouseout: e => {
                       setHoveredFeature(null);
@@ -319,7 +421,7 @@ const IndicatorMap = ({
                   }}
                 >
                   {!config?.refGeoJSON && hoveredFeature?.value &&
-                    (<Tooltip>
+                    (<Tooltip pane='dataTooltipTopPane'>
                       <div className='indicator-map-tooltip'>
                         <h4>{config?.nameProperty?.prefix || ''} {hoveredFeature?.geo}</h4>
                         {/* {JSON.stringify(hoveredFeature)} */}
