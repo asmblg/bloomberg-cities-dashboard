@@ -694,9 +694,11 @@ const SimpleCard = ({
             {chart2?.type && allSummaryData ? (
 
               <div className='simple-chart'>
-                <SimpleChart
+
+                                <SimpleChart
+                  wide={!summary}
                   lng={lng}
-                  key={`${dataPath}-${cardKey}-simple-chart`}
+                  key={`${dataPath}-${cardKey}-simple-chart2`}
                   config={chart2}
                   viewType={viewType}
                   projectedData={projectedData}
@@ -705,6 +707,16 @@ const SimpleCard = ({
                       ? allSummaryData
                       : { key: summaryData.currentDate, value: summaryData.displayValue }
                   }
+                  comparisonData={comparisonData}
+                  comparisonColors={{
+                    ...config?.comparisonPaths?.reduce((acc, { label, color }) => {
+                      acc[label] = color;
+                      return acc;
+                    }, {}),
+                    total: config?.comparisonTotalColor || '#333333'
+                  }}
+                // comparisonDataTotal={comparisonDataTotal}
+                // derivedMaxValue={derivedMaxValue}
                 />
 
               </div>
