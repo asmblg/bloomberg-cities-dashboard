@@ -6,7 +6,7 @@ import moment from 'moment';
  * @returns date converted into QX YYYY format
  */
 const dateToQuarter = (date, format, lng, QtQ) => {
-  const pt = lng === 'pt';
+  const localizedQuarterFormat = lng === 'pt';
   const qtrYrRegex = /^(Q\d) \d{4}$/;
   const yrQtrRegex = /^\d{4}-(Q\d)$/;
 
@@ -20,8 +20,8 @@ const dateToQuarter = (date, format, lng, QtQ) => {
   const year = format === 'QX-YY' ? dateObj.format('YY') : dateObj.year();
 
   return format === 'QX-YY' 
-    ? pt ?  `T${quarterNum}-${year}` : `Q${quarterNum}-${year}` 
-    : pt ?  `T${quarterNum} ${year}` : `Q${quarterNum} ${year}`;
+    ? localizedQuarterFormat ?  `T${quarterNum}-${year}` : `Q${quarterNum}-${year}` 
+    : localizedQuarterFormat ?  `T${quarterNum} ${year}` : `Q${quarterNum} ${year}`;
 };
 
 export default dateToQuarter;

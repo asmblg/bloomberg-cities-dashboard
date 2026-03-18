@@ -15,6 +15,17 @@ const formatValue = (
   const location = typeof window !== 'undefined' ? window.location : null;
   const queryParams = location ? new URLSearchParams(location.search) : null;
   const lng = queryParams ? queryParams.get('lng') : null;
+  const queryNumericFormatRegion = queryParams ? queryParams.get('numericFormatRegion') : null;
+  const globalNumericFormatRegion = typeof window !== 'undefined'
+    ? window.__numericFormatRegion
+    : null;
+  const numericFormatRegion = queryNumericFormatRegion || globalNumericFormatRegion || null;
+  const numericLocale = lng === 'pt'
+    ? 'pt-PT'
+    : lng === 'sk' || numericFormatRegion === 'sk'
+      ? 'sk-SK'
+      : 'en-US';
+  const compactLocale = lng === 'pt' || lng === 'sk';
   const fixedPointNum = onAxis ? 0 : 1;
 
   // console.log('formatValue', value)
@@ -41,7 +52,7 @@ const formatValue = (
         const millions = Math.abs(value) >= 1000000;
         const billions = Math.abs(value) >= 1000000000;
 
-        const calcValue = billions && lng !== 'pt'
+        const calcValue = billions && !compactLocale
           ? parseFloat(value / 1000000000).toFixed(fixedPointNum)
           : millions
             ? parseFloat(value / 1000000).toFixed(billions ? 0 : fixedPointNum)
@@ -50,11 +61,11 @@ const formatValue = (
               : 0;
 
         const text = parseFloat(calcValue).toFixed(thousands || millions ? 1 : 0).replace('.0', '');
-        const unit = billions && lng !== 'pt'
+        const unit = billions && !compactLocale
           ? 'B'
           : millions
             ? 'M' : thousands
-              ? lng === 'pt' ? 'k' : 'K' : '';
+              ? compactLocale ? 'k' : 'K' : '';
         return units === 'bigEuros' ? `${formatNumberWithCommas(text)}${unit}€` : `$${formatNumberWithCommas(text)}${unit}`;
 
 
@@ -73,7 +84,7 @@ const formatValue = (
               : 0;
 
         const text = parseFloat(calcValue).toFixed(thousands || millions || billions ? 1 : 0).replace('.0', '');
-        const unit = billions ? 'B' : millions ? 'M' : thousands ? (lng === 'pt' ? 'k' : 'K') : '';
+        const unit = billions ? 'B' : millions ? 'M' : thousands ? (compactLocale ? 'k' : 'K') : '';
         return thousands ? `${formatNumberWithCommas(text)}${unit}` : formatNumberWithCommas(value);
       }
       case 'thousands': {
@@ -90,7 +101,7 @@ const formatValue = (
         if (units === 'M €' && Math.abs(value) >= 1000) {
           const floatValue = parseFloat(value).toFixed(0);
 
-          if (lng === 'pt') {
+          if (compactLocale) {
             return `${formatNumberWithCommas(floatValue)}M€`;
           }
 
@@ -112,7 +123,7 @@ const formatValue = (
         return `${formatNumberWithCommas(parseFloat(value * 1000).toFixed(0))}`;
       }
       case 'wholeNumbers': {
-        return `${value?.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-US', { maximumFractionDigits: 0 })}`;
+        return `${value?.toLocaleString(numericLocale, { maximumFractionDigits: 0 })}`;
         // return `${formatNumberWithCommas(parseFloat(value).toFixed(0))}`;
       }
 
@@ -122,7 +133,7 @@ const formatValue = (
       }
 
       default: {
-        return `${value?.toLocaleString(lng === 'pt' ? 'pt-PT' : 'en-US')}${units ? ` ${units}` : ''}`;
+        return `${value?.toLocaleString(numericLocale)}${units ? ` ${units}` : ''}`;
       }
     }
   }

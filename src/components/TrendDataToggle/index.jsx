@@ -21,17 +21,19 @@ const TrendDataToggle = ({
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const lang = query.get('lng') || null;
+  const isPt = lang === 'pt';
+  const isSk = lang === 'sk';
   // const { toggleValue } = getter;
   const options = config?.options || 
   [
     {
       value: 'YtY',
-      label: lang == 'pt' ? 'Variação homóloga' : 'Year-to-Year change',
+      label: isPt ? 'Variação homóloga' : isSk ? 'Medziročná zmena' : 'Year-to-Year change',
       key: 'YtY'
     },
     {
       value: 'QtQ',
-      label: lang == 'pt' ? 'Variação trimestral' : 'Quarter-to-Quarter change',
+      label: isPt ? 'Variação trimestral' : isSk ? 'Medzikvartálna zmena' : 'Quarter-to-Quarter change',
       key: 'QtQ'
     },
 

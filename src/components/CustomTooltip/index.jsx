@@ -21,6 +21,13 @@ const CustomTooltip = ({
   showZeroValues = true
   // quarterDateFormat
 }) => {
+  const formatTooltipValue = value => {
+    const formatted = formatValue(value, units, null, null, showZeroValues);
+    return typeof formatted === 'string'
+      ? formatted.replace(/ /g, '\u00A0')
+      : formatted;
+  };
+
   if (active && payload?.[0]) {
     return (
       <div className='custom-tooltip'
@@ -67,7 +74,7 @@ const CustomTooltip = ({
                     {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}
                   </h5>
                   <h3 className='bold-font' >
-                    {formatValue(value, units, null, null, showZeroValues)}
+                    <span className='custom-tooltip-value'>{formatTooltipValue(value)}</span>
                   </h3>
 
                   {/* <h5 className='simple-indicator-date'>
@@ -84,7 +91,7 @@ const CustomTooltip = ({
                   }}
                   key={`custom-tooltip-${label?.replace(/ /g, '-') || 'label'}-${name}-${i}`}>
                   <h2 className='bold-font'>
-                    {formatValue(value, units, null, null, showZeroValues)}
+                    <span className='custom-tooltip-value'>{formatTooltipValue(value)}</span>
                   </h2>
                   <h5 className='simple-units'>
                     {manifest?.[name] || manifest?.[dataKey] || name.toUpperCase()}

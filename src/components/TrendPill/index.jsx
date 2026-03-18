@@ -31,6 +31,8 @@ const TrendPill = ({
   const heightVal = height ? (typeof height === 'number' ? `${height}px` : height) : null;
   const widthVal = width ? (typeof width === 'number' ? `${width}px` : width) : null;
   const trendValueNotNumber = trendValue?.match(/NaN|undefined|infinity/i);
+  const isPt = lang === 'pt';
+  const isSk = lang === 'sk';
 
   // console.log({trendValue, currentValue, compareValue, compareDate})
   return (
@@ -57,10 +59,10 @@ const TrendPill = ({
             <h5>{trendValue}</h5>
           </div>
           {displayCompareText ? (
-            <h5 className='trend-pill-text' style={{ opacity: '0.8' }}>{`vs ${formatValue(
+            <h5 className='trend-pill-text' style={{ opacity: '0.8' }}>{`${isSk ? 'oproti' : 'vs'} ${formatValue(
               compareValue,
               units
-            )} ${lang === 'pt' ? 'em' : 'in'} ${onlyYears ? compareDate : dateToQuarter(compareDate, 'QX YYYY', lng)}`}</h5>
+            )} ${isPt ? 'em' : isSk ? 'v' : 'in'} ${onlyYears ? compareDate : dateToQuarter(compareDate, 'QX YYYY', lng)}`}</h5>
           ) : null}
         </>
       ) : (
@@ -72,16 +74,22 @@ const TrendPill = ({
           >
               { 
                 trendValueNotNumber 
-                ? lang === 'pt'
+                ? isPt
                   ? 'Dados insuficientes para calcular tendência' 
-                  : 'Insufficient Data To Calculate Trend'
+                  : isSk
+                    ? 'Nedostatok údajov na výpočet trendu'
+                    : 'Insufficient Data To Calculate Trend'
                 : onlyYears && trendDataType === 'YtY'
-                ? lang === 'pt'
+                ? isPt
                   ? 'Dados comparativos não disponíveis por trimestre' 
-                  : 'Comparison Data Unavailable By Quarter'
-                : lang === 'pt'
+                  : isSk
+                    ? 'Porovnávacie údaje nie sú za štvrťrok dostupné'
+                    : 'Comparison Data Unavailable By Quarter'
+                : isPt
                   ? 'Dados comparativos atualmente indisponíveis' 
-                  : 'Comparison Data Unavailable'
+                  : isSk
+                    ? 'Porovnávacie údaje sú momentálne nedostupné'
+                    : 'Comparison Data Unavailable'
               }
           </div>
         </>

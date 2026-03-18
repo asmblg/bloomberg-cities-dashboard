@@ -73,6 +73,13 @@ const App = () => {
     }
   }, [cookiesAccepted, userConsent]);
 
+  // Numeric format region from config (URL param still has precedence in formatters)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.__numericFormatRegion = config?.numericFormatRegion || null;
+    }
+  }, [config?.numericFormatRegion]);
+
   return (
     <div className='App'>
       {config || pathname === '/' ? (

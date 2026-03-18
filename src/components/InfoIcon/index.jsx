@@ -11,6 +11,8 @@ const InfoIcon = ({ config, popup, onClick }) => {
   const smallScreen = window.innerWidth < 768;
   const query = new URLSearchParams(location.search);
   const lang = query.get('lng') || null;
+  const isPt = lang === 'pt';
+  const isSk = lang === 'sk';
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
   const triggerRef = useRef(null);
@@ -63,7 +65,7 @@ const InfoIcon = ({ config, popup, onClick }) => {
               <h5 className='info-icon-popup-text'>
                 <span style={{
                 fontFamily: 'var(--font-family-bold)'
-              }}>{lang === 'pt' ? 'Geografia:': 'Geography:'}</span> {config?.Geography}</h5>
+              }}>{isPt ? 'Geografia:' : isSk ? 'Geografia:' : 'Geography:'}</span> {config?.Geography}</h5>
             </div>
           ) : null}
           {config?.Source ? (
@@ -71,7 +73,7 @@ const InfoIcon = ({ config, popup, onClick }) => {
               <h5 className='info-icon-popup-text'>
               <span style={{
                 fontFamily: 'var(--font-family-bold)' 
-              }}>{lang === 'pt' ? 'Fonte:' :'Source:'}</span> <SourceLink
+              }}>{isPt ? 'Fonte:' : isSk ? 'Zdroj:' : 'Source:'}</span> <SourceLink
                 source={config.Source || null}
                 link1={config.Source_link || null}
                 link2={config.Source_link_2 || null}
