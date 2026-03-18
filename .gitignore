@@ -133,3 +133,6 @@ yarn-error.log*
 
 # dev
 /dev
+
+# Temporary files
+tmp_*.*
