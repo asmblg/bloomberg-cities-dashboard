@@ -25,6 +25,7 @@ const Layout = ({ config, setShowModal }) => {
 
   const navigate = useNavigate();
   const sectionKeys = config ? Object.keys(config?.sections || {}) : null;
+  const projectSlug = config?.project?.toLowerCase() || '';
   const disableHeader = config?.disableHeader;
   const noTabs = dev 
     ? false 
@@ -81,7 +82,7 @@ const Layout = ({ config, setShowModal }) => {
   }, []);
 
   return (
-    <div id='layout' style={
+    <div id='layout' data-align-left-desktop-center-mobile={config?.alignLeftDesktopCenterMobile ? 'true' : 'false'} style={
       config?.transparentBackground 
       ? { 
           background: 'transparent',
@@ -93,7 +94,7 @@ const Layout = ({ config, setShowModal }) => {
           <nav id='header-container'>
             <Header
               headerConfig={config.header}
-              project={config.project.toLowerCase()}
+              project={projectSlug}
               dashboardType={config.dashboardType}
               sectionKeys={sectionKeys}
               sections={config.sections}
@@ -126,7 +127,7 @@ const Layout = ({ config, setShowModal }) => {
             <SectionsRouter
               noTabs={noTabs}
               disableHeader={disableHeader}
-              project={config?.project.toLowerCase()}
+              project={projectSlug}
               dashboardType={config?.dashboardType}
               sectionKeys={sectionKeys}
               sections={config?.sections}
