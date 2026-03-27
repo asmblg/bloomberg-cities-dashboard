@@ -615,6 +615,9 @@ const SimpleCard = ({
                           className='bold-font'
                           style={{
                             paddingLeft: '20px',
+                            whiteSpace: 'nowrap',
+                            width: 'fit-content !important',
+                            overflow: 'visible',
                           }}
                         >
                           {(value || value === 0) && summary?.calculator === 'percentFromCounts'
@@ -658,7 +661,14 @@ const SimpleCard = ({
                         </div>
                       </>
                     ))
-                    : <h2 className='bold-font'>
+                    : <h2 className='bold-font'
+                      style={{
+                                                    whiteSpace: 'nowrap',
+                            width: 'fit-content !important',
+                            overflow: 'visible',
+
+                      }}
+                    >
                       {summaryData.displayValue || (summaryData.displayValue === 0)
                         ? formatValue(
                             summaryData.displayValue, 
