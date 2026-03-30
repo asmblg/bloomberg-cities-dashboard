@@ -94,11 +94,12 @@ const formatValue = (
       case '€ per sqm/month':
       case 'euro':
       case 'euros':
-      case 'M €': {
+      case 'M €':
+      case '$M': {
         if (value === 0 && showZeroValues) {
           return '0' + (units === '€ per sqm/month' ? '€ per sqm/month' : '€');
         }
-        if (units === 'M €' && Math.abs(value) >= 1000) {
+        if ((units === 'M €' || units === '$M') && Math.abs(value) >= 1000) {
           const floatValue = parseFloat(value).toFixed(0);
 
           if (compactLocale) {
@@ -110,13 +111,13 @@ const formatValue = (
 
         } else {
 
-          if (units === 'M €' && Math.abs(value) < 1) {
+          if ((units === 'M €' || units === '$M') && Math.abs(value) < 1) {
             const floatValue = parseFloat(value * 1000).toFixed(1);
             return `${formatNumberWithCommas(floatValue)}K€`;
           }
 
           const floatValue = parseFloat(value).toFixed(fixedPointNum);
-          return `${formatNumberWithCommas(floatValue)}${units === 'M €' ? 'M€' : units === '€ per sqm/month' ? '€ per sqm/month' : '€'}`;
+          return `${units === '$M' ? '$' : ''}${formatNumberWithCommas(floatValue)}${units === 'M €' ? 'M€' : units === '€ per sqm/month' ? '€ per sqm/month' : units === '$M' ? 'M' : '€'}`;
         }
       }
       case 'per100000': {
