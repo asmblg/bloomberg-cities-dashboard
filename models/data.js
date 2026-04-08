@@ -6,6 +6,10 @@ const dataSchema = new Schema({
   data: {type: Object, required: true}
 }, {collection: 'data'});
 
-const data = mongoose.model('data', dataSchema);
+const getDataModel = connection =>
+  connection.models.data || connection.model('data', dataSchema);
 
-module.exports = data;
+module.exports = {
+  getDataModel,
+  dataSchema
+};

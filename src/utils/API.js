@@ -4,18 +4,34 @@ import axios from 'axios';
 // const localConfig = import.meta.env.VITE_MODE === 'local';
 // console.log('localConfig', localConfig);
 
+const isStagingEnabled = () => {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  return new URLSearchParams(window.location.search).get('staging') === 'true';
+};
+
+const withStagingParam = params => (
+  isStagingEnabled()
+    ? { ...params, staging: true }
+    : params
+);
+
 const getConfig = async (projectCity, lng) => {
 
   // if (!localConfig) {
     const res = await axios.get(`/config`, {
-      params: lng 
-      ? {
-          project: projectCity,
-          lng
-        }
-      : {
-         project: projectCity,
-        }
+      params: withStagingParam(
+        lng
+          ? {
+              project: projectCity,
+              lng
+            }
+          : {
+              project: projectCity
+            }
+      )
     });
 
     // console.log('res in getConfig', res);
@@ -42,26 +58,26 @@ const getConfig = async (projectCity, lng) => {
 
 const getData = (project, select) =>
   axios.get(`/data`, {
-    params: {
+    params: withStagingParam({
       project,
       select: `updatedOn ${select}`
-    }
+    })
   });
 
 const getTractGeoJSON = project =>
   axios.get(`/geo`, {
-    params: {
+    params: withStagingParam({
       project,
       geoType: 'Census Tracts'
-    }
+    })
   });
 
 const getGeoJSON = (project, geoType) =>
   axios.get(`/geo`, {
-    params: {
+    params: withStagingParam({
       project,
       geoType
-    }
+    })
   });
 
 export { getConfig, getData, getTractGeoJSON, getGeoJSON };

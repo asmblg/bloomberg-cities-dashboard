@@ -12,6 +12,10 @@ const configSchema = new Schema(
   { collection: 'configs' }
 );
 
-const config = mongoose.model('configs', configSchema);
+const getConfigModel = connection =>
+  connection.models.configs || connection.model('configs', configSchema);
 
-module.exports = config;
+module.exports = {
+  getConfigModel,
+  configSchema
+};

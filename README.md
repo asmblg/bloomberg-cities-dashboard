@@ -54,6 +54,12 @@ Before you begin, ensure you have the following installed on your machine:
 - Ensure that the ports used by Vite and Express do not conflict with other services running on your machine.
 - You can customize the configuration files (`vite.config.js` and `server.js`) to suit your needs.
 
+## Staging Database Routing
+
+- Set both `MONGODB_URI` and `MONGODB_URI_STAGING` in your environment.
+- Add `?staging=true` to the dashboard URL to route API reads (`/data`, `/config`, `/geo`) to the staging MongoDB connection.
+- Without `staging=true`, requests continue to use the primary MongoDB connection.
+
 ## Troubleshooting
 
 - If you encounter issues with dependencies, try deleting the `node_modules` directory and running `npm install` again.

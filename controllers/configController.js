@@ -1,9 +1,10 @@
 require('dotenv').config();
-const { config } = require('../models');
+const { getModelsForRequest } = require('../models');
 
 
 module.exports = {
-  findByProject: ({ query: { project, lng } }, res) => {
+  findByProject: (req, res) => {
+    const { project, lng } = req.query;
     // const localMode = process.env.CONFIG_MODE === 'local';
     const localConfigPath = process.env.LOCAL_CONFIG_PATH;
     if (localConfigPath) {
@@ -14,18 +15,27 @@ module.exports = {
           p.toLowerCase() === project.toLowerCase() && 
         (!lng ? !l : l === lng)
       );
-      console.log('Local config obj:', obj);
+      // console.log('Local config obj:', obj);
       res.json([obj]);
       // const regexProject = new RegExp(project, 'i')
       // const obj = config.find(({ project }) => project.match(regexProject));
       // res.json(obj);
     } else {
-      const regexProject = new RegExp(project, 'i')
       if (!project) {
         return res.status(400).json({
           error: 'Please provide a project'
         });
       } else {
+        let config;
+
+        try {
+          ({ config } = getModelsForRequest(req));
+        } catch (err) {
+          return res.status(503).json({ message: err.message });
+        }
+
+        const regexProject = new RegExp(project, 'i')
+
         config
           .find({ 
             project: regexProject,

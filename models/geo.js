@@ -8,6 +8,10 @@ const geoSchema = new Schema({
   features: {type: Array, required: true}
 }, {collection: 'geos'});
 
-const geo = mongoose.model('geos', geoSchema);
+const getGeoModel = connection =>
+  connection.models.geos || connection.model('geos', geoSchema);
 
-module.exports = geo;
+module.exports = {
+  getGeoModel,
+  geoSchema
+};
