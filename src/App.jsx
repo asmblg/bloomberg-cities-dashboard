@@ -31,6 +31,7 @@ const App = () => {
   const queryParams = new URLSearchParams(search);
   // const dev = queryParams.get('dev') === 'true' || false;
   const lng = queryParams.get('lng') || null;
+  const staging = queryParams.get('staging') === 'true' || false;
 
   const navigate = useNavigate();
 
@@ -82,6 +83,8 @@ const App = () => {
 
   return (
     <div className='App'>
+      {staging && <div className='staging-banner'>STAGING</div>}
+
       {config || pathname === '/' ? (
         <>
           <Layout config={config} setShowModal={setShowModal} />
