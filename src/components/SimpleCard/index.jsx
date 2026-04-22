@@ -69,6 +69,7 @@ const SimpleCard = ({
   const [comparisonDataTotal, setComparisonDataTotal] = useState(null);
   const [projectedDataPath, setProjectedDataPath] = useState(config?.projectedDataPath);
   const selectorPath = getter?.[getterKey?.selectorPath];
+  const barFilterPath = getter?.[getterKey?.barFilterPath];
   const selectedIndicator = getter?.[getterKey?.selectedIndicator];
   const selectedIndicatorFilterArray = selectedIndicator?.filterArray
     || selectedIndicator?.indicator?.filterArray
@@ -76,8 +77,10 @@ const SimpleCard = ({
   const selectorFilterArray = selectorPath?.filterArray
     || selectorPath?.indicator?.filterArray
     || null;
+  const barFilterArray = barFilterPath?.filterArray
+    || barFilterPath?.indicator?.filterArray
+    || null;
   const filterArray = selectedIndicatorFilterArray || selectorFilterArray || null;
-  const isHorizontalBarWithSelector = chart?.type === 'horizontal-bar' && selectorFilterArray?.length;
   const [derivedDate, setDerivedDate] = useState(null);
   const [derivedMaxValue, setDerivedMaxValue] = useState(null);
 
@@ -166,23 +169,27 @@ const SimpleCard = ({
   const getGetterNestedValue = (sourceData, currentPath) => {
     const nestedValue = getNestedValue(sourceData, currentPath, key);
 
-    if (isHorizontalBarWithSelector) {
-      return nestedValue;
-    }
-
     const aggregatedValue = sumFilterArrayValues(nestedValue);
 
     // After aggregating by filterArray, if we have a selectedIndicator and the result is an object,
     // extract the selected district value from the aggregated result
     if (
       selectorFilterArray?.length
-      && selectedIndicator
       && aggregatedValue
       && typeof aggregatedValue === 'object'
       && !Array.isArray(aggregatedValue)
     ) {
       const selectedIndicatorPath = selectedIndicator?.dataPath || selectedIndicator?.value || selectedIndicator;
-      return aggregatedValue?.[selectedIndicatorPath] ?? aggregatedValue;
+      if (selectedIndicatorPath) {
+        return aggregatedValue?.[selectedIndicatorPath] ?? aggregatedValue;
+      }
+      // No district selected yet — fall back to the default key from config.dataPath
+      const configDataPath = summary?.dataPath || config?.dataPath;
+      const defaultKey = configDataPath?.split('.')?.at(-1);
+      if (defaultKey && aggregatedValue?.[defaultKey] !== undefined) {
+        return aggregatedValue[defaultKey];
+      }
+      return aggregatedValue;
     }
 
     if (
@@ -207,18 +214,6 @@ const SimpleCard = ({
     const selectorDataPath = selectorPath?.dataPath;
     const selectedIndicatorValue = selectedIndicator?.value || selectedIndicator;
     const spliceIndex = currentPathArray.length - (config?.splicePosition || 2);
-
-    if (isHorizontalBarWithSelector) {
-      return currentPathArray
-        .map((pathPart, index) => {
-          if (selectedIndicator && index === currentPathArray.length - 1) {
-            return selectedIndicatorValue;
-          }
-
-          return pathPart;
-        })
-        .join('.');
-    }
 
     if (selectorDataPath) {
       const newDataPathArray = [];
@@ -523,6 +518,10 @@ const SimpleCard = ({
     switch (token.trim()) {
       case 'selectorPath': {
         const val = selectorPath?.label || selectorPath;
+        return val && String(val).toLowerCase() !== 'total' ? String(val) : null;
+      }
+      case 'barFilterPath': {
+        const val = barFilterPath?.label || barFilterPath;
         return val && String(val).toLowerCase() !== 'total' ? String(val) : null;
       }
       case 'indicatorPath':
@@ -912,7 +911,7 @@ const SimpleCard = ({
             {Object.entries(allSummaryData || {})
 
               .filter(([barKey, barValue]) => {
-                if (chart?.type === 'horizontal-bar' && selectorFilterArray?.length && !selectorFilterArray.includes(barKey)) {
+                if (chart?.type === 'horizontal-bar' && barFilterArray?.length && !barFilterArray.includes(barKey)) {
                   return false;
                 }
                 if (chart?.values?.min) {
