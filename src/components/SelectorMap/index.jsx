@@ -6,6 +6,7 @@ import MapEvents from './MapEvents';
 import { getGeoJSON } from '../../utils/API';
 import formatValue from '../../utils/formatValue';
 import InfoIcon from '../InfoIcon';
+import Legend from '../IndicatorMap/subComponents/Legend';
 
 import IndicatorDropdown from '../IndicatorDropdown';
 import './style.css';
@@ -16,6 +17,7 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
   const [geoJSON, setGeoJSON] = useState();
   // const [featureData, setFeatureData] = useState();
   const [bins, setBins] = useState();
+  const [legendBins, setLegendBins] = useState([]);
   const [binCount, setBinCount] = useState(0);
   const [selection, setSelection] = useState();
   const [localSelection, setLocalSelection] = useState();
@@ -30,6 +32,88 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
   // const [deactivateSetter, setDeactivateSetter] = useState(false);
 
   const fillColor = config.color || '#fff3e2';
+
+  const cloneAggregateValue = value => {
+    if (Array.isArray(value)) {
+      return value.map(item => cloneAggregateValue(item));
+    }
+
+    if (value && typeof value === 'object') {
+      return Object.fromEntries(
+        Object.entries(value).map(([entryKey, entryValue]) => [entryKey, cloneAggregateValue(entryValue)])
+      );
+    }
+
+    return value;
+  };
+
+  const mergeAggregatedValues = (baseValue, nextValue) => {
+    if (baseValue == null) {
+      return cloneAggregateValue(nextValue);
+    }
+
+    if (nextValue == null) {
+      return cloneAggregateValue(baseValue);
+    }
+
+    if (
+      !Array.isArray(baseValue)
+      && !Array.isArray(nextValue)
+      && typeof baseValue !== 'object'
+      && typeof nextValue !== 'object'
+    ) {
+      const baseNumber = Number(baseValue);
+      const nextNumber = Number(nextValue);
+
+      if (Number.isFinite(baseNumber) && Number.isFinite(nextNumber)) {
+        return baseNumber + nextNumber;
+      }
+    }
+
+    if (
+      baseValue
+      && nextValue
+      && typeof baseValue === 'object'
+      && typeof nextValue === 'object'
+      && !Array.isArray(baseValue)
+      && !Array.isArray(nextValue)
+    ) {
+      const mergedValue = {};
+      const mergedKeys = new Set([
+        ...Object.keys(baseValue),
+        ...Object.keys(nextValue)
+      ]);
+
+      mergedKeys.forEach(mergedKey => {
+        mergedValue[mergedKey] = mergeAggregatedValues(baseValue[mergedKey], nextValue[mergedKey]);
+      });
+
+      return mergedValue;
+    }
+
+    return cloneAggregateValue(nextValue);
+  };
+
+  const sumFilterArrayValues = (nestedValue, filterArray) => {
+    if (!filterArray?.length || !nestedValue || typeof nestedValue !== 'object' || Array.isArray(nestedValue)) {
+      return nestedValue;
+    }
+
+    let hasMatch = false;
+
+    const aggregatedValue = filterArray.reduce((accumulator, filterKey) => {
+      const filterValue = nestedValue?.[filterKey] ?? nestedValue?.[`${Number(filterKey)}`];
+
+      if (filterValue == null) {
+        return accumulator;
+      }
+
+      hasMatch = true;
+      return mergeAggregatedValues(accumulator, filterValue);
+    }, null);
+
+    return hasMatch ? aggregatedValue : null;
+  };
 
   const preloadImages = urls => {
     if (!Array.isArray(urls) || typeof window === 'undefined') return;
@@ -54,6 +138,21 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
       zoom
     );
     mapInstance.flyTo(targetCenter, zoom, { animate: true, duration: 0.35 });
+  };
+
+  const bindPolygonLabel = (feature, layer) => {
+    if (!config?.showPolygonLabels) return;
+    const geometryType = feature?.geometry?.type;
+    if (!['Polygon', 'MultiPolygon'].includes(geometryType)) return;
+    const labelKey = config?.polygonLabelKey || config?.selectorField || 'Name';
+    const labelValue = feature?.properties?.[labelKey];
+    if (!labelValue) return;
+
+    layer.bindTooltip(`${labelValue}`, {
+      permanent: true,
+      direction: 'center',
+      className: config?.polygonLabelClassName || 'map-polygon-label'
+    });
   };
 
   const handleSetSelection = (key, option) => {
@@ -85,6 +184,7 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
 
   const indicator = getter?.[config?.getterKey?.selectedIndicator]
   const selector = getter?.[config?.getterKey?.selectorPath]
+  const selectorFilterArray = selector?.filterArray || selector?.indicator?.filterArray || null;
 
   const indicatorKey = indicator?.value ||
     indicator ||
@@ -92,6 +192,35 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
   const indicatorKey2 = selector?.value ||
     selector ||
     config?.indicator?.key2;
+
+  const activeIndicatorOption = (indicator && typeof indicator === 'object')
+    ? indicator
+    : config?.indicators?.find(option => (
+      option?.key === indicator ||
+      option?.value === indicator
+    ));
+
+  const activeIndicatorLabel = activeIndicatorOption?.label ||
+    (typeof indicator === 'string' ? indicator.replaceAll('_', ' ') : null) ||
+    config?.indicator?.label ||
+    config?.indicator?.key ||
+    '';
+
+  const activeIndicatorUnits = activeIndicatorOption?.units ||
+    selector?.units ||
+    config?.indicator?.units;
+
+  const normalizeLegendBoundary = value => {
+    if (!Number.isFinite(value)) return value;
+
+    if (Number.isInteger(value)) return value;
+
+    if (Math.abs(value) >= 100) {
+      return Math.round(value);
+    }
+
+    return Number(value.toFixed(2));
+  };
 
   // console.log(project, config);
 
@@ -143,26 +272,33 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
       let aggregatorKey = null;
 
 
-      Object.entries(data?.[config?.indicator?.basePath] || {}).forEach(([key, value]) => {
-        const obj = indicatorKey && indicatorKey2
-          ? value?.[indicatorKey]?.[indicatorKey2]
-          : indicatorKey
-            ? value?.[indicatorKey]
-            : indicatorKey2
-              ? value?.[indicatorKey2]
-              : value;
-        dataObject[key] = { ...obj };
-      });
+      if (selectorFilterArray?.length) {
+        const baseData = config?.indicator?.basePath ? data?.[config?.indicator?.basePath] : data;
+        const indicatorData = indicatorKey ? baseData?.[indicatorKey] : baseData;
+        const aggregatedData = sumFilterArrayValues(indicatorData, selectorFilterArray);
+        dataObject = aggregatedData && typeof aggregatedData === 'object' ? { ...aggregatedData } : {};
+      } else {
+        Object.entries(data?.[config?.indicator?.basePath] || {}).forEach(([key, value]) => {
+          const obj = indicatorKey && indicatorKey2
+            ? value?.[indicatorKey]?.[indicatorKey2]
+            : indicatorKey
+              ? value?.[indicatorKey]
+              : indicatorKey2
+                ? value?.[indicatorKey2]
+                : value;
+          dataObject[key] = { ...obj };
+        });
 
-      if (!data?.[config?.indicator?.basePath]) {
-        const obj = indicatorKey && indicatorKey2
-          ? data?.[indicatorKey]?.[indicatorKey2]
-          : indicatorKey
-            ? data?.[indicatorKey]
-            : indicatorKey2
-              ? data?.[indicatorKey2]
-              : data;
-        dataObject = { ...obj };
+        if (!data?.[config?.indicator?.basePath]) {
+          const obj = indicatorKey && indicatorKey2
+            ? data?.[indicatorKey]?.[indicatorKey2]
+            : indicatorKey
+              ? data?.[indicatorKey]
+              : indicatorKey2
+                ? data?.[indicatorKey2]
+                : data;
+          dataObject = { ...obj };
+        }
       }
 
       Object.values(dataObject).forEach((value, i) => {
@@ -191,30 +327,51 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
 
       // console.log({ aggregatorKey, dataObject });
       const valueArray = Object.entries(dataObject)
-        .filter(([key, value]) =>
-          config?.totalOption?.dataPath !== key &&
-          value && !isNaN(parseInt(value))
-        ).map(([key, value]) => value);
+        .filter(([key]) => config?.totalOption?.dataPath !== key)
+        .map(([, value]) => Number(value))
+        .filter(value => Number.isFinite(value));
       const min = Math.min(...valueArray);
       const max = Math.max(...valueArray);
       const range = max - min;
       const colors = config?.colors || ['#f7f7f7', '#d9d9d9', '#bdbdbd', '#969696', '#636363', '#252525'];
 
-      const pRange = Math.floor(range / colors.length || 5);
+      const pRange = range > 0 ? range / colors.length : 1;
       const colorObject = {};
 
       // console.log({ min, max, range, pRange });
 
       Object.entries(dataObject).forEach(([key, value]) => {
-        if (value && !isNaN(parseInt(value))) {
-          const bin = Math.floor((value - min) / pRange);
+        const numericValue = Number(value);
+        if (Number.isFinite(numericValue)) {
+          const rawBin = Math.floor((numericValue - min) / pRange);
+          const bin = Math.max(0, Math.min(colors.length - 1, rawBin));
           // console.log({ key, value, bin });
-          const color = value === max ? colors[colors.length - 1] : colors[bin];
+          const color = numericValue === max ? colors[colors.length - 1] : colors[bin];
           colorObject[key] = color;
         } else {
           colorObject[key] = 'transparent';
         }
       });
+
+      const hasData = valueArray.length > 0 && Number.isFinite(min) && Number.isFinite(max);
+      const nextLegendBins = hasData
+        ? colors.map((color, index) => {
+          const rangeStartRaw = min + (index * pRange);
+          const rangeEndRaw = index === colors.length - 1
+            ? max
+            : Math.min(max, min + ((index + 1) * pRange));
+          const rangeStart = normalizeLegendBoundary(rangeStartRaw);
+          const rangeEnd = normalizeLegendBoundary(rangeEndRaw);
+
+          return {
+            color,
+            percentile: index,
+            label: Math.abs(rangeStart - rangeEnd) < Number.EPSILON
+              ? `${rangeEnd}`
+              : `${rangeStart} - ${rangeEnd}`
+          };
+        })
+        : [];
 
       // console.log(dataObject);
       // console.log(colorObject);
@@ -224,12 +381,15 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
 
       setTooltipData({
         values: dataObject,
-        units: indicator?.units || selector?.units || config?.indicator?.units
+        units: activeIndicatorUnits
       });
       setBins(colorObject);
+      setLegendBins(nextLegendBins);
       setBinCount(binCount + 1);
 
       // setFeatureData(dataObject);
+    } else {
+      setLegendBins([]);
     }
 
   }, [
@@ -446,6 +606,7 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
             <GeoJSON
               key={`data-layer-${binCount}-${localSelection?.key || selection?.key}-${bins ? 'binned' : 'not-binned'}`}
               data={geoJSON || null}
+              onEachFeature={bindPolygonLabel}
               filter={feature => {
 
                 const featureID = feature.properties[config.selectorField];
@@ -486,10 +647,10 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
                     ? config.strokeColor || 'black'
                     : 'black',
                   weight: 1,
-                  opacity: 0.8,
+                  opacity: config?.opacity ?? 0.8,
                   fillOpacity: binnedColor
-                    ? 0.8
-                    : 0.5,
+                    ? (config?.fillOpacity ?? 0.8)
+                    : (config?.emptyFillOpacity ?? 0.5),
                   zindex: 1
                 };
               }}
@@ -519,6 +680,7 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
             <GeoJSON
               key={`selected-layer-${localSelection?.key || selection?.key}-${bins ? 'binned' : 'not-binned'}`}
               data={geoJSON || null}
+              onEachFeature={bindPolygonLabel}
               filter={feature => {
                 const featureID = feature.properties[config.selectorField];
                 const selected = localSelection
@@ -553,8 +715,8 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
                   fillColor: binnedColor || fillColor,
                   color: 'black',
                   weight: 3,
-                  opacity: 1,
-                  fillOpacity: 1,
+                  opacity: config?.selectedOpacity ?? 1,
+                  fillOpacity: config?.selectedFillOpacity ?? 1,
                   zindex: 1000
                 };
               }}
@@ -582,6 +744,18 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
           }
         </MapContainer>
 
+        {legendBins?.length > 0 && (
+          <Legend
+            className='selector-map-legend'
+            bins={legendBins}
+            strokeColor={config?.strokeColor || 'black'}
+            indicator={{
+              label: activeIndicatorLabel,
+              units: activeIndicatorUnits
+            }}
+            title={activeIndicatorLabel}
+          />
+        )}
       </div>
       {/* <h5>{config?.indicator?.basePath || 'No Data Path Set'}.{indicatorKey}.{indicatorKey2}</h5> */}
     </div>

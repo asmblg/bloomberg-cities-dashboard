@@ -70,8 +70,206 @@ const SimpleCard = ({
   const [projectedDataPath, setProjectedDataPath] = useState(config?.projectedDataPath);
   const selectorPath = getter?.[getterKey?.selectorPath];
   const selectedIndicator = getter?.[getterKey?.selectedIndicator];
+  const selectedIndicatorFilterArray = selectedIndicator?.filterArray
+    || selectedIndicator?.indicator?.filterArray
+    || null;
+  const selectorFilterArray = selectorPath?.filterArray
+    || selectorPath?.indicator?.filterArray
+    || null;
+  const filterArray = selectedIndicatorFilterArray || selectorFilterArray || null;
+  const isHorizontalBarWithSelector = chart?.type === 'horizontal-bar' && selectorFilterArray?.length;
   const [derivedDate, setDerivedDate] = useState(null);
   const [derivedMaxValue, setDerivedMaxValue] = useState(null);
+
+  const cloneAggregateValue = (value) => {
+    if (Array.isArray(value)) {
+      return value.map(item => cloneAggregateValue(item));
+    }
+
+    if (value && typeof value === 'object') {
+      return Object.fromEntries(
+        Object.entries(value).map(([entryKey, entryValue]) => [entryKey, cloneAggregateValue(entryValue)])
+      );
+    }
+
+    return value;
+  };
+
+  const mergeAggregatedValues = (baseValue, nextValue) => {
+    if (baseValue == null) {
+      return cloneAggregateValue(nextValue);
+    }
+
+    if (nextValue == null) {
+      return cloneAggregateValue(baseValue);
+    }
+
+    if (
+      !Array.isArray(baseValue)
+      && !Array.isArray(nextValue)
+      && typeof baseValue !== 'object'
+      && typeof nextValue !== 'object'
+    ) {
+      const baseNumber = Number(baseValue);
+      const nextNumber = Number(nextValue);
+
+      if (Number.isFinite(baseNumber) && Number.isFinite(nextNumber)) {
+        return baseNumber + nextNumber;
+      }
+    }
+
+    if (
+      baseValue
+      && nextValue
+      && typeof baseValue === 'object'
+      && typeof nextValue === 'object'
+      && !Array.isArray(baseValue)
+      && !Array.isArray(nextValue)
+    ) {
+      const mergedValue = {};
+      const mergedKeys = new Set([
+        ...Object.keys(baseValue),
+        ...Object.keys(nextValue)
+      ]);
+
+      mergedKeys.forEach((mergedKey) => {
+        mergedValue[mergedKey] = mergeAggregatedValues(baseValue[mergedKey], nextValue[mergedKey]);
+      });
+
+      return mergedValue;
+    }
+
+    return cloneAggregateValue(nextValue);
+  };
+
+  const sumFilterArrayValues = (nestedValue) => {
+    if (!filterArray?.length || !nestedValue || typeof nestedValue !== 'object' || Array.isArray(nestedValue)) {
+      return nestedValue;
+    }
+
+    let hasMatch = false;
+
+    const aggregatedValue = filterArray.reduce((accumulator, filterKey) => {
+      const filterValue = nestedValue?.[filterKey] ?? nestedValue?.[`${Number(filterKey)}`];
+
+      if (filterValue == null) {
+        return accumulator;
+      }
+
+      hasMatch = true;
+      return mergeAggregatedValues(accumulator, filterValue);
+    }, null);
+
+    return hasMatch ? aggregatedValue : null;
+  };
+
+  const getGetterNestedValue = (sourceData, currentPath) => {
+    const nestedValue = getNestedValue(sourceData, currentPath, key);
+
+    if (isHorizontalBarWithSelector) {
+      return nestedValue;
+    }
+
+    const aggregatedValue = sumFilterArrayValues(nestedValue);
+
+    // After aggregating by filterArray, if we have a selectedIndicator and the result is an object,
+    // extract the selected district value from the aggregated result
+    if (
+      selectorFilterArray?.length
+      && selectedIndicator
+      && aggregatedValue
+      && typeof aggregatedValue === 'object'
+      && !Array.isArray(aggregatedValue)
+    ) {
+      const selectedIndicatorPath = selectedIndicator?.dataPath || selectedIndicator?.value || selectedIndicator;
+      return aggregatedValue?.[selectedIndicatorPath] ?? aggregatedValue;
+    }
+
+    if (
+      selectedIndicatorFilterArray?.length
+      && aggregatedValue
+      && typeof aggregatedValue === 'object'
+      && !Array.isArray(aggregatedValue)
+    ) {
+      const selectedIndicatorPath = selectedIndicator?.dataPath || selectedIndicator?.value || selectedIndicator;
+      return aggregatedValue?.[selectedIndicatorPath] ?? aggregatedValue;
+    }
+
+    return aggregatedValue;
+  };
+
+  const resolvePathWithGetter = (currentPath, { useRootBase = false } = {}) => {
+    if (!currentPath) {
+      return currentPath;
+    }
+
+    const currentPathArray = currentPath.split('.');
+    const selectorDataPath = selectorPath?.dataPath;
+    const selectedIndicatorValue = selectedIndicator?.value || selectedIndicator;
+    const spliceIndex = currentPathArray.length - (config?.splicePosition || 2);
+
+    if (isHorizontalBarWithSelector) {
+      return currentPathArray
+        .map((pathPart, index) => {
+          if (selectedIndicator && index === currentPathArray.length - 1) {
+            return selectedIndicatorValue;
+          }
+
+          return pathPart;
+        })
+        .join('.');
+    }
+
+    if (selectorDataPath) {
+      const newDataPathArray = [];
+
+      if (useRootBase) {
+        newDataPathArray.push(currentPathArray[0]);
+      } else if (config?.dataPathBase) {
+        config.dataPathBase.split('.').forEach((pathPart) => {
+          newDataPathArray.push(pathPart);
+        });
+      }
+
+      selectorDataPath.split('.').forEach((pathPart) => {
+        newDataPathArray.push(pathPart);
+      });
+
+      if (!filterArray?.length) {
+        newDataPathArray.push(selectedIndicatorValue || currentPathArray[currentPathArray.length - 1]);
+      }
+
+      return newDataPathArray.join('.');
+    }
+
+    if (selectorFilterArray?.length) {
+      if (!useRootBase && config?.dataPathBase) {
+        return config.dataPathBase;
+      }
+
+      return currentPathArray.slice(0, spliceIndex).join('.');
+    }
+
+    if (selectedIndicatorFilterArray?.length) {
+      if (!useRootBase && config?.dataPathBase) {
+        return config.dataPathBase;
+      }
+
+      return currentPathArray.slice(0, -1).join('.');
+    }
+
+    return currentPathArray
+      .map((pathPart, index) => {
+        if (selectorPath && index === spliceIndex) {
+          return selectorPath?.value || selectorPath;
+        }
+        if (selectedIndicator && index === currentPathArray.length - 1) {
+          return selectedIndicatorValue;
+        }
+        return pathPart;
+      })
+      .join('.');
+  };
 
   // console.log({manifest})
   const selectedIndicatorManifest = manifest?.[selectedIndicatorManifestKey] || {};
@@ -85,9 +283,26 @@ const SimpleCard = ({
       setDerivedMaxValue(null);
       setDerivedDate(null);
 
-      const nestedData = config?.dataCalculation
-        ? calculateDataSeries({ data, calculation: config.dataCalculation, key })
-        : getNestedValue(data, dataPath, key);
+      const resolvedCalculation = config?.dataCalculation
+        ? {
+          ...config.dataCalculation,
+          terms: (config.dataCalculation.terms || []).map(term => (
+            term?.path
+              ? { ...term, path: resolvePathWithGetter(term.path, { useRootBase: true }) }
+              : term
+          ))
+        }
+        : null;
+
+      const nestedData = resolvedCalculation
+        ? calculateDataSeries({
+          data,
+          calculation: resolvedCalculation,
+          key,
+          manifest,
+          getSeries: path => getGetterNestedValue(data, path)
+        })
+        : getGetterNestedValue(data, dataPath);
 
       if (chart?.valueType === 'mostCurrent' && !config?.comparisonPaths) {
         let mostCurrentKey = null;
@@ -132,7 +347,7 @@ const SimpleCard = ({
         //
         // setAllSummaryData(getNestedValue(data, dataPath, key));
         if (projectedDataPath) {
-          setProjectedData(getNestedValue(data, projectedDataPath, key));
+          setProjectedData(getGetterNestedValue(data, projectedDataPath));
         }
 
         if (denominatorData) {
@@ -229,7 +444,10 @@ const SimpleCard = ({
     data,
     dataPath,
     denominatorData,
-    projectedDataPath
+    projectedDataPath,
+    selectedIndicator,
+    selectorPath,
+    filterArray
   ]);
 
   useEffect(() => {
@@ -248,54 +466,11 @@ const SimpleCard = ({
       getter?.[getterKey?.selectedIndicator] ||
       config?.dataPath
     ) {
-      let newDataPathArray = [];
       const currentPath = summary?.dataPath || config?.dataPath;
-      const currentPathArray = currentPath.split('.');
-      // const currentPathArrayLength = currentPathArray.length;
+      const resolvedDataPath = resolvePathWithGetter(currentPath);
 
-      const selectorDataPath = selectorPath?.dataPath
-
-      const spliceIndex = currentPathArray.length - (config?.splicePosition || 2);
-
-      if (selectorDataPath) {
-        if (config?.dataPathBase) {
-          const dataPathBaseArray = config?.dataPathBase.split('.');
-          dataPathBaseArray.forEach((path) => {
-            newDataPathArray.push(path);
-          });
-        }
-        const selectorDataPathArray = selectorDataPath.split('.');
-        selectorDataPathArray.forEach((path, index) => {
-          newDataPathArray.push(path);
-        });
-        if (selectedIndicator) {
-          newDataPathArray.push(selectedIndicator?.value || selectedIndicator);
-        } else {
-          newDataPathArray.push(currentPathArray[currentPathArray.length - 1]);
-        }
-      } else {
-        currentPathArray.forEach((path, index) => {
-          if (
-            selectorPath &&
-            index === spliceIndex
-          ) {
-            newDataPathArray.push(selectorPath?.value || selectorPath);
-          } else if (
-            selectedIndicator &&
-            index === currentPathArray.length - 1
-          ) {
-            newDataPathArray.push(selectedIndicator?.value || selectedIndicator);
-          } else {
-            newDataPathArray.push(path);
-          }
-
-        }
-        );
-      }
-      // console.log('New Data Path Array', newDataPathArray);
-      if (newDataPathArray.length) {
-
-        setDataPath(newDataPathArray.join('.'));
+      if (resolvedDataPath) {
+        setDataPath(resolvedDataPath);
       }
     }
 
@@ -304,49 +479,11 @@ const SimpleCard = ({
       getter?.[getterKey?.selectedIndicator] ||
       config?.projectedDataPath
     ) {
-      let newDataPathArray = [];
-      const currentPath = config?.projectedDataPath // summary?.dataPath || config?.dataPath;
-      const currentPathArray = currentPath?.split('.') || [];
-      // const currentPathArrayLength = currentPathArray.length;
+      const currentPath = config?.projectedDataPath;
+      const resolvedProjectedDataPath = resolvePathWithGetter(currentPath, { useRootBase: true });
 
-      const selectorDataPath = selectorPath?.dataPath
-
-      const spliceIndex = currentPathArray.length - (config?.splicePosition || 2);
-      if (selectorDataPath) {
-        const selectorDataPathArray = selectorDataPath.split('.');
-        selectorDataPathArray.forEach((path, index) => {
-          newDataPathArray.push(path);
-        });
-        if (selectedIndicator) {
-          newDataPathArray.push(selectedIndicator?.value || selectedIndicator);
-        } else {
-          newDataPathArray.push(currentPathArray[currentPathArray.length - 1]);
-        }
-      } else {
-        currentPathArray.forEach((path, index) => {
-          if (
-            selectorPath &&
-            index === spliceIndex
-          ) {
-            newDataPathArray.push(selectorPath?.value || selectorPath);
-          } else if (
-            selectedIndicator &&
-            index === currentPathArray.length - 1
-          ) {
-            newDataPathArray.push(selectedIndicator?.value || selectedIndicator);
-          } else {
-            newDataPathArray.push(path);
-          }
-
-        }
-        );
-      }
-
-
-
-      if (newDataPathArray.length) {
-
-        setProjectedDataPath(newDataPathArray.join('.'));
+      if (resolvedProjectedDataPath) {
+        setProjectedDataPath(resolvedProjectedDataPath);
       }
     }
 
@@ -358,6 +495,7 @@ const SimpleCard = ({
       config?.projectedDataPath,
       config?.denominatorPath,
       summary?.dataPath
+      
 
     ]);
 
@@ -408,29 +546,29 @@ const SimpleCard = ({
   console.log(config?.subHeadingItems, 'config.subHeadingItems');
   const subHeadingText = config?.subHeadingItems
     ? config.subHeadingItems
-        .map(item =>
-          item
-            .split('||')
-            .map(t => resolveSubHeadingToken(t.trim()))
-            .find(v => v) || null
-        )
-        .filter(Boolean)
-        .join(', ')
+      .map(item =>
+        item
+          .split('||')
+          .map(t => resolveSubHeadingToken(t.trim()))
+          .find(v => v) || null
+      )
+      .filter(Boolean)
+      .join(', ')
     : `${(selectorPath && selectedIndicator) || selectedIndicator
-        ? `${selectedIndicatorLabel}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
-        : selectorPath &&
-          !selectedIndicator &&
-          config?.indicator?.Geography &&
-          `${config?.indicator?.Geography}`?.toLowerCase() !== `${selectorPath}`?.toLowerCase() &&
-          `${config?.indicator?.Geography}`?.toLowerCase() !== selectorPath?.label?.toLowerCase()
-          ? selectorPath?.label?.toLowerCase() !== 'total' &&
-            `${selectorPath}`?.toLowerCase() !== 'total'
-            ? `${selectorPath?.label || selectorPath}`
-            : config?.defaultSubheading || config?.indicator?.Geography
-          : selectorPath && !selectedIndicator
-            ? `${selectedIndicatorLabel}`
-            : config?.defaultSubheading || config?.indicator?.Geography
-      }${derivedDate ? `, ${formatQuarterDate(derivedDate, 'QX YYYY', lng)}` : ''}`;
+      ? `${selectedIndicatorLabel}, ${selectorPath?.label || selectorPath || config?.indicator?.Geography}`
+      : selectorPath &&
+        !selectedIndicator &&
+        config?.indicator?.Geography &&
+        `${config?.indicator?.Geography}`?.toLowerCase() !== `${selectorPath}`?.toLowerCase() &&
+        `${config?.indicator?.Geography}`?.toLowerCase() !== selectorPath?.label?.toLowerCase()
+        ? selectorPath?.label?.toLowerCase() !== 'total' &&
+          `${selectorPath}`?.toLowerCase() !== 'total'
+          ? `${selectorPath?.label || selectorPath}`
+          : config?.defaultSubheading || config?.indicator?.Geography
+        : selectorPath && !selectedIndicator
+          ? `${selectedIndicatorLabel}`
+          : config?.defaultSubheading || config?.indicator?.Geography
+    }${derivedDate ? `, ${formatQuarterDate(derivedDate, 'QX YYYY', lng)}` : ''}`;
   // console.log({ trendDataType });
 
   useEffect(() => {
@@ -471,14 +609,22 @@ const SimpleCard = ({
   }
 
   // console.log('Variables in Simple Card', variables);
-  const variableInfo = variables?.find(variable => 
+  const variableInfo = variables?.find(variable =>
     variable.Variable?.toLowerCase() === label?.toLowerCase() ||
     variable.ChartLabel?.toLowerCase() === label?.toLowerCase()
-  ) 
+  )
   // console.log('Variable Info', variableInfo);
   // console.log({allSummaryData});
   let totalValue = 0;
 
+  const noManifestValue = [];
+  Object.keys(allSummaryData || {}).forEach((dataKey) => {
+    const manifestValue = config?.manifest?.[dataKey];
+    if (!manifestValue && Object.keys(config?.manifest || {})?.length > 5) {
+      noManifestValue.push(dataKey);
+    }
+  });
+  // console.log('Total Value', totalValue, {noManifestValue});
   // console.log('Rendering SimpleCard', config?.summary?.showZeroValues, summaryData?.displayValue);
 
   return (
@@ -622,20 +768,20 @@ const SimpleCard = ({
                         >
                           {(value || value === 0) && summary?.calculator === 'percentFromCounts'
                             ? formatValue(
-                                (value / comparisonDataTotal) * 100, 
+                              (value / comparisonDataTotal) * 100,
+                              config?.summary?.trendUnits,
+                              null,
+                              null,
+                              config?.summary?.showZeroValues
+                            )
+                            : value || value === 0
+                              ? formatValue(
+                                value,
                                 config?.summary?.trendUnits,
                                 null,
                                 null,
                                 config?.summary?.showZeroValues
                               )
-                            : value || value === 0
-                              ? formatValue(
-                                  value, 
-                                  config?.summary?.trendUnits,
-                                  null,
-                                  null,
-                                  config?.summary?.showZeroValues
-                                )
                               : '-'}
                         </h2>
                         <div style={{
@@ -663,19 +809,19 @@ const SimpleCard = ({
                     ))
                     : <h2 className='bold-font'
                       style={{
-                                                    whiteSpace: 'nowrap',
-                            width: 'fit-content !important',
-                            overflow: 'visible',
+                        whiteSpace: 'nowrap',
+                        width: 'fit-content !important',
+                        overflow: 'visible',
 
                       }}
                     >
                       {summaryData.displayValue || (summaryData.displayValue === 0)
                         ? formatValue(
-                            summaryData.displayValue, 
-                            config?.summary?.trendUnits, 
-                            null, 
-                            null, 
-                            config?.summary?.showZeroValues)
+                          summaryData.displayValue,
+                          config?.summary?.trendUnits,
+                          null,
+                          null,
+                          config?.summary?.showZeroValues)
                         : '-'}
                     </h2>
                 }
@@ -705,7 +851,7 @@ const SimpleCard = ({
 
               <div className='simple-chart'>
 
-                                <SimpleChart
+                <SimpleChart
                   wide={!summary}
                   lng={lng}
                   key={`${dataPath}-${cardKey}-simple-chart2`}
@@ -766,6 +912,9 @@ const SimpleCard = ({
             {Object.entries(allSummaryData || {})
 
               .filter(([barKey, barValue]) => {
+                if (chart?.type === 'horizontal-bar' && selectorFilterArray?.length && !selectorFilterArray.includes(barKey)) {
+                  return false;
+                }
                 if (chart?.values?.min) {
                   if (barValue === null || barValue === undefined || barValue < chart.values.min) {
                     return false;
@@ -888,6 +1037,28 @@ const SimpleCard = ({
                     ? 'N/A'
                     : 'YtY'
                   : trendDataType
+                : null}
+            </div>
+            <div style={{
+              color: 'red',
+              fontSize: '8px',
+              fontFamily: 'monospace'
+            }}>
+              {noManifestValue.length
+                ? <div>
+                  <div>No manifest value for: </div>
+                  <table style={{
+                    color: 'black',
+                    fontSize: '8px',
+                    fontFamily: 'monospace'
+
+                  }}>
+                    {
+                      noManifestValue.map(value =>
+                        <tr><td>{value}</td></tr>)
+                    }
+                  </table>
+                </div>
                 : null}
             </div>
             <button

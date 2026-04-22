@@ -145,6 +145,7 @@ const Layout = ({ config, setShowModal }) => {
               noLogo={config?.footer?.noLogo} 
               invertLogos={config?.footer?.invertLogos}
               dataPartners={config?.footer?.dataPartners}
+              copyrightAppend={config?.footer?.copyrightAppend}
               // style={config?.footer?.style} 
               disableUserConsent={config?.disableConsentModal}
               disableGoogleTranslate={config?.footer?.disableGoogleTranslate}

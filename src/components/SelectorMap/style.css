@@ -58,3 +58,37 @@
 .ref-point-popup .leaflet-popup-content {
   margin: 0;
 }
+
+.map-polygon-label {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: #2b2b2b;
+  font-size: 11px;
+  font-family: var(--font-family-medium);
+  font-weight: 600;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+.map-polygon-label:before {
+  display: none;
+}
+
+.selector-map-legend {
+  max-width: 140px;
+}
+
+.selector-map-legend .legend-bins {
+  margin: 8px 2px 2px 2px;
+}
+
+.selector-map-legend .legend-bin {
+  margin: 4px 0;
+}
+
+.selector-map-legend .legend-bin > h5 {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.1;
+  white-space: nowrap;
+}

@@ -16,17 +16,41 @@ const InfoIcon = ({ config, popup, onClick }) => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
   const triggerRef = useRef(null);
+  const closeTimeoutRef = useRef(null);
+
+  const clearCloseTimeout = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+  };
+
+  const openPopup = () => {
+    if (smallScreen) return;
+    clearCloseTimeout();
+    setIsOpen(true);
+  };
+
+  const scheduleClosePopup = () => {
+    if (smallScreen) return;
+    clearCloseTimeout();
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsOpen(false);
+    }, 220);
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target) && 
           triggerRef.current && !triggerRef.current.contains(event.target)) {
+        clearCloseTimeout();
         setIsOpen(false);
       }
     };
 
     const handleEscape = (event) => {
       if (event.key === 'Escape') {
+        clearCloseTimeout();
         setIsOpen(false);
       }
     };
@@ -39,6 +63,7 @@ const InfoIcon = ({ config, popup, onClick }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscape);
+      clearCloseTimeout();
     };
   }, [isOpen]);
 
@@ -47,16 +72,19 @@ const InfoIcon = ({ config, popup, onClick }) => {
       <i 
         ref={triggerRef}
         className='info circle icon info-icon'
-        onClick={() => setIsOpen(!isOpen)}
-        onMouseEnter={() => !smallScreen && setIsOpen(true)}
-        onMouseLeave={() => !smallScreen && setIsOpen(false)}
+        onClick={() => {
+          clearCloseTimeout();
+          setIsOpen(prev => !prev);
+        }}
+        onMouseEnter={openPopup}
+        onMouseLeave={scheduleClosePopup}
       />
       {isOpen && (
         <div 
           ref={popupRef}
           className='info-icon-popup-container'
-          onMouseEnter={() => !smallScreen && setIsOpen(true)}
-          onMouseLeave={() => !smallScreen && setIsOpen(false)}
+          onMouseEnter={openPopup}
+          onMouseLeave={scheduleClosePopup}
         >
           {config?.Description ? <h5 className='info-icon-popup-text'>{config.Description}</h5> : null}
 

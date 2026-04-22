@@ -17,6 +17,34 @@ import handleSimpleChartDataArray from '../../utils/handleSimpleChartDataArray';
 import formatChartTick from '../../utils/formatChartTick';
 import { getStackedKeys } from './utils';
 
+const getXAxisTicks = (configTicks, dataArray, tickCount) => {
+  if (configTicks?.length) {
+    return configTicks;
+  }
+
+  const names = (dataArray || []).map(item => item?.name).filter(Boolean);
+  const annualSeries = names.length > 0 && names.every(name => /^\d{4}$/.test(`${name}`));
+
+  if (annualSeries) {
+    const yearlyTicks = [];
+    for (let i = names.length - 1; i >= 0; i -= 2) {
+      yearlyTicks.unshift(names[i]);
+    }
+    return yearlyTicks;
+  }
+
+  if (tickCount >= 4) {
+    return [
+      dataArray?.[Math.floor(dataArray.length * 0.25) - 1]?.name,
+      dataArray?.[Math.floor(dataArray.length * 0.5) - 1]?.name,
+      dataArray?.[Math.floor(dataArray.length * 0.75) - 1]?.name,
+      dataArray?.[dataArray.length - 1]?.name
+    ].filter(Boolean);
+  }
+
+  return [dataArray?.[3]?.name, dataArray?.[dataArray.length - 1]?.name].filter(Boolean);
+};
+
 const SimpleColumnChart = ({ config, data, margin, getter, lng }) => {
   const [dataPath, setDataPath] = useState(config?.dataPath || null);
   const [dataArray, setDataArray] = useState(null);
@@ -94,17 +122,7 @@ const SimpleColumnChart = ({ config, data, margin, getter, lng }) => {
           axisLine={false}
           tick={{fontSize: 10}}
           interval='preserveEnd'
-          ticks={
-            config?.xaxis?.ticks || 
-            config?.xaxis?.tickCount >= 4
-            ? [
-                dataArray?.[Math.floor(dataArray.length * 0.25) - 1]?.name, 
-                dataArray?.[Math.floor(dataArray.length * 0.5) - 1]?.name, 
-                dataArray?.[Math.floor(dataArray.length * 0.75) - 1]?.name, 
-                dataArray?.[dataArray.length - 1]?.name
-              ]
-            : [dataArray?.[3]?.name, dataArray?.[dataArray.length - 1]?.name]
-          }
+          ticks={getXAxisTicks(config?.xaxis?.ticks, dataArray, config?.xaxis?.tickCount)}
 
           tickFormatter={text => formatChartTick(text, chartConfig?.xaxis?.labelFormatter, null, lng)}
         />

@@ -5,6 +5,114 @@ import formatValue from '../../utils/formatValue';
 import { getGeoJSON } from '../../utils/API';
 import getNestedValue from '../../utils/getNestedValue';
 
+const cloneAggregateValue = value => {
+  if (Array.isArray(value)) {
+    return value.map(item => cloneAggregateValue(item));
+  }
+
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([entryKey, entryValue]) => [entryKey, cloneAggregateValue(entryValue)])
+    );
+  }
+
+  return value;
+};
+
+const mergeAggregatedValues = (baseValue, nextValue) => {
+  if (baseValue == null) {
+    return cloneAggregateValue(nextValue);
+  }
+
+  if (nextValue == null) {
+    return cloneAggregateValue(baseValue);
+  }
+
+  if (
+    !Array.isArray(baseValue)
+    && !Array.isArray(nextValue)
+    && typeof baseValue !== 'object'
+    && typeof nextValue !== 'object'
+  ) {
+    const baseNumber = Number(baseValue);
+    const nextNumber = Number(nextValue);
+    if (Number.isFinite(baseNumber) && Number.isFinite(nextNumber)) {
+      return baseNumber + nextNumber;
+    }
+  }
+
+  if (
+    baseValue
+    && nextValue
+    && typeof baseValue === 'object'
+    && typeof nextValue === 'object'
+    && !Array.isArray(baseValue)
+    && !Array.isArray(nextValue)
+  ) {
+    const mergedValue = {};
+    const mergedKeys = new Set([
+      ...Object.keys(baseValue),
+      ...Object.keys(nextValue)
+    ]);
+
+    mergedKeys.forEach(mergedKey => {
+      mergedValue[mergedKey] = mergeAggregatedValues(baseValue[mergedKey], nextValue[mergedKey]);
+    });
+
+    return mergedValue;
+  }
+
+  return cloneAggregateValue(nextValue);
+};
+
+const sumFilterArrayValues = (nestedValue, filterArray) => {
+  if (!filterArray?.length || !nestedValue || typeof nestedValue !== 'object' || Array.isArray(nestedValue)) {
+    return nestedValue;
+  }
+
+  let hasMatch = false;
+
+  const aggregatedValue = filterArray.reduce((accumulator, filterKey) => {
+    const filterValue = nestedValue?.[filterKey] ?? nestedValue?.[`${Number(filterKey)}`];
+
+    if (filterValue == null) {
+      return accumulator;
+    }
+
+    hasMatch = true;
+    return mergeAggregatedValues(accumulator, filterValue);
+  }, null);
+
+  return hasMatch ? aggregatedValue : null;
+};
+
+const getFilteredFeatureValue = (nestData, featureJoinValue, filterArray) => {
+  if (!filterArray?.length) {
+    return nestData?.[featureJoinValue];
+  }
+
+  const districtFirstValue = sumFilterArrayValues(nestData?.[featureJoinValue], filterArray);
+  if (districtFirstValue != null) {
+    return districtFirstValue;
+  }
+
+  // Fallback shape: top-level keys are divisions and each division contains district keys.
+  let hasMatch = false;
+  const divisionFirstValue = filterArray.reduce((accumulator, filterKey) => {
+    const divisionData = nestData?.[filterKey] ?? nestData?.[`${Number(filterKey)}`];
+    const districtValue = divisionData?.[featureJoinValue];
+
+    if (districtValue == null) {
+      return accumulator;
+    }
+
+    hasMatch = true;
+    return mergeAggregatedValues(accumulator, districtValue);
+  }, null);
+
+  return hasMatch ? divisionFirstValue : null;
+};
+
 /**
  * 
  * @param {object} geoJSON 
@@ -36,9 +144,11 @@ const handleGeoJSON = (geoJSON, indicators, filter, data, joinKey, joinValueForm
         if (formattedJoinKey) {
           indicators.forEach(indicator => {
             const nestData = getNestedValue(data, indicator?.dataPath);
+            const filterArray = indicator?.filterArray;
                 // console.log('Nested data', { nestData, data, dataPath: indicator?.dataPath.split('.'), indicator })
-            const dataObj = nestData?.[feature.properties[formattedJoinKey]];
-            const propertiesObj = addCalculatedIndicatorToDataObj(indicator, dataObj);
+            const joinValue = feature.properties[formattedJoinKey];
+            const dataObj = getFilteredFeatureValue(nestData, joinValue, filterArray);
+            const propertiesObj = addCalculatedIndicatorToDataObj(indicator, dataObj || {});
             feature.properties = { ...feature.properties, [indicator?.key || indicator?.var]: Object.keys(propertiesObj).length ? { ...propertiesObj } : propertiesObj };
           });
         }
@@ -136,7 +246,12 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
       }
       return parseFloat(val)
     })
+    .filter(value => Number.isFinite(value))
     .sort((a, b) => a - b);
+
+  if (!valueArray.length) {
+    return { arrayWithLabels: [], extractedDate };
+  }
 
   if (range) {
     valueArray.push(range[1]);
@@ -179,8 +294,16 @@ const handleBinning = ({ geoJSON, colors, indicator, numOfBins, manualBreaks, da
 };
 
 const formatLegendLabel = (label, formatter) => {
-  const splitStr = `${label || ''}`.split('-').map(str => formatValue(str.trim(), formatter));
-  return splitStr.join(' - ');
+  const labelString = `${label || ''}`.trim();
+  const rangeParts = labelString.split(/\s-\s/);
+
+  if (rangeParts.length === 2) {
+    return rangeParts
+      .map(part => formatValue(part.trim(), formatter))
+      .join(' - ');
+  }
+
+  return formatValue(labelString, formatter);
 };
 
 export { handleBinning, handleGeoJSON, formatLegendLabel, handleNoGeoJsonProp };

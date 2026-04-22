@@ -54,8 +54,9 @@ const logos = {
   lightcastLogoGrey
 };
 
-const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartners, invertLogos, disableUserConsent }) => {
+const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartners, invertLogos, disableUserConsent, copyrightAppend }) => {
   const { partners, copyright, mainLogoKey } = config;
+  const footerCopyright = `${copyright}${copyrightAppend ? ` ${copyrightAppend}` : ''}`;
 
   return (
     <div className='footer-container' style={{ ...style }}>
@@ -69,7 +70,7 @@ const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartn
           }
         </div>
         <p className='copyright'>
-          <span>&#169;</span> {copyright}
+          <span>&#169;</span> {footerCopyright}
         </p>
         {
           !disableUserConsent &&
@@ -114,7 +115,8 @@ const Footer = ({ setShowModal, noLogo, style, disableGoogleTranslate, dataPartn
 
 Footer.propTypes = {
   setShowModal: PropTypes.func,
-  noLogo: PropTypes.bool
+  noLogo: PropTypes.bool,
+  copyrightAppend: PropTypes.string
 };
 
 export default Footer;

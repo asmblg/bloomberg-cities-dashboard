@@ -125,7 +125,9 @@ const HorizontalBarChart = ({ config, data, setter, getter, manifest, lng }) => 
         : null
       }
       {!config?.noSubheading &&
-        <h5 style={{margin: '10px'}}>{`${dataConfig?.subHeader || config?.defaultSubheading}`.toUpperCase()}</h5>
+        <h5 
+        className='simple-card-sub-header'
+        style={{margin: '10px', lineHeight: '1em'}}>{`${dataConfig?.subHeader || config?.defaultSubheading}`.toUpperCase()}</h5>
       }
       <div 
         className='hbc-container' 

@@ -42,7 +42,8 @@ const IndicatorMap = ({
   const numOfBins = colors.length;
   const title = config?.title || 'Select socioeconomic variable to map:';
   const indicators = config?.indicators || null;
-  const defaultSelection = getter?.[config?.getterKey?.selectedIndicator] || indicators?.[0];
+  const selectedOption = getter?.[config?.getterKey?.selectedIndicator];
+  const defaultSelection = selectedOption || indicators?.[0];
 
   const handleSetSelectedIndicator = (key, value) => {
     setSelectedIndicator(value);
@@ -71,6 +72,21 @@ const IndicatorMap = ({
       zoom
     );
     mapInstance.flyTo(targetCenter, zoom, { animate: true, duration: 0.35 });
+  };
+
+  const bindPolygonLabel = (feature, layer) => {
+    if (!config?.showPolygonLabels) return;
+    const geometryType = feature?.geometry?.type;
+    if (!['Polygon', 'MultiPolygon'].includes(geometryType)) return;
+    const labelKey = config?.polygonLabelKey || config?.nameProperty?.key || 'Name';
+    const labelValue = feature?.properties?.[labelKey];
+    if (!labelValue) return;
+
+    layer.bindTooltip(`${labelValue}`, {
+      permanent: true,
+      direction: 'center',
+      className: config?.polygonLabelClassName || 'map-polygon-label'
+    });
   };
 
   let varKey = getter?.[config?.getterKey?.selectedIndicator]?.indicator?.var || getter?.[config?.getterKey?.selectedIndicator]?.var || getter?.[config?.getterKey?.selectedIndicator]?.indicator?.key || getter?.[config?.getterKey?.selectedIndicator]?.key || selectedIndicator?.var || defaultSelection?.key;
@@ -103,7 +119,14 @@ const IndicatorMap = ({
 
   useEffect(() => {
 
-    const getterIndicator = getter?.[config?.getterKey?.selectedIndicator]?.indicator || getter?.[config?.getterKey?.selectedIndicator];
+    const getterSelection = getter?.[config?.getterKey?.selectedIndicator];
+    const getterIndicator = getterSelection?.indicator || getterSelection;
+    const indicatorForMap = getterIndicator
+      ? {
+        ...getterIndicator,
+        filterArray: getterSelection?.filterArray || getterIndicator?.filterArray
+      }
+      : getterIndicator;
 
     // console.log('Selected indicator from getter', getterIndicator, getter?.[config?.getterKey?.selectedIndicator]);
     // Handles CP instance
@@ -124,7 +147,7 @@ const IndicatorMap = ({
       handleNoGeoJsonProp(
         project,
         config?.geoType,
-        indicators || [getterIndicator || defaultSelection || config?.indicator],
+        indicators || [indicatorForMap || defaultSelection || config?.indicator],
         config?.filter,
         data,
         config?.joinKey,
@@ -150,7 +173,8 @@ const IndicatorMap = ({
   ]);
 
   useEffect(() => {
-    const getterIndicator = getter?.[config?.getterKey?.selectedIndicator]?.indicator || getter?.[config?.getterKey?.selectedIndicator];
+    const getterSelection = getter?.[config?.getterKey?.selectedIndicator];
+    const getterIndicator = getterSelection?.indicator || getterSelection;
 
     if (colors && (getterIndicator || selectedIndicator || config?.indicator) && mapGeoJSON) {
       // console.log(mapGeoJSON)
@@ -177,6 +201,8 @@ const IndicatorMap = ({
     mapGeoJSON,
     colors,
     getter?.[config?.getterKey?.selectedIndicator],
+    defaultSelection,
+    varKey,
     data
   ]);
 
@@ -416,9 +442,10 @@ const IndicatorMap = ({
                       color: config?.strokeColor || color,
                       weight: config?.weight || 1,
                       // opacity: config?.opacity || 1,
-                      fillOpacity: config?.opacity || 1
+                      fillOpacity: config?.fillOpacity ?? config?.opacity ?? 1
                     };
                   }}
+                  onEachFeature={bindPolygonLabel}
                 >
                   {!config?.refGeoJSON && hoveredFeature?.value &&
                     (<Tooltip pane='dataTooltipTopPane'>
@@ -434,9 +461,12 @@ const IndicatorMap = ({
 
             {bins && !config.noLegend && (
               <Legend
-                indicator={selectedIndicator || defaultSelection}
+                indicator={selectedIndicator || defaultSelection || config?.indicator}
                 bins={bins}
                 strokeColor={config.strokeColor || 'black'}
+                title={config?.legend?.showIndicatorLabel
+                  ? (selectedIndicator?.label || defaultSelection?.label || config?.indicator?.label || config?.legend?.title)
+                  : config?.legend?.title}
               />
             )}
 

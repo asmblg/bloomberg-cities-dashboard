@@ -27,6 +27,8 @@ const formatValue = (
       : 'en-US';
   const compactLocale = lng === 'pt' || lng === 'sk';
   const fixedPointNum = onAxis ? 0 : 1;
+  const numericValue = Number(value);
+  const hasNumericValue = Number.isFinite(numericValue);
 
   // console.log('formatValue', value)
   if (
@@ -124,7 +126,10 @@ const formatValue = (
         return `${formatNumberWithCommas(parseFloat(value * 1000).toFixed(0))}`;
       }
       case 'wholeNumbers': {
-        return `${value?.toLocaleString(numericLocale, { maximumFractionDigits: 0 })}`;
+        if (hasNumericValue) {
+          return `${numericValue.toLocaleString(numericLocale, { maximumFractionDigits: 0 })}`;
+        }
+        return `${value}`;
         // return `${formatNumberWithCommas(parseFloat(value).toFixed(0))}`;
       }
 
@@ -134,7 +139,10 @@ const formatValue = (
       }
 
       default: {
-        return `${value?.toLocaleString(numericLocale)}${units ? ` ${units}` : ''}`;
+        const formattedValue = hasNumericValue
+          ? numericValue.toLocaleString(numericLocale)
+          : value;
+        return `${formattedValue}${units ? ` ${units}` : ''}`;
       }
     }
   }

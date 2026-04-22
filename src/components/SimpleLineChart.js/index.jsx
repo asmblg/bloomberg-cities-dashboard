@@ -8,6 +8,27 @@ import CustomTooltip from '../CustomTooltip';
 import formatChartTick from '../../utils/formatChartTick';
 import handleSimpleChartDataArray from '../../utils/handleSimpleChartDataArray';
 
+const getXAxisTicks = (configTicks, dataArray) => {
+  if (configTicks?.length) {
+    return configTicks;
+  }
+
+  const names = (dataArray || []).map(item => item?.name).filter(Boolean);
+  const annualSeries = names.length > 0 && names.every(name => /^\d{4}$/.test(`${name}`));
+
+  if (annualSeries) {
+    const yearlyTicks = [];
+
+    for (let i = names.length - 1; i >= 0; i -= 2) {
+      yearlyTicks.unshift(names[i]);
+    }
+
+    return yearlyTicks;
+  }
+
+  return [dataArray?.[3]?.name, dataArray?.[dataArray.length - 1]?.name].filter(Boolean);
+};
+
 const SimpleLineChart = (props) => {
   const { 
     config,
@@ -182,7 +203,7 @@ const SimpleLineChart = (props) => {
           dataKey={'name'}
           interval={'preserveEnd'}
           tick={{fontSize: 10}}
-          ticks={config?.xaxis?.ticks || [dataArray?.[3]?.name, dataArray?.[dataArray.length - 1]?.name]}
+          ticks={getXAxisTicks(config?.xaxis?.ticks, dataArray)}
           tickFormatter={text => formatChartTick(text, config?.xaxis?.labelFormatter, null, lng)}
         />
         {
