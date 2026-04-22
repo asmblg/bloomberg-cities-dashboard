@@ -744,7 +744,7 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
           }
         </MapContainer>
 
-        {legendBins?.length > 0 && (
+        {legendBins?.length > 0 && config?.legend && (
           <Legend
             className='selector-map-legend'
             bins={legendBins}
