@@ -422,6 +422,9 @@ const SimpleCard = ({
             if (chart?.exclude && chart?.exclude?.includes(dataKey)) {
               return;
             }
+            if (barFilterArray?.length && !barFilterArray.includes(dataKey)) {
+              return;
+            }
             if (dataValue > maxValue) {
               maxValue = dataValue;
             }
@@ -442,7 +445,8 @@ const SimpleCard = ({
     projectedDataPath,
     selectedIndicator,
     selectorPath,
-    filterArray
+    filterArray,
+    barFilterPath
   ]);
 
   useEffect(() => {
@@ -542,7 +546,7 @@ const SimpleCard = ({
 
   // When config.subHeadingItems is an array each element may contain || for fallbacks.
   // Elements are resolved and joined with ', '.
-  console.log(config?.subHeadingItems, 'config.subHeadingItems');
+  // console.log(config?.subHeadingItems, 'config.subHeadingItems');
   const subHeadingText = config?.subHeadingItems
     ? config.subHeadingItems
       .map(item =>
@@ -625,7 +629,8 @@ const SimpleCard = ({
   });
   // console.log('Total Value', totalValue, {noManifestValue});
   // console.log('Rendering SimpleCard', config?.summary?.showZeroValues, summaryData?.displayValue);
-
+  console.log({derivedMaxValue});
+  let displayedMaxValue = null;
   return (
     <div
       key={`${dataPath?.replace(/\./g, '-')}-simple-card`}
@@ -950,6 +955,11 @@ const SimpleCard = ({
                 if (chart?.values?.countMax) {
                   return index < chart.values.countMax;
                 }
+                if (barFilterArray?.length) {
+                  displayedMaxValue = Math.max(displayedMaxValue || 0, barValue);
+                } else {
+                  displayedMaxValue = derivedMaxValue;
+                }
                 return true;
               })
               .map(([barKey, barValue]) => (
@@ -996,8 +1006,8 @@ const SimpleCard = ({
                   }}>
                     <div
                       style={{
-                        width: `${barValue / derivedMaxValue * 100}%`,
-                        minWidth: `${barValue / derivedMaxValue * 100}%`,
+                        width: `${barValue / displayedMaxValue * 100}%`,
+                        minWidth: `${barValue / displayedMaxValue * 100}%`,
                         backgroundColor: chart.color || 'var(--primary-color)',
                         height: '20px',
                         textAlign: 'right',
