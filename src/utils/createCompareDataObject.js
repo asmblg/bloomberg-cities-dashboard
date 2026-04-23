@@ -23,7 +23,7 @@ const createCompareDataObject = (
   } = getCurrentAndCompareData(
     calculator,
     data,
-    trendDataType || 'QtQ',
+    trendDataType,
     filterArray,
     postCalculator
   );

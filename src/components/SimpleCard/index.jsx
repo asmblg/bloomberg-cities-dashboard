@@ -504,14 +504,12 @@ const SimpleCard = ({
   const route = config?.route || `/${project}/${sectionKey}`;
 
   // const getterKey = config?.getterKey || {};
-  let trendDataType = getter?.[getterKey?.trendDataType] || null;
+  let trendDataType = getter?.[getterKey?.trendDataType] || 'YtY';
   if (config?.dateType === 'year') {
     if (trendDataType === 'QtQ') {
       trendDataType = 'YtY';
     } else if (trendDataType === 'YtY') {
       trendDataType = 'QtQ';
-    } else {
-      trendDataType = 'YtY';
     }
   }
 
