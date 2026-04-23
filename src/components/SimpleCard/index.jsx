@@ -1006,8 +1006,8 @@ const SimpleCard = ({
                   }}>
                     <div
                       style={{
-                        width: `${barValue / displayedMaxValue * 100}%`,
-                        minWidth: `${barValue / displayedMaxValue * 100}%`,
+                        width: `${barValue /( displayedMaxValue || derivedMaxValue) * 100}%`,
+                        minWidth: `${barValue / (displayedMaxValue || derivedMaxValue) * 100}%`,
                         backgroundColor: chart.color || 'var(--primary-color)',
                         height: '20px',
                         textAlign: 'right',

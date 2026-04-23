@@ -151,8 +151,33 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
     layer.bindTooltip(`${labelValue}`, {
       permanent: true,
       direction: 'center',
-      className: config?.polygonLabelClassName || 'map-polygon-label'
+      className: config?.polygonLabelClassName || 'map-polygon-label',
+      pane: 'mapLabelPane'
     });
+  };
+
+  const bindRefLayerLabel = (feature, layer, refLayerConfig) => {
+    if (!refLayerConfig?.showLabels) return;
+
+    const labelField = refLayerConfig?.labelField || 'name';
+    const labelValue = feature?.properties?.[labelField];
+    if (!labelValue) return;
+
+    const geometryType = feature?.geometry?.type;
+    const isPoint = geometryType === 'Point' || geometryType === 'MultiPoint';
+
+    const tooltipOptions = {
+      permanent: true,
+      direction: isPoint ? 'top' : 'center',
+      className: refLayerConfig?.labelClassName || config?.polygonLabelClassName || 'map-polygon-label',
+      pane: 'refLabelPane'
+    };
+
+    if (isPoint) {
+      tooltipOptions.offset = [0, -8];
+    }
+
+    layer.bindTooltip(`${labelValue}`, tooltipOptions);
   };
 
   const handleSetSelection = (key, option) => {
@@ -497,7 +522,11 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
             url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
           />
 
-          <Pane name='refTopPane' style={{ zIndex: 1000 }} />
+          <Pane name='refTopPane' style={{ zIndex: 900 }} />
+          <Pane name='dataTopPane' style={{ zIndex: 1000 }} />
+          <Pane name='selectedDataTopPane' style={{ zIndex: 1100 }} />
+          <Pane name='mapLabelPane' style={{ zIndex: 1125 }} />
+          <Pane name='refLabelPane' style={{ zIndex: 1150 }} />
           <Pane name='dataTooltipTopPane' style={{ zIndex: 1200 }} />
           <Pane name='refTooltipTopPane' style={{ zIndex: 1300 }} />
 
@@ -506,6 +535,7 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
               key={`selector-ref-layer-${i}`}
               pane='refTopPane'
               data={refLayerGeoJSON}
+              onEachFeature={(feature, layer) => bindRefLayerLabel(feature, layer, config?.refLayers?.[i])}
               pointToLayer={(feature, latlng) => {
                 const pointStyle = {
                   pane: 'refTopPane',
@@ -604,6 +634,7 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
           )}
           {geoJSON ?
             <GeoJSON
+              pane='dataTopPane'
               key={`data-layer-${binCount}-${localSelection?.key || selection?.key}-${bins ? 'binned' : 'not-binned'}`}
               data={geoJSON || null}
               onEachFeature={bindPolygonLabel}
@@ -678,6 +709,7 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
           }
           {geoJSON ?
             <GeoJSON
+              pane='selectedDataTopPane'
               key={`selected-layer-${localSelection?.key || selection?.key}-${bins ? 'binned' : 'not-binned'}`}
               data={geoJSON || null}
               onEachFeature={bindPolygonLabel}

@@ -85,8 +85,33 @@ const IndicatorMap = ({
     layer.bindTooltip(`${labelValue}`, {
       permanent: true,
       direction: 'center',
-      className: config?.polygonLabelClassName || 'map-polygon-label'
+      className: config?.polygonLabelClassName || 'map-polygon-label',
+      pane: 'mapLabelPane'
     });
+  };
+
+  const bindRefLayerLabel = (feature, layer, refLayerConfig) => {
+    if (!refLayerConfig?.showLabels) return;
+
+    const labelField = refLayerConfig?.labelField || 'name';
+    const labelValue = feature?.properties?.[labelField];
+    if (!labelValue) return;
+
+    const geometryType = feature?.geometry?.type;
+    const isPoint = geometryType === 'Point' || geometryType === 'MultiPoint';
+
+    const tooltipOptions = {
+      permanent: true,
+      direction: isPoint ? 'top' : 'center',
+      className: refLayerConfig?.labelClassName || config?.polygonLabelClassName || 'map-polygon-label',
+      pane: 'refLabelPane'
+    };
+
+    if (isPoint) {
+      tooltipOptions.offset = [0, -8];
+    }
+
+    layer.bindTooltip(`${labelValue}`, tooltipOptions);
   };
 
   let varKey = getter?.[config?.getterKey?.selectedIndicator]?.indicator?.var || getter?.[config?.getterKey?.selectedIndicator]?.var || getter?.[config?.getterKey?.selectedIndicator]?.indicator?.key || getter?.[config?.getterKey?.selectedIndicator]?.key || selectedIndicator?.var || defaultSelection?.key;
@@ -257,7 +282,10 @@ const IndicatorMap = ({
               url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
             />
 
-            <Pane name='refTopPane' style={{ zIndex: 1000 }} />
+            <Pane name='refTopPane' style={{ zIndex: 900 }} />
+            <Pane name='dataTopPane' style={{ zIndex: 1000 }} />
+            <Pane name='mapLabelPane' style={{ zIndex: 1050 }} />
+            <Pane name='refLabelPane' style={{ zIndex: 1100 }} />
             <Pane name='dataTooltipTopPane' style={{ zIndex: 1200 }} />
             <Pane name='refTooltipTopPane' style={{ zIndex: 1300 }} />
 
@@ -269,6 +297,7 @@ const IndicatorMap = ({
                 pane={'refTopPane'}
                 // Always on top of the data layer
                 data={refGeoJSON}
+                onEachFeature={(feature, layer) => bindRefLayerLabel(feature, layer, config?.refLayers?.[i])}
                 pointToLayer={(feature, latlng) => {
                   const pointStyle = {
                     pane: 'refTopPane',
@@ -371,7 +400,7 @@ const IndicatorMap = ({
             {
               mapGeoJSON
                 ? <GeoJSON
-                  pane='overlayPane'
+                  pane='dataTopPane'
                   eventHandlers={{
                     mouseover: e => {
                       const value = e.propagatedFrom?.feature?.properties?.[varKey];
