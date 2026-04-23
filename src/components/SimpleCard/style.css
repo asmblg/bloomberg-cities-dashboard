@@ -51,10 +51,11 @@
 }
 
 .simple-card-sub-header {
-  opacity: 0.8;
+  opacity: 1;
   margin-top: 2px;
   font-size: 10px;
   line-height: 10px;
+  margin-right: 20px;
 
 }
 
