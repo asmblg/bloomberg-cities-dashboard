@@ -6,7 +6,7 @@ const getCurrentRoute = (project, sectionKeys, viewType) => {
   const keys = [...sectionKeys];
 
   if (viewType !== 'desktop') {
-    keys.push('about', 'docs');
+    keys.push('about', 'api-docs');
   }
   // Grab section from end of pathname and ensure it is in the section keys
   const currentSection = pathname

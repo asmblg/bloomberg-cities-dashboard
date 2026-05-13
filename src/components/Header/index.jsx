@@ -71,6 +71,21 @@ const Header = ({
                   {'About the data'}
                 </Link>
               </div>
+              <div
+                className={
+                  selectedLink !== 'api-docs'
+                    ? 'about-link-container'
+                    : 'selected-about-link-container'
+                }
+              >
+                <Link
+                  className='about-link'
+                  to={`/${project}/api-docs`}
+                  onClick={() => linkClickHandler('api-docs')}
+                >
+                  {'API docs'}
+                </Link>
+              </div>
             </>
           )}
         </div>
@@ -100,6 +115,16 @@ const Header = ({
               )}
             </a>
           ))}
+          <a
+            className={`nav-link ${
+              'api-docs' === selectedLink ? 'selected-nav-link' : 'unselected-nav-link'
+            }`}
+            key='nav-link-api-docs'
+            href={`/${project}/api-docs`}
+            onClick={() => linkClickHandler('api-docs')}
+          >
+            API docs
+          </a>
         </nav>
       ) : null}
     </>

@@ -24,7 +24,7 @@ const handleViewType = (customBreakpoints) => {
 
 const getCurrentRoute = (project, sectionKeys, pathname) => {
   const keys = [...sectionKeys];
-  keys.push('about');
+  keys.push('about', 'api-docs');
 
   const parsedRoute = pathname.split('/').filter(str => str);
   const routeSection = parsedRoute[1];

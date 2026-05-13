@@ -46,5 +46,46 @@ module.exports = {
           .catch(err => res.status(422).json(err));
       }
     }
+  },
+
+  getLanguages: (req, res) => {
+    const { project } = req.query;
+    const localConfigPath = process.env.LOCAL_CONFIG_PATH;
+
+    if (!project) {
+      return res.status(400).json({
+        error: 'Please provide a project'
+      });
+    }
+
+    if (localConfigPath) {
+      const localConfig = require(localConfigPath);
+      const languages = localConfig
+        .filter(({ project: p }) => p.toLowerCase() === project.toLowerCase())
+        .map(({ lng }) => lng || null)
+        .filter((lng, index, self) => self.indexOf(lng) === index) // unique
+        .sort();
+      
+      res.json({ languages });
+    } else {
+      let config;
+
+      try {
+        ({ config } = getModelsForRequest(req));
+      } catch (err) {
+        return res.status(503).json({ message: err.message });
+      }
+
+      const regexProject = new RegExp(project, 'i');
+
+      config
+        .distinct('lng', { project: regexProject })
+        .then(languages => {
+          res.json({
+            languages: languages.sort()
+          });
+        })
+        .catch(err => res.status(422).json(err));
+    }
   }
 };

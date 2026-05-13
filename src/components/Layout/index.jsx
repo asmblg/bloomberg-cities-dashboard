@@ -112,7 +112,7 @@ const Layout = ({ config, setShowModal }) => {
           }}
         >
           <div id='section-container'>
-            {viewType !== 'mobile' && selectedLink !== 'about' && config && pathname !== '/' && !noTabs ? (
+            {viewType !== 'mobile' && !['about', 'api-docs'].includes(selectedLink) && config && pathname !== '/' && !noTabs ? (
               <SectionTabs
                 sectionKeys={sectionKeys}
                 sections={config.sections}

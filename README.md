@@ -57,8 +57,15 @@ Before you begin, ensure you have the following installed on your machine:
 ## Staging Database Routing
 
 - Set both `MONGODB_URI` and `MONGODB_URI_STAGING` in your environment.
-- Add `?staging=true` to the dashboard URL to route API reads (`/data`, `/config`, `/geo`) to the staging MongoDB connection.
+- Add `?staging=true` to the dashboard URL to route API reads (`/ui/data`, `/ui/config`, `/ui/geo` and `/api/v1/data`, `/api/v1/config`, `/api/v1/geo`) to the staging MongoDB connection.
 - Without `staging=true`, requests continue to use the primary MongoDB connection.
+
+## Endpoint Split
+
+- The dashboard UI reads from `/ui/data`, `/ui/config`, and `/ui/geo`.
+- The public read-only API is exposed under `/api/v1/data`, `/api/v1/config`, and `/api/v1/geo`.
+- UI routes reject requests with disallowed `Origin` headers.
+- The frontend includes an API docs page at `/{project}/api-docs`.
 
 ## Troubleshooting
 

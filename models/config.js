@@ -7,7 +7,8 @@ const configSchema = new Schema(
     logoURL: { type: String, required: false },
     style: { type: Object, required: false },
     manifest: { type: Object, required: true },
-    map: { type: Object, required: false }
+    map: { type: Object, required: false },
+    variables: { type: Array, required: false },
   },
   { collection: 'configs' }
 );

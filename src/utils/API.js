@@ -21,7 +21,7 @@ const withStagingParam = params => (
 const getConfig = async (projectCity, lng) => {
 
   // if (!localConfig) {
-    const res = await axios.get(`/config`, {
+    const res = await axios.get(`/ui/config`, {
       params: withStagingParam(
         lng
           ? {
@@ -57,7 +57,7 @@ const getConfig = async (projectCity, lng) => {
 };
 
 const getData = (project, select) =>
-  axios.get(`/data`, {
+  axios.get(`/ui/data`, {
     params: withStagingParam({
       project,
       select: `updatedOn ${select}`
@@ -65,7 +65,7 @@ const getData = (project, select) =>
   });
 
 const getTractGeoJSON = project =>
-  axios.get(`/geo`, {
+  axios.get(`/ui/geo`, {
     params: withStagingParam({
       project,
       geoType: 'Census Tracts'
@@ -73,7 +73,7 @@ const getTractGeoJSON = project =>
   });
 
 const getGeoJSON = (project, geoType) =>
-  axios.get(`/geo`, {
+  axios.get(`/ui/geo`, {
     params: withStagingParam({
       project,
       geoType

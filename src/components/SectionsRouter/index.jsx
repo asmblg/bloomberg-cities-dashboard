@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import LandingPage from '../LandingPage';
 import Home from '../Home';
 import DetailCard from '../DetailCard';
+import ApiDocumentation from '../ApiDocumentation';
 
 const SectionRouter = ({
   project,
@@ -20,6 +21,18 @@ const SectionRouter = ({
 }) => (
   <Routes>
     <Route path={'/'} element={<LandingPage viewType={viewType} />} />
+
+    <Route
+      path={`/${project.toLowerCase()}/api-docs`}
+      element={
+        <ApiDocumentation
+          project={project}
+          viewType={viewType}
+          noTabs={noTabs}
+          selectedLink={selectedLink}
+        />
+      }
+    />
 
     {sectionKeys?.[0]
       ? sectionKeys.map(key =>

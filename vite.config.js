@@ -6,9 +6,8 @@ export default defineConfig({
   server: {
     open: true,
     proxy: {
-      '/data': 'http://localhost:3001',
-      '/config': 'http://localhost:3001',
-      '/geo': 'http://localhost:3001'
+      '/ui': 'http://localhost:3001',
+      '/api': 'http://localhost:3001'
 
     }
   },

@@ -1,12 +1,9 @@
-// const path = require('path');
 const router = require('express').Router();
-const dataRoutes = require('./data');
-const configRoutes = require('./config');
-const geoRoutes = require('./geo')
+const apiRoutes = require('./api');
+const uiRoutes = require('./ui');
 
-router.use('/data', dataRoutes);
-router.use('/config', configRoutes);
-router.use('/geo', geoRoutes);
+router.use('/api', apiRoutes);
+router.use('/ui', uiRoutes);
 
 router.use((err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
