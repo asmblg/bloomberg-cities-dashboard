@@ -33,7 +33,10 @@ const publicRoutes = [
   }
 ];
 
-const API_BASE = import.meta.env.VITE_API_URL || '';
+const PRODUCTION_API_BASE = 'https://bloomberg-cities-dashboard-eu-eb6aebd069f7.herokuapp.com';
+
+const API_BASE = import.meta.env.VITE_API_URL
+  || (import.meta.env.PROD ? PRODUCTION_API_BASE : '');
 
 const normalizeBasePath = (basePath = '') => {
   if (!basePath || basePath === '/') {
