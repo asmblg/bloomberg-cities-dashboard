@@ -35,6 +35,34 @@ const publicRoutes = [
 
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
+const normalizeBasePath = (basePath = '') => {
+  if (!basePath || basePath === '/') {
+    return '';
+  }
+  return basePath.replace(/\/+$/, '');
+};
+
+const getRuntimeBasePath = () => {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  const pathname = window.location.pathname || '';
+  const apiDocsIndex = pathname.indexOf('/api-docs');
+
+  if (apiDocsIndex === -1) {
+    return '';
+  }
+
+  return normalizeBasePath(pathname.slice(0, apiDocsIndex));
+};
+
+const joinBaseAndPath = (basePath, path) => {
+  const normalizedBasePath = normalizeBasePath(basePath);
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${normalizedBasePath}${normalizedPath}`;
+};
+
 
 const RouteCard = ({ route, project, dynamicOptions }) => {
   const [paramValues, setParamValues] = useState({});
@@ -85,13 +113,11 @@ const RouteCard = ({ route, project, dynamicOptions }) => {
       queryParams.push(`select=${encodeURIComponent(selectedExample)}`);
     }
     const example = `${route.path}${queryParams.length > 0 ? '?' + queryParams.join('&') : ''}`;
-    let fullUrl = example;
     if (API_BASE) {
-      fullUrl = `${API_BASE}${example}`;
-    } else {
-      fullUrl = `/${project}${example.startsWith('/') ? '' : '/'}${example}`;
+      return joinBaseAndPath(API_BASE, example);
     }
-    return fullUrl;
+
+    return joinBaseAndPath(getRuntimeBasePath(), example);
   };
 
   const fullUrl = buildExampleUrl();
@@ -227,10 +253,10 @@ const ApiDocumentation = ({ project }) => {
     // Fetch geoTypes and languages from the backend
     const fetchOptions = async () => {
       try {
-        const baseUrl = API_BASE || `http://localhost:3001`;
+        const baseUrl = API_BASE || getRuntimeBasePath();
         
         // Fetch geoTypes
-        const geoResponse = await fetch(`${baseUrl}/ui/geo/types?project=${project}`);
+        const geoResponse = await fetch(`${joinBaseAndPath(baseUrl, '/ui/geo/types')}?project=${project}`);
         if (geoResponse.ok) {
           const geoData = await geoResponse.json();
           setDynamicOptions(prev => ({
@@ -240,7 +266,7 @@ const ApiDocumentation = ({ project }) => {
         }
 
         // Fetch languages
-        const langResponse = await fetch(`${baseUrl}/ui/config/languages?project=${project}`);
+        const langResponse = await fetch(`${joinBaseAndPath(baseUrl, '/ui/config/languages')}?project=${project}`);
         if (langResponse.ok) {
           const langData = await langResponse.json();
           setDynamicOptions(prev => ({
