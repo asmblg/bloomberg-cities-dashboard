@@ -266,7 +266,8 @@ const SimpleCard = ({
       .join('.');
   };
 
-  // console.log({manifest})
+  // Resolve label manifests from either inline card config or section-level manifest map.
+  const activeManifest = config?.manifest || manifest?.[config?.manifestKey] || {};
   const selectedIndicatorManifest = manifest?.[selectedIndicatorManifestKey] || {};
 
   // console.log({ config });
@@ -620,8 +621,8 @@ const SimpleCard = ({
 
   const noManifestValue = [];
   Object.keys(allSummaryData || {}).forEach((dataKey) => {
-    const manifestValue = config?.manifest?.[dataKey];
-    if (!manifestValue && Object.keys(config?.manifest || {})?.length > 5) {
+    const manifestValue = activeManifest?.[dataKey];
+    if (!manifestValue && Object.keys(activeManifest || {})?.length > 5) {
       noManifestValue.push(dataKey);
     }
   });
@@ -985,7 +986,7 @@ const SimpleCard = ({
                     }} className='horizontal-bar-label'>
                       {
                         labelFormatter(
-                          config?.manifest?.[barKey] || barKey,
+                          activeManifest?.[barKey] || barKey,
                           chart?.labelFormatters
                             ? [...chart.labelFormatters]
                             : chart?.labelFormatter

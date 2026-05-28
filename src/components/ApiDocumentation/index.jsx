@@ -7,10 +7,11 @@ const publicRoutes = [
   {
     method: 'GET',
     path: '/api/v1/about',
-    description: 'Returns the variables array for a given project and language. Use this to discover available data fields.',
+    description: 'Returns variables and a compiled manifest object for a given project and language. Optionally filter by section to scope both variables and manifest.',
     params: [
       { name: 'project', required: true },
-      { name: 'lng', required: false, dynamic: 'languages' }
+      { name: 'lng', required: false, dynamic: 'languages' },
+      { name: 'section', required: false, dynamic: 'sections' }
     ]
   },
   {
@@ -67,7 +68,7 @@ const joinBaseAndPath = (basePath, path) => {
 };
 
 
-const RouteCard = ({ route, project, dynamicOptions }) => {
+const RouteCard = ({ route, project, dynamicOptions, stagingEnabled }) => {
   const [paramValues, setParamValues] = useState({});
   // Initialize param values
   useEffect(() => {
@@ -114,6 +115,9 @@ const RouteCard = ({ route, project, dynamicOptions }) => {
     // If select example is chosen, add it
     if (route.path === '/api/v1/data' && selectedExample) {
       queryParams.push(`select=${encodeURIComponent(selectedExample)}`);
+    }
+    if (stagingEnabled) {
+      queryParams.push('staging=true');
     }
     const example = `${route.path}${queryParams.length > 0 ? '?' + queryParams.join('&') : ''}`;
     if (API_BASE) {
@@ -246,20 +250,33 @@ RouteCard.propTypes = {
     params: PropTypes.arrayOf(PropTypes.object)
   }).isRequired,
   project: PropTypes.string.isRequired,
-  dynamicOptions: PropTypes.object.isRequired
+  dynamicOptions: PropTypes.object.isRequired,
+  stagingEnabled: PropTypes.bool.isRequired
 };
 
 const ApiDocumentation = ({ project }) => {
-  const [dynamicOptions, setDynamicOptions] = useState({ geoTypes: [], languages: [] });
+  const [dynamicOptions, setDynamicOptions] = useState({ geoTypes: [], languages: [], sections: [] });
+  const [stagingEnabled, setStagingEnabled] = useState(false);
+
+  const buildOptionQuery = () => {
+    const query = new URLSearchParams();
+    query.set('project', project);
+    if (stagingEnabled) {
+      query.set('staging', 'true');
+    }
+    return query.toString();
+  };
 
   useEffect(() => {
-    // Fetch geoTypes and languages from the backend
+    // Fetch geoTypes, languages and sections from the backend
     const fetchOptions = async () => {
       try {
         const baseUrl = API_BASE || getRuntimeBasePath();
         
         // Fetch geoTypes
-        const geoResponse = await fetch(`${joinBaseAndPath(baseUrl, '/ui/geo/types')}?project=${project}`);
+        const optionQuery = buildOptionQuery();
+
+        const geoResponse = await fetch(`${joinBaseAndPath(baseUrl, '/ui/geo/types')}?${optionQuery}`);
         if (geoResponse.ok) {
           const geoData = await geoResponse.json();
           setDynamicOptions(prev => ({
@@ -269,12 +286,25 @@ const ApiDocumentation = ({ project }) => {
         }
 
         // Fetch languages
-        const langResponse = await fetch(`${joinBaseAndPath(baseUrl, '/ui/config/languages')}?project=${project}`);
+        const langResponse = await fetch(`${joinBaseAndPath(baseUrl, '/ui/config/languages')}?${optionQuery}`);
         if (langResponse.ok) {
           const langData = await langResponse.json();
           setDynamicOptions(prev => ({
             ...prev,
             languages: langData.languages || []
+          }));
+        }
+
+        // Fetch section keys
+        const sectionResponse = await fetch(`${joinBaseAndPath(baseUrl, '/ui/config')}?${optionQuery}`);
+        if (sectionResponse.ok) {
+          const sectionData = await sectionResponse.json();
+          const sectionKeys = Object.keys(sectionData?.[0]?.sections || {})
+            .filter(key => key !== 'about');
+
+          setDynamicOptions(prev => ({
+            ...prev,
+            sections: sectionKeys
           }));
         }
       } catch (error) {
@@ -283,7 +313,8 @@ const ApiDocumentation = ({ project }) => {
         setDynamicOptions(prev => ({
           ...prev,
           geoTypes: ['Census Tracts', 'County', 'State'],
-          languages: [null, 'en', 'sk']
+          languages: [null, 'en', 'sk'],
+          sections: ['jobs', 'workers', 'business', 'realestate', 'innovation', 'tourism', 'city-overview']
         }));
       }
     };
@@ -291,7 +322,7 @@ const ApiDocumentation = ({ project }) => {
     if (project) {
       fetchOptions();
     }
-  }, [project]);
+  }, [project, stagingEnabled]);
 
   return (
     <main className='api-doc-page'>
@@ -303,6 +334,20 @@ const ApiDocumentation = ({ project }) => {
           <p className='api-doc-intro'>
             Public read-only API routes for external clients and integrations.
           </p>
+        </div>
+        <div className='api-doc-toggle-wrapper'>
+          <label className='api-doc-toggle-label' htmlFor='api-doc-staging-toggle'>
+            Use staging DB
+          </label>
+          <button
+            id='api-doc-staging-toggle'
+            type='button'
+            className={`api-doc-toggle ${stagingEnabled ? 'enabled' : 'disabled'}`}
+            onClick={() => setStagingEnabled(prev => !prev)}
+            aria-pressed={stagingEnabled}
+          >
+            <span className='api-doc-toggle-knob' />
+          </button>
         </div>
       </section>
 
@@ -318,6 +363,7 @@ const ApiDocumentation = ({ project }) => {
               route={route}
               project={project}
               dynamicOptions={dynamicOptions}
+              stagingEnabled={stagingEnabled}
             />
           ))}
         </div>
