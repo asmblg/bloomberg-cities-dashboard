@@ -128,6 +128,7 @@ const Layout = ({ config, setShowModal }) => {
               noTabs={noTabs}
               disableHeader={disableHeader}
               project={projectSlug}
+              parentUrl={config?.parentUrl}
               dashboardType={config?.dashboardType}
               sectionKeys={sectionKeys}
               sections={config?.sections}

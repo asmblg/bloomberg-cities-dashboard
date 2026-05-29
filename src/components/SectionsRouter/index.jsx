@@ -8,6 +8,7 @@ import ApiDocumentation from '../ApiDocumentation';
 
 const SectionRouter = ({
   project,
+  parentUrl,
   sections,
   sectionKeys,
   viewType,
@@ -63,6 +64,7 @@ const SectionRouter = ({
                 variables={variables}
                 sectionKey={key}
                 project={project}
+                parentUrl={parentUrl}
                 viewType={viewType}
                 trendDataType={trendDataType}
                 setTrendDataType={setTrendDataType}
@@ -79,6 +81,7 @@ const SectionRouter = ({
 
 SectionRouter.propTypes = {
   project: PropTypes.string,
+  parentUrl: PropTypes.string,
   dashboardType: PropTypes.string,
   sectionKeys: PropTypes.array,
   sections: PropTypes.object,

@@ -33,6 +33,7 @@ const FlexLayoutElement = ({
   getter,
   layout,
   project,
+  parentUrl,
   selectedLink,
   setSelectedLink,
   viewType,
@@ -116,6 +117,7 @@ const FlexLayoutElement = ({
             getter={getter}
             layout={element}
             project={project}
+            parentUrl={parentUrl}
             selectedLink={selectedLink}
             setSelectedLink={setSelectedLink}
             infoIconConfig={infoIconConfig}
@@ -132,6 +134,8 @@ const FlexLayoutElement = ({
         <SimpleCard
           config={content?.config || content}
           data={data}
+          project={project}
+          parentUrl={parentUrl}
           getter={getter}
           manifest={manifest}
           variables={variables}
@@ -322,6 +326,7 @@ FlexLayoutElement.propTypes = {
   getter: PropTypes.object,
   layout: PropTypes.object,
   project: PropTypes.string,
+  parentUrl: PropTypes.string,
   selectedLink: PropTypes.string,
   setSelectedLink: PropTypes.func,
   viewType: PropTypes.string,

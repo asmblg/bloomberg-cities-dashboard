@@ -9,6 +9,7 @@ import './style.css';
 
 const DetailCard = ({ 
   project,
+  parentUrl,
   config,
   sectionKey,
   viewType,
@@ -84,6 +85,7 @@ const DetailCard = ({
             data={detailData.data}
             layout={config.layout}
             project={project}
+            parentUrl={parentUrl}
             manifest={config?.manifest || {}}
             viewType={viewType}
             selectedLink={selectedLink}
@@ -148,6 +150,7 @@ const DetailCard = ({
 
 DetailCard.propTypes = {
   project: PropTypes.string,
+  parentUrl: PropTypes.string,
   config: PropTypes.object,
   sectionKey: PropTypes.string,
   viewType: PropTypes.string,
