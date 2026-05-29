@@ -17,6 +17,7 @@ const FlexLayout = ({
   viewOptions,
   data,
   project,
+  parentUrl,
   viewType,
   selectedLink,
   setSelectedLink,
@@ -156,6 +157,7 @@ const FlexLayout = ({
             data={data}
             deactivated={element.deactivated}
             project={project}
+            parentUrl={parentUrl}
             layout={element}
             setter={handleSetter}
             getter={getter}
@@ -182,6 +184,7 @@ FlexLayout.propTypes = {
   layout: PropTypes.object,
   data: PropTypes.object,
   project: PropTypes.string,
+  parentUrl: PropTypes.string,
   initialState: PropTypes.object,
   viewType: PropTypes.string,
   selectedLink: PropTypes.string,

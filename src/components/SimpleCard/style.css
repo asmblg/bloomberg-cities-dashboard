@@ -127,6 +127,26 @@
 svg.recharts-surface {
   overflow: visible;
 }
+
+.simple-card-download-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0 0 0;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+  color: var(--primary-color, #555);
+  opacity: 0.6;
+  transition: opacity 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.simple-card-download-btn:hover {
+  opacity: 1;
+}
 /* -------------------- MEDIA QUERIES -------------------- */
 /* Initial Desktop Breakpoint */
 @media screen and (max-width: 1410px) {

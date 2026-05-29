@@ -20,6 +20,7 @@ const SimpleCard = ({
   data,
   viewType,
   project,
+  parentUrl,
   variables,
   // dashboardType,
   cardKey,
@@ -571,6 +572,7 @@ const SimpleCard = ({
           ? `${selectedIndicatorLabel}`
           : config?.defaultSubheading || config?.indicator?.Geography
     }${derivedDate ? `, ${formatQuarterDate(derivedDate, 'QX YYYY', lng)}` : ''}`;
+  const resolvedSubHeadingText = `${subHeadingManifest?.[subHeadingText] || subHeadingText}`;
   // console.log({ trendDataType });
 
   useEffect(() => {
@@ -596,6 +598,183 @@ const SimpleCard = ({
       });
     }
   }, [allSummaryData, trendDataType]);
+
+  const buildCsvAndDownload = () => {
+    const escapeCsvCell = (value) => {
+      if (value === null || value === undefined) {
+        return '';
+      }
+      const stringValue = String(value);
+      if (/[",\r\n]/.test(stringValue)) {
+        return `"${stringValue.replace(/"/g, '""')}"`;
+      }
+      return stringValue;
+    };
+
+    const rows = [];
+    const cardLabel = label || config?.indicator?.Variable || 'data';
+    const source = variableInfo?.Source || config?.indicator?.Source || '';
+    const sourceUrl = variableInfo?.Source_link || config?.indicator?.Source_link || '';
+    const geography = variableInfo?.Geography || config?.indicator?.Geography || '';
+    const description = variableInfo?.Description || config?.indicator?.Description || '';
+    const unitsLabel = units || '';
+    const downloadedFrom = parentUrl || window.location.href;
+    const downloadedOn = new Date().toLocaleString();
+    const usesGetterFilter = Boolean(getterKey?.selectorPath || getterKey?.selectedIndicator);
+    const getterFilterParts = [];
+    if (getterKey?.selectedIndicator && selectedIndicatorLabel) {
+      getterFilterParts.push(String(selectedIndicatorLabel));
+    }
+    if (getterKey?.selectorPath) {
+      const selectorLabel = selectorPath?.label || selectorPath;
+      if (selectorLabel && String(selectorLabel).toLowerCase() !== 'total') {
+        getterFilterParts.push(String(selectorLabel));
+      }
+    }
+    if (getterKey?.barFilterPath) {
+      const barFilterLabel = barFilterPath?.label || barFilterPath;
+      if (barFilterLabel && String(barFilterLabel).toLowerCase() !== 'total') {
+        getterFilterParts.push(String(barFilterLabel));
+      }
+    }
+    const filtersForExport = usesGetterFilter
+      ? [...new Set(getterFilterParts)].join(', ')
+      : '';
+
+    // Header block
+    rows.push(['Downloaded from:', downloadedFrom]);
+    rows.push(['Downloaded on:', downloadedOn]);
+    rows.push([]);
+
+    rows.push(['Title:', cardLabel]);
+    if (description) rows.push(['Description:', description]);
+    if (filtersForExport) rows.push(['Filters:', filtersForExport]);
+    if (geography) rows.push(['Geography:', geography]);
+    if (derivedDate) rows.push(['Year/Quarter:', derivedDate]);
+    if (unitsLabel) rows.push(['Units:', unitsLabel]);
+    if (source) rows.push(['Source:', source]);
+    if (sourceUrl) rows.push(['Source URL:', sourceUrl]);
+    rows.push([]);
+
+    const isHorizontalBar = chart?.type === 'horizontal-bar';
+
+    if (isHorizontalBar) {
+      // --- Horizontal bar / ranked list ---
+      rows.push(['Label', 'Value']);
+
+      // Replicate the same filter/sort pipeline from the render output
+      let entries = Object.entries(allSummaryData || {});
+
+      // barFilterArray exclusion
+      if (barFilterArray?.length) {
+        entries = entries.filter(([k]) => barFilterArray.includes(k));
+      }
+      // min value filter
+      if (chart?.values?.min != null) {
+        entries = entries.filter(([, v]) => v != null && v >= chart.values.min);
+      }
+      // exclude list
+      if (chart?.exclude?.length) {
+        entries = entries.filter(([k]) => !chart.exclude.includes(k));
+      }
+      // null filter
+      entries = entries.filter(([, v]) => v != null);
+
+      // sort by value desc then by orderArray
+      entries.sort((a, b) => parseInt(b[1]) - parseInt(a[1]));
+      if (chart?.orderArray?.length) {
+        entries.sort((a, b) => {
+          const ai = chart.orderArray.indexOf(a[0]);
+          const bi = chart.orderArray.indexOf(b[0]);
+          if (ai === -1 && bi === -1) return 0;
+          if (ai === -1) return 1;
+          if (bi === -1) return -1;
+          return ai - bi;
+        });
+      }
+
+      // countMax
+      if (chart?.values?.countMax) {
+        entries = entries.slice(0, chart.values.countMax);
+      }
+
+      entries.forEach(([k, v]) => {
+        const barLabel = labelFormatter(
+          activeManifest?.[k] || k,
+          chart?.labelFormatters ? [...chart.labelFormatters]
+            : chart?.labelFormatter ? [chart.labelFormatter] : []
+        );
+        rows.push([barLabel, v ?? '']);
+      });
+
+    } else if (comparisonData && config?.comparisonPaths?.length) {
+      // --- Comparison time-series chart: rows = dates, cols = each city ---
+      const defaultPrimaryLabel = project
+        ? `${project}`.charAt(0).toUpperCase() + `${project}`.slice(1)
+        : 'Bratislava';
+      const primaryCityLabel = config?.comparisonPrimaryLabel || config?.comparisonBaseLabel || defaultPrimaryLabel;
+      const cityLabels = [
+        primaryCityLabel,
+        ...config.comparisonPaths
+          .map(p => p.label)
+          .filter(labelValue => labelValue !== primaryCityLabel)
+      ];
+
+      if (chart?.valueType === 'mostCurrent') {
+        // Single row of comparison values
+        rows.push(['Label', ...cityLabels]);
+        rows.push([
+          cardLabel,
+          ...cityLabels.map(l => {
+            if (l === primaryCityLabel) {
+              return summaryData?.displayValue ?? summaryData?.currentValue ?? '';
+            }
+            return comparisonData[l] ?? '';
+          })
+        ]);
+      } else {
+        // Time-series: collect all date keys across all cities
+        const dateSet = new Set(Object.keys(allSummaryData || {}));
+        cityLabels.filter(l => l !== primaryCityLabel).forEach(l => {
+          Object.keys(comparisonData[l] || {}).forEach(d => dateSet.add(d));
+        });
+        const sortedDates = [...dateSet].sort();
+
+        rows.push(['Year/Quarter', ...cityLabels]);
+        sortedDates.forEach(d => {
+          const dateLabel = formatQuarterDate(d, 'QX YYYY', lng) || d;
+          rows.push([
+            dateLabel,
+            ...cityLabels.map(l => {
+              if (l === primaryCityLabel) {
+                return allSummaryData?.[d] ?? '';
+              }
+              const cityData = comparisonData[l];
+              return (cityData && cityData[d] != null) ? cityData[d] : '';
+            })
+          ]);
+        });
+      }
+
+    } else {
+      // --- Standard time-series ---
+      rows.push(['Year/Quarter', cardLabel]);
+      const sortedEntries = Object.entries(allSummaryData || {}).sort(([a], [b]) => a.localeCompare(b));
+      sortedEntries.forEach(([d, v]) => {
+        const dateLabel = formatQuarterDate(d, 'QX YYYY', lng) || d;
+        rows.push([dateLabel, v ?? '']);
+      });
+    }
+
+    const csvContent = rows.map(row => row.map(escapeCsvCell).join(',')).join('\r\n');
+    const blob = new Blob(['\uFEFF', csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${cardLabel.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const labelFormatter = (value, formatters) => {
     let valueFormatted = value;
@@ -657,9 +836,19 @@ const SimpleCard = ({
             />
           ) : null}
           <h4 className='simple-card-header-text' style={{ ...headerStyle || {} }}>{label?.toUpperCase() || 'UNDEFINED'}</h4>
-          <div>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
             <InfoIcon config={variableInfo || config?.indicator} popup />
-          </div>
+            {config?.enableDownload && allSummaryData && (
+              <button
+                className='simple-card-download-btn'
+                title='Download CSV'
+                onClick={(e) => { e.stopPropagation(); buildCsvAndDownload(); }}
+                aria-label='Download data as CSV'
+              >
+                ↓
+              </button>
+            )}
+          </span>
         </div>
 
         {viewType === 'mobile' && !cardFullSize && !disablePill ? (
@@ -679,7 +868,7 @@ const SimpleCard = ({
       </div>
 
       <h5 className='simple-card-sub-header'>
-        {`${subHeadingManifest?.[subHeadingText] || subHeadingText}`?.toLocaleUpperCase()}
+        {resolvedSubHeadingText?.toLocaleUpperCase()}
 
       </h5>
       {(viewType !== 'mobile' || cardFullSize) && chart?.type !== 'horizontal-bar' ? (
@@ -1098,6 +1287,7 @@ SimpleCard.propTypes = {
   config: PropTypes.object,
   data: PropTypes.object,
   project: PropTypes.string,
+  parentUrl: PropTypes.string,
   dashboardType: PropTypes.string,
   cardKey: PropTypes.string,
   viewType: PropTypes.string,
