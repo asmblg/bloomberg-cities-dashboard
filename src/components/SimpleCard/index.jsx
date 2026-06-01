@@ -84,6 +84,14 @@ const SimpleCard = ({
   const filterArray = selectedIndicatorFilterArray || selectorFilterArray || null;
   const [derivedDate, setDerivedDate] = useState(null);
   const [derivedMaxValue, setDerivedMaxValue] = useState(null);
+  const [showDownloadToast, setShowDownloadToast] = useState(false);
+  const downloadToastTimeoutRef = useRef(null);
+
+  useEffect(() => () => {
+    if (downloadToastTimeoutRef.current) {
+      clearTimeout(downloadToastTimeoutRef.current);
+    }
+  }, []);
 
   const cloneAggregateValue = (value) => {
     if (Array.isArray(value)) {
@@ -774,6 +782,14 @@ const SimpleCard = ({
     a.download = `${cardLabel.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.csv`;
     a.click();
     URL.revokeObjectURL(url);
+
+    if (downloadToastTimeoutRef.current) {
+      clearTimeout(downloadToastTimeoutRef.current);
+    }
+    setShowDownloadToast(true);
+    downloadToastTimeoutRef.current = setTimeout(() => {
+      setShowDownloadToast(false);
+    }, 1800);
   };
 
   const labelFormatter = (value, formatters) => {
@@ -836,17 +852,16 @@ const SimpleCard = ({
             />
           ) : null}
           <h4 className='simple-card-header-text' style={{ ...headerStyle || {} }}>{label?.toUpperCase() || 'UNDEFINED'}</h4>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '2px' }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0px' }}>
             <InfoIcon config={variableInfo || config?.indicator} popup />
             {config?.enableDownload && allSummaryData && (
-              <button
-                className='simple-card-download-btn'
+              <i
+                className="arrow alternate circle down icon download-icon"
                 title='Download CSV'
                 onClick={(e) => { e.stopPropagation(); buildCsvAndDownload(); }}
                 aria-label='Download data as CSV'
-              >
-                ↓
-              </button>
+              />
+
             )}
           </span>
         </div>
@@ -866,6 +881,12 @@ const SimpleCard = ({
           />
         ) : null}
       </div>
+
+      {showDownloadToast ? (
+        <div className='simple-card-download-toast' role='status' aria-live='polite'>
+          CSV downloaded
+        </div>
+      ) : null}
 
       <h5 className='simple-card-sub-header'>
         {resolvedSubHeadingText?.toLocaleUpperCase()}
