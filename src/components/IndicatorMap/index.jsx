@@ -42,6 +42,7 @@ const IndicatorMap = ({
   const numOfBins = colors.length;
   const title = config?.title || 'Select socioeconomic variable to map:';
   const indicators = config?.indicators || null;
+  const useLegacyRefLayerBehavior = config?.legacyRefLayerBehavior === true;
   const selectedOption = getter?.[config?.getterKey?.selectedIndicator];
   const defaultSelection = selectedOption || indicators?.[0];
 
@@ -282,8 +283,8 @@ const IndicatorMap = ({
               url='https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
             />
 
-            <Pane name='refTopPane' style={{ zIndex: 900 }} />
-            <Pane name='dataTopPane' style={{ zIndex: 1000 }} />
+            <Pane name='refTopPane' style={{ zIndex: useLegacyRefLayerBehavior ? 900 : 1000 }} />
+            <Pane name='dataTopPane' style={{ zIndex: useLegacyRefLayerBehavior ? 1000 : 900 }} />
             <Pane name='mapLabelPane' style={{ zIndex: 1050 }} />
             <Pane name='refLabelPane' style={{ zIndex: 1100 }} />
             <Pane name='dataTooltipTopPane' style={{ zIndex: 1200 }} />
@@ -476,7 +477,7 @@ const IndicatorMap = ({
                   }}
                   onEachFeature={bindPolygonLabel}
                 >
-                  {!config?.refGeoJSON && hoveredFeature?.value &&
+                  {(useLegacyRefLayerBehavior || refGeoJSON.length === 0) && hoveredFeature?.value &&
                     (<Tooltip pane='dataTooltipTopPane'>
                       <div className='indicator-map-tooltip'>
                         <h4>{config?.nameProperty?.prefix || ''} {hoveredFeature?.geo}</h4>
