@@ -504,7 +504,7 @@ const SimpleCard = ({
       config?.projectedDataPath,
       config?.denominatorPath,
       summary?.dataPath
-      
+
 
     ]);
 
@@ -607,6 +607,41 @@ const SimpleCard = ({
     }
   }, [allSummaryData, trendDataType]);
 
+  const getUnitsFromFormatter = (string) => {
+    if (!string || typeof string !== 'string') {
+      return '';
+    }
+    switch (string) {
+      case 'percent':
+      case 'percentage':
+      case 'percentX100':
+        return '%';
+      case 'dollars':
+      case 'bigDollars':
+        return '$';
+      case 'bigEuros':
+      case 'euro':
+      case 'euros':
+        return '€';
+      case 'bigNumbers':
+      case 'thousands':
+        return '';
+      case '€':
+      case '€ per sqm/month':
+        return '€';
+      case 'M €':
+        return 'M €';
+      case '$M':
+        return '$M';
+      case 'per100000':
+        return null;
+      case 'wholeNumbers':
+      case 'percentageOfTotal':
+        return '%';
+      default: null
+    }
+  };
+
   const buildCsvAndDownload = () => {
     const escapeCsvCell = (value) => {
       if (value === null || value === undefined) {
@@ -625,9 +660,25 @@ const SimpleCard = ({
     const sourceUrl = variableInfo?.Source_link || config?.indicator?.Source_link || '';
     const geography = variableInfo?.Geography || config?.indicator?.Geography || '';
     const description = variableInfo?.Description || config?.indicator?.Description || '';
-    const unitsLabel = units || '';
+    const unitsLabel = [getUnitsFromFormatter(summary?.formatter), units?.toLowerCase()].filter(Boolean).join(' ').trim();
     const downloadedFrom = parentUrl || window.location.href;
     const downloadedOn = new Date().toLocaleString();
+    const scaleCsvValue = (value, formatter) => {
+      if (value === null || value === undefined || value === '') {
+        return value;
+      }
+
+      const numericValue = Number(value);
+      if (!Number.isFinite(numericValue)) {
+        return value;
+      }
+
+      if (formatter === 'per100000') {
+        return numericValue * 1000;
+      }
+
+      return value;
+    };
     const usesGetterFilter = Boolean(getterKey?.selectorPath || getterKey?.selectedIndicator);
     const getterFilterParts = [];
     if (getterKey?.selectedIndicator && selectedIndicatorLabel) {
@@ -712,7 +763,7 @@ const SimpleCard = ({
           chart?.labelFormatters ? [...chart.labelFormatters]
             : chart?.labelFormatter ? [chart.labelFormatter] : []
         );
-        rows.push([barLabel, v ?? '']);
+        rows.push([barLabel, scaleCsvValue(v, summary?.trendUnits || summary?.formatter) ?? '']);
       });
 
     } else if (comparisonData && config?.comparisonPaths?.length) {
@@ -735,9 +786,10 @@ const SimpleCard = ({
           cardLabel,
           ...cityLabels.map(l => {
             if (l === primaryCityLabel) {
-              return summaryData?.displayValue ?? summaryData?.currentValue ?? '';
+              const primaryValue = summaryData?.displayValue ?? summaryData?.currentValue ?? '';
+              return scaleCsvValue(primaryValue,  summary?.trendUnits || summary?.formatter);
             }
-            return comparisonData[l] ?? '';
+            return scaleCsvValue(comparisonData[l], summary?.trendUnits || summary?.formatter) ?? '';
           })
         ]);
       } else {
@@ -755,10 +807,12 @@ const SimpleCard = ({
             dateLabel,
             ...cityLabels.map(l => {
               if (l === primaryCityLabel) {
-                return allSummaryData?.[d] ?? '';
+                return scaleCsvValue(allSummaryData?.[d],  summary?.trendUnits || summary?.formatter) ?? '';
               }
               const cityData = comparisonData[l];
-              return (cityData && cityData[d] != null) ? cityData[d] : '';
+              return (cityData && cityData[d] != null)
+                ? scaleCsvValue(cityData[d], summary?.trendUnits || summary?.formatter)
+                : '';
             })
           ]);
         });
@@ -770,7 +824,7 @@ const SimpleCard = ({
       const sortedEntries = Object.entries(allSummaryData || {}).sort(([a], [b]) => a.localeCompare(b));
       sortedEntries.forEach(([d, v]) => {
         const dateLabel = formatQuarterDate(d, 'QX YYYY', lng) || d;
-        rows.push([dateLabel, v ?? '']);
+        rows.push([dateLabel, scaleCsvValue(v,  summary?.trendUnits || summary?.formatter) ?? '']);
       });
     }
 
@@ -823,7 +877,7 @@ const SimpleCard = ({
   });
   // console.log('Total Value', totalValue, {noManifestValue});
   // console.log('Rendering SimpleCard', config?.summary?.showZeroValues, summaryData?.displayValue);
-  console.log({derivedMaxValue});
+  console.log({ derivedMaxValue });
   let displayedMaxValue = null;
   return (
     <div
@@ -1215,7 +1269,7 @@ const SimpleCard = ({
                   }}>
                     <div
                       style={{
-                        width: `${barValue /( displayedMaxValue || derivedMaxValue) * 100}%`,
+                        width: `${barValue / (displayedMaxValue || derivedMaxValue) * 100}%`,
                         minWidth: `${barValue / (displayedMaxValue || derivedMaxValue) * 100}%`,
                         backgroundColor: chart.color || 'var(--primary-color)',
                         height: '20px',
