@@ -609,12 +609,13 @@ const SimpleCard = ({
 
   const getUnitsFromFormatter = (string) => {
     if (!string || typeof string !== 'string') {
-      return '';
+      return null;
     }
     switch (string) {
       case 'percent':
       case 'percentage':
       case 'percentX100':
+      case 'percentageOfTotal':
         return '%';
       case 'dollars':
       case 'bigDollars':
@@ -633,11 +634,9 @@ const SimpleCard = ({
         return 'M €';
       case '$M':
         return '$M';
+      case 'wholeNumbers':
       case 'per100000':
         return null;
-      case 'wholeNumbers':
-      case 'percentageOfTotal':
-        return '%';
       default: null
     }
   };
@@ -787,7 +786,7 @@ const SimpleCard = ({
           ...cityLabels.map(l => {
             if (l === primaryCityLabel) {
               const primaryValue = summaryData?.displayValue ?? summaryData?.currentValue ?? '';
-              return scaleCsvValue(primaryValue,  summary?.trendUnits || summary?.formatter);
+              return scaleCsvValue(primaryValue, summary?.trendUnits || summary?.formatter);
             }
             return scaleCsvValue(comparisonData[l], summary?.trendUnits || summary?.formatter) ?? '';
           })
@@ -807,7 +806,7 @@ const SimpleCard = ({
             dateLabel,
             ...cityLabels.map(l => {
               if (l === primaryCityLabel) {
-                return scaleCsvValue(allSummaryData?.[d],  summary?.trendUnits || summary?.formatter) ?? '';
+                return scaleCsvValue(allSummaryData?.[d], summary?.trendUnits || summary?.formatter) ?? '';
               }
               const cityData = comparisonData[l];
               return (cityData && cityData[d] != null)
@@ -824,7 +823,7 @@ const SimpleCard = ({
       const sortedEntries = Object.entries(allSummaryData || {}).sort(([a], [b]) => a.localeCompare(b));
       sortedEntries.forEach(([d, v]) => {
         const dateLabel = formatQuarterDate(d, 'QX YYYY', lng) || d;
-        rows.push([dateLabel, scaleCsvValue(v,  summary?.trendUnits || summary?.formatter) ?? '']);
+        rows.push([dateLabel, scaleCsvValue(v, summary?.trendUnits || summary?.formatter) ?? '']);
       });
     }
 
