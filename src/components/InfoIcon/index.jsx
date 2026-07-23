@@ -93,7 +93,7 @@ const InfoIcon = ({ config, popup, onClick }) => {
               <h5 className='info-icon-popup-text'>
                 <span style={{
                 fontFamily: 'var(--font-family-bold)'
-              }}>{isPt ? 'Geografia:' : isSk ? 'Geografia:' : 'Geography:'}</span> {config?.Geography}</h5>
+              }}>{isPt ? 'Geografia:' : isSk ? 'Územie:' : 'Geography:'}</span> {config?.Geography}</h5>
             </div>
           ) : null}
           {config?.Source ? (
