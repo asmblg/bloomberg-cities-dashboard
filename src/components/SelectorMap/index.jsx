@@ -329,14 +329,15 @@ const SelectorMap = ({ project, config, setter, manifest, data, getter }) => {
       Object.values(dataObject).forEach((value, i) => {
         if (i === 0 && config?.indicator?.aggregator === 'current') {
           aggregatorKey = Object.keys(value).map(dateKey => {
-            const year = dateKey.split('-')[0];
-            const quarter = dateKey.split('-')[1]?.replace('Q', '');
+            const year = Number(dateKey.split('-')[0]);
+            const quarter = Number(dateKey.split('-')[1]?.replace('Q', ''));
             return {
               key: dateKey,
-              value: Number(year) + Number(quarter)
+              year,
+              quarter
             };
           })?.sort((a, b) =>
-            b.value - a.value
+            b.year !== a.year ? b.year - a.year : b.quarter - a.quarter
           )?.[0]?.key;
         }
       })
