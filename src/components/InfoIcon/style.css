@@ -57,7 +57,14 @@
 .info-icon-text-container > *,
 .info-icon-popup-text {
   font-size: 12px;
-  line-height: 12px;
+  line-height: 14px;
+}
+
+.info-icon-popup-description {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  /* line-height: 1.2; */
 }
 
 /* ---------- Media Queries ---------- */

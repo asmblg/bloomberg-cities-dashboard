@@ -78,7 +78,12 @@ const AboutTheData = ({ config, project, viewType, infoIconConfig, variables }) 
                             link2={variable.Source_link_2}
                           />
                         ) : (
-                          variable[obj.key]
+                          Array.isArray(variable[obj.key]) ? variable[obj.key].map((line, index) => (
+                            <div key={index} style={{ flexGrow: 1}}>
+                              {line}
+                              <br/>
+                            </div>
+                          )) : variable[obj.key]
                         )}
                       </div>
                     ))}

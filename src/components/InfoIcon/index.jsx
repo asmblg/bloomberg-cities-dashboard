@@ -86,7 +86,16 @@ const InfoIcon = ({ config, popup, onClick }) => {
           onMouseEnter={openPopup}
           onMouseLeave={scheduleClosePopup}
         >
-          {config?.Description ? <h5 className='info-icon-popup-text'>{config.Description}</h5> : null}
+          {config?.Description ? (
+            <h5 className='info-icon-popup-text info-icon-popup-description'>
+              {Array.isArray(config.Description) ? config.Description.map((line, index) => (
+                <span key={index}>
+                  {line}
+                  <br/>
+                </span>
+              )) : config.Description}
+            </h5>
+          ) : null}
 
           {config?.Geography ? (
             <div className='info-icon-text-container'>
