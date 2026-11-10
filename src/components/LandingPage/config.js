@@ -46,7 +46,7 @@ const landingConfig = {
       {
         id: 'lisboa',
         name: 'LISBOA',
-        route: 'https://www.lisboa.pt/temas/economia/dados-economicos/indicadores-principais',
+        route: 'https://www.lisboa.pt/temas/economia-e-inovacao/dados-economicos/indicadores-principais',
         // bgColor: '#006aaf',
         img: lisboaBW,
         hoverImg: lisboaColor
